@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/vide.xhtml">
+
+		<ui:define name="contenu">
+
+			<ui:decorate template="/template/contenuTextTemplate.xhtml">
+				<ui:param name="title" value="FRAIS D'OBSEQUES" />
+
+				<ui:define name="contenu">
+					<table width="100%">
+						<tr>
+							<td valign="top" width="65%"
+								style="padding: 20px; margin: 0 50px 0 50px; text-align: justify; line-height: 22px; font-size: 9pt">
+								Les frais engendrés par les obsèques d’un fonctionnaire ou d’un
+								agent de l’Etat en activité sont à la charge de l’Etat de Côte
+								d’Ivoire. La prise en charge funéraire couvre les frais de
+								transport du corps et l’acquisition du cercueil selon un barème
+								indiciaire. <br /> <br /> <strong>Etapes à suivre
+									pour une prise en charge des frais d'obsèques:<br />
+							</strong><br /> <strong>Etape 1: Constitution de dossier</strong> <br />
+								Le dossier comporte:
+
+								<ul>
+									<li>le dernier bulletin de solde du défunt;</li>
+									<li>le certificat de décès délivré par le médecin légiste;</li>
+									<li>l'extrait du registre des actes de décès;</li>
+									<li>l'acte de décès;</li>
+									<li>la photocopie de la CNI du défunt;</li>
+									<li>la photocopie de la CNI du déclarant;</li>
+									<li>le format électronique des documents sus-cités.</li>
+								</ul>
+								<p>
+									<strong>Etape 2: Demande de prise en charge</strong>
+								</p>
+								<ul>
+									<li>Remplissez le formulaire qui vous est proposé;</li>
+									<li>Enregistrez votre demande;</li>
+									<li>Cliquez sur le bouton &quot;Soumettre&quot;.</li>
+								</ul>
+								<p>
+									Vous recevrez un message vous indiquant le résultat de votre
+									demande.<br /> Si le résultat est positif, vous devriez vous
+									rendre dans les services de la SDDCP pour le dépôt physique de
+									votre dossier.
+								</p> <f:facet name="footer">
+									<div style="text-align: center; margin: 10px;">
+										<p:commandButton value="Dépôt de dossier" icon="ui-icon-check"
+											action="demandeconsultation" style="text-align:center"
+											ajax="false" immediate="true" />
+										<p:commandButton
+											value="Cliquer ici pour solliciter ce service"
+											icon="ui-icon-check" action="demandefo"
+											style="text-align:center" ajax="false" immediate="true">
+											<f:param
+												name="#{webConstantResources.requestParamNatureDeplacement}"
+												value="FO" />
+											<f:param name="#{webConstantResources.requestParamAction}"
+												value="#{webConstantResources.requestParamActionEditer}" />
+										</p:commandButton>
+									</div>
+								</f:facet>
+							</td>
+							<td valign="top" style="margin: 20px">
+								<!--  <ui:include src="/public/connexionForm.xhtml"/> --> <ui:include
+									src="/public/verticalHome.xhtml">
+									<ui:param name="index" value="4" />
+								</ui:include>
+							</td>
+						</tr>
+					</table>
+				</ui:define>
+
+			</ui:decorate>
+
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

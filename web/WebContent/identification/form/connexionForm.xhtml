@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/connexion.xhtml">
+			
+			<ui:define name="contenu">
+			
+			
+				
+			<h:form>
+				<div style="padding-bottom:10px;">
+				<!-- <div  style="padding-bottom:10px;height: 700px;"> -->
+				
+					<p:panel header="Espace Fonctionnaire/Agent de l'Etat"> 
+			  		
+				  		<p:messages globalOnly="true" autoUpdate="true"/>
+					
+						<h:panelGrid columns="2" cellpadding="5" style="margin:auto">
+							<h:outputText/><p:message for="login"/>
+							<p:outputLabel for="login" value="Nom d'utilisateur" />	
+							<p:inputText id="login" value="#{loginController.nomUtilisateur}" required="true" requiredMessage="Saisissez votre Nom d'utilisateur" />
+							
+							<h:outputText/><p:message for="motDePasse"/> 
+							<p:outputLabel for="motDePasse" value="Mot de passe" />
+							<p:password id="motDePasse" value="#{loginController.motDePasse}" required="true" requiredMessage="Saisissez votre Vot de passe" />
+						</h:panelGrid>
+						<br/>
+						<center>
+							<p:commandButton value="Connexion" action="#{loginController.submit}" icon="ui-icon-check" style="width:200px;text-align:center" ajax="false" update="@form" />
+						
+					  		<br/><br/>
+					  		<h:commandLink value="Paramètres de connexion oublié ? Cliquez ici!" action="recupererMotDePasseForm" immediate="true"  />
+					  		<br/>
+				  		</center>
+			  		</p:panel>
+			  		
+
+				</div>
+			</h:form>
+			</ui:define>
+			
+			
+		</ui:composition>
+
+	</h:body>
+
+</html>

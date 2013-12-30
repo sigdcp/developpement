@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		
+			  	<div class="presentation">
+				  	<p:panel header="A PROPOS DU SDDCP" style="width:100%"> 
+				  		<h:outputText value="Souvent critiquée, à raison, pour la lenteur dans ses activités, l'administration publique ivoirienne se veut aujourd'hui compétitive. Elle envisage donc de  reconsidérer ses objectifs et  de se doter de moyens nécessaires pour les atteindre. Elle est, de ce fait, confrontée à une permanente remise en cause de ses moyens de  gestion et d'organisation.
+			Aujourd’hui, l’outil informatique offre aux entreprises, de grandes innovations de gestion et de traitement d’informations." />
+					  	
+				  		<div style="text-align: right; margin:25px"><h:link outcome="/texte/lirePlus.xhtml" value="Lire plus..." /></div>
+				  	</p:panel>
+			  		</div>
+			  	<br/>
+				 	
+				  	<h:form rendered="true">		  	
+				  	<div class="presentation">
+			  		<p:panel header="LES DEPENSES PRISES EN CHARGE PAR LA SDDCP" style="width:100%" > 
+				  	<p:accordionPanel rendered="true">		
+						<p:tab title="AFFECTATION">
+						
+							<h:outputText
+									value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+									His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. T
+									hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, 
+									but given to ruthless violence whenever anything stands against the good of the family." />
+				  	
+			  				<div style="text-align: right; margin:25px"><h:link outcome="/texte/lirePlus.xhtml" value="Lire plus..." /> <p:spacer width="10"/> 
+			  				
+			  					<p:commandButton value="Dépôt de dossier" icon="ui-icon-check" action="demandeconsultation" style="text-align:center" ajax="false" immediate="true"/>
+			  					
+			  					<p:commandButton value="Ouverture de compte" icon="ui-icon-check" action="inscriptionpersonne" style="text-align:center" ajax="false" immediate="true"/>
+			  					<p:button value="Cliquer ici pour solliciter ce service" icon="ui-icon-check" outcome="demandeddForm">
+			  						<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="AFF" />
+									<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+			  					</p:button>
+			  					<p:button value="Cliquer ici pour solliciter ce service" icon="ui-icon-check" outcome="piecesJustificativeForm">
+			  						<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="AFF" />
+									<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+			  					</p:button>
+			  				</div>
+
+						</p:tab>
+						<p:tab title="MUTATION">
+							<h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. 
+								In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, 
+								killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows." />
+				  	
+			  				<div style="text-align: right; margin:25px"><h:link outcome="/texte/lirePlus.xhtml" value="Lire plus..." /> <p:spacer width="10"/> 
+			  					<p:commandButton value="Dépôt de dossier" icon="ui-icon-check" action="demandeconsultation" style="text-align:center" ajax="false" immediate="true"/>
+			  					<p:commandButton value="Ouverture de compte" icon="ui-icon-check" action="inscriptionpersonne" style="text-align:center" ajax="false" immediate="true"/>
+			  					<p:commandButton value="Cliquer ici pour solliciter ce service" icon="ui-icon-check" action="demandedd" style="text-align:center" ajax="false">
+									<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="MUT" />
+									<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+								</p:commandButton>
+			  				</div>
+						</p:tab>
+						<p:tab title="DEPART A LA RETRAITE">
+							<h:outputText value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. 
+									Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate." />
+				  	
+			  			<div style="text-align: right; margin:25px"><h:link outcome="/texte/lirePlus.xhtml" value="Lire plus..." /><p:spacer width="10"/> 
+			  					<p:commandButton value="Dépôt de dossier" icon="ui-icon-check" action="demandeconsultation" style="text-align:center" ajax="false" immediate="true"/>
+			  				<p:commandButton value="Ouverture de compte" icon="ui-icon-check" action="inscriptionpersonne" style="text-align:center" ajax="false" immediate="true"/>
+			  				<p:commandButton value="Cliquer ici pour solliciter ce service" icon="ui-icon-check" action="demandedd" style="text-align:center" ajax="false">
+								<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="RET" />
+								<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+							</p:commandButton>
+								
+			  			</div>
+						</p:tab>
+						<p:tab title="CARTE SOTRA">
+							<h:outputText value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. 
+									Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate." />
+				  	
+			  			<div style="text-align: right; margin:25px"><h:link outcome="/texte/lirePlus.xhtml" value="Lire plus..." />
+			  				
+			  			</div>
+						</p:tab>
+						<p:tab title="FRAIS D'OBSEQUE">
+							<h:outputText value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. 
+									Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate." />
+				  	
+			  			<div style="text-align: right; margin:25px"><h:link outcome="/texte/lirePlus.xhtml" value="Lire plus..." /> <p:spacer width="10"/> 
+			  				<p:commandButton value="Dépôt de dossier" icon="ui-icon-check" action="demandeconsultation" style="text-align:center" ajax="false" immediate="true"/>
+			  				<p:commandButton value="Cliquer ici pour solliciter ce service" icon="ui-icon-check" action="demandefo" style="text-align:center" ajax="false">
+			  					<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="FO" />
+								<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+			  				</p:commandButton>
+			  			</div>
+						</p:tab>
+						<p:tab title="MISSION HORS CÔTE D'IVOIRE">
+							<h:outputText value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. 
+									Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate." />
+				  	
+			  			<div style="text-align: right; margin:25px"><h:link outcome="/texte/lirePlus.xhtml" value="Lire plus..." /><p:spacer width="10"/> 
+			  					<p:commandButton value="Dépôt de dossier" icon="ui-icon-check" action="demandeconsultation" style="text-align:center" ajax="false" immediate="true"/>
+							<p:commandButton value="Ouverture de compte" icon="ui-icon-check" action="inscriptionpersonne" style="text-align:center" ajax="false" immediate="true"/>
+							<p:commandButton value="Cliquer ici pour solliciter ce service" icon="ui-icon-check" action="demandemhci" style="text-align:center" ajax="false">
+			  					<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="MHCI" />
+								<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+			  				</p:commandButton>
+							
+			  			</div>
+						</p:tab>
+						<p:tab title="TRANSIT DES BAGGAGES">
+							<h:outputText value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. 
+									Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate." />
+				  	
+			  			<div style="text-align: right; margin:25px"><h:link  outcome="/texte/lirePlus.xhtml" value="Lire plus..." /><p:spacer width="10"/> 
+			  					<p:commandButton value="Dépôt de dossier" icon="ui-icon-check" action="demandeconsultation" style="text-align:center" ajax="false" immediate="true"/>
+			  				<p:commandButton value="Ouverture de compte" icon="ui-icon-check" action="inscriptionpersonne" style="text-align:center" ajax="false" immediate="true"/>
+							<p:commandButton value="Cliquer ici pour solliciter ce service" icon="ui-icon-check" action="demandetr" style="text-align:center" ajax="false">
+			  					<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="TB" />
+								<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+			  				</p:commandButton>
+							
+			  			</div>
+						</p:tab>
+					</p:accordionPanel>
+				  	
+			  		 </p:panel>
+				  	</div>
+				  	</h:form>
+				  	
+
+	</h:body>
+
+</html>

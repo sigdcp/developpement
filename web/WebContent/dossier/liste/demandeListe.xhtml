@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+		
+			<p:dataTable id="listeDossier" value="#{dossierListeController.list}" var="dossier" rowIndexVar="index">
+				<f:facet name="header"><h:outputText value="Liste des demandes" /> </f:facet>
+				<p:column headerText="#"><h:outputText value="#{index+1}" /></p:column>
+				<p:column headerText="N°"><h:outputText value="#{dossier.numero}" /></p:column>
+				<p:column headerText="Nature"><h:outputText value="#{dossier.deplacement.nature}" /></p:column>
+				<p:column headerText="Date de soumission"><h:outputText value="#{dossier.dateDepot}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
+				<p:column headerText="Date de validation"><h:outputText value="#{dossier.dateDepot}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
+				<p:column headerText="Date de dépôt"><h:outputText value="#{dossier.dateDepot}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
+				<p:column headerText="Statut"><h:outputText value="" /></p:column>
+				<p:column style="width:4%"><p:commandButton value="Détails" action="" /></p:column>
+			</p:dataTable>	
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		<p:fieldset legend="Extrait de naissance des enfants">
+			<p:messages for="dtExt" />
+			<p:dataTable id="dtExt" var="dtoExt" rowIndexVar="index">
+				
+				<p:column headerText="Numéro">
+				</p:column>
+				<p:column headerText="Date d'établissement ">
+				</p:column>
+				<p:column headerText="Fonction du signataire">
+				</p:column>
+				
+				<p:column headerText="Fichier">
+				<!--	<p:fileUpload value="#{dtoExt.file}" id="fichier#{index}" mode="simple" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}"/>
+					<p:commandButton value="Voir" icon="ui-icon-search" rendered="#{not editable}" oncomplete="PF('imageDialog').show();" update="@form:display @form:imageDialogHeader">
+						<f:setPropertyActionListener value="#{dto.piece}" target="#{controller.pieceJustificativeSelectionne}" />
+					</p:commandButton>
+					-->
+				</p:column>
+
+			</p:dataTable>	
+			
+		</p:fieldset>		
+		<!--
+		<p:dialog widgetVar="extraitDialog" modal="true" appendTo="@(Body)" >
+		    <f:facet name="header"><p:outputPanel id="imageDialogHeader">
+		    	<h:outputText value="#{controller.pieceJustificativeSelectionne.type}" />
+		    	<h:outputText value=" N° #{controller.pieceJustificativeSelectionne.numero}" />
+		    	<h:outputText value=" du #{controller.pieceJustificativeSelectionne.dateEtablissement}" >
+		    		<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+		    	</h:outputText>
+		    	<h:outputText value=" Signé par #{controller.pieceJustificativeSelectionne.fonctionSignataire}" />
+		    </p:outputPanel></f:facet>
+		    <p:outputPanel id="display" >  
+				<p:graphicImage value="/_fichier_/?id=#{controller.pieceJustificativeSelectionne.fichier.id}" width="900" height="650" />
+      		</p:outputPanel>
+		</p:dialog> 					
+	-->
+		
+	</ui:composition>
+</body>
+</html>

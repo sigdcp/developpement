@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+		<h:form>
+		<table><tr>
+    	<td>
+			RETRAIT DE CARTE SOTRA DU MOIS DE:
+			</td>
+			<td>
+			 <p:selectOneMenu id="moisDemande" value="#{ouvrirDemandeController.mois}" >                   
+				 <f:selectItem itemLabel="Novembre" itemValue="" />
+                 	 <f:selectItems value="#{ouvrirDemandeController.mois}" />
+          	  </p:selectOneMenu>
+          	</td>		  
+          	 <td valign="middle"><p:separator /></td>	
+          	 <td>	  
+          		<p:inputText value="#{ouvrirDemandeController.anne}" size="5"/>
+          	</td>
+          	 <td valign="middle"><p:separator /></td>
+          	
+		   </tr>
+		 </table>  
+		   
+		 <td valign="middle"><p:separator /></td>
+				
+
+				<h:panelGrid columns="2" >
+					<h:outputText value="N° Bon :" />
+					<p:inputText value=""/>
+					<h:outputText value="Date Bon : " />
+					<p:inputText value=""/>
+					<h:outputText value="Demande N° : " />
+					<p:inputText value=""/>
+				
+					<h:outputText value="Date retrait du bon à la Sotra:" />
+					<p:inputText value=""/>
+					
+					<p:commandButton value="Valider" ajax="false" /> 
+					
+				</h:panelGrid>
+			
+
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

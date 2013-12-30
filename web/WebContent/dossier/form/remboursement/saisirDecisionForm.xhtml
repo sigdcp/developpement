@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+		<h:form>
+		<table><tr>
+    	<td>
+			Prise en compte de la décision de remboursement
+			</td>
+			
+          	
+		   </tr>
+		 </table>  
+		   
+		 <td valign="middle"><p:separator /></td>
+				
+
+				<h:panelGrid columns="2" >
+					<h:outputText value="Bénéficiaire :" />
+					<p:inputText value=""/>
+					<h:outputText value="N° Projet : " />
+					<p:inputText value=""/>
+					<h:outputText value="Date Projet : " />
+					<p:inputText value=""/>
+				
+					<h:outputText value="N° Décision :" />
+					<p:inputText value=""/>
+					
+					<h:outputText value="Date Décision :" />
+					<p:inputText value=""/>
+			
+					<p:commandButton value="Valider" ajax="false" /> 
+					
+				</h:panelGrid>
+			
+
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+    ...
+</h:head>
+	<h:body>
+		<ui:composition template="/template/vide.xhtml">
+	<!-- <script type="text/javascript">
+				$(function(){
+					alert("L'adresse est vide.");
+			);
+	</script>		
+	<script>
+	 alert("L'adresse est vide.");
+function envoiForm(event) {
+ // if (this.elements.adresse.value === "") {
+    alert("L'adresse est vide.");
+    event.preventDefault();
+ // }
+}
+
+var formulaire = document.getElementById("coordonnees");
+formulaire.addEventListener("submit", envoiForm, false);
+</script> -->
+			<ui:define name="contenu">
+			
+<h:outputScript target="head" >
+$(function(){  
+$('input[type=text],select,textarea').keypress(function( event ) {
+if ( event.which == 13 ) {
+ //var allInputs = $("input,select");
+     event.preventDefault();
+  }
+    
+});
+<!-- $("input,select").bind("keydown", function (e) {
+var i;
+        if (e.keyCode == 13) {
+            var allInputs = $("input,select");
+            for (key in allInputs){
+          		i+=1;
+                if (allInputs[i] == this) {
+                    while ((allInputs[i]).name == (allInputs[i + 1]).name) {
+                        i++;
+                    }
+
+                    if ((i + 1)!= allInputs.length) $(allInputs[i + 1]).focus();
+                }
+            }
+        }
+    });
+ -->
+});
+			
+</h:outputScript>
+			<h:form id="coordonnees" onsubmit="envoiForm(event);">
+			<div  style="padding-bottom:10px;padding-top:50px;width:40%;margin:auto">
+				<p:panel header="Récupérer Mot de passe oublié">
+					
+					<h:panelGrid columns="3" cellpadding="5" style="margin:auto">
+						<p:outputLabel for="matricule" value="Matricule" />	
+						<p:inputText id="matricule" value="#{connexionFormController.matricule}" required="true" requiredMessage="Saisissez votre matricule" />
+						 <p:message for="matricule"/>
+						 
+						<p:outputLabel for="email" value="E-mail" />
+						<p:inputText id="email" value="#{connexionFormController.email}" required="true" requiredMessage="Saisissez votre E-mail" />
+						<p:message for="email"/>
+						
+					</h:panelGrid><br/>
+					<center>
+						<p:commandButton value="Valider" icon="ui-icon-check" action="recupererMotDePasseSucces" ajax="false" style="text-align:center" />
+					</center>
+			  		<br/>
+			  		</p:panel>
+			</div>			
+			
+			</h:form>
+			</ui:define>
+			
+			
+		</ui:composition>
+
+	</h:body>
+
+</html>

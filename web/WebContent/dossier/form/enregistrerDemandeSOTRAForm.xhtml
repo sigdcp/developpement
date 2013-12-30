@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+				<h1>Formulaire demande TR</h1>
+			<h:form>
+		
+				<p:fieldset legend="Définition du déplacement">
+					<h:panelGrid columns="4" styleClass="ui_demande" cellpadding="5">
+					<h:outputLabel value="Localité de départ:" />
+					<p:selectOneMenu id="ville" value=""  >
+						<f:selectItems value="#{enregistrerDeplacementFormController.deplacement.localiteDepart}"/>
+					</p:selectOneMenu>
+					<h:outputLabel value="Localité d'arrivé:" />		
+					<p:selectOneMenu id="ville1" value=""  >
+						<f:selectItems value="#{enregistrerDeplacementFormController.deplacement.localiteArrivee}"/>
+					</p:selectOneMenu>	
+			        <p:outputLabel for="institution" value="Service:" />
+					<p:selectOneMenu id="institution" value=""  >
+						<f:selectItems value="#{enregistrerDeplacementFormController.deplacement.serviceOrigine}"/>
+					</p:selectOneMenu>  
+					<h:outputText value="" /><h:outputText value="" />      
+					<h:outputLabel value="Date départ" /><p:calendar id="date8#{id}" value="#{enregistrerDeplacementFormController.deplacement.dateDepart}"/>
+					<h:outputLabel value="Date arrivée" /><p:calendar id="date9#{id}" value="#{enregistrerDeplacementFormController.deplacement.dateArrivee}"/>
+					</h:panelGrid>
+				</p:fieldset>
+				<p:separator/>
+				<p:fieldset legend="Définition du dossier">					
+					<p:panelGrid columns="4" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+					<h:outputText value="Situation professionnelle" />
+					<p:selectOneRadio id="profession" value="#{formBean.number}">
+					<f:selectItem itemLabel="fonctionnaire Stagiaire  (a)" itemValue="1" />
+					<f:selectItem itemLabel="Agent MHCI  (b)" itemValue="2" />
+					</p:selectOneRadio>
+					<h:outputText value="" /><h:outputText value="" />
+					<h:outputLabel value="Date de mise en stage (a)" /><p:calendar id="date#{id}" value="#{enregistrerDemandeTRFormController.dossiertr.dateMiseStage}"/>
+					<h:outputLabel value="Date de fin en stage (a)" /><p:calendar id="date1#{id}" value="#{enregistrerDemandeTRFormController.dossiertr.dateFin}"/>
+					<h:outputLabel value="Date de prise de service (b)" /><p:calendar id="date2#{id}" value="#{enregistrerDemandeTRFormController.dossiertr.datePriseService}"/>
+					<h:outputLabel value="Date de fin de service (b)" /><p:calendar id="date3#{id}" value="#{enregistrerDemandeTRFormController.dossiertr.dateFin}"/>
+					<h:outputLabel value="Poids des bagages en Kg" /><h:inputText value="#{enregistrerDemandeTRFormController.dossiertr.poidsBagagesKg}" /><h:outputLabel value="Montant de la facture" /><h:inputText value="#{enregistrerDemandeTRFormController.dossiertr.montantFacture}" />
+					</p:panelGrid>
+					</p:fieldset>
+					<p:separator/>
+					<p:fieldset legend="Pièces justificatives">
+					<p:panelGrid columns="2" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+					<p:dataTable id="dt" value="#{enregistrerDemandeTRFormController.dossiertr.pieceJustificatives}" var="extrait" rowIndexVar="index">
+					<p:column headerText="Nom">
+					<p:inputText value="#{extrait.piece.numero}" />	
+					  <f:facet name="footer">
+							<p:commandButton value="Ajouter" process="dt" update="dt"/>
+					  </f:facet>
+					</p:column>
+					<p:column headerText="Numéro">
+						<p:inputText  />	
+					</p:column>
+					<p:column headerText="Date Signature ">
+						<p:inputText  />	
+					</p:column>
+					<p:column headerText="Date Effet">
+						<p:calendar/>	
+					</p:column>
+					<p:column headerText="Signé Par">
+						<p:inputText  />	
+					</p:column>
+					<p:column headerText="Copie Numérique">
+						<p:inputText  />	
+					</p:column>
+					<p:column headerText="Type Pièce">
+						<p:calendar/>										
+					</p:column>
+					<p:column headerText="">
+					<ui:include src="/resources/include/input/fichier.xhtml">	
+						<ui:param name="id" value="pjt#{index}"/>
+						<ui:param name="label" value="Date Signature"/>
+						<ui:param name="label2" value="Date Effet"/>
+						<ui:param name="label3" value="Signé(e) par"/>
+						<ui:param name="label4" value="Type"/>
+						<ui:param name="fileReader" value="#{pj}"/>
+					</ui:include>
+					</p:column>				
+					</p:dataTable>	
+					</p:panelGrid>
+					</p:fieldset>
+					<p:separator/>
+					<p:commandButton value="Enregistrer" ajax="false" />	
+					</h:form>	
+			</ui:define>
+					
+			</ui:composition>
+			
+		</h:body>
+
+</html>

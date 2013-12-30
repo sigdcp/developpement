@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<ui:param name="columnCount" value="#{columnCount==null?3:columnCount}" />
+		
+		<style>
+			.c1{
+				font-weight: bold;
+				width: 200px;
+			}
+			.c2{
+				width: 200px;
+			}
+			.c3{
+				
+			}
+		</style>
+		
+	    <p:panelGrid id="panelIdentite#{iid}" styleClass="panelGridNoBorder" columns="#{editable?columnCount:4}" columnClasses="c1,c2,c3,c1,c2,c3"> 
+	    	
+	    	<p:outputLabel for="questionAgent#{iid}" value="Etes vous un agent de l'état ?" rendered="#{editable and personneDto.showQuestionAgentEtat}"/>
+			<p:selectOneRadio id="questionAgent#{iid}" value="#{personneDto.agentEtat}" required="true"  requiredMessage="#{valueRequiredMessage}" rendered="#{editable and personneDto.showQuestionAgentEtat}">
+				<f:selectItem itemValue="true" itemLabel="Oui"/>
+				<f:selectItem itemValue="false" itemLabel="Non"/>
+				<p:ajax event="click" update="@parent" />
+			</p:selectOneRadio>
+			<p:message for="questionAgent#{iid}" rendered="#{editable and personneDto.showQuestionAgentEtat}"/>
+			<h:outputText value="" rendered="#{personneDto.showQuestionAgentEtat}"/><h:outputText value="" rendered="#{personneDto.showQuestionAgentEtat}" /><h:outputText value="" rendered="#{personneDto.showQuestionAgentEtat}" />
+			
+			<p:outputLabel for="typePersonne#{iid}" value="Type d'agent " rendered="#{personneDto.agentEtat}"/> 
+			<p:selectOneMenu id="typePersonne#{iid}" value="#{personneDto.personne.type}" required="true" requiredMessage="#{valueRequiredMessage}" 
+				converter="#{objectConverter}" rendered="#{editable and personneDto.agentEtat}">
+				<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+				<f:selectItems value="#{typePersonnes}" var="typePersonne" itemLabel="#{typePersonne.libelle}" />
+			</p:selectOneMenu>
+			<h:outputText value="#{personneDto.personne.type}" rendered="#{not editable and personneDto.agentEtat}" />
+			<p:message for="typePersonne#{iid}" rendered="#{editable and personneDto.agentEtat}"/>
+			
+			<p:outputLabel for="matricule#{iid}" value="Matricule" rendered="#{personneDto.agentEtat}" />
+			<p:inputText id="matricule#{iid}" value="#{personneDto.personne.matricule}" required="true" requiredMessage="#{valueRequiredMessage}" 
+				rendered="#{editable and personneDto.agentEtat}"/>
+			<h:outputText value="#{personneDto.personne.matricule}" rendered="#{not editable and personneDto.agentEtat}" />
+			<p:message for="matricule#{iid}" rendered="#{editable and personneDto.agentEtat}"/>	
+	    	
+			<p:outputLabel for="nom#{iid}" value="Nom" />
+		 	<p:inputText id="nom#{iid}" required="true" value="#{personneDto.personne.nom}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable}" />
+		 	<h:outputText value="#{personneDto.personne.nom}" rendered="#{not editable}" />
+		 	<p:message for="nom#{iid}" rendered="#{editable}"/>
+			
+			<p:outputLabel for="prenoms#{iid}" value="Prenoms" />
+			<p:inputText id="prenoms#{iid}" value="#{personneDto.personne.prenoms}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable}"/>
+			<h:outputText value="#{personneDto.personne.prenoms}" rendered="#{not editable}" />
+			<p:message for="prenoms#{iid}" rendered="#{editable}"/>
+			
+			<p:outputLabel for="datenaissance#{iid}" value="Date Naissance" rendered="#{dateNaissance==null or dateNaissance}"/>
+			<p:calendar id="datenaissance#{iid}" required="true" navigator="true" value="#{personneDto.personne.dateNaissance}" requiredMessage="#{valueRequiredMessage}" 
+				rendered="#{editable and (dateNaissance==null or dateNaissance)}"/>
+			<h:outputText value="#{personneDto.personne.dateNaissance}" rendered="#{not editable and (dateNaissance==null or dateNaissance)}" />
+			<p:message for="datenaissance#{iid}" rendered="#{editable and (dateNaissance==null or dateNaissance)}"/>
+			
+			<p:outputLabel for="sexe#{iid}" value="Sexe" rendered="#{sexe==null or sexe}"/>
+			<p:selectOneRadio id="sexe#{iid}" value="#{personneDto.personne.sexe}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable and (sexe==null or sexe)}">
+				<f:selectItems value="#{sexes}"/>
+			</p:selectOneRadio>
+			<h:outputText value="#{personneDto.personne.sexe}" rendered="#{not editable and (sexe==null or sexe)}" />
+			<p:message for="sexe#{iid}" rendered="#{editable and (sexe==null or sexe)}"/> 
+
+			<p:outputLabel for="profession#{iid}" value="Profession" rendered="#{profession==null or profession}"/>
+			<p:selectOneMenu id="profession#{iid}" value="#{personneDto.personne.profession}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
+				rendered="#{editable and (profession==null or profession)}">
+				<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+				<f:selectItems value="#{professions}" />
+			</p:selectOneMenu>
+			<h:outputText value="#{personneDto.personne.profession}" rendered="#{not editable and (profession==null or profession)}" />
+			<p:message for="profession#{iid}" rendered="#{editable and (profession==null or profession)}"/> 
+			
+			<p:outputLabel for="nationalite#{iid}" value="Nationalité" rendered="#{nationalite==null or nationalite}"/>
+			<p:selectOneMenu id="nationalite#{iid}" value="#{personneDto.personne.nationalite}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
+				rendered="#{editable and (nationalite==null or nationalite)}">
+				<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+				<f:selectItems value="#{pays}" />
+			</p:selectOneMenu>
+			<h:outputText value="#{personneDto.personne.nationalite}" rendered="#{not editable and (nationalite==null or nationalite)}" />
+			<p:message for="nationalite#{iid}" rendered="#{editable and (nationalite==null or nationalite)}"/>
+			
+			<p:outputLabel for="natpid#{iid}" value="Nature de la pièce d'identitité" rendered="#{pieceIdentite}"/>
+			<p:selectOneMenu id="natpid#{iid}"  required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}"
+				rendered="#{pieceIdentite}">
+				<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+				<f:selectItems value="#{typePieceIdentites}" />
+			</p:selectOneMenu>
+			<p:message for="natpid#{iid}" rendered="#{pieceIdentite}"/> 
+			
+			<p:outputLabel for="numpid#{iid}" value="Numéro de la pièce d'identité" rendered="#{pieceIdentite}"/>
+			<p:inputText id="numpid#{iid}"  required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{pieceIdentite}"/>
+			<p:message for="numpid#{iid}" rendered="#{pieceIdentite}"/>
+			
+			<p:outputLabel for="adresse#{iid}" value="Adresse postale: " rendered="#{contact==null or contact}"/>
+			<p:inputText id="adresse#{iid}" value="#{personneDto.personne.contact.boitePostale}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable and (contact==null or contact)}"/>
+			<h:outputText value="#{personneDto.personne.contact.boitePostale}" rendered="#{not editable and (contact==null or contact)}" />
+			<p:message for="adresse#{iid}" rendered="#{editable and (contact==null or contact)}"/> 
+			
+			<p:outputLabel for="telephone#{iid}" value="Téléphone" rendered="#{contact==null or contact}"/>
+			<p:inputText id="telephone#{iid}" value="#{personneDto.personne.contact.telephone}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable and (contact==null or contact)}"/>					 
+			<h:outputText value="#{personneDto.personne.contact.telephone}" rendered="#{not editable and (contact==null or contact)}" />
+			<p:message for="telephone#{iid}" rendered="#{editable and (contact==null or contact)}"/> 
+			
+			<p:outputLabel for="email#{iid}" value="Email" rendered="#{contact==null or contact}"/>
+			<p:inputText id="email#{iid}" value="#{personneDto.personne.contact.email}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable and (contact==null or contact)}"/>
+			<h:outputText value="#{personneDto.personne.contact.email}" rendered="#{not editable and (contact==null or contact)}" />
+			<p:message for="email#{iid}" rendered="#{editable and (contact==null or contact)}"/> 
+			
+			
+			
+			
+		</p:panelGrid> 
+			
+	</ui:composition>
+</body>
+</html>

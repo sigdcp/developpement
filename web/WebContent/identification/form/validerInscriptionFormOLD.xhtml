@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+			<h1 style="text-align: center">Validation des inscriptions</h1>
+			<p:separator />
+			<h:form prependId="false">
+
+				<p:commandLink value="Toutes" id="toutes" />
+				<p:spacer width="10" />
+				<p:commandLink value="Inscriptions validées" id="validees" />
+				<p:spacer width="10" />
+				<p:commandLink value="Inscriptions rejetées" id="rejetees" />
+				<p:spacer width="10" />
+				<p:commandLink value="Inscriptions à valider" id="avalider" />
+				<p:separator />
+				
+				<p:dataTable id="dataTable" var="inscription" value=""
+					paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<f:facet name="header">  
+            Inscriptions à valider  
+        </f:facet>
+					<p:column width="5%">
+						<f:facet name="header">
+							<h:outputText value="Validable" />
+						</f:facet>
+						<p:selectBooleanCheckbox value="" />
+					</p:column>
+					<p:column width="15%">
+						<f:facet name="header">
+							<h:outputText value="Date" />
+						</f:facet>
+						<h:outputText value="" />
+					</p:column>  
+.  
+        <p:column width="15%">
+						<f:facet name="header">
+							<h:outputText value="Matricule" />
+						</f:facet>
+						<h:outputText value="" />
+					</p:column>
+
+					<p:column width="50%">
+						<f:facet name="header">
+							<h:outputText value="Démandeur" />
+						</f:facet>
+						<h:outputText value="" />
+					</p:column>
+
+					<p:column width="15%">
+						<f:facet name="header">
+							<h:outputText value="Actions" />
+						</f:facet>
+
+						<p:commandButton value="Afficher"
+							oncomplete="PF('inscriptionDialog').show()">
+							<f:setPropertyActionListener value="" target="" />
+
+						</p:commandButton>
+						<p:spacer width="30" />
+						<p:commandButton value="Valider" ajax="false" />
+
+					</p:column>
+					<f:facet name="footer">
+						<p:commandButton value="Valider" ajax="false" />
+					</f:facet>
+				</p:dataTable>
+				
+	
+				<p:dialog header="Détail de l'inscription"
+					widgetVar="inscriptionDialog" id="inscriptionDlg">
+
+
+					<p:panel>
+
+						<h:outputText value="Date inscription :" />
+						<h:outputText value="" style="font-weight:bold" />
+						<p:fieldset legend="Informations du démandeur">
+							<h:panelGrid id="display" columns="2" cellpadding="4"
+								style="margin:0 auto;">
+								<h:outputText value="Démandeur :" />
+								<h:outputText value="" style="font-weight:bold" />
+
+								<h:outputText value="Mail:" />
+								<h:outputText value="" style="font-weight:bold" />
+								<h:outputText value="Adresse:" />
+								<h:outputText value="" style="font-weight:bold" />
+								<h:outputText value="Télephone:" />
+								<h:outputText value="" style="font-weight:bold" />
+							</h:panelGrid>
+						</p:fieldset>
+						<p:fieldset legend="Agent">
+							<h:panelGrid id="display2" columns="2" cellpadding="4" style="margin:0 auto;">
+								<h:outputText value="Matricule :" />
+								<h:outputText value="" style="font-weight:bold" />
+								<h:outputText value="Agent:" />
+								<h:outputText value="" style="font-weight:bold" />
+								<h:outputText value="Catégorie:" />
+								<h:outputText value="" style="font-weight:bold" />
+								<h:outputText value="Ministère:" />
+								<h:outputText value="" style="font-weight:bold" />
+							
+							</h:panelGrid>
+						</p:fieldset>
+
+					</p:panel>
+
+				</p:dialog>
+
+			</h:form>
+
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

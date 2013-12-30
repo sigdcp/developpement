@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+				
+					<h1>Soumettre une demande</h1>
+					<!--
+					
+					-->
+					
+					<p:tabView>
+						<p:tab title="Feuille de déplacement">
+							<p:media player="pdf" value="/resources/images/Feuille de deplacement.pdf" width="1024" height="800"/>
+							<p:separator/>
+							<p:button value="Imprimer" />
+						</p:tab>
+						<p:tab title="Dossier">
+							<ui:include src="/dossier/include/formDossier.xhtml"/>
+						</p:tab>
+					</p:tabView>
+					
+				
+			</ui:define>
+			
+			
+		</ui:composition>
+
+	</h:body>
+
+</html>

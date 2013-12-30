@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/commun.xhtml">
+			<ui:define name="contenu">
+				<ui:param name="editable" value="true" />
+				<ui:decorate template="/template/formTemplate.xhtml">
+					<ui:param name="uiController" value="#{enregistrerDemandeTRFormController}" />
+					<ui:define name="contenu">
+						
+						<style>
+							.c1{
+								font-weight: bold;
+								width: 200px;
+							}
+							.c2{
+								
+							}
+							.c3{
+								
+							}
+						</style>
+		
+						<p:fieldset legend="Agent">			
+				
+							<p:panelGrid columns="3" styleClass="panelGridNoBorder" >	
+								<p:outputLabel for="profession" value="Etes-vous Fonctionnaire Stagiaire ou un Agent MAE?" />			
+									<p:selectOneRadio id="profession" required="true" requiredMessage="#{valueRequiredMessage}" value="#{enregistrerDemandeTRFormController.mae}">
+									<f:selectItem itemLabel="fonctionnaire Stagiaire" itemValue="false" />
+									<f:selectItem itemLabel="Agent Ministère des Affaires Etrangères" itemValue="true" />
+									<p:ajax event="click" update="@parent" />
+									</p:selectOneRadio>
+								<p:message for="profession" />
+								
+												        
+								<p:outputLabel for="datePriseService" value="Date de prise de service" rendered="#{enregistrerDemandeTRFormController.mae}" />
+								<p:calendar id="datePriseService" value="#{enregistrerDemandeTRFormController.dossierTR.datePriseService}" pattern="#{constantResources.datePattern}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{enregistrerDemandeTRFormController.mae}"/>
+								<h:outputText value="#{enregistrerDemandeTRFormController.dossierTR.datePriseService}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+								<p:message for="datePriseService" rendered="#{enregistrerDemandeTRFormController.mae}"/>
+								
+								<p:outputLabel for="dateCessationService" value="Date fin de service" rendered="#{enregistrerDemandeTRFormController.mae}" />
+								<p:calendar id="dateCessationService" value="#{enregistrerDemandeTRFormController.dossierTR.dateFin}" pattern="#{constantResources.datePattern}" required="true" requiredMessage="#{valueRequiredMessage}" 
+									rendered="#{enregistrerDemandeTRFormController.mae}"/>
+								<h:outputText value="#{enregistrerDemandeTRFormController.dossierTR.dateFin}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+								<p:message for="dateCessationService" rendered="#{enregistrerDemandeTRFormController.mae}"/>
+								
+								<p:outputLabel for="dateMiseStage" value="Date de mise en stage" rendered="#{enregistrerDemandeTRFormController.mae!=null and not enregistrerDemandeTRFormController.mae}" />
+								<p:calendar id="dateMiseStage" value="#{enregistrerDemandeTRFormController.dossierTR.dateMiseStage}" pattern="#{constantResources.datePattern}" required="true" requiredMessage="#{valueRequiredMessage}" 
+									rendered="#{enregistrerDemandeTRFormController.mae!=null and not enregistrerDemandeTRFormController.mae}"/>
+								<h:outputText value="#{enregistrerDemandeTRFormController.dossierTR.dateMiseStage}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+								<p:message for="dateMiseStage" rendered="#{enregistrerDemandeTRFormController.mae!=null and not enregistrerDemandeTRFormController.mae}"/>
+								
+								<p:outputLabel for="dateFinStage" value="Date fin de stage" rendered="#{enregistrerDemandeTRFormController.mae!=null and not enregistrerDemandeTRFormController.mae}" />
+								<p:calendar id="dateFinStage" value="#{enregistrerDemandeTRFormController.dossierTR.dateFin}" pattern="#{constantResources.datePattern}" required="true" requiredMessage="#{valueRequiredMessage}" 
+									rendered="#{enregistrerDemandeTRFormController.mae!=null and not enregistrerDemandeTRFormController.mae}"/>
+								<h:outputText value="#{enregistrerDemandeTRFormController.dossierTR.dateFin}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+								<p:message for="dateFinStage" rendered="#{enregistrerDemandeTRFormController.mae!=null and not enregistrerDemandeTRFormController.mae}"/>			
+													
+							</p:panelGrid>
+						</p:fieldset>	
+						
+						<p:spacer height="5" />
+						
+						<p:fieldset legend="Transit">				
+							
+							<h:panelGrid columns="6">				
+								<p:outputLabel for="typeDepense" value="Est ce une prise en charge ou un remboursement ?" />
+								<p:selectOneRadio id="typeDepense"  required="true" requiredMessage="#{valueRequiredMessage}">
+									<f:selectItems value="#{typeDepenes}"/>
+								</p:selectOneRadio>
+								<p:message for="typeDepense" /> 
+								
+								<h:outputText value="" /><h:outputText value="" /><h:outputText value="" />
+								
+								<p:outputLabel for="villeDepart"  value="Ville de départ:" />
+								<p:selectOneMenu id="villeDepart" value="#{enregistrerDemandeTRFormController.dossierTR.deplacement.localiteDepart}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{enregistrerDemandeTRFormController.editable==null or enregistrerDemandeTRFormController.editable}">
+								<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+								<f:selectItems value="#{villes}"/>
+								</p:selectOneMenu>
+								<h:outputText value="#{enregistrerDemandeTRFormController.dossierTR.deplacement.localiteDepart}" rendered="#{not enregistrerDemandeTRFormController.editable}"/>
+								 <p:message for="villeDepart" />
+								
+								<p:outputLabel for="villeArrivee" value="Ville d'arrivée:" />		
+								<p:selectOneMenu id="villeArrivee" value="#{enregistrerDemandeTRFormController.dossierTR.deplacement.localiteArrivee}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{enregistrerDemandeTRFormController.editable==null or enregistrerDemandeTRFormController.editable}">
+									<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+									<f:selectItems value="#{villes}"/>
+								</p:selectOneMenu>	
+								<h:outputText value="#{enregistrerDemandeTRFormController.dossierTR.deplacement.localiteArrivee}" rendered="#{not enregistrerDemandeTRFormController.editable}"/>
+								 <p:message for="villeArrivee" />
+								
+								<p:outputLabel for="dateDepart" value="Date départ" />
+								<p:calendar id="dateDepart" value="#{enregistrerDemandeTRFormController.dossierTR.deplacement.dateDepart}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{enregistrerDemandeTRFormController.editable==null or enregistrerDemandeTRFormController.editable}"/>
+								<h:outputText value="#{enregistrerDemandeTRFormController.dossierTR.deplacement.dateDepart}" rendered="#{not enregistrerDemandeTRFormController.editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+								<p:message for="dateDepart" />
+								 
+								<p:outputLabel for="dateArrivee" value="Date arrivée" />
+								<p:calendar id="dateArrivee" value="#{enregistrerDemandeTRFormController.dossierTR.deplacement.dateArrivee}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{enregistrerDemandeTRFormController.editable==null or enregistrerDemandeTRFormController.editable}"/>
+								<h:outputText value="#{enregistrerDemandeTRFormController.dossierTR.deplacement.dateArrivee}" rendered="#{not enregistrerDemandeTRFormController.editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+								<p:message for="dateArrivee" />	
+								
+								<p:outputLabel for="poidsBagaggeC" value="Poids des bagages en Kg" />
+								<p:inputText id="poidsBagaggeC" value="#{enregistrerDemandeTRFormController.dossierTR.poidsBagagesKg}" requiredMessage="#{valueRequiredMessage}" rendered="#{enregistrerDemandeTRFormController.editable==null or enregistrerDemandeTRFormController.editable}"/>
+								<h:outputText value="#{enregistrerDemandeTRFormController.dossierTR.poidsBagagesKg}" rendered="#{not enregistrerDemandeTRFormController.editable}"/>	
+								<p:message for="poidsBagaggeC" />
+								
+								<p:outputLabel for="montantFacturePro" value="Montant de la Facture en CFA" />
+								<p:inputText id="montantFacturePro" value="#{enregistrerDemandeTRFormController.dossierTR.montantFacture}" requiredMessage="#{valueRequiredMessage}" rendered="#{enregistrerDemandeTRFormController.editable==null or enregistrerDemandeTRFormController.editable}"/>
+								<h:outputText value="#{enregistrerDemandeTRFormController.dossierTR.montantFacture}" rendered="#{not enregistrerDemandeTRFormController.editable}"/>	
+								<p:message for="montantFacturePro" />			
+							</h:panelGrid>
+						</p:fieldset>
+						
+					 	<p:separator/>
+						
+						<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml" >
+							<ui:param name="uploader" value="#{enregistrerDemandeTRFormController.pieceJustificativeUploader}" />
+							<ui:param name="editable" value="#{enregistrerDemandeTRFormController.editable}" />	
+						</ui:include>		
+							
+					</ui:define>
+					<ui:define name="actions">
+						<p:commandButton value="Enregistrer"  icon="ui-icon-check" action="#{enregistrerDemandeTRFormController.submit}" ajax="false" update="@form" rendered="#{enregistrerDemandeTRFormController.editable}"
+							/> 	
+						<p:commandButton value="Soumettre"  icon="ui-icon-check" action="#{enregistrerDemandeTRFormController.soumettre}" ajax="false" update="@form" style="margin:auto"/> 	 		
+					</ui:define>
+				</ui:decorate>	
+		</ui:define>
+					
+	</ui:composition>
+			
+	</h:body>
+
+</html>

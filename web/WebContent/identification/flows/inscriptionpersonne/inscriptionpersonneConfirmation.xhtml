@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+			<h1>Formulaire d'inscription</h1>
+			<ui:param name="requiredMessage" value="Valeur requise"/>
+			<h:form>	
+				<p:messages globalOnly="true" />
+					
+				<p:panel header="Confirmation des informations">
+					<p:panelGrid columns="2" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+						<h:panelGroup>
+							<p:fieldset>
+								<ui:include src="/identification/include/outputIdentite.xhtml">
+							  		<ui:param name="personne" value="#{inscriptionPersonneController.inscription.personneDemandeur}"/>
+							  	</ui:include>
+							  	<p:separator/>
+							  	<ui:include src="/identification/include/outputContact.xhtml">
+									<ui:param name="contact" value="#{inscriptionPersonneController.inscription.personneDemandeur.contact}"/>
+								</ui:include>
+							</p:fieldset>
+						</h:panelGroup>
+						<h:panelGroup>
+							<!--
+							<p:fieldset legend="#{inscriptionPersonneController.inscription.natureDeplacement}">
+								<p:panelGrid styleClass="panelGridNoBorder" columns="2" style="width:100%;"> 
+									
+									<h:outputText value="Je suis un " rendered="#{not inscriptionPersonneController.FO}"/>
+									<h:outputText value="#{inscriptionPersonneController.inscription.personneInfos.type}" rendered="#{not inscriptionPersonneController.FO}"/>
+									
+									<h:outputText value="#{inscriptionPersonneController.FO?'Matricule du défunt':'Matricule'}" />
+									<h:outputText value="#{inscriptionPersonneController.inscription.defuntInfos.matricule}" />
+									
+								</p:panelGrid>
+								<p:fragment autoUpdate="true" rendered="#{inscriptionPersonneController.FO}">
+									<ui:include src="/identification/include/outputIdentite.xhtml">
+								  		<ui:param name="personne" value="#{inscriptionPersonneController.inscription.defuntInfos}"/>
+								  		<ui:param name="sexe" value="false" />
+								  		<ui:param name="profession" value="false" />
+								  		<ui:param name="expatrie" value="false" />
+								  		<ui:param name="natpid" value="false" />
+								  		<ui:param name="numpid" value="false" />
+								  	</ui:include>
+								</p:fragment>
+							</p:fieldset>
+							
+							<p:spacer height="5" />
+							-->
+							
+							
+							<p:fieldset>
+								<h:outputText value="Je certifie que les informations fournies sont correctes" />
+								<p:panelGrid columns="2">
+									<p:selectOneRadio id="certifie" required="true" requiredMessage="#{valueRequiredMessage}">
+										<f:selectItem itemLabel="Oui" itemValue="true"/>
+										<f:selectItem itemLabel="Non" itemValue="false"/>
+									</p:selectOneRadio>
+									<p:message for="certifie"/>
+								</p:panelGrid>
+							</p:fieldset>
+							
+							<p:spacer height="5" />
+							<p:panelGrid styleClass="panelGridNoBorder" columns="1" style="width:100%;"> 
+								<p:message for="captcha"/> 
+								<p:captcha id="captcha" language="fr" required="true" requiredMessage="#{valueRequiredMessage}" validatorMessage="Le texte entré ne correspond pas"/>
+							</p:panelGrid>
+							
+						</h:panelGroup>
+					</p:panelGrid>		
+				</p:panel>
+				<p:captcha language="fr" />
+				<h:panelGrid style="margin:auto" columns="3">
+					<p:commandButton value="Précédent" action="inscriptionpersonne" icon="ui-icon-arrowthick-1-w" ajax="false" immediate="true"/>
+					<p:commandButton value="S'inscrire"  icon="ui-icon-check" action="#{inscriptionPersonneController.inscrire}" ajax="false" />
+            		<p:commandButton immediate="true" action="inscriptionpersonneReturnFromFlow" value="Annuler" icon="ui-icon-close"  ajax="false" />
+				</h:panelGrid>
+				
+				
+			</h:form>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

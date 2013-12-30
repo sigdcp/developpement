@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>		
+		<p:panel header="Espace Fonctionnaire/Agent de l'Etat"> 
+	  		<p:messages globalOnly="true" autoUpdate="true"/>
+			<h:panelGrid columns="2" cellpadding="5" style="margin:auto">
+				<h:outputText/><p:message for="login"/>
+				<p:outputLabel for="login" value="Nom d'utilisateur" />	
+				<p:inputText id="login" value="#{connexionFormController.login}" required="true" requiredMessage="Saisissez votre Nom d'utilisateur" />
+				
+				<h:outputText/><p:message for="motDePasse"/> 
+				<p:outputLabel for="motDePasse" value="Mot de passe" />
+				<p:password id="motDePasse" value="#{connexionFormController.motDePasse}" required="true" requiredMessage="Saisissez votre Vot de passe" />
+			</h:panelGrid>
+			<center>
+				<p:commandButton value="Connexion" action="#{connexionFormController.submit}" icon="ui-icon-check" style="width:200px;text-align:center" ajax="false" update="@form" />
+			</center>
+  		</p:panel>
+	</ui:composition>
+</body>
+</html>

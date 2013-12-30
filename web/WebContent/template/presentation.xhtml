@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+ 
+    <h:head>
+		<h:outputStylesheet library="css" name="style.css" />
+	<style type="text/css">	     
+     body,html{ height:99%}
+     body{ padding:0px;margin:0px;}
+    </style>
+    </h:head>
+ 
+	<h:body>
+	
+	<div style="position:fixed; width: 100%;top:0px; background-color: #FFF; z-index: 1000">
+	<div style="text-align: left;">
+	<p:graphicImage value="/resources/images/imghead.jpg"/>
+	</div>
+	<div class="backmenu" style="text-align: center;height:5px;"></div>
+	<div class="backdesign cadresansarrondi" style="text-align: left;padding:20px" ></div>
+	</div>
+	
+	<div style="margin: auto; width: 75%; margin-top: 155px">
+		<ui:insert name="contenu"> Veuillez fournir un contenu </ui:insert>
+	</div>
+
+	
+	<p class="backdesign" style="text-align: center;padding:5px">Copyright &copy; 2013, DTI. Tous droits réservés. </p>
+	
+ 		
+    </h:body>
+</html>

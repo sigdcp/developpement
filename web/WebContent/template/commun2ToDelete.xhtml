@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+ 
+    <h:head>
+		<h:outputStylesheet library="css" name="style.css" />
+    </h:head>
+ 
+ 	<ui:insert name="metadata"/>
+ 	
+	<h:body>
+		
+		<p:layout id="site"  fullPage="true" stateful="true">  
+  
+		    <p:layoutUnit id="entete" position="north">
+		   		 <ui:include src="/resources/include/layout/entete.xhtml"/>
+	 		 </p:layoutUnit>  
+		  	
+		  	<p:layoutUnit id="menu" position="west" resizable="true" collapsible="true" size="200">  		        
+		        <ui:include src="/resources/include/menu/principal/vertical.xhtml"/>
+		        
+		    </p:layoutUnit>
+		  	
+		    <p:layoutUnit id="corps" position="center">  
+		        <ui:insert name="contenu"> Veuillez fournir un contenu </ui:insert>  
+		    </p:layoutUnit>
+		    
+		    <p:layoutUnit id="pieds" position="south"><ui:insert name="message"/></p:layoutUnit>
+  
+		</p:layout>  
+		
+		<!--
+		<p:layout id="site"  fullPage="true">  
+  
+		    <p:layoutUnit id="entete" position="north">
+		    	<p:layout>
+		    		<p:layoutUnit position="north"><ui:include src="/resources/include/layout/entete.xhtml"/></p:layoutUnit>
+	 				<p:layoutUnit position="center"><ui:include src="/resources/include/menu/principal/vertical.xhtml"/></p:layoutUnit>	
+		    	</p:layout>
+	 		 </p:layoutUnit>  
+		  
+		    <p:layoutUnit id="corps" position="center">  
+		        <ui:insert name="contenu"> Veuillez fournir un contenu </ui:insert>  
+		    </p:layoutUnit>
+		    
+		    <p:layoutUnit id="pieds" position="south"><ui:insert name="message"/></p:layoutUnit>
+  
+		</p:layout>  
+		-->
+		<!--
+ 		 <p:layout id="site"  fullPage="true">  
+  
+		    <p:layoutUnit id="entete" position="north" styleClass="noborderr">
+		    	<ui:include src="/resources/include/layout/entete.xhtml"/>
+	 		 </p:layoutUnit>  
+		  
+		    <p:layoutUnit id="corps" position="center" styleClass="noborder">  
+		        <ui:insert name="contenu"> Veuillez fournir un contenu </ui:insert>  
+		    </p:layoutUnit>
+		    
+		    <p:layoutUnit id="pieds" position="south"><ui:include src="/resources/include/layout/pieds.xhtml"/></p:layoutUnit>
+  
+		</p:layout>  
+ 				-->
+    </h:body>
+</html>

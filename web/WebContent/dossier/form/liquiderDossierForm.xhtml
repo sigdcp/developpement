@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+			
+			<style>
+				.lmontant{}
+				.montant{color: red;font-weight: bold;}
+			</style>
+			
+			<h1 style="text-align: center">Calcul des indemnités</h1>
+			<p:separator />
+			
+					<h:form>
+						<h:panelGrid columns="2" >
+							<h:panelGroup>
+								<h:panelGrid columns="2" columnClasses="lmontant , montant">
+		  			
+						            <h:outputText value="Indemnité kilométrique agent:" /><h:outputText value="100" />
+						            <h:outputText value="Indemnité kilométrique conjoint:" /><h:outputText value="200" />
+						            <h:outputText value="Indemnité kilométrique enfant:" /><h:outputText value="100" />
+						            <h:outputText value="Indemnité bagage agent:" /><h:outputText value="500" /> 
+						            <h:outputText value="Indemnité bagage conjoint:" /><h:outputText value="500" /> 
+						            <h:outputText value="Indemnité bagage enfant(s):" /><h:outputText value="250" /> 
+						            <h:outputText value="Indemnité journalière agent:" /><h:outputText value="300" /> 
+						            <h:outputText value="Indemnité journalière conjoint:" /><h:outputText value="280" /> 
+						            <h:outputText value="Indemnité journalière enfant(s):" /><h:outputText value="120" />
+					             </h:panelGrid>	
+							</h:panelGroup>
+							<h:panelGroup>
+								 <h:panelGrid columns="2">
+								 	 <h:outputText value="Formule de calcul " /><h:outputText value="(1000 + 2*ID + K)/3 + 5500 "  style="font-size:15px;"/> 
+						            <h:outputText value="Montant indemnite à payer" /><h:outputText value="20.000 FCFA"  style="font-size:20px;"/> 
+						            <h:outputText value="En lettre:" /><h:outputText value="Mille" /> 
+					            </h:panelGrid>
+							</h:panelGroup>
+						</h:panelGrid>
+						<p:separator/>
+						<p:button value="Oui , Liquider ce dossier." icon="ui-icon-check"/><p:button value="Non , rejeter ce dossier." icon="ui-icon-cancel"/>
+						<p:commandButton id="basic" value="Aperçu des informations du dossier" onclick="PF('dlg1').show();" type="button" />
+					</h:form>
+					
+					<p:dialog header="Aperçu des informations du dossier" widgetVar="dlg1" modal="true" appendTo="@(body)">  
+					    <ui:include src="/dossier/include/apercuDetailsDossier.xhtml"></ui:include>
+					    <p:separator/>
+						<p:button value="Voir plus" target="_blank" outcome="dossierDetailsVue"/>
+					</p:dialog>  
+					
+					
+				
+			
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

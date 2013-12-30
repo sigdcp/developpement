@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 	
+	<p:message for="recordId" />
+	
+	<h1><h:outputText value="#{controller.libelle}" /> </h1>
+	<p:separator/>
+	<ui:insert name="detailsContenu">
+		<h1> <h:outputText value="Details : #{controller.record}" /> </h1>
+	</ui:insert>
+		
+</ui:composition>

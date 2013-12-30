@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+
+		<ui:composition template="/template/commun.xhtml">
+		
+			<ui:define name="contenu">
+				<h1> Apercu des valeurs dans la BD </h1>
+				<!-- 
+				
+				<p:panel header="" >
+					<p:dataTable var="" value="" rowIndexVar="index">
+						
+						<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
+						
+						<p:column headerText="">
+						
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+				
+				-->
+				#{ministeres}
+				<p:panel header="Ministères" >
+					<p:dataTable var="ministere" value="#{ministeres}" rowIndexVar="index">
+						<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
+						<p:column headerText="Code"><h:outputText value="#{ministere.code}" /></p:column>
+						<p:column headerText="Libelle"><h:outputText value="#{ministere.libelle}" /></p:column>
+					</p:dataTable>
+				</p:panel>
+				
+				<p:panel header="Catégorie" >
+					<p:dataTable var="categorie" value="#{categories}" rowIndexVar="index">
+						<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
+						<p:column headerText="Code"><h:outputText value="#{categorie.code}" /></p:column>
+						<p:column headerText="Libelle"><h:outputText value="#{categorie.libelle}" /></p:column>
+					</p:dataTable>
+				</p:panel>
+				
+				<p:panel header="Profession" >
+					<p:dataTable var="profession" value="#{professions}" rowIndexVar="index">
+						<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
+						<p:column headerText="Code"><h:outputText value="#{profession.code}" /></p:column>
+						<p:column headerText="Libelle"><h:outputText value="#{profession.libelle}" /></p:column>
+					</p:dataTable>
+				</p:panel>
+				
+				<p:panel header="Service" >
+					<p:dataTable var="service" value="#{services}" rowIndexVar="index">
+						<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
+						<p:column headerText="Code"><h:outputText value="#{service.code}" /></p:column>
+						<p:column headerText="Libelle"><h:outputText value="#{service.libelle}" /></p:column>
+					</p:dataTable>
+				</p:panel>
+				
+				<p:panel header="Localite" >
+					<p:dataTable var="localite" value="#{localites}" rowIndexVar="index">
+						<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
+						<p:column headerText="Code"><h:outputText value="#{localite.code}" /></p:column>
+						<p:column headerText="Libelle"><h:outputText value="#{localite.libelle}" /></p:column>
+					</p:dataTable>
+				</p:panel>
+				
+				<p:panel header="Nature deplacement" >
+					<p:dataTable var="nd" value="#{natureDeplacements}" rowIndexVar="index">
+						<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
+						<p:column headerText="Code"><h:outputText value="#{nd.code}" /></p:column>
+						<p:column headerText="Libelle"><h:outputText value="#{nd.designation}" /></p:column>
+					</p:dataTable>
+				</p:panel>
+				
+			</ui:define>
+			
+		</ui:composition>
+
+	</h:body>
+
+</html>

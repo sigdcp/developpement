@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/vide.xhtml">
+
+		<ui:define name="contenu">
+			
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{inscriptionPersonneController}" />
+				<ui:define name="contenu">
+					
+					<ui:include src="/identification/include/inputIdentite.xhtml">
+						<ui:param name="personneDto" value="#{inscriptionPersonneController.demandeurDto}"/>
+						<ui:param name="questionAgentEtat" value="#{not inscriptionPersonneController.inscriptionAgentEtat}" />
+						<ui:param name="pieceIdentite" value="true" />
+						<ui:param name="editable" value="true" />
+						<ui:param name="columnCount" value="6" />
+					</ui:include>
+				
+					
+					<p:spacer height="5"/>
+					<!--
+					<p:panelGrid columns="2" styleClass="panelGridNoBorder">
+						<p:fieldset>
+							<h:outputText value="Je certifie que les informations fournies sont correctes" />
+							<p:panelGrid columns="2">
+								<p:selectOneRadio id="certifie" required="true" requiredMessage="#{valueRequiredMessage}">
+									<f:selectItem itemLabel="Oui" itemValue="true"/>
+									<f:selectItem itemLabel="Non" itemValue="false"/>
+								</p:selectOneRadio>
+								<p:message for="certifie"/>
+							</p:panelGrid>
+						</p:fieldset>
+						
+					</p:panelGrid>
+					-->
+					<p:panelGrid styleClass="panelGridNoBorder" columns="1" rendered="false" > 
+						<p:message for="captcha"/> 
+						<p:captcha id="captcha" language="fr" required="true" requiredMessage="#{valueRequiredMessage}" validatorMessage="Le texte entré ne correspond pas"/>
+					</p:panelGrid>
+		
+				</ui:define>
+				
+				<ui:define name="actions">
+					<h:panelGrid style="margin:auto" columns="2">
+	            		<p:commandButton immediate="true" action="inscriptionpersonneReturnFromFlow" value="Annuler" icon="ui-icon-close" ajax="false"/>
+	            		<p:commandButton value="S'inscrire" action="#{inscriptionPersonneController.submit}" icon="ui-icon-arrowthick-1-e" ajax="false" />
+					</h:panelGrid>		
+				</ui:define>
+			</ui:decorate>
+			
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

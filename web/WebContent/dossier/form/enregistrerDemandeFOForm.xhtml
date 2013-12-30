@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+		
+			<ui:param name="editable" value="#{enregistrerDemandeFOFormController.editable}"/>
+
+			<h1>Formulaire de demande de prise en charge des frais d'obsèques</h1> 
+			
+			<h:form id="form">
+					<h:panelGroup>
+					<p:panel header="Déclaration de décès">
+					<p:fieldset legend="Déclarant">
+					<ui:include src="/dossier/include/inputIdentite.xhtml" >
+						<ui:param name="personneDto" value="#{enregistrerDemandeFOFormController.declarantDto}" />
+					</ui:include>
+					<!--
+					<h:panelGrid columns="6" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+						<p:outputLabel for="nomdeclarant" value="Nom" />
+						<p:inputText id="nomdeclarant" required="true"	value="#{enregistrerDemandeFOFormController.dossier.categorie}" requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.categorie}" rendered="#{not editable}"/>
+						<p:message for="nomdeclarant" />
+						
+						<p:outputLabel for="predeclarant" value="Prénoms" />
+						<p:inputText id="predeclarant" required="true"	value="#{enregistrerDemandeFOFormController.dossier.categorie}" requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.categorie}" rendered="#{not editable}"/>
+						<p:message for="predeclarant" />
+						
+						<p:outputLabel for="profdeclarant" value="Profession" />
+						<p:inputText id="profdeclarant" required="true"	value="#{enregistrerDemandeFOFormController.dossier.categorie}" requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.categorie}" rendered="#{not editable}"/>
+						<p:message for="profdeclarant" />
+						
+						<p:outputLabel for="matrideclarant" value="Matricule" />
+						<p:inputText id="matrideclarant" value="#{enregistrerDemandeFOFormController.dossier.categorie}" requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.categorie}" rendered="#{not editable}"/>
+						<p:message for="matrideclarant" />
+						
+						<p:outputLabel for="servicedeclarant" value="Service" />
+						<p:inputText id="servicedeclarant" required="true"	value="#{enregistrerDemandeFOFormController.dossier.categorie}" requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.categorie}" rendered="#{not editable}"/>
+						<p:message for="servicedeclarant" />
+					</h:panelGrid>
+					-->
+					</p:fieldset>
+					<p:separator />
+					
+					<p:fieldset legend="Défunt">
+					
+					<ui:include src="/dossier/include/inputIdentite.xhtml" >
+						<ui:param name="personneDto" value="#{enregistrerDemandeFOFormController.defuntDto}" />
+						<ui:param name="iid" value="1" />
+					</ui:include>
+					
+					<!--
+					<h:panelGrid columns="6" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+						<p:outputLabel for="nomdefunt" value="Nom" />
+						<p:inputText id="nomdefunt" required="true"	value="#{enregistrerDemandeFOFormController.dossier.categorie}" requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.categorie}" rendered="#{not editable}"/>
+						<p:message for="nomdefunt" />
+						
+						<p:outputLabel for="predefunt" value="Prénoms" />
+						<p:inputText id="predefunt" required="true"	value="#{enregistrerDemandeFOFormController.dossier.categorie}" requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.categorie}" rendered="#{not editable}"/>
+						<p:message for="predefunt" />
+						
+						<p:outputLabel for="profdefunt" value="Profession" />
+						<p:inputText id="profdefunt" required="true"	value="#{enregistrerDemandeFOFormController.dossier.categorie}" requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.categorie}" rendered="#{not editable}"/>
+						<p:message for="profdefunt" />
+						
+						<p:outputLabel for="matridefunt" value="Matricule" />
+						<p:inputText id="matridefunt" required="true"	value="#{enregistrerDemandeFOFormController.dossier.categorie}" requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.categorie}" rendered="#{not editable}"/>
+						<p:message for="matridefunt" />
+						
+						<p:outputLabel for="servicedefunt" value="Service" />
+						<p:inputText id="servicedefunt" required="true"	value="#{enregistrerDemandeFOFormController.dossier.categorie}" requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.categorie}" rendered="#{not editable}"/>
+						<p:message for="servicedefunt" />
+						</h:panelGrid>
+					-->
+						<p:separator />
+						<h:panelGrid columns="6" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+						<p:outputLabel for="dateDeces" value="Décédé le" />
+						<p:calendar id="dateDeces" value="#{enregistrerDemandeFOFormController.dossier.dateDeces}" required="true" pattern="#{constantResources.datePattern}"
+							requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.dateDeces}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+						<p:message for="dateDeces" />
+						
+						<p:outputLabel for="lieuDeces" value="Lieu du décès" />
+						<p:inputText id="lieuDeces" required="true"	value="#{enregistrerDemandeFOFormController.dossier.lieuDeces}" requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.lieuDeces}" rendered="#{not enregistrerDemandeFOFormController.editable}"/>
+						<p:message for="lieuDeces" />
+						
+						<p:outputLabel for="autopsie" value="Autopsié? " />
+						<p:selectOneRadio id="autopsie" required="true" requiredMessage="#{valueRequiredMessage}" value="#{enregistrerDemandeFOFormController.dossier.autopsie}">
+						<f:selectItem itemLabel="Oui" itemValue="1" />
+						<f:selectItem itemLabel="Non" itemValue="2" />
+						</p:selectOneRadio>
+						<p:message for="autopsie" />
+						<p:outputLabel value="" /><p:outputLabel value="" /><p:outputLabel value="" />
+						
+						<p:outputLabel for="causeDeces" value="Cause du décès" />
+						<p:inputText id="causeDeces" required="true" value="#{enregistrerDemandeFOFormController.dossier.causeDeces}"	requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.causeDeces}" rendered="#{not editable}"/>								
+						<p:message for="causeDeces" />
+
+						<p:outputLabel for="natureDeces" value="Nature du Décés" />
+						<p:selectOneMenu id="natureDeces" value="#{enregistrerDemandeFOFormController.dossier.natureDeces}" required="true" requiredMessage="#{valueRequiredMessage}"
+							converter="#{objectConverter}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}" />
+						<f:selectItems />
+						</p:selectOneMenu>
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.natureDeces}" rendered="#{not enregistrerDemandeFOFormController.editable}"/>
+						<p:message for="natureDeces" />
+						</h:panelGrid>
+						<p:separator />
+						<h:panelGrid columns="6" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+						<p:outputLabel for="nomAgentConstataire" value="Décès constaté par" />
+						<p:inputText id="nomAgentConstataire" required="true" value="#{enregistrerDemandeFOFormController.dossier.nomAgentConstataire}"
+							requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.nomAgentConstataire}" rendered="#{not editable}"/>
+						<p:message for="nomAgentConstataire" />
+						
+						<p:outputLabel for="fonctAgentConstataire" value="Profession" />
+						<p:inputText id="fonctAgentConstataire" required="true" value="#{enregistrerDemandeFOFormController.dossier.nomAgentConstataire}"
+							requiredMessage="#{valueRequiredMessage}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.nomAgentConstataire}" rendered="#{not editable}"/>
+						<p:message for="fonctAgentConstataire" />
+					</h:panelGrid>
+					</p:fieldset>
+					</p:panel>					
+					<p:separator />
+					
+					<p:panel header="Transfert de la dépouille">
+					<h:panelGrid columns="4" styleClass="panelGridNoBorder"	columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+						<p:outputLabel for="villeDepart" value="Ville de décès" />
+						<p:selectOneMenu id="villeDepart" value="#{enregistrerDemandeFOFormController.dossier.deplacement.localiteDepart}" required="true" requiredMessage="#{valueRequiredMessage}"
+							converter="#{objectConverter}"	rendered="#{enregistrerDemandeFOFormController.editable==null or enregistrerDemandeFOFormController.editable}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}" />
+						<f:selectItems value="#{villes}" />
+						</p:selectOneMenu>
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.deplacement.localiteDepart}" rendered="#{not editable}"/>
+						<p:message for="villeDepart" rendered="#{not editable}" />
+
+						<p:outputLabel for="villeArrivee" value="Ville d'enterrement" />
+						<p:selectOneMenu id="villeArrivee" value="#{enregistrerDemandeFOFormController.dossier.deplacement.localiteArrivee}" required="true" requiredMessage="#{valueRequiredMessage}"
+							converter="#{objectConverter}" rendered="#{enregistrerDemandeFOFormController.editable==null or enregistrerDemandeFOFormController.editable}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}" />
+						<f:selectItems value="#{villes}" />
+						</p:selectOneMenu>
+						<h:outputText value="#{enregistrerDemandeFOFormController.dossier.deplacement.localiteArrivee}" rendered="#{not enregistrerDemandeFOFormController.editable}"/>
+						<p:message for="villeArrivee" rendered="#{not editable}"/>
+						<!-- 
+						<p:outputLabel for="dateDepart" value="Date départ" />
+						<p:calendar id="dateDepart"	value="#{enregistrerDemandeFOFormController.deplacement.dateDepart}" required="true" pattern="#{constantResources.datePattern}"
+							requiredMessage="#{valueRequiredMessage}" rendered="#{enregistrerDemandeFOFormController.editable==null or enregistrerDemandeFOFormController.editable}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.deplacement.dateDepart}" rendered="#{not enregistrerDemandeFOFormController.editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+						<p:message for="dateDepart" rendered="#{not editable}"/>
+
+						<p:outputLabel for="dateArrivee" value="Date " />
+						<p:calendar id="dateArrivee" value="#{enregistrerDemandeFOFormController.deplacement.dateArrivee}" required="true" pattern="#{constantResources.datePattern}"
+						   requiredMessage="#{valueRequiredMessage}"	rendered="#{enregistrerDemandeFOFormController.editable==null or enregistrerDemandeFOFormController.editable}" />
+						<h:outputText value="#{enregistrerDemandeFOFormController.deplacement.dateArrivee}" rendered="#{not enregistrerDemandeFOFormController.editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+						<p:message for="dateArrivee" rendered="#{not editable}"/>
+						 -->
+					</h:panelGrid>
+					</p:panel>
+					</h:panelGroup>
+				<p:separator />
+
+				<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml">
+				</ui:include>
+
+				<p:separator />
+				<p:commandButton value="Enregistrer" icon="ui-icon-check" action="#{enregistrerDemandeFOFormController.enregistrer}" ajax="false" update="@form"
+					rendered="#{enregistrerDemandeTRFormController.editable}" style="margin:auto" />
+
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

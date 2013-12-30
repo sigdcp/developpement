@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+	    <p:panelGrid styleClass="panelGridNoBorder" columns="3" style="width:100%;height:100%;"> 
+			<p:outputLabel for="adresse" value="Adresse postale: " />
+			<p:inputText id="adresse" value="#{contact.boitePostale}" required="true" requiredMessage="#{valueRequiredMessage}"/>
+
+			<p:message for="adresse"/> 
+			
+			<p:outputLabel for="telephone" value="Téléphone" />
+			<p:inputText id="telephone" value="#{contact.telephone}" required="true" requiredMessage="#{valueRequiredMessage}"/>					 
+			<p:message for="telephone"/> 
+			
+			<p:outputLabel for="email" value="Email" />
+			<p:inputText id="email" value="#{contact.email}" required="true" requiredMessage="#{valueRequiredMessage}"/>
+			<p:message for="email"/> 
+		</p:panelGrid> 
+
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+			<h1>Formulaire d'inscription</h1>
+			<ui:param name="requiredMessage" value="Valeur requise"/>
+			<h:form>	
+				<p:messages globalOnly="true" />
+					
+				<p:panel header="#{inscriptionPersonneController.inscription.natureDeplacement}">
+										
+					<p:fieldset legend="Identité du défunt" rendered="#{inscriptionPersonneController.FO}">
+						<ui:include src="/identification/include/inputIdentite.xhtml">
+					  		<ui:param name="personneDto" value="#{inscriptionPersonneController.defuntDto}"/>
+					  		<ui:param name="questionAgentEtat" value="false" />
+					  		<ui:param name="profession" value="false" />
+					  		<ui:param name="nationalite" value="false" />
+					  		<ui:param name="natpid" value="false" />
+					  		<ui:param name="numpid" value="false" />
+					  		<ui:param name="iid" value="1" />
+					  	</ui:include>
+					</p:fieldset>
+				</p:panel>				
+			
+				<h:panelGrid style="margin:auto" columns="3">
+					<p:commandButton value="Précédent" action="inscriptionpersonne" icon="ui-icon-arrowthick-1-w" ajax="false" immediate="true"/>
+            		<p:commandButton immediate="true" action="inscriptionersonneReturnFromFlow" value="Annuler" icon="ui-icon-close" ajax="false"/>
+            		<p:commandButton value="Suivant" action="inscriptionpersonneConfirmation" icon="ui-icon-arrowthick-1-e" ajax="false" iconPos="right"/>
+				</h:panelGrid>
+				
+				
+			</h:form>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

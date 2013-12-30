@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+			  <h2>TABLEAU DE BORD DES DEPLACEMENTS DEFINITIFS</h2>
+				
+				
+				<h:panelGrid columns="2" cellpadding="5">
+				         
+				         <h:outputText value="Total Mutations:" />  
+				         <h:outputText value="100" style="font-weight:bold"/>  
+				     <h:outputText value="Total Affectations:" />  
+				     <h:outputText value="150" style="font-weight:bold"/>  
+				     <h:outputText value="Total Départs Retraite:" />  
+				     <h:outputText value="15" style="font-weight:bold"/>  
+				
+				 </h:panelGrid>
+        
+			</ui:define>
+	
+		</ui:composition>
+
+	</h:body>
+
+</html>

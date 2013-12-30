@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+				<h1>Liste des demandes dont la recevabilité doit etre validée</h1>
+				
+				<h:form id="form">
+					<p:messages id="messages" />
+					<p:wizard flowListener="#{validationRecevabiliteDossierDDController.onFlowProcess}">
+						<p:tab id="selection" title="selection">
+							<p:dataTable value="#{validationRecevabiliteDossierDDController.dossiers}" var="dossier" rowIndexVar="index" 
+								selection="#{validationRecevabiliteDossierDDController.dossierSelectionnes}"
+							 rowKey="#{dossier.numero}"  >
+								<p:column selectionMode="multiple" style="width:2%" />
+								<!--
+								<p:column headerText="#" ><h:outputText value="#{index+1}" /></p:column>
+								<p:column headerText="Numéro" ><h:outputText value="#{dossier.numero}" /></p:column>
+								<p:column headerText="Date de crétation" >
+									<h:outputText value="#{dossier.deplacement.dateCreation}" >
+										<f:convertDateTime pattern="#{constantResources.fullDateTimePattern}" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Type" ><h:outputText value="#{dossier.deplacement.nature}" /></p:column>
+								<p:column headerText="Matricule" ><h:outputText value="#{dossier.beneficiaire.matricule}" /></p:column>
+								<p:column headerText="Nom et prénoms" ><h:outputText value="#{dossier.beneficiaire.nomPrenoms}" /></p:column>
+								-->
+								<ui:include src="/dossier/include/dossierTableauColonnes.xhtml"/>
+								<p:column >
+									<p:button value="Détails" outcome="consulterDemandeDDForm" target="_blank">
+										<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionConsulter}"/>
+										<f:param name="#{webConstantResources.requestParamEntityId}" value="#{dossier.numero}"/>
+									</p:button>
+									<!--
+									<p:commandButton value="Détails" oncomplete="PF('detailsDialog').show();" update=":form:display">
+										<f:setPropertyActionListener value="#{dossier}" target="#{validationRecevabiliteDossierDDController.dossierSelectionne}" />
+									</p:commandButton>
+									-->
+									<!--
+									<p:commandButton value="View" icon="ui-icon-extlink" actionListener="#{validationRecevabiliteDossierDDController.viewDossier}" />  
+									-->
+								</p:column>
+							</p:dataTable>	
+							<p:separator/>
+							<p:panelGrid columns="3" styleClass="panelGridNoBorder">
+								<p:outputLabel for="choix" value="choix" />
+	  							<p:selectOneRadio id="choix" value="#{validationRecevabiliteDossierDDController.rejete}" required="true" requiredMessage="Choisir">
+	  								<f:selectItem itemLabel="Accepter" itemValue="false" />
+	  								<f:selectItem itemLabel="Rejeter" itemValue="true" />
+	  							</p:selectOneRadio>
+	  							<p:message for="choix"/>
+							</p:panelGrid>					
+						</p:tab>
+						
+						<p:tab id="accepte" title="Accepte">
+							<h1>Voulez vous vraiment accepter tous ces dossiers ?</h1>
+							<p:dataTable value="#{validationRecevabiliteDossierDDController.dossierSelectionnes}" var="dossier" rowIndexVar="index" >
+								<ui:include src="/dossier/include/dossierTableauColonnes.xhtml"/>
+							</p:dataTable>	
+							<p:separator/>
+	  						<p:commandButton value="Oui , Accepter" icon="ui-icon-check" action="#{validationRecevabiliteDossierDDController.accepter}" update="messages"/>
+						</p:tab>
+						
+						<p:tab id="rejete" title="Rejete">
+							<h1>Voulez vous vraiment rejeter tous ces dossiers ?</h1>
+							<p:dataTable value="#{validationRecevabiliteDossierDDController.dossierSelectionnes}" var="dossier" rowIndexVar="index" >
+								<ui:include src="/dossier/include/dossierTableauColonnes.xhtml"/>
+							</p:dataTable>	
+							<p:separator/>
+							<p:panelGrid columns="3" styleClass="panelGridNoBorder">
+	  							<p:outputLabel for="motif" value="Motif" />
+	  							<p:inputText id="motif" value="#{validationRecevabiliteDossierDDController.motifRejet}" />
+	  							<p:message for="motif"/>
+	  						</p:panelGrid>
+	  						<p:separator/>
+	  						<p:commandButton value="Oui , Rejeter" icon="ui-icon-close" action="#{validationRecevabiliteDossierDDController.rejeter}" update="messages"/>
+						</p:tab>
+					
+					</p:wizard>
+				</h:form>
+				
+			</ui:define>
+			
+		</ui:composition>
+
+	</h:body>
+
+</html>

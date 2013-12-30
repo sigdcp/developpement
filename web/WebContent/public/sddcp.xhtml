@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/vide.xhtml">
+
+		<ui:define name="contenu">
+
+			<ui:decorate template="/template/contenuTextTemplate.xhtml">
+				<ui:param name="title" value="LUCARNE : LA SDDCP" />
+
+				<ui:define name="contenu">
+					<table width="100%">
+						<tr>
+							<td valign="top" width="65%"
+								style="padding: 20px; margin: 0 50px 0 50px; text-align: justify; line-height: 22px; font-size: 9pt">
+								<p:graphicImage value="/resources/images/lucarneImage.png"
+									style="float:left;padding:20px" /> La Sous-Direction des
+								Dépenses Communes de Personnel (SDDCP), est l'une des cinq (5)
+								Sous-Direction que compte la Direction de la Solde.La SDDCP est
+								l’une des cinq (5) Sous-directions que compte la Direction de la
+								Solde (DS). Cette dernière est régie par le décret N°2007 - 468
+								du 15 mai 2007 portant attributions, organisation et
+								fonctionnement du Ministère de l’Economie et des Finances (MEF).
+								<p>Aux termes de l’arrêté N° 840 du 29 octobre 1991
+									comportant le rectificatif N°1315 qui définit les attributions
+									et l’organisation de la Direction de la Solde, la SDDCP est
+									chargée de la prévision et de l’exécution des dépenses communes
+									de personnel de tous les départements ministériels. Elle a pour
+									attributions la gestion des éléments suivants :</p>
+								<ul>
+									<li>engagement dans la base SIGFIP, des dépenses de
+										personnels de l’Etat ;</li>
+									<li>missions hors Côte d’Ivoire ;</li>
+									<li>déplacements définitifs ;</li>
+									<li>frais de transit de bagages ;</li>
+									<li>frais d’obsèques ;</li>
+									<li>carte de transport urbain (SOTRA);</li>
+									<li>frais de transport des stagiaires et des expatriés.</li>
+								</ul>
+								<p>L’arrêté N° 962 /MEF/ DGTCP/CE du 20 octobre 2008 portant
+									création d’une Régie d’Avances auprès de la Direction de la
+									Solde, définit le domaine de la prise en charge des frais de
+									déplacements hors Côte d’Ivoire, des déplacements définitifs et
+									de certaines dépenses communes des fonctionnaires et agents de
+									l’Etat dans les administrations et établissements publics
+									nationaux.</p>
+								<p>L’arrêté N°1.942 /MEF/DGBF/DS/SDDCP du 09 octobre 2008
+									portant fixation des tarifs des transferts de corps et des
+									coûts de cercueils détermine le domaine de la prise en charge
+									des frais d’obsèques des fonctionnaires et agents de l’Etat.</p>
+								<p>Cependant, souvent critiquée, à raison, pour la lenteur
+									dans ses activités, l'administration publique ivoirienne se
+									veut aujourd'hui compétitive. Elle envisage donc de
+									reconsidérer ses objectifs et de se doter de moyens nécessaires
+									pour les atteindre. Elle est, de ce fait, confrontée à une
+									permanente remise en cause de ses moyens de gestion et
+									d'organisation.</p>
+								<p>La Direction de la Solde,consciente de l’efficacité de
+									l’outil informatique, s'est inscrite dans une reforme de ses
+									services. Elle a donc décidé de doter la SDDCP de ces nouvelles
+									technologies d'information et de communication pour améliorer
+									la gestion de ses différentes attributions.</p>
+								<p>Ainsi, elle a mis en place l'espace SIGDCP à la
+									disposition de ses usagers pour répondre aux nombreuses
+									sollicitations concernant la prise en charge des frais engagées
+									dans lors de leurs différents déplacements dans la cadre de
+									leur fonction.</p>
+							</td>
+							<td valign="top" style="margin: 20px">
+								<!--  <ui:include src="/public/connexionForm.xhtml"/> --> <ui:include
+									src="/public/verticalHome.xhtml">
+									<ui:param name="index" value="0" />
+								</ui:include>
+							</td>
+						</tr>
+					</table>
+				</ui:define>
+
+			</ui:decorate>
+
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

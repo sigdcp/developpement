@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+				<h1>Test des services d'identification</h1>
+				<h:form>
+					<p:messages />
+					<p:tabView>
+						<p:tab title="Inscrire">
+							Matricule : <p:inputText id="mat" value="#{identificationServiceTestController.beneficiaire.matricule}" />
+							<p:commandButton value="Inscrire" action="#{identificationServiceTestController.inscrire}" update="@form"/>
+						</p:tab>
+						<p:tab title="Valider Inscription">
+							<p:dataTable value="#{identificationServiceTestController.beneficiaireInscrits}" var="beneficiaire"
+								rowIndexVar="index" >
+								<p:column headerText="Numero"><h:outputText value="#{index+1}" /> </p:column>
+								<p:column headerText="Date"><h:outputText value="#{beneficiaire.dateCreation}" /></p:column>
+								<p:column headerText="Nom et prénoms"><h:outputText value="#{beneficiaire.nom} #{beneficiaire.prenoms}" /></p:column>
+								<p:column headerText="Matricule"><h:outputText value="#{beneficiaire.matricule}" /></p:column>
+								<p:column>
+									<p:commandButton value="Valider Inscription" action="#{identificationServiceTestController.validerInscription}"/>	
+								</p:column>
+							</p:dataTable>
+							
+						</p:tab>
+						<p:tab title="Activer Compte">
+							<p:commandButton value="Activer Compte" action="#{identificationServiceTestController.activerCompte}"/>
+						</p:tab>
+						<p:tab title="Se connecter">
+							<p:commandButton value="Se connecter" action="#{identificationServiceTestController.connecter}"/>
+						</p:tab>
+						<p:tab title="Se deconnecter">
+							<p:commandButton value="Se deconnecter" action="#{identificationServiceTestController.deconnecter}"/>
+						</p:tab>
+					</p:tabView>
+				</h:form>
+			</ui:define>
+			
+			
+		</ui:composition>
+
+	</h:body>
+
+</html>

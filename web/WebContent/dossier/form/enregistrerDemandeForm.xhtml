@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+			<p:panel header="La Demande: Définition et Procédure">
+				<h:outputText value="Pour faire une demande de service auprès de la Sous-Direction des dépenses Communes, il faut:" />
+			</p:panel>
+				
+				<p:separator/>
+				<p:panel header="La Demande: Documents requis">
+				<p:panelGrid style="margin:auto" columns="3" styleClass="panelGridNoBorder">
+
+				<p:dataGrid value="#{infosDossierPiecesController.natureDeplacements}" var="natureDeplacement">
+					<p:panel header="#{natureDeplacement}" style="text-align:center"> 
+						<p:dataList value="#{natureDeplacement.pieceJustificatives}" var="pj" styleClass="noborder">
+							<h:outputText value="#{pj.typePieceJustificative}" />
+							<h:outputText value="(#{pj.quantite}" />
+							<h:outputText value="#{pj.original?'Original':'Photocopie'})" />
+						</p:dataList>
+						<p:button value="Faire une demande" outcome="enregistrerDemandeDDForm" >
+							<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="#{natureDeplacement.code}" />
+							<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+						</p:button>
+					</p:panel>
+
+				</p:dataGrid>	
+
+				</p:panelGrid>	
+				</p:panel>
+
+				
+
+			</ui:define>
+						
+		</ui:composition>
+
+	</h:body>
+
+</html>

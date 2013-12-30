@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+				
+				<ui:decorate template="/template/formTemplate.xhtml">
+					<ui:param name="uiController" value="#{enregistrerDemandeMHCIFormController}" />
+					<ui:define name="contenu">
+		<h:panelGroup>
+			<p:fieldset legend="Mission">
+				<p:panelGrid columns="6" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+					
+					<p:outputLabel for="typeDepense" value="Est ce une prise en charge ou un remboursement ?" />
+					<p:selectOneRadio id="typeDepense"  required="true" requiredMessage="#{valueRequiredMessage}">
+						<f:selectItems value="#{typeDepenes}"/>
+					</p:selectOneRadio>
+					<p:message for="typeDepense" /> 
+					
+					<h:outputText value="" /><h:outputText value="" /><h:outputText value="" />
+												
+					<p:outputLabel  for="designation" value="Objet de la mission: " />
+					<p:inputTextarea id="designation" value="#{enregistrerDemandeMHCIFormController.dossierMHCI.deplacement.designation}" required="true" requiredMessage="#{valueRequiredMessage}" />
+			        <p:message for="designation" />
+					<p:outputLabel value="" /><p:outputLabel value="" /><p:outputLabel value="" />
+
+					<p:outputLabel for="dateDepart" value="Date de début" />
+					<p:calendar id="dateDepart" value="#{enregistrerDemandeMHCIFormController.deplacement.dateDepart}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{enregistrerDemandeMHCIFormController.editable==null or enregistrerDemandeMHCIFormController.editable}"/>
+					<h:outputText value="#{enregistrerDemandeMHCIFormController.deplacement.dateDepart}" rendered="#{not enregistrerDemandeMHCIFormController.editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+					<p:message for="dateDepart" />
+					 
+					<p:outputLabel for="dateArrivee" value="Date de fin" />
+					<p:calendar id="dateArrivee" value="#{enregistrerDemandeMHCIFormController.deplacement.dateArrivee}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{enregistrerDemandeMHCIFormController.editable==null or enregistrerDemandeMHCIFormController.editable}"/>
+					<h:outputText value="#{enregistrerDemandeMHCIFormController.deplacement.dateArrivee}" rendered="#{not enregistrerDemandeMHCIFormController.editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+					<p:message for="dateArrivee" />
+			       
+					<h:outputText value="Durée de la mission (en jour)" /><h:outputText value="" /><h:outputText value="" />
+					
+				
+					<p:outputLabel for="villeDepart"  value="Ville de départ:" />
+					<p:selectOneMenu id="villeDepart" value="#{enregistrerDemandeMHCIFormController.deplacement.localiteDepart}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{enregistrerDemandeMHCIFormController.editable==null or enregistrerDemandeMHCIFormController.editable}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{villes}"/>
+					</p:selectOneMenu>
+					<h:outputText value="#{enregistrerDemandeMHCIFormController.deplacement.localiteDepart}" rendered="#{not enregistrerDemandeMHCIFormController.editable}"/>
+					 <p:message for="villeDepart" />
+					
+					<p:outputLabel for="villeArrivee" value="Ville de la mission:" />		
+					<p:selectOneMenu id="villeArrivee" value="#{enregistrerDemandeMHCIFormController.deplacement.localiteArrivee}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{enregistrerDemandeMHCIFormController.editable==null or enregistrerDemandeMHCIFormController.editable}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{villes}"/>
+					</p:selectOneMenu>	
+					<h:outputText value="#{enregistrerDemandeMHCIFormController.deplacement.localiteArrivee}" rendered="#{not enregistrerDemandeMHCIFormController.editable}"/>
+					 <p:message for="villeArrivee" />
+				         
+					</p:panelGrid>
+				</p:fieldset>	
+			</h:panelGroup>				
+			
+				<p:separator/>
+				
+				<p:fieldset legend="Participants">	
+				
+					<br />
+					
+					<p:commandButton id="modalDialogButton" value="Ajouter Participant" onclick="PF('participantsDialog').show();" type="button"/>
+				
+					<br /><br />
+				
+					<p:dataTable id="participant" var="inscription" rowIndexVar="index"  >
+						<p:column headerText="N°" ><h:outputText value="#{index+1}" /></p:column>
+						<p:column headerText="Matricule" ><h:outputText value="" /></p:column>
+						<p:column headerText="Nom et prénoms" ><h:outputText value="" /></p:column>
+						<p:column headerText="Fonction" ><h:outputText value="" /></p:column>
+						<p:column headerText="Service" ><h:outputText value="" /></p:column>
+						<p:column >
+							<p:commandButton value="Détails" oncomplete="PF('detailsDialog').show();" update=":form:display">
+								<!--f:setPropertyActionListener value="#{inscription}" target="#{validationInscriptionAEController.inscriptionSelectionne}" /-->
+							</p:commandButton>
+						</p:column>
+						
+					</p:dataTable>	
+					</p:fieldset>					
+					</ui:define>
+					
+					<ui:define name="actions">
+						<p:commandButton value="Enregistrer" icon="ui-icon-check" action="#{enregistrerDemandeMHCIFormController.enregistrer}" ajax="false" update="@form"
+							rendered="#{enregistrerDemandeTRFormController.editable}" style="margin:auto" />	
+						<p:commandButton value="Soumettre"  icon="ui-icon-check" action="#{enregistrerDemandeMHCIFormController.soumettre}" ajax="false" update="@form" 
+						style="margin:auto"/> 	 		
+					</ui:define>
+				
+				</ui:decorate>
+				
+	
+			<p:dialog id="modalDialog" header="Ajout d'un participant" widgetVar="participantsDialog" modal="true" appendTo="@(Body)">  
+				<h:form  id="dialogue" enctype="multipart/form-data">
+					
+					<p:fieldset legend="Agent">	
+						<p:panelGrid columns="3" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+							<p:outputLabel  for="matricule" value="Matricule " />
+							<p:inputText id="matricule" value="" required="true" requiredMessage="#{valueRequiredMessage}" />
+					        <p:message for="matricule" />
+					        
+					        <p:outputLabel  for="nom" value="Nom " />
+							<p:inputText id="nom" value="" required="true" requiredMessage="#{valueRequiredMessage}" />
+					        <p:message for="nom" />
+					        
+					        <p:outputLabel  for="prenom" value="Prenom " />
+							<p:inputText id="prenom" value="" required="true" requiredMessage="#{valueRequiredMessage}" />
+					        <p:message for="prenom" />
+					        
+					        <p:outputLabel  for="categorie" value="Catégorie " />
+							<p:inputText id="categorie" value="" required="true" requiredMessage="#{valueRequiredMessage}" />
+					        <p:message for="categorie" />
+						</p:panelGrid>
+					</p:fieldset>
+							
+					<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml">	
+						<ui:param name="uploader" value="#{enregistrerDemandeMHCIFormController.pieceJustificativeUploader}" />	
+					</ui:include>	
+				
+					<p:commandButton value="Enregistrer" icon="ui-icon-check"
+					action="#{enregistrerDemandeMHCIFormController.submit}"
+					ajax="false" update="@form"
+					rendered="#{enregistrerDemandeMHCIFormController.editable}"
+					style="margin:auto" />
+									
+				</h:form>  
+			</p:dialog>  
+			
+			
+			</ui:define>
+		
+			</ui:composition>
+	</h:body>
+
+</html>

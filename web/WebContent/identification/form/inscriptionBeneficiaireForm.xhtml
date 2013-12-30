@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+			<h1>Formulaire d'inscription des bénéficiaires</h1>
+			<ui:param name="requiredMessage" value="Valeur requise"/>
+			<h:form>	
+				<p:messages globalOnly="true" />
+				
+				<p:panelGrid columns="2" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+					
+					<p:fieldset>
+						<ui:include src="/identification/include/inputIdentite.xhtml">
+					  		<ui:param name="personne" value="#{inscriptionBeneficiaireController.inscription.beneficiaireInfos}"/>
+					  	</ui:include>
+						
+						<ui:include src="/identification/include/inputContact.xhtml">
+							<ui:param name="contact" value="#{inscriptionBeneficiaireController.inscription.beneficiaireInfos.contact}"/>
+						</ui:include>
+					</p:fieldset>
+					<p:fieldset>
+						 <ui:include src="/identification/include/inputEmploi.xhtml">
+							<ui:param name="inscription" value="#{inscriptionBeneficiaireController.inscription}"/>
+						</ui:include>
+					</p:fieldset>
+				</p:panelGrid>
+				
+				<!--
+				<table>
+					<tr style="vertical-align: top;">
+						<td><p:fieldset>
+							<ui:include src="/identification/include/inputIdentite.xhtml">
+						  		<ui:param name="personne" value="#{inscriptionBeneficiaireController.inscription.beneficiaireInfos}"/>
+						  	</ui:include>
+						</p:fieldset></td>
+						<td><p:fieldset style="height:100% !important;">
+							<ui:include src="/identification/include/inputContact.xhtml">
+								<ui:param name="contact" value="#{inscriptionBeneficiaireController.inscription.beneficiaireInfos.contact}"/>
+							</ui:include>
+						</p:fieldset></td>
+					</tr>
+					<tr><td colspan="2">
+						<p:fieldset >
+							 <ui:include src="/identification/include/inputEmploi.xhtml">
+								<ui:param name="inscription" value="#{inscriptionBeneficiaireController.inscription}"/>
+							</ui:include>
+						</p:fieldset>
+					</td> </tr>
+				</table>
+				-->
+				<p:separator/>
+				<p:commandButton value="S'inscrire"  icon="ui-icon-check" action="#{inscriptionBeneficiaireController.inscrire}" update="@form" /> 
+			</h:form>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

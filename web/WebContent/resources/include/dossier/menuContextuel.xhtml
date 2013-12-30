@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		<!-- Menu contextuel -->
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<!-- Requerant -->
+					<p:button icon="ui-icon-pencil" value="Modifier" />
+					<p:button value="Editer une feuille de déplacement" />
+					<p:button value="Editer un bon de transport" />
+					<p:button value="Attribuer un numéro de courrier" />
+					<!-- Identificateur -->
+					<p:separator /> 
+					<p:button value="Receptionner" />
+					<!-- Responsable fonctionnel -->
+					<p:separator /> 
+					<p:button value="Valider la recevabilité" outcome="validerRecevabiliteDossier" includeViewParams="true">
+						<f:param name="#{constantController.RECORD_ID}" value="#{dossier.id}"/>
+					</p:button>
+					<p:button value="Valider la conformité" />
+					<!-- Liquidateur -->
+					<p:separator /> 
+					<p:button value="Produire un bulletin de liquidation" />
+					<p:separator /> 
+					<p:button value="Commander services PF" outcome="/FraisObseques/CommandeServicesPF.jsf" includeViewParams="true">
+						
+					</p:button>					
+					<p:button value="Commander services PF" outcome="/FraisObseques/CommandeServicesPF.jsf" includeViewParams="true">
+						
+					</p:button>
+				</p:toolbarGroup>
+			</p:toolbar>
+		</h:form>
+		<p:separator/>
+		
+	</ui:composition>
+</body>
+</html>

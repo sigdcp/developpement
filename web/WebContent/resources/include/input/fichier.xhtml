@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:sigdcp="http://java.sun.com/jsf/composite/composant">
+<body>
+	<ui:composition>
+		
+		<p:panelGrid styleClass="panelGridNoBorder,panelUploadFile" >
+			
+			<p:row>
+				<p:column colspan="2"><p:outputLabel for="fichier#{id}" value="Joindre #{label}" styleClass="label"/></p:column>
+				<p:column colspan="2"><p:fileUpload id="fichier#{id}" value="#{fileReader.file}"  mode="simple" required="true" requiredMessage="OB"/></p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column><p:outputLabel for="numero#{id}" value="Numéro" styleClass="label"/></p:column>
+				<p:column><p:inputText id="numero#{id}" value="#{fileReader.piece.numero}"/></p:column>
+				<p:column><p:outputLabel for="date#{id}" value="Visé le" styleClass="label"/></p:column>
+				<p:column><p:calendar id="date#{id}" value="#{fileReader.piece.viseLe}"/></p:column>
+			</p:row>
+			
+		</p:panelGrid>
+		<!--
+		<p:panelGrid styleClass="panelGridNoBorder" columns="5" rendered="#{not fileReader.editable}">
+			<h:outputText  value="Numéro"/>
+			<h:outputText  value="#{fileReader.piece.numero}"/>
+			<h:outputText  value="Visé le"/>
+			<h:outputText  value="#{fileReader.piece.viseLe}"/>
+			<p:button icon="ui-icon-search" value="Afficher la pièce" outcome="/dossier/detailspiece.jsf">
+				<f:param name="numero" value="#{fileReader.piece.numero}"/>
+			</p:button>
+			
+			
+			<p:lightBox>  
+				 <h:outputLink value="/_fichier_/?id=#{fileReader.piece.file.id}">  
+			        <h:outputText value="LIEN" /> 
+			    </h:outputLink>  
+			</p:lightBox>  
+			
+		</p:panelGrid>
+		-->
+	</ui:composition>
+</body>
+</html>

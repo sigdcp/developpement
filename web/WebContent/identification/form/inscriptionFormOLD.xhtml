@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+			<h1>Formulaire Inscription</h1>
+
+			<h:form enctype="multipart/form-data" >
+					
+					<p:panel header="Formulaire d'inscription">
+					<p:panel header="Type bénéficiaire" >
+							
+					      <p:panelGrid styleClass="panelGridNoBorder" cellpadding="5" columns="2" >
+					       <p:selectOneRadio id="tbeneficiiare" value=""  >
+					       <f:selectItem itemLabel="Agent" itemValue="1" />
+					       <f:selectItem itemLabel="Ayant droit" itemValue="2" />
+					       </p:selectOneRadio>
+						</p:panelGrid>
+					</p:panel>
+					  <p:panel header="identité" >
+							
+					      <p:panelGrid styleClass="panelGridNoBorder" cellpadding="5" columns="3" > 
+						 <h:outputLabel for="nom" value="Nom: *" />
+							
+							<p:inputText id="nom" required="true" value="" label="Nom" size="100" requiredMessage="Entrez votre nom!"/>
+							<p:message for="nom" showDetail="true"/>
+							 
+							<h:outputLabel for="prenoms" value="Prenoms: *" />
+							
+							<p:inputText id="prenoms" required="true" value="" label="Prenoms" size="100" requiredMessage="Entrez votre prénom!"/>
+							<p:message for="prenoms" showDetail="true"/>
+							<h:outputLabel for="datenaissance" value="Date Naissance: *" />
+							
+							<p:calendar id="datenaissance" required="true" navigator="true" requiredMessage="Indiquer votre date de naissance!" maxdate="#{dateBean.maxDate}"/>
+							<p:message for="datenaissance" showDetail="true"/> 
+							<h:outputLabel for="ville" value="Ville naiss.: *" />
+							
+							<p:inputText id="ville" required="true" value="" label="Ville" size="100"/>
+							<p:message for="ville" showDetail="true"/>
+							
+							<h:outputLabel for="piece" value="N° CNI/ ATT/PASS : *" />
+							<p:inputText id="piece" required="true" value="" label="piece" size="100" requiredMessage="Saisir le numéro de la pièce!"/>
+							<p:message for="piece" showDetail="true"/>
+							
+							<h:outputLabel for="datepiece" value="Date pièce : *" />
+							
+							<p:calendar id="datepiece" required="true" navigator="true" requiredMessage="Indiquer la date de la pièce!" maxdate="#{dateBean.maxDateP}" mindate="#{dateBean.minDateP}"/>
+							<p:message for="datepiece" showDetail="true"/>
+							<h:outputLabel for="validite" value="Validité pièce : *" />
+							
+							<p:calendar id="validite" required="true" navigator="true" requiredMessage="Indiquer la date de validité de la pièce!" mindate="#{dateBean.minDateV}" />
+							<p:message for="validite" showDetail="true"/>
+							<h:outputLabel for="pere" value="Nom père : *" />
+							
+							<p:inputText id="pere" required="true" value="" label="pere" size="100" requiredMessage="Préciser le nom du père!"/>
+							<p:message for="pere" showDetail="true"/>
+							<h:outputLabel for="mere" value="Nom mère : *" />
+							
+							<p:inputText id="mere" required="true" value="" label="mere" size="100" requiredMessage="Préciser le nom de la mère!"/>
+							<p:message for="mere" showDetail="true"/>
+						</p:panelGrid>
+							
+					 </p:panel>
+					  <p:panel header="Contact" >
+						 <p:panelGrid styleClass="panelGridNoBorder" cellpadding="5" columns="2"> 
+						
+							<h:outputLabel for="adresse" value="Adresse postale: " />
+							
+							<p:inputTextarea id="adresse" required="false" value="" label="adresse" size="70" />
+							
+							<h:outputLabel for="telephone" value="Téléphone: *" />
+							<p:inputTextarea id="telephone" required="true" value="" label="telephone" size="70" requiredMessage="Indiquer un contact téléphonique!"/>
+													 
+							<h:outputLabel for="email" value="Email: *" />
+							
+							<p:inputText id="email" required="true" value="" label="Email" size="100" requiredMessage="Indiquer l'adresse email!"/>
+						</p:panelGrid>
+					   </p:panel>
+					 <p:panel header="Emploi" >
+						 <p:panelGrid styleClass="panelGridNoBorder" cellpadding="5" columns="2"> 
+						
+							<h:outputLabel for="matricule" value="Matricule: *" />
+							
+							<p:inputText id="matricule" required="true" value="" label="Matricule" size="35" requiredMessage="Indiquer le numéro de matricule!"/>
+							
+							<h:outputLabel for="categorie" value="Categorie: *" />
+							
+							<p:selectOneMenu id="categorie" required="true" value="" label="categorie" size="100" effect="fold" editable="true" >
+							<f:selectItem itemValue="E" itemLabel="Categorie E"/>
+							<f:selectItem itemValue="D" itemLabel="Categorie D"/>
+							<f:selectItem itemValue="C" itemLabel="Categorie C"/>
+							</p:selectOneMenu>
+							 
+							<h:outputLabel for="institution" value="Ministère: *" />
+							
+							<p:selectOneMenu id="institution" required="true" label="institution" size="100" effect="fold" editable="true">
+							<f:selectItem itemValue="MPMEF" itemLabel="Ministere¨re AuprÃ¨s du Premier Ministre charge de l'Economie et des Finances" />
+							<f:selectItem itemValue="MENFP" itemLabel="Ministere de l'Education Nationale et de la Formation Professionnelle"/>
+							<f:selectItem itemValue="MESRS" itemLabel="Ministere de l'Enseignement Superieure et de la Recherche Scientifique"/>
+							</p:selectOneMenu>		
+							
+						</p:panelGrid>
+					   </p:panel> 
+					   <p:panel>
+							<p:commandButton id="inscrireBouton" type="button"  value="Valider"  icon="ui-icon-check" style="margin:0" action="vinscription.xhtml" /> 
+							<p:spacer width="25"/>
+							<p:commandButton value="Annuler"  icon="ui-icon-cancel" style="margin:0" /> 
+							
+						</p:panel>
+					
+					
+					
+				</p:panel>	
+				<p:dialog id="modalDialog" header="Modal Dialog" widgetVar="dlg" modal="false" height="400">  
+					    <h:outputText value="This is a Modal Dialog." />  
+					</p:dialog>  
+			</h:form>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

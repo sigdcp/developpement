@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+			<h1>Formulaire Inscription des ayants droits</h1>
+			<ui:param name="requiredMessage" value="Valeur requise"/>
+			<h:form>	
+				<p:messages globalOnly="true" />
+				<p:panelGrid columns="2" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+					
+					<p:fieldset legend="Vous">
+						<ui:include src="/identification/include/inputIdentite.xhtml">
+						  	<ui:param name="personne" value="#{inscriptionAyantDroitController.inscription.ayantDroitInfos}"/>
+						  	<ui:param name="expatrie" value="false"/>
+						  </ui:include>
+						
+						  <ui:include src="/identification/include/inputContact.xhtml">
+						  	<ui:param name="contact" value="#{inscriptionAyantDroitController.inscription.ayantDroitInfos.contact}"/>
+						  </ui:include>
+					</p:fieldset>
+					
+					<p:fieldset legend="Bénéficiaire">
+						<ui:include src="/identification/include/inputIdentite.xhtml">
+					  		<ui:param name="personne" value="#{inscriptionAyantDroitController.inscription.beneficiaireInfos}"/>
+					  		<ui:param name="iid" value="1"/>
+					  		<ui:param name="expatrie" value="false"/>
+					  	</ui:include>
+					 
+					  	<ui:include src="/identification/include/inputEmploi.xhtml">
+							<ui:param name="inscription" value="#{inscriptionAyantDroitController.inscription}"/>
+							
+						</ui:include>
+					</p:fieldset>
+					
+				</p:panelGrid>
+				<p:separator/>
+				<p:commandButton value="S'inscrire"  icon="ui-icon-check" action="#{inscriptionAyantDroitController.inscrire}" update="@form" /> 	   
+			</h:form>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

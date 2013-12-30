@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		<p:fieldset legend="Famille">					
+
+			<p:panelGrid columns="3" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+				<p:outputLabel for="dateMariage" value="Date de mariage" />
+				<p:calendar id="dateMariage" value="#{dossier.dateMariage}" pattern="#{constantResources.datePattern}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}"/>
+				<h:outputText value="#{dossier.dateMariage}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				<p:message for="dateMariage" />
+				
+				<p:outputLabel for="anneeRM" value="Année de régistre du mariage" />
+				<p:inputText id="anneeRM" value="#{dossier.anneeRegistreMariage}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}"/>
+				<h:outputText value="#{dossier.anneeRegistreMariage}" rendered="#{not editable}"/>
+				<p:message for="anneeRM" />
+											
+			</p:panelGrid>
+
+		</p:fieldset>										
+	
+		
+	</ui:composition>
+</body>
+</html>

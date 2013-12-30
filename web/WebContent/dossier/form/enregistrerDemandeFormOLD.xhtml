@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+				<h:form>
+			
+				<p:fieldset legend="Comment faire une demande?">
+					
+					<h:outputText value="Une demande est l'expression du besoin de remboursement matérilisé sous forme d'une rédaction
+					faite par le bénéficiaire d'une indemnité, soit de Frais d'obsèques(FO), soit Mission Hors Côte d'Ivoire(MHCI), soit de Transit(TR), 
+					soit de Déplacement Définitif(DD)." />
+								
+				<p:separator/>
+					<p:panelGrid columns="3" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+					
+							<p:panel header="Déplacement définitf"> 
+							<f:facet name="footer">
+							<p:button value="Cliquez ici pour faire une demande de déplacement Définitif" outcome="enregistrerDemandeDDForm"/>
+							</f:facet>
+							<p:dataList >
+						    </p:dataList>						    
+							</p:panel>
+													    
+						    <p:panel header="Mission Hors côte d'ivoire">
+						    <f:facet name="footer">
+							<p:button value="Cliquez ici pour faire une demande de mission Hors Côte d'Ivoire" />
+							</f:facet> 
+							<p:dataList >
+						    </p:dataList>					    
+							</p:panel> 
+							
+							<p:panel header="Transit">
+							<f:facet name="footer">
+							<p:button value="Cliquez ici pour faire une demande de Transit" />
+							</f:facet>							 
+							<p:dataList >
+						    </p:dataList>					    
+							</p:panel> 
+							
+							<p:panel header="Frais d'obsèques"> 
+							<f:facet name="footer">
+							<p:button value="Cliquez ici pour faire une demande des Frais d'Obsèques" />
+							</f:facet>	
+							<p:dataList >
+						    </p:dataList>						    
+							</p:panel> 
+							
+							<p:panel header="Carte Sotra">
+							<f:facet name="footer">
+							<p:button value="Cliquez ici pour faire une demande de carte sotra" />
+							</f:facet> 
+							<p:dataList >
+						    </p:dataList>
+							</p:panel> 
+							
+							<p:panel header="Frais de transport des Expatriés"> 
+							<f:facet name="footer">
+							<p:button value="Cliquez ici pour faire une demande de transport des expatriés" />
+							</f:facet>
+							<p:dataList >
+						    </p:dataList>
+							</p:panel> 
+						
+					</p:panelGrid>
+				</p:fieldset>
+				
+				</h:form>	
+			</ui:define>
+						
+		</ui:composition>
+
+	</h:body>
+
+</html>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">		
+	
+	<h:body>
+		
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+				<h3>Bulletin de liquidation</h3>
+				<p:separator/>
+				<h:form>
+				<p:toolbar>
+				 	<p:toolbarGroup align="left">
+				 		<a href="\\contenu.jsf">Retour</a>
+				 	</p:toolbarGroup>	
+    				<p:toolbarGroup align="right">
+    					<h:outputText value="Type dossier : " />  
+				        <p:selectOneMenu value="#{reglerBulletinLiquidation.valeurCombo}">  
+				            <f:selectItem itemLabel="Sélectionner" itemValue="" />  
+				            <f:selectItem itemLabel="Dossier DD" itemValue="1" />  
+				            <f:selectItem itemLabel="Dossier FO" itemValue="2" />  
+				            <f:selectItem itemLabel="Dossier MHCI" itemValue="3" /> 
+				            <f:selectItem itemLabel="Dossier TR" itemValue="3" /> 
+				        </p:selectOneMenu> 
+				        <p:separator/>  
+    					<h:outputText value="Numero bordereau : " />
+						<p:inputText id="numero" value="#{reglerBulletinLiquidation.numeroRecherche}" />												
+				        <p:separator/>
+						<h:outputText value="Date début : " />
+						<p:calendar showButtonPanel="true" navigator="true" id="DateDebutCal" value="#{reglerBulletinLiquidation.datedebut}"/>
+						<h:outputText value="Date fin : " />
+						<p:calendar showButtonPanel="true" navigator="true" id="DateFinCal" value="#{reglerBulletinLiquidation.datefin}"/> 
+						<p:separator/>
+					    <p:commandButton value="OK" action="#{reglerBulletinLiquidation.afficherBordereaux}" update="@form" ajax="false"/>
+					    <p:commandButton value="Rafraîchir" action="#{reglerBulletinLiquidation.rafraichirEcran}" update="@form" ajax="false"/>
+    				</p:toolbarGroup>
+    			 </p:toolbar>
+    			 <p:separator/>
+    			 <p:dataTable value="#{reglerBulletinLiquidation.btList}" var="bordereau">
+						<p:column headerText="Numero">
+							<h:outputText value="#{bordereau.id}" />
+						</p:column>						
+						<p:column headerText="Elaboré le">
+							<h:outputText value="#{bordereau.dateEtablissement}" >
+								<f:convertDateTime pattern="dd/MM/yyyy" />								
+							</h:outputText>
+						</p:column>																
+						<p:column headerText="Actions">							
+							<p:commandButton value="Afficher" action="#{reglerBulletinLiquidation.afficherBulletinLiquidation(bordereau.id)}" 
+							disabled="false" ajax="false" />
+						</p:column>
+						<p:column headerText="Actions">							
+							<!-- <p:commandButton value="Valider paiement" action="#{bordereauPaieController.payerBordereau(bordereau.id)}" update="@form" ajax="false" /> -->
+							<p:commandButton value="Valider paiement" action="#{reglerBulletinLiquidation.chooseCar}" />
+								
+							<p:commandButton value="Valider paiements" icon="ui-icon-extlink" action="#{reglerBulletinLiquidation.showMessage}" />
+						</p:column> 
+					</p:dataTable>
+					<p:separator/>
+					<h3>Liste des bulletins du bordereau n° <h:outputText value="#{reglerBulletinLiquidation.id}" /></h3>
+					<p:separator/>					
+					<p:dataTable value="#{reglerBulletinLiquidation.ppList}" var="bulletin">
+						<p:column headerText="N° bulletin">
+							<h:outputText value="#{bulletin.numero}" />
+						</p:column>
+						<p:column headerText="Date traitement">
+							<h:outputText value="#{bulletin.date}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:column>							
+						<p:column headerText="Type pièce">
+							<h:outputText value="#{bulletin.typePieceProduite.TypePiece.libelle}" />
+						</p:column>											
+					</p:dataTable>
+				</h:form>
+				
+				
+				
+			</ui:define>
+			
+			<ui:define name="message">
+				
+				<h:outputText value="Dossier : #{bordereauPaieController.message}" />
+				
+			</ui:define>
+	
+		</ui:composition>
+
+	</h:body>
+
+</html>

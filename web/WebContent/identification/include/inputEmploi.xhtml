@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+	    <p:panelGrid styleClass="panelGridNoBorder" columns="6" style="width:100%;"> 
+			<f:facet name="header"><h:outputText value="Emploi" /> </f:facet>
+			
+			<p:outputLabel for="typeBeneficiaire" value="Je suis un " />
+			<p:selectOneMenu id="typeBeneficiaire" value="#{inscription.typeBeneficiaire}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+				<f:selectItem noSelectionOption="" itemLabel="-- Selectionnez --"/>
+				<f:selectItems value="#{typeBeneficiaires}" var="typeBeneficiaire" itemLabel="#{typeBeneficiaire.libelle}" />
+			</p:selectOneMenu>
+			<p:message for="typeBeneficiaire"/> 
+			
+			
+			
+			<p:outputLabel for="matricule" value="Matricule" />
+			<p:inputText id="matricule" value="#{inscription.matricule}" required="true" requiredMessage="#{valueRequiredMessage}"/>
+			<p:message for="matricule"/> 
+			
+			<p:outputLabel for="categorie" value="Categorie" />
+			<p:selectOneMenu id="categorie" value="#{inscription.categorie}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+				<f:selectItem noSelectionOption="" itemLabel="-- Selectionnez --"/>
+				<f:selectItems value="#{categories}" />
+			</p:selectOneMenu>
+			<p:message for="categorie"/> 
+			 
+			<p:outputLabel for="institution" value="Ministère" />
+			<p:selectOneMenu id="institution" value="#{inscription.ministere}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+				<f:selectItem noSelectionOption="" itemLabel="-- Selectionnez --"/>
+				<f:selectItems value="#{ministeres}" />
+			</p:selectOneMenu>
+			<p:message for="institution"/> 
+			
+			<p:outputLabel for="fonction" value="Fonction" />
+			<p:inputText id="fonction" value="#{inscription.fonction}" required="true" requiredMessage="#{valueRequiredMessage}"/>		
+			<p:message for="fonction"/> 
+			
+			<p:outputLabel for="grade" value="Grade" />
+			<p:inputText id="grade" value="#{inscription.grade}" required="true" requiredMessage="#{valueRequiredMessage}"/>	
+			<p:message for="grade"/> 
+			
+			<p:outputLabel for="echelon" value="Echelon" />
+			<p:inputText id="echelon" value="#{inscription.echelon}" required="true" requiredMessage="#{valueRequiredMessage}"/>	
+			<p:message for="echelon"/> 
+			
+			<p:outputLabel for="position" value="Position" />
+			<p:inputText id="position" value="#{inscription.position}" required="true" requiredMessage="#{valueRequiredMessage}"/>	
+			<p:message for="position"/> 
+			
+			<p:outputLabel for="indice" value="Indice" />
+			<p:inputText id="indice" value="#{inscription.indice}" required="true" requiredMessage="#{valueRequiredMessage}"/>	
+			<p:message for="indice"/> 
+			
+			
+		</p:panelGrid> 
+
+	</ui:composition>
+</body>
+</html>

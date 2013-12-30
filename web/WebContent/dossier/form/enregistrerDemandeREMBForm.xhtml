@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+		<h:form>
+		<center>
+			  <h4>Saisie du projet de décision</h4>
+			  </center>
+		
+		
+    		<h:panelGrid columns="2" >
+					<h:outputText value="N° Dossier:" />
+					<p:inputText value="" size="10"/>
+					<h:outputText value="Etat Dossier :" />
+					<p:inputText value="" size="10"/>
+		<!-- 			<h:outputText value="Code Gestionnaire: " />
+					<p:inputText /> -->
+					<h:outputText value="N° Projet:" />
+					<p:inputText value="" size ="10"/>
+					<h:outputText value="Date Projet:" />
+					<p:inputText value="" size ="10"/>	
+					
+					<h:outputText value="N° Décision:" />
+					<p:inputText value="" size ="10"/>
+					<h:outputText value="Date Décision:" />
+					<p:inputText value="" size ="10"/>	
+				</h:panelGrid>
+    	
+			 
+	  		</h:form>
+	  	</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

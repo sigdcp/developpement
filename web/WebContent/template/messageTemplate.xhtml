@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+ 	
+	<h:form enctype="multipart/form-data"><p:panel>
+		<f:facet name="header">
+			<ui:insert name="title"><h:outputText value="#{title}" /></ui:insert>
+		</f:facet>
+		
+		<ui:insert name="contenu" >
+			<h:outputText value="#{content}" />
+		</ui:insert>	
+		
+		<ui:insert name="actions" />	   
+	</p:panel></h:form>
+		
+</ui:composition>

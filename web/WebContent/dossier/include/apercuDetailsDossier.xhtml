@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+	
+		<style>
+			.col1{}
+			.col2{font-weight: bold;}
+			
+			.colt1{vertical-align: top;}
+			.colt2{vertical-align: top;}
+			.colt3{vertical-align: top;}
+		</style>
+
+		<p:panelGrid columns="3" styleClass="panelGridNoBorder" columnClasses="colt1 colt2 colt3">
+			<f:facet name="header">Details du dossier : D/45  </f:facet>
+			<h:panelGroup>
+				<h:outputText value="Informations sur l'agent" />
+				<p:panelGrid columns="2" columnClasses="col1 col2">
+					<h:outputText value="Matricule :" /><h:outputText value="A012"/>
+					<h:outputText value="Agent:" /><h:outputText value="Koffi paul"/>
+					<h:outputText value="Situation:" /><h:outputText value="Marié"/>
+					<h:outputText value="Date de mariage:" /><h:outputText value="10/10/2000"/>
+					<h:outputText value="Nb enfant(s):" /><h:outputText value="2"/>
+					<h:outputText value="Catégorie:" /><h:outputText value="A2"/>
+					<h:outputText value="Ministère:" /><h:outputText value="MEF"/>
+				</p:panelGrid>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+				<h:outputText value="Informations sur le Déplacement" />
+				<p:panelGrid id="display2" columns="2" columnClasses="col1 col2">
+					<h:outputText value="Date départ :" /><h:outputText value="1/1/2002"/>
+					<h:outputText value="Date arrivée:" /><h:outputText value="2/1/2001"/>
+					<h:outputText value="localité départ:" /><h:outputText value="Bouaké"/>
+					<h:outputText value="localité arrivée:" /><h:outputText value="Abidjan"/>
+					<h:outputText value="Distance (Km):" /><h:outputText value="300"/>
+					<h:outputText value="Poids autorisé (kg):" /><h:outputText value="500"/>
+					<h:outputText value="Poids constaté (kg):" /><h:outputText value="450"/>
+				</p:panelGrid>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+				<h:outputText value="Informations sur le dossier" />
+				<h:panelGrid columns="2" columnClasses="col1 col2">
+					<h:outputText value="Numéro :" /><h:outputText value="DD/0123"/>
+					<h:outputText value="Date dépôt:" /><h:outputText value="10/03/2010"/>
+					<h:outputText value="date demande:" /><h:outputText value="10/02/2010"/>
+					<h:outputText value="N° Courrier:" /><h:outputText value="CC/105"/>
+					<h:outputText value="Date Effet affectation:" /><h:outputText value="1/1/2002"/>
+					<h:outputText value="Date Prise de service:" /><h:outputText value="1/1/2002"/>
+					<h:outputText value="Date départ retraite:" /><h:outputText value="1/1/2011"/>
+					<h:outputText value="Date radiation:" /><h:outputText value="1/1/2011"/>
+			
+				</h:panelGrid>	
+			</h:panelGroup>
+			
+			
+		</p:panelGrid>
+		
+
+	</ui:composition>
+</body>
+</html>

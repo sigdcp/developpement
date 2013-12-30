@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition>
+		<table style="width: 100%;">
+		
+		<!-- <tr>
+			<td style="width: 200px;"><p:graphicImage library="images" name="dgbflogo.jpg" width="50"/></td>
+			<td style="text-align: center;"><h3><h:outputText value="Sytème Intégré de Gestion des Dépenses Communes de Personnel - SIGDCP" /></h3></td>
+			<td style="width: 200px;"><h:form><p:menuButton value="Zoro Marc">
+				<p:menuitem value="Compte" url="#"/>
+				<p:menuitem value="Deconnexion" action="connexionForm"/>
+			</p:menuButton></h:form></td>
+		</tr> -->
+				
+			<tr><td>
+				<div style="width: 100%;top:0px; background-color: #FFF;">
+					<div style="height:120px">
+					<h:link outcome="index">
+						<p:graphicImage value="/resources/images/imghead_left.jpg" style="float:left"/>
+						</h:link>
+						<p:graphicImage value="/resources/images/imghead_right.jpg" style="float:right"/>
+						<h:form>
+							<p:commandButton value="#{request.remoteUser} : Se deconnecter" action="#{logout.submit}" style="position:absolute; right:400px;top:10px;" rendered="#{not empty request.remoteUser}"/>
+						</h:form>
+						
+					</div>
+					<div class="backmenu" style="text-align: center;height:3px;"></div>
+					<!-- <div class="backdesign cadresansarrondi" style="text-align: left;padding:10px" ></div> -->
+					
+				</div>
+			</td></tr>
+		
+		</table>
+
+	</ui:composition>
+</body>
+</html>

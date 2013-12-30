@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">				
+				<!-- <h:form>
+				<p:panel header="Elaboration Bordereau">
+					<p:layout style="min-width:400px;min-height:200px;" id="layout">
+						<p:layoutUnit position="west" resizable="true" size="500" minSize="300" maxSize="400">
+							<h:panelGrid id="grid" cellpadding="1" width="500">
+						            <p:panel header="Informations du bordereau">  				              
+						                <h:messages errorClass="error"/>  						                  
+						                <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">  
+						                    <h:outputText value="N° bordereau : *" />  
+						                    <p:inputText required="true" label="Firstname" value="" />  
+						                      
+						                    <h:outputText value="Date établissement : *" />  
+						                    <p:inputText required="true" label="Lastname" value="" />  
+						                      
+						                    <h:outputText value="Type bordereau : " />  
+						                    <p:inputText value="" />
+						                    
+						                </h:panelGrid>  
+						            </p:panel> 						        
+					        </h:panelGrid>
+				        </p:layoutUnit>
+				        
+				        <p:layoutUnit position="center">
+					        <h:panelGrid cellpadding="1" width="800">
+						        <p:panel header="Liste des bulletins">
+									<p:dataTable var="piecesproduites" value="#{BulletinLiquidationController.piecesProduites}" 
+				                         paginator="true" rows="10" emptyMessage="Aucun bulletin trouvé." >  
+				                
+						                <p:column headerText="Numéro">  
+						                    <h:outputText value="#{piecesproduites.numero}" />  
+						                </p:column>  
+						  
+						                <p:column headerText="Date établissement">  
+						                    <h:outputText value="#{piecesproduites.date}" />  
+						                </p:column>  
+						  
+						                <p:column headerText="Type de pièce">  
+						                    <h:outputText value="#{piecesproduites.TypePieceProduite.libelle}" />  
+						                </p:column>		                		                
+						                
+						                <f:facet name="header">  
+								            Checkbox Based Selection  
+								        </f:facet> 
+								  
+								        <p:column selectionMode="multiple" style="width:2%" />
+						               	                
+						                <f:facet name="footer">
+						                	<p:commandButton id="cancelButton" value="Retirer bulletin" icon="ui-icon-search" />									
+								        </f:facet>
+								          
+						            </p:dataTable>
+						        </p:panel>
+					        </h:panelGrid> 
+						</p:layoutUnit> 
+				     </p:layout>
+				     
+				     <p:commandButton value="Annuler" ajax="false" icon="ui-icon-check" />
+				     <p:commandButton value="Enregistrer" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px"/>  
+		        	 
+		        </p:panel>
+		        
+    			 
+				</h:form> -->
+				
+								<h1 style="text-align: center">Réaliser un bordereau de liquidation</h1>
+				<p:separator/>
+				<h:form id="bordereau">  
+			<p:fieldset legend="Bordereau"  > 
+            <h:panelGrid id="display7" columns="2" cellpadding="4" style="margin:0 auto;align-left">
+  			<h:outputText value="Numéro :" />  
+            <h:outputText value="" style="font-weight:bold"/>  
+  
+            <h:outputText value="Date :" />  
+            <h:outputText value="" style="font-weight:bold"/>
+            <h:outputText value="Reférence commande:" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="Montant:" />  
+            <p:inputText id="montant" value=""/>
+             </h:panelGrid> 
+           
+             <p:fieldset legend="Détails" >
+            <p:panel id="display6"  style="align-right">
+            
+            <p:commandButton id="inserera" value="insérer automatiquement"/>
+           <p:spacer width="5"/>
+           <p:commandButton value="Insérrer manuellement" oncomplete="PF('blsDialog').show()" >
+           <f:setPropertyActionListener value="" target="" /> 
+           </p:commandButton>
+           <p:spacer width="5"/>
+            <p:commandButton id="supprimer" value="Vider"/>
+          
+            </p:panel>
+            <p:dataTable id="dataTable" var="bl" value=""   
+                paginator="false" rows="10" >  
+                 
+        <f:facet name="header" >  
+            Liste des bulletins  
+        </f:facet>  
+        <p:column style="width:10%">  
+         <f:facet name="header">  
+                <h:outputText value="Numéro" />  
+            </f:facet>  
+            <h:outputText value="" style="font-weight:bold"/>
+       </p:column>
+       <p:column style="width:10%">  
+         <f:facet name="header">  
+                <h:outputText value="Date" />  
+            </f:facet>  
+            <h:outputText value="" style="font-weight:bold"/>
+       </p:column>
+       <p:column style="width:50%">  
+         <f:facet name="header">  
+                <h:outputText value="Bénéficiaire" />  
+            </f:facet>  
+            <h:outputText value="" style="font-weight:bold"/>
+       </p:column>
+       <p:column style="width:20%">  
+         <f:facet name="header">  
+                <h:outputText value="Montant" />  
+            </f:facet>  
+            <h:outputText value="" style="font-weight:bold"/>
+       </p:column>
+       <p:column style="width:20%">  
+         <f:facet name="header">  
+                <h:outputText value="Actions" />  
+            </f:facet>  
+            <p:panel style="align-center">
+            <p:commandButton id="add" value="Ajouter"/>
+            <p:spacer width="10"/>
+            <p:commandButton id="del" value="Retirer"/>
+            </p:panel>
+       </p:column>
+       </p:dataTable>
+  			</p:fieldset>
+  			 </p:fieldset>
+  		<p:panel style="align-right" >
+            
+            <p:commandButton id="valider" value="Enregistrer" icon="ui-icon-check"/>
+            <p:spacer width="10"/>
+            <p:commandButton id="transferer" value="Transférer"/>
+            <p:spacer width="10"/>
+            <p:commandButton id="annuler" value="Annuler" icon="ui-icon-cancel"/>
+          
+            </p:panel>
+  			
+           
+</h:form>  
+ <p:dialog header="Insérer des bulletins" widgetVar="blsDialog" id="blsDlg"  
+                closeOnEscape="true" height="300">  
+
+<h:form>
+<p:dataTable id="dataTable" var="bl" value=""   
+                paginator="true" rows="10"  
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 rowsPerPageTemplate="5,10,15" >  
+                 
+        <f:facet name="header" >  
+            Bulletins de liquidations validés 
+        </f:facet>  
+        <p:column style="width:2%">  
+          <p:rowToggler />  
+       </p:column>
+        
+  		<p:column width="5%">  
+            <f:facet name="header">  
+                <h:outputText value="Insérrable" />  
+            </f:facet>  
+           <p:selectBooleanCheckbox value=""/>  
+        </p:column>  
+        <p:column width="10%">  
+            <f:facet name="header">  
+                <h:outputText value="Type de dossier" />  
+            </f:facet>  
+            <h:outputText value="" />  
+        </p:column>  
+        <p:column width="10%">  
+            <f:facet name="header">  
+                <h:outputText value="Numéro" />  
+            </f:facet>  
+            <h:outputText value="" />  
+        </p:column>  
+.  
+        <p:column width="10%">  
+            <f:facet name="header">  
+                <h:outputText value="Date" />  
+            </f:facet>  
+            <h:outputText value="" />  
+        </p:column>  
+  
+        <p:column width="48%">  
+            <f:facet name="header">  
+                <h:outputText value="Bénéficiaire" />  
+           </f:facet>  
+            <h:outputText value="" />  
+        </p:column>  
+  
+        <p:column width="15%" >  
+            <f:facet name="header">  
+                <h:outputText value="Actions" />  
+            </f:facet>  
+            
+            <p:commandButton value="Voir le bulletin" oncomplete="PF('dossierDialog').show()" >
+           <f:setPropertyActionListener value="" target="" /> 
+           
+           </p:commandButton>
+           <p:spacer width="15"/>
+				<p:commandButton value="Inserré"  ajax="false" update=":form:bordereau"/>
+			
+        </p:column>  
+        <p:rowExpansion>  
+            <h:panelGrid id="display4" columns="2" cellpadding="4" style="width:300px;"  
+                            >  
+  
+                <f:facet name="header">  
+                   <h:outputText value="test"/>
+                </f:facet>  
+  
+                <h:outputText value="Model:" />  
+                <h:outputText id="model" value="" />  
+  
+                <h:outputText value="Year:" />  
+                <h:outputText id="year" value="" />  
+  
+                <h:outputText value="Manufacturer:" />  
+                <h:outputText value=""/>  
+  
+                <h:outputText value="Color:" />  
+                <h:outputText value=""/>  
+            </h:panelGrid>  
+  
+        </p:rowExpansion>  
+        
+       <f:facet name="footer">
+        <p:commandButton value="Inserrer les bulletins sélectionnés"  ajax="false"/>
+        </f:facet>
+    </p:dataTable>  
+    <p:dialog header="Détail du dossier" widgetVar="dossierDialog" id="dossierDlg"  
+                closeOnEscape="true" height="400">  
+           	<p:panel >
+           
+            <p:fieldset legend="Agent">
+            <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+            <h:outputText value="Matricule :" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="Agent:" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="Situation:" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="Date de mariage:" />  
+            <h:outputText value="" style="font-weight:bold"/>
+            <h:outputText value="Nb enfant(s):" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="Catégorie:" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="Ministère:" />  
+            <h:outputText value="" style="font-weight:bold"/>  
+            </h:panelGrid>
+  			</p:fieldset>
+            <p:fieldset legend="Déplacement" > 
+            <h:panelGrid id="displa2y" columns="2" cellpadding="4" style="margin:0 auto;">
+  			<h:outputText value="Date départ :" />  
+            <h:outputText value="" style="font-weight:bold"/>  
+  
+            <h:outputText value="Date arrivée:" />  
+            <h:outputText value="" style="font-weight:bold"/>
+            <h:outputText value="localité départ:" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="localité arrivée:" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="Distance (Km):" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="Poids autorisé:" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="Poids constaté:" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            </h:panelGrid>
+            
+            </p:fieldset>
+            <p:fieldset legend="Dossier" > 
+            <h:panelGrid id="display3" columns="2" cellpadding="4" style="margin:0 auto;">
+  			<h:outputText value="Numéro :" />  
+            <h:outputText value="" style="font-weight:bold"/>  
+  
+            <h:outputText value="Date dépôt:" />  
+            <h:outputText value="" style="font-weight:bold"/>
+            <h:outputText value="date demande:" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="N° Courrier:" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="Date Effet affectation:" />  
+            <h:outputText value="" style="font-weight:bold"/>
+            <h:outputText value="Date Prise de service:" />  
+            <h:outputText value="" style="font-weight:bold"/>
+            <h:outputText value="Date départ retraite:" />  
+            <h:outputText value="" style="font-weight:bold"/>
+            <h:outputText value="Date radiation:" />  
+            <h:outputText value="" style="font-weight:bold"/>
+            <h:outputText value="Poids bagage:" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="Date décès:" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="Cause décès:" />  
+            <h:outputText value="" style="font-weight:bold"/> 
+            <h:outputText value="Autopsie:" />  
+            <h:outputText value="" style="font-weight:bold"/>            
+            </h:panelGrid>
+            
+           </p:fieldset>
+         </p:panel>
+  
+    </p:dialog>   
+</h:form>
+</p:dialog>  
+				
+			</ui:define>
+			
+			
+	
+		</ui:composition>
+
+	</h:body>
+
+</html>

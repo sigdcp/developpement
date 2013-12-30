@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+				<h1>Liste des inscriptions à valider</h1>
+				<ui:include src="/identification/include/menuTabValidationInscription.xhtml">
+					<ui:param name="activeIndex" value="0"/>
+				</ui:include>
+				<h:form id="form">
+					<p:messages id="messages" />
+					<p:dataTable value="#{validationInscriptionAEController.inscriptions}" var="inscription" rowIndexVar="index" selection="#{validationInscriptionAEController.inscriptionsSelectionnes}"
+					 rowKey="#{inscription.code}"  >
+						<p:column selectionMode="multiple" style="width:2%" />
+						<p:column headerText="N°" ><h:outputText value="#{index+1}" /></p:column>
+						<p:column headerText="Date" >
+							<h:outputText value="#{inscription.dateCreation}" >
+								<f:convertDateTime pattern="#{constantResources.fullDateTimePattern}" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Type" ><h:outputText value="#{inscription.typeBeneficiaire.libelle}" /></p:column>
+						<p:column headerText="Matricule" ><h:outputText value="#{inscription.matricule}" /></p:column>
+						<p:column headerText="Nom et prénoms" ><h:outputText value="#{inscription.beneficiaireInfos.nomPrenoms}" /></p:column>
+						<p:column >
+							<p:commandButton value="Détails" oncomplete="PF('detailsDialog').show();" update=":form:display">
+								<f:setPropertyActionListener value="#{inscription}" target="#{validationInscriptionAEController.inscriptionSelectionne}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+					<p:separator/>
+					<p:commandButton value="Accepter l'inscription" icon="ui-icon-check" action="#{validationInscriptionAEController.accepter}" update="messages" />
+					<p:commandButton value="Rejeter l'inscription" icon="ui-icon-close" action="#{validationInscriptionAEController.rejeter}" update="messages"/>
+					
+					<p:dialog header="Détails de l'inscription" widgetVar="detailsDialog" modal="true" appendTo="@(Body)" >
+					    <p:outputPanel id="display" >  
+	  						<ui:include src="/identification/include/detailsInscriptionBeneficiaire.xhtml">
+								<ui:param name="inscription" value="#{validationInscriptionAEController.inscriptionSelectionne}"/>
+							</ui:include>
+	        			</p:outputPanel>
+					</p:dialog> 
+					
+				</h:form>
+				
+			</ui:define>
+			
+		</ui:composition>
+
+	</h:body>
+
+</html>

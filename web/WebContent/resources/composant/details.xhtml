@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://www.kyc.com/facelet/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	
+	<composite:attribute name="controller" required="true" />
+	
+</composite:interface>
+
+<composite:implementation>
+	
+	<ui:decorate template="/template/content.xhtml">
+		<ui:param name="showBreadCrumb" value="#{cc.attrs.controller.breadCrumbMenuModel!=null}"/>
+		<ui:param name="showLibelle" value="true"/>
+		<ui:param name="showMessages" value="true"/>
+		
+		<ui:define name="breadCrumb">
+			<p:breadCrumb model="#{cc.attrs.controller.breadCrumbMenuModel}" />
+		</ui:define>
+		<ui:define name="libelle">
+			<h:outputText value="#{cc.attrs.controller.libelle}" />
+		</ui:define>
+		<ui:define name="menu">
+			<p:panelMenu model="#{cc.attrs.controller.contextMenuModel}" />
+		</ui:define>
+		<ui:define name="corps">
+			<composite:insertChildren/>	
+		</ui:define>
+	</ui:decorate>
+		
+	
+	
+			
+</composite:implementation>
+
+</html>

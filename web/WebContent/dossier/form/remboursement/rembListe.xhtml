@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+
+		<ui:composition template="/template/commun.xhtml">
+		<!--  liste des demandes de carte par direction -->	
+			<ui:define name="contenu">
+				
+				<h:form id="form">
+				<center>
+			  <h4>	BILAN DES DEMANDES DE REMBOURSEMENTS  </h4>
+			  </center>
+  
+    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+    
+   			
+   			   <p:growl id="msgs" showDetail="true" />  
+   			 
+                <p:dataTable id="bilanRemb" value="" var="bilanR" rowIndexVar="index" rowKey="index">
+					<p:column headerText="N° Dossier">
+			     	<h:outputText value="" />
+					</p:column>
+				
+					<p:column headerText="Date Dossier">
+						<h:outputText value="" />
+					</p:column>
+					
+					<p:column headerText="Type">
+						<h:outputText value="" />
+					</p:column>
+					
+					<p:column headerText="N° Projet">
+						<h:outputText value="" />
+					</p:column>
+					
+					<p:column headerText="Date Projet">
+						<h:outputText value="" />
+					</p:column>
+					
+					<p:column headerText="N° Décision">
+						<h:outputText value="" />
+					</p:column>
+					
+					<p:column headerText="Date Décision">
+						<h:outputText value="" />
+					</p:column>
+					
+			 <f:facet name="footer">  
+		
+		  </f:facet> 
+				
+            	
+		</p:dataTable>
+	
+        	<p:panelGrid columns ="3" styleClass="panelGridNoBorder" >
+        	  <h:outputText value="Total des remboursements: " />
+        	  <p:inputText value= "" size ="10" />
+        	</p:panelGrid>	 
+	       
+	     	
+  				</h:form>
+			</ui:define>
+	
+		</ui:composition>
+
+	</h:body>
+
+</html>

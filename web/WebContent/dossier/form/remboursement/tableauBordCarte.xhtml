@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+		<h:form>
+		<div style="text-align: center;" >   
+				    <h:outputText value="Tableau de bord des cartes Sotra"/>   
+
+				 </div>
+   
+                <p:toolbar>  
+				
+    				<p:toolbarGroup align="left"> 
+    				
+    				<table><tr>
+    				<td>
+					
+				     <p:selectOneMenu id="ministere" value="#{tableauCarteController.typeMin}" >
+                    	 <f:selectItem itemLabel="Select Ministry" itemValue="" />
+                    	 <f:selectItems value="#{tableauCarteController.ministere}" />
+          			  </p:selectOneMenu>
+          			  
+				    </td>
+				    
+				    <td>
+		
+				     <p:selectOneMenu id="direction" value="#{tableauCarteController.typDir}" >
+                    	 <f:selectItem itemLabel="Select Direction" itemValue="" />
+                    	 <f:selectItems value="#{tableauCarteController.direction}" />
+          			  </p:selectOneMenu>
+          			  
+				    </td>
+					   <td valign="middle"><p:separator /></td>
+			
+			      <td>        
+			    
+				  		<ui:decorate template="/template/form/field.xhtml">
+			    			<ui:param name="id" value="nd"/>
+							<ui:param name="label" value="Du :"/>
+							<ui:define name="input">
+							<p:calendar id="nd" value="#{tableauCarteController.d1}" required="true" showButtonPanel="true"/>
+							</ui:define>
+				 		</ui:decorate>  
+			        
+					</td>
+				<td>
+				
+				<ui:decorate template="/template/form/field.xhtml">
+						<ui:param name="id" value="nd1"/>
+						<ui:param name="label" value="Au :"/>
+						<ui:define name="input">
+						<p:calendar id="nd1" value="#{tableauCarteController.d2}" required="true" showButtonPanel="true"/>
+						</ui:define>
+				</ui:decorate>
+				
+				</td>	
+							
+					 <td valign="middle"><p:separator /></td>
+					 <td valign="right">  
+		
+			<!--              <p:commandButton value="Rechercher" action="#{suivreLesDossierController.rechercher}"  update="@form" />-->  
+					
+					 	<p:commandButton  value="Tous ministères" action="#{tableauCarteController.validerRechercheTousMinistere}"  update="@form" />
+					 	</td>
+					 <td>	
+					 	<p:commandButton  value="Par ministère" action="#{tableauCarteController.validerRechercheMinistere}"  update="@form" />
+					 	</td>
+					 	<td>
+					 	<p:commandButton  value="Par direction" action="#{tableauCarteController.validerRechercheDirection}"  update="@form" /> 
+					</td>
+			  </tr></table>
+												 		
+    			</p:toolbarGroup>
+    				
+    	 </p:toolbar>
+    
+   			
+	
+		
+			
+
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

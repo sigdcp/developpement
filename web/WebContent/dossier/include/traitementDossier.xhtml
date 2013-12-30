@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+<body>
+	<ui:composition>
+	
+				
+		<p:dataTable value="" var="traitement" rowIndexVar="index">
+			<p:column headerText="Numéro">
+				<h:outputText value="#{index+1}" />
+			</p:column>
+			<p:column headerText="Opération effectuée">
+				<h:outputText value="VALIDATION CONFORMITE" />
+			</p:column>
+			<p:column headerText="Date">
+				<h:outputText value="1/1/2010" />
+			</p:column>
+			<p:column headerText="Statut">
+				<h:outputText value="VALIDER" />
+			</p:column>
+			<p:column headerText="Pièce produite" width="4%">
+				<p:button value="Voir" />
+			</p:column>
+			
+		</p:dataTable>
+					
+
+
+	</ui:composition>
+</body>
+</html>

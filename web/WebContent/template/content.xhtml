@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+	
+	<ui:fragment rendered="#{showBreadCrumb}"><h:form>
+ 		<ui:insert name="breadCrumb"><h:outputText value="Fil Navigation" /> </ui:insert>
+ 	</h:form></ui:fragment>	
+ 	
+ 	<p:messages rendered="#{showMessages==null or showMessages}"/>
+ 	
+	<p:layout stateful="true" style="height:95%;" styleClass="noborder">   
+		
+	  	<p:layoutUnit position="west" minSize="320" resizable="true"  gutter="0">
+	  		<ui:insert name="menu"><h:outputText value="Menu contextuel" /> </ui:insert>
+	  	</p:layoutUnit>
+	  	
+	    <p:layoutUnit position="center" styleClass="noborder"> 
+	    	<p:layout>
+	    		<p:layoutUnit styleClass="ui-content-title-layout-unit" position="north"  rendered="#{showLibelle}">
+			 		<ui:insert name="libelle">
+			 			<h:outputText value="Libelle de la vue" />
+			 		</ui:insert>
+	    		</p:layoutUnit>
+	    		<p:layoutUnit position="center"><ui:insert name="corps"> <h:outputText value="Contenu" /> </ui:insert></p:layoutUnit>
+	    		<!--
+	    		<p:layoutUnit position="south" rendered="#{showCorpsSouth}"><ui:insert name="corpsSouth"></ui:insert></p:layoutUnit>
+	    		-->
+	    	</p:layout> 
+	    	
+	    </p:layoutUnit>
+	    
+	</p:layout>  
+		
+</ui:composition>

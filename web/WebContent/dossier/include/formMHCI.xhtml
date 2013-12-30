@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		<style>
+			.c1{
+				font-weight: bold;
+				width: 200px;
+			}
+			.c11{
+				font-weight: bold;
+				width: 400px;
+			}
+			.c2{
+				width: 200px;
+			}
+			.c3{
+				
+			}
+		</style>		
+		<ui:param name="editable" value="#{enregistrerDemandeMHCIFormController.part1Editable}" />
+		
+		<p:fieldset legend="Mission">
+			<p:panelGrid columns="#{editable?6:4}" styleClass="panelGridNoBorder" columnClasses="c11">
+				
+				<p:outputLabel for="typeDepense" value="Est ce une prise en charge ou un remboursement ?" />
+				<p:selectOneRadio id="typeDepense"  required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable}">
+					<f:selectItems value="#{typeDepenes}"/>
+				</p:selectOneRadio>
+				<h:outputText value="" rendered="#{not editable}" />
+				<p:message for="typeDepense" rendered="#{editable}"/> 
+				
+				<h:outputText value="" /><h:outputText value="" /><h:outputText value="" rendered="#{editable}"/>
+			</p:panelGrid>
+			
+			<p:panelGrid columns="#{editable?6:4}" styleClass="panelGridNoBorder" columnClasses="#{editable?'c1,c2,c3,c1,c2,c3':'c1,c2,c1,c2'}">								
+				<p:outputLabel  for="designation" value="Objet de la mission: " />
+				<p:inputTextarea id="designation" value="#{enregistrerDemandeMHCIFormController.dossierMHCI.deplacement.designation}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable}"/>
+		        <p:message for="designation" rendered="#{editable}"/>
+		        <h:outputText value="#{enregistrerDemandeMHCIFormController.dossierMHCI.deplacement.designation}" rendered="#{not editable}" />
+				<p:outputLabel value="" /><p:outputLabel value="" /><p:outputLabel value="" rendered="#{editable}"/>
+
+				<p:outputLabel for="dateDepart" value="Date de début" />
+				<p:calendar id="dateDepart" value="#{enregistrerDemandeMHCIFormController.deplacement.dateDepart}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" 
+					rendered="#{editable}"/>
+				<h:outputText value="#{enregistrerDemandeMHCIFormController.deplacement.dateDepart}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				<p:message for="dateDepart" rendered="#{editable}"/>
+				 
+				<p:outputLabel for="dateArrivee" value="Date de fin" />
+				<p:calendar id="dateArrivee" value="#{enregistrerDemandeMHCIFormController.deplacement.dateArrivee}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable}"/>
+				<h:outputText value="#{enregistrerDemandeMHCIFormController.deplacement.dateArrivee}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				<p:message for="dateArrivee" rendered="#{editable}"/>
+		       
+		       	<!--
+				<h:outputText value="Durée de la mission (en jour)" /><h:outputText value="" /><h:outputText value="" />
+				-->
+			
+				<p:outputLabel for="villeDepart"  value="Ville de départ:" />
+				<p:selectOneMenu id="villeDepart" value="#{enregistrerDemandeMHCIFormController.deplacement.localiteDepart}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable}">
+					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+					<f:selectItems value="#{villes}"/>
+				</p:selectOneMenu>
+				<h:outputText value="#{enregistrerDemandeMHCIFormController.deplacement.localiteDepart}" rendered="#{not editable}"/>
+				 <p:message for="villeDepart" rendered="#{editable}"/>
+				
+				<p:outputLabel for="villeArrivee" value="Ville de la mission:" />		
+				<p:selectOneMenu id="villeArrivee" value="#{enregistrerDemandeMHCIFormController.deplacement.localiteArrivee}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable}">
+					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+					<f:selectItems value="#{villes}"/>
+				</p:selectOneMenu>	
+				<h:outputText value="#{enregistrerDemandeMHCIFormController.deplacement.localiteArrivee}" rendered="#{not editable}"/>
+				 <p:message for="villeArrivee" rendered="#{editable}"/>
+			         
+				</p:panelGrid>
+			</p:fieldset>	
+	
+	</ui:composition>
+</body>
+</html>

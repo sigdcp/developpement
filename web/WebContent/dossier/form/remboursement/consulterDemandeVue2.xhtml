@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+				
+						<p:dataTable id="listeDemande" value="" var="demande" rowIndexVar="index" rowKey="index">
+							<f:facet name="header"><h:outputText value="Liste des bénéficiaires" /> </f:facet>
+							<p:column headerText="Matricule" /><h:outputText value="" />
+							<p:column headerText="Nom et prénoms" /><h:outputText value="" />
+							<p:column headerText="date inscription" /><h:outputText value="" />
+							 <p:column selectionMode="multiple" style="width:2%" />
+						</p:dataTable>
+					
+		<p:panelGrid columns ="3" styleClass="panelGridNoBorder" >
+        	  
+        	   <p:commandButton id="multiViewButton" value="Confirmer" icon="ui-icon-search"  />
+        	</p:panelGrid>
+				
+			</ui:define>
+				
+		</ui:composition>
+
+	</h:body>
+
+</html>

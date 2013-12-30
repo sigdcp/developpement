@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/vide.xhtml">
+
+		<ui:define name="contenu">
+
+			<ui:decorate template="/template/contenuTextTemplate.xhtml">
+				<ui:param name="title" value="AFFECTATION" />
+
+				<ui:define name="contenu">
+					<table width="100%">
+						<tr>
+							<td valign="top" width="65%"
+								style="padding: 20px; margin: 0 50px 0 50px; text-align: justify; line-height: 22px; font-size: 9pt">
+
+								C'est le déplacement effectué par un fonctionnaire ou un agent
+								de l'Etat lors de sa première prise de service au lieu de son
+								affectation.<br /> L'affectation donne droit à une indemnité
+								qui est fonction de la catégorie, du grade, du sexe, de la
+								situation matrimoniale et du nombre d'enfant de l'intéressé.<br />
+								Elle tient compte également de la distance parcourue.<br /> <br />
+								<strong>Etapes à suivre pour une indemnisation:</strong><br />
+
+								<p>
+									<strong>Etape 1: Constitution de dossier<br />
+									</strong> Le dossier comporte:
+								</p>
+								<ul>
+									<li>la décision d'affectation (03 copies);</li>
+									<li>le certificat de première prise de service (03
+										copies);</li>
+									<li>la photocopie de la CNI ou de la carte professionnelle
+										(03 copies);</li>
+									<li>les extraits d'acte de naissance des anfants âgés de
+										moins de vingt (20) ans (original et 02 copies à raison de dix
+										(10) enfants maximum;</li>
+									<li>l'extrait d'acte de mariage (03 copies);</li>
+									<li>l'attestation de transport;</li>
+									<li>le format électronique des documents sus-cités.</li>
+								</ul>
+								<p>
+									<strong>Etape 2 : Ouverture de compte utilisateur </strong><br />
+									L'ouverture de compte se fait une seule fois sur l'espace
+									SIGDCP.Si vous avez déjà un compte, alors passez à l'étape
+									suivante.
+								</p>
+								<ul>
+									<li>Cliquez sur le bouton &quot;Ouverture de compte&quot;;</li>
+									<li>Entrez les informations demandées;<br />
+									</li>
+								</ul>
+								<p>
+									<strong>Etape 3 : Connexion</strong>
+								</p>
+								<ul>
+									<li>Cliquez sur le bouton &quot;Cliquer ici pour
+										solliciter ce service&quot;;</li>
+									<li>Entrez votre nom utilsateur et votre mot de passe;</li>
+									<li>Validez.</li>
+								</ul>
+								<p>
+									<strong>Etape 4: Demande d'indemnisation</strong>
+								</p>
+								<ul>
+									<li>Remplissez le formulaire qui vous est proposé;</li>
+									<li>Enregistrez votre demande;</li>
+									<li>Editez une feuille de délacement;</li>
+									<li>Editer un bon de transport;</li>
+									<li>Faites signer la feuille de déplacement et le bon de
+										transport par le Préfet ou le Sous-préfet de la localité
+										d'accueil.</li>
+								</ul>
+								<p>
+									<strong>Etape 5 : Jonction de la feuille de
+										déplacement et du bon de transport à la demande </strong>
+								</p>
+								<ul>
+									<li>Reprendre à partir de l'étape 3;</li>
+									<li>Joignez la feuille de déplacement et le bon de
+										transport signés à la demande;</li>
+									<li>Cliquez sur le bouton &quot;Soumettre&quot;.</li>
+								</ul>
+								<p>
+									Vous recevrez un message vous indiquant le résultat de votre
+									demande.<br /> Si le résultat est positif, vous devriez vous
+									rendre dans les services de la SDDCP pour le dépôt physique de
+									votre dossier.
+								</p> <f:facet name="footer">
+									<div style="text-align: center; margin: 10px;">
+										<p:commandButton value="Dépôt de dossier" icon="ui-icon-check"
+											action="demandeconsultation" style="text-align:center"
+											ajax="false" immediate="true" />
+
+										<p:commandButton value="Ouverture de compte"
+											icon="ui-icon-check" action="inscriptionpersonne"
+											style="text-align:center" ajax="false" immediate="true" />
+
+										<p:commandButton
+											value="Cliquer ici pour solliciter ce service"
+											icon="ui-icon-check" action="demandedd"
+											style="text-align:center" ajax="false" immediate="true">
+											<f:param
+												name="#{webConstantResources.requestParamNatureDeplacement}"
+												value="AFF" />
+											<f:param name="#{webConstantResources.requestParamAction}"
+												value="#{webConstantResources.requestParamActionEditer}" />
+										</p:commandButton>
+									</div>
+								</f:facet>
+							</td>
+							<td valign="top" style="margin: 20px">
+								<!--  <ui:include src="/public/connexionForm.xhtml"/> -->
+								<ui:include src="/public/verticalHome.xhtml">
+									<ui:param name="index" value="1" />
+								</ui:include>
+							</td>
+						</tr>
+					</table>
+				</ui:define>
+
+			</ui:decorate>
+
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

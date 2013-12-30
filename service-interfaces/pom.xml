@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>ci.gouv.budget.solde.sigdcp</groupId>
+		<artifactId>master-pom</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>sigdcp-service</artifactId>
+	
+	<properties>
+		
+		<project.sigdcp.repository.id>SIGDCP-REPO</project.sigdcp.repository.id>
+		<project.sigdcp.repository.name>Entrepot des composants du SIGDCP</project.sigdcp.repository.name>
+		<project.sigdcp.repository.url>file:///P:\SIGDCP\Developpement\repositories\dependencies</project.sigdcp.repository.url>
+
+	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>${project.sigdcp.repository.id}</id>
+			<name>${project.sigdcp.repository.name}</name>
+			<url>${project.sigdcp.repository.url}</url>
+		</repository>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>${project.sigdcp.repository.id}</id>
+			<name>${project.sigdcp.repository.name}</name>
+			<url>file:///P:\SIGDCP\Developpement\repositories\dependencies</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>ci.gouv.budget.solde.sigdcp</groupId>
+			<artifactId>sigdcp-model</artifactId>
+			<version>0.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>

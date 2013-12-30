@@ -1,0 +1,31 @@
+<!DOCTYPE html>  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:ui="http://java.sun.com/jsf/facelets"  
+    xmlns:p="http://primefaces.org/ui">  
+      
+    <h:body><ui:composition template="/template/commun.xhtml">  <ui:define name="contenu">
+    	<h1>Sélectionner un bulletin de liquidation</h1>
+        <h:form>  
+            <p:dataTable var="piecesproduites" value="#{BulletinLiquidationController.piecesProduites}">  
+                <p:column headerText="Numéro">  
+                    <h:outputText value="#{piecesproduites.numero}" />  
+                </p:column>  
+  
+                <p:column headerText="Date ets pièce">  
+                    <h:outputText value="#{piecesproduites.date}" />  
+                </p:column>  
+  
+                <p:column headerText="Type pièce">  
+                    <h:outputText value="#{piecesproduites.TypePieceProduite.libelle}" />  
+                </p:column>  
+                   
+                <!-- <p:column headerText="Color">  
+                    <p:commandButton icon="ui-icon-search" actionListener="#{tableBean.selectCarFromDialog(car)}" />  
+                </p:column>   -->
+            </p:dataTable>  
+        </h:form>  
+  </ui:define>  </ui:composition>  </h:body>  
+      
+</html>  

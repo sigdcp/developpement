@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+				
+				<h:form id="form">
+				<center>
+			  <h4>LISTE DES DEMANDES DE CARTE SOTRA  </h4>
+			  </center>
+               Ministère du Budget                                 
+               <p:spacer  width="30"/>
+               
+              Direction Générale du budget et des Finances
+               
+              
+    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+    
+   			
+   			   <p:growl id="msgs" showDetail="true" />  
+   			 
+                <p:dataTable id="listeDemande" value="" var="listdemande" rowIndexVar="index" rowKey="index">
+					<p:column headerText="N° Demande">
+			     	<h:outputText value="" />
+					</p:column>
+					<p:column headerText="Date">
+					<h:outputText value="" />
+					</p:column>
+					<p:column headerText="Mois">
+					<h:outputText value="" />
+					</p:column>
+					<p:column headerText="Année">
+						<h:outputText value="" />
+					</p:column>
+					<p:column headerText="Nombre de cartes">									
+						<h:outputText value="" >	
+						
+						</h:outputText>		 
+						</p:column>
+						
+			 		 <p:column selectionMode="multiple" style="width:2%" /> 	
+						
+					
+					 <p:column style="width:4%">
+					 	<p:button  value="Détails" /> 
+					 	
+                   </p:column>  
+					
+     	 <f:facet name="footer">  
+		
+		  </f:facet> 
+				
+            	
+		</p:dataTable>
+	
+        	<p:panelGrid columns ="3" styleClass="panelGridNoBorder" >
+        	  <h:outputText value="Confirmer " />
+        	  <p:selectOneRadio id="confirmer" >
+	      	<f:selectItem itemLabel="Oui" itemValue="1" />
+	    	<f:selectItem itemLabel="Non" itemValue="2" />
+	      	</p:selectOneRadio>
+        	   <p:commandButton id="multiViewButton" value="Supprimer" icon="ui-icon-search"  />
+        	</p:panelGrid>	 
+	       
+	     	
+  				</h:form>
+			</ui:define>
+	
+		</ui:composition>
+
+	</h:body>
+
+</html>

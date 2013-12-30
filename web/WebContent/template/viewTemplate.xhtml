@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+ 	
+	<h:form enctype="multipart/form-data">
+		<!--
+		<p:defaultCommand target="btnNothing"/>
+		<p:commandButton id="btnNothing" process="@none" rendered="true"/>
+		-->
+		<p:panel>
+			<f:facet name="header">
+				<ui:insert name="title"><h:outputText value="#{uiController.title}" /></ui:insert>
+			</f:facet>
+			<p:messages globalOnly="true"/>
+			<ui:insert name="contenu" />	
+			<p:spacer height="5" />
+			<table style="margin: auto;"><tr><td>
+				<ui:insert name="actions" />
+			</td></tr></table>
+			
+		</p:panel>
+	</h:form>
+		
+</ui:composition>

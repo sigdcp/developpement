@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<p:column headerText="N°" ><h:outputText value="#{index+1}" /></p:column>
+		<p:column headerText="Date" >
+			<h:outputText value="#{inscription.dateCreation}" >
+				<f:convertDateTime pattern="#{constantResources.fullDateTimePattern}" />
+			</h:outputText>
+		</p:column>
+		<p:column headerText="Type" filterBy="#{inscription.personneInfos.type}"><h:outputText value="#{inscription.personneInfos.type}" /></p:column>
+		<p:column headerText="Matricule" ><h:outputText value="#{inscription.matricule}" /></p:column>
+		<p:column headerText="Nom et prénoms" ><h:outputText value="#{inscription.personneInfos.nomPrenoms}" /></p:column>
+		<!--
+		<p:column >
+			<p:commandButton value="Détails" oncomplete="PF('detailsDialog').show();" update=":form:display">
+				<f:setPropertyActionListener value="#{inscription}" target="#{validationInscriptionController.inscriptionSelectionne}" />
+			</p:commandButton>
+		</p:column>
+		-->
+
+	</ui:composition>
+</body>
+</html>

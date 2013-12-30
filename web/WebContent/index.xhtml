@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 
+    <h:head>
+		<h:outputStylesheet library="css" name="style.css" />
+    </h:head>
+    
+    <ui:insert name="metadata"/>
+ 
+	<h:body>
+	<ui:composition template="/template/vide.xhtml">
+			
+			<ui:define name="contenu">
+			<div style="margin: auto; width: 93%;">						
+						<table width="100%"  style="margin: auto;">
+							<tr>
+							  	<td width="70%" valign="top">			  	
+								  <ui:include src="/public/home.xhtml"/>				  	
+							  	</td>
+							 	<td valign="top" align="right" style="padding:0px 10px 30px 10px;">
+							    <ui:include src="/public/connexionForm.xhtml"/>
+							    <p:spacer style="height:5px"/>
+							    <ui:include src="/public/lucarne.xhtml"/>
+							    </td>
+						 	</tr>
+						</table>
+					</div>
+		    
+			</ui:define>
+			
+			
+		</ui:composition>
+		
+ 		
+    </h:body>
+</html>

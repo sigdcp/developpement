@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+				
+				<h:form id="form">
+				<center>
+			  <h4>LISTE DES PROJETS DE DECISION  </h4>
+			 </center>
+              
+    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+    
+   			
+   			   <p:growl id="msgs" showDetail="true" />  
+   			 
+                <p:dataTable id="listeProjet" value="" var="listprojet" rowIndexVar="index" rowKey="index">
+                <p:column headerText="N° Projet">
+			     	<h:outputText value="" />
+					</p:column>
+				<p:column headerText="Date Projet">
+			     	<h:outputText value="" />
+					</p:column>	
+					<p:column headerText="N° Dossier">
+			     	<h:outputText value="" />
+					</p:column>
+					<p:column headerText="Date Dossier">
+					<h:outputText value="" />
+					</p:column>
+					<p:column headerText="type Dossier">
+					<h:outputText value="" />
+					</p:column>
+					<p:column headerText="Nom et prénoms Bénéficiaire">
+						<h:outputText value="" />
+					</p:column>
+		
+			 		 <p:column selectionMode="multiple" style="width:2%" /> 	
+		
+     	 				 <p:column style="width:4%">
+					 	<p:button  value="Détails" outcome="#{param['nextViewId']}"/> 
+					 	
+                   </p:column> 
+					
+     	 <f:facet name="footer">  
+		
+		  </f:facet> 
+				
+            	
+		</p:dataTable>
+	
+        
+        	  
+        	   <p:commandButton  value="Editer" />
+        	 
+	       
+	     	
+  				</h:form>
+			</ui:define>
+	
+		</ui:composition>
+
+	</h:body>
+
+</html>

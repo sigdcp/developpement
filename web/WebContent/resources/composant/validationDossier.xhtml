@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://www.kyc.com/facelet/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:dcp="http://java.sun.com/jsf/composite/composant">
+
+<composite:interface>
+	
+	<composite:attribute name="controller" required="true" />
+	
+</composite:interface>
+
+<composite:implementation>
+	
+	<dcp:recordForm controller="#{cc.attrs.controller}">
+		<!-- pieces du dossier à valider -->
+		<p:tabView value="#{cc.attrs.controller.pieces}" var="piece">
+			<p:tab title="#{piece.type} - #{piece.numero}">
+				<p:selectBooleanButton onLabel="Oui" offLabel="Non" value=""/>
+				<p:outputLabel value="#{i18n.motif}"  />
+				<p:inputText value="" />
+				<p:separator/>
+				<!--
+				<dcp:picture identifiant="#{piece.id}"/>
+				-->
+				<p:media value="/testimg/fd.pdf" />  
+			</p:tab>
+		</p:tabView> 
+		<p:separator/>
+		<p:outputLabel value="#{cc.attrs.controller.valideQuestion}"  />
+		<p:selectOneRadio>
+			<f:selectItem itemLabel="#{i18n.oui}"/>
+			<f:selectItem itemLabel="#{i18n.non}"/>
+		</p:selectOneRadio>		
+	</dcp:recordForm>
+			
+</composite:implementation>
+
+</html>

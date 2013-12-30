@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<ui:param name="editable" value="#{editable==null?enregistrerDemandeDDController.editable:editable}" />
+		
+		<p:fieldset legend="Agent">	
+			<ui:include src="/identification/include/outputAgentEtat.xhtml" >
+				<ui:param name="agentEtat" value="#{enregistrerDemandeDDController.agentEtat}" />
+				<ui:param name="columnCount" value="6" />
+			</ui:include>
+			<p:separator/>
+			<ui:include src="/dossier/include/inputDossierDDDetails.xhtml">
+				<ui:param name="controller" value="#{enregistrerDemandeDDController}"/>
+				<ui:param name="dossier" value="#{enregistrerDemandeDDController.dossier}"/>
+				<ui:param name="deplacement" value="#{enregistrerDemandeDDController.dossier.deplacement}"/>
+				<ui:param name="editable" value="#{editable}"/>
+			</ui:include>					
+		</p:fieldset>
+
+		<p:spacer height="5" />
+		
+		<ui:include src="/dossier/include/inputDeplacement.xhtml">
+			<ui:param name="controller" value="#{enregistrerDemandeDDController}"/>
+			<ui:param name="dossier" value="#{enregistrerDemandeDDController.dossier}"/>
+			<ui:param name="deplacement" value="#{enregistrerDemandeDDController.dossier.deplacement}"/>
+			<ui:param name="editable" value="#{editable}"/>
+		</ui:include>
+		
+	</ui:composition>
+</body>
+</html>

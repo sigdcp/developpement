@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<ui:include src="/identification/include/detailsInscriptionPersonne.xhtml">
+			<ui:param name="personne" value="#{inscription.beneficiaireInfos}"/>
+		</ui:include>
+		<p:spacer height="5" />
+	    <p:fieldset legend="Informations Professionnelles"><h:panelGrid columns="2" >
+			<h:outputText value="Matricule :" /><h:outputText value="#{inscription.matricule}" />
+			<h:outputText value="Profession :" /><h:outputText value="#{inscription.profession}" />
+			<h:outputText value="Fonction :" /><h:outputText value="#{inscription.fonction}" />
+			<h:outputText value="Catégorie :" /><h:outputText value="#{inscription.categorie}" />
+			<h:outputText value="Ministère :" /><h:outputText value="#{inscription.ministere}" />
+			<h:outputText value="Grade :" /><h:outputText value="#{inscription.grade}" />
+			<h:outputText value="Echelon :" /><h:outputText value="#{inscription.echelon}" />
+			<h:outputText value="Position :" /><h:outputText value="#{inscription.position}" />
+			<h:outputText value="Indice :" /><h:outputText value="#{inscription.indice}" />
+		</h:panelGrid> </p:fieldset>  
+		<p:spacer height="5" />
+		<ui:include src="/identification/include/detailsContact.xhtml">
+			<ui:param name="contact" value="#{inscription.beneficiaireInfos.contact}"/>
+		</ui:include>
+
+	</ui:composition>
+</body>
+</html>

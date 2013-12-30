@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/vide.xhtml">
+
+		<ui:define name="contenu">
+
+			<ui:decorate template="/template/contenuTextTemplate.xhtml">
+				<ui:param name="title" value="MISSION HORS CÔTE D'IVOIRE" />
+
+				<ui:define name="contenu">
+					<table width="100%">
+						<tr>
+							<td valign="top" width="65%"
+								style="padding: 20px; margin: 0 50px 0 50px; text-align: justify; line-height: 22px; font-size: 9pt">
+								Le service Mission Hors Côte d'Ivoire de la Direction de la
+								solde a en charge la gestion de toutes les missions des
+								Fonctionnaires et Agents de l'Etat se déroulant à l'extérieur du
+								territoire de la République (hormis celle des E.P.N et des
+								Projets) en vue de leur délivrer des titres de transports
+								(billets d'avion) et indemnités de mission. Il en est de même
+								des stages de formation à l'extérieur et des départs en congé
+								des expatriés pour le paiement des billets d'avion.<br /> <br />
+								<strong>Etapes à suivre pour une indemnisation de
+									mission hors Côte d'Ivoire:</strong><br /> <br /> <strong>Etape
+									1a: Constitution de dossier du missionnaire</strong> <br /> Le dossier
+								comporte:
+
+								<ul>
+									<li>
+										la communication en Conseil des Ministres obligatoirement revêtue du visa du Ministre en charge de l’économie et des finances (02 
+										copies); </li>
+									<li> l’attestation  du  Secrétariat  Général  du 
+										Gouvernement six  (06 exemplaires dont 02 originaux); </li>
+									<li> l’ordre de Mission (06 exemplaires dont 02 originaux) ; </li>
+									<li>le format électronique des documents sus-cités.</li>
+								</ul>
+								<p>
+									<strong>Etape 1b: Constitution de dossier de
+										l'expatrié<br />
+									</strong> Le dossier comporte:
+								</p>
+								<ul>
+									<li>
+										l'arrêté de congé par le Ministre de la Fonction Publique ; </li>
+									<li>le format électronique du document sus-cité.</li>
+								</ul>
+								<p>
+									<strong>Etape 1c: Constitution de dossier du stagiaire</strong><br />
+									Le dossier comporte:
+								</p>
+								<ul>
+									<li>la
+										décision de mise en stage ou de l’attestation du Secrétariat Général
+										du gouvernement;</li>
+									<li>la lettre de procédure d’urgence du Ministre de la Fonction Publique;</li>
+									<li>le format électronique des documents sus-cités.</li>
+								</ul>
+								<p>
+									<strong>Etape 2 : Ouverture de compte utilisateur <br />
+									</strong><br /> L'ouverture de compte se fait une seule fois sur
+									l'espace SIGDCP.Si vous avez déjà un compte, alors passez à
+									l'étape suivante.
+								</p>
+								<ul>
+									<li>Cliquez sur le bouton &quot;Ouverture de compte&quot;;</li>
+									<li>Entrez les informations demandées.</li>
+								</ul>
+								<p>
+									<strong>Etape 3 : Connexion</strong>
+								</p>
+								<ul>
+									<li>Cliquez sur le bouton &quot;Cliquer ici pour
+										solliciter ce service&quot;;</li>
+									<li>Entrez votre nom utilsateur et votre mot de passe;</li>
+									<li>Validez.</li>
+								</ul>
+								<p>
+									<strong>Etape 4: Demande d'indemnisation</strong>
+								</p>
+								<ul>
+									<li>Remplissez le formulaire qui vous est proposé;</li>
+									<li>Enregistrez votre demande;</li>
+									<li>Cliquez sur le bouton &quot;Soumettre&quot;.</li>
+								</ul>
+								<p>
+									Vous recevrez un message vous indiquant le résultat de votre
+									demande.<br /> Si le résultat est positif, vous devriez vous
+									rendre dans les services de la SDDCP pour le dépôt physique de
+									votre dossier.
+								</p> <f:facet name="footer">
+									<div style="text-align: center; margin: 10px;">
+										<p:commandButton value="Dépôt de dossier" icon="ui-icon-check"
+											action="demandeconsultation" style="text-align:center"
+											ajax="false" immediate="true" />
+										<p:commandButton value="Ouverture de compte"
+											icon="ui-icon-check" action="inscriptionpersonne"
+											style="text-align:center" ajax="false" immediate="true" />
+										<p:commandButton
+											value="Cliquer ici pour solliciter ce service"
+											icon="ui-icon-check" action="demandemhci"
+											style="text-align:center" ajax="false" immediate="true">
+											<f:param
+												name="#{webConstantResources.requestParamNatureDeplacement}"
+												value="MHCI" />
+											<f:param name="#{webConstantResources.requestParamAction}"
+												value="#{webConstantResources.requestParamActionEditer}" />
+										</p:commandButton>
+									</div>
+								</f:facet>
+							</td>
+							<td valign="top" style="margin: 20px">
+								<!--  <ui:include src="/public/connexionForm.xhtml"/> --> <ui:include
+									src="/public/verticalHome.xhtml">
+									<ui:param name="index" value="5" />
+								</ui:include>
+							</td>
+						</tr>
+					</table>
+				</ui:define>
+
+			</ui:decorate>
+
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

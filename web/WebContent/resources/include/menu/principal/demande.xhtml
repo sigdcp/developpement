@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition>
+
+		<p:menu>
+		     <p:submenu label="Demande">  
+	        	<p:menuitem value="Ajouter" url="/demande/ajoudemande.jsf" />
+	        </p:submenu>
+	             
+	        <p:submenu label="Consulter">  
+	        	<p:menuitem value="Général" url="/demande/listedemande.jsf" />
+	            <p:menuitem value="Recent" url="/demande/demandenontraite.jsf" />
+	            <p:menuitem value="Validé" url="/demande/demandevalide.jsf" />  
+	            <p:menuitem value="Rejeté" url="/demande/demanderejete.jsf" /> 
+	        </p:submenu>  
+	     </p:menu>   
+	</ui:composition>
+</body>
+</html>

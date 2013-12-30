@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+	
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+		<h:form enctype="multipart/form-data">
+			<p:panelGrid columns="2" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+			<p:fieldset legend="Agent">	
+			<p:panelGrid columns="3">
+					<p:outputLabel  for="matricule" value="Matricule " />
+					<p:inputText id="matricule" value="" required="true" requiredMessage="#{valueRequiredMessage}" />
+			        <p:message for="matricule" />
+			        
+			        <p:outputLabel  for="nom" value="Nom " />
+					<p:inputText id="nom" value="" required="true" requiredMessage="#{valueRequiredMessage}" />
+			        <p:message for="nom" />
+			        
+			        <p:outputLabel  for="prenom" value="Prenom " />
+					<p:inputText id="prenom" value="" required="true" requiredMessage="#{valueRequiredMessage}" />
+			        <p:message for="prenom" />
+			        
+			        <p:outputLabel  for="categorie" value="Catégorie " />
+					<p:inputText id="categorie" value="" required="true" requiredMessage="#{valueRequiredMessage}" />
+			        <p:message for="categorie" />
+			</p:panelGrid>
+			</p:fieldset>
+			<p:fieldset legend="Pièces justificatives">	
+			<p:panelGrid columns="5">
+			        <p:outputLabel  for="communication" value="N°Communication " />
+					<p:inputText id="communication" value="" required="true" requiredMessage="#{valueRequiredMessage}" />
+			        <p:message for="communication" />
+			        <p:fileUpload id="communicationFichier" mode="simple" required="true" requiredMessage="#{valueRequiredMessage}"/>
+			        <p:message for="communicationFichier" />
+			        
+			        <p:outputLabel  for="attestation" value="N°Attestation du SG " />
+					<p:inputText id="attestation" value="" required="true" requiredMessage="#{valueRequiredMessage}" />
+			        <p:message for="attestation" />
+			        <p:fileUpload id="attestationFichier" mode="simple" required="true" requiredMessage="#{valueRequiredMessage}"/>
+			        <p:message for="attestationFichier" />
+			        
+			        <p:outputLabel  for="ordreMission" value="N°Ordre de mission " />
+					<p:inputText id="ordreMission" value="" required="true" requiredMessage="#{valueRequiredMessage}" />
+			        <p:message for="ordreMission" />
+			        <p:fileUpload id="ordreMissionFichier" mode="simple" required="true" requiredMessage="#{valueRequiredMessage}"/>
+			        <p:message for="ordreMissionFichier" />
+			        
+			 </p:panelGrid>
+			 </p:fieldset>
+			 
+			</p:panelGrid>	
+			
+			<p:separator/>
+			
+			<p:commandButton value="Ajouter"  icon="ui-icon-check" ajax="false" update="@form"	style="margin:auto"/> 	
+							
+			</h:form>	
+			</ui:define>
+		
+		</ui:composition>
+
+	</h:body>
+
+</html>

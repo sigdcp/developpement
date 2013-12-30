@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition>
+
+		<p:menu>
+	             
+	        <p:submenu label="Liste des dossiers">  
+	        	<p:menuitem value="Général" url="/gestiontransit/listedossier.jsf" />
+	            <p:menuitem value="Non traité" url="/gestiontransit/dossiernontraite.jsf" />
+	            <p:menuitem value="En cours de traitement" url="/gestiontransit/dossierencours.jsf" />
+	            <p:menuitem value="Traitement achevé" url="/gestiontransit/dossiertraite.jsf" />  
+	            <p:menuitem value="Rejeté" url="/gestiontransit/dossierrejete.jsf" /> 
+	        </p:submenu>  
+	    
+	    	<p:submenu label="Liste des attestations">  
+	        	<p:menuitem value="Général" url="#" />
+	            <p:menuitem value="En attente" url="#" />
+	            <p:menuitem value="Validée" url="#" />
+	        </p:submenu>
+	        
+	        <p:submenu label="Tableau de bord">  
+	        	<p:menuitem value="Consulter" url="/gestiontransit/tableaubordTR.jsf" />
+	        </p:submenu>
+	     </p:menu>   
+	</ui:composition>
+</body>
+</html>

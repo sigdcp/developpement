@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+		<h:form>
+		<div style="text-align: center;" >   
+				    <h:outputText value="Tableau de bord des remboursements"/>   
+
+				 </div>
+   
+                <p:toolbar>  
+				
+    				<p:toolbarGroup align="left"> 
+    				
+    				<table><tr>
+    				<td>
+					
+				     <p:selectOneMenu id="ministere" value="#{tableauRembController.typeDos}" >
+                    	 <f:selectItem itemLabel="Select Type" itemValue="" />
+                    	 <f:selectItems value="#{tableauRembController.type}" />
+          			  </p:selectOneMenu>
+          			  
+				    </td>
+				    
+				   
+					   <td valign="middle"><p:separator /></td>
+			
+			      <td>        
+			    
+				  		<ui:decorate template="/template/form/field.xhtml">
+			    			<ui:param name="id" value="nd"/>
+							<ui:param name="label" value="Du :"/>
+							<ui:define name="input">
+							<p:calendar id="nd" value="#{tableauRembController.d1}" required="true" showButtonPanel="true"/>
+							</ui:define>
+				 		</ui:decorate>  
+			        
+					</td>
+				<td>
+				
+				<ui:decorate template="/template/form/field.xhtml">
+						<ui:param name="id" value="nd1"/>
+						<ui:param name="label" value="Au :"/>
+						<ui:define name="input">
+						<p:calendar id="nd1" value="#{tableauRembController.d2}" required="true" showButtonPanel="true"/>
+						</ui:define>
+				</ui:decorate>
+				
+				</td>	
+							
+					 <td valign="middle"><p:separator /></td>
+					 <td valign="right">  
+		
+			<!--              <p:commandButton value="Rechercher" action="#{suivreLesDossierController.rechercher}"  update="@form" />-->  
+					
+					 	<p:commandButton  value="Afficher" action="#{tableauRembController.validerRecherche}"  update="@form" />
+					 	</td>
+					 
+			  </tr></table>
+												 		
+    			</p:toolbarGroup>
+    				
+    	 </p:toolbar>
+ 
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

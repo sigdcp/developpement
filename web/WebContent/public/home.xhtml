@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<p:panel header="A PROPOS DU SIGDCP" style="width:100%">
+		<p style="text-align: justify; line-height: 22px; font-size: 9pt">
+		Le Système Intégré de Gestion des Dépenses Communes du Personnel (SIGDCP) est une application mise en place pour gérer les dépenses effectuées par les fonctionnaires et agents de l'Etat lors de leurs différents déplacements à l'intérieur (déplacements définitifs) et à l'extérieur de la Côte d'Ivoire (Missions hors Côte d'Ivoire et transits).<br/>
+		Le SIGDCP met donc à la disposition des usagers, les services dont les frais sont pris en charge par l'Etat de Côte d'Ivoire: 
+		</p>
+
+		<div style="text-align: right; margin: 25px">
+			<p:button icon="ui-icon-search"
+				outcome="/public/apropos.xhtml" value="Lire plus..." />
+		</div>
+	</p:panel>
+
+	<br />
+
+	<h:form rendered="true">
+
+		<p:panel header="LES DEPENSES PRISES EN CHARGE PAR LE SIGDCP"
+			style="width:100%">
+			<p:accordionPanel rendered="true">
+				<p:tab title="AFFECTATION">
+
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt">
+						C'est le déplacement effectué par un fonctionnaire ou un agent de l'Etat lors de sa première prise de service au lieu de son affectation.<br /> L'affectation donne droit à une indemnité qui est fonction de la catégorie, du grade, du sexe, de la situation matrimoniale et du nombre d'enfant de l'intéressé.<br /> Elle tient compte également de la distance parcourue.
+					</p>
+					<div style="text-align: right; margin: 25px">
+						<p:button icon="ui-icon-search"
+							outcome="/public/affectation.xhtml" value="Lire plus" />
+					</div>
+					<p:separator />
+					<div style="text-align: center;">
+						<p:commandButton value="Dépôt de dossier" icon="ui-icon-check"
+							action="demandeconsultation" style="text-align:center"
+							ajax="false" immediate="true" />
+
+						<p:commandButton value="Ouverture de compte" icon="ui-icon-check"
+							action="inscriptionpersonne" style="text-align:center"
+							ajax="false" immediate="true" rendered="#{not empty request.remoteUser}" />
+						<p:button value="Cliquer ici pour solliciter ce service"  outcome="demandeddForm"
+							icon="ui-icon-check" style="text-align:center">
+							<f:param
+								name="#{webConstantResources.requestParamNatureDeplacement}"
+								value="AFF" />
+							<f:param name="#{webConstantResources.requestParamAction}"
+								value="#{webConstantResources.requestParamActionEditer}" />
+						</p:button>
+					</div>
+
+				</p:tab>
+				<p:tab title="MUTATION">
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt">
+						C'est le déplacement effectué par un fonctionnaire ou un agent de l'Etat pour un changement de résidence pour se rendre du lieu de l'ancienne résidence au lieu de la nouvelle. La mutation donne droit à une indemnité qui est fonction de la catégorie, du grade, du sexe, de la situation matrimoniale et du nombre d'enfant de l'intéressé.<br /> Elle tient compte également de distance parcourue.
+					</p>
+
+					<div style="text-align: right; margin: 25px">
+						<p:button icon="ui-icon-search"
+							outcome="/public/mutation.xhtml" value="Lire plus..." />
+					</div>
+					<p:separator />
+					<div style="text-align: center;">
+						<p:commandButton value="Dépôt de dossier" icon="ui-icon-check"
+							action="demandeconsultation" style="text-align:center"
+							ajax="false" immediate="true" />
+						<p:commandButton value="Ouverture de compte" icon="ui-icon-check"
+							action="inscriptionpersonne" style="text-align:center"
+							ajax="false" immediate="true" rendered="#{not empty request.remoteUser}" />
+						<p:commandButton value="Cliquer ici pour solliciter ce service"
+							icon="ui-icon-check" action="demandedd" style="text-align:center"
+							ajax="false" immediate="true">
+							<f:param
+								name="#{webConstantResources.requestParamNatureDeplacement}"
+								value="MUT" />
+							<f:param name="#{webConstantResources.requestParamAction}"
+								value="#{webConstantResources.requestParamActionEditer}" />
+						</p:commandButton>
+					</div>
+				</p:tab>
+				<p:tab title="DEPART A LA RETRAITE">
+
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt">
+						Ce déplacement concerne les fonctionnaires et agents de l’Etat qui cessent définitivement leurs fonctions pour un motif autre que la revocation, pour se rendre du lieu de la dernière affectation au lieu où  il  a déclaré vouloir  se  retirer sur le territoire de la République.
+					</p>
+
+					<div style="text-align: right; margin: 25px">
+						<p:button icon="ui-icon-search"
+							outcome="/public/retraite.xhtml" value="Lire plus..." />
+					</div>
+					<p:separator />
+					<div style="text-align: center;">
+						<p:commandButton value="Dépôt de dossier" icon="ui-icon-check"
+							action="demandeconsultation" style="text-align:center"
+							ajax="false" immediate="true" />
+						<p:commandButton value="Ouverture de compte" icon="ui-icon-check"
+							action="inscriptionpersonne" style="text-align:center"
+							ajax="false" immediate="true" rendered="#{not empty request.remoteUser}" />
+						<p:commandButton value="Cliquer ici pour solliciter ce service"
+							icon="ui-icon-check" action="enregistrerDemandeDDForm"
+							style="text-align:center" ajax="false" immediate="true">
+							<f:param
+								name="#{webConstantResources.requestParamNatureDeplacement}"
+								value="RET" />
+							<f:param name="#{webConstantResources.requestParamAction}"
+								value="#{webConstantResources.requestParamActionEditer}" />
+						</p:commandButton>
+
+					</div>
+				</p:tab>
+				<p:tab title="FRAIS D'OBSEQUE">
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt">
+						Les frais engendrés par les obsèques d’un fonctionnaire ou d’un	agent de l’Etat en activité sont à la charge de l’Etat de Côte d’Ivoire. La prise en charge funéraire couvre les frais de transport du corps et l’acquisition du cercueil selon un barème indiciaire.
+					</p>
+
+					<div style="text-align: right; margin: 25px">
+						<p:button icon="ui-icon-search"
+							outcome="/public/obseque.xhtml" value="Lire plus..." />
+					</div>
+					<p:separator />
+					<div style="text-align: center;">
+						<p:commandButton value="Dépôt de dossier" icon="ui-icon-check"
+							action="demandeconsultation" style="text-align:center"
+							ajax="false" immediate="true" />
+						<p:commandButton value="Cliquer ici pour solliciter ce service"
+							icon="ui-icon-check" action="demandefo" style="text-align:center"
+							ajax="false" immediate="true">
+							<f:param
+								name="#{webConstantResources.requestParamNatureDeplacement}"
+								value="FO" />
+							<f:param name="#{webConstantResources.requestParamAction}"
+								value="#{webConstantResources.requestParamActionEditer}" />
+						</p:commandButton>
+					</div>
+				</p:tab>
+				<p:tab title="MISSION HORS CÔTE D'IVOIRE">
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt">
+						Le Service Mission Hors Côte d'Ivoire de la Direction de la Solde a en charge la gestion de toutes les missions des Fonctionnaires et Agents de l'Etat (hormis celle des E.P.N et des Projets) en vue de leur délivrer des titres de transport (billet d'avion) et indemnités de mission. Il en est de même des stages de formation à l'extérieur et des départs en congés des expatriés pour le paiement des billets d'avion. 
+					</p>
+
+					<div style="text-align: right; margin: 25px">
+						<p:button icon="ui-icon-search"
+							outcome="/public/mission.xhtml" value="Lire plus..." />
+					</div>
+					<p:separator />
+					<div style="text-align: center;">
+						<p:commandButton value="Dépôt de dossier" icon="ui-icon-check"
+							action="demandeconsultation" style="text-align:center"
+							ajax="false" immediate="true" />
+						<p:commandButton value="Ouverture de compte" icon="ui-icon-check"
+							action="inscriptionpersonne" style="text-align:center"
+							ajax="false" immediate="true" rendered="#{not empty request.remoteUser}" />
+						<p:commandButton value="Cliquer ici pour solliciter ce service"
+							icon="ui-icon-check" action="demandemhci"
+							style="text-align:center" ajax="false" immediate="true">
+							<f:param
+								name="#{webConstantResources.requestParamNatureDeplacement}"
+								value="MHCI" />
+							<f:param name="#{webConstantResources.requestParamAction}"
+								value="#{webConstantResources.requestParamActionEditer}" />
+						</p:commandButton>
+
+					</div>
+				</p:tab>
+				<p:tab title="TRANSIT DES BAGGAGES">
+
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt">
+						Le transit concerne les frais engendrés par le retour de stage et l'affectation (rappel des fonctionnaires du Ministère des Affaires Etrangères) d'un fonctionnaire ou d'un agent de l'Etat.<br /> Ces frais sont pris en charge par l'Etat de Côte d'Ivoire par l'intermédiaire de la Direction de la Solde.
+					</p>
+
+					<div style="text-align: right; margin: 25px">
+						<p:button icon="ui-icon-search"
+							outcome="/public/transit.xhtml" value="Lire plus..." />
+					</div>
+					<p:separator />
+					<div style="text-align: center;">
+						<p:commandButton value="Dépôt de dossier" icon="ui-icon-check"
+							action="demandeconsultation" style="text-align:center"
+							ajax="false" immediate="true" />
+						<p:commandButton value="Ouverture de compte" icon="ui-icon-check"
+							action="inscriptionpersonne" style="text-align:center"
+							ajax="false" immediate="true" rendered="#{not empty request.remoteUser}" />
+						<p:commandButton value="Cliquer ici pour solliciter ce service"
+							icon="ui-icon-check" action="demandetr" style="text-align:center"
+							ajax="false" immediate="true">
+							<f:param
+								name="#{webConstantResources.requestParamNatureDeplacement}"
+								value="TB" />
+							<f:param name="#{webConstantResources.requestParamAction}"
+								value="#{webConstantResources.requestParamActionEditer}" />
+						</p:commandButton>
+
+					</div>
+				</p:tab>
+				<p:tab title="CARTE SOTRA">
+
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt">
+						Le service Sotre de la Direction de la solde a en charge la gestion de cartes de bus des fonctionnaires et agents de l'Administrations Publique travaillant dans le District d'Abidjan, en vue de leur délivrer les cartes de bus de la sotra.<br />Cependant, les bénéficiaires doivent satisfaire certaines conditions:
+					</p>
+
+					<div style="text-align: right; margin: 25px">
+						<p:button icon="ui-icon-search"
+							outcome="/public/sotra.xhtml" value="Lire plus..." />
+					</div>
+					<p:separator />
+					<div style="text-align: center;">
+						<p:commandButton value="Ouverture de compte" icon="ui-icon-check"
+							action="inscriptionpersonne" style="text-align:center"
+							ajax="false" immediate="true" rendered="#{not empty request.remoteUser}" />
+						<p:commandButton value="Cliquer ici pour solliciter ce service"
+							icon="ui-icon-check" action="demandesotra" style="text-align:center"
+							ajax="false" immediate="true">
+							<f:param
+								name="#{webConstantResources.requestParamNatureDeplacement}"
+								value="SOTRA" />
+							<f:param name="#{webConstantResources.requestParamAction}"
+								value="#{webConstantResources.requestParamActionEditer}" />
+						</p:commandButton>
+
+					</div>
+				</p:tab>
+			</p:accordionPanel>
+
+		</p:panel>
+
+	</h:form>
+
+
+</h:body>
+
+</html>

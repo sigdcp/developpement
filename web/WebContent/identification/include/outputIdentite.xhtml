@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+	    <p:panelGrid styleClass="panelGridNoBorder" columns="2" style="width:100%;"> 
+			<h:outputText value="Nom" />
+		 	<h:outputText value="#{personne.nom}"/>
+		 	
+			<h:outputText value="Prenoms" />
+			<h:outputText value="#{personne.prenoms}"/>
+			
+			<h:outputText value="Date Naissance" />
+			<h:outputText value="#{personne.dateNaissance}" ><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText>
+			
+			<h:outputText value="Sexe" rendered="#{sexe==null or sexe}"/>
+			<h:outputText value="#{personne.sexe}" rendered="#{sexe==null or sexe}"/>
+			
+			<h:outputText value="Profession" rendered="#{profession==null or profession}"/>
+			<h:outputText value="#{personne.profession}" rendered="#{profession==null or profession}"/>
+			
+			<h:outputText value="Nationalité" rendered="#{nationalite==null or nationalite}"/>
+			<h:outputText value="#{personne.nationalite}" rendered="#{nationalite==null or nationalite}"/>
+			
+			<h:outputText value="Pièce d'identitité" rendered="#{pieceIdentite}"/>
+			<h:outputText value="#{personne.pieceIdentite.type}/#{personne.pieceIdentite.numero}" rendered="#{pieceIdentite}"/>
+			
+		</p:panelGrid> 
+			
+	</ui:composition>
+</body>
+</html>

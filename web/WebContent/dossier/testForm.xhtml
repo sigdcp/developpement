@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+			<h1>Formulaire d'inscription des bénéficiaires</h1>
+			<ui:param name="requiredMessage" value="Valeur requise"/>
+			<h:form>	
+				<p:messages globalOnly="true" />
+<p:panelGrid columns="2" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop" style="width:100%;">
+				<h:panelGroup>
+					<p:fieldset legend="Définition du déplacement">
+						<h:panelGrid columns="3">
+							
+							<p:outputLabel for="villeDepart"  value="Localité de départ:" />
+							<p:selectOneMenu id="villeDepart" value="#{enregistrerDemandeDDController.dossierDD.deplacement.localiteDepart}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+								<f:selectItem noSelectionOption="" itemLabel="-- Selectionnez --"/>
+								<f:selectItems value="#{villes}"/>
+							</p:selectOneMenu>
+							 <p:message for="villeDepart" />
+							
+							<p:outputLabel for="villeArrivee" value="Localité d'arrivé:" />		
+							<p:selectOneMenu id="villeArrivee" value="#{enregistrerDemandeDDController.dossierDD.deplacement.localiteArrivee}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+								<f:selectItem noSelectionOption="" itemLabel="-- Selectionnez --"/>
+								<f:selectItems value="#{villes}"/>
+							</p:selectOneMenu>	
+							 <p:message for="villeArrivee" />
+					        
+					        <p:outputLabel for="serviceOrigine" value="Service d'origine:" />
+							<p:selectOneMenu id="serviceOrigine" value="#{enregistrerDemandeDDController.dossierDD.deplacement.serviceOrigine}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" >
+								<f:selectItem noSelectionOption="" itemLabel="-- Selectionnez --"/>
+								<f:selectItems value="#{services}"/>
+							</p:selectOneMenu>		
+							 <p:message for="serviceOrigine" />
+					        
+					        <p:outputLabel for="serviceAcceuil" value="Service d'acceuil:" />
+							<p:selectOneMenu id="serviceAcceuil" value="#{enregistrerDemandeDDController.dossierDD.deplacement.serviceAccueil}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+								<f:selectItem noSelectionOption="" itemLabel="-- Selectionnez --"/>
+								<f:selectItems value="#{services}"/>
+							</p:selectOneMenu>          
+							 <p:message for="serviceAcceuil" />
+							
+							<p:outputLabel for="dateDepart" value="Date départ" />
+							<p:calendar id="dateDepart" value="#{enregistrerDemandeDDController.dossierDD.deplacement.dateDepart}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" />
+							<p:message for="dateDepart" />
+							 
+							<p:outputLabel for="dateArrivee" value="Date arrivée" />
+							<p:calendar id="dateArrivee" value="#{enregistrerDemandeDDController.dossierDD.deplacement.dateArrivee}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}"/>
+							<p:message for="dateArrivee" />
+							 
+						</h:panelGrid>
+					</p:fieldset>
+					
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<p:fieldset legend="Définition du dossier">					
+						<p:panelGrid columns="3" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+							<!--
+							<h:outputText value="Situation professionnelle" />
+							<p:selectOneRadio id="profession" value="#{formBean.number}">
+							
+							<f:selectItem itemLabel="En fonction  (a)" itemValue="1" />
+							<f:selectItem itemLabel="retraité(e)  (b)" itemValue="2" />
+							</p:selectOneRadio>
+							-->
+							<p:outputLabel for="categorie" value="Categorie" />
+							<p:selectOneMenu id="categorie" value="#{enregistrerDemandeDDController.dossierDD.categorie}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+								<f:selectItem noSelectionOption="" itemLabel="-- Selectionnez --"/>
+								<f:selectItems value="#{categories}" />
+							</p:selectOneMenu>
+							<p:message for="categorie"/> 
+							
+							<!--
+							<h:outputText value="" /><h:outputText value="" />
+							-->
+							<p:outputLabel for="datePriseService" value="Date de prise de service" />
+							<p:calendar id="datePriseService" value="#{enregistrerDemandeDDController.dossierDD.datePriseService}"/>
+							<p:message for="datePriseService" />
+							<!--
+							<h:outputLabel value="Date de cessation de service  (b)" /><p:calendar id="date1#{id}" value="#{enregistrerDemandeDDFormController.dossierdd.dateCessationService}"/>
+							
+							<h:outputLabel value="Date de départ à la retraire  (b)" /><p:calendar id="date2#{id}" value="#{enregistrerDemandeDDFormController.dossierdd.dateMiseRetraite}"/>
+							-->
+							<!--
+							<h:outputText value="" /><h:outputText value="" /><h:outputText value="" /><h:outputText value="" />
+							-->
+							<!--
+							<h:outputText value="" /><h:outputText value="" />
+							-->
+							
+							<p:outputLabel for="poidsBagaggeC" value="Poids des bagages constaté" />
+							<p:inputText id="poidsBagaggeC" value="#{enregistrerDemandeDDController.dossierDD.poidsBagageConstate}" />
+							<p:message for="poidsBagaggeC" />
+							
+						</p:panelGrid>
+					</p:fieldset>
+					
+					<p:spacer height="5" />	
+					<p:fieldset legend="Famille">					
+						<p:panelGrid columns="3" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
+							<p:outputLabel for="dateMariage" value="Date de mariage" />
+							<p:calendar id="dateMariage" value="#{enregistrerDemandeDDController.dossierDD.dateMariage}"/>
+							<p:message for="dateMariage" />
+							
+							<p:outputLabel for="anneeRM" value="Année de régistre du mariage" />
+							<p:inputText id="anneeRM" value="#{enregistrerDemandeDDController.dossierDD.anneeRegistreMariage}" />
+							<p:message for="anneeRM" />
+							
+							<!--
+							<h:outputLabel value="Nombre d'enfant" />
+							<h:inputText id="nbrEnf" value="#{enregistrerDemandeDDController.dossierDD.nombreEnfant}" />
+							<p:message for="nbrEnf" />
+							-->
+						</p:panelGrid>
+					</p:fieldset>					
+				</h:panelGroup>
+
+				</p:panelGrid>
+				<p:spacer height="5" />	
+				<p:fieldset legend="Pièces justificatives">
+					
+					<p:dataTable id="dt" value="#{enregistrerDemandeDDController.dossierDD.pieceJustificatives}" var="piece" rowIndexVar="index">
+						 
+						 <p:column headerText="Type Pièce">
+							<h:outputText value="#{piece.type}" />		
+							<!--
+							<f:facet name="footer">
+								<p:commandButton icon="ui-icon-plus" value="Ajouter" process="dt" update="dt"/>
+						  	</f:facet>				
+						  	-->
+						</p:column>
+						<p:column headerText="Numéro">
+							<p:inputText  value="#{piece.numero}" />	
+						</p:column>
+						<p:column headerText="Date d'établissement ">
+							<p:calendar value="#{piece.dateEtablissement}" />
+						</p:column>
+						<p:column headerText="Date d'effet">
+							<p:calendar value="#{piece.dateEffetDecision}" />	
+						</p:column>
+						<p:column headerText="Fonction du disgnataire">
+							<p:inputText value="#{piece.fonctionSignataire}" />	
+						</p:column>
+						<p:column headerText="Fichier">
+							<p:fileUpload value="#{enregistrerDemandeDDController.uploadedFiles.get(index)}" mode="simple"/>
+						</p:column>
+						<!--
+						<p:column headerText="">
+						<ui:include src="/resources/include/input/fichier.xhtml">	
+							<ui:param name="id" value="pjt#{index}"/>
+							<ui:param name="label" value="Date Signature"/>
+							<ui:param name="label2" value="Date Effet"/>
+							<ui:param name="label3" value="Signé(e) par"/>
+							<ui:param name="label4" value="Type"/>
+							<ui:param name="fileReader" value="#{pj}"/>
+						</ui:include>
+						</p:column>	
+						-->			
+					</p:dataTable>	
+					
+				</p:fieldset>								
+				
+				<p:separator/>
+				<p:commandButton value="S'inscrire"  icon="ui-icon-check" action="#{enregistrerDemandeDDController.enregistrer}" update="@form" /> 
+			</h:form>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

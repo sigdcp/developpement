@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+<body>
+	<ui:composition>
+		
+		<h1>Details de la demande</h1>
+		<p:panelGrid columns="2">
+			<h:outputText value="Matricule" /><h:outputText value="" />
+			<h:outputText value="Nom et prénoms" /><h:outputText value="" />
+			<h:outputText value="Date inscription" /><h:outputText value="" />
+		</p:panelGrid>
+		<p:separator/>
+		<ui:include src="/sotra/liste/include/beneficiaireListe.xhtml"></ui:include>
+	
+		
+	</ui:composition>
+</body>
+</html>

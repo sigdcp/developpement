@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/commun.xhtml">
+			
+			<ui:define name="contenu">
+				
+					<h1>Soumettre la feuille de déplacement N° #{soumettreFeuilleDeplacementController.feuilleDeplacement.numero}</h1>
+					<p:tabView>
+						<p:tab title="Feuille de déplacement">
+							<h:form id="form" enctype="multipart/form-data">	
+								<p:panelGrid columns="3" styleClass="panelGridNoBorder">
+									<p:outputLabel value="Numéro" /><h:outputText value="" /><h:outputText value="" />
+									<p:outputLabel for="ds" value="Date de signature" /><p:calendar id="ds" value="" pattern="#{constantResources.datePattern}" required="true" requiredMessage="#{valueRequiredMessage}" /><p:message for="ds" />
+									<p:outputLabel for="fs" value="Fonction du signataire" /><p:inputText id="fs" value="" required="true" requiredMessage="#{valueRequiredMessage}"/><p:message for="fs" />
+									<p:outputLabel for="f" value="Fichier" /><p:fileUpload id="f" mode="simple" value="" required="true" requiredMessage="#{valueRequiredMessage}"/> <p:message for="f" />						
+								</p:panelGrid>	
+								<p:separator/>
+								<p:commandButton value="Enregistrer" action="#{soumettreFeuilleDeplacementController.soumettre}" ajax="false"/>		
+							</h:form>
+						</p:tab>
+						<p:tab title="Dossier">
+							<ui:include src="/dossier/include/formDossier.xhtml"/>
+						</p:tab>
+					</p:tabView>
+					
+				
+			</ui:define>
+			
+			
+		</ui:composition>
+
+	</h:body>
+
+</html>

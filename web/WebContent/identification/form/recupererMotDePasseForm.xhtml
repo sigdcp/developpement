@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/presentation.xhtml">
+			
+			<ui:define name="contenu">
+			<h:form>
+			<div  style="padding-bottom:10px;padding-top:50px;height: 700px;">
+				<p:panel header="Récupérer mon mot de passe">
+					
+					<h:panelGrid columns="3" cellpadding="5" style="margin:auto">
+						<p:outputLabel for="matricule" value="Matricule" />	
+						<p:inputText id="matricule" value="#{connexionFormController.matricule}" required="true" requiredMessage="Saisissez votre matricule" />
+						 <p:message for="matricule"/>
+						 
+						<p:outputLabel for="email" value="E-mail" />
+						<p:inputText id="email" value="#{connexionFormController.email}" required="true" requiredMessage="Saisissez votre E-mail" />
+						<p:message for="email"/>
+						
+					</h:panelGrid><br/>
+					<center>
+						<p:commandButton value="Valider" icon="ui-icon-check" action="recupererMotDePasseSucces" ajax="false" style="text-align:center" />
+					</center>
+			  		<br/>
+			  		</p:panel>
+			</div>			
+			
+			</h:form>
+			</ui:define>
+			
+			
+		</ui:composition>
+
+	</h:body>
+
+</html>
