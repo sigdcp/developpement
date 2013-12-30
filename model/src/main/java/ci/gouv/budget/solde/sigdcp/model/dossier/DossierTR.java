@@ -17,11 +17,9 @@ import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.model._validation.OrderedDate;
 
 @Getter @Setter 
 @Entity
-@OrderedDate(first="datePriseService",second="dateFin",message="Date mal ordone")
 public class DossierTR extends Dossier implements Serializable{
 
 	private static final long serialVersionUID = 1L;

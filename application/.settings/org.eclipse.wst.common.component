@@ -11,12 +11,6 @@
         <dependent-module archiveName="sigdcp-model-0.0.1.jar" deploy-path="/lib" handle="module:/resource/model/model">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="commons-beanutils-1.8.3.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="commons-logging-1.1.1.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="sigdcp-dao-0.0.1.jar" deploy-path="/lib" handle="module:/resource/dao-interfaces/dao-interfaces">
             <dependency-type>uses</dependency-type>
         </dependent-module>
