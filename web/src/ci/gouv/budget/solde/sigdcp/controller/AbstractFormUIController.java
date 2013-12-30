@@ -5,22 +5,30 @@ import java.io.Serializable;
 import javax.inject.Inject;
 
 import lombok.Getter;
+import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
-import ci.gouv.budget.solde.sigdcp.service.utils.ServiceValidationUtils;
-import ci.gouv.budget.solde.sigdcp.service.utils.validaton.AbstractValidator;
+import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
 @Getter
-public class AbstractUIFormController extends AbstractUIController implements Serializable {
+public abstract class AbstractFormUIController extends AbstractUIController implements Serializable {
 
 	private static final long serialVersionUID = 3873845367443589081L;
 	
-	@Inject protected ServiceValidationUtils validationUtils;
+	/**
+	 * Paramètre de requête de URL (nom du paramètre est OPERATION)
+	 */
+	@Getter @Setter
+	protected CRUDType crudType;
+	
+	/**
+	 * button d'envoi des informations
+	 */
+	protected String actionLabel = i18n("boutton.envoyer");
+	protected Boolean actionAjax = Boolean.TRUE;
+	
 	@Getter protected Boolean editable = Boolean.TRUE;
 	@Inject protected UserSessionManager userSessionManager;
-	
 	@Getter protected Boolean closeable = Boolean.TRUE;
-	
-	protected AbstractValidator<?> validator;
 	
 	public String submit(){
 		if(valide()){
@@ -32,8 +40,6 @@ public class AbstractUIFormController extends AbstractUIController implements Se
 			}
 			return succes();
 		}
-		//else
-			//addMessageError(constantResources.getValuesRequiredMessage());
 		return echec();
 	}
 	
@@ -44,29 +50,39 @@ public class AbstractUIFormController extends AbstractUIController implements Se
 	 * @return
 	 */
 	protected Boolean valide(){
-		//if(validator==null)
-			return Boolean.TRUE;
-		//validator.validate(object);
+		return Boolean.TRUE;
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
 	protected String succes(){
 		return "succes";
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
 	protected String echec(){
 		return null;
 	}
 	
 	public String close(){
 		return  userSessionManager.isLoggedIn()?"index":"connexionForm";
+	}
+	
+	public boolean isCreate(){
+		return CRUDType.CREATE.equals(crudType);
+	}
+	
+	public boolean isUpdate(){
+		return CRUDType.UPDATE.equals(crudType);
+	}
+	
+	public boolean isRead(){
+		return CRUDType.READ.equals(crudType);
+	}
+	
+	public boolean isDelete(){
+		return CRUDType.DELETE.equals(crudType);
+	}
+	
+	public boolean isEditable(){
+		return isCreate() || isUpdate();
 	}
 	
 }

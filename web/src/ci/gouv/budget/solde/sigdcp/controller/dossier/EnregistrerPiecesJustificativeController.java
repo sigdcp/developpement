@@ -2,7 +2,6 @@ package ci.gouv.budget.solde.sigdcp.controller.dossier;
 
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
@@ -12,13 +11,9 @@ import javax.inject.Named;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import org.omnifaces.util.Faces;
-
 import ci.gouv.budget.solde.sigdcp.controller.fichier.PieceJustificativeDTO;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
-import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
@@ -50,12 +45,15 @@ public class EnregistrerPiecesJustificativeController extends AbstractDossierUIC
 	
 	private PieceJustificative feuilleDeplacement,bonTransport;
 	
+	
+	
 	@Override
 	protected DossierDD createDossierInstance() {
 		DossierDD dossierDD = new DossierDD();
 		dossierDD.setDeplacement(new Deplacement());
 		return dossierDD;
 	}
+	
 	
 	@Override
 	protected AbstractDossierService<DossierDD> getDossierService() {
@@ -131,54 +129,7 @@ public class EnregistrerPiecesJustificativeController extends AbstractDossierUIC
 		return pj;
 	}
 	
-	@Override
-	protected Boolean valide() {
-		Date datecourante = new Date();
-		boolean succes= true;
-		
-		if (!validationUtils.isOrdonne(dossier.getDatePriseService(),datecourante)){
-			addMessageError("la date de prise de service ne doit pas être supérieure à la date d'aujourd'hui");
-			succes=false;
-		}
 
-		if (!validationUtils.isOrdonne(dossier.getDateCessationService(),dossier.getDatePriseService()))
-		{
-			addMessageError("la date de cessation de service ne doit pas être supérieure à la date de prise de service");
-			succes=false;
-		}
-		if (!validationUtils.isOrdonne(dossier.getDateMariage(),datecourante))
-		{
-			addMessageError("la date de mariage ne doit pas être supérieure à la date d'aujourd'hui");
-			succes=false;
-		}
-		if (!validationUtils.isOrdonne(dossier.getDateMiseRetraite(),datecourante))
-		{
-			addMessageError("la date de mise à la retraite ne doit pas être supérieure à la date d'aujourd'hui");
-			succes=false;
-		}
-		if (!validationUtils.isOrdonne(dossier.getDeplacement().getDateArrivee(),datecourante))
-		{
-			addMessageError("la date de d'arrivée ne doit pas être supérieure à la date d'aujourd'hui");
-			succes=false;
-		}
-		if (!validationUtils.isOrdonne(dossier.getDeplacement().getDateArrivee(),dossier.getDatePriseService()))
-		{
-			addMessageError("la date de d'arrivée ne doit pas être supérieure à la date de prise de service");
-			succes=false;
-		}
-		if (!validationUtils.isOrdonne(dossier.getDeplacement().getDateArrivee(),dossier.getDateMiseRetraite()))
-		{
-			addMessageError("la date de d'arrivée ne doit pas être supérieure à la date de mise à la retraite");
-			succes=false;
-		}
-		if (!validationUtils.isOrdonne(dossier.getDeplacement().getDateDepart(),dossier.getDeplacement().getDateArrivee()))
-		{
-			addMessageError("la date de départ ne doit pas être supérieure à la date d'arrivée");
-			succes=false;
-		}
-		
-		return succes;
-	}
 	
 	public String enregistrerBase() {
 		/*

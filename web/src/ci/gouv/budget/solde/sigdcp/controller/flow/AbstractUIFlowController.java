@@ -3,10 +3,10 @@ package ci.gouv.budget.solde.sigdcp.controller.flow;
 import java.io.Serializable;
 
 import lombok.Getter;
-import ci.gouv.budget.solde.sigdcp.controller.AbstractUIFormController;
+import ci.gouv.budget.solde.sigdcp.controller.AbstractFormUIController;
 
 @Getter
-public class AbstractUIFlowController extends AbstractUIFormController implements Serializable {
+public class AbstractUIFlowController extends AbstractFormUIController implements Serializable {
 
 	private static final long serialVersionUID = 1588915965471299089L;
 	

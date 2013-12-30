@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import ci.gouv.budget.solde.sigdcp.service.resources.ConstantResources;
 
 @Singleton
+@Deprecated
 public class ServiceValidationUtils {
 
 	static final String MATRICULE_FORMAT = "\\d\\d\\d\\d\\d\\d[a-zA-Z]";

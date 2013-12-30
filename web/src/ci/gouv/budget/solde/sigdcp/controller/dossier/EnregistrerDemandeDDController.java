@@ -2,7 +2,6 @@ package ci.gouv.budget.solde.sigdcp.controller.dossier;
 
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -13,7 +12,6 @@ import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.Code;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
@@ -41,30 +39,24 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIControllerC
 	
 	@Getter @Setter private Boolean marie;
 	@Getter @Setter private Integer nombreEnfant;
+	
 
 	/*
 	 * Attributs de parametrages de la vue
 	 */
-	
-	@Setter @Getter PieceJustificative extraitNaissanceUploader;
 	@Getter Boolean showDatePriseService;
 	@Getter Boolean showDateCessationService;
 	@Getter Boolean showDateMiseRetraite;
 	@Getter Boolean showserviceOrigine;
 	@Getter Boolean showserviceAcceuil;
 	
-	@Getter @Setter private Boolean fdEditer = Boolean.FALSE;
-	@Getter @Setter private Boolean btEditer = Boolean.FALSE;
-	@Getter @Setter private Boolean fdSoumis = Boolean.FALSE;
-	@Getter @Setter private Boolean btSoumis = Boolean.FALSE;
-	
-	private PieceJustificative feuilleDeplacement,bonTransport;
+	@Setter @Getter PieceJustificative extraitNaissanceUploader;
+		
+	private String pjo;
 	
 	@Override
-	protected DossierDD createDossierInstance() {
-		DossierDD dossierDD = new DossierDD();
-		dossierDD.setDeplacement(new Deplacement());
-		return dossierDD;
+	protected Class<DossierDD> entityClass() {
+		return DossierDD.class;
 	}
 	
 	@Override
@@ -72,8 +64,10 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIControllerC
 		return dossierDDService;
 	}
 
-	@PostConstruct
-	protected void postConstruct2() {
+
+	@Override
+	public void __firstPreRenderView__() {
+		super.__firstPreRenderView__();
 		//natureDaplacementCode = Faces.getRequestParameter(constantResources.getRequestParamNatureDeplacement());
 		//System.out.println("Nature deplacement code : "+natureDaplacementCode);
 		/*
@@ -98,101 +92,56 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIControllerC
 			}
 		} 
 		*/
-		if(Code.NATURE_DEPLACEMENT_AFFECTATION.equals(dossier.getDeplacement().getNature().getCode())){
+		
+		if(isNatureDeplacementAffectation()){
 			showDatePriseService = Boolean.TRUE;
 			showserviceAcceuil = Boolean.TRUE;
-		}
-		else if(Code.NATURE_DEPLACEMENT_MUTATION.equals(dossier.getDeplacement().getNature().getCode())){
+		}else if(isNatureDeplacementMutation()){
 			showDatePriseService = Boolean.TRUE;
 			showDateCessationService = Boolean.TRUE;
 			showserviceOrigine = Boolean.TRUE;
 			showserviceAcceuil = Boolean.TRUE;
-		}
-		
-		else if(Code.NATURE_DEPLACEMENT_RETRAITE.equals(dossier.getDeplacement().getNature().getCode())){
+		}else if(isNatureDeplacementDepartRetraite()){
 			showDateMiseRetraite = Boolean.TRUE;
 			showserviceOrigine = Boolean.TRUE;
 		}
+		
+		pjo = outcome("piecesJustificativeForm", new String[]{});
 		
 	}
 	
 	@Override
 	protected Boolean valide() {
 		DossierDDValidator validator = new DossierDDValidator();
-		validator.validate(dossier);
+		validator.validate(entity);
 		for(String m : validator.getMessages())
 			addMessageError(m);
 		return validator.isSucces();
-		/*
-		Date datecourante = new Date();
-		boolean succes= true;
-		
-		if (!validationUtils.isOrdonne(dossier.getDatePriseService(),datecourante)){
-			addMessageError("la date de prise de service ne doit pas être supérieure à la date d'aujourd'hui");
-			succes=false;
-		}
 
-		if (!validationUtils.isOrdonne(dossier.getDateCessationService(),dossier.getDatePriseService()))
-		{
-			addMessageError("la date de cessation de service ne doit pas être supérieure à la date de prise de service");
-			succes=false;
-		}
-		if (!validationUtils.isOrdonne(dossier.getDateMariage(),datecourante))
-		{
-			addMessageError("la date de mariage ne doit pas être supérieure à la date d'aujourd'hui");
-			succes=false;
-		}
-		if (!validationUtils.isOrdonne(dossier.getDateMiseRetraite(),datecourante))
-		{
-			addMessageError("la date de mise à la retraite ne doit pas être supérieure à la date d'aujourd'hui");
-			succes=false;
-		}
-		if (!validationUtils.isOrdonne(dossier.getDeplacement().getDateArrivee(),datecourante))
-		{
-			addMessageError("la date de d'arrivée ne doit pas être supérieure à la date d'aujourd'hui");
-			succes=false;
-		}
-		if (!validationUtils.isOrdonne(dossier.getDeplacement().getDateArrivee(),dossier.getDatePriseService()))
-		{
-			addMessageError("la date de d'arrivée ne doit pas être supérieure à la date de prise de service");
-			succes=false;
-		}
-		if (!validationUtils.isOrdonne(dossier.getDeplacement().getDateArrivee(),dossier.getDateMiseRetraite()))
-		{
-			addMessageError("la date de d'arrivée ne doit pas être supérieure à la date de mise à la retraite");
-			succes=false;
-		}
-		if (!validationUtils.isOrdonne(dossier.getDeplacement().getDateDepart(),dossier.getDeplacement().getDateArrivee()))
-		{
-			addMessageError("la date de départ ne doit pas être supérieure à la date d'arrivée");
-			succes=false;
-		}
-		
-		return succes;
-		*/
 	}
 	
 	@Override
 	protected void action() {
-		dossierDDService.enregistrer(dossier);
+		dossierDDService.enregistrer(entity);
 	}
 	
 	@Override
 	protected String succes() {
-		addMessage(FacesMessage.SEVERITY_INFO, "Demande enregistr�e");
-		return "/private/demande/piecesjustificative.xhtml?faces-redirect=true&"+constantResources.getRequestParamEntityId()+"="+dossier.getNumero(); //"piecesjustificativeForm";
+		addMessage(FacesMessage.SEVERITY_INFO, "Demande enregistrée");
+		return pjo //"/private/demande/piecesjustificative.xhtml"
+				+ "?faces-redirect=true&"+constantResources.getRequestParamEntityId()+"="+entity.getNumero(); //"piecesjustificativeForm";
 	}
 	
-	/*
-	public String enregistrerBase() {
-		super.enregistrerBase();
-		PieceJustificativeAFournir extraitModel = new PieceJustificativeAFournir(null, true, 1, 1, new TypePieceJustificative(Code.TYPE_PIECE_EXTRAIT_NAISSANCE, "Extrait de naissance"));
-		if(null!=nombreEnfant)
-			for (int i=0; i<nombreEnfant;i++){
-				pieceJustificativeUploader.addPieceJustificative(new PieceJustificative(extraitModel, dossier));
-			}
-		return null;
+	public boolean isNatureDeplacementAffectation(){
+		return Code.NATURE_DEPLACEMENT_AFFECTATION.equals(entity.getDeplacement().getNature().getCode());
 	}
-	*/
+	
+	public boolean isNatureDeplacementDepartRetraite(){
+		return Code.NATURE_DEPLACEMENT_RETRAITE.equals(entity.getDeplacement().getNature().getCode());
+	}
+	
+	public boolean isNatureDeplacementMutation(){
+		return Code.NATURE_DEPLACEMENT_MUTATION.equals(entity.getDeplacement().getNature().getCode());
+	}
 
 }

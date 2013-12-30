@@ -40,6 +40,7 @@ public class ObjectConverter implements Converter {
 		if(object == null)
 			return null;
 		if(object instanceof AbstractModel<?>){
+			System.out.println("ObjectConverter.getIdentifier() : "+((DynamicEnumeration) object).getCode());
 			return ((DynamicEnumeration) object).getCode();
 		}else
 			log.warning("Cannot find identitifer of this object type : "+object.getClass());
@@ -71,6 +72,7 @@ public class ObjectConverter implements Converter {
 		if(objectMap.containsKey(identifier))
 			identifier = createNewIdentifierFrom(identifier);
 		objectMap.put(identifier, object);
+		System.out.println(object+" TO "+ objectMap);
 		return identifier;
 	}
 }
