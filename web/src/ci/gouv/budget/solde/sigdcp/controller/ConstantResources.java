@@ -13,8 +13,10 @@ import javax.inject.Singleton;
 
 import lombok.Getter;
 import lombok.extern.java.Log;
-import ci.gouv.budget.solde.sigdcp.dao.DynamicEnumerationDao;
+import ci.gouv.budget.solde.sigdcp.controller.converter.ViewParamConverter;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
+import ci.gouv.budget.solde.sigdcp.service.GenericService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
 /**
@@ -27,11 +29,16 @@ public class ConstantResources implements Serializable{
 	
 	private static final long serialVersionUID = 1583754563831914427L;
 
-	@Inject private DynamicEnumerationDao dynamicEnumerationDao;
+	@Inject private GenericService genericService;
 	
 	@Getter private final String requestParamNatureDeplacement = "nd";
-	@Produces @Named public ViewParamDynamicEnumerationConverter getViewParamNatureDeplacementConverter(){
-		return new ViewParamDynamicEnumerationConverter(dynamicEnumerationDao, NatureDeplacement.class);
+	@Produces @Named public ViewParamConverter getViewParamNatureDeplacementConverter(){
+		return new ViewParamConverter(genericService, NatureDeplacement.class);
+	}
+	
+	@Getter private final String requestParamDossier = "dossier";
+	@Produces @Named public ViewParamConverter getViewParamDossierConverter(){
+		return new ViewParamConverter(genericService, Dossier.class);
 	}
 	
 	@Getter private final String requestParamCrudType = "ct";
@@ -53,7 +60,7 @@ public class ConstantResources implements Serializable{
 	@Getter @Produces @Named private final String valuesRequiredMessage = "Tous les champs avec * sont obligatiore";
 	@Getter @Produces @Named private final String noSelectionOptionMessage = "--Selectionnez--";
 	
-	@Produces @Named public Converter getEnumConverter(){
+	@Produces @Named public Converter getViewParamEnumConverter(){
 		return new Converter() {
 			
 			@Override

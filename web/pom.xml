@@ -62,7 +62,7 @@
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
-			<version>7.0</version>
+			<version>${javaee.version}</version>
 			<scope>provided</scope>
 		</dependency> 
 		
@@ -72,11 +72,11 @@
 			<artifactId>primefaces</artifactId>
 			<version>4.0</version>
 		</dependency>
-		    <dependency>  
-        <groupId>org.primefaces.themes</groupId>  
-        <artifactId>all-themes</artifactId>  
-        <version>1.0.10</version>  
-    </dependency>  
+		<dependency>  
+	        <groupId>org.primefaces.themes</groupId>  
+	        <artifactId>all-themes</artifactId>  
+	        <version>1.0.10</version>  
+	    </dependency>  
 		<!-- Utilities -->
 		<dependency>
 			<groupId>org.omnifaces</groupId>
@@ -91,7 +91,6 @@
 			<version>1.2.1</version>
 		</dependency> 
 		
- 
 		<dependency>
 			<groupId>ci.gouv.budget.solde.sigdcp</groupId>
 			<artifactId>sigdcp-service-ipml</artifactId>

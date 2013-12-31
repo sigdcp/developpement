@@ -51,11 +51,11 @@ public abstract class AbstractDossierUIControllerController<DOSSIER extends Doss
 	 * Paramètres de requete
 	 */
 	@Setter @Getter protected NatureDeplacement natureDaplacement;
-	@Setter @Getter protected String dossierCode;
 	
 	@Override
 	public void __firstPreRenderView__(){
-		System.out.println("Nature code OLE : "+natureDaplacement);
+		System.out.println("Param Nature : "+natureDaplacement);
+		System.out.println("Param Dossier : "+entity);
 		agentEtat = agentEtatService.findAll().get(0);
 		//natureDaplacementCode = Faces.getRequestParameter(constantResources.getRequestParamNatureDeplacement());
 		
@@ -63,10 +63,12 @@ public abstract class AbstractDossierUIControllerController<DOSSIER extends Doss
 		if(constantResources.getRequestParamActionEditer().equals(action))
 			editable = Boolean.TRUE;
 		
-		dossierCode = Faces.getRequestParameter(constantResources.getRequestParamEntityId());
+		//dossierCode = Faces.getRequestParameter(constantResources.getRequestParamEntityId());
 		Boolean load;
 		if(isCreate()){
-			if(dossierCode==null){
+			if(entity==null){
+				System.out
+						.println("AbstractDossierUIControllerController.__firstPreRenderView__()");
 				load = Boolean.FALSE;
 				entity = (DOSSIER) new DossierDD(); //createDossierInstance();
 				entity.setDeplacement(new Deplacement());
@@ -95,7 +97,9 @@ public abstract class AbstractDossierUIControllerController<DOSSIER extends Doss
 				pieceJustificativeUploader.addPieceJustificative(new PieceJustificative(pieceJustificativeAFournir, entity));
 			*/
 		}
-		
+		System.out.println(entity);
+		System.out.println(entity.getDeplacement());
+		System.out.println(entity.getDeplacement().getNature());
 		title = "Formulaire de : "+entity.getDeplacement().getNature().getLibelle();
 	}
 		

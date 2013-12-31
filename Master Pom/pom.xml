@@ -30,6 +30,7 @@
 		<project.sigdcp.repository.url>file:///P:\SIGDCP\Developpement\repositories\dependencies</project.sigdcp.repository.url>
 		
 		<javaee.version>7.0</javaee.version>
+		<hibernate-validator.version>5.0.0.Final</hibernate-validator.version>
 		<version.org.jboss.spec.jboss.javaee>3.0.0.Final</version.org.jboss.spec.jboss.javaee>
 
 	</properties>
@@ -143,6 +144,11 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 
 	</dependencies>

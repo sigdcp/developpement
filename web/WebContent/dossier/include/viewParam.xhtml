@@ -8,15 +8,13 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <body>
 	<ui:composition>
-		<!--
-		<f:viewParam id="recordId" name="#{webConstantResources.requestParamEntityId}" value="#{controller.entity}" 
-	        required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" />
-	    -->
-	    <f:viewParam id="natureDeplacementId" name="#{webConstantResources.requestParamNatureDeplacement}" value="#{controller.natureDaplacement}" 
-	        required="true" requiredMessage="#{valueRequiredMessage}" converter="#{viewParamNatureDeplacementConverter}" />
+		
+		<f:viewParam id="dossierId" name="#{webConstantResources.requestParamDossier}" value="#{controller.entity}" converter="#{viewParamDossierConverter}" />
+	    
+	    <f:viewParam id="natureDeplacementId" name="#{webConstantResources.requestParamNatureDeplacement}" value="#{controller.natureDaplacement}" converter="#{viewParamNatureDeplacementConverter}" />
 	    
 	    <f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{controller.crudType}" 
-	        required="true" requiredMessage="#{valueRequiredMessage}" converter="#{enumConverter}" />
+	        required="true" requiredMessage="#{valueRequiredMessage}" converter="#{viewParamEnumConverter}" />
 	           
 	    <f:event type="preRenderView" listener="#{controller.preRenderView}" />    
 	</ui:composition>

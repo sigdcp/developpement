@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
+import javax.faces.application.NavigationCase;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -65,9 +66,10 @@ public abstract class AbstractUIController implements Serializable {
 	}
 	
 	protected String outcome(String id,Object[] parameters){
-	    StringBuilder url = new StringBuilder(navigationHandler.getNavigationCase(facesContext, null, id).getToViewId(facesContext));
-	    if(parameters!=null){
-	    	url.append("?");
+		NavigationCase navigationCase = navigationHandler.getNavigationCase(facesContext, null, id);
+		StringBuilder url = new StringBuilder(navigationCase.getToViewId(facesContext));
+	    url.append("?faces-redirect="+navigationCase.isRedirect());
+	    if(parameters!=null && parameters.length>0){
 	    	for(int i=0;i<parameters.length-1;i++)
 				try {
 					url.append((i==0?"":"&")+parameters[i]+"="+URLEncoder.encode(parameters[i+1].toString(), "UTF-8"));
@@ -78,4 +80,23 @@ public abstract class AbstractUIController implements Serializable {
 		return url.toString();
 	}
 	
+	protected String outcome(String id){
+		return outcome(id, null);
+	}
+	
+	protected String addQueryParameters(String url,Object[] parameters){
+		StringBuilder params = new StringBuilder();
+		boolean hasQueryMark = url.contains("?");
+	    if(parameters!=null && parameters.length>0){
+	    	if(!hasQueryMark)
+	    		params.append("?");
+	    	for(int i=0;i<parameters.length-1;i++)
+				try {
+					params.append((hasQueryMark?"&":"?")+parameters[i]+"="+URLEncoder.encode(parameters[i+1].toString(), "UTF-8"));
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+	    }
+	    return url+params.toString();
+	}
 }

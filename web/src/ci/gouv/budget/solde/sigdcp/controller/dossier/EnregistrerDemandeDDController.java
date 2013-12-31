@@ -106,7 +106,10 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIControllerC
 			showserviceOrigine = Boolean.TRUE;
 		}
 		
-		pjo = outcome("piecesJustificativeForm", new String[]{});
+		pjo = outcome("piecesJustificativeForm");
+		System.out.println("Outcome 1 : "+pjo);
+		
+		System.out.println("Outcome 2 : "+addQueryParameters(pjo, new String[]{"MYID","MYVALUE"}));
 		
 	}
 	
@@ -128,8 +131,7 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIControllerC
 	@Override
 	protected String succes() {
 		addMessage(FacesMessage.SEVERITY_INFO, "Demande enregistrée");
-		return pjo //"/private/demande/piecesjustificative.xhtml"
-				+ "?faces-redirect=true&"+constantResources.getRequestParamEntityId()+"="+entity.getNumero(); //"piecesjustificativeForm";
+		return pjo+constantResources.getRequestParamEntityId()+"="+entity.getNumero(); //"piecesjustificativeForm";
 	}
 	
 	public boolean isNatureDeplacementAffectation(){
