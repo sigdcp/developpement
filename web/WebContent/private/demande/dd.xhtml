@@ -22,11 +22,22 @@
 				<ui:param name="uiController" value="#{enregistrerDemandeDDController}" />
 				<ui:define name="contenu">	
 					<ui:include src="/dossier/include/formDossier.xhtml" />
+					
+					<p:spacer height="5"/>
+					<!--
+					<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml">
+						<ui:param name="controller" value="#{enregistrerDemandeDDController}"/>
+						<ui:param name="uploader" value="#{enregistrerDemandeDDController.pieceJustificativeUploader}"/>
+					</ui:include>
+					-->
 				</ui:define>
-
+				
 				<ui:define name="actions">
-					<p:commandButton value="Enregistrer"  icon="ui-icon-check" action="#{enregistrerDemandeDDController.submit}" update="@form" 
-						rendered="#{enregistrerDemandeDDController.editable}"/>	
+					<p:commandButton value="#{enregistrerDemandeDDController.enregistrerPart1Action.actionLabel}"  icon="ui-icon-check" 
+						action="#{enregistrerDemandeDDController.enregistrerPart1Action.execute}" update="@form" rendered="#{enregistrerDemandeDDController.editable}" />
+					
+					<p:commandButton value="#{enregistrerDemandeDDController.enregistrerPart2Action.actionLabel}"  icon="ui-icon-check" 
+						action="#{enregistrerDemandeDDController.enregistrerPart2Action.execute}" update="@form" rendered="#{enregistrerDemandeDDController.editable}" />	
 				</ui:define>
 				
 			</ui:decorate>

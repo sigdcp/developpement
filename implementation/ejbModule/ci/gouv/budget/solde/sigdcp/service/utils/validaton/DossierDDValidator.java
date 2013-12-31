@@ -18,7 +18,7 @@ public class DossierDDValidator extends AbstractValidator<DossierDD> implements 
 	
 	@AssertTrue(message="la date de prise de service doit être inférieur a la date de cessation de service")
 	private boolean hasDatePriseServiceBeforeDateCessationService(){
-		return new ServiceValidationUtils().isOrdonne(object.getDatePriseService(),object.getDateCessationService());
+		return false;//object.getDatePriseService().before(object.getDateCessationService());
 	}
 	
 	/*

@@ -3,7 +3,6 @@ package ci.gouv.budget.solde.sigdcp.controller.dossier;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -16,6 +15,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierDDService;
+import ci.gouv.budget.solde.sigdcp.service.utils.validaton.AbstractValidator;
 import ci.gouv.budget.solde.sigdcp.service.utils.validaton.DossierDDValidator;
 
  
@@ -60,39 +60,23 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIControllerC
 	}
 	
 	@Override
+	protected AbstractValidator<DossierDD> validator() {
+		return new DossierDDValidator();
+	}
+	
+	@Override
 	protected AbstractDossierService<DossierDD> getDossierService() {
 		return dossierDDService;
 	}
 
+	@Override
+	protected Boolean valide() {
+		return Boolean.TRUE;
+	}
 
 	@Override
 	public void __firstPreRenderView__() {
 		super.__firstPreRenderView__();
-		//natureDaplacementCode = Faces.getRequestParameter(constantResources.getRequestParamNatureDeplacement());
-		//System.out.println("Nature deplacement code : "+natureDaplacementCode);
-		/*
-		NatureDeplacement natureDeplacement = natureDeplacementService.findById(natureDaplacementCode);
-		title = "Formulaire de demande : "+natureDeplacement.getLibelle();
-		String action = Faces.getRequestParameter(constantResources.getRequestParamAction());
-		if(constantResources.getRequestParamActionEditer().equals(action))
-			editable = Boolean.TRUE;
-		dossierCode = Faces.getRequestParameter(constantResources.getRequestParamEntityId());
-		
-		if(Boolean.TRUE.equals(getEditable())){
-			dossier.setDeplacement(new Deplacement());
-			dossier.getDeplacement().setNature(natureDeplacementService.findById(natureDaplacementCode));
-			for(PieceJustificativeAFournir pieceJustificativeAFournir : pieceJustificativeAFournirService.findByNatureDeplacementId(natureDaplacementCode))
-				pieceJustificativeUploader.addPieceJustificative(new PieceJustificative(pieceJustificativeAFournir, dossier));
-		}else{
-			dossier = dossierDDService.findById(dossierCode); 
-			Collection<PieceJustificative> pjs = pieceJustificativeService.findByDossier(dossier);
-			for(PieceJustificative pieceJustificative : pjs ){
-				//uploadedFiles.add(new PieceUploadHelper(pieceJustificative));
-				pieceJustificativeUploader.addPieceJustificative(pieceJustificative);
-			}
-		} 
-		*/
-		
 		if(isNatureDeplacementAffectation()){
 			showDatePriseService = Boolean.TRUE;
 			showserviceAcceuil = Boolean.TRUE;
@@ -105,33 +89,22 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIControllerC
 			showDateMiseRetraite = Boolean.TRUE;
 			showserviceOrigine = Boolean.TRUE;
 		}
-		
 		pjo = outcome("piecesJustificativeForm");
-		System.out.println("Outcome 1 : "+pjo);
 		
-		System.out.println("Outcome 2 : "+addQueryParameters(pjo, new String[]{"MYID","MYVALUE"}));
-		
+		// test - debugging purpose - to set to TRUE or removed to use default value
+		fieldValueRequiredEnabled = Boolean.FALSE;
 	}
 	
 	@Override
-	protected Boolean valide() {
-		DossierDDValidator validator = new DossierDDValidator();
-		validator.validate(entity);
-		for(String m : validator.getMessages())
-			addMessageError(m);
-		return validator.isSucces();
-
-	}
-	
-	@Override
-	protected void action() {
-		dossierDDService.enregistrer(entity);
+	protected void defaultAction() {
+		System.out.println("EnregistrerDemandeDDController.defaultAction()");
+		//dossierDDService.enregistrer(entity);
 	}
 	
 	@Override
 	protected String succes() {
 		addMessage(FacesMessage.SEVERITY_INFO, "Demande enregistrée");
-		return pjo+constantResources.getRequestParamEntityId()+"="+entity.getNumero(); //"piecesjustificativeForm";
+		return pjo+addQueryParameters(pjo, new Object[]{constantResources.getRequestParamEntityId(),entity.getNumero()}); //constantResources.getRequestParamEntityId()+"="+entity.getNumero(); //"piecesjustificativeForm";
 	}
 	
 	public boolean isNatureDeplacementAffectation(){

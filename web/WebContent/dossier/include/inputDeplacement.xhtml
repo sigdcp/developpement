@@ -22,11 +22,13 @@
 			}
 		</style>
 		
+		<ui:param name="required" value="#{controller.fieldValueRequiredEnabled}" />
+		
 		<p:fieldset legend="Déplacement">
 			<h:panelGrid columns="6" columnClasses="c1,c2,c3,c1,c2,c3">
 				
 				<p:outputLabel for="serviceOrigine" value="Service d'origine:" rendered="#{controller.showserviceOrigine}" />
-				<p:selectOneMenu id="serviceOrigine" value="#{deplacement.serviceOrigine}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
+				<p:selectOneMenu id="serviceOrigine" value="#{deplacement.serviceOrigine}" required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
 				rendered="#{controller.showserviceOrigine and (editable==null or editable)}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{services}"/>
@@ -35,7 +37,7 @@
 				 <p:message for="serviceOrigine" rendered="#{controller.showserviceOrigine}" />
 		        
 		        <p:outputLabel for="serviceAcceuil" value="Service d'accueil:" rendered="#{controller.showserviceAcceuil}" />
-				<p:selectOneMenu id="serviceAcceuil" value="#{deplacement.serviceAccueil}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
+				<p:selectOneMenu id="serviceAcceuil" value="#{deplacement.serviceAccueil}" required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
 				rendered="#{controller.showserviceAcceuil and (editable==null or editable)}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{services}"/>
@@ -48,7 +50,7 @@
 				<h:outputText rendered="#{not controller.showserviceOrigine or not controller.showserviceAcceuil}" />
 				
 				<p:outputLabel for="villeDepart"  value="Ville de départ:" />
-				<p:selectOneMenu id="villeDepart" value="#{deplacement.localiteDepart}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}">
+				<p:selectOneMenu id="villeDepart" value="#{deplacement.localiteDepart}" required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{villes}"/>
 				</p:selectOneMenu>
@@ -56,7 +58,7 @@
 				 <p:message for="villeDepart" />
 				
 				<p:outputLabel for="villeArrivee" value="Ville d'arrivée:" />		
-				<p:selectOneMenu id="villeArrivee" value="#{deplacement.localiteArrivee}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}">
+				<p:selectOneMenu id="villeArrivee" value="#{deplacement.localiteArrivee}" required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{villes}"/>
 				</p:selectOneMenu>	
@@ -64,12 +66,12 @@
 				<p:message for="villeArrivee" />
 				
 				<p:outputLabel for="dateDepart" value="Date départ" />
-				<p:calendar id="dateDepart" value="#{deplacement.dateDepart}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}"/>
+				<p:calendar id="dateDepart" value="#{deplacement.dateDepart}" required="#{required}" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}"/>
 				<h:outputText value="#{deplacement.dateDepart}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 				<p:message for="dateDepart" />
 				 
 				<p:outputLabel for="dateArrivee" value="Date arrivée" />
-				<p:calendar id="dateArrivee" value="#{deplacement.dateArrivee}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}"/>
+				<p:calendar id="dateArrivee" value="#{deplacement.dateArrivee}" required="#{required}" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}"/>
 				<h:outputText value="#{deplacement.dateArrivee}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 				<p:message for="dateArrivee" />
 			 

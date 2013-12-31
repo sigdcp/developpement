@@ -44,10 +44,12 @@ public class ConstantResources implements Serializable{
 	@Getter private final String requestParamCrudType = "ct";
 	@Getter private final String requestParamCrudCreate = "create";
 	@Getter private final String requestParamCrudRead = "read";
-	
+	@Getter private final String requestParamCrudUpdate = "update";
+	/*
 	@Getter private final String requestParamAction = "action";
 	@Getter private final String requestParamActionEditer = "editer";
 	@Getter private final String requestParamActionConsulter = "consulter";
+	*/
 	@Getter private final String requestParamEntityId = "eid";
 	
 	@Getter private final String inputMatriculePattern = "999999a";

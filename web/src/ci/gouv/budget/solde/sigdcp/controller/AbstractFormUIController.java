@@ -23,27 +23,39 @@ public abstract class AbstractFormUIController extends AbstractUIController impl
 	/**
 	 * button d'envoi des informations
 	 */
-	protected String actionLabel = i18n("boutton.envoyer");
-	protected Boolean actionAjax = Boolean.TRUE;
+	//protected String actionLabel = i18n("boutton.envoyer");
+	protected AbstractFormSubmitAction submitAction;
 	
-	@Getter protected Boolean editable = Boolean.TRUE;
+	@Getter protected Boolean fieldValueRequiredEnabled = Boolean.TRUE;
 	@Inject protected UserSessionManager userSessionManager;
 	@Getter protected Boolean closeable = Boolean.TRUE;
 	
-	public String submit(){
-		if(valide()){
-			try {
-				action();
-			} catch (Exception e) {
-				addMessageError(e.getMessage());
-				return echec();
+	@Override
+	public void __firstPreRenderView__() {
+		super.__firstPreRenderView__();
+		if(isCreate())
+			initCreateOperation();
+		else if(isRead())
+			initReadOperation();
+		submitAction = new AbstractFormSubmitAction(i18n("boutton.envoyer")) {
+			private static final long serialVersionUID = 4813924758525355599L;
+			@Override
+			protected void action() {
+				defaultAction();
 			}
-			return succes();
-		}
-		return echec();
+		};
+			
 	}
 	
-	protected void action(){}
+	protected void initCreateOperation(){
+		
+	}
+	
+	protected void initReadOperation(){
+		
+	}
+	
+	protected void defaultAction(){}
 	
 	/**
 	 * Validation des données ( fournies par l'utilisateur )

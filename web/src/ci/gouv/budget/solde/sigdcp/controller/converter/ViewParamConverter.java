@@ -25,7 +25,6 @@ public class ViewParamConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent c, String identifier) {
-		System.out.println(clazz+" : "+identifier);
 		if (identifier==null || identifier.isEmpty())
 			return null;
 		return service.findByClass(clazz,identifier);

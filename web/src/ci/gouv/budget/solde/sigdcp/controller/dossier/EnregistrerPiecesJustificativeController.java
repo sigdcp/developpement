@@ -44,22 +44,12 @@ public class EnregistrerPiecesJustificativeController extends AbstractDossierUIC
 	@Getter @Setter private Boolean btSoumis = Boolean.FALSE;
 	
 	private PieceJustificative feuilleDeplacement,bonTransport;
-	
-	
-	
-	@Override
-	protected DossierDD createDossierInstance() {
-		DossierDD dossierDD = new DossierDD();
-		dossierDD.setDeplacement(new Deplacement());
-		return dossierDD;
-	}
-	
-	
+		
 	@Override
 	protected AbstractDossierService<DossierDD> getDossierService() {
 		return dossierDDService;
 	}
-
+	
 	@PostConstruct
 	protected void postConstruct2() {
 		/*
@@ -120,7 +110,7 @@ public class EnregistrerPiecesJustificativeController extends AbstractDossierUIC
 	}
 	
 	private PieceJustificative editerPiece(PieceJustificativeAFournir model,String numero){
-		PieceJustificative pj = new PieceJustificative(model, dossier);
+		PieceJustificative pj = new PieceJustificative(model, entity);
 		pj.setNumero(numero);
 		pj.setDateEtablissement(new Date());
 		PieceJustificativeDTO dto = pieceJustificativeUploader.addPieceJustificative(pj);
@@ -140,6 +130,11 @@ public class EnregistrerPiecesJustificativeController extends AbstractDossierUIC
 			}
 		*/
 		return null;	
+	}
+	
+	@Override
+	public boolean isEditable() {
+		return Boolean.TRUE;
 	}
 
 }

@@ -15,18 +15,23 @@
 			<ui:decorate template="/template/formTemplate.xhtml">
 				<ui:param name="uiController" value="#{enregistrerPiecesJustificativeController}" />
 				<ui:define name="contenu">	
+					
 					<p:button outcome="demandeddForm" value="Modifier" icon="ui-icon-pencil" >
 						<f:param name="#{webConstantResources.requestParamEntityId}" value="#{enregistrerPiecesJustificativeController.dossier.numero}" />
+						<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudUpdate}" />
 					</p:button>
 					<p:separator/>	
+					<!--
 					<ui:include src="/dossier/include/formDossier.xhtml" >
 						<ui:param name="editable" value="false" />
 					</ui:include>
 					<p:spacer height="5"/>
+					-->
 					<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml">
 						<ui:param name="controller" value="#{enregistrerPiecesJustificativeController}"/>
 						<ui:param name="uploader" value="#{enregistrerPiecesJustificativeController.pieceJustificativeUploader}"/>
 					</ui:include>
+					
 				</ui:define>
 
 				<ui:define name="actions">

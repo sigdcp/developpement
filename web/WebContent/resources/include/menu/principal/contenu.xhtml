@@ -18,29 +18,29 @@
 	    	<!--
 	    	<p:menuitem value="Enregistrer une demande d'affectation" action="enregistrerDemandeForm"/>
 	    	-->
-	    	<p:menuitem value="Affectation" action="demandedd" style="text-align:center" ajax="false">
+	    	<p:menuitem value="Affectation" outcome="demandeddForm" style="text-align:center">
 				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="AFF" />
-				<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
 			</p:menuitem>
-			<p:menuitem value="Mutation" action="demandedd" style="text-align:center" ajax="false">
+			<p:menuitem value="Mutation" outcome="demandeddForm" style="text-align:center">
 				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="MUT" />
-				<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
 			</p:menuitem>
-			<p:menuitem value="Retraite" action="demandedd" style="text-align:center" ajax="false">
+			<p:menuitem value="Retraite" outcome="demandeddForm" style="text-align:center">
 				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="RET" />
-				<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
 			</p:menuitem>
 			<p:menuitem value="Obsèques" action="demandefo" style="text-align:center" ajax="false">
 				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="FO" />
-				<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
 			</p:menuitem>
 			<p:menuitem value="Mission hors Côte d'Ivoire" action="demandemhci" style="text-align:center" ajax="false">
 				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="MHCI" />
-				<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
 			</p:menuitem>
 			<p:menuitem value="Transit de baggages" action="demandetr" style="text-align:center" ajax="false">
 				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="TB" />
-				<f:param name="#{webConstantResources.requestParamAction}" value="#{webConstantResources.requestParamActionEditer}" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
 			</p:menuitem>
 			
 	    	<!--
