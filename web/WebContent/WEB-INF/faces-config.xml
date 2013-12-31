@@ -12,6 +12,11 @@
    <to-view-id>/private/demande/dd.xhtml</to-view-id>
    <redirect ></redirect>    
   </navigation-case>
+    <navigation-case>
+     <from-outcome>demandefoForm</from-outcome>
+   <to-view-id>/public/demande/fo.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
   <navigation-case>
      <from-outcome>piecesJustificativeForm</from-outcome>
    <to-view-id>/private/demande/piecesjustificative.xhtml</to-view-id> 

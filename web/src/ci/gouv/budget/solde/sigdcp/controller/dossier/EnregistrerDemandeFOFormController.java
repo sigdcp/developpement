@@ -2,20 +2,16 @@ package ci.gouv.budget.solde.sigdcp.controller.dossier;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
-import javax.faces.flow.FlowScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.controller.flow.FlowDefinitions;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierFO;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
+import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
 
-@Named @FlowScoped(value=FlowDefinitions.FLOW_DEMANDE_FO_ID) 
+@Named @ViewScoped
 @Getter @Setter
 public class EnregistrerDemandeFOFormController extends AbstractDossierUIControllerController<DossierFO> implements Serializable {
 	
@@ -31,18 +27,15 @@ public class EnregistrerDemandeFOFormController extends AbstractDossierUIControl
 	
 	@Getter private IdentitePersonneDTO declarantDto,defuntDto,agentConstatataireDto;
 	
-
-	@PostConstruct
-	protected void postConstruct2() {
-		flowId = FlowDefinitions.FLOW_DEMANDE_FO_ID;
+	@Override
+	public void __firstPreRenderView__() {
+		super.__firstPreRenderView__();
 		title = "Formulaire de Demande  prise en charge des frais d'obsèques";
-		for(PieceJustificativeAFournir pieceJustificativeAFournir : pieceJustificativeAFournirService.findByNatureDeplacementId(natureDaplacementCode))
-			pieceJustificativeUploader.addPieceJustificative(new PieceJustificative(pieceJustificativeAFournir, dossier));
 		
 		AgentEtat declarant = new AgentEtat();//peut etre un agent de l'état
 		AgentEtat defunt = new AgentEtat();
 		defunt.setAyantDroit(declarant);
-		dossier.setBeneficiaire(defunt);
+		entity.setBeneficiaire(defunt);
 		
 		declarantDto = new IdentitePersonneDTO(declarant);
 		declarantDto.setShowQuestionAgentEtat(Boolean.TRUE);
@@ -51,12 +44,10 @@ public class EnregistrerDemandeFOFormController extends AbstractDossierUIControl
 		
 		agentConstatataireDto = new IdentitePersonneDTO(new AgentEtat());
 	}
-	
+
 	@Override
-	protected DossierFO createDossierInstance() {
-		DossierFO dossierFO = new DossierFO();
-		dossierFO.setDeplacement(new Deplacement());
-		return dossierFO;
+	protected AbstractDossierService<DossierFO> getDossierService() {
+		return null;
 	}
 	
 }

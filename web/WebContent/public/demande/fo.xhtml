@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	
+			<style>
+			.c1{
+				font-weight: bold;
+			}
+			.c2{
+				color: red;
+			}
+		</style>
+		
+	<ui:composition template="/template/vide.xhtml">
+
+		<ui:define name="contenu">
+
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{enregistrerDemandeFOFormController}" />
+				<ui:define name="contenu">
+					<p:panelGrid columns="1" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop , panelColumnVAlignTop" style="width:100%;">
+						<p:fieldset legend="Déclarant" rendered="true">
+							<ui:include src="/dossier/include/inputIdentite.xhtml">
+								<ui:param name="personneDto" value="#{enregistrerDemandeFOFormController.declarantDto}" />
+								<ui:param name="pieceIdentite" value="true" />
+								<ui:param name="editable" value="#{enregistrerDemandeFOFormController.editable}" />
+								<ui:param name="columnCount" value="6" />
+							</ui:include>
+						</p:fieldset>	
+						<p:fieldset legend="Déclaration du décès">
+							<h3>A propos du défunt</h3>
+							<ui:include src="/dossier/include/inputIdentite.xhtml" >
+								<ui:param name="personneDto" value="#{enregistrerDemandeFOFormController.defuntDto}" />
+								<ui:param name="iid" value="1" />
+								<ui:param name="nationalite" value="false" />
+								<ui:param name="editable" value="#{enregistrerDemandeFOFormController.editable}" />
+								<ui:param name="contact" value="false" />
+								<ui:param name="columnCount" value="6" />
+							</ui:include>
+							<p:separator/>
+							<ui:include src="/dossier/include/inputDeces.xhtml" >
+								<ui:param name="editable" value="#{enregistrerDemandeFOFormController.editable}" />	
+								<ui:param name="columnCount" value="6" />
+							</ui:include>	
+						</p:fieldset>	
+					</p:panelGrid>
+					
+					<p:spacer height="5" />
+					
+					<p:fieldset legend="Pièces justificatives" rendered="true">
+						<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml" >
+							<ui:param name="uploader" value="#{enregistrerDemandeFOFormController.pieceJustificativeUploader}" />
+							<ui:param name="editable" value="#{enregistrerDemandeFOFormController.editable}" />	
+						</ui:include>		
+					</p:fieldset>
+					
+					<p:spacer height="5" />
+	
+					<p:panelGrid columns="2" styleClass="panelGridNoBorder">
+						
+						<p:fieldset rendered="false">
+							<h:outputText value="Je certifie que les informations fournies sont correctes" />
+							<p:panelGrid columns="2">
+								<p:selectOneRadio id="certifie" required="true" requiredMessage="#{valueRequiredMessage}">
+									<f:selectItem itemLabel="Oui" itemValue="true"/>
+									<f:selectItem itemLabel="Non" itemValue="false"/>
+								</p:selectOneRadio>
+								<p:message for="certifie"/>
+							</p:panelGrid>
+						</p:fieldset>
+						
+						<p:panelGrid styleClass="panelGridNoBorder" columns="1" style="width:100%;" rendered="true"> 
+							<p:message for="captcha"/> 
+							<p:captcha id="captcha" language="fr" required="true" requiredMessage="#{valueRequiredMessage}" validatorMessage="Le texte entré ne correspond pas"/>
+						</p:panelGrid>
+
+					</p:panelGrid>			
+					
+				</ui:define>
+						
+				<ui:define name="actions">
+            		<p:commandButton value="Soumettre" action="#{enregistrerDemandeFOFormController.submitAction.execute}" icon="ui-icon-check" />
+            		<!--
+            		<p:commandButton value="Soumettre"  icon="ui-icon-check" action="#{enregistrerDemandeFOFormController.soumettre}" ajax="false" update="@form" rendered="false"/> 	 	
+					-->
+				</ui:define>
+			</ui:decorate>	
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

@@ -51,8 +51,8 @@
 							<f:param
 								name="#{webConstantResources.requestParamNatureDeplacement}"
 								value="AFF" />
-							<f:param name="#{webConstantResources.requestParamAction}"
-								value="#{webConstantResources.requestParamActionEditer}" />
+							<f:param name="#{webConstantResources.requestParamCrudType}"
+								value="#{webConstantResources.requestParamCrudCreate}" />
 						</p:button>
 					</div>
 
@@ -80,8 +80,8 @@
 							<f:param
 								name="#{webConstantResources.requestParamNatureDeplacement}"
 								value="MUT" />
-							<f:param name="#{webConstantResources.requestParamAction}"
-								value="#{webConstantResources.requestParamActionEditer}" />
+							<f:param name="#{webConstantResources.requestParamCrudType}"
+								value="#{webConstantResources.requestParamCrudCreate}" />
 						</p:commandButton>
 					</div>
 				</p:tab>
@@ -109,8 +109,8 @@
 							<f:param
 								name="#{webConstantResources.requestParamNatureDeplacement}"
 								value="RET" />
-							<f:param name="#{webConstantResources.requestParamAction}"
-								value="#{webConstantResources.requestParamActionEditer}" />
+							<f:param name="#{webConstantResources.requestParamCrudType}"
+								value="#{webConstantResources.requestParamCrudCreate}" />
 						</p:commandButton>
 
 					</div>
@@ -129,15 +129,14 @@
 						<p:commandButton value="Dépôt de dossier" icon="ui-icon-check"
 							action="demandeconsultation" style="text-align:center"
 							ajax="false" immediate="true" />
-						<p:commandButton value="Cliquer ici pour solliciter ce service"
-							icon="ui-icon-check" action="demandefo" style="text-align:center"
-							ajax="false" immediate="true">
+						<p:button value="Cliquer ici pour solliciter ce service"  outcome="demandefoForm"
+							icon="ui-icon-check" style="text-align:center">
 							<f:param
 								name="#{webConstantResources.requestParamNatureDeplacement}"
 								value="FO" />
-							<f:param name="#{webConstantResources.requestParamAction}"
-								value="#{webConstantResources.requestParamActionEditer}" />
-						</p:commandButton>
+							<f:param name="#{webConstantResources.requestParamCrudType}"
+								value="#{webConstantResources.requestParamCrudCreate}" />
+						</p:button>
 					</div>
 				</p:tab>
 				<p:tab title="MISSION HORS CÔTE D'IVOIRE">
@@ -163,8 +162,8 @@
 							<f:param
 								name="#{webConstantResources.requestParamNatureDeplacement}"
 								value="MHCI" />
-							<f:param name="#{webConstantResources.requestParamAction}"
-								value="#{webConstantResources.requestParamActionEditer}" />
+							<f:param name="#{webConstantResources.requestParamCrudType}"
+								value="#{webConstantResources.requestParamCrudCreate}" />
 						</p:commandButton>
 
 					</div>
@@ -193,8 +192,8 @@
 							<f:param
 								name="#{webConstantResources.requestParamNatureDeplacement}"
 								value="TB" />
-							<f:param name="#{webConstantResources.requestParamAction}"
-								value="#{webConstantResources.requestParamActionEditer}" />
+							<f:param name="#{webConstantResources.requestParamCrudType}"
+								value="#{webConstantResources.requestParamCrudCreate}" />
 						</p:commandButton>
 
 					</div>
@@ -220,8 +219,8 @@
 							<f:param
 								name="#{webConstantResources.requestParamNatureDeplacement}"
 								value="SOTRA" />
-							<f:param name="#{webConstantResources.requestParamAction}"
-								value="#{webConstantResources.requestParamActionEditer}" />
+							<f:param name="#{webConstantResources.requestParamCrudType}"
+								value="#{webConstantResources.requestParamCrudCreate}" />
 						</p:commandButton>
 
 					</div>
