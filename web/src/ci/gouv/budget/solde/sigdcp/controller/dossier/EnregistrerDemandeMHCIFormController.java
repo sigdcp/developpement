@@ -1,58 +1,24 @@
 package ci.gouv.budget.solde.sigdcp.controller.dossier;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.annotation.PostConstruct;
-import javax.faces.flow.FlowScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.controller.flow.FlowDefinitions;
-import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMHCI;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 
 
 
-@Named @FlowScoped(value=FlowDefinitions.FLOW_DEMANDE_MHCI_ID) @Getter @Setter
+@Named @ViewScoped @Getter @Setter
 public class EnregistrerDemandeMHCIFormController extends AbstractDossierUIControllerController<DossierMHCI> implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private DossierMHCI dossierMHCI=new DossierMHCI();
-	private Mission deplacement=new Mission();
-	
-	@PostConstruct
-	private void postEnregistrerDemandeMHCIFormController() { 
-		//title="Mission Hors Côte D'ivoire";
-		// TODO Auto-generated constructor stub
-		flowId = FlowDefinitions.FLOW_DEMANDE_MHCI_ID;
-		dossierMHCI.setDeplacement(deplacement);
-		for(PieceJustificativeAFournir pieceJustificativeAFournir : pieceJustificativeAFournirService.findByNatureDeplacementId(Code.NATURE_DEPLACEMENT_MISSION_HCI)){
-			pieceJustificativeUploader.addPieceJustificative(new PieceJustificative(pieceJustificativeAFournir, dossierMHCI));
-		
-		}
-	}
-	
-	private boolean ordonner(Date date1, Date date2) {
-		if(date1==null || date2==null)
-			return true;
-		return date1.before(date2);
-		
-	}
-	
-	@Override
-	protected DossierMHCI createDossierInstance() {
-		DossierMHCI dossierMHCI = new DossierMHCI();
-		dossierMHCI.setDeplacement(new Mission());
-		return dossierMHCI;
-	}
-
-
+	/*
 	public String enregistrer() {
 		
 		Date datecourante = new Date();
@@ -76,9 +42,19 @@ public class EnregistrerDemandeMHCIFormController extends AbstractDossierUIContr
 			
 			return null;
 	}
+	*/
+	
+	@Override
+	protected Deplacement createDeplacement() {
+		return new Mission();
+	}
+	
+	protected ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService<DossierMHCI> getDossierService() {
+		return null;
+	}
 	
 	public Mission getMission(){
-		return (Mission) dossierMHCI.getDeplacement();
+		return (Mission) entity.getDeplacement();
 	}
 	
 

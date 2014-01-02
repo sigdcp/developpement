@@ -22,14 +22,24 @@ public class AbstractValidator<OBJECT> implements Serializable {
 	
 	// the processor
 	private Validator validator;
-	
+
 	// the results
 	@Getter private Set<String> messages;
 
+	public AbstractValidator(Class<OBJECT> objectClass) {
+		super();
+		constructor(objectClass);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public AbstractValidator() {
 		super();
-		objectClass = (Class<OBJECT>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		constructor((Class<OBJECT>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void constructor(Class<OBJECT> objectClass) {
+		this.objectClass = objectClass;
 		validatorClass = (Class<AbstractValidator<OBJECT>>) this.getClass();
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}

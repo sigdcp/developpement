@@ -1,58 +1,29 @@
 package ci.gouv.budget.solde.sigdcp.controller.dossier;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.annotation.PostConstruct;
-import javax.faces.flow.FlowScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.controller.flow.FlowDefinitions;
-import ci.gouv.budget.solde.sigdcp.model.Code;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTR;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
+import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
 
 
-@Named @FlowScoped(value=FlowDefinitions.FLOW_DEMANDE_TR_ID)
+@Named @ViewScoped
 public class EnregistrerDemandeTRFormController extends AbstractDossierUIControllerController<DossierTR> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Getter private DossierTR dossierTR =new DossierTR();
-	
 	@Getter @Setter private Boolean mae;
-	
-	private boolean ordonner(Date date1, Date date2) {
-		if(date1==null || date2==null)
-			return true;
-		return date1.before(date2);
 		
-	}
-		
-	@PostConstruct
-	private void postConstructTr() {
-		flowId = FlowDefinitions.FLOW_DEMANDE_TR_ID;		
-		dossierTR.setDeplacement(new Deplacement());
-		//title="Formulaire de demande de prise en charge des frais de transit de bagages";
-		
-		for(PieceJustificativeAFournir pieceJustificativeAFournir : pieceJustificativeAFournirService.findByNatureDeplacementId(Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES)){
-			pieceJustificativeUploader.addPieceJustificative(new PieceJustificative(pieceJustificativeAFournir, dossierTR));
-		
-		}
-	}
-	
 	@Override
-	protected DossierTR createDossierInstance() {
-		DossierTR dossierTR = new DossierTR();
-		dossierTR.setDeplacement(new Deplacement());
-		return dossierTR;
+	protected AbstractDossierService<DossierTR> getDossierService() {
+		return null;
 	}
 	
-	
+	/*
 	public String enregistrer() {
 		Date datecourante = new Date();
 		boolean succes= true;
@@ -102,7 +73,7 @@ public class EnregistrerDemandeTRFormController extends AbstractDossierUIControl
 			return null;
 		
 	}
-	
+	*/
 
 }
 		

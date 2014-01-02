@@ -16,10 +16,11 @@ import org.apache.shiro.web.util.WebUtils;
 import org.omnifaces.util.Faces;
 
 import ci.gouv.budget.solde.sigdcp.controller.AbstractFormUIController;
+import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.service.identification.CompteUtilisateurService;
 
 @Named @RequestScoped
-public class ConnexionFormController extends AbstractFormUIController implements Serializable {
+public class ConnexionFormController extends AbstractFormUIController<CompteUtilisateur> implements Serializable {
  
 	private static final long serialVersionUID = 6591392098578555259L;
 	
@@ -47,11 +48,5 @@ public class ConnexionFormController extends AbstractFormUIController implements
         	throw new RuntimeException("Utilisateur inconnu");
         }
 	}
-	/*
-	@Override
-	protected String succes() {
-		return "/private/espacePrive.jsf?faces-redirect=true";
-	}
-	*/
 
 }

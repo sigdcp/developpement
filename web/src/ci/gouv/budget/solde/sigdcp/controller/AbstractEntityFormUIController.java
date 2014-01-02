@@ -1,31 +1,25 @@
 package ci.gouv.budget.solde.sigdcp.controller;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.logging.Level;
 
 import lombok.Getter;
 import lombok.extern.java.Log;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import ci.gouv.budget.solde.sigdcp.service.utils.validaton.AbstractValidator;
 
 @Log
 public abstract class AbstractEntityFormUIController<ENTITY extends AbstractModel<?>> extends AbstractFormUIController implements Serializable {
 
 	private static final long serialVersionUID = 393104164741887088L;
 	
+	protected Class<ENTITY> entityClass;
 	@Getter protected ENTITY entity;
 	
+	@SuppressWarnings("unchecked")
 	public AbstractEntityFormUIController() {
-		//@SuppressWarnings("unchecked")
-		//Class<ENTITY> entityClass = (Class<ENTITY>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-	}
-	
-	protected Class<ENTITY> entityClass(){
-		return null;
-	}
-	
-	protected AbstractValidator<ENTITY> validator(){
-		return null;
+		if(getClass().getGenericSuperclass() instanceof ParameterizedType)
+			entityClass = (Class<ENTITY>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 	
 	@Override
@@ -34,34 +28,15 @@ public abstract class AbstractEntityFormUIController<ENTITY extends AbstractMode
 	}
 	
 	protected ENTITY createEntityInstance(){
-		Class<ENTITY> clazz = entityClass();
+		Class<ENTITY> clazz = entityClass;
 		if(clazz!=null){
 			try {
-				return entityClass().newInstance();
+				return entityClass.newInstance();
 			} catch (Exception e) {
 				log.log(Level.SEVERE, e.toString(), e);
 			}
 		}
 		return null;
-	}
-	
-	@Override
-	protected Boolean valide() {
-		AbstractValidator<ENTITY> validator = validator();
-		if(validator!=null){
-			/*try {
-				validator = clazz.newInstance();
-			} catch (Exception e) {
-				log.log(Level.SEVERE, e.toString(), e);
-				addMessageError("Une erreur est survenue lors de la validation des données");
-				return Boolean.FALSE;
-			}*/
-			validator.validate(entity);
-			for(String m : validator.getMessages())
-				addMessageError(m);
-			return validator.isSucces();
-		}
-		return super.valide();
 	}
 	
 	/*

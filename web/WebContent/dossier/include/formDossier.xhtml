@@ -13,9 +13,9 @@
 		
 		<p:fieldset legend="Agent">	
 			<ui:include src="/identification/include/outputAgentEtat.xhtml" >
-				<ui:param name="agentEtat" value="#{enregistrerDemandeDDController.agentEtat}" />
+				<ui:param name="agentEtat" value="#{enregistrerDemandeDDController.dossier.beneficiaire}" />
 				<ui:param name="columnCount" value="6" />
-			</ui:include>
+			</ui:include> 
 			<p:separator/>
 			<ui:include src="/dossier/include/inputDossierDDDetails.xhtml">
 				<ui:param name="controller" value="#{enregistrerDemandeDDController}"/>

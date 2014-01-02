@@ -10,7 +10,7 @@ import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
 @Getter
-public abstract class AbstractFormUIController extends AbstractUIController implements Serializable {
+public abstract class AbstractFormUIController<OBJECT> extends AbstractUIController implements Serializable {
 
 	private static final long serialVersionUID = 3873845367443589081L;
 	
@@ -21,12 +21,10 @@ public abstract class AbstractFormUIController extends AbstractUIController impl
 	protected CRUDType crudType;
 	
 	/**
-	 * button d'envoi des informations
+	 * button par défaut d'envoi des informations
 	 */
-	//protected String actionLabel = i18n("boutton.envoyer");
-	protected AbstractFormSubmitAction submitAction;
+	protected AbstractFormSubmitAction<OBJECT> defaultSubmitAction;
 	
-	@Getter protected Boolean fieldValueRequiredEnabled = Boolean.TRUE;
 	@Inject protected UserSessionManager userSessionManager;
 	@Getter protected Boolean closeable = Boolean.TRUE;
 	
@@ -36,15 +34,7 @@ public abstract class AbstractFormUIController extends AbstractUIController impl
 		if(isCreate())
 			initCreateOperation();
 		else if(isRead())
-			initReadOperation();
-		submitAction = new AbstractFormSubmitAction(i18n("boutton.envoyer")) {
-			private static final long serialVersionUID = 4813924758525355599L;
-			@Override
-			protected void action() {
-				defaultAction();
-			}
-		};
-			
+			initReadOperation();	
 	}
 	
 	protected void initCreateOperation(){
@@ -53,24 +43,6 @@ public abstract class AbstractFormUIController extends AbstractUIController impl
 	
 	protected void initReadOperation(){
 		
-	}
-	
-	protected void defaultAction(){}
-	
-	/**
-	 * Validation des données ( fournies par l'utilisateur )
-	 * @return
-	 */
-	protected Boolean valide(){
-		return Boolean.TRUE;
-	}
-	
-	protected String succes(){
-		return "succes";
-	}
-	
-	protected String echec(){
-		return null;
 	}
 	
 	public String close(){

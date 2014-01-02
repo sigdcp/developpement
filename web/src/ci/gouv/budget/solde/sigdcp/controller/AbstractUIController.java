@@ -3,13 +3,9 @@ package ci.gouv.budget.solde.sigdcp.controller;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.ConfigurableNavigationHandler;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.application.NavigationCase;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -17,26 +13,33 @@ import javax.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+
 public abstract class AbstractUIController implements Serializable {
 
 	private static final long serialVersionUID = 370026962329124294L;
 	
-	private static final ResourceBundle I18N = ResourceBundle.getBundle("ci.gouv.budget.solde.sigdcp.service.resources.i18n.message",Locale.FRENCH);
+	/**
+	 * We stay on the same view after action
+	 */
+	public static final String OUTCOME_CURRENT_VIEW = null;
+	/**
+	 * We move to the success view after action
+	 */
+	public static final String OUTCOME_SUCCESS_VIEW = "succes";
 	
-	protected FacesContext facesContext;
-	protected ConfigurableNavigationHandler navigationHandler;
-	
-	protected String title = "Titre de la vue";
+	@Inject protected FacesContext facesContext;
+	@Inject protected ConfigurableNavigationHandler navigationHandler;
 	@Inject protected ConstantResources constantResources;
+	@Inject protected MessageManager messageManager;
 	
-	public AbstractUIController() {
-	    facesContext = FacesContext.getCurrentInstance();
-	    navigationHandler = (ConfigurableNavigationHandler) facesContext.getApplication().getNavigationHandler();
-	}
+	/*
+	 * Attributes
+	 */
+	@Getter @Setter protected String title = "Titre de la vue";
 	
 	@PostConstruct
 	private void __postConsctruct__(){
+		//navigationHandler = (ConfigurableNavigationHandler) facesContext.getApplication().getNavigationHandler();
 		postConstruct();
 	}
 	
@@ -52,18 +55,6 @@ public abstract class AbstractUIController implements Serializable {
 	public void __firstPreRenderView__(){};
 	
 	/* useful methods */
-	
-	protected void addMessage(Severity severity,String message){
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity,message, message));
-	}
-	
-	protected void addMessageError(String message){
-		addMessage(FacesMessage.SEVERITY_ERROR, message);
-	}
-	
-	protected static String i18n(String id){
-		return I18N.getString(id);
-	}
 	
 	protected String outcome(String id,Object[] parameters){
 		NavigationCase navigationCase = navigationHandler.getNavigationCase(facesContext, null, id);

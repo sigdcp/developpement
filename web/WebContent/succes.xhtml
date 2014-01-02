@@ -11,7 +11,8 @@
 		<ui:composition template="/template/commun.xhtml">
 		
 			<ui:define name="contenu">
-				<h1>Votre opération a été réalisée avec succès.</h1>
+				<h1><h:outputText value="Votre opération a été réalisée avec succès." /></h1>
+				<p:messages globalOnly="true" />
 			</ui:define>
 	
 		</ui:composition>

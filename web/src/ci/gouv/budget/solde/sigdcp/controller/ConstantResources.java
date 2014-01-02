@@ -30,6 +30,7 @@ public class ConstantResources implements Serializable{
 	private static final long serialVersionUID = 1583754563831914427L;
 
 	@Inject private GenericService genericService;
+	//@Inject private TextService textService;
 	
 	@Getter private final String requestParamNatureDeplacement = "nd";
 	@Produces @Named public ViewParamConverter getViewParamNatureDeplacementConverter(){
@@ -82,5 +83,7 @@ public class ConstantResources implements Serializable{
 			}
 		};
 	}
+	
+	
 	
 }

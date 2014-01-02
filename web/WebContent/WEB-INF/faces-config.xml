@@ -300,7 +300,7 @@
  		<default-locale>en</default-locale>
  	</locale-config>
   <resource-bundle>
-   <base-name>ci.gouv.budget.solde.sigdcp.service.resources.i18n.message_fr_FR</base-name>
+   <base-name>ci.gouv.budget.solde.sigdcp.service.resources.i18n.message</base-name>
    <var>message</var>
   </resource-bundle>
  </application>

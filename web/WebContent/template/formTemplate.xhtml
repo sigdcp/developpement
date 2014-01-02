@@ -17,13 +17,20 @@
 				<ui:insert name="title"><h:outputText value="#{uiController.title}" /></ui:insert>
 			</f:facet>
 			<p:messages globalOnly="true"/>
-			<ui:insert name="contenu" />	
+			<!--
+			<p:growl globalOnly="true"/>
+			-->
+			<ui:insert name="contenu" />
+			<ui:decorate template="/template/formCommandsTemplate.xhtml">
+				<ui:param name="closeable" value="#{uiController.closeable}" />
+			</ui:decorate>
+			<!--
 			<p:spacer height="5" />
 			<table style="margin: auto;"><tr><td>
 				<ui:insert name="actions" />
 				<p:commandButton immediate="true" action="#{uiController.close}" value="Fermer" icon="ui-icon-close" rendered="#{uiController.closeable}"/>
 			</td></tr></table>
-			
+			-->
 		</p:panel>
 	</h:form>
 		

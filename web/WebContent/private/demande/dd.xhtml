@@ -21,23 +21,40 @@
 			<ui:decorate template="/template/formTemplate.xhtml">
 				<ui:param name="uiController" value="#{enregistrerDemandeDDController}" />
 				<ui:define name="contenu">	
+				
 					<ui:include src="/dossier/include/formDossier.xhtml" />
+					<ui:decorate template="/template/formCommandsTemplate.xhtml">
+						<ui:define name="actions">
+						<ui:include src="/resources/include/component/actionButton.xhtml" >
+							<ui:param name="action" value="#{enregistrerDemandeDDController.enregistrerPart1Action}" />
+						</ui:include>
+						</ui:define>
+					</ui:decorate>
 					
 					<p:spacer height="5"/>
-					<!--
-					<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml">
-						<ui:param name="controller" value="#{enregistrerDemandeDDController}"/>
-						<ui:param name="uploader" value="#{enregistrerDemandeDDController.pieceJustificativeUploader}"/>
-					</ui:include>
-					-->
+					
+					<ui:fragment rendered="#{enregistrerDemandeDDController.enregistrerPart2Action.rendered}">
+						<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml">
+							<ui:param name="controller" value="#{enregistrerDemandeDDController}"/>
+							<ui:param name="uploader" value="#{enregistrerDemandeDDController.pieceJustificativeUploader}"/>
+						</ui:include>
+						<ui:decorate template="/template/formCommandsTemplate.xhtml">
+							<ui:define name="actions">
+							<ui:include src="/resources/include/component/actionButton.xhtml" >
+								<ui:param name="action" value="#{enregistrerDemandeDDController.enregistrerPart2Action}" />
+							</ui:include>
+							</ui:define>
+						</ui:decorate>
+					</ui:fragment>
+					
 				</ui:define>
 				
 				<ui:define name="actions">
-					<p:commandButton value="#{enregistrerDemandeDDController.enregistrerPart1Action.actionLabel}"  icon="ui-icon-check" 
-						action="#{enregistrerDemandeDDController.enregistrerPart1Action.execute}" update="@form" rendered="#{enregistrerDemandeDDController.editable}" />
 					
-					<p:commandButton value="#{enregistrerDemandeDDController.enregistrerPart2Action.actionLabel}"  icon="ui-icon-check" 
-						action="#{enregistrerDemandeDDController.enregistrerPart2Action.execute}" update="@form" rendered="#{enregistrerDemandeDDController.editable}" />	
+					<ui:include src="/resources/include/component/actionButton.xhtml" >
+						<ui:param name="action" value="#{enregistrerDemandeDDController.soumettreAction}" />
+					</ui:include>
+					
 				</ui:define>
 				
 			</ui:decorate>

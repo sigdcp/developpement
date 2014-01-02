@@ -7,16 +7,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 
+import javax.inject.Singleton;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import lombok.extern.java.Log;
 
-@Log
+@Log @Singleton
 public class Utils {
 	
 	public static final int DEFAULT_BUFFER_SIZE = 1024 * 10; // 10KB.
+	
+	
 	
 	public static void close(Closeable resource) {
 		if (resource != null) {
