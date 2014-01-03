@@ -13,17 +13,19 @@ public class IdentitePersonneDTO implements Serializable {
 	@Getter private AgentEtat personne;
 	
 	@Getter @Setter
-	private Boolean agentEtat,showQuestionAgentEtat;
+	private Boolean agentEtat=null,showQuestionAgentEtat=Boolean.TRUE,editable=Boolean.TRUE,readPieceIdentite=Boolean.FALSE,
+			readSexe=Boolean.TRUE,readProfession=Boolean.TRUE,readNationalite=Boolean.TRUE,readContact=Boolean.TRUE,readDateNaissance=Boolean.TRUE;
 
 	public IdentitePersonneDTO(AgentEtat personne) {
 		super();
 		this.personne = personne;
 	}
 
-	public IdentitePersonneDTO(AgentEtat personne,Boolean agentEtat) {
+	public IdentitePersonneDTO(AgentEtat personne,Boolean agentEtat,Boolean editable) {
 		super();
 		this.personne = personne;
 		this.agentEtat = agentEtat;
+		this.editable = editable;
 	}
 
 	

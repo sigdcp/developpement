@@ -26,7 +26,7 @@
 						</h:link>
 						<p:graphicImage value="/resources/images/imghead_right.jpg" style="float:right"/>
 						<h:form>
-							<p:commandButton value="#{request.remoteUser} : Se deconnecter" action="#{logout.submit}" style="position:absolute; right:400px;top:10px;" rendered="#{not empty request.remoteUser}"/>
+							<p:commandButton value="#{request.remoteUser} : Se deconnecter" action="#{logoutController.defaultSubmitAction.execute}" style="position:absolute; right:400px;top:10px;" rendered="#{not empty request.remoteUser}"/>
 						</h:form>
 						
 					</div>

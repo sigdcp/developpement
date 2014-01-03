@@ -39,9 +39,9 @@
 					</div>
 					<p:separator />
 					<div style="text-align: center;">
-						<p:commandButton value="Dépôt de dossier" icon="ui-icon-check"
-							action="demandeconsultation" style="text-align:center"
-							ajax="false" immediate="true" />
+						<p:button value="Dépôt de dossier" icon="ui-icon-check" outcome="demandeliste">
+							<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+						</p:button>
 
 						<p:commandButton value="Ouverture de compte" icon="ui-icon-check"
 							action="inscriptionpersonne" style="text-align:center"

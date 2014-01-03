@@ -25,6 +25,7 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 	
 	@Override
 	public CompteUtilisateur authentifier(String username, String password) throws ServiceException {
+		/*
 		if("sigdcp".equals(username) && "sigdcp".equals(password)){
 			CompteUtilisateur c =new CompteUtilisateur();
 			c.setLogin(username);
@@ -32,6 +33,8 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 			return c;
 		}
 		throw new ServiceException("Nom d'utilisateur ou mot de passe incorrect");
+		*/
+		return null;
 	}
 	
 	@Override

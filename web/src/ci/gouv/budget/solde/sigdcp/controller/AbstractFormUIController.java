@@ -46,7 +46,7 @@ public abstract class AbstractFormUIController<OBJECT> extends AbstractUIControl
 	}
 	
 	public String close(){
-		return  userSessionManager.isLoggedIn()?"index":"connexionForm";
+		return  userSessionManager.isLoggedIn()?"espacePrivee":"index";
 	}
 	
 	public boolean isCreate(){

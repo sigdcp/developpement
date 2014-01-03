@@ -2,21 +2,22 @@ package ci.gouv.budget.solde.sigdcp.controller.identification;
 
 import java.io.Serializable;
 
-import javax.faces.flow.FlowScoped;
+import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Getter;
-import ci.gouv.budget.solde.sigdcp.controller.flow.AbstractUIFlowController;
-import ci.gouv.budget.solde.sigdcp.controller.flow.FlowDefinitions;
+import ci.gouv.budget.solde.sigdcp.controller.AbstractEntityFormUIController;
+import ci.gouv.budget.solde.sigdcp.controller.AbstractFormSubmitAction;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypePieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.identification.Inscription;
 import ci.gouv.budget.solde.sigdcp.service.identification.InscriptionService;
 
-@Named @FlowScoped(value=FlowDefinitions.FLOW_INSCRIPTION_PERSONNE_ID)
-public class InscriptionPersonneController extends AbstractUIFlowController implements Serializable {
+@Named @ViewScoped
+public class InscriptionPersonneController extends AbstractEntityFormUIController<Inscription> implements Serializable {
 
 	private static final long serialVersionUID = 1588915965471299089L;
 	/*
@@ -27,13 +28,12 @@ public class InscriptionPersonneController extends AbstractUIFlowController impl
 	/*
 	 * DTOs
 	 */
-	@Getter private Inscription inscription;
+	private Inscription inscription;
 	@Getter private IdentitePersonneDTO demandeurDto;
 	@Getter private Boolean inscriptionAgentEtat=Boolean.TRUE;
 	
-	
-	
-    public InscriptionPersonneController() {
+	@PostConstruct
+    private void postConstructInscriptionPersonneController() {
         if(inscriptionAgentEtat)
         	title = "Inscription des agents de l'état";
         inscription = new Inscription();
@@ -44,8 +44,18 @@ public class InscriptionPersonneController extends AbstractUIFlowController impl
         demandeurDto.getPersonne().setPieceIdentite(pieceIdentite);
         
         //demandeurDto.getPersonne().setNationalite();
+        
+        defaultSubmitAction = new AbstractFormSubmitAction<Inscription>(entity,messageManager,"boutton.ouvrircompte","ui-icon-check","notification.compte.ouvert",
+				Boolean.FALSE,Boolean.TRUE) {
+			private static final long serialVersionUID = -2683422739395829063L;
+			@Override
+			protected void action() {
+				inscriptionService.inscrire(inscription);
+			}
+		};
     }
     
+    /*
     @Override
     protected Boolean valide() {
     	Boolean ok = Boolean.TRUE;
@@ -59,17 +69,10 @@ public class InscriptionPersonneController extends AbstractUIFlowController impl
     	}
     	return ok;
     }
-    
-    @Override
-    protected void action() {
-		inscriptionService.inscrire(inscription); 
-    }
-    
-    @Override
-    public String getReturnValue() {
-    	return "connexionForm";
-    }
-    
-    
+    */
+	
+	public Inscription getInscription() {
+		return entity;
+	}
 
 }

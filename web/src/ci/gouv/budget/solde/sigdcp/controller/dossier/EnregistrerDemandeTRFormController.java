@@ -8,18 +8,18 @@ import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTR;
-import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
+import ci.gouv.budget.solde.sigdcp.service.dossier.DossierTransitService;
 
 
 @Named @ViewScoped
-public class EnregistrerDemandeTRFormController extends AbstractDossierUIControllerController<DossierTR> implements Serializable{
+public class EnregistrerDemandeTRFormController extends AbstractDossierEnregistrementUIController<DossierTR,DossierTransitService> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Getter @Setter private Boolean mae;
 		
 	@Override
-	protected AbstractDossierService<DossierTR> getDossierService() {
+	protected DossierTransitService getDossierService() {
 		return null;
 	}
 	

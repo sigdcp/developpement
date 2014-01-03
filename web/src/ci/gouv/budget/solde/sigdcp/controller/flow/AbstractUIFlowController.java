@@ -5,7 +5,7 @@ import java.io.Serializable;
 import lombok.Getter;
 import ci.gouv.budget.solde.sigdcp.controller.AbstractFormUIController;
 
-@Getter
+@Getter @Deprecated
 public class AbstractUIFlowController extends AbstractFormUIController implements Serializable {
 
 	private static final long serialVersionUID = 1588915965471299089L;

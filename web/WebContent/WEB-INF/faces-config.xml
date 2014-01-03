@@ -7,6 +7,13 @@
 
  <navigation-rule>
   <from-view-id>*</from-view-id>
+  
+  <navigation-case>
+     <from-outcome>espacePrivee</from-outcome>
+   <to-view-id>/private/espacePrive.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
+  
   <navigation-case>
      <from-outcome>demandeddForm</from-outcome>
    <to-view-id>/private/demande/dd.xhtml</to-view-id>
@@ -17,11 +24,31 @@
    <to-view-id>/public/demande/fo.xhtml</to-view-id>
    <redirect ></redirect>    
   </navigation-case>
-  <navigation-case>
-     <from-outcome>piecesJustificativeForm</from-outcome>
-   <to-view-id>/private/demande/piecesjustificative.xhtml</to-view-id> 
-   <redirect ></redirect>   
+  
+    <navigation-case>
+     <from-outcome>demandetrForm</from-outcome>
+   <to-view-id>/private/demande/tr.xhtml</to-view-id>
+   <redirect ></redirect>    
   </navigation-case>
+  
+    <navigation-case>
+     <from-outcome>demandemhciForm</from-outcome>
+   <to-view-id>/private/demande/mhci.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
+  
+    <navigation-case>
+     <from-outcome>demandeconsultation</from-outcome>
+   <to-view-id>/private/demande/details.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
+
+       <navigation-case>
+     <from-outcome>demandeliste</from-outcome>
+   <to-view-id>/private/demande/liste.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case> 
+    
   <navigation-case>
    <from-outcome>inscriptionBeneficiaireForm</from-outcome>
    <to-view-id>/identification/form/inscriptionBeneficiaireForm.xhtml</to-view-id>

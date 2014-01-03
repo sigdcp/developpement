@@ -10,7 +10,7 @@
 	<p:spacer height="#{spacerHeight}" />
 	<table style="margin: auto;"><tr><td>
 		<p:commandButton immediate="true" action="#{uiController.close}" value="#{constantResources.text('boutton.fermer')}" icon="ui-icon-close" 
-			rendered="#{closeable}"/>
+			rendered="#{closeable}" process="@this"/>
 		<ui:insert name="actions" />
 	</td></tr></table>
 			

@@ -16,14 +16,14 @@ import ci.gouv.budget.solde.sigdcp.service.dossier.DossierDDService;
 import ci.gouv.budget.solde.sigdcp.service.utils.validaton.DossierDDValidator;
  
 @Named @ViewScoped
-public class EnregistrerDemandeDDController extends AbstractDossierUIControllerController<DossierDD> implements Serializable {
+public class EnregistrerDemandeDDController extends AbstractDossierEnregistrementUIController<DossierDD,DossierDDService> implements Serializable {
 	
 	private static final long serialVersionUID = -611561465509440427L;
 	
 	/*
 	 * Services
 	 */  
-	@Inject protected DossierDDService dossierDDService;
+	@Inject private DossierDDService dossierDDService;
 	
 	
 	@Getter @Setter private Boolean marie;
@@ -33,49 +33,39 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIControllerC
 	/*
 	 * Attributs de parametrages de la vue
 	 */
-	@Getter Boolean showDatePriseService;
-	@Getter Boolean showDateCessationService;
-	@Getter Boolean showDateMiseRetraite;
-	@Getter Boolean showserviceOrigine;
-	@Getter Boolean showserviceAcceuil;
+	@Getter Boolean showDatePriseService = Boolean.FALSE;
+	@Getter Boolean showDateCessationService = Boolean.FALSE;
+	@Getter Boolean showDateMiseRetraite = Boolean.FALSE;
+	@Getter Boolean showServiceOrigine = Boolean.FALSE;
+	@Getter Boolean showServiceAcceuil = Boolean.FALSE;
 	
 	@Setter @Getter PieceJustificative extraitNaissanceUploader;
 	
-	@Override @Inject
+	@Override
 	protected DossierDDService getDossierService() {
 		return dossierDDService;
 	}
-/*
-	@Override
-	protected Boolean valide() {
-		return Boolean.TRUE;
-	}*/
 
 	@Override
 	public void __firstPreRenderView__() {
 		super.__firstPreRenderView__();
 		DossierDDValidator validator = new DossierDDValidator();
-		//enregistrerPart1Action.setValidator(validator);
-		enregistrerPart1Action.setImmediate(Boolean.TRUE);
-		enregistrerPart2Action.setValidator(validator);
-		enregistrerPart2Action.setImmediate(Boolean.TRUE);
-		soumettreAction.setValidator(validator);
+		//enregistrerAction.setValidator(validator);
+		//soumettreAction.setValidator(validator);
+		
 		
 		if(isNatureDeplacementAffectation()){
 			showDatePriseService = Boolean.TRUE;
-			showserviceAcceuil = Boolean.TRUE;
+			showServiceAcceuil = Boolean.TRUE;
 		}else if(isNatureDeplacementMutation()){
 			showDatePriseService = Boolean.TRUE;
 			showDateCessationService = Boolean.TRUE;
-			showserviceOrigine = Boolean.TRUE;
-			showserviceAcceuil = Boolean.TRUE;
+			showServiceOrigine = Boolean.TRUE;
+			showServiceAcceuil = Boolean.TRUE;
 		}else if(isNatureDeplacementDepartRetraite()){
 			showDateMiseRetraite = Boolean.TRUE;
-			showserviceOrigine = Boolean.TRUE;
+			showServiceOrigine = Boolean.TRUE;
 		}
-		
-		// test - debugging purpose - to set to TRUE or removed to use default value
-		//fieldValueRequiredEnabled = Boolean.FALSE;
 	}
 		
 	public boolean isNatureDeplacementAffectation(){

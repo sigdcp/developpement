@@ -11,7 +11,7 @@
 	<ui:define name="metadata">
 		<f:metadata>
         	<ui:include src="/dossier/include/viewParam.xhtml">
-        		<ui:param name="controller" value="#{enregistrerDemandeDDController}"/>
+        		<ui:param name="controller" value="#{enregistrerDemandeMHCIFormController}"/>
         	</ui:include>	
     	</f:metadata>
 	</ui:define>
@@ -19,16 +19,16 @@
 	<ui:composition template="/template/commun.xhtml">
 		<ui:define name="contenu">
 			<ui:decorate template="/template/formTemplate.xhtml">
-				<ui:param name="uiController" value="#{enregistrerDemandeDDController}" />
+				<ui:param name="uiController" value="#{enregistrerDemandeMHCIFormController}" />
 				<ui:define name="contenu">	
 				
-					<ui:include src="/dossier/include/formDossierDD.xhtml" />
+					<ui:include src="/dossier/include/formMHCI.xhtml" />
 					
 					<p:spacer height="5"/>
 				
 					<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml">
-						<ui:param name="controller" value="#{enregistrerDemandeDDController}"/>
-						<ui:param name="uploader" value="#{enregistrerDemandeDDController.pieceJustificativeUploader}"/>
+						<ui:param name="controller" value="#{enregistrerDemandeMHCIFormController}"/>
+						<ui:param name="uploader" value="#{enregistrerDemandeMHCIFormController.pieceJustificativeUploader}"/>
 					</ui:include>
 							
 				</ui:define>
@@ -36,11 +36,11 @@
 				<ui:define name="actions">
 					
 					<ui:include src="/resources/include/component/actionButton.xhtml" >
-						<ui:param name="action" value="#{enregistrerDemandeDDController.enregistrerAction}" />
+						<ui:param name="action" value="#{enregistrerDemandeMHCIFormController.enregistrerAction}" />
 					</ui:include>
 					
 					<ui:include src="/resources/include/component/actionButton.xhtml" >
-						<ui:param name="action" value="#{enregistrerDemandeDDController.defaultSubmitAction}" />
+						<ui:param name="action" value="#{enregistrerDemandeMHCIFormController.defaultSubmitAction}" />
 					</ui:include>
 					
 				</ui:define>

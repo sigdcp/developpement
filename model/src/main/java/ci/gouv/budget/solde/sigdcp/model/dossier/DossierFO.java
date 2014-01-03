@@ -22,6 +22,7 @@ import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 
 @Getter @Setter 
 @Entity
+//TODO to be renamed to DossierObseques
 public class DossierFO  extends Dossier   implements Serializable{
 
 	private static final long serialVersionUID = 1L;

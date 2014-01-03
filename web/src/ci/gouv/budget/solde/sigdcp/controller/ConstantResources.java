@@ -31,6 +31,7 @@ public class ConstantResources implements Serializable{
 
 	@Inject private GenericService genericService;
 	//@Inject private TextService textService;
+	@Inject protected NavigationManager navigationManager;
 	
 	@Getter private final String requestParamNatureDeplacement = "nd";
 	@Produces @Named public ViewParamConverter getViewParamNatureDeplacementConverter(){
@@ -46,12 +47,16 @@ public class ConstantResources implements Serializable{
 	@Getter private final String requestParamCrudCreate = "create";
 	@Getter private final String requestParamCrudRead = "read";
 	@Getter private final String requestParamCrudUpdate = "update";
+	
+	@Getter private final String requestParamNextViewOutcome = "nvo";
 	/*
 	@Getter private final String requestParamAction = "action";
 	@Getter private final String requestParamActionEditer = "editer";
 	@Getter private final String requestParamActionConsulter = "consulter";
 	*/
 	@Getter private final String requestParamEntityId = "eid";
+	
+	@Getter private final String requestParamOutcomeAction = "outcomeaction";
 	
 	@Getter private final String inputMatriculePattern = "999999a";
 	@Getter private final String inputDatePattern = "99/99/9999*";
@@ -72,8 +77,28 @@ public class ConstantResources implements Serializable{
 					return CRUDType.CREATE;
 				if(requestParamCrudRead.equals(string))
 					return CRUDType.READ;
+				if(requestParamCrudUpdate.equals(string))
+					return CRUDType.UPDATE;
 				log.severe("Cannot be mapped to an enum value : "+string);
 				return null;
+			}
+			
+			@Override
+			public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object object) throws ConverterException {
+				//nothing to do
+				return null;
+			}
+		};
+	}
+	
+	@Produces @Named public Converter getViewParamOutcomeConverter(){
+		return new Converter() {
+			
+			@Override
+			public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String string) throws ConverterException {
+				if(string==null || string.isEmpty())
+					return null;
+				return navigationManager.url(facesContext,string,Boolean.valueOf((String)uiComponent.getAttributes().get(requestParamOutcomeAction)));
 			}
 			
 			@Override

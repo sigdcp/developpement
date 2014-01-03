@@ -8,10 +8,18 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<ui:include src="/dossier/include/viewParam.xhtml">
+        		<ui:param name="controller" value="#{enregistrerDemandeFOFormController}"/>
+        	</ui:include>	
+    	</f:metadata>
+	</ui:define>
 	
-			<style>
+		<style>
 			.c1{
 				font-weight: bold;
+				width: 200px;
 			}
 			.c2{
 				color: red;
@@ -29,8 +37,6 @@
 						<p:fieldset legend="Déclarant" rendered="true">
 							<ui:include src="/dossier/include/inputIdentite.xhtml">
 								<ui:param name="personneDto" value="#{enregistrerDemandeFOFormController.declarantDto}" />
-								<ui:param name="pieceIdentite" value="true" />
-								<ui:param name="editable" value="#{enregistrerDemandeFOFormController.editable}" />
 								<ui:param name="columnCount" value="6" />
 							</ui:include>
 						</p:fieldset>	
@@ -39,9 +45,6 @@
 							<ui:include src="/dossier/include/inputIdentite.xhtml" >
 								<ui:param name="personneDto" value="#{enregistrerDemandeFOFormController.defuntDto}" />
 								<ui:param name="iid" value="1" />
-								<ui:param name="nationalite" value="false" />
-								<ui:param name="editable" value="#{enregistrerDemandeFOFormController.editable}" />
-								<ui:param name="contact" value="false" />
 								<ui:param name="columnCount" value="6" />
 							</ui:include>
 							<p:separator/>
@@ -86,10 +89,9 @@
 				</ui:define>
 						
 				<ui:define name="actions">
-            		<p:commandButton value="Soumettre" action="#{enregistrerDemandeFOFormController.submitAction.execute}" icon="ui-icon-check" />
-            		<!--
-            		<p:commandButton value="Soumettre"  icon="ui-icon-check" action="#{enregistrerDemandeFOFormController.soumettre}" ajax="false" update="@form" rendered="false"/> 	 	
-					-->
+					<ui:include src="/resources/include/component/actionButton.xhtml">
+						<ui:param name="action" value="#{enregistrerDemandeFOFormController.defaultSubmitAction}" />
+					</ui:include>
 				</ui:define>
 			</ui:decorate>	
 		</ui:define>

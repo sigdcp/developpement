@@ -10,11 +10,12 @@ import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMHCI;
+import ci.gouv.budget.solde.sigdcp.service.dossier.DossierMissionService;
 
 
 
 @Named @ViewScoped @Getter @Setter
-public class EnregistrerDemandeMHCIFormController extends AbstractDossierUIControllerController<DossierMHCI> implements Serializable{
+public class EnregistrerDemandeMHCIFormController extends AbstractDossierEnregistrementUIController<DossierMHCI,DossierMissionService> implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -49,7 +50,8 @@ public class EnregistrerDemandeMHCIFormController extends AbstractDossierUIContr
 		return new Mission();
 	}
 	
-	protected ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService<DossierMHCI> getDossierService() {
+	@Override
+	protected DossierMissionService getDossierService() {
 		return null;
 	}
 	

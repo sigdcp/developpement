@@ -35,6 +35,7 @@ public class Dossier  extends AbstractModel<String>  implements Serializable{
 	
 	private String numeroCourrier;
 	
+	//@NotNull(message="la date de prise de service ne peut pas etre NULL")
 	@Temporal(TemporalType.TIMESTAMP) private Date datePriseService;
 	
 	@ManyToOne private Deplacement deplacement;

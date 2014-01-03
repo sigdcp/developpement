@@ -14,26 +14,21 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
-import ci.gouv.budget.solde.sigdcp.service.dossier.NatureDeplacementService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.PieceJustificativeAFournirService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.PieceJustificativeService;
-import ci.gouv.budget.solde.sigdcp.service.identification.AgentEtatService;
 
 @Getter @Setter
-public abstract class AbstractDossierUIControllerController<DOSSIER extends Dossier> extends AbstractEntityFormUIController<DOSSIER> implements Serializable {
+public abstract class AbstractDossierEnregistrementUIController<DOSSIER extends Dossier,DOSSIER_SERVICE extends AbstractDossierService<DOSSIER>> extends AbstractEntityFormUIController<DOSSIER> implements Serializable {
 	
 	private static final long serialVersionUID = 6615049982603373278L;
 	
 	/*
 	 * Services
 	 */
-	
-	protected AbstractDossierService<DOSSIER> dossierService;
-	@Inject protected NatureDeplacementService natureDeplacementService;
 	@Inject protected PieceJustificativeService pieceJustificativeService; 
 	@Inject protected PieceJustificativeAFournirService pieceJustificativeAFournirService;
-	@Inject protected AgentEtatService agentEtatService;
 	
 	/*
 	 * DTOs
@@ -50,50 +45,42 @@ public abstract class AbstractDossierUIControllerController<DOSSIER extends Doss
 	/*
 	 * Actions
 	 */
-	protected AbstractFormSubmitAction<DOSSIER> enregistrerPart1Action,enregistrerPart2Action,soumettreAction;
+	protected AbstractFormSubmitAction<DOSSIER> enregistrerAction;
 	
 	@Override
 	public void __firstPreRenderView__(){
 		super.__firstPreRenderView__();
-		entity.setBeneficiaire(agentEtatService.findAll().get(0));
+		
+		entity.setBeneficiaire((AgentEtat) userSessionManager.getUser());
 		
 		title = "Formulaire de : "+entity.getDeplacement().getNature().getLibelle();
 		
-		enregistrerPart1Action = new AbstractFormSubmitAction<DOSSIER>(entity,messageManager,"boutton.enregistrer","ui-icon-check","notification.demande.enregistree1",
+		enregistrerAction = new AbstractFormSubmitAction<DOSSIER>(entity,messageManager,"boutton.enregistrer","ui-icon-check","notification.demande.enregistree1",
 				Boolean.FALSE,Boolean.TRUE,OUTCOME_CURRENT_VIEW) {
 			private static final long serialVersionUID = -2683422739395829063L;
 			@Override
 			protected void action() {
-				System.out.println("Enregistrer 1");
-				//enregistrerPart1Action.setRendered(Boolean.FALSE);
-				//enregistrerPart2Action.setRendered(Boolean.TRUE);
+				//getDossierService().enregistrer(entity, null);
 			}
 		};
 		
-		enregistrerPart2Action = new AbstractFormSubmitAction<DOSSIER>(entity,messageManager,"boutton.enregistrer","ui-icon-check","notification.demande.enregistree2",
-				Boolean.FALSE,Boolean.TRUE,OUTCOME_CURRENT_VIEW) {
-			private static final long serialVersionUID = -2683422739395829063L;
-			@Override
-			protected void action() {
-				System.out.println("Enregistrer 2");
-				//enregistrerPart2Action.setRendered(Boolean.FALSE);
-				//soumettreAction.setRendered(Boolean.TRUE);
-			}
-		};
 		
-		soumettreAction = new AbstractFormSubmitAction<DOSSIER>(entity,messageManager,"boutton.soumettre","ui-icon-check","notification.demande.soumise",
+		defaultSubmitAction = new AbstractFormSubmitAction<DOSSIER>(entity,messageManager,"boutton.soumettre","ui-icon-check","notification.demande.soumise",
 				Boolean.FALSE,Boolean.TRUE) {
 			private static final long serialVersionUID = -2683422739395829063L;
 			@Override
 			protected void action() {
-				System.out.println("Soumettre");
+				//getDossierService().
 			}
 		};
 		
-		System.out.println(getDossierService());
+		//just for testing
+		defaultSubmitAction.setImmediate(Boolean.TRUE);
+		enregistrerAction.setImmediate(Boolean.TRUE);
+		
 	}
 	
-	protected abstract AbstractDossierService<DOSSIER> getDossierService();
+	protected abstract DOSSIER_SERVICE getDossierService();
 	
 	@Override
 	protected void initCreateOperation() {

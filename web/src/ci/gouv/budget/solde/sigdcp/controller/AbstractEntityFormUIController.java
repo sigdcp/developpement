@@ -5,16 +5,17 @@ import java.lang.reflect.ParameterizedType;
 import java.util.logging.Level;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.java.Log;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 
 @Log
-public abstract class AbstractEntityFormUIController<ENTITY extends AbstractModel<?>> extends AbstractFormUIController implements Serializable {
+public abstract class AbstractEntityFormUIController<ENTITY extends AbstractModel<?>> extends AbstractFormUIController<ENTITY> implements Serializable {
 
 	private static final long serialVersionUID = 393104164741887088L;
 	
 	protected Class<ENTITY> entityClass;
-	@Getter protected ENTITY entity;
+	@Getter @Setter protected ENTITY entity;
 	
 	@SuppressWarnings("unchecked")
 	public AbstractEntityFormUIController() {

@@ -17,7 +17,7 @@ public class MessageManager implements Serializable {
 	private static final long serialVersionUID = -2096649010369789825L;
 	
 	@Getter @Inject private TextService textService;
-	
+	 
 	public void add(Severity severity,String text,Boolean isMessageId){
 		String message = isMessageId?textService.find(text):text;
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity,message, message));

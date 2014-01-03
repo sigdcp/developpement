@@ -2,6 +2,8 @@ package ci.gouv.budget.solde.sigdcp.controller;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.StringUtils;
+
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.service.utils.validaton.AbstractValidator;
@@ -49,7 +51,9 @@ public abstract class AbstractFormSubmitAction<DTO>  implements Serializable {
 			try {
 				action();
 				executionCount++;
-				messageManager.addInfo(notificationMessage(),Boolean.FALSE);
+				String message = notificationMessage();
+				if(StringUtils.isNotEmpty(message))
+					messageManager.addInfo(message,Boolean.FALSE);
 			} catch (Exception e) {
 				messageManager.addError(e);
 				return echec();
@@ -67,6 +71,8 @@ public abstract class AbstractFormSubmitAction<DTO>  implements Serializable {
 	 */
 	@SuppressWarnings("unchecked")
 	protected Boolean valide(){
+		if(dto == null)
+			return Boolean.TRUE;
 		if(validator==null)
 			validator = (AbstractValidator<DTO>) new AbstractValidator<>(dto.getClass());
 	
@@ -81,7 +87,9 @@ public abstract class AbstractFormSubmitAction<DTO>  implements Serializable {
 	}
 	
 	protected String notificationMessage(){
-		return messageManager.getTextService().find(notificationMessageId);
+		if(StringUtils.isNotEmpty(notificationMessageId))
+			return messageManager.getTextService().find(notificationMessageId);
+		return null;
 	}
 	
 	public Boolean isExecutedAtLeastOnce(){

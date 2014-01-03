@@ -17,6 +17,7 @@ import lombok.Setter;
 
 @Getter @Setter 
 @Entity
+//TODO to be renamed to DossierMission
 public class DossierMHCI  extends Dossier   implements Serializable{
 
 	private static final long serialVersionUID = 1L;

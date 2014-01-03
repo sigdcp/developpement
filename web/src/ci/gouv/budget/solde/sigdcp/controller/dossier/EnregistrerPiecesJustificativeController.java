@@ -20,8 +20,7 @@ import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierDDService;
 
 
-@Named @ViewScoped
-public class EnregistrerPiecesJustificativeController extends AbstractDossierUIControllerController<DossierDD> implements Serializable {
+public class EnregistrerPiecesJustificativeController /*extends AbstractDossierUIControllerController<DossierDD> */implements Serializable {
 	
 	private static final long serialVersionUID = -611561465509440427L;
 	
@@ -44,12 +43,12 @@ public class EnregistrerPiecesJustificativeController extends AbstractDossierUIC
 	@Getter @Setter private Boolean btSoumis = Boolean.FALSE;
 	
 	private PieceJustificative feuilleDeplacement,bonTransport;
-		
+		/*
 	@Override
 	protected AbstractDossierService<DossierDD> getDossierService() {
 		return dossierDDService;
 	}
-	
+	*/
 	@PostConstruct
 	protected void postConstruct2() {
 		/*
@@ -108,7 +107,7 @@ public class EnregistrerPiecesJustificativeController extends AbstractDossierUIC
 		*/
 		return "demandeddPiecesJustificative";
 	}
-	
+	/*
 	private PieceJustificative editerPiece(PieceJustificativeAFournir model,String numero){
 		PieceJustificative pj = new PieceJustificative(model, entity);
 		pj.setNumero(numero);
@@ -118,7 +117,7 @@ public class EnregistrerPiecesJustificativeController extends AbstractDossierUIC
 		dto.setDateEtablissementEditable(Boolean.FALSE);
 		return pj;
 	}
-	
+	*/
 
 	
 	public String enregistrerBase() {
@@ -131,10 +130,11 @@ public class EnregistrerPiecesJustificativeController extends AbstractDossierUIC
 		*/
 		return null;	
 	}
-	
+	/*
 	@Override
 	public boolean isEditable() {
 		return Boolean.TRUE;
 	}
+	*/
 
 }
