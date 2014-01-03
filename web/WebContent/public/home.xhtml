@@ -43,9 +43,10 @@
 							<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
 						</p:button>
 
-						<p:commandButton value="Ouverture de compte" icon="ui-icon-check"
-							action="inscriptionpersonne" style="text-align:center"
-							ajax="false" immediate="true" rendered="#{not empty request.remoteUser}" />
+						<p:button value="Ouverture de compte" icon="ui-icon-check" outcome="inscriptionpersonne" rendered="#{empty request.remoteUser}">
+							<f:param name="#{webConstantResources.requestParamCrudType}"
+								value="#{webConstantResources.requestParamCrudCreate}" />
+						</p:button>
 						<p:button value="Cliquer ici pour solliciter ce service"  outcome="demandeddForm"
 							icon="ui-icon-check" style="text-align:center">
 							<f:param

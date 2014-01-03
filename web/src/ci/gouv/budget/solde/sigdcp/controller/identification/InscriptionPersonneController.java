@@ -28,16 +28,17 @@ public class InscriptionPersonneController extends AbstractEntityFormUIControlle
 	/*
 	 * DTOs
 	 */
-	private Inscription inscription;
+
 	@Getter private IdentitePersonneDTO demandeurDto;
 	@Getter private Boolean inscriptionAgentEtat=Boolean.TRUE;
 	
-	@PostConstruct
-    private void postConstructInscriptionPersonneController() {
+	@Override
+	public void __firstPreRenderView__() {
+		super.__firstPreRenderView__();
         if(inscriptionAgentEtat)
         	title = "Inscription des agents de l'état";
-        inscription = new Inscription();
-        demandeurDto = new IdentitePersonneDTO(inscription.getPersonneDemandeur(),inscriptionAgentEtat);
+ 
+        demandeurDto = new IdentitePersonneDTO(entity.getPersonneDemandeur(),inscriptionAgentEtat);
         PieceJustificative pieceIdentite = new PieceJustificative();
         
         pieceIdentite.setModel(new PieceJustificativeAFournir(null,Boolean.FALSE, 3, 2, new TypePieceJustificative("cni", "CNI")));
@@ -50,7 +51,7 @@ public class InscriptionPersonneController extends AbstractEntityFormUIControlle
 			private static final long serialVersionUID = -2683422739395829063L;
 			@Override
 			protected void action() {
-				inscriptionService.inscrire(inscription);
+				inscriptionService.inscrire(entity);
 			}
 		};
     }

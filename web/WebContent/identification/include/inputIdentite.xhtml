@@ -38,7 +38,7 @@
 			<p:selectOneMenu id="typePersonne" value="#{personneDto.personne.type}" required="true" requiredMessage="#{valueRequiredMessage}" 
 				converter="#{objectConverter}" rendered="#{personneDto.agentEtat}">
 				<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
-				<f:selectItems value="#{typePersonnes}" var="typePersonne" itemLabel="#{typePersonne.libelle}" />
+				<f:selectItems value="#{typeAgentEtats}" var="typeAgentEtat" itemLabel="#{typeAgentEtat.libelle}" />
 			</p:selectOneMenu>
 			<p:message for="typePersonne" rendered="#{personneDto.agentEtat}"/>
 			

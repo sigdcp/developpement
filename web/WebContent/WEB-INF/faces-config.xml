@@ -42,6 +42,12 @@
    <to-view-id>/private/demande/details.xhtml</to-view-id>
    <redirect ></redirect>    
   </navigation-case>
+  
+    <navigation-case>
+     <from-outcome>inscriptionpersonne</from-outcome>
+   <to-view-id>/public/inscriptionpersonne.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
 
        <navigation-case>
      <from-outcome>demandeliste</from-outcome>
