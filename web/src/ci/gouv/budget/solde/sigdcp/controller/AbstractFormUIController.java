@@ -32,11 +32,19 @@ public abstract class AbstractFormUIController<OBJECT> extends AbstractUIControl
 	@Override
 	public void __firstPreRenderView__() {
 		super.__firstPreRenderView__();
-		closeAction = new AbstractFormSubmitAction<OBJECT>(null,messageManager,"boutton.fermer","ui-icon-close",null,Boolean.TRUE,Boolean.TRUE,userSessionManager.isLoggedIn()?"espacePrivee":"index") {
+		defaultSubmitAction = new AbstractFormSubmitAction<OBJECT>(__object__(),messageManager,"boutton.envoyer","ui-icon-check",null,Boolean.TRUE,Boolean.TRUE) {
 			private static final long serialVersionUID = -2683422739395829063L;
 			@Override
 			protected void action() {
-				//nothing to do
+				onDefaultSubmitAction();
+			}
+		};
+		
+		closeAction = new AbstractFormSubmitAction<OBJECT>(__object__(),messageManager,"boutton.fermer","ui-icon-close",null,Boolean.TRUE,Boolean.TRUE,userSessionManager.isLoggedIn()?"espacePrivee":"index") {
+			private static final long serialVersionUID = -2683422739395829063L;
+			@Override
+			protected void action() {
+				onCloseAction();
 			}
 		};
 		closeAction.setProcess("@this");
@@ -53,6 +61,14 @@ public abstract class AbstractFormUIController<OBJECT> extends AbstractUIControl
 	protected void initReadOperation(){
 		
 	}
+	
+	protected OBJECT __object__(){
+		return null;
+	}
+	
+	protected void onDefaultSubmitAction(){}
+	
+	protected void onCloseAction(){}
 	
 	public boolean isCreate(){
 		return CRUDType.CREATE.equals(crudType);
