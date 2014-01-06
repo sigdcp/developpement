@@ -1,28 +1,26 @@
 /**
-*    Système Intégré de Gestion des Dépenses Communes de Personnel - SIGDCP
+*    Systï¿½me Intï¿½grï¿½ de Gestion des Dï¿½penses Communes de Personnel - SIGDCP
 *
-*    Modèle Métier
+*    Modï¿½le Mï¿½tier
 *
 **/
 
 
 package ci.gouv.budget.solde.sigdcp.model.indemnite;
 
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
 import lombok.Getter;
 import lombok.Setter;
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
 
 @Getter @Setter 
 @Entity
-public class Formule  extends AbstractModel<String>  implements Serializable{
+public class Formule  extends DynamicEnumeration  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	private String code;
-	private String libelle;
+ 
 	private String expression;
 }

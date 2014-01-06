@@ -9,13 +9,14 @@
 <body>
 	<ui:composition>
 		<p:commandButton 
-			value="#{action.label}"  
+			value="#{action.value}"  
 			icon="#{action.icon}" 
 			action="#{action.execute}" 
 			update="#{action.update}" 
 			rendered="#{action.rendered}"
 			ajax="#{action.ajax}" 
-			immediate="#{action.immediate}"/>
+			immediate="#{action.immediate}"
+			process="#{action.process}"/>
 		
 	</ui:composition>
 </body>

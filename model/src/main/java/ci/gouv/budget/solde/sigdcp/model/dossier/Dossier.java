@@ -40,6 +40,9 @@ public class Dossier  extends AbstractModel<String>  implements Serializable{
 	
 	@ManyToOne private Deplacement deplacement;
 	
+	/**
+	 * Le grade au moment de la demande
+	 */
 	@ManyToOne private Grade grade;
 	
 	@ManyToOne private AgentEtat beneficiaire;

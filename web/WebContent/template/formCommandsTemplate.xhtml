@@ -9,9 +9,17 @@
  	
 	<p:spacer height="#{spacerHeight}" />
 	<table style="margin: auto;"><tr><td>
+		<!--
 		<p:commandButton immediate="true" action="#{uiController.close}" value="#{constantResources.text('boutton.fermer')}" icon="ui-icon-close" 
 			rendered="#{closeable}" process="@this"/>
+		-->	
+		<ui:include src="/resources/include/component/actionButton.xhtml" >
+			<ui:param name="action" value="#{uiController.closeAction}" />
+		</ui:include>	
 		<ui:insert name="actions" />
+		<ui:include src="/resources/include/component/actionButton.xhtml" >
+			<ui:param name="action" value="#{uiController.defaultSubmitAction}" />
+		</ui:include>
 	</td></tr></table>
 			
 		

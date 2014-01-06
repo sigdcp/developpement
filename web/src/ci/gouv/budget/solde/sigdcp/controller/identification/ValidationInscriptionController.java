@@ -1,19 +1,5 @@
 package ci.gouv.budget.solde.sigdcp.controller.identification;
 
-import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.faces.flow.FlowScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import lombok.Getter;
-import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.controller.flow.AbstractUIFlowController;
-import ci.gouv.budget.solde.sigdcp.controller.flow.FlowDefinitions;
-import ci.gouv.budget.solde.sigdcp.model.identification.Inscription;
-import ci.gouv.budget.solde.sigdcp.service.identification.InscriptionService;
 /*
 @Named @FlowScoped(value=FlowDefinitions.FLOW_VALIDATION_INSCRIPTION_ID)
 public class ValidationInscriptionController extends AbstractUIFlowController implements Serializable {
@@ -71,3 +57,4 @@ public class ValidationInscriptionController extends AbstractUIFlowController im
 	
 
 }*/
+

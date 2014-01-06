@@ -8,6 +8,8 @@
 	
 	<name>Système Intégré de Gestion des Dépenses Communes et de Personnel</name>
 	<url>http://www.budget.gouv.ci/</url>
+	
+
 
 	<properties>
 		<!-- Explicitly declaring the source encoding eliminates the following 
@@ -30,7 +32,6 @@
 		<project.sigdcp.repository.url>file:///P:\SIGDCP\Developpement\repositories\dependencies</project.sigdcp.repository.url>
 		
 		<javaee.version>7.0</javaee.version>
-		<hibernate-validator.version>5.0.0.Final</hibernate-validator.version>
 		<version.org.jboss.spec.jboss.javaee>3.0.0.Final</version.org.jboss.spec.jboss.javaee>
 
 	</properties>
@@ -52,18 +53,20 @@
 	</repositories>
 
 	<build>
-
+		<!--
 		<resources>
 			<resource>
 				<directory>src/main/java/META-INF</directory>
 				<filtering>false</filtering>
+				
 				<excludes>
 					<exclude>**/*.xml</exclude>
 				</excludes>
+				
 			</resource>
 
 		</resources>
-		
+		-->
 		<sourceDirectory>src/main/java</sourceDirectory>
 
 		<plugins>
@@ -77,6 +80,8 @@
 					<target>${maven.compiler.target}</target>
 				</configuration>
 			</plugin>
+			
+
 		</plugins>
 	</build>
 	
@@ -111,6 +116,22 @@
 
 
 	<dependencies>
+		<!-- Java Enterprise Edition API -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>${javaee.version}</version>
+			<scope>provided</scope>
+		</dependency> 
+		
+		<!-- Validation Implementation -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.0.0.Final</version>
+			<scope>provided</scope>
+		</dependency>
+		
 		<!-- Code Utilities -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -145,6 +166,7 @@
 			<artifactId>commons-io</artifactId>
 			<version>1.4</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -153,7 +175,7 @@
 
 	</dependencies>
 
-	<profiles>
+	<profiles> 
 		<profile>
 			<id>arquillian-weld-ee-embedded</id>
 			<dependencies>

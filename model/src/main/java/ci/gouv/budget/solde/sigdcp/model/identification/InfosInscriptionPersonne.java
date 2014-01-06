@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -50,7 +49,7 @@ public class InfosInscriptionPersonne  extends AbstractModel<Long>  implements S
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateNaissance;
 	
-	@Embedded
+	@OneToOne(cascade=CascadeType.ALL)
 	private Contact contact = new Contact();
 	
 	@Enumerated(EnumType.ORDINAL)

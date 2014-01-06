@@ -12,7 +12,7 @@ import ci.gouv.budget.solde.sigdcp.service.dossier.DossierTransitService;
 
 
 @Named @ViewScoped
-public class EnregistrerDemandeTRFormController extends AbstractDossierEnregistrementUIController<DossierTR,DossierTransitService> implements Serializable{
+public class EnregistrerDemandeTRFormController extends AbstractDossierUIController<DossierTR,DossierTransitService> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	

@@ -15,7 +15,7 @@ import ci.gouv.budget.solde.sigdcp.service.dossier.DossierMissionService;
 
 
 @Named @ViewScoped @Getter @Setter
-public class EnregistrerDemandeMHCIFormController extends AbstractDossierEnregistrementUIController<DossierMHCI,DossierMissionService> implements Serializable{
+public class EnregistrerDemandeMHCIFormController extends AbstractDossierUIController<DossierMHCI,DossierMissionService> implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	

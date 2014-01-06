@@ -6,13 +6,6 @@ package ci.gouv.budget.solde.sigdcp.controller.flow;
 
 import java.io.Serializable;
 
-import javax.enterprise.inject.Produces;
-import javax.faces.flow.Flow;
-import javax.faces.flow.builder.FlowBuilder;
-import javax.faces.flow.builder.FlowBuilderParameter;
-import javax.faces.flow.builder.FlowDefinition;
-import javax.faces.flow.builder.ViewBuilder;
-
 public class FlowDefinitions implements Serializable {
     
 	private static final long serialVersionUID = -3203191428293179877L;
@@ -30,7 +23,7 @@ public class FlowDefinitions implements Serializable {
 	
 	public static final String FLOW_DEMANDE_CONSULTATION_ID = "demandeconsultation";
 	
-	private static final String FLOWS_FOLDER = "/flows/";
+	//private static final String FLOWS_FOLDER = "/flows/";
 	/*
 	@Produces @FlowDefinition
     public Flow inscriptionPersonne(@FlowBuilderParameter FlowBuilder flowBuilder) {
@@ -68,6 +61,7 @@ public class FlowDefinitions implements Serializable {
 		return define(flowBuilder, FLOW_DEMANDE_CONSULTATION_ID, "/dossier/flows/",new String[]{"","Details"}, "consulterDemande");
     }
 	*/
+	/*
 	private Flow define(FlowBuilder flowBuilder,String aFlowId,String viewFolder,String[] viewSuffixes,String returnNodeId,String fromOutcome) {
         flowBuilder.id("", aFlowId);
         boolean startNode = false;
@@ -93,5 +87,5 @@ public class FlowDefinitions implements Serializable {
 		return define(flowBuilder, aFlowId, viewFolder,viewSuffixes, aFlowId+"ReturnFromFlow", 
 				"#{"+aControllerPrefixName+"Controller.returnValue}");
 	}
-	
+	*/
 }

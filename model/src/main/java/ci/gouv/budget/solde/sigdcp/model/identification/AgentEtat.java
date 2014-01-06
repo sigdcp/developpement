@@ -45,13 +45,9 @@ public class AgentEtat  extends Personne   implements Serializable{
 	
 	@ManyToOne private Fonction fonction;
 	
-	//@ManyToOne
-	//private Ministere ministere;
-	
 	@ManyToOne private Section section;
 	
 	@ManyToOne private Personne ayantDroit;
-	//private AyantDroit ayantDroit;
 	
 	@ManyToOne private TypeAgentEtat type;
 	

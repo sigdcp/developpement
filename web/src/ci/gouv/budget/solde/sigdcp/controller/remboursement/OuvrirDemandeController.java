@@ -1,24 +1,15 @@
 package ci.gouv.budget.solde.sigdcp.controller.remboursement;
 
 
-import java.io.IOException;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;  
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;  
-
-import javax.faces.application.FacesMessage;  
-import javax.faces.context.FacesContext;
 
 /*import org.apache.commons.lang3.RandomStringUtils;
 import org.dgbf.solde.model.Requerant;

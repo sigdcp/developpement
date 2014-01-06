@@ -18,6 +18,7 @@ import org.omnifaces.util.Faces;
 
 import ci.gouv.budget.solde.sigdcp.controller.AbstractFormSubmitAction;
 import ci.gouv.budget.solde.sigdcp.controller.AbstractFormUIController;
+import ci.gouv.budget.solde.sigdcp.controller.NavigationManager;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.service.identification.CompteUtilisateurService;
 
@@ -51,7 +52,8 @@ public class LoginFormController extends AbstractFormUIController<CompteUtilisat
 	
 	@PostConstruct
 	private void postConstructConnexionFormController() {
-		defaultSubmitAction = new AbstractFormSubmitAction<CompteUtilisateur>(compte,messageManager,"boutton.seconnecter","ui-icon-check",null,Boolean.TRUE,Boolean.TRUE,OUTCOME_CURRENT_VIEW) {
+		defaultSubmitAction = new AbstractFormSubmitAction<CompteUtilisateur>(compte,messageManager,"boutton.seconnecter","ui-icon-check",null,
+				Boolean.TRUE,Boolean.TRUE,NavigationManager.OUTCOME_CURRENT_VIEW) {
 			
 			private static final long serialVersionUID = 2226036622897242355L;
 

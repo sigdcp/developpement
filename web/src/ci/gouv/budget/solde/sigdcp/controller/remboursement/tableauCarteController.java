@@ -3,7 +3,6 @@ package ci.gouv.budget.solde.sigdcp.controller.remboursement;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;

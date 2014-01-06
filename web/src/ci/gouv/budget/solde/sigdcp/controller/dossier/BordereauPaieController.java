@@ -20,7 +20,6 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierFO;
-import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeces;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeBordereauTransmission;
@@ -66,7 +65,7 @@ public class BordereauPaieController implements Serializable {
 	private Date dateDeces;
 	private boolean autopsie;
 	private float coutTransport;
-	private NatureDeces natureDeces;
+	
 	private Localite lieuDeces;
 	private CauseDeces causeDeces;
 	
@@ -151,13 +150,7 @@ public class BordereauPaieController implements Serializable {
 		this.coutTransport = coutTransport;
 	}
 	
-	public NatureDeces getNatureDeces() {
-		return natureDeces;
-	}
-
-	public void setNatureDeces(NatureDeces natureDeces) {
-		this.natureDeces = natureDeces;
-	}
+	
 	
 	public Localite getLieuDeces() {
 		return lieuDeces;
@@ -185,7 +178,6 @@ public class BordereauPaieController implements Serializable {
 			// G�n�rer une date al�atoire
 			date = randomDOB();
 			
-			Date btdateEts = ConverStringToDate(date);
 			
 			//double random = Math.random() * 1000000 + 1;
 			
@@ -368,7 +360,7 @@ public class BordereauPaieController implements Serializable {
 				return formatter.parse(stringToConvert);
 			}
 		catch (ParseException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			return null;
 		}

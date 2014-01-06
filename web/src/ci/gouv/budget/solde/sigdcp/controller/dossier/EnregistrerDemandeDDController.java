@@ -13,10 +13,9 @@ import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierDDService;
-import ci.gouv.budget.solde.sigdcp.service.utils.validaton.DossierDDValidator;
  
 @Named @ViewScoped
-public class EnregistrerDemandeDDController extends AbstractDossierEnregistrementUIController<DossierDD,DossierDDService> implements Serializable {
+public class EnregistrerDemandeDDController extends AbstractDossierUIController<DossierDD,DossierDDService> implements Serializable {
 	
 	private static final long serialVersionUID = -611561465509440427L;
 	
@@ -49,7 +48,7 @@ public class EnregistrerDemandeDDController extends AbstractDossierEnregistremen
 	@Override
 	public void __firstPreRenderView__() {
 		super.__firstPreRenderView__();
-		DossierDDValidator validator = new DossierDDValidator();
+		//DossierDDValidator validator = new DossierDDValidator();
 		//enregistrerAction.setValidator(validator);
 		//soumettreAction.setValidator(validator);
 		

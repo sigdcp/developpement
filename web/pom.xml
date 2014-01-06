@@ -56,17 +56,14 @@
 	</build>
 
 	<dependencies>
-		<!-- Java Server faces -->
-		<!-- Implementation -->
-	
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>${javaee.version}</version>
 			<scope>provided</scope>
 		</dependency> 
-		
-		<!-- Components Library -->
+		    
+		<!-- JSF Components Library -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
@@ -106,6 +103,8 @@
 			<type>jar</type>
 		</dependency>
 		-->
+		
+		<!-- security -->
 		<dependency>
 		  <groupId>org.apache.shiro</groupId>
 		  <artifactId>shiro-web</artifactId>

@@ -107,7 +107,6 @@ public class ReglerBulletinLiquidation {
 				// G�n�rer une date al�atoire
 				date = randomDOB();
 				
-				Date dateEtablissement = ConverStringToDate(date);
 				
 				//double random = Math.random() * 1000000 + 1;
 				
@@ -197,7 +196,7 @@ public class ReglerBulletinLiquidation {
 					return formatter.parse(stringToConvert);
 				}
 			catch (ParseException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 				return null;
 			}

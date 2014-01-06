@@ -16,6 +16,11 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.TypePieceProduite;
 public class BulletinLiquidationController implements Serializable {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Date[] dates;  
 	
 	private List<PieceProduite> piecesProduites = new ArrayList<PieceProduite>();  
@@ -34,14 +39,14 @@ public class BulletinLiquidationController implements Serializable {
         for(int i = 0 ; i < size ; i++)  
             list.add(new PieceProduite(getRandomNumero(), getRandomDate(), getRandomTypePieceProduite(typepieceproduites)));  
     }
-	
+	/*
 	private void populateRandomTypePieces(List<TypePieceProduite> list) {  
         
-        typepieceproduites.add(new TypePieceProduite("001", "Type pièce N° 1")) ;
-    	typepieceproduites.add(new TypePieceProduite("002", "Type pièce N° 2")) ;
-    	typepieceproduites.add(new TypePieceProduite("003", "Type pièce N° 3")) ;
+        typepieceproduites.add(new TypePieceProduite("001", "Type piï¿½ce Nï¿½ 1")) ;
+    	typepieceproduites.add(new TypePieceProduite("002", "Type piï¿½ce Nï¿½ 2")) ;
+    	typepieceproduites.add(new TypePieceProduite("003", "Type piï¿½ce Nï¿½ 3")) ;
     }
-	
+	*/
 	
 
       
@@ -75,11 +80,11 @@ public class BulletinLiquidationController implements Serializable {
 		return null; 
         
     }  
-      
+      /*
     private int getRandomYear() {  
         return (int) (Math.random() * 50 + 1960);  
     }  
-    
+    */
     public void selectCarFromDialog(PieceProduite pieceproduite) {  
         RequestContext.getCurrentInstance().closeDialog(pieceproduite);  
     }  

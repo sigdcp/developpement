@@ -17,7 +17,7 @@ import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.TraitementService;
 
 @Named @ViewScoped
-public class ConsulterDemandeController extends AbstractDossierEnregistrementUIController<Dossier, AbstractDossierService<Dossier>> implements Serializable {
+public class ConsulterDemandeController extends AbstractDossierUIController<Dossier, AbstractDossierService<Dossier>> implements Serializable {
 
 	private static final long serialVersionUID = 1027310826427829321L;
 	

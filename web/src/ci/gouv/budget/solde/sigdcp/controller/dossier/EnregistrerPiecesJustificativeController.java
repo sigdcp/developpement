@@ -2,21 +2,12 @@ package ci.gouv.budget.solde.sigdcp.controller.dossier;
 
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.controller.fichier.PieceJustificativeDTO;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
-import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
-import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierDDService;
 
 
@@ -42,7 +33,7 @@ public class EnregistrerPiecesJustificativeController /*extends AbstractDossierU
 	@Getter @Setter private Boolean fdSoumis = Boolean.FALSE;
 	@Getter @Setter private Boolean btSoumis = Boolean.FALSE;
 	
-	private PieceJustificative feuilleDeplacement,bonTransport;
+	//private PieceJustificative feuilleDeplacement,bonTransport;
 		/*
 	@Override
 	protected AbstractDossierService<DossierDD> getDossierService() {

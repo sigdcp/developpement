@@ -14,6 +14,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -27,7 +28,7 @@ public class Operande  extends AbstractModel<Long>  implements Serializable{
 
 	@Id
 	private Long id;
-	
+	@Column(name="_table")
 	private String table;
 	
 	private String colonne;

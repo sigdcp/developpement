@@ -74,13 +74,17 @@ public interface Code {
 	
 	
 	/*
+	 * Type de agent de l'état
+	 */
+	String TYPE_AGENT_ETAT_FONCTIONNAIRE = "F";
+	String TYPE_AGENT_ETAT_CONTRACTUEL = "C";
+	String TYPE_AGENT_ETAT_POLICIER = "P";
+	String TYPE_AGENT_ETAT_GENDARME = "G";
+	
+	/*
 	 * Type de personne
 	 */
-	String TYPE_PERSONNE_FONCTIONNAIRE = "F";
-	String TYPE_PERSONNE_CONTRACTUEL = "C";
-	String TYPE_PERSONNE_POLICIER = "P";
-	String TYPE_PERSONNE_GENDARME = "G";
-	String TYPE_PERSONNE_AUTRES = "Z";
+	String TYPE_PERSONNE_AYANT_DROIT = "AD";
 	
 	/*
 	 * Type de localite
@@ -115,5 +119,11 @@ public interface Code {
 	String SECTION_MIN_MB = "SERV";
 	String SECTION_SERV_EXP = "SEXP";
 	String SECTION_SERV_ET = "SET";
+	
+	/*
+	 * Type de dépense
+	 */
+	String TYPE_DEPENSE_PRISE_EN_CHARGE = "PEC";
+	String TYPE_DEPENSE_RMBOURSEMENT = "REMB";
 	
 }

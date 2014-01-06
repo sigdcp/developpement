@@ -8,20 +8,19 @@
 
 package ci.gouv.budget.solde.sigdcp.model.calendrier;
 
-import java.util.Date;
-
-import ci.gouv.budget.solde.sigdcp.model.identification.Ministere;
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import lombok.Getter;
+import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 
 @Getter @Setter 
 @Entity
@@ -36,7 +35,7 @@ public class CalendrierMission  extends AbstractModel<Long>  implements Serializ
 	private Date dateCreation;
 	private Boolean actif;
 	@ManyToOne
-	private Ministere ministere;//TODO To be changed to section
+	private Section section;//TODO To be changed to section
 	@ManyToOne
 	private Exercice exercice;
 }

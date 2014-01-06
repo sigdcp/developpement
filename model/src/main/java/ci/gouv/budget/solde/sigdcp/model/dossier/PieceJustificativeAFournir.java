@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.model.identification.TypePersonne;
 
 @Getter @Setter 
 @Entity
@@ -29,42 +30,70 @@ public class PieceJustificativeAFournir  extends AbstractModel<Long>  implements
 	@Id @GeneratedValue
 	private Long id;
 	
+	@ManyToOne
+	private TypePieceJustificative typePieceJustificative;
+	
+	/*---  Une piece justificative à fournir dépend de plusieurs paramètres qui sont les suivants :  ---*/
+	
+	/**
+	 * La nature du déplacement. ex : Affectation
+	 */
+	@ManyToOne private NatureDeplacement natureDeplacement;
+	
+	/**
+	 * La personne qui fait la demande. Null signifie tout type de personne
+	 */
+	@ManyToOne private TypePersonne typePersonne;
+	
+	/**
+	 * Le type de dépense. ex : Prise en charge , remboursement
+	 */
+	@ManyToOne private TypeDepense typeDepense;
+	
+	/*---------------------------------------------------------------------------------------------------*/
+	
 	private Boolean original;	
 	
 	/**
-	 * exemple : -3 -> - de 3 mois
+	 * La période de validité. ex : -3 -> moins de 3 mois
 	 */
 
 	private Integer periodeValiditeEnMois;
 	
 	private Integer quantite;
 	
-	@ManyToOne private NatureDeplacement natureDeplacement;
+	/**
+	 * Cette piece est fourniepar le système
+	 */
+	private Boolean derivee = Boolean.FALSE;
 	
-	@ManyToOne
-	private TypePieceJustificative typePieceJustificative;
+	/**
+	 * Cette piece est demandée en fonction d'autres informations.
+	 * Cette condition est évaluée au niveau métier
+	 */
+	private Boolean conditionnee = Boolean.FALSE;
 	
 	@Column(length=1 * 1024)
 	private String description;
 	
 	public PieceJustificativeAFournir() {}
 
-	public PieceJustificativeAFournir(NatureDeplacement natureDeplacement,Boolean original,
-			Integer periodeValiditeEnMois, Integer quantite,
-			TypePieceJustificative typePieceJustificative,String description) {
+	public PieceJustificativeAFournir(NatureDeplacement natureDeplacement,TypeDepense typeDepense,TypePersonne typePersonne,TypePieceJustificative typePieceJustificative,
+			Integer quantite,Boolean original,Integer periodeValiditeEnMois,Boolean conditionnee,String description) {
 		super();
 		this.natureDeplacement = natureDeplacement;
+		this.typeDepense = typeDepense;
+		this.typePersonne = typePersonne;
 		this.original = original;
 		this.periodeValiditeEnMois = periodeValiditeEnMois;
 		this.quantite = quantite;
 		this.typePieceJustificative = typePieceJustificative;
 		this.description = description;
+		this.conditionnee = conditionnee;
 	}
-	
-	public PieceJustificativeAFournir(NatureDeplacement natureDeplacement,Boolean original,
-			Integer periodeValiditeEnMois, Integer quantite,
-			TypePieceJustificative typePieceJustificative) {
-		this(natureDeplacement,original,periodeValiditeEnMois,quantite,typePieceJustificative,null);
+	public PieceJustificativeAFournir(NatureDeplacement natureDeplacement,TypeDepense typeDepense,TypePersonne typePersonne,TypePieceJustificative typePieceJustificative,
+			 Integer quantite,Boolean original,Integer periodeValiditeEnMois,Boolean conditionnee){
+		this(natureDeplacement,typeDepense,typePersonne,typePieceJustificative,quantite,original,periodeValiditeEnMois,conditionnee,null);
 	}
 	
 	@Override

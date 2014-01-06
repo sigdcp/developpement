@@ -37,9 +37,6 @@ public class DossierFO  extends Dossier   implements Serializable{
 	private Float coutTransport;
 	
 	@ManyToOne
-	private NatureDeces natureDeces;
-	
-	@ManyToOne
 	private Localite lieuDeces;
 	
 	@ManyToOne

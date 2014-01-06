@@ -20,9 +20,10 @@ public interface AbstractDossierService<DOSSIER extends Dossier> extends Abstrac
 	 * @param dossier
 	 * @throws ServiceException
 	 */
-	void enregistrer(DOSSIER dossier) throws ServiceException;
 	
 	void enregistrer(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives) throws ServiceException;
+	
+	void soumettre(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives) throws ServiceException;
 	
 	void deposer(DOSSIER dossier) throws ServiceException;
 	

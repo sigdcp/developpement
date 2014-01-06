@@ -2,7 +2,6 @@ package ci.gouv.budget.solde.sigdcp.controller.identification;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -36,12 +35,12 @@ public class InscriptionPersonneController extends AbstractEntityFormUIControlle
 	public void __firstPreRenderView__() {
 		super.__firstPreRenderView__();
         if(inscriptionAgentEtat)
-        	title = "Inscription des agents de l'état";
+        	title = "Ouverture de compte";
  
         demandeurDto = new IdentitePersonneDTO(entity.getPersonneDemandeur(),inscriptionAgentEtat);
         PieceJustificative pieceIdentite = new PieceJustificative();
         
-        pieceIdentite.setModel(new PieceJustificativeAFournir(null,Boolean.FALSE, 3, 2, new TypePieceJustificative("cni", "CNI")));
+        //pieceIdentite.setModel(new PieceJustificativeAFournir(null,Boolean.FALSE, 3, 2, new TypePieceJustificative("cni", "CNI")));
         demandeurDto.getPersonne().setPieceIdentite(pieceIdentite);
         
         //demandeurDto.getPersonne().setNationalite();

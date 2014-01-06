@@ -18,6 +18,15 @@ public class NavigationManager implements Serializable {
 	
 	private static final long serialVersionUID = 4432678991321751425L;
 
+	/**
+	 * We stay on the same view after action
+	 */
+	public static final String OUTCOME_CURRENT_VIEW = null;
+	/**
+	 * We move to the success view after action
+	 */
+	public static final String OUTCOME_SUCCESS_VIEW = "succes";
+	
 	private static final String QUERY_START = "?";
 	private static final String QUERY_SEPARATOR = "&";
 	private static final String QUERY_NAME_VALUE_SEPARATOR = "=";

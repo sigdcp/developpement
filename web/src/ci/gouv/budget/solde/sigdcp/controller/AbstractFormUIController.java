@@ -25,12 +25,21 @@ public abstract class AbstractFormUIController<OBJECT> extends AbstractUIControl
 	 */
 	protected AbstractFormSubmitAction<OBJECT> defaultSubmitAction;
 	
+	protected AbstractFormSubmitAction<OBJECT> closeAction;
+	
 	@Inject protected UserSessionManager userSessionManager;
-	@Getter protected Boolean closeable = Boolean.TRUE;
 	
 	@Override
 	public void __firstPreRenderView__() {
 		super.__firstPreRenderView__();
+		closeAction = new AbstractFormSubmitAction<OBJECT>(null,messageManager,"boutton.fermer","ui-icon-close",null,Boolean.TRUE,Boolean.TRUE,userSessionManager.isLoggedIn()?"espacePrivee":"index") {
+			private static final long serialVersionUID = -2683422739395829063L;
+			@Override
+			protected void action() {
+				//nothing to do
+			}
+		};
+		closeAction.setProcess("@this");
 		if(isCreate())
 			initCreateOperation();
 		else if(isRead())
@@ -43,10 +52,6 @@ public abstract class AbstractFormUIController<OBJECT> extends AbstractUIControl
 	
 	protected void initReadOperation(){
 		
-	}
-	
-	public String close(){
-		return  userSessionManager.isLoggedIn()?"espacePrivee":"index";
 	}
 	
 	public boolean isCreate(){

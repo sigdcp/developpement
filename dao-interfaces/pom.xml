@@ -35,15 +35,6 @@
 
 
 	<dependencies>
-		<!-- Java EE API -->
-		<!--
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>${javaee.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>ci.gouv.budget.solde.sigdcp</groupId>
 			<artifactId>sigdcp-model</artifactId>

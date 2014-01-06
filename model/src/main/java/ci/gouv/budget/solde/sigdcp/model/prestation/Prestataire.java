@@ -8,20 +8,20 @@
 
 package ci.gouv.budget.solde.sigdcp.model.prestation;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import ci.gouv.budget.solde.sigdcp.model.geographie.Contact;
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.io.Serializable;
-
-import javax.persistence.Embedded;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import lombok.Getter;
+import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.model.geographie.Contact;
 
 @Getter @Setter 
 @Entity
@@ -41,6 +41,6 @@ public class Prestataire  extends AbstractModel<String>  implements Serializable
 	
 	private Boolean valide;
 	
-	@Embedded
+	@OneToOne(cascade=CascadeType.ALL)
 	private Contact contact;
 }

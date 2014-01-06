@@ -11,7 +11,7 @@ package ci.gouv.budget.solde.sigdcp.model.identification;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Embedded;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -44,7 +45,7 @@ public class Personne  extends AbstractModel<String>  implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateNaissance;
 	
-	@Embedded
+	@OneToOne(cascade=CascadeType.ALL)
 	private Contact contact = new Contact();
 	
 	@Enumerated(EnumType.ORDINAL)

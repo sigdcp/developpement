@@ -2,8 +2,10 @@ package ci.gouv.budget.solde.sigdcp.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,11 +27,20 @@ public class DynamicEnumeration  extends AbstractModel<String>  implements Seria
 	private static final long serialVersionUID = -8639942019354737162L;
 	
 	@Id
+	@NotNull
 	protected String code;
+	
 	protected String libelle;
+	
+	@Column(length=1 * 1024)
+	private String description;
 	
 	public DynamicEnumeration() {}
 
+	public DynamicEnumeration(String code, String libelle) {
+		this(code,libelle,null);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -59,4 +70,8 @@ public class DynamicEnumeration  extends AbstractModel<String>  implements Seria
 	public String toString() {
 		return libelle;
 	}
+
+
+
+	
 }

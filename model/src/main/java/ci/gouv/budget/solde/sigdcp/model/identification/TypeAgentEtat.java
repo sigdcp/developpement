@@ -14,12 +14,11 @@ import javax.persistence.Entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
 
 
 @Getter @Setter 
 @Entity 
-public class TypeAgentEtat  extends DynamicEnumeration implements Serializable{
+public class TypeAgentEtat  extends TypePersonne implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

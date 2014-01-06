@@ -6,7 +6,7 @@ import lombok.Getter;
 import ci.gouv.budget.solde.sigdcp.controller.AbstractFormUIController;
 
 @Getter @Deprecated
-public class AbstractUIFlowController extends AbstractFormUIController implements Serializable {
+public class AbstractUIFlowController extends AbstractFormUIController<Object> implements Serializable {
 
 	private static final long serialVersionUID = 1588915965471299089L;
 	
@@ -16,7 +16,7 @@ public class AbstractUIFlowController extends AbstractFormUIController implement
 	    
     // fonction de sortie du flow
     public String getReturnValue() {
-        return close();
+        return null;
     }   
     
 
