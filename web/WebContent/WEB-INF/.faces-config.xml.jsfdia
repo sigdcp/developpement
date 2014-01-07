@@ -2,62 +2,55 @@
 <PROCESS model-entity="JSFProcess">
  <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="espacePrivee::#private#espacePrive.xhtml"
+    NAME="output" PATH="/private/espacePrive.xhtml"
+    TARGET="rules:#private#espacePrive.xhtml" TITLE="espacePrivee" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="demandecotationbilletavionmission::#private#personnel#transport#cotation.xhtml"
+    NAME="output1" PATH="/private/personnel/transport/cotation.xhtml"
+    TARGET="rules:#private#personnel#transport#cotation.xhtml"
+    TITLE="demandecotationbilletavionmission" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="commandebilletavionmission::#private#personnel#transport#commande.xhtml"
+    NAME="output2" PATH="/private/personnel/transport/commande.xhtml"
+    TARGET="rules:#private#personnel#transport#commande.xhtml"
+    TITLE="commandebilletavionmission" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="demandeddForm::#private#demande#dd.xhtml"
-    NAME="output" PATH="/private/demande/dd.xhtml"
+    NAME="output3" PATH="/private/demande/dd.xhtml"
     TARGET="rules:#private#demande#dd.xhtml" TITLE="demandeddForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="demandefoForm::#public#demande#fo.xhtml"
-    NAME="output1" PATH="/public/demande/fo.xhtml"
+    NAME="output4" PATH="/public/demande/fo.xhtml"
     TARGET="rules:#public#demande#fo.xhtml" TITLE="demandefoForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="piecesJustificativeForm::#private#demande#piecesjustificative.xhtml"
-    NAME="output2" PATH="/private/demande/piecesjustificative.xhtml"
-    TARGET="rules:#private#demande#piecesjustificative.xhtml"
-    TITLE="piecesJustificativeForm" model-entity="JSFProcessItemOutput"/>
+    ID="inscriptionpersonne::#public#inscriptionpersonne.xhtml"
+    NAME="output5" PATH="/public/inscriptionpersonne.xhtml"
+    TARGET="rules:#public#inscriptionpersonne.xhtml"
+    TITLE="inscriptionpersonne" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="demandeliste::#private#demande#liste.xhtml"
+    NAME="output6" PATH="/private/demande/liste.xhtml"
+    TARGET="rules:#private#demande#liste.xhtml" TITLE="demandeliste" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="inscriptionBeneficiaireForm::#identification#form#inscriptionBeneficiaireForm.xhtml"
-    NAME="output3"
+    NAME="output7"
     PATH="/identification/form/inscriptionBeneficiaireForm.xhtml"
     TARGET="rules:#identification#form#inscriptionBeneficiaireForm.xhtml"
     TITLE="inscriptionBeneficiaireForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="inscriptionAyantDroitForm::#identification#form#inscriptionAyantDroitForm.xhtml"
-    NAME="output4"
+    NAME="output8"
     PATH="/identification/form/inscriptionAyantDroitForm.xhtml"
     TARGET="rules:#identification#form#inscriptionAyantDroitForm.xhtml"
     TITLE="inscriptionAyantDroitForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="inscriptionForm::#identification#form#inscriptionForm.xhtml"
-    NAME="output5" PATH="/identification/form/inscriptionForm.xhtml"
+    NAME="output9" PATH="/identification/form/inscriptionForm.xhtml"
     TARGET="rules:#identification#form#inscriptionForm.xhtml"
     TITLE="inscriptionForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="validerInscriptionListe::#identification#liste#inscriptionListe.xhtml"
-    NAME="output6" PATH="/identification/liste/inscriptionListe.xhtml"
+    NAME="output10" PATH="/identification/liste/inscriptionListe.xhtml"
     TARGET="rules:#identification#liste#inscriptionListe.xhtml"
     TITLE="validerInscriptionListe" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="validerInscriptionBatchForm::#identification#form#validationInscriptionBeneficiaireBatchForm.xhtml"
-    NAME="output7"
-    PATH="/identification/form/validationInscriptionBeneficiaireBatchForm.xhtml"
-    TARGET="rules:#identification#form#validationInscriptionBeneficiaireBatchForm.xhtml"
-    TITLE="validerInscriptionBatchForm" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="validerInscriptionBeneficiaireBatchForm::#identification#form#validationInscriptionBeneficiaireBatchForm.xhtml"
-    NAME="output8"
-    PATH="/identification/form/validationInscriptionBeneficiaireBatchForm.xhtml"
-    TARGET="rules:#identification#form#validationInscriptionBeneficiaireBatchForm.xhtml"
-    TITLE="validerInscriptionBeneficiaireBatchForm" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="validerInscriptionADBatchForm::#identification#form#validationInscriptionADBatchForm.xhtml"
-    NAME="output9"
-    PATH="/identification/form/validationInscriptionADBatchForm.xhtml"
-    TARGET="rules:#identification#form#validationInscriptionADBatchForm.xhtml"
-    TITLE="validerInscriptionADBatchForm" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="connexionForm::#identification#form#connexionForm.xhtml"
-    NAME="output10" PATH="/identification/form/connexionForm.xhtml"
-    TARGET="rules:#identification#form#connexionForm.xhtml"
-    TITLE="connexionForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="demandeListe::#dossier#liste#demandeListe.xhtml" NAME="output11"
     PATH="/dossier/liste/demandeListe.xhtml"
@@ -507,8 +500,6 @@
   NAME="rules:#dossier#form#remboursement#liste#tableauCarteDirectionListe.xhtml"
   PATH="/dossier/form/remboursement/liste/tableauCarteDirectionListe.xhtml"
   SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#private#demande#piecesjustificative.xhtml"
-  PATH="/private/demande/piecesjustificative.xhtml" SHAPE="304,2465,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#dossier#liste#demandeListe.xhtml"
   PATH="/dossier/liste/demandeListe.xhtml" SHAPE="304,3361,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM
@@ -567,4 +558,22 @@
   NAME="rules:#dossier#form#remboursement#liste#tableauCarteMinistereListe.xhtml"
   PATH="/dossier/form/remboursement/liste/tableauCarteMinistereListe.xhtml"
   SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#transport#cotation.xhtml"
+  PATH="/private/personnel/transport/cotation.xhtml"
+  SHAPE="304,2465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#details.xhtml"
+  PATH="/private/demande/details.xhtml" SHAPE="304,2801,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#liste.xhtml"
+  PATH="/private/demande/liste.xhtml" SHAPE="304,3025,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#tr.xhtml"
+  PATH="/private/demande/tr.xhtml" SHAPE="304,2577,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#public#inscriptionpersonne.xhtml"
+  PATH="/public/inscriptionpersonne.xhtml" SHAPE="304,2913,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#mhci.xhtml"
+  PATH="/private/demande/mhci.xhtml" SHAPE="304,2689,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#espacePrive.xhtml"
+  PATH="/private/espacePrive.xhtml" SHAPE="304,2353,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#transport#commande.xhtml"
+  PATH="/private/personnel/transport/commande.xhtml"
+  SHAPE="304,2353,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

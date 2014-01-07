@@ -7,6 +7,15 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
  	
+	<script type="text/javascript">
+		function previous(){
+			myWizard.back();
+		} 
+		function next(){
+			if(#{not facesContext.validationFailed}) myWizard.next();
+		}
+	</script>
+ 	
 	<h:form id="form" enctype="multipart/form-data">
 		<p:panel>
 			<f:facet name="header">
@@ -14,8 +23,11 @@
 			</f:facet>
 			<div><h:outputText value="#{constantResources.text('formulaire.champsavecasterixobligatoire')}" rendered="#{uiController.showFieldRequired}"/> </div>
 			<p:messages globalOnly="true"/>
-			
-			<ui:insert name="contenu" />
+
+			<p:wizard id="wizard" widgetVar="#{webConstantResources.widgetVarWizard}" flowListener="#{uiController.wizardHelper.onFlowProcess}" showNavBar="#{uiController.wizardHelper.showNavBar}" 
+						showStepStatus="#{uiController.wizardHelper.showStepStatus}">
+				<ui:insert name="contenu" />
+			</p:wizard>
 			
 			<ui:decorate template="/template/formCommandsTemplate.xhtml"/>
 			

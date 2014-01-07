@@ -31,10 +31,10 @@ public class EnregistrerDemandeFOFormController extends AbstractDossierUIControl
 	@Override
 	public void __firstPreRenderView__() {
 		super.__firstPreRenderView__();
-		defaultSubmitAction = new AbstractFormSubmitAction<DossierObseques>(entity,messageManager,"boutton.soumettre","ui-icon-check","notification.demande.soumise",Boolean.FALSE,Boolean.TRUE) {
+		defaultSubmitAction = new AbstractFormSubmitAction<DossierObseques>(this,"bouton.soumettre","ui-icon-check","notification.demande.soumise",Boolean.FALSE,Boolean.TRUE) {
 			private static final long serialVersionUID = 2975854506689357563L;
 			@Override
-			protected void action() {
+			protected void action() throws Exception {
 				
 			}
 		};

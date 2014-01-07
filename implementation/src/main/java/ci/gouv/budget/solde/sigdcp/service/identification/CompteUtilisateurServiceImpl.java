@@ -9,7 +9,7 @@ import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 
 @Stateless
-public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtilisateur, String> implements CompteUtilisateurService {
+public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtilisateur, Long> implements CompteUtilisateurService {
 
 	private static final long serialVersionUID = 159214876975685747L;
 

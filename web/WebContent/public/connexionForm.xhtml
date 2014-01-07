@@ -21,20 +21,20 @@
 						
 							<h:panelGrid columns="2" cellpadding="5" style="margin:auto">
 								<p:outputLabel for="username" value="Nom d'utilisateur" />	
-								<p:inputText id="username" value="#{loginFormController.username}" required="true" requiredMessage="Saisissez votre Nom d'utilisateur" />
+								<p:inputText id="username" value="#{loginController.dto.username}" required="true" requiredMessage="Saisissez votre Nom d'utilisateur" />
 								
 								<p:outputLabel for="password" value="Mot de passe" />
-								<p:password id="password" value="#{loginFormController.password}" required="true" requiredMessage="Saisissez votre Vot de passe" />
+								<p:password id="password" value="#{loginController.dto.password}" required="true" requiredMessage="Saisissez votre Vot de passe" />
 							</h:panelGrid>
 							<br/>
 							<center>
-								<p:commandButton value="Connexion" action="#{loginFormController.defaultSubmitAction.execute}" icon="ui-icon-check" style="width:200px;text-align:center" update="@form" />
+								<p:commandButton value="Connexion" action="#{loginController.defaultSubmitAction.execute}" icon="ui-icon-check" style="width:200px;text-align:center" update="@form" />
 							
 						  		<br/><br/>
 						  		<p:commandLink value="Mot de passe oublié ? Cliquez ici!"  action="/public/recupererMotDePasseForm.xhtml" immediate="true"  />
 						  		<br/>
 					  		</center>
-					  		</p:outputPanel>
+					  		</p:outputPanel> 
 					  		
 			  		</p:panel>
 			  		

@@ -42,7 +42,7 @@ public class DossierListeController extends AbstractUIController implements Seri
 	
 	public String href(Dossier dossier){
 		return navigationManager.addQueryParameters(nextViewOutcome, 
-				new String[]{constantResources.getRequestParamDossier(),dossier.getNumero(),constantResources.getRequestParamCrudType(),constantResources.getRequestParamCrudUpdate()});
+				new String[]{webConstantResources.getRequestParamDossier(),dossier.getNumero(),webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudUpdate()});
 	}
 	
 	

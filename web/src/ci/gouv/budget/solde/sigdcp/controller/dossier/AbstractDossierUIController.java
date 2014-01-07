@@ -56,30 +56,22 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		
 		title = "Formulaire de : "+entity.getDeplacement().getNature().getLibelle();
 		
-		enregistrerAction = new AbstractFormSubmitAction<DOSSIER>(entity,messageManager,"boutton.enregistrer","ui-icon-check","notification.demande.enregistree1",
+		enregistrerAction = new AbstractFormSubmitAction<DOSSIER>(this,"bouton.enregistrer","ui-icon-check","notification.demande.enregistree1",
 				Boolean.FALSE,Boolean.TRUE,NavigationManager.OUTCOME_CURRENT_VIEW) {
 			private static final long serialVersionUID = -2683422739395829063L;
 			@Override
-			protected void action() {
-				try {
-					getDossierService().enregistrer(entity, pieceJustificativeUploader.process());
-				} catch (Exception e) {
-					throw new RuntimeException(e);
-				} 
+			protected void action() throws Exception {
+				getDossierService().enregistrer(entity, pieceJustificativeUploader.process());
 			}
 		};
 		
 		
-		defaultSubmitAction = new AbstractFormSubmitAction<DOSSIER>(entity,messageManager,"boutton.soumettre","ui-icon-check","notification.demande.soumise",
+		defaultSubmitAction = new AbstractFormSubmitAction<DOSSIER>(this,"bouton.soumettre","ui-icon-check","notification.demande.soumise",
 				Boolean.FALSE,Boolean.TRUE) {
 			private static final long serialVersionUID = -2683422739395829063L;
 			@Override
-			protected void action() {
-				try {
-					getDossierService().soumettre(entity, pieceJustificativeUploader.process());
-				} catch (Exception e) {
-					throw new RuntimeException(e);
-				} 
+			protected void action() throws Exception  {
+				getDossierService().soumettre(entity, pieceJustificativeUploader.process());
 			}
 		};
 		

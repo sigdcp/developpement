@@ -19,26 +19,20 @@ public abstract class AbstractFormSubmitAction<DTO> extends CommandButton implem
 
 	private static final long serialVersionUID = 3873845367443589081L;
 	
-	protected MessageManager messageManager;
+	protected AbstractFormUIController<DTO> form;
 	
 	@Getter @Setter
-	protected String /*label,icon="ui-icon-check",update="@form",*/successOutcome,
-			notificationMessageId;
-	//@Getter @Setter
-	/*protected Boolean ajax = Boolean.TRUE,rendered = Boolean.TRUE,immediate = Boolean.FALSE;*/
+	protected String successOutcome,notificationMessageId;
 	@Getter @Setter
 	protected Integer executionCount = 0;
 	
 	@Setter
-	protected DTO dto;
-	@Setter
 	protected AbstractValidator<DTO> validator;
 	
-	public AbstractFormSubmitAction(DTO dto,MessageManager messageManager,String labelId, String icon,String notificationMessageId ,Boolean ajax,Boolean rendered,String successOutcome) {
+	public AbstractFormSubmitAction(AbstractFormUIController<DTO> form,String labelId, String icon,String notificationMessageId ,Boolean ajax,Boolean rendered,String successOutcome) {
 		super();
-		this.dto = dto;
-		this.messageManager = messageManager;
-		this.setValue(this.messageManager.getTextService().find(labelId));
+		this.form = form;
+		this.setValue(form.getMessageManager().getTextService().find(labelId));
 		this.setIcon(icon);
 		this.setAjax(ajax);
 		this.setRendered(rendered);
@@ -46,8 +40,8 @@ public abstract class AbstractFormSubmitAction<DTO> extends CommandButton implem
 		this.successOutcome = successOutcome;
 	}
 	
-	public AbstractFormSubmitAction(DTO dto,MessageManager messageManager,String labelId, String icon,String notificationMessageId ,Boolean ajax,Boolean rendered) {
-		this(dto,messageManager,labelId,icon,notificationMessageId,ajax,rendered,NavigationManager.OUTCOME_SUCCESS_VIEW);
+	public AbstractFormSubmitAction(AbstractFormUIController<DTO> form,String labelId, String icon,String notificationMessageId ,Boolean ajax,Boolean rendered) {
+		this(form,labelId,icon,notificationMessageId,ajax,rendered,NavigationManager.OUTCOME_SUCCESS_VIEW);
 	}
 	
 	public final String execute(){
@@ -57,9 +51,10 @@ public abstract class AbstractFormSubmitAction<DTO> extends CommandButton implem
 				executionCount++;
 				String message = notificationMessage();
 				if(StringUtils.isNotEmpty(message))
-					messageManager.addInfo(message,Boolean.FALSE);
+					form.getMessageManager().addInfo(message,Boolean.FALSE);
 			} catch (Exception e) {
-				messageManager.addError(e);
+				e.printStackTrace();
+				form.getMessageManager().addError(e);
 				return echec();
 			}
 			return successOutcome;
@@ -67,7 +62,7 @@ public abstract class AbstractFormSubmitAction<DTO> extends CommandButton implem
 		return echec();
 	}
 	
-	protected abstract void action();
+	protected abstract void action() throws Exception;
 	
 	/**
 	 * Validation des données ( fournies par l'utilisateur )
@@ -75,20 +70,21 @@ public abstract class AbstractFormSubmitAction<DTO> extends CommandButton implem
 	 */
 	@SuppressWarnings("unchecked")
 	protected Boolean valide(){
-		if(dto == null)
+		if(form.getDto() == null)
 			return Boolean.TRUE;
 		if(validator==null)
-			validator = (AbstractValidator<DTO>) new AbstractValidator<>(dto.getClass());
+			validator = (AbstractValidator<DTO>) new AbstractValidator<>(form.getDto().getClass());
 	
-		validator.validate(dto);
+		validator.validate(form.getDto());
 		for(String m : validator.getMessages()){
-			messageManager.addError(m,Boolean.FALSE);
+			form.getMessageManager().addError(m,Boolean.FALSE);
 			System.out.println(m);
 		}
 		if(validator.isSucces())
 			;
-		else
+		else{
 			FacesContext.getCurrentInstance().validationFailed();
+		}
 		return validator.isSucces();
 	}
 	
@@ -98,7 +94,7 @@ public abstract class AbstractFormSubmitAction<DTO> extends CommandButton implem
 	
 	protected String notificationMessage(){
 		if(StringUtils.isNotEmpty(notificationMessageId))
-			return messageManager.getTextService().find(notificationMessageId);
+			return form.getMessageManager().getTextService().find(notificationMessageId);
 		return null;
 	}
 	

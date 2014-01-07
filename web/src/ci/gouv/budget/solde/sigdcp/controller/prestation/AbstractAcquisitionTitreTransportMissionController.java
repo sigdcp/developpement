@@ -1,33 +1,28 @@
-package ci.gouv.budget.solde.sigdcp.controller.dossier;
+package ci.gouv.budget.solde.sigdcp.controller.prestation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.omnifaces.util.Ajax;
-import org.primefaces.event.FlowEvent;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import org.apache.commons.lang3.StringUtils;
+
 import ci.gouv.budget.solde.sigdcp.controller.AbstractEntityFormUIController;
 import ci.gouv.budget.solde.sigdcp.controller.WizardHelper;
+import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeMission;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.TypeClasseVoyage;
-import ci.gouv.budget.solde.sigdcp.model.prestation.DemandeCotationMission;
-import ci.gouv.budget.solde.sigdcp.model.prestation.Prestataire;
 import ci.gouv.budget.solde.sigdcp.service.DynamicEnumerationService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierMissionDTO;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierMissionService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.MissionService;
-import ci.gouv.budget.solde.sigdcp.service.prestation.PrestataireService;
 
-@Named @ViewScoped 
-public class DemandeCotationBilletAvionMissionController extends AbstractEntityFormUIController<DemandeCotationMission> {
+public abstract class AbstractAcquisitionTitreTransportMissionController<ENTITY extends AbstractModel<?>> extends AbstractEntityFormUIController<ENTITY> {
 
 	private static final long serialVersionUID = -2494512246140789877L;
 	
@@ -43,12 +38,13 @@ public class DemandeCotationBilletAvionMissionController extends AbstractEntityF
 	 */
 	@Getter @Setter private List<Mission> missionsSelectionnees,missionsRecherchesDisponible,missionsRechercheSelectionnees;
 	@Getter private List<DossierMissionDTO> dossierDtos = new ArrayList<>();
-	@Getter @Setter private List<Prestataire> agenceVoyageSelectionnees;
+	@Getter private String message;
+	
 	
 	@Override
 	public void __firstPreRenderView__() {
 		super.__firstPreRenderView__();
-		title = messageManager.getTextService().find("formulaire.cotationbilletavion.titre");
+	
 		missionsSelectionnees = missionService.findAll();
 		List<GroupeMission> gm = new ArrayList<>(dynamicEnumerationService.findAllByClass(GroupeMission.class));
 		List<TypeClasseVoyage> tcv = new ArrayList<>(dynamicEnumerationService.findAllByClass(TypeClasseVoyage.class));
@@ -57,12 +53,17 @@ public class DemandeCotationBilletAvionMissionController extends AbstractEntityF
 		}
 		missionsRecherchesDisponible = missionService.findAll();
 		
-		//defaultSubmitAction.setValue(text("boutton.valider"));
-		//defaultSubmitAction.setType("button");
-		//defaultSubmitAction.setOnclick("myWizard.next();");
-		//defaultSubmitAction.setRendered(Boolean.FALSE);
-		
-		wizardHelper = new WizardHelper<DemandeCotationMission>(new String[]{"definition","confirmation"},defaultSubmitAction, entity, messageManager,constantResources);
+		wizardHelper = new WizardHelper<ENTITY>(this,"definition","confirmation"){
+			private static final long serialVersionUID = -2560968105025120145L;
+			@Override
+			protected void move(Integer stepCount) {
+				super.move(stepCount);
+				showFieldRequired = !getSubmitAction().isRendered();
+				if(getCurrentStepIndex() == 1){
+					message = buildMessage();
+				}
+			}
+		};
 		
 	}
 	
@@ -70,9 +71,25 @@ public class DemandeCotationBilletAvionMissionController extends AbstractEntityF
 		
 	}
 	
+	protected String buildMessage(){
+		StringBuilder stringBuilder = new StringBuilder();
+		for(DossierMissionDTO dossierMissionDTO : dossierDtos)
+			stringBuilder.append(buildParticipantMessage(dossierMissionDTO)+nl(1));
+		return String.format(messageFormat(), stringBuilder.toString());
+	}
+	
+	protected abstract String buildParticipantMessage(DossierMissionDTO dossierMissionDTO);
+	
+	protected abstract String messageFormat();
+	
 	@Override
 	public boolean isCreate() {
 		return Boolean.TRUE;
 	}
+	
+	protected static String nl(int c){
+		return StringUtils.repeat("<br/>", c);
+	}
+	
 	
 }

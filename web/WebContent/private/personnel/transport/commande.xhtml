@@ -10,22 +10,22 @@
 <h:body>
 	<ui:define name="metadata">
 		<f:metadata>
-        	<f:event type="preRenderView" listener="#{demandeCotationBilletAvionMissionController.preRenderView}" />
+        	<f:event type="preRenderView" listener="#{commandeBilletAvionMissionController.preRenderView}" />
     	</f:metadata>
 	</ui:define>
 		
 	<ui:composition template="/template/commun.xhtml">
 		<ui:define name="contenu">
 			<ui:decorate template="/template/formWizardTemplate.xhtml">
-				<ui:param name="uiController" value="#{demandeCotationBilletAvionMissionController}" />
+				<ui:param name="uiController" value="#{commandeBilletAvionMissionController}" />
 				<ui:define name="contenu">
       				<p:tab id="definition" title="Définition">  
 				
-						<p:dataTable value="#{demandeCotationBilletAvionMissionController.missionsSelectionnees}" var="mission" rowIndexVar="index">
+						<p:dataTable value="#{commandeBilletAvionMissionController.missionsSelectionnees}" var="mission" rowIndexVar="index">
 							<f:facet name="header"><h:outputText value="#{constantResources.text('liste.mission')}" /> </f:facet>
 							<p:column headerText="#">
 								<f:facet name="footer">
-									<p:commandButton value="#{constantResources.text('bouton.ajouter')}" action="#{demandeCotationBilletAvionMissionController.ajouterMission}" icon="ui-icon-plus" 
+									<p:commandButton value="#{constantResources.text('bouton.ajouter')}" action="#{commandeBilletAvionMissionController.ajouterMission}" icon="ui-icon-plus" 
 										update=":form:rechercheMissionDatatable" oncomplete="PF('rechercheMissionDialog').show()"/>
 								</f:facet>
 								<h:outputText value="#{index+1}" />
@@ -43,7 +43,7 @@
 						
 						<p:separator/>	
 						
-						<p:dataTable value="#{demandeCotationBilletAvionMissionController.dossierDtos}" var="dossierDto" rowIndexVar="index">
+						<p:dataTable value="#{commandeBilletAvionMissionController.dossierDtos}" var="dossierDto" rowIndexVar="index">
 							<f:facet name="header"><h:outputText value="#{constantResources.text('liste.dossier.mission')}" /> </f:facet>
 							<p:column headerText="#"><h:outputText value="#{index+1}" /></p:column>
 							<p:column headerText="#{constantResources.text('matricule')}"><h:outputText value="#{dossierDto.dossier.beneficiaire.matricule}" /></p:column>
@@ -59,16 +59,16 @@
 						
 						<p:separator/>
 						
-						<p:dataTable value="#{agenceVoyages}" var="agenceVoyage" rowIndexVar="index" selectionMode="multiple" rowKey="index" selection="#{demandeCotationBilletAvionMissionController.agenceVoyageSelectionnees}">
+						<p:dataTable value="#{agenceVoyages}" var="agenceVoyage" rowIndexVar="index" selectionMode="single" rowKey="index" selection="#{commandeBilletAvionMissionController.entity.prestataire}">
 							<f:facet name="header"><h:outputText value="#{constantResources.text('liste.prestataire.agencevoyage')}" /> </f:facet>
-							<p:column selectionMode="multiple"/>
+							<p:column selectionMode="single"/>
 							<p:column headerText="#"><h:outputText value="#{index+1}" /></p:column>
 							<p:column headerText="#{constantResources.text('nom')}"><h:outputText value="#{agenceVoyage.nom}" /></p:column>
 						</p:dataTable>	
 						
 						<p:dialog header="Recherche de mission" widgetVar="rechercheMissionDialog" resizable="false" modal="true" appendTo="@(body)">  
 	
-							<p:dataTable id="rechercheMissionDatatable" value="#{demandeCotationBilletAvionMissionController.missionsRecherchesDisponible}" var="mission" rowIndexVar="index">
+							<p:dataTable id="rechercheMissionDatatable" value="#{commandeBilletAvionMissionController.missionsRecherchesDisponible}" var="mission" rowIndexVar="index">
 								<f:facet name="header"><h:outputText value="#{constantResources.text('liste.mission')}" /> </f:facet>
 								<p:column headerText="#"><h:outputText value="#{index+1}" /></p:column>
 								<p:column headerText="#{constantResources.text('designation')}"><h:outputText value="#{mission.designation}" /></p:column>
@@ -79,7 +79,7 @@
 					    </p:dialog>
 					</p:tab> 
 					<p:tab id="confirmation" title="Confirmation">  
-						<h:outputText value="#{demandeCotationBilletAvionMissionController.message}" escape="false"/>
+						<h:outputText value="#{commandeBilletAvionMissionController.message}" escape="false"/>
 					</p:tab> 
 					
 				</ui:define>

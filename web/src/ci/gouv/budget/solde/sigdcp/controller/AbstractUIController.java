@@ -8,15 +8,17 @@ import javax.inject.Inject;
 
 import lombok.Getter;
 import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.service.resources.ServiceConstantResources;
 
 
 public abstract class AbstractUIController implements Serializable {
 
 	private static final long serialVersionUID = 370026962329124294L;
 		
-	@Inject protected ConstantResources constantResources;
-	@Inject protected NavigationManager navigationManager;
-	@Inject protected MessageManager messageManager;
+	@Inject @Getter protected ServiceConstantResources constantResources;
+	@Inject @Getter protected WebConstantResources webConstantResources;
+	@Inject @Getter protected NavigationManager navigationManager;
+	@Inject @Getter protected MessageManager messageManager;
 	
 	/*
 	 * Attributes

@@ -36,7 +36,7 @@ public class Party extends AbstractModel<String>  implements Serializable{
 	private String nom;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	private Contact contact;
+	private Contact contact = new Contact();
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreation;

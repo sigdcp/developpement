@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import ci.gouv.budget.solde.sigdcp.service.resources.ConstantResources;
+import ci.gouv.budget.solde.sigdcp.service.resources.ServiceConstantResources;
 
 @Singleton
 @Deprecated
@@ -13,7 +13,7 @@ public class ServiceValidationUtils {
 
 	static final String MATRICULE_FORMAT = "\\d\\d\\d\\d\\d\\d[a-zA-Z]";
 	
-	private @Inject ConstantResources constantResources;
+	private @Inject ServiceConstantResources constantResources;
 	
 	/*
 	 * fonctions de validation de dates

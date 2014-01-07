@@ -41,7 +41,7 @@ public abstract class AbstractEntityFormUIController<ENTITY extends AbstractMode
 	}
 	
 	@Override
-	protected ENTITY __object__() {
+	public ENTITY getDto() {
 		return entity;
 	}
 	

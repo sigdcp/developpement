@@ -41,7 +41,8 @@ public class PieceJustificativeUploader implements Serializable {
 	public Collection<PieceJustificative> process(/*FichierService fichierService*/) throws IOException{
 		Collection<PieceJustificative> pieceJustificatives = new LinkedList<>();
 		for(PieceJustificativeDTO dto : collection){
-			dto.getPiece().setFichier(fichierService.convertir(dto.getFile().getContents(),dto.getFile().getFileName() ));
+			if(dto.getFile()!=null)
+				dto.getPiece().setFichier(fichierService.convertir(dto.getFile().getContents(),dto.getFile().getFileName() ));
 			pieceJustificatives.add(dto.getPiece());
 		}
 		return pieceJustificatives;

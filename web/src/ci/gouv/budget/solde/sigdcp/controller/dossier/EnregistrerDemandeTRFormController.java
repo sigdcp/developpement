@@ -3,6 +3,7 @@ package ci.gouv.budget.solde.sigdcp.controller.dossier;
 import java.io.Serializable;
 
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Getter;
@@ -16,11 +17,16 @@ public class EnregistrerDemandeTRFormController extends AbstractDossierUIControl
 
 	private static final long serialVersionUID = 1L;
 	
+	/*
+	 * Services
+	 */
+	@Inject private DossierTransitService dossierTransitService;
+	
 	@Getter @Setter private Boolean mae;
 		
 	@Override
 	protected DossierTransitService getDossierService() {
-		return null;
+		return dossierTransitService;
 	}
 	
 	/*

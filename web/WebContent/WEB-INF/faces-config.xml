@@ -21,6 +21,12 @@
   </navigation-case>
   
   <navigation-case>
+     <from-outcome>commandebilletavionmission</from-outcome>
+   <to-view-id>/private/personnel/transport/commande.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
+  
+  <navigation-case>
      <from-outcome>demandeddForm</from-outcome>
    <to-view-id>/private/demande/dd.xhtml</to-view-id>
    <redirect ></redirect>    

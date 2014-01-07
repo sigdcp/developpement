@@ -3,6 +3,7 @@ package ci.gouv.budget.solde.sigdcp.controller.dossier;
 import java.io.Serializable;
 
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Getter;
@@ -18,6 +19,11 @@ import ci.gouv.budget.solde.sigdcp.service.dossier.DossierMissionService;
 public class EnregistrerDemandeMHCIFormController extends AbstractDossierUIController<DossierMission,DossierMissionService> implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
+	/*
+	 * Services
+	 */
+	@Inject private DossierMissionService dossierMissionService;
 	
 	/*
 	public String enregistrer() {
@@ -52,7 +58,7 @@ public class EnregistrerDemandeMHCIFormController extends AbstractDossierUIContr
 	
 	@Override
 	protected DossierMissionService getDossierService() {
-		return null;
+		return dossierMissionService;
 	}
 	
 	public Mission getMission(){

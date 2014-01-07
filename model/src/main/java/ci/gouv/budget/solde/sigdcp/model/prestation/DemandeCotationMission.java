@@ -8,14 +8,8 @@
 
 package ci.gouv.budget.solde.sigdcp.model.prestation;
 
-import java.util.Date;
-
-import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +17,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
+import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
 
 @Getter @Setter 
 @Entity

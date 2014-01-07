@@ -20,12 +20,12 @@ import ci.gouv.budget.solde.sigdcp.service.GenericService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
 /**
- * Les constantes du systeme
+ * Les constantes web
  * @author christian
  *
  */
-@Singleton @Named(value="webConstantResources") @Log
-public class ConstantResources implements Serializable{
+@Singleton @Named @Log
+public class WebConstantResources implements Serializable{
 	
 	private static final long serialVersionUID = 1583754563831914427L;
 

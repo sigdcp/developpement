@@ -5,7 +5,7 @@ import java.io.Serializable;
 import ci.gouv.budget.solde.sigdcp.dao.JpaDaoImpl;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 
-public class CompteUtilisateurDaoImpl extends JpaDaoImpl<CompteUtilisateur, String> implements CompteUtilisateurDao , Serializable {
+public class CompteUtilisateurDaoImpl extends JpaDaoImpl<CompteUtilisateur, Long> implements CompteUtilisateurDao , Serializable {
 
 	private static final long serialVersionUID = -2609724288199083806L;
 

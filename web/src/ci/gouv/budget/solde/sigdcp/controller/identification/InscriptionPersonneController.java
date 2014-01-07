@@ -45,7 +45,7 @@ public class InscriptionPersonneController extends AbstractEntityFormUIControlle
         
         //demandeurDto.getPersonne().setNationalite();
         
-        defaultSubmitAction = new AbstractFormSubmitAction<Inscription>(entity,messageManager,"boutton.ouvrircompte","ui-icon-check","notification.compte.ouvert",
+        defaultSubmitAction = new AbstractFormSubmitAction<Inscription>(this,"bouton.ouvrircompte","ui-icon-check","notification.compte.ouvert",
 				Boolean.FALSE,Boolean.TRUE) {
 			private static final long serialVersionUID = -2683422739395829063L;
 			@Override

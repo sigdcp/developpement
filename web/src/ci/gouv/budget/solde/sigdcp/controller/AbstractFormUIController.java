@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
-import ci.gouv.budget.solde.sigdcp.model.prestation.DemandeCotationMission;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
 @Getter
@@ -25,12 +24,10 @@ public abstract class AbstractFormUIController<OBJECT> extends AbstractUIControl
 	 * button par défaut d'envoi des informations
 	 */
 	protected AbstractFormSubmitAction<OBJECT> defaultSubmitAction;
-	
 	protected AbstractFormSubmitAction<OBJECT> closeAction;
-	
-	@Getter protected WizardHelper<DemandeCotationMission> wizardHelper;
-	
+	@Getter protected WizardHelper<OBJECT> wizardHelper;
 	@Inject protected UserSessionManager userSessionManager;
+	protected Boolean showFieldRequired = Boolean.TRUE;
 	
 	@Override
 	public void __firstPreRenderView__() {
@@ -51,7 +48,7 @@ public abstract class AbstractFormUIController<OBJECT> extends AbstractUIControl
 	}
 	
 	protected void initActions(){
-		defaultSubmitAction = new AbstractFormSubmitAction<OBJECT>(__object__(),messageManager,"boutton.envoyer","ui-icon-check",null,Boolean.TRUE,Boolean.TRUE) {
+		defaultSubmitAction = new AbstractFormSubmitAction<OBJECT>(this,"bouton.envoyer","ui-icon-check",null,Boolean.TRUE,Boolean.TRUE) {
 			private static final long serialVersionUID = -2683422739395829063L;
 			@Override
 			protected void action() {
@@ -59,7 +56,7 @@ public abstract class AbstractFormUIController<OBJECT> extends AbstractUIControl
 			}
 		};
 		
-		closeAction = new AbstractFormSubmitAction<OBJECT>(__object__(),messageManager,"boutton.fermer","ui-icon-close",null,Boolean.TRUE,Boolean.TRUE,userSessionManager.isLoggedIn()?"espacePrivee":"index") {
+		closeAction = new AbstractFormSubmitAction<OBJECT>(this,"bouton.fermer","ui-icon-close",null,Boolean.TRUE,Boolean.TRUE,userSessionManager.isLoggedIn()?"espacePrivee":"index") {
 			private static final long serialVersionUID = -2683422739395829063L;
 			@Override
 			protected void action() {
@@ -69,7 +66,7 @@ public abstract class AbstractFormUIController<OBJECT> extends AbstractUIControl
 		closeAction.setProcess("@this");
 	}
 	
-	protected OBJECT __object__(){
+	public OBJECT getDto(){
 		return null;
 	}
 	

@@ -16,8 +16,8 @@ import lombok.Getter;
  * @author christian
  *
  */
-@Singleton @Named
-public class ConstantResources implements Serializable{
+@Singleton @Named("constantResources")
+public class ServiceConstantResources implements Serializable{
 	
 	private static final long serialVersionUID = 1583754563831914427L;
 

@@ -4,7 +4,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.service.AbstractService;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 
-public interface CompteUtilisateurService extends AbstractService<CompteUtilisateur,String> {
+public interface CompteUtilisateurService extends AbstractService<CompteUtilisateur,Long> {
 
 	/**
 	 * Active un compte utilisateur , en général lors de la première connexion

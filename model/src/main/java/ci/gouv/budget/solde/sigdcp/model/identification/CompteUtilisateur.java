@@ -16,6 +16,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -24,14 +25,13 @@ import javax.persistence.TemporalType;
 
 @Getter @Setter 
 @Entity
-public class CompteUtilisateur  extends AbstractModel<String>  implements Serializable{
+public class CompteUtilisateur  extends AbstractModel<Long>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private String login;
+	@Id private Long id;
 	
-	private String motPasse;
+	@Embedded private Credentials credentials;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreation;

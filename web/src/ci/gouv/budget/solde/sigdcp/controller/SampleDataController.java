@@ -18,7 +18,7 @@ public class SampleDataController extends AbstractFormUIController<Object> imple
 	@Override
 	protected void postConstruct() {
 		super.postConstruct();
-		defaultSubmitAction = new AbstractFormSubmitAction<Object>(null,messageManager,"boutton.sampledatacreate","ui-icon-check","notification.sampledata.created",
+		defaultSubmitAction = new AbstractFormSubmitAction<Object>(this,"bouton.sampledatacreate","ui-icon-check","notification.sampledata.created",
 				Boolean.FALSE,Boolean.TRUE) {
 			private static final long serialVersionUID = -2683422739395829063L;
 			@Override
