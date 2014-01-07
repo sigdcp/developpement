@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
+import ci.gouv.budget.solde.sigdcp.model.prestation.DemandeCotationMission;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
 @Getter
@@ -27,11 +28,29 @@ public abstract class AbstractFormUIController<OBJECT> extends AbstractUIControl
 	
 	protected AbstractFormSubmitAction<OBJECT> closeAction;
 	
+	@Getter protected WizardHelper<DemandeCotationMission> wizardHelper;
+	
 	@Inject protected UserSessionManager userSessionManager;
 	
 	@Override
 	public void __firstPreRenderView__() {
 		super.__firstPreRenderView__();
+		if(isCreate())
+			initCreateOperation();
+		else if(isRead())
+			initReadOperation();	
+		initActions();
+	}
+	
+	protected void initCreateOperation(){
+		
+	}
+	
+	protected void initReadOperation(){
+		
+	}
+	
+	protected void initActions(){
 		defaultSubmitAction = new AbstractFormSubmitAction<OBJECT>(__object__(),messageManager,"boutton.envoyer","ui-icon-check",null,Boolean.TRUE,Boolean.TRUE) {
 			private static final long serialVersionUID = -2683422739395829063L;
 			@Override
@@ -48,18 +67,6 @@ public abstract class AbstractFormUIController<OBJECT> extends AbstractUIControl
 			}
 		};
 		closeAction.setProcess("@this");
-		if(isCreate())
-			initCreateOperation();
-		else if(isRead())
-			initReadOperation();	
-	}
-	
-	protected void initCreateOperation(){
-		
-	}
-	
-	protected void initReadOperation(){
-		
 	}
 	
 	protected OBJECT __object__(){

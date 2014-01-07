@@ -9,10 +9,11 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import ci.gouv.budget.solde.sigdcp.dao.DynamicEnumerationDao;
-import ci.gouv.budget.solde.sigdcp.dao.dossier.LocaliteDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.NatureDeplacementDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.TypePieceDao;
+import ci.gouv.budget.solde.sigdcp.dao.geographie.LocaliteDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.SectionDao;
+import ci.gouv.budget.solde.sigdcp.dao.prestation.PrestataireDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
@@ -24,6 +25,8 @@ import ci.gouv.budget.solde.sigdcp.model.identification.Profession;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.Sexe;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
+import ci.gouv.budget.solde.sigdcp.model.indemnite.TypeClasseVoyage;
+import ci.gouv.budget.solde.sigdcp.model.prestation.Prestataire;
 
 /**
  * Fournit les listes des données de types paramètres
@@ -34,6 +37,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
 public class ListeResources {
  
 	@Inject private DynamicEnumerationDao dynamicEnumerationDao;
+	@Inject private PrestataireDao prestataireDao;
 	
     @Produces @Named
     public List<Categorie> getCategories(){
@@ -97,6 +101,16 @@ public class ListeResources {
     @Produces @Named
     public List<Section> getServices(){
     	return new LinkedList<>(sectionDao.readBySectionTypeId(Code.TYPE_SECTION_SERVICE));
+    }
+    
+    @Produces @Named
+    public List<TypeClasseVoyage> getTypeClasseVoyages(){
+    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(TypeClasseVoyage.class)); 
+    }
+    
+    @Produces @Named
+    public List<Prestataire> getAgenceVoyages(){
+    	return new LinkedList<>(prestataireDao.readAll()); 
     }
     
     @Produces @Named

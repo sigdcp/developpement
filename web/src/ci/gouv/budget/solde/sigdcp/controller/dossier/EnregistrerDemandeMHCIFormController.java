@@ -9,13 +9,13 @@ import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
-import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMHCI;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierMissionService;
 
 
 
 @Named @ViewScoped @Getter @Setter
-public class EnregistrerDemandeMHCIFormController extends AbstractDossierUIController<DossierMHCI,DossierMissionService> implements Serializable{
+public class EnregistrerDemandeMHCIFormController extends AbstractDossierUIController<DossierMission,DossierMissionService> implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	

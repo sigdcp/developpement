@@ -18,11 +18,11 @@ import lombok.Setter;
 
 @Getter @Setter 
 @Embeddable @EqualsAndHashCode
-public class PrestataireDemandeCotationMHCIId    implements Serializable{
+public class PrestataireDemandeCotationMissionId    implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private Long demandeCotationMHCIId;
+	private Long demandeCotationMissionId;
 
 	private String prestataireId;
 }

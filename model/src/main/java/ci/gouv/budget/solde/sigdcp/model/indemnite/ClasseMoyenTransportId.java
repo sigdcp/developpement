@@ -24,5 +24,5 @@ public class ClasseMoyenTransportId implements Serializable{
 
 	private String typeClasseVoyageId;
 	private String moyenTransportId;
-	private String groupeMHCIId;
+	private String groupeMissionId;
 }

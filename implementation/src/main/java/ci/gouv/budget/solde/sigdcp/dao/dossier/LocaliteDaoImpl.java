@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import ci.gouv.budget.solde.sigdcp.dao.JpaDaoImpl;
+import ci.gouv.budget.solde.sigdcp.dao.geographie.LocaliteDao;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 
 public class LocaliteDaoImpl extends JpaDaoImpl<Localite, String> implements LocaliteDao, Serializable {

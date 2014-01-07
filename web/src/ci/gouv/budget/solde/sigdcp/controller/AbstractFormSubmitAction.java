@@ -2,6 +2,8 @@ package ci.gouv.budget.solde.sigdcp.controller;
 
 import java.io.Serializable;
 
+import javax.faces.context.FacesContext;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -79,8 +81,14 @@ public abstract class AbstractFormSubmitAction<DTO> extends CommandButton implem
 			validator = (AbstractValidator<DTO>) new AbstractValidator<>(dto.getClass());
 	
 		validator.validate(dto);
-		for(String m : validator.getMessages())
+		for(String m : validator.getMessages()){
 			messageManager.addError(m,Boolean.FALSE);
+			System.out.println(m);
+		}
+		if(validator.isSucces())
+			;
+		else
+			FacesContext.getCurrentInstance().validationFailed();
 		return validator.isSucces();
 	}
 	

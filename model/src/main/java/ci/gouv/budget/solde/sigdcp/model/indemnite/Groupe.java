@@ -8,34 +8,39 @@
 
 package ci.gouv.budget.solde.sigdcp.model.indemnite;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-import ci.gouv.budget.solde.sigdcp.model.identification.Categorie;
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.io.Serializable;
-
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import lombok.Getter;
+import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
+import ci.gouv.budget.solde.sigdcp.model.identification.Categorie;
+
 @Getter @Setter 
-@Entity
-public class Groupe  extends AbstractModel<String>  implements Serializable{
+@Entity @Inheritance(strategy=InheritanceType.JOINED)
+public class Groupe  extends DynamicEnumeration  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private String code;
-	
-	private String libelle;
-	
-	@OneToMany
-	private LinkedList<Categorie> categories = new LinkedList<Categorie>();
+	//@OneToMany
+	//private LinkedList<Categorie> categories = new LinkedList<Categorie>();
 	
 	@ManyToOne
 	private TypeGroupe type;
+	
+	public Groupe() {}
+
+	public Groupe(String code, String libelle, String description,LinkedList<Categorie> categories, TypeGroupe type) {
+		super(code, libelle, description);
+		//this.categories = categories;
+		this.type = type;
+	}
+	
+	
 }

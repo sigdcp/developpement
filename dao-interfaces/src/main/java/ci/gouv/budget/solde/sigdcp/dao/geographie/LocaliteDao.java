@@ -1,4 +1,4 @@
-package ci.gouv.budget.solde.sigdcp.dao.dossier;
+package ci.gouv.budget.solde.sigdcp.dao.geographie;
 
 import java.util.Collection;
 

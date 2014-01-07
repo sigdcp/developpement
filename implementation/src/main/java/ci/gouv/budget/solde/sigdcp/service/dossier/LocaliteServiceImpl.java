@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import ci.gouv.budget.solde.sigdcp.dao.dossier.LocaliteDao;
+import ci.gouv.budget.solde.sigdcp.dao.geographie.LocaliteDao;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
 

@@ -26,7 +26,7 @@ public class TypeCommande  extends DynamicEnumeration  implements Serializable{
 
 	public TypeCommande(String code, String libelle) {
 		super(code, libelle);
-	}
+	} 
 	
 	
 	

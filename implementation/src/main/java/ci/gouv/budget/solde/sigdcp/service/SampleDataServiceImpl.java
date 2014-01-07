@@ -1,45 +1,23 @@
 package ci.gouv.budget.solde.sigdcp.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import ci.gouv.budget.solde.sigdcp.model.Code;
-import ci.gouv.budget.solde.sigdcp.model.dossier.CategorieDeplacement;
-import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
-import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
-import ci.gouv.budget.solde.sigdcp.model.dossier.GroupeTypePiece;
-import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
-import ci.gouv.budget.solde.sigdcp.model.dossier.NatureOperation;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Operation;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
-import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
-import ci.gouv.budget.solde.sigdcp.model.dossier.TypePieceJustificative;
-import ci.gouv.budget.solde.sigdcp.model.geographie.Contact;
-import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
-import ci.gouv.budget.solde.sigdcp.model.geographie.TypeLocalite;
-import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
-import ci.gouv.budget.solde.sigdcp.model.identification.Categorie;
-import ci.gouv.budget.solde.sigdcp.model.identification.Echelon;
-import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
-import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
-import ci.gouv.budget.solde.sigdcp.model.identification.InfosInscriptionPersonne;
-import ci.gouv.budget.solde.sigdcp.model.identification.Inscription;
-import ci.gouv.budget.solde.sigdcp.model.identification.Position;
-import ci.gouv.budget.solde.sigdcp.model.identification.Profession;
-import ci.gouv.budget.solde.sigdcp.model.identification.Section;
-import ci.gouv.budget.solde.sigdcp.model.identification.Sexe;
-import ci.gouv.budget.solde.sigdcp.model.identification.SituationMatrimoniale;
-import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
-import ci.gouv.budget.solde.sigdcp.model.identification.TypePersonne;
-import ci.gouv.budget.solde.sigdcp.model.identification.TypeSection;
+import ci.gouv.budget.solde.sigdcp.model.*;
+import ci.gouv.budget.solde.sigdcp.model.dossier.*;
+import ci.gouv.budget.solde.sigdcp.model.identification.*;
+import ci.gouv.budget.solde.sigdcp.model.geographie.*;
+import ci.gouv.budget.solde.sigdcp.model.calendrier.*;
+import ci.gouv.budget.solde.sigdcp.model.fichier.*;
+import ci.gouv.budget.solde.sigdcp.model.indemnite.*;
+import ci.gouv.budget.solde.sigdcp.model.prestation.*;
+
 
 @Stateless//(mappedName="SampleDataService") @Remote
 public class SampleDataServiceImpl implements SampleDataService {
@@ -50,9 +28,22 @@ public class SampleDataServiceImpl implements SampleDataService {
 	private TypeAgentEtat fonctionnaire,contractuel,policier,gendarme;
 	private TypePersonne ayantDroit;
 	private TypePieceJustificative extraitNaissance,extraitMariage,cni,feuilleDep,bonTransport;
+	private Prestataire elohimVoyages,mistralVoyages;
+	private Localite abidjan,bouake,paris,dakar,delhi;
+	private NatureDeplacement mhci;
+	private AgentEtat agentEtat1,agentEtat2,agentEtat3,agentEtat4;
 	
 	@Override 
 	public void create() {
+		
+		em.persist(new TypeClasseVoyage(Code.TYPE_CLASSE_VOYAGE_1ERE,"1ère classe"));
+		em.persist(new TypeClasseVoyage(Code.TYPE_CLASSE_VOYAGE_2EME,"2ème classe"));
+		em.persist(new TypeClasseVoyage(Code.TYPE_CLASSE_VOYAGE_TOURISTE,"classe touriste"));
+		
+		em.persist(new GroupeMission(Code.GROUPE_MISSION_HORS_GROUPE, "Hors groupe"));
+		em.persist(new GroupeMission(Code.GROUPE_MISSION_A, "Groupe A"));
+		em.persist(new GroupeMission(Code.GROUPE_MISSION_B, "Groupe B"));
+		
 		em.persist(ayantDroit = new TypePersonne(Code.TYPE_PERSONNE_AYANT_DROIT, "Ayant droit"));
 		
 		em.persist(fonctionnaire = new TypeAgentEtat(Code.TYPE_AGENT_ETAT_FONCTIONNAIRE, "Fonctionnaire"));
@@ -154,8 +145,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 		communPieceJustificativeAFournir(retraite, remboursement, fonctionnaire);
 		communDDPieceJustificativeAFournir(retraite);
 		
-		NatureDeplacement mhci = new NatureDeplacement(mission, Code.NATURE_DEPLACEMENT_MISSION_HCI,"Mission Hors Côte d'Ivoire", 2);
-		em.persist(mhci);
+		em.persist(mhci = new NatureDeplacement(mission, Code.NATURE_DEPLACEMENT_MISSION_HCI,"Mission Hors Côte d'Ivoire", 2));
 		em.persist(pjaf(mhci,priseEnCharge,null, com));
 		em.persist(pjaf(mhci,priseEnCharge,null, att));
 		em.persist(pjaf(mhci,priseEnCharge,null, om));
@@ -195,10 +185,11 @@ public class SampleDataServiceImpl implements SampleDataService {
 		TypeLocalite zone = new TypeLocalite(Code.TYPE_LOCALITE_ZONE,"Zone");
 		em.persist(zone);
 		
-		Localite abj = new Localite("ABJ", "Abidjan", null,ville);
-		em.persist(abj);
-		Localite bk = new Localite("BK", "Bouake", null,ville);
-		em.persist(bk);
+		em.persist(abidjan = new Localite("ABJ", "Abidjan", null,ville));
+		em.persist(bouake = new Localite("BK", "Bouaké", null,ville));
+		em.persist(paris = new Localite("PAR", "Paris", null,ville));
+		em.persist(dakar = new Localite("DK", "Dakar", null,ville));
+		em.persist(delhi = new Localite("DH", "New Dheli", null,ville));
 		
 		Localite coteDivoire = new Localite(Code.LOCALITE_COTE_DIVOIRE, "Côte d'Ivoire", null,pays);
 		em.persist(coteDivoire);
@@ -256,9 +247,14 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(set);
 		
 		Date dateNaiss = new Date();
-		AgentEtat agentEtat1 = new AgentEtat("AE1","A99", "Tata", "Pion", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
-				coteDivoire, new Date(),  a1, echelon1, position1, 2000, fonction1, bud, profession1, null);
-		em.persist(agentEtat1);
+		em.persist(agentEtat1 = new AgentEtat("AE1","A99", "Tata", "Pion", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
+				coteDivoire, new Date(),  a1, echelon1, position1, 2000, fonction1, bud, profession1, null));
+		
+		em.persist(agentEtat2 = new AgentEtat("AE2","A18", "Toto", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.FEMININ, situationMatrimoniale1, 
+				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, bud, profession2, null));
+		
+		em.persist(agentEtat3 = new AgentEtat("AE3","A500", "Zaza", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
+				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, bud, profession2, null));
 		
 		inscrireAgentEtat("DZ12", "Zadi", "Alain", new Date(), new Contact("mail@yahoo.com", "123456", "01 BP Abidjan", "Rue des jardins", null), Sexe.MASCULIN, 
 				situationMatrimoniale1, coteDivoire, null, null, null, null, null, bud, profession1,gendarme);
@@ -269,15 +265,15 @@ public class SampleDataServiceImpl implements SampleDataService {
 		inscrireAgentEtat("DZ100", "Kadi", "mariam", new Date(), new Contact("mail@yahoo.com", "123456", "01 BP Abidjan", "Rue des jardins", null), Sexe.FEMININ, 
 				situationMatrimoniale1, coteDivoire, null, null, null, null, null, bud, profession1,policier);
 		
-		Deplacement deplacementAffectation = new Deplacement(date(), date(), date(), null, affectation, sexp, set, abj, bk);
+		Deplacement deplacementAffectation = new Deplacement(date(), date(), date(), null, affectation, sexp, set, abidjan, bouake);
 		em.persist(deplacementAffectation);
-		Deplacement deplacementRetraite = new Deplacement(date(), date(), date(), null, retraite, sexp, set, bk, abj);
+		Deplacement deplacementRetraite = new Deplacement(date(), date(), date(), null, retraite, sexp, set, bouake, abidjan);
 		em.persist(deplacementRetraite);
 		
-		DossierDD dossierDD1 = new DossierDD(numero(), date(), numero(), date(), deplacementAffectation, a2, agentEtat1, 500, 500, date(), numero(), abj, date(), date());
+		DossierDD dossierDD1 = new DossierDD(numero(), date(), numero(), date(), deplacementAffectation, a2, agentEtat1, 500, 500, date(), numero(), abidjan, date(), date());
 		em.persist(dossierDD1);
 		
-		DossierDD dossierDD2 = new DossierDD(numero(), date(), numero(), date(), deplacementRetraite, a2, agentEtat1, 300, 150, date(), numero(), abj, date(), date());
+		DossierDD dossierDD2 = new DossierDD(numero(), date(), numero(), date(), deplacementRetraite, a2, agentEtat1, 300, 150, date(), numero(), abidjan, date(), date());
 		em.persist(dossierDD2);
 		
 		Statut soumis = new Statut("SOUMIS", "Soumis", 0);
@@ -319,6 +315,13 @@ public class SampleDataServiceImpl implements SampleDataService {
 		Operation validerConformite2 = new Operation(date(), valRecevabilite);em.persist(validerConformite2);
 		em.persist(new Traitement(validerConformite1,null,dossierDD2,conforme));
 		
+		em.persist(elohimVoyages = new Prestataire("P1","Elohim Voyages",new Contact("elohim@mail.com", "11223344", "01 BP Abidjan 01", null, abidjan),date()));
+		em.persist(mistralVoyages = new Prestataire("P2","Mistral Voyages",new Contact("mistral@mail.com", "44556677", "02 BP Abidjan 02", null, abidjan),date()));
+		
+		creerMission("Conférence panafricaine des ministres de la fonction publique",3,7,paris,new AgentEtat[]{ agentEtat1,agentEtat2 });
+		creerMission("Forum sur la modernisation de l'administration publique et des institutions de l'Etat",5,7,dakar,new AgentEtat[]{ agentEtat1,agentEtat3 });
+		creerMission("Suivi des stagiaires en formation à l'étranger",9,12,delhi,new AgentEtat[]{ agentEtat3,agentEtat2 });
+		
 	}
 	
 	public AgentEtat creerAgentEtat(String matricule, String nom, String prenoms, Date dateNaissance, Contact contact, Sexe sexe, SituationMatrimoniale situationMatrimoniale, 
@@ -341,6 +344,19 @@ public class SampleDataServiceImpl implements SampleDataService {
 				typeAgentEtat, null),null,null,new Date(),null,null);
 		em.persist(inscription);
 		return inscription;
+	}
+	
+	public void creerMission(String designation,Integer mois,Integer dureeJour,Localite lieu,AgentEtat[] agentEtats){
+		Mission mission = new Mission(date(),date(),mhci,abidjan,lieu,designation,mois,dureeJour,"Environnement","Bonne gestion");
+		em.persist(mission);
+		List<DossierMission> dossiers = new ArrayList<>();
+		for(AgentEtat agentEtat : agentEtats){
+			DossierMission dossier = new DossierMission("DM"+nextIdString(),date(),"C/01",mission,agentEtat.getGrade(),agentEtat);
+			em.persist(dossier);
+			dossiers.add(dossier);
+		}
+		mission.setDossierDuResponsable(dossiers.get(0));
+		em.merge(mission);
 	}
 	
 	static long ID = 0;

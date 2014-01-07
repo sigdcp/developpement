@@ -40,6 +40,11 @@ public abstract class AbstractEntityFormUIController<ENTITY extends AbstractMode
 		return null;
 	}
 	
+	@Override
+	protected ENTITY __object__() {
+		return entity;
+	}
+	
 	/*
 	public String action(){
 		if(isCreate()){

@@ -68,6 +68,8 @@ public class ConstantResources implements Serializable{
 	@Getter @Produces @Named private final String valuesRequiredMessage = "Tous les champs avec * sont obligatiore";
 	@Getter @Produces @Named private final String noSelectionOptionMessage = "--Selectionnez--";
 	
+	@Getter private final String widgetVarWizard = "myWizard";
+	
 	@Produces @Named public Converter getViewParamEnumConverter(){
 		return new Converter() {
 			

@@ -12,25 +12,36 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 
 @Getter @Setter 
 @Entity
-public class DossierTR extends Dossier implements Serializable{
+public class DossierObseques  extends Dossier   implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateMiseStage;
+	private String nomAgentConstataire;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateFin;
+	private Date dateDeces;
 	
-	private Float poidsBagagesKg;
+	private Boolean autopsie;
 	
-	private Float montantFacture;
+	private Float coutTransport;
+	
+	@ManyToOne
+	private Localite lieuDeces;
+	
+	@ManyToOne
+	private CauseDeces causeDeces;
+	
+	public DossierObseques() {}
+
+	
 }

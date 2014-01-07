@@ -13,16 +13,19 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 
 @Getter @Setter 
-@Entity
-public class PrestataireDemandeCotationMHCI extends AbstractModel<PrestataireDemandeCotationMHCIId> implements Serializable{
+@Entity @AllArgsConstructor
+public class PrestataireDemandeCotationMission extends AbstractModel<PrestataireDemandeCotationMissionId> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
-	private PrestataireDemandeCotationMHCIId id;
+	private PrestataireDemandeCotationMissionId id;
+	
+	public PrestataireDemandeCotationMission() {}
 }

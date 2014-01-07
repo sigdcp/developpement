@@ -15,8 +15,18 @@
 		-->	
 		<ui:include src="/resources/include/component/actionButton.xhtml" >
 			<ui:param name="action" value="#{uiController.closeAction}" />
+		</ui:include>
+		
+		<ui:include src="/resources/include/component/actionButton.xhtml" >
+			<ui:param name="action" value="#{uiController.wizardHelper.previous}" />
 		</ui:include>	
+		
+		<ui:include src="/resources/include/component/actionButton.xhtml" >
+			<ui:param name="action" value="#{uiController.wizardHelper.next}" />
+		</ui:include>	
+			
 		<ui:insert name="actions" />
+		
 		<ui:include src="/resources/include/component/actionButton.xhtml" >
 			<ui:param name="action" value="#{uiController.defaultSubmitAction}" />
 		</ui:include>

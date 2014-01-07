@@ -41,5 +41,7 @@ public abstract class AbstractUIController implements Serializable {
 	
 	/* useful methods */
 	
-
+	protected String text(String id){
+		return messageManager.getTextService().find(id);
+	}
 }

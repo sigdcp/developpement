@@ -7,12 +7,12 @@ import javax.inject.Named;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTR;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTransit;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierTransitService;
 
 
 @Named @ViewScoped
-public class EnregistrerDemandeTRFormController extends AbstractDossierUIController<DossierTR,DossierTransitService> implements Serializable{
+public class EnregistrerDemandeTRFormController extends AbstractDossierUIController<DossierTransit,DossierTransitService> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	

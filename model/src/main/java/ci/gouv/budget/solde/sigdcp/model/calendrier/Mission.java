@@ -9,6 +9,7 @@
 package ci.gouv.budget.solde.sigdcp.model.calendrier;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -17,7 +18,9 @@ import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
-import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMHCI;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
+import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
+import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.MontantIndemniteMission;
 
 @Getter @Setter 
@@ -42,8 +45,24 @@ public class Mission  extends Deplacement   implements Serializable{
 	private CalendrierMission calendrierMission;
 	
 	@ManyToOne
-	private DossierMHCI dossierDuResponsable;
+	private DossierMission dossierDuResponsable;
 	
 	@Embedded
 	private MontantIndemniteMission indemnite;
+	
+	public Mission() {}
+
+	public Mission(Date dateDepart, Date dateArrivee,NatureDeplacement nature,Localite depart, Localite arrivee,
+			String designation, Integer mois, Integer dureeJour,String objetifs, String resultatsAttendu) {
+		super(null, dateDepart, dateArrivee, null, nature,null,null, depart, arrivee);
+		this.designation = designation;
+		this.mois = mois;
+		this.dureeJour = dureeJour;
+		this.objetifs = objetifs;
+		this.resultatsAttendu = resultatsAttendu;
+	}
+
+	
+	
+	
 }

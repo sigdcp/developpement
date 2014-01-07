@@ -10,20 +10,25 @@ package ci.gouv.budget.solde.sigdcp.model.indemnite;
 
 import java.io.Serializable;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter 
-@Embeddable @EqualsAndHashCode
-public class LocaliteGroupeMHCIId    implements Serializable{
+@Entity
+public class GroupeMission  extends Groupe  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
-	private String localiteId;
 
-	private String goupeId;
+	public GroupeMission() {
+		super();
+	}
+
+	public GroupeMission(String code, String libelle) {
+		super(code, libelle, null, null, null);
+	}
+	
+	
 
 }

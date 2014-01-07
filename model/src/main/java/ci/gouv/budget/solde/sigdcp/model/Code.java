@@ -126,4 +126,18 @@ public interface Code {
 	String TYPE_DEPENSE_PRISE_EN_CHARGE = "PEC";
 	String TYPE_DEPENSE_RMBOURSEMENT = "REMB";
 	
+	/*
+	 * Type de classe de voyage
+	 */
+	String TYPE_CLASSE_VOYAGE_1ERE = "1C";
+	String TYPE_CLASSE_VOYAGE_2EME = "2C";
+	String TYPE_CLASSE_VOYAGE_TOURISTE = "3C";
+	
+	/*
+	 * Groupe mission
+	 */
+	String GROUPE_MISSION_HORS_GROUPE = "H";
+	String GROUPE_MISSION_A = "A";
+	String GROUPE_MISSION_B = "B";
+	
 }

@@ -11,42 +11,31 @@ package ci.gouv.budget.solde.sigdcp.model.identification;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Contact;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 
 @Getter @Setter 
-@Entity @AllArgsConstructor
+@Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Personne  extends AbstractModel<String>  implements Serializable{
+public class Personne  extends Party  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private String code;
-	private String nom;
 	private String prenoms;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateNaissance;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	private Contact contact = new Contact();
 	
 	@Enumerated(EnumType.ORDINAL)
 	private Sexe sexe;
@@ -60,12 +49,26 @@ public class Personne  extends AbstractModel<String>  implements Serializable{
 	@ManyToOne
 	private Profession profession;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateCreation;
-	
 	public Personne() {}
+	
+	public Personne(String code, String nom, String prenoms,
+			Date dateNaissance, Contact contact, Sexe sexe,
+			SituationMatrimoniale situationMatrimoniale, Localite nationalite,
+			Profession profession,Date dateCreation) {
+		super(code, nom,contact,dateCreation);
+		this.prenoms = prenoms;
+		this.dateNaissance = dateNaissance;
+		this.sexe = sexe;
+		this.situationMatrimoniale = situationMatrimoniale;
+		this.nationalite = nationalite;
+		this.profession = profession;
+	}
 	
 	public String getNomPrenoms(){
 		return getNom()+" "+getPrenoms();
 	}
+
+
+
+
 }

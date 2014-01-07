@@ -51,9 +51,10 @@ public class Deplacement  extends AbstractModel<Long>  implements Serializable{
 	@ManyToOne
 	private NatureDeplacement nature;
 
+	//TODO doit migrer dans Dossier
 	@ManyToOne
 	private Section serviceOrigine;
-	
+	//TODO doit migrer dans Dossier
 	@ManyToOne
 	private Section serviceAccueil;
 	

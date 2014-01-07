@@ -8,20 +8,27 @@
 
 package ci.gouv.budget.solde.sigdcp.model.indemnite;
 
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
 
-import javax.persistence.Id;
+import javax.persistence.Entity;
+
+import lombok.Getter;
+import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
 
 @Getter @Setter 
-public class TypeClasseVoyage  extends AbstractModel<String>  implements Serializable{
+@Entity
+public class TypeClasseVoyage  extends DynamicEnumeration  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private String code;
-	private String libelle;
+	public TypeClasseVoyage() {
+		super();
+	}
+
+	public TypeClasseVoyage(String code, String libelle) {
+		super(code, libelle);
+	}
+
+	
 }

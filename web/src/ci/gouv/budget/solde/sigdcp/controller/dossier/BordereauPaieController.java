@@ -19,7 +19,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.BordereauTransmission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
-import ci.gouv.budget.solde.sigdcp.model.dossier.DossierFO;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierObseques;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeBordereauTransmission;
@@ -81,7 +81,7 @@ public class BordereauPaieController implements Serializable {
 	public LinkedList<PieceProduite> pieceProduites = new LinkedList<PieceProduite>();
 	
 	//private LinkedList<Object[]> bordereauPaie = new LinkedList<Object[]>();
-	private LinkedList<DossierFO> dossiers = new LinkedList<DossierFO>();
+	private LinkedList<DossierObseques> dossiers = new LinkedList<DossierObseques>();
 		
 	private Dossier dossier = new Dossier();
 	
@@ -93,11 +93,11 @@ public class BordereauPaieController implements Serializable {
 		this.btList = bordereaux;
 	}	
 		
-	public LinkedList<DossierFO> getDossiers() {
+	public LinkedList<DossierObseques> getDossiers() {
 		return dossiers;
 	}
 
-	public void setDossiers(LinkedList<DossierFO> dossiers) {
+	public void setDossiers(LinkedList<DossierObseques> dossiers) {
 		this.dossiers = dossiers;
 	}
 

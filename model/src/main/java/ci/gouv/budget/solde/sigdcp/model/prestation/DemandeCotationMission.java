@@ -18,24 +18,27 @@ import lombok.Setter;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 @Getter @Setter 
 @Entity
-public class DemandeCotationMHCI  extends AbstractModel<Long>  implements Serializable{
+public class DemandeCotationMission  extends AbstractModel<Long>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue
 	private Long id;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIMESTAMP) //@NotNull
 	private Date date;
 	
-	private String description;
+	private String commentaires;
+	
 	@ManyToOne
 	private Mission mission;
-}
+} 
