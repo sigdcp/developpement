@@ -21,14 +21,14 @@
 			<ui:decorate template="/template/formTemplate.xhtml">
 				<ui:param name="uiController" value="#{enregistrerDemandeDDController}" />
 				<ui:define name="contenu">	
-				
-					<ui:include src="/dossier/include/formDossierDD.xhtml" />
+					<ui:include src="/dossier/include/formDossierDD.xhtml">
+						<ui:param name="controller" value="#{enregistrerDemandeDDController}"/>
+					</ui:include>
 					
 					<p:spacer height="5"/>
 				
 					<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml">
 						<ui:param name="controller" value="#{enregistrerDemandeDDController}"/>
-						<ui:param name="uploader" value="#{enregistrerDemandeDDController.pieceJustificativeUploader}"/>
 					</ui:include>
 							
 				</ui:define>

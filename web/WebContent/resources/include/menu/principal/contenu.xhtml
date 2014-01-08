@@ -77,6 +77,13 @@
 	    	<p:menuitem value="Commande de billet d'avion" outcome="commandebilletavionmission"/>
 	    </p:submenu>
 	    
+	     <p:submenu label="#{constantResources.text('verificationrecevabilite')}">
+	    	<p:menuitem value="#{constantResources.text('listedemandeavalider')}" outcome="dossierliste">
+	    		<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="validationrecevabilite"/>
+	    		<f:param name="#{webConstantResources.requestParamStatut}" value="SOUMIS"/>
+	    	</p:menuitem>
+	    </p:submenu>
+	    
 	    <!--
 	    <p:submenu label="Gestion Carte Sotra">  
 	    	

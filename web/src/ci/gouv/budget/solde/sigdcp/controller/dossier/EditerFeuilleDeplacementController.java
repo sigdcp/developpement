@@ -10,14 +10,14 @@ import javax.inject.Inject;
 import lombok.Getter;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierDDService;
 
-@ManagedBean @ViewScoped
+//@ManagedBean @ViewScoped
 public class EditerFeuilleDeplacementController implements Serializable {
 
 	private static final long serialVersionUID = 572544943898480486L;
 
-	@EJB private DossierDDService dossierDDService;
+	private DossierDDService dossierDDService;
 	
-	@Inject @Getter
+	//@Inject @Getter
 	private EnregistrerDemandeDDController enregistrerDemandeDDController;
 	
 	

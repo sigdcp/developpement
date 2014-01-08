@@ -29,7 +29,7 @@ public abstract class AbstractUIController implements Serializable {
 	 * Attributes
 	 */
 	@Getter @Setter protected String title = "Titre de la vue",internalCode="FS_PS_NOM_ECRAN_NUMERO";
-	@Getter @Setter protected Boolean showInternalCode = Boolean.TRUE;
+	@Getter @Setter protected Boolean showInternalCode = Boolean.TRUE,validationFailed=Boolean.FALSE;
 	
 	@PostConstruct
 	private void __postConsctruct__(){
@@ -44,8 +44,10 @@ public abstract class AbstractUIController implements Serializable {
 		// with JSF 2.2 use <f:action instead
 		if (!FacesContext.getCurrentInstance().isPostback()) {
 	        //__firstPreRenderView__();
-	        if(InitWhen.FIRST_PRERENDER_VIEW.equals(initWhen()))
+	        if(InitWhen.FIRST_PRERENDER_VIEW.equals(initWhen())){
 				initialisation();
+				//validationFailed = FacesContext.getCurrentInstance().isValidationFailed();
+	        }
 	    }
 	}
 	

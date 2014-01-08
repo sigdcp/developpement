@@ -14,16 +14,16 @@ import ci.gouv.budget.solde.sigdcp.service.dossier.DossierDDService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.PieceJustificativeService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.TypePieceJustificativeService;
 
-@ManagedBean @ViewScoped
+//@ManagedBean @ViewScoped
 public class SoumettreFeuilleDeplacementController implements Serializable {
 
 	private static final long serialVersionUID = 572544943898480486L;
 
-	@EJB private PieceJustificativeService pieceJustificativeService;
-	@EJB private TypePieceJustificativeService typePieceJustificativeService;
-	@EJB private DossierDDService dossierDDService;
+	//@EJB private PieceJustificativeService pieceJustificativeService;
+	//@EJB private TypePieceJustificativeService typePieceJustificativeService;
+	//@EJB private DossierDDService dossierDDService;
 	
-	@Inject @Getter
+	//@Inject @Getter
 	private EnregistrerDemandeDDController enregistrerDemandeDDController;
 	
 	@Getter

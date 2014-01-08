@@ -317,6 +317,8 @@ public class SampleDataServiceImpl implements SampleDataService {
 		Statut paye = new Statut("P", "Paye", 0);
 		em.persist(paye);
 		
+		NatureOperation soumission = new NatureOperation("SOU", "Soumission");
+		em.persist(soumission);
 		NatureOperation valRecevabilite = new NatureOperation("VAL_REC", "Validation Reçevabilité");
 		em.persist(valRecevabilite);
 		NatureOperation valConformite = new NatureOperation("VAL_CON", "Validation Conformité");
@@ -325,6 +327,9 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(liquidation);
 		NatureOperation reglement = new NatureOperation("PAIE", "Reglement");
 		em.persist(reglement);
+		
+		Operation soumissionOp = new Operation(date(), soumission);em.persist(soumissionOp);
+		em.persist(new Traitement(soumissionOp,null,dossierDD1,soumis));
 		
 		Operation validerRecevabilite1 = new Operation(date(), valRecevabilite);em.persist(validerRecevabilite1);
 		em.persist(new Traitement(validerRecevabilite1,null,dossierDD1,recevable));

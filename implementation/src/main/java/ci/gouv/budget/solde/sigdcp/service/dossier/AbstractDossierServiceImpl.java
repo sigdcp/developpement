@@ -111,8 +111,18 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	}
 	*/
 	@Override
-	public Collection<DOSSIER> findAll(NatureDeplacement natureDeplacement, Statut statut) {
+	public Collection<DOSSIER> findByNatureDeplacementAndStatut(NatureDeplacement natureDeplacement, Statut statut) {
 		return null;
+	}
+	
+	@Override
+	public Collection<DOSSIER> findByNatureDeplacement(NatureDeplacement natureDeplacement) {
+		return null;
+	}
+	
+	@Override
+	public Collection<DOSSIER> findByStatut(Statut statut) {
+		return ((AbstractDossierDao<DOSSIER>)dao).readByStatut(statut);
 	}
 
 }

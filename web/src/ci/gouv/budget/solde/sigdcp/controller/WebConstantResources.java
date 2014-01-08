@@ -16,6 +16,7 @@ import lombok.extern.java.Log;
 import ci.gouv.budget.solde.sigdcp.controller.converter.ViewParamConverter;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.service.GenericService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
@@ -41,6 +42,11 @@ public class WebConstantResources implements Serializable{
 	@Getter private final String requestParamDossier = "dossier";
 	@Produces @Named public ViewParamConverter getViewParamDossierConverter(){
 		return new ViewParamConverter(genericService, Dossier.class);
+	}
+	
+	@Getter private final String requestParamStatut = "statut";
+	@Produces @Named public ViewParamConverter getViewParamStatutConverter(){
+		return new ViewParamConverter(genericService, Statut.class);
 	}
 	
 	@Getter private final String requestParamCrudType = "ct";
@@ -100,7 +106,7 @@ public class WebConstantResources implements Serializable{
 			public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String string) throws ConverterException {
 				if(string==null || string.isEmpty())
 					return null;
-				return navigationManager.url(facesContext,string,Boolean.valueOf((String)uiComponent.getAttributes().get(requestParamOutcomeAction)));
+				return navigationManager.url(string,Boolean.valueOf((String)uiComponent.getAttributes().get(requestParamOutcomeAction)));
 			}
 			
 			@Override

@@ -9,6 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import lombok.Getter;
+import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.service.fichier.FichierService;
 
@@ -16,9 +17,10 @@ public class PieceJustificativeUploader implements Serializable {
 
 	private static final long serialVersionUID = 2682591481106580763L;
 	
-	@Getter private List<PieceJustificativeDTO> collection = new LinkedList<>();
-
 	@Inject private FichierService fichierService;
+	
+	@Setter @Getter protected PieceJustificative pieceJustificativeSelectionne;
+	@Getter private List<PieceJustificativeDTO> collection = new LinkedList<>();
 	
 	/*
 	public PieceJustificativeUploader(List<PieceJustificative> pieces) {

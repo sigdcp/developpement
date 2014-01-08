@@ -51,5 +51,10 @@ public interface AbstractDossierService<DOSSIER extends Dossier> extends Abstrac
 	
 	//DOSSIER findByIdWithPieceJustificative(String identifiant);
 	
-	Collection<DOSSIER> findAll(NatureDeplacement natureDeplacement,Statut statut);
+	Collection<DOSSIER> findByNatureDeplacementAndStatut(NatureDeplacement natureDeplacement,Statut statut);
+	
+	Collection<DOSSIER> findByStatut(Statut statut);
+	
+	Collection<DOSSIER> findByNatureDeplacement(NatureDeplacement natureDeplacement);
+
 }

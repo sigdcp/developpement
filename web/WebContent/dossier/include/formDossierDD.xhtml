@@ -21,38 +21,38 @@
 			}
 		</style>
 		
-		<ui:param name="editable" value="#{editable==null?enregistrerDemandeDDController.editable:editable}" />
+		<ui:param name="editable" value="#{editable==null?controller.editable:editable}" />
 		
 		<p:fieldset legend="Agent">	
 			<ui:include src="/identification/include/outputAgentEtat.xhtml" >
-				<ui:param name="agentEtat" value="#{enregistrerDemandeDDController.dossier.beneficiaire}" />
+				<ui:param name="agentEtat" value="#{controller.dossier.beneficiaire}" />
 				<ui:param name="columnCount" value="6" />
-			</ui:include> 
+			</ui:include>  
 			<p:spacer height="5" />
 			<p:panelGrid columns="#{editable?6:4}" styleClass="panelGridNoBorder" columnClasses="c1,c2,c3,c1,c2,c3">
-				<p:outputLabel for="dateCessationService" value="Date de cessation de service" rendered="#{enregistrerDemandeDDController.showDateCessationService}" />
-				<p:calendar id="dateCessationService" value="#{enregistrerDemandeDDController.dossier.dateCessationService}" pattern="#{constantResources.datePattern}" required="true" requiredMessage="#{valueRequiredMessage}" 
-					rendered="#{enregistrerDemandeDDController.showDateCessationService and (editable==null or editable)}"/>
-				<h:outputText value="#{enregistrerDemandeDDController.dossier.dateCessationService}" rendered="#{not editable and enregistrerDemandeDDController.showDateCessationService}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
-				<p:message for="dateCessationService" rendered="#{enregistrerDemandeDDController.showDateCessationService}"/>
+				<p:outputLabel for="dateCessationService" value="Date de cessation de service" rendered="#{controller.showDateCessationService}" />
+				<p:calendar id="dateCessationService" value="#{controller.dossier.dateCessationService}" pattern="#{constantResources.datePattern}" required="true" requiredMessage="#{valueRequiredMessage}" 
+					rendered="#{controller.showDateCessationService and (editable==null or editable)}"/>
+				<h:outputText value="#{controller.dossier.dateCessationService}" rendered="#{not editable and controller.showDateCessationService}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				<p:message for="dateCessationService" rendered="#{controller.showDateCessationService}"/>
 	
-				<p:outputLabel for="datePriseService" value="Date de prise de service" rendered="#{enregistrerDemandeDDController.showDatePriseService}" />
-				<p:calendar id="datePriseService" value="#{enregistrerDemandeDDController.dossier.datePriseService}" pattern="#{constantResources.datePattern}" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{enregistrerDemandeDDController.showDatePriseService and (editable==null or editable)}"/>
-				<h:outputText value="#{enregistrerDemandeDDController.dossier.datePriseService}" rendered="#{not editable and enregistrerDemandeDDController.showDatePriseService}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
-				<p:message for="datePriseService" rendered="#{enregistrerDemandeDDController.showDatePriseService}" />			
+				<p:outputLabel for="datePriseService" value="Date de prise de service" rendered="#{controller.showDatePriseService}" />
+				<p:calendar id="datePriseService" value="#{controller.dossier.datePriseService}" pattern="#{constantResources.datePattern}" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{controller.showDatePriseService and (editable==null or editable)}"/>
+				<h:outputText value="#{controller.dossier.datePriseService}" rendered="#{not editable and controller.showDatePriseService}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				<p:message for="datePriseService" rendered="#{controller.showDatePriseService}" />			
 				
-				<p:outputLabel for="dateMiseRetraite" value="Date de mise à la retraite" rendered="#{enregistrerDemandeDDController.showDateMiseRetraite}" />
-				<p:calendar id="dateMiseRetraite" value="#{enregistrerDemandeDDController.dossier.dateMiseRetraite}" pattern="#{constantResources.datePattern}" required="true" requiredMessage="#{valueRequiredMessage}" 
-					rendered="#{enregistrerDemandeDDController.showDateMiseRetraite and (editable==null or editable)}"/>
-				<h:outputText value="#{enregistrerDemandeDDController.dossier.dateMiseRetraite}" rendered="#{not editable and enregistrerDemandeDDController.showDateMiseRetraite}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
-				<p:message for="dateMiseRetraite" rendered="#{enregistrerDemandeDDController.showDateMiseRetraite}"/>
+				<p:outputLabel for="dateMiseRetraite" value="Date de mise à la retraite" rendered="#{controller.showDateMiseRetraite}" />
+				<p:calendar id="dateMiseRetraite" value="#{controller.dossier.dateMiseRetraite}" pattern="#{constantResources.datePattern}" required="true" requiredMessage="#{valueRequiredMessage}" 
+					rendered="#{controller.showDateMiseRetraite and (editable==null or editable)}"/>
+				<h:outputText value="#{controller.dossier.dateMiseRetraite}" rendered="#{not editable and controller.showDateMiseRetraite}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				<p:message for="dateMiseRetraite" rendered="#{controller.showDateMiseRetraite}"/>
 									
 			</p:panelGrid>
 	
 			<p:panelGrid columns="#{editable?6:4}" styleClass="panelGridNoBorder" columnClasses="c1,c2,c3,c1,c2,c3">
 				
 				<p:outputLabel for="mariage" value="Situation Matrimoniale" rendered="#{editable}"/>			
-				<p:selectOneRadio id="mariage" required="true" requiredMessage="#{valueRequiredMessage}" value="#{enregistrerDemandeDDController.marie}" rendered="#{editable}">
+				<p:selectOneRadio id="mariage" required="true" requiredMessage="#{valueRequiredMessage}" value="#{controller.marie}" rendered="#{editable}">
 					<f:selectItem itemLabel="Marié(e)" itemValue="true" />
 					<f:selectItem itemLabel="Célibataire" itemValue="false" />
 					<p:ajax event="click" update="@parent" />
@@ -60,29 +60,29 @@
 				<p:message for="mariage" rendered="#{editable}"/>				
 				<h:outputText value="" rendered="#{editable}"/><h:outputText value="" rendered="#{editable}"/><h:outputText value="" rendered="#{editable}"/>
 				
-				<p:outputLabel for="dateMariage" value="Marié(e) le" rendered="#{enregistrerDemandeDDController.marie}"/>
-				<p:calendar id="dateMariage" value="#{enregistrerDemandeDDController.dossier.dateMariage}" pattern="#{constantResources.datePattern}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable and enregistrerDemandeDDController.marie}"/>
-				<h:outputText value="#{enregistrerDemandeDDController.dossier.dateMariage}" rendered="#{not editable and enregistrerDemandeDDController.marie}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
-				<p:message for="dateMariage" rendered="#{editable and enregistrerDemandeDDController.marie}"/>
+				<p:outputLabel for="dateMariage" value="Marié(e) le" rendered="#{controller.marie}"/>
+				<p:calendar id="dateMariage" value="#{controller.dossier.dateMariage}" pattern="#{constantResources.datePattern}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable and controller.marie}"/>
+				<h:outputText value="#{controller.dossier.dateMariage}" rendered="#{not editable and controller.marie}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				<p:message for="dateMariage" rendered="#{editable and controller.marie}"/>
 		
-				<p:outputLabel for="lieuMariage" value="Marié(e) à la mairie de" rendered="#{enregistrerDemandeDDController.marie}"/>
-				<p:selectOneMenu id="lieuMariage" value="#{enregistrerDemandeDDController.dossier.mairieMariage}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
-					rendered="#{editable and enregistrerDemandeDDController.marie}">
+				<p:outputLabel for="lieuMariage" value="Marié(e) à la mairie de" rendered="#{controller.marie}"/>
+				<p:selectOneMenu id="lieuMariage" value="#{controller.dossier.mairieMariage}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
+					rendered="#{editable and controller.marie}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{communes}" />
 				</p:selectOneMenu>
-				<h:outputText value="#{enregistrerDemandeDDController.dossier.mairieMariage}" rendered="#{not editable and enregistrerDemandeDDController.marie}"/>
-				<p:message for="lieuMariage" rendered="#{editable and enregistrerDemandeDDController.marie}"/>
+				<h:outputText value="#{controller.dossier.mairieMariage}" rendered="#{not editable and controller.marie}"/>
+				<p:message for="lieuMariage" rendered="#{editable and controller.marie}"/>
 				
-				<p:outputLabel for="registMar" value="Numéro du régistre de mariage" rendered="#{enregistrerDemandeDDController.marie}"/>
-				<p:inputText id="registMar" value="#{enregistrerDemandeDDController.dossier.numeroRegistreMariage}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable and enregistrerDemandeDDController.marie}"/>
-				<h:outputText value="#{enregistrerDemandeDDController.dossier.numeroRegistreMariage}" rendered="#{not editable and enregistrerDemandeDDController.marie}"/>
-				<p:message for="registMar" rendered="#{editable and enregistrerDemandeDDController.marie}"/>	
-				<h:outputText value="" rendered="#{editable and enregistrerDemandeDDController.marie}"/><h:outputText value="" rendered="#{editable and enregistrerDemandeDDController.marie}"/><h:outputText value="" rendered="#{editable and enregistrerDemandeDDController.marie}"/>	
+				<p:outputLabel for="registMar" value="Numéro du régistre de mariage" rendered="#{controller.marie}"/>
+				<p:inputText id="registMar" value="#{controller.dossier.numeroRegistreMariage}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{editable and controller.marie}"/>
+				<h:outputText value="#{controller.dossier.numeroRegistreMariage}" rendered="#{not editable and controller.marie}"/>
+				<p:message for="registMar" rendered="#{editable and controller.marie}"/>	
+				<h:outputText value="" rendered="#{editable and controller.marie}"/><h:outputText value="" rendered="#{editable and controller.marie}"/><h:outputText value="" rendered="#{editable and controller.marie}"/>	
 				
 				<p:outputLabel for="nbrEnfant" value="Nombre d'enfant"/>
-				<p:inputText id="nbrEnfant" value="#{enregistrerDemandeDDController.nombreEnfant}" rendered="#{editable}"/>
-				<h:outputText rendered="#{not editable}" value="#{enregistrerDemandeDDController.nombreEnfant}"/>
+				<p:inputText id="nbrEnfant" value="#{controller.nombreEnfant}" rendered="#{editable}"/>
+				<h:outputText rendered="#{not editable}" value="#{controller.nombreEnfant}"/>
 				<p:message for="nbrEnfant" rendered="#{editable}"/>					
 			</p:panelGrid>					
 		</p:fieldset>
@@ -92,57 +92,57 @@
 		<p:fieldset legend="Déplacement">
 			<h:panelGrid columns="6" columnClasses="c1,c2,c3,c1,c2,c3">
 				
-				<p:outputLabel for="serviceOrigine" value="Service d'origine:" rendered="#{enregistrerDemandeDDController.showServiceOrigine}" />
-				<p:selectOneMenu id="serviceOrigine" value="#{enregistrerDemandeDDController.dossier.deplacement.serviceOrigine}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
-				rendered="#{enregistrerDemandeDDController.showServiceOrigine and (editable==null or editable)}">
+				<p:outputLabel for="serviceOrigine" value="Service d'origine:" rendered="#{controller.showServiceOrigine}" />
+				<p:selectOneMenu id="serviceOrigine" value="#{controller.dossier.deplacement.serviceOrigine}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
+				rendered="#{controller.showServiceOrigine and (editable==null or editable)}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{services}"/>
 				</p:selectOneMenu>		
-				<h:outputText value="#{enregistrerDemandeDDController.dossier.deplacement.serviceOrigine}" rendered="#{not editable and enregistrerDemandeDDController.showServiceOrigine}"/>
-				 <p:message for="serviceOrigine" rendered="#{enregistrerDemandeDDController.showServiceOrigine}" />
+				<h:outputText value="#{controller.dossier.deplacement.serviceOrigine}" rendered="#{not editable and controller.showServiceOrigine}"/>
+				 <p:message for="serviceOrigine" rendered="#{controller.showServiceOrigine}" />
 		        
-		        <p:outputLabel for="serviceAcceuil" value="Service d'accueil:" rendered="#{enregistrerDemandeDDController.showServiceAcceuil}" />
-				<p:selectOneMenu id="serviceAcceuil" value="#{enregistrerDemandeDDController.dossier.deplacement.serviceAccueil}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
-				rendered="#{enregistrerDemandeDDController.showServiceAcceuil and (editable==null or editable)}">
+		        <p:outputLabel for="serviceAcceuil" value="Service d'accueil:" rendered="#{controller.showServiceAcceuil}" />
+				<p:selectOneMenu id="serviceAcceuil" value="#{controller.dossier.deplacement.serviceAccueil}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
+				rendered="#{controller.showServiceAcceuil and (editable==null or editable)}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{services}"/>
 				</p:selectOneMenu>          
-				<h:outputText value="#{enregistrerDemandeDDController.dossier.deplacement.serviceAccueil}" rendered="#{not editable and enregistrerDemandeDDController.showServiceAcceuil}"/>
-				 <p:message for="serviceAcceuil" rendered="#{enregistrerDemandeDDController.showServiceAcceuil}" />				
+				<h:outputText value="#{controller.dossier.deplacement.serviceAccueil}" rendered="#{not editable and controller.showServiceAcceuil}"/>
+				 <p:message for="serviceAcceuil" rendered="#{controller.showServiceAcceuil}" />				
 				
-				<h:outputText rendered="#{not enregistrerDemandeDDController.showServiceOrigine or not enregistrerDemandeDDController.showServiceAcceuil}" />
-				<h:outputText rendered="#{not enregistrerDemandeDDController.showServiceOrigine or not enregistrerDemandeDDController.showServiceAcceuil}" />
-				<h:outputText rendered="#{not enregistrerDemandeDDController.showServiceOrigine or not enregistrerDemandeDDController.showServiceAcceuil}" />
+				<h:outputText rendered="#{not controller.showServiceOrigine or not controller.showServiceAcceuil}" />
+				<h:outputText rendered="#{not controller.showServiceOrigine or not controller.showServiceAcceuil}" />
+				<h:outputText rendered="#{not controller.showServiceOrigine or not controller.showServiceAcceuil}" />
 				
 				<p:outputLabel for="villeDepart"  value="Ville de départ:" />
-				<p:selectOneMenu id="villeDepart" value="#{enregistrerDemandeDDController.dossier.deplacement.localiteDepart}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}">
+				<p:selectOneMenu id="villeDepart" value="#{controller.dossier.deplacement.localiteDepart}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{villes}"/>
 				</p:selectOneMenu>
-				<h:outputText value="#{enregistrerDemandeDDController.dossier.deplacement.localiteDepart}" rendered="#{not editable}"/>
+				<h:outputText value="#{controller.dossier.deplacement.localiteDepart}" rendered="#{not editable}"/>
 				 <p:message for="villeDepart" />
 				
 				<p:outputLabel for="villeArrivee" value="Ville d'arrivée:" />		
-				<p:selectOneMenu id="villeArrivee" value="#{enregistrerDemandeDDController.dossier.deplacement.localiteArrivee}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}">
+				<p:selectOneMenu id="villeArrivee" value="#{controller.dossier.deplacement.localiteArrivee}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{villes}"/>
 				</p:selectOneMenu>	
-				<h:outputText value="#{enregistrerDemandeDDController.dossier.deplacement.localiteArrivee}" rendered="#{not editable}"/>
+				<h:outputText value="#{controller.dossier.deplacement.localiteArrivee}" rendered="#{not editable}"/>
 				<p:message for="villeArrivee" />
 				
 				<p:outputLabel for="dateDepart" value="Date départ" />
-				<p:calendar id="dateDepart" value="#{enregistrerDemandeDDController.dossier.deplacement.dateDepart}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}"/>
-				<h:outputText value="#{enregistrerDemandeDDController.dossier.deplacement.dateDepart}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				<p:calendar id="dateDepart" value="#{controller.dossier.deplacement.dateDepart}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}"/>
+				<h:outputText value="#{controller.dossier.deplacement.dateDepart}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 				<p:message for="dateDepart" />
 				 
 				<p:outputLabel for="dateArrivee" value="Date arrivée" />
-				<p:calendar id="dateArrivee" value="#{enregistrerDemandeDDController.dossier.deplacement.dateArrivee}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}"/>
-				<h:outputText value="#{enregistrerDemandeDDController.dossier.deplacement.dateArrivee}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				<p:calendar id="dateArrivee" value="#{controller.dossier.deplacement.dateArrivee}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}"/>
+				<h:outputText value="#{controller.dossier.deplacement.dateArrivee}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 				<p:message for="dateArrivee" />
 			 
 				<p:outputLabel for="poidsBagaggeC" value="Poids des bagages (en KG) constaté" />
-				<p:inputText id="poidsBagaggeC" value="#{enregistrerDemandeDDController.dossier.poidsBagageConstate}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}"/>
-				<h:outputText value="#{enregistrerDemandeDDController.dossier.poidsBagageConstate}" rendered="#{not editable}"/>	
+				<p:inputText id="poidsBagaggeC" value="#{controller.dossier.poidsBagageConstate}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}"/>
+				<h:outputText value="#{controller.dossier.poidsBagageConstate}" rendered="#{not editable}"/>	
 				<p:message for="poidsBagaggeC" />
 				
 			</h:panelGrid>

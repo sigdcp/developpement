@@ -36,7 +36,7 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	 */
 	
 	@Inject @Getter protected PieceJustificativeUploader pieceJustificativeUploader;
-	@Setter @Getter protected PieceJustificative pieceJustificativeSelectionne;
+	
 	
 	/*
 	 * Paramètres de requete

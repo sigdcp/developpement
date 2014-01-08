@@ -30,23 +30,25 @@
  	</h:form>
  	-->
  	
-	<h:form id="form" enctype="multipart/form-data">
-		<ui:insert name="title">
-			<table class="formHeaderClass"><tr>
-				<td id="title"><h:outputText value="#{uiController.title}" /></td>
-				<ui:fragment rendered="#{uiController.showInternalCode}"> <td id="code"><h:outputText value="#{uiController.internalCode}"/></td></ui:fragment>
-				<td id="infos"><div><h:outputText value="#{constantResources.text('formulaire.champsavecasterixobligatoire')}" rendered="#{uiController.showFieldRequired}"/> </div></td>
-			</tr> </table>
-		</ui:insert>
-		<p:separator/>
-		
-		<p:messages globalOnly="true"/>
-		
-		<ui:insert name="__contenu__" >
-			<h1><h:outputText value="Contenu à définir" /> </h1>
-		</ui:insert>
-		
-		<ui:decorate template="/template/formCommandsTemplate.xhtml"/>	
-	</h:form>
+		<h:form id="form" enctype="multipart/form-data">
+			<ui:insert name="title">
+				<table class="formHeaderClass"><tr>
+					<td id="title"><h:outputText value="#{uiController.title}" /></td>
+					<ui:fragment rendered="#{uiController.showInternalCode}"> <td id="code"><h:outputText value="#{uiController.internalCode}"/></td></ui:fragment>
+					<td id="infos"><div><h:outputText value="#{constantResources.text('formulaire.champsavecasterixobligatoire')}" rendered="#{uiController.showFieldRequired}"/> </div></td>
+				</tr> </table>
+			</ui:insert>
+			<p:separator/>
+			
+			<p:messages globalOnly="true"/>
+			
+			<ui:insert name="__contenu__" >
+				<h1><h:outputText value="Contenu à définir" /> </h1>
+			</ui:insert>
+			
+			<ui:decorate template="/template/formCommandsTemplate.xhtml"/>	
+		</h:form> 	
+ 	
+
 	
 </ui:composition>

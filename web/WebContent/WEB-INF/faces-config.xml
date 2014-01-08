@@ -13,6 +13,18 @@
    <to-view-id>/private/espacePrive.xhtml</to-view-id>
    <redirect ></redirect>    
   </navigation-case>
+
+	<navigation-case>
+     <from-outcome>dossierliste</from-outcome>
+   <to-view-id>/private/personnel/dossier/liste.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
+
+  <navigation-case>
+     <from-outcome>validationrecevabilitedd</from-outcome>
+   <to-view-id>/private/personnel/dossier/validation/recevabilitedd.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
   
   <navigation-case>
      <from-outcome>demandecotationbilletavionmission</from-outcome>

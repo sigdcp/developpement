@@ -34,10 +34,9 @@ public class NavigationManager implements Serializable {
 	private static final String QUERY_PARAMETER_FACES_REDIRECT_NAME = "faces-redirect";
 	private static final String FILE_STATIC_EXTENSION = ".xhtml";
 	private static final String FILE_PROCESSING_EXTENSION = ".jsf";
-	
-	//@Inject protected FacesContext facesContext;
-	
-	public String url(FacesContext facesContext,String id,Object[] parameters,Boolean actionOutcome){
+		
+	public String url(/*FacesContext facesContext,*/String id,Object[] parameters,Boolean actionOutcome){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 		NavigationCase navigationCase = ((ConfigurableNavigationHandler)facesContext.getApplication().getNavigationHandler()).getNavigationCase(facesContext, null, id);
 		String s = navigationCase.getToViewId(facesContext);
 		StringBuilder url;
@@ -55,16 +54,16 @@ public class NavigationManager implements Serializable {
 		return url.toString();
 	}
 	
-	public String url(FacesContext facesContext,String id,Object[] parameters){
-		return url(facesContext,id, parameters, Boolean.TRUE);
+	public String url(/*FacesContext facesContext,*/String id,Object[] parameters){
+		return url(/*facesContext,*/id, parameters, Boolean.TRUE);
 	}
 	
-	public String url(FacesContext facesContext,String id,Boolean actionOutcome){
-		return url(facesContext,id, null,actionOutcome);
+	public String url(/*FacesContext facesContext,*/String id,Boolean actionOutcome){
+		return url(/*facesContext,*/id, null,actionOutcome);
 	}
 	
-	public String url(FacesContext facesContext,String id){
-		return url(facesContext,id, Boolean.TRUE);
+	public String url(/*FacesContext facesContext,*/String id){
+		return url(/*facesContext,*/id, Boolean.TRUE);
 	}
 	
 	public String addQueryParameters(String aUrl,Object[] parameters){
