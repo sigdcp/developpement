@@ -24,10 +24,10 @@ public class CommandeBilletAvionMissionController extends AbstractAcquisitionTit
 	 */
 	
 	@Override
-	public void __firstPreRenderView__() {
-		super.__firstPreRenderView__();
+	protected void initialisation() {
+		super.initialisation();
 		title = messageManager.getTextService().find("formulaire.commandebilletavion");
-		defaultSubmitAction.setNotificationMessageId("notification.commandebilletavion");
+		defaultSubmitCommand.setNotificationMessageId("notification.commandebilletavion");
 	}
 	
 	protected String buildParticipantMessage(DossierMissionDTO dossierMissionDTO){

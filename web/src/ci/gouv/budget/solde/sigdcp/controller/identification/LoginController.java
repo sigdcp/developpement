@@ -2,7 +2,6 @@ package ci.gouv.budget.solde.sigdcp.controller.identification;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,7 +15,7 @@ import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.omnifaces.util.Faces;
 
-import ci.gouv.budget.solde.sigdcp.controller.AbstractFormUIController;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractFormUIController;
 import ci.gouv.budget.solde.sigdcp.model.identification.Credentials;
 import ci.gouv.budget.solde.sigdcp.service.identification.CompteUtilisateurService;
 
@@ -42,10 +41,15 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
 	@Getter @Setter private String matricule;
 	@Getter @Setter private String email;
 	
-	@PostConstruct
-	private void postConstructConnexionFormController() {
-		__firstPreRenderView__();
-		defaultSubmitAction.setValue("bouton.seconnecter");
+	@Override
+	protected InitWhen initWhen() {
+		return InitWhen.POST_CONSTRUCT;
+	}
+	
+	@Override
+	protected void initialisation() {
+		super.initialisation();
+		defaultSubmitCommand.setValue("bouton.seconnecter");
 	}
 	
 	@Override
@@ -61,9 +65,4 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
         }
 	}
 	
-	@Override
-	public boolean isCreate() {
-		return Boolean.TRUE;
-	}
-
 }

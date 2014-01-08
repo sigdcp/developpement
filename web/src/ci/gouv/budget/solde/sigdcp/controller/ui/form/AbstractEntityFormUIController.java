@@ -1,4 +1,4 @@
-package ci.gouv.budget.solde.sigdcp.controller;
+package ci.gouv.budget.solde.sigdcp.controller.ui.form;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;

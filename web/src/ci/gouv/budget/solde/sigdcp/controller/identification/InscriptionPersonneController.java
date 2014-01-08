@@ -7,11 +7,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Getter;
-import ci.gouv.budget.solde.sigdcp.controller.AbstractEntityFormUIController;
-import ci.gouv.budget.solde.sigdcp.controller.AbstractFormSubmitAction;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIController;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
-import ci.gouv.budget.solde.sigdcp.model.dossier.TypePieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.identification.Inscription;
 import ci.gouv.budget.solde.sigdcp.service.identification.InscriptionService;
 
@@ -32,8 +29,8 @@ public class InscriptionPersonneController extends AbstractEntityFormUIControlle
 	@Getter private Boolean inscriptionAgentEtat=Boolean.TRUE;
 	
 	@Override
-	public void __firstPreRenderView__() {
-		super.__firstPreRenderView__();
+	protected void initialisation() {
+		super.initialisation();
         if(inscriptionAgentEtat)
         	title = "Ouverture de compte";
  
@@ -45,15 +42,15 @@ public class InscriptionPersonneController extends AbstractEntityFormUIControlle
         
         //demandeurDto.getPersonne().setNationalite();
         
-        defaultSubmitAction = new AbstractFormSubmitAction<Inscription>(this,"bouton.ouvrircompte","ui-icon-check","notification.compte.ouvert",
-				Boolean.FALSE,Boolean.TRUE) {
-			private static final long serialVersionUID = -2683422739395829063L;
-			@Override
-			protected void action() {
-				inscriptionService.inscrire(entity);
-			}
-		};
+        defaultSubmitCommand.setValue(text("bouton.ouvrircompte"));
+        defaultSubmitCommand.setNotificationMessageId("notification.compte.ouvert");
+       
     }
+	
+	@Override
+	protected void onDefaultSubmitAction() throws Exception {
+		inscriptionService.inscrire(entity);
+	}
     
     /*
     @Override

@@ -1,5 +1,22 @@
 @CHARSET "ISO-8859-1";
 
+.formHeaderClass{
+	width: 100%;
+}
+
+.formHeaderClass #title{
+	font-weight: bold;font-size: 16pt;
+}
+
+.formHeaderClass #code{
+	color: blue;
+}
+
+.formHeaderClass #infos{
+	text-align: right;font-size: 8pt;color: red;
+	vertical-align: bottom;
+}
+
 .noborder{
 	border: none !important;
 }

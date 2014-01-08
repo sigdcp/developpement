@@ -1,4 +1,4 @@
-package ci.gouv.budget.solde.sigdcp.controller;
+package ci.gouv.budget.solde.sigdcp.controller.ui.form;
 
 import java.io.Serializable;
 
@@ -8,6 +8,9 @@ import lombok.Setter;
 import org.primefaces.component.wizard.Wizard;
 import org.primefaces.event.FlowEvent;
 
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.Action;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.FormCommand;
+
 @Getter @Setter
 public class WizardHelper<OBJECT> extends Wizard implements Serializable {
 
@@ -15,7 +18,7 @@ public class WizardHelper<OBJECT> extends Wizard implements Serializable {
 	
 	private AbstractFormUIController<OBJECT> form;
 	private String widgetVar;
-	private AbstractFormSubmitAction<OBJECT> previous,next,submitAction;
+	private FormCommand<OBJECT> previous,next,submitAction;
 	private Integer currentStepIndex=0;
 	private String[] stepIds;
 	
@@ -25,25 +28,28 @@ public class WizardHelper<OBJECT> extends Wizard implements Serializable {
 		this.form = form;
 		this.widgetVar = form.getWebConstantResources().getWidgetVarWizard();
 		this.stepIds = stepIds;
-		this.submitAction = form.getDefaultSubmitAction();
+		this.submitAction = form.getDefaultSubmitCommand();
 		this.submitAction.setRendered(isShowSubmitAction());
-		previous = new AbstractFormSubmitAction<OBJECT>(form,"bouton.precedent","ui-icon-arrowthick-1-w",null,Boolean.TRUE,Boolean.FALSE,NavigationManager.OUTCOME_CURRENT_VIEW) {
-			private static final long serialVersionUID = -2683422739395829063L;
-			@Override protected void action() {
+		previous = form.createCommand().init("bouton.precedent","ui-icon-arrowthick-1-w",null,new Action() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void __execute__() throws Exception {
 				previous();
 			}
-		};
+		}).onSuccessStayOnCurrentView();
 		config(previous, "previous();");
-		next = new AbstractFormSubmitAction<OBJECT>(form,"bouton.suivant","ui-icon-arrowthick-1-e",null,Boolean.TRUE,Boolean.TRUE,NavigationManager.OUTCOME_CURRENT_VIEW) {
-			private static final long serialVersionUID = -2683422739395829063L;
-			@Override protected void action() {
+		
+		next = form.createCommand().init("bouton.suivant","ui-icon-arrowthick-1-e",null,new Action() {
+			private static final long serialVersionUID = -5533784525516672597L;
+			@Override
+			protected void __execute__() throws Exception {
 				next();
 			}
-		};
+		}).onSuccessStayOnCurrentView();
 		config(next, String.format("next();"));
 	}
 	
-	private void config(AbstractFormSubmitAction<?> button,String script){
+	private void config(FormCommand<?> button,String script){
 		button.setUpdate("@form");
 		button.setOncomplete(script);
 	}

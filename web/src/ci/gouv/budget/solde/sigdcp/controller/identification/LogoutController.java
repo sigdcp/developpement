@@ -2,14 +2,13 @@ package ci.gouv.budget.solde.sigdcp.controller.identification;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import ci.gouv.budget.solde.sigdcp.controller.AbstractFormUIController;
 import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractFormUIController;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.service.identification.CompteUtilisateurService;
 
@@ -21,9 +20,16 @@ public class LogoutController extends AbstractFormUIController<CompteUtilisateur
 	@Inject private CompteUtilisateurService compteUtilisateurService;
 	@Inject UserSessionManager userSessionManager;
 	
-	@PostConstruct
-	private void postConstructorLogoutController() {
-		defaultSubmitAction.setValue("bouton.sedeconnecter");
+	@Override
+	protected InitWhen initWhen() {
+		// TODO Auto-generated method stub
+		return InitWhen.POST_CONSTRUCT;
+	}
+	
+	@Override
+	protected void initialisation() {
+		super.initialisation();
+		defaultSubmitCommand.setValue("bouton.sedeconnecter");
 	}
 	
 	@Override

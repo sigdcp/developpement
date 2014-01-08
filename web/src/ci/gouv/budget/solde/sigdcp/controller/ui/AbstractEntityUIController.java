@@ -1,4 +1,4 @@
-package ci.gouv.budget.solde.sigdcp.controller;
+package ci.gouv.budget.solde.sigdcp.controller.ui;
 import java.io.Serializable;
 
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;

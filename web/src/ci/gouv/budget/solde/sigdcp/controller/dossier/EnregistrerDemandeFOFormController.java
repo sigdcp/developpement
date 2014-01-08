@@ -3,11 +3,11 @@ package ci.gouv.budget.solde.sigdcp.controller.dossier;
 import java.io.Serializable;
 
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.controller.AbstractFormSubmitAction;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierObseques;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierObsequesService;
@@ -21,6 +21,7 @@ public class EnregistrerDemandeFOFormController extends AbstractDossierUIControl
 	/*
 	 * Services
 	 */
+	@Inject private DossierObsequesService dossierObsequesService;
 	
 	/*
 	 * DTOs
@@ -29,15 +30,8 @@ public class EnregistrerDemandeFOFormController extends AbstractDossierUIControl
 	@Getter private IdentitePersonneDTO declarantDto,defuntDto,agentConstatataireDto;
 	
 	@Override
-	public void __firstPreRenderView__() {
-		super.__firstPreRenderView__();
-		defaultSubmitAction = new AbstractFormSubmitAction<DossierObseques>(this,"bouton.soumettre","ui-icon-check","notification.demande.soumise",Boolean.FALSE,Boolean.TRUE) {
-			private static final long serialVersionUID = 2975854506689357563L;
-			@Override
-			protected void action() throws Exception {
-				
-			}
-		};
+	protected void initialisation() {
+		super.initialisation();
 		AgentEtat declarant = new AgentEtat();//peut etre un agent de l'état
 		AgentEtat defunt = new AgentEtat();
 		defunt.setAyantDroit(declarant);
@@ -58,7 +52,7 @@ public class EnregistrerDemandeFOFormController extends AbstractDossierUIControl
 
 	@Override
 	protected DossierObsequesService getDossierService() {
-		return null;
+		return dossierObsequesService;
 	}
 	
 }

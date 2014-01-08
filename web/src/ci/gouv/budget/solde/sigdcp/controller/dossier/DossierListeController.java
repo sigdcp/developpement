@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.controller.AbstractUIController;
+import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractUIController;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierDDService;
@@ -35,8 +35,8 @@ public class DossierListeController extends AbstractUIController implements Seri
 	@Getter @Setter private String nextViewOutcome;
 
 	@Override
-	public void __firstPreRenderView__() {
-		super.__firstPreRenderView__();
+	protected void initialisation() {
+		super.initialisation();
 		list = dossierService.findAll(); 
 	}
 	

@@ -28,10 +28,10 @@ public class DemandeCotationBilletAvionMissionController extends AbstractAcquisi
 	@Getter @Setter private List<Prestataire> agenceVoyageSelectionnees;
 	
 	@Override
-	public void __firstPreRenderView__() {
-		super.__firstPreRenderView__();
+	protected void initialisation() {
+		super.initialisation();
 		title = messageManager.getTextService().find("formulaire.cotationbilletavion.titre");
-		defaultSubmitAction.setNotificationMessageId("notification.demande.cotation");
+		defaultSubmitCommand.setNotificationMessageId("notification.demande.cotation");
 	}
 	
 	protected String buildParticipantMessage(DossierMissionDTO dossierMissionDTO){

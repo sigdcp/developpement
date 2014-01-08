@@ -44,10 +44,10 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIController<
 	protected DossierDDService getDossierService() {
 		return dossierDDService;
 	}
-
+	
 	@Override
-	public void __firstPreRenderView__() {
-		super.__firstPreRenderView__();
+	protected void initialisation() {
+		super.initialisation();
 		//DossierDDValidator validator = new DossierDDValidator();
 		//enregistrerAction.setValidator(validator);
 		//soumettreAction.setValidator(validator);

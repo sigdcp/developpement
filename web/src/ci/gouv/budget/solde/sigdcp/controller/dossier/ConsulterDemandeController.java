@@ -32,8 +32,8 @@ public class ConsulterDemandeController extends AbstractDossierUIController<Doss
 	@Getter private List<Traitement> traitements;
 	
 	@Override
-	public void __firstPreRenderView__() {
-		super.__firstPreRenderView__();
+	protected void initialisation() {
+		super.initialisation();
 		title = "Consultation des demandes";
 		traitements = new LinkedList<>(traitementService.findByDossier(entity));
 		if(!traitements.isEmpty())

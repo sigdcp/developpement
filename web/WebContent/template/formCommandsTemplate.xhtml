@@ -13,22 +13,22 @@
 		<p:commandButton immediate="true" action="#{uiController.close}" value="#{constantResources.text('boutonfermer')}" icon="ui-icon-close" 
 			rendered="#{closeable}" process="@this"/>
 		-->	
-		<ui:include src="/resources/include/component/actionButton.xhtml" >
-			<ui:param name="action" value="#{uiController.closeAction}" />
+		<ui:include src="/resources/include/component/formCommand.xhtml" >
+			<ui:param name="command" value="#{uiController.closeCommand}" />
 		</ui:include>
 		
-		<ui:include src="/resources/include/component/actionButton.xhtml" >
-			<ui:param name="action" value="#{uiController.wizardHelper.previous}" />
+		<ui:include src="/resources/include/component/formCommand.xhtml" >
+			<ui:param name="command" value="#{uiController.wizardHelper.previous}" />
 		</ui:include>	
 		
-		<ui:include src="/resources/include/component/actionButton.xhtml" >
-			<ui:param name="action" value="#{uiController.wizardHelper.next}" />
+		<ui:include src="/resources/include/component/formCommand.xhtml" >
+			<ui:param name="command" value="#{uiController.wizardHelper.next}" />
 		</ui:include>	
 			
 		<ui:insert name="actions" />
 		
-		<ui:include src="/resources/include/component/actionButton.xhtml" >
-			<ui:param name="action" value="#{uiController.defaultSubmitAction}" />
+		<ui:include src="/resources/include/component/formCommand.xhtml" >
+			<ui:param name="command" value="#{uiController.defaultSubmitCommand}" />
 		</ui:include>
 	</td></tr></table>
 			

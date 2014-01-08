@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Getter;
-import ci.gouv.budget.solde.sigdcp.controller.AbstractUIController;
+import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractUIController;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierDDService;
 

@@ -3,7 +3,7 @@ package ci.gouv.budget.solde.sigdcp.controller.flow;
 import java.io.Serializable;
 
 import lombok.Getter;
-import ci.gouv.budget.solde.sigdcp.controller.AbstractFormUIController;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractFormUIController;
 
 @Getter @Deprecated
 public class AbstractUIFlowController extends AbstractFormUIController<Object> implements Serializable {

@@ -35,14 +35,10 @@
 				
 				<ui:define name="actions">
 					
-					<ui:include src="/resources/include/component/actionButton.xhtml" >
-						<ui:param name="action" value="#{enregistrerDemandeDDController.enregistrerAction}" />
+					<ui:include src="/resources/include/component/formCommand.xhtml" >
+						<ui:param name="command" value="#{enregistrerDemandeDDController.enregistrerCommand}" />
 					</ui:include>
-					<!--
-					<ui:include src="/resources/include/component/actionButton.xhtml" >
-						<ui:param name="action" value="#{enregistrerDemandeDDController.defaultSubmitAction}" />
-					</ui:include>
-					-->
+					
 				</ui:define>
 				
 			</ui:decorate>

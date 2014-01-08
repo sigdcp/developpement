@@ -6,10 +6,10 @@ import javax.inject.Inject;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.controller.AbstractEntityFormUIController;
-import ci.gouv.budget.solde.sigdcp.controller.AbstractFormSubmitAction;
-import ci.gouv.budget.solde.sigdcp.controller.NavigationManager;
 import ci.gouv.budget.solde.sigdcp.controller.fichier.PieceJustificativeUploader;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIController;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.Action;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.FormCommand;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
@@ -46,38 +46,30 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	/*
 	 * Actions
 	 */
-	protected AbstractFormSubmitAction<DOSSIER> enregistrerAction;
+	protected FormCommand<DOSSIER> enregistrerCommand;
 	
 	@Override
-	public void __firstPreRenderView__(){
-		super.__firstPreRenderView__();
-		
+	protected void initialisation() {
+		super.initialisation();
 		entity.setBeneficiaire((AgentEtat) userSessionManager.getUser());
-		
 		title = "Formulaire de : "+entity.getDeplacement().getNature().getLibelle();
 		
-		enregistrerAction = new AbstractFormSubmitAction<DOSSIER>(this,"bouton.enregistrer","ui-icon-check","notification.demande.enregistree1",
-				Boolean.FALSE,Boolean.TRUE,NavigationManager.OUTCOME_CURRENT_VIEW) {
-			private static final long serialVersionUID = -2683422739395829063L;
+		defaultSubmitCommand.setValue(text("bouton.soumettre"));
+		defaultSubmitCommand.setNotificationMessageId("notification.demande.soumise");
+		defaultSubmitCommand.setAjax(Boolean.FALSE);
+		
+		enregistrerCommand = createCommand().init("bouton.enregistrer","ui-icon-check","notification.demande.enregistree1", new Action() {
+			private static final long serialVersionUID = 1L;
 			@Override
-			protected void action() throws Exception {
+			protected void __execute__() throws Exception {
 				getDossierService().enregistrer(entity, pieceJustificativeUploader.process());
 			}
-		};
-		
-		
-		defaultSubmitAction = new AbstractFormSubmitAction<DOSSIER>(this,"bouton.soumettre","ui-icon-check","notification.demande.soumise",
-				Boolean.FALSE,Boolean.TRUE) {
-			private static final long serialVersionUID = -2683422739395829063L;
-			@Override
-			protected void action() throws Exception  {
-				getDossierService().soumettre(entity, pieceJustificativeUploader.process());
-			}
-		};
+		}).onSuccessStayOnCurrentView();
+		enregistrerCommand.setAjax(Boolean.FALSE);
 		
 		//just for testing
-		defaultSubmitAction.setImmediate(Boolean.TRUE);
-		enregistrerAction.setImmediate(Boolean.TRUE);
+		defaultSubmitCommand.setImmediate(Boolean.TRUE);
+		enregistrerCommand.setImmediate(Boolean.TRUE);
 		
 	}
 	
@@ -90,6 +82,11 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		entity.getDeplacement().setNature(natureDaplacement);
 		for(PieceJustificativeAFournir pieceJustificativeAFournir : pieceJustificativeAFournirService.findByNatureDeplacementId(entity.getDeplacement().getNature().getCode()))
 			pieceJustificativeUploader.addPieceJustificative(new PieceJustificative(pieceJustificativeAFournir, entity));
+	}
+	
+	@Override
+	protected void onDefaultSubmitAction() throws Exception {
+		getDossierService().soumettre(entity, pieceJustificativeUploader.process());
 	}
 	
 	protected Deplacement createDeplacement(){

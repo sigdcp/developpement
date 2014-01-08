@@ -6,6 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractFormUIController;
 import ci.gouv.budget.solde.sigdcp.service.SampleDataService;
 
 @Named @RequestScoped
@@ -16,21 +17,20 @@ public class SampleDataController extends AbstractFormUIController<Object> imple
 	@Inject private SampleDataService sampleDataService;
 	
 	@Override
-	protected void postConstruct() {
-		super.postConstruct();
-		defaultSubmitAction = new AbstractFormSubmitAction<Object>(this,"bouton.sampledatacreate","ui-icon-check","notification.sampledata.created",
-				Boolean.FALSE,Boolean.TRUE) {
-			private static final long serialVersionUID = -2683422739395829063L;
-			@Override
-			protected void action() {
-				sampleDataService.create();
-			}
-		};
+	protected InitWhen initWhen() {
+		return InitWhen.POST_CONSTRUCT;
 	}
 	
 	@Override
-	public boolean isCreate() {
-		return Boolean.TRUE;
+	protected void initialisation() {
+		super.initialisation();
+		defaultSubmitCommand.setValue(text("bouton.sampledatacreate"));
+		defaultSubmitCommand.setNotificationMessageId("notification.sampledata.created");
+	} 
+	
+	@Override
+	protected void onDefaultSubmitAction() throws Exception {
+		sampleDataService.create();
 	}
 	
 }

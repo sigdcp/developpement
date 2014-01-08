@@ -10,8 +10,8 @@ import lombok.Setter;
 
 import org.apache.commons.lang3.StringUtils;
 
-import ci.gouv.budget.solde.sigdcp.controller.AbstractEntityFormUIController;
-import ci.gouv.budget.solde.sigdcp.controller.WizardHelper;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIController;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.WizardHelper;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
@@ -40,11 +40,9 @@ public abstract class AbstractAcquisitionTitreTransportMissionController<ENTITY 
 	@Getter private List<DossierMissionDTO> dossierDtos = new ArrayList<>();
 	@Getter private String message;
 	
-	
 	@Override
-	public void __firstPreRenderView__() {
-		super.__firstPreRenderView__();
-	
+	protected void initialisation() {
+		super.initialisation();	
 		missionsSelectionnees = missionService.findAll();
 		List<GroupeMission> gm = new ArrayList<>(dynamicEnumerationService.findAllByClass(GroupeMission.class));
 		List<TypeClasseVoyage> tcv = new ArrayList<>(dynamicEnumerationService.findAllByClass(TypeClasseVoyage.class));

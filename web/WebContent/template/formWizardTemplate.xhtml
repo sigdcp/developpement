@@ -15,7 +15,19 @@
 			if(#{not facesContext.validationFailed}) myWizard.next();
 		}
 	</script>
+	
+	<ui:decorate template="/template/form/base.xhtml">
+ 		
+ 		<ui:define name="__contenu__">
+ 			<p:wizard id="wizard" widgetVar="#{webConstantResources.widgetVarWizard}" flowListener="#{uiController.wizardHelper.onFlowProcess}" showNavBar="#{uiController.wizardHelper.showNavBar}" 
+						showStepStatus="#{uiController.wizardHelper.showStepStatus}">
+				<ui:insert name="contenu" />
+			</p:wizard>
+ 		</ui:define>
+ 		
+ 	</ui:decorate>
  	
+ 	<!--
 	<h:form id="form" enctype="multipart/form-data">
 		<p:panel>
 			<f:facet name="header">
@@ -34,5 +46,6 @@
 			
 		</p:panel>
 	</h:form>
+	-->
 		
 </ui:composition>
