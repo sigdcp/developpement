@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<!--
+		<p:submenu label="Identification">  
+	    	<p:menuitem value="Validation des inscriptions" action="validationinscription" />
+	    </p:submenu> 
+	    -->
+	   
+	    <p:submenu label="Demande">  
+	    	<!--
+	    	<p:menuitem value="Enregistrer une demande d'affectation" action="enregistrerDemandeForm"/>
+	    	-->
+	    	<p:menuitem value="Affectation" outcome="demandeddForm">
+				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="AFF" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+			<p:menuitem value="Mutation" outcome="demandeddForm">
+				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="MUT" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+			<p:menuitem value="Retraite" outcome="demandeddForm">
+				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="RET" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+			<p:menuitem value="Obsèques" outcome="demandefoForm">
+				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="FO" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+			<p:menuitem value="Mission hors Côte d'Ivoire" outcome="demandemhciForm">
+				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="MHCI" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+			<p:menuitem value="Transit de baggages" outcome="demandetrForm">
+				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="TB" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+		
+	    	<!--
+	    	<p:menuitem value="Editer Feuille de Deplacement" action="editerFeuilleDeplacementListe" >
+	    		<f:param name="nextViewId" value="editerFeuilleDeplacementForm"/>
+	    	</p:menuitem> 
+	    	
+	    	<p:menuitem value="Soumettre Feuille de Deplacement" action="soumettreFeuilleDeplacementListe" >
+	    		<f:param name="nextViewId" value="soumettreFeuilleDeplacementForm"/>
+	    	</p:menuitem> 
+	    	<p:menuitem value="Editer Bon de Transport" action="editerBonTransportListe" >
+	    		<f:param name="nextViewId" value="editerBonTransportForm"/>
+	    	</p:menuitem>   
+	    	<p:menuitem value="Soumettre Bon de Tran action=tcome=" action="soumettreBonTransportListe" >
+	    		<f:param name="nextViewId" value="soumettreBonTransportForm"/>
+	    	</p:menuitem>   
+	    	-->
+	    	<p:menuitem value="Consulter mes demandes" outcome="demandeliste">
+	    		<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+	    	</p:menuitem>
+	    	<!--
+	    	<p:menuitem value="Valider recevabilité" action="validerRecevabiliteDossierForm" >
+	    		<f:param name="nextViewId" value="validerRecevabiliteDossierForm"/>
+	    	</p:menuitem>    
+	    	-->
+	    	<p:menuitem value="Deposer" outcome="demandeliste" >
+	    		<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+	    	</p:menuitem>
+	    	
+	    </p:submenu> 
+	    
+	    <p:submenu label="Titre de transport">
+	    	<p:menuitem value="Cotation de billet d'avion" outcome="demandecotationbilletavionmission"/>
+	    	<p:menuitem value="Commande de billet d'avion" outcome="commandebilletavionmission"/>
+	    </p:submenu>
+	    
+	     <p:submenu label="#{constantResources.text('validation')}">
+	    	<p:menuitem value="#{constantResources.text('recevabilitedemande')}" outcome="dossierliste">
+	    		<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="validationrecevabilite"/>
+	    		<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutSoumis}"/>
+	    	</p:menuitem>
+	    	<p:menuitem value="#{constantResources.text('conformitedossier')}" outcome="validationconformite">
+	    		<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutRecevable}"/>
+	    	</p:menuitem>
+	    </p:submenu>
+	    
+	    <!--
+	    <p:submenu label="Gestion Carte Sotra">  
+	    	
+	    	<p:menuitem value="Ouverture de demande" action="ouvrirDemandeForm" />
+	    	<p:menuitem value="Suppression de demande" action="demandeCarteListe2" >
+	     		<f:param name="nextViewId" value="consulterDemandeVue"/> 
+	    	</p:menuitem>
+	    	<p:menuitem value="Tableau de bord des cartes" action="tableauBordCarte" />  
+	    	<p:menuitem value="Inscription de bénéficiaire Carte Sotra" action="sinscrireDemandeForm" /> 	    	
+	    	 <p:menuitem value="Valider une demande de carte" action="validerDemandeCarteForm" >
+	     		<f:param name="nextViewId" value="consulterDemandeVue2"/> 
+	    	</p:menuitem>	    	
+	    	<p:menuitem value="Demande de carte" action="demandeCarteSotraForm" />	    	
+	    	 <p:menuitem value="Editer Bon de commande" action="editionBonCommande" >
+	     		<f:param name="nextViewId" value="consulterDemandeVue"/> 
+	    	</p:menuitem>	    	
+	    	 <p:menuitem value="Distribuer Bon de commande" action="distributionBonCommandeForm" >
+	     		<f:param name="nextViewId" value="consulterBonCommande"/> 
+	    	</p:menuitem>
+	    	
+	    	<p:menuitem value="Retrait de carte" action="retraitCarteSotraForm" />
+	    	
+	    </p:submenu> 
+	      
+	    
+	     <p:submenu label="Remboursement de frais">  
+	    	
+	    	<p:menuitem value="Suivi de dossier" action="suivreRemboursement" >
+	    		<f:param name="nextViewId" value="ouvrirRemboursementForm"/>
+	    	</p:menuitem>
+	    	<p:menuitem value="Edition de projet de décision" action="editerProjet" />
+	    	
+	    	<p:menuitem value="Réceptionner la décision de remboursement" action="receptionnerDecisionForm" >
+	    		<f:param name="nextViewId" value="saisirDecisionForm"/>
+	    	</p:menuitem>
+	    	
+	    	
+	    	<p:menuitem value="Tableau de bord" action="tableauBordRemb" />
+	    </p:submenu>
+	    
+	    
+	    <p:submenu label="Reception">  
+	    	<p:menuitem value="Valider conformité" action="validerConformiteDossierForm" >
+	    		<f:param name="nextViewId" value="validerConformiteDossierForm"/>
+	    	</p:menuitem>  
+	    </p:submenu> 
+	    <p:submenu label="Liquidation">  
+	    	<p:menuitem value="Liquider" action="liquiderDossierListe">
+	    		<f:param name="nextViewId" value="liquiderDossierForm"/>
+	    	</p:menuitem>
+	    	<p:menuitem value="Creer bordereau de transmission" action="creerBordereauBLForm" />    
+	    </p:submenu> 
+	    <p:submenu label="Reglement">  
+	    	<p:menuitem value="Valider bordereau" action="validerBordereauBLListe" >
+	    		<f:param name="nextViewId" value="validerBordereauForm"/>
+	    	</p:menuitem>
+	    	<p:menuitem value="Regler BL" action="reglerBulletinLiquidationListe" >
+	    		<f:param name="nextViewId" value="reglerBulletinLiquidationForm"/>
+	    	</p:menuitem>    
+	    </p:submenu>  
+	    <p:submenu label="Consultation">  
+	    	
+	    	<p:menuitem value="Dossier" action="consulterDossierDDListe" >
+	    		<f:param name="nextViewId" value="consulterDossierDDVue"/>
+	    	</p:menuitem>
+	    	<p:menuitem value="Tableau de bord DD" action="tableauBordDDVue" />   
+	    </p:submenu>  
+		-->
+	</ui:composition>
+</body>
+</html>
