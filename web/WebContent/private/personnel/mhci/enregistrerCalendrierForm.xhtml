@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{enregistrerCalendrierController.crudType}" converter="#{viewParamEnumConverter}" />	           
+	    	<f:event type="preRenderView" listener="#{enregistrerCalendrierController.preRenderView}" /> 
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{enregistrerCalendrierController}" />
+				<ui:define name="contenu">	
+				
+					<p:panelGrid columns="3" styleClass="panelGridNoBorder">
+						<p:outputLabel for="exercice" value="#{constantResources.text('exercice')}" />
+						<p:selectOneMenu id="exercice" value="#{enregistrerCalendrierController.calendrierMission.exercice}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+							<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+							<f:selectItems value="#{exercices}"/>
+						</p:selectOneMenu>
+						<p:message for="exercice" />
+						
+						<p:outputLabel for="ministere" value="#{constantResources.text('ministere')}" />
+						<p:selectOneMenu id="ministere" value="#{enregistrerCalendrierController.calendrierMission.section}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+							<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+							<f:selectItems value="#{ministeres}"/>
+						</p:selectOneMenu>
+						<p:message for="ministere" />
+						
+						<p:outputLabel for="dotation" value="#{constantResources.text('dotation')}" />
+						<p:inputText id="dotation"  value="#{enregistrerCalendrierController.calendrierMission.dotation}" required="true" requiredMessage="#{valueRequiredMessage}"/>
+						<p:message for="dotation" />
+						
+						<p:outputLabel for="statut" value="#{constantResources.text('statut')}" />
+						<h:panelGroup>
+						<p:selectBooleanCheckbox id="statut" value="#{enregistrerCalendrierController.calendrierMission.actif}" />
+						<p:outputLabel value="Définir comme calendrier actif" style="margin-left:5px"/>
+						</h:panelGroup>
+						<p:outputLabel value="" />
+						
+					</p:panelGrid><br/>
+						<p:selectBooleanCheckbox id="ajouterMission" value="#{enregistrerCalendrierController.ajouterMission}" />
+						<p:outputLabel value="Ajouter des missions à ce calendrier" style="margin-left:5px" />
+						<br/>
+							
+				</ui:define>
+				
+				
+				
+			</ui:decorate>
+				
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

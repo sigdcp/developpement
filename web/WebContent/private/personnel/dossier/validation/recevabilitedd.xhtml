@@ -10,8 +10,9 @@
 <h:body>
 	<ui:define name="metadata">
 		<f:metadata>
+			<f:viewParam name="#{webConstantResources.requestParamPreviousURL}" value="#{validationRecevabiliteDossierDDController.previousPath}" />    
         	<ui:include src="/dossier/include/viewParam.xhtml">
-        		<ui:param name="controller" value="#{validationRecevabiliteDossierController}"/>
+        		<ui:param name="controller" value="#{validationRecevabiliteDossierDDController}"/>
         	</ui:include>	
     	</f:metadata>
 	</ui:define>	
@@ -19,39 +20,42 @@
 	<ui:composition template="/template/commun.xhtml">
 		<ui:define name="contenu">
 			<ui:decorate template="/template/formTemplate.xhtml">
-				<ui:param name="uiController" value="#{validationRecevabiliteDossierController}" />
+				<ui:param name="uiController" value="#{validationRecevabiliteDossierDDController}" />
 				<ui:define name="contenu">	
 					
 					<ui:include src="/dossier/include/formDossierDD.xhtml" >
-						<ui:param name="controller" value="#{validationRecevabiliteDossierController}"/>
+						<ui:param name="controller" value="#{validationRecevabiliteDossierDDController}"/>
 					</ui:include>
 					
 					<p:spacer height="5"/>
 				
 					<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml">
-						<ui:param name="controller" value="#{validationRecevabiliteDossierController}"/>
+						<ui:param name="controller" value="#{validationRecevabiliteDossierDDController}"/>
 					</ui:include>
 					
 					<p:spacer height="5"/>
 					
-					<p:panelGrid columns="3" styleClass="panelGridNoBorder">
+					<p:panelGrid id="pg" columns="3" styleClass="panelGridNoBorder">
 						<p:outputLabel for="rq" value="#{constantResources.text('recevablequestion')}" />
-						<p:selectOneRadio id="rq" >
+						<p:selectOneRadio id="rq" value="#{validationRecevabiliteDossierDDController.accepter}">
 							<f:selectItem itemLabel="#{constantResources.text('oui')}" itemValue="true"/>
 							<f:selectItem itemLabel="#{constantResources.text('non')}" itemValue="false"/>
+							<p:ajax event="change" update="pg"/>
 						</p:selectOneRadio>
 						<p:message for="rq" />
 						
-						<p:outputLabel for="mr" value="#{constantResources.text('recevablequestion')}" />
-						<p:selectOneMenu id="mr" >
+						<p:outputLabel for="mr" value="#{constantResources.text('recevablequestion')}" 
+							rendered="#{validationRecevabiliteDossierDDController.accepter!=null and  not validationRecevabiliteDossierDDController.accepter}"/>
+						<p:selectOneMenu id="mr" rendered="#{validationRecevabiliteDossierDDController.accepter!=null and not validationRecevabiliteDossierDDController.accepter}">
 							<f:selectItem itemLabel="#{constantResources.text('motifrejet.dossierincomplet')}" />
 							<f:selectItem itemLabel="#{constantResources.text('motifrejet.feuilledeplacementnonvalide')}" />
 						</p:selectOneMenu>
-						<p:message for="mr" />
+						<p:message for="mr" rendered="#{validationRecevabiliteDossierDDController.accepter!=null and not validationRecevabiliteDossierDDController.accepter}"/>
 						
-						<p:outputLabel for="cr" value="#{constantResources.text('commentaire')}" />
-						<p:inputTextarea id="cr" />
-						<p:message for="cr" />
+						<p:outputLabel for="cr" value="#{constantResources.text('commentaire')}" 
+							rendered="#{validationRecevabiliteDossierDDController.accepter!=null and not validationRecevabiliteDossierDDController.accepter}"/>
+						<p:inputTextarea id="cr" rendered="#{validationRecevabiliteDossierDDController.accepter!=null and not validationRecevabiliteDossierDDController.accepter}"/>
+						<p:message for="cr" rendered="#{validationRecevabiliteDossierDDController.accepter!=null and not validationRecevabiliteDossierDDController.accepter}"/>
 						
 					</p:panelGrid>
 				</ui:define>

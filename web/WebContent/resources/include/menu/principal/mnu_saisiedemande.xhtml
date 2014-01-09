@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<!--
+		<p:submenu label="Identification">  
+	    	<p:menuitem value="Validation des inscriptions" action="validationinscription" />
+	    </p:submenu> 
+	    -->
+	   
+	    <p:submenu label="Formuler une demande">  
+	    	<p:menuitem value="Affectation" outcome="demandeddForm"  styleClass="decormenu">
+				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="AFF" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+			<p:menuitem value="Mutation" outcome="demandeddForm"  styleClass="decormenu">
+				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="MUT" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+			<p:menuitem value="Retraite" outcome="demandeddForm"  styleClass="decormenu">
+				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="RET" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+			<p:menuitem value="Obsèques" outcome="demandefoForm"  styleClass="decormenu">
+				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="FO" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+			<p:menuitem value="Mission hors Côte d'Ivoire" outcome="demandemhciForm"  styleClass="decormenu">
+				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="MHCI" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+			<p:menuitem value="Transit de baggages" outcome="demandetrForm">
+				<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="TB" />
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+			
+	    	<p:menuitem><p:spacer style="height:5px"/><p:separator style="border:#999 1px solid; margin-bottom:5px"/></p:menuitem>
+	    	<p:menuitem value="Consulter mes demandes" outcome="demandeliste"  styleClass="decormenu">
+	    		<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+	    	</p:menuitem>
+	    	<p:menuitem value="Déposer un numéro courrier" outcome="demandeliste" >
+	    		<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+	    	</p:menuitem>
+	    	
+	    </p:submenu> 
+	</ui:composition>
+	
+</body>
+</html>

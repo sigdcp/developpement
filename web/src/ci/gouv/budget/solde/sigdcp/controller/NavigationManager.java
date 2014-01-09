@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.NavigationCase;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import lombok.extern.java.Log;
 
@@ -82,5 +83,16 @@ public class NavigationManager implements Serializable {
 			log.log(Level.SEVERE,e.toString(),e);
 		}
 	}
+	
+	public String getRequestUrl(){
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		//System.out.println(request.getQueryString());
+		//TODO not all queries got
+		String url = request.getRequestURL().toString();
+		if(StringUtils.isNotEmpty(request.getQueryString()))
+			url += QUERY_START+request.getQueryString();
+		return url;
+	}
+	
 
 }

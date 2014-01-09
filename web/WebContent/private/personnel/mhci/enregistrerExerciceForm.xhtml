@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{enregistrerExerciceController.crudType}" converter="#{viewParamEnumConverter}" />	           
+	    	<f:event type="preRenderView" listener="#{enregistrerExerciceController.preRenderView}" /> 
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{enregistrerExerciceController}" />
+				<ui:define name="contenu">	
+				
+					<p:panelGrid columns="3" styleClass="panelGridNoBorder">
+						<p:outputLabel for="annee" value="#{constantResources.text('annee')}" />
+						<p:inputText id="annee" required="true" requiredMessage="#{valueRequiredMessage}" />
+						<p:message for="annee" />
+						
+						<p:outputLabel for="debut" value="#{constantResources.text('debut.exercice')}" />
+						<p:calendar id="debut"  value="#{enregistrerExerciceController.exercice.debut}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}"/>
+						<p:message for="debut" />
+						
+						<p:outputLabel for="fin" value="#{constantResources.text('fin.exercice')}" />
+						<p:calendar id="fin"  value="#{enregistrerExerciceController.exercice.fin}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}"/>
+						<p:message for="fin" />
+						
+						<p:outputLabel for="statut" value="#{constantResources.text('statut')}" />
+						<h:panelGroup>
+						<p:selectBooleanCheckbox id="statut" value="#{enregistrerExerciceController.exercice.statut}" />
+						<p:outputLabel value="Définir comme exercice courant" style="margin-left:5px" />
+						</h:panelGroup>
+						<p:outputLabel value="" /> 
+					</p:panelGrid>
+					<br/>
+								
+				</ui:define>
+				
+				
+				
+			</ui:decorate>
+				
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

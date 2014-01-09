@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{enregistrerCalendrierController.crudType}" converter="#{viewParamEnumConverter}" />	           
+	    	<f:event type="preRenderView" listener="#{enregistrerCalendrierController.preRenderView}" /> 
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+		<ui:param name="uiController" value="#{consulterCalendrierListeController}" />
+		
+		<p:panel>
+		<f:facet name="header"><h:outputText value="Ecran de suivi détaillé de l'exécution d'une mission (FS_MHCI_04_Ecran_02)" /> </f:facet>
+			
+				
+					<p:panelGrid columns="3" styleClass="panelGridNoBorder">
+						<p:outputLabel value="#{constantResources.text('exercice')}" />
+						<p:outputLabel value=":" /><p:outputLabel value="" />
+						
+						<p:outputLabel value="#{constantResources.text('ministere')}" />
+						<p:outputLabel value=":" /><p:outputLabel value="" />
+						
+						<p:outputLabel value="#{constantResources.text('montant.valide')}" />
+						<p:outputLabel value=":" />
+						<h:panelGroup>
+						<p:panelGrid columns="4">						
+						
+						<p:outputLabel value="#{constantResources.text('montant.execute')}" />
+						<p:outputLabel value=":" />
+						
+						<p:outputLabel value="#{constantResources.text('ecart')}" />
+						<p:outputLabel value=":" />
+						</p:panelGrid>
+						</h:panelGroup>
+						
+												
+					</p:panelGrid><br/>
+						
+					<p:spacer height="10"/>
+					
+						<p:dataTable id="listeMission" value="" var="mission" rowIndexVar="index">				
+							<p:column headerText="#" ><h:outputText value="#{index+1}" /></p:column>
+							<p:column headerText="#{constantResources.text('n°communication')}" ><h:outputText value="" /></p:column>
+							<p:column headerText="#{constantResources.text('montant.execute')}" ><h:outputText value="" /></p:column>
+							<p:column headerText="#{constantResources.text('objet')}" ><h:outputText value="" /></p:column>
+						</p:dataTable>
+				
+			</p:panel>	
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

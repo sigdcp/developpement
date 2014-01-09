@@ -17,5 +17,5 @@ public interface AbstractDossierDao<DOSSIER extends Dossier> extends DataAccessO
 	
 	Collection<DOSSIER> readByNatureDeplacement(NatureDeplacement natureDeplacement);
  
-}
+} 
    

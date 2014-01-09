@@ -1,5 +1,9 @@
 @CHARSET "ISO-8859-1";
 
+.noborder{
+	border: none !important;
+}
+
 .formHeaderClass{
 	width: 100%;
 }
@@ -17,9 +21,7 @@
 	vertical-align: bottom;
 }
 
-.noborder{
-	border: none !important;
-}
+
 
 .ui-content-title-layout-unit .ui-layout-unit-content{
 	font-size: 18px;
@@ -153,6 +155,12 @@ box-shadow: 1px 1px 10px #F0F0F0; -moz-box-shadow: 1px 1px 10px #F0F0F0; -webkit
 	     	 /*background:url(#{resource['images/imgback_menu.jpg']});
 	     	background-size: 100%;*/
 	     	background-color: #FE6905;
+}
+
+.decormenu{
+	 border-bottom:#ccc 1px dotted !important;
+	 border-radius:0 !important;
+	
 }
 
 /* .ui-panel-title, .ui-panel-titlebar {

@@ -140,4 +140,13 @@ public interface Code {
 	String GROUPE_MISSION_A = "A";
 	String GROUPE_MISSION_B = "B";
 	
+	/*
+	 * statut
+	 */
+	String STATUT_SOUMIS = "SOUMIS";
+	String STATUT_RECEVABLE = "RECEVABLE";
+	String STATUT_CONFORME = "CONFORME";
+	String STATUT_LIQUIDE = "LIQUIDE";
+	String STATUT_REGLE = "REGLE";
+	
 }

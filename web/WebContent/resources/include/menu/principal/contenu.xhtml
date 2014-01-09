@@ -77,10 +77,13 @@
 	    	<p:menuitem value="Commande de billet d'avion" outcome="commandebilletavionmission"/>
 	    </p:submenu>
 	    
-	     <p:submenu label="#{constantResources.text('verificationrecevabilite')}">
-	    	<p:menuitem value="#{constantResources.text('listedemandeavalider')}" outcome="dossierliste">
+	     <p:submenu label="#{constantResources.text('validation')}">
+	    	<p:menuitem value="#{constantResources.text('recevabilitedemande')}" outcome="dossierliste">
 	    		<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="validationrecevabilite"/>
-	    		<f:param name="#{webConstantResources.requestParamStatut}" value="SOUMIS"/>
+	    		<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutSoumis}"/>
+	    	</p:menuitem>
+	    	<p:menuitem value="#{constantResources.text('conformitedossier')}" outcome="validationconformite">
+	    		<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutRecevable}"/>
 	    	</p:menuitem>
 	    </p:submenu>
 	    

@@ -1,6 +1,7 @@
 package ci.gouv.budget.solde.sigdcp.service;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -23,14 +24,19 @@ public class TextServiceImpl implements TextService, Serializable {
 	
 	@Override
 	public String find(String id){
+		return find(id, null);
+	}
+	
+	@Override
+	public String find(String id, Object[] parameters) {
 		try {
-			return I18N.getString(id);
+			if(parameters==null)
+				return I18N.getString(id);
+			return MessageFormat.format(I18N.getString(id), parameters) ;
 		} catch (MissingResourceException e) {
 			return String.format(NOT_YET_DEFINED_ID_FORMAT, id);
 		}
 	}
-	
-
 	
 	
 

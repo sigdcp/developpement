@@ -21,8 +21,14 @@
   </navigation-case>
 
   <navigation-case>
-     <from-outcome>validationrecevabilitedd</from-outcome>
+     <from-outcome>validationrecevabilite_dd</from-outcome>
    <to-view-id>/private/personnel/dossier/validation/recevabilitedd.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
+  
+    <navigation-case>
+     <from-outcome>validationconformite</from-outcome>
+   <to-view-id>/private/personnel/dossier/validation/conformite.xhtml</to-view-id>
    <redirect ></redirect>    
   </navigation-case>
   
@@ -350,16 +356,57 @@
    <from-outcome>succes</from-outcome>
    <to-view-id>/succes.xhtml</to-view-id>
   </navigation-case>
+  
+  <!-- Amichia -->
+  <navigation-case>
+   <from-outcome>enregistrerExerciceForm</from-outcome>
+   <to-view-id>/private/personnel/mhci/enregistrerExerciceForm.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>enregistrerCalendrierForm</from-outcome>
+   <to-view-id>/private/personnel/mhci/enregistrerCalendrierForm.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>ajouterMissionForm</from-outcome>
+   <to-view-id>/private/personnel/mhci/ajouterMissionForm.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>consulterCalendrierListe</from-outcome>
+   <to-view-id>/private/personnel/consultation/consulterCalendrierListe.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>calendrierDetailView</from-outcome>
+   <to-view-id>/private/personnel/consultation/calendrierDetailView.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>suivreExecutionMissionListe</from-outcome>
+   <to-view-id>/private/personnel/consultation/suivreExecutionMissionListe.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>missionExecuteDetailView</from-outcome>
+   <to-view-id>/private/personnel/consultation/missionExecuteDetailView.xhtml</to-view-id>
+  </navigation-case>  
+  <navigation-case>
+   <from-outcome>realiserFeuilleDeplacementListe</from-outcome>
+   <to-view-id>/private/personnel/mhci/realiserFeuilleDeplacementListe.xhtml</to-view-id>
+  </navigation-case>  
+  <navigation-case>
+   <from-outcome>receptionnerFeuilleDeplacementListe</from-outcome>
+   <to-view-id>/private/personnel/mhci/receptionnerFeuilleDeplacementListe.xhtml</to-view-id>
+  </navigation-case>   
+   <navigation-case>
+   <from-outcome>receptionnerFeuilleDeplacementForm</from-outcome>
+   <to-view-id>/private/personnel/mhci/receptionnerFeuilleDeplacementForm.xhtml</to-view-id>
+  </navigation-case>  
+  <navigation-case>
+   <from-outcome>consulterFeuilleDeplacementListe</from-outcome>
+   <to-view-id>/private/personnel/consultation/consulterFeuilleDeplacementListe.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>feuilleDeplacementDetailView</from-outcome>
+   <to-view-id>/private/personnel/consultation/feuilleDeplacementDetailView.xhtml</to-view-id>
+  </navigation-case>
  </navigation-rule>
- <application>
- 	<message-bundle>resources.application</message-bundle>
- 	<locale-config>
- 		<default-locale>en</default-locale>
- 	</locale-config>
-  <resource-bundle>
-   <base-name>ci.gouv.budget.solde.sigdcp.service.resources.i18n.message</base-name>
-   <var>message</var>
-  </resource-bundle>
- </application>
+
     
 </faces-config>

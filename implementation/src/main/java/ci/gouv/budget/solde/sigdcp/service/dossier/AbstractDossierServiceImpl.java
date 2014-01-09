@@ -25,9 +25,9 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	
 	@Inject
 	public AbstractDossierServiceImpl(AbstractDossierDao<DOSSIER> dao) {
-		super(dao);
+		super(dao); 
 	}
-	
+	 
 	/*--------- Fonctions métiers ----------*/
 	
 	@Override
@@ -104,20 +104,15 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	}
 	
 	/* Fonctions techniques  */
-	/*
-	@Override
-	public DOSSIER findByIdWithPieceJustificative(String identifiant) {
-		return (DOSSIER) ((AbstractDossierDao<DOSSIER>)dao).readWithPieceJustificative(identifiant);
-	}
-	*/
+	
 	@Override
 	public Collection<DOSSIER> findByNatureDeplacementAndStatut(NatureDeplacement natureDeplacement, Statut statut) {
-		return null;
+		return ((AbstractDossierDao<DOSSIER>)dao).readByNatureDeplacementAndStatut(natureDeplacement, statut);
 	}
 	
 	@Override
 	public Collection<DOSSIER> findByNatureDeplacement(NatureDeplacement natureDeplacement) {
-		return null;
+		return ((AbstractDossierDao<DOSSIER>)dao).readByNatureDeplacement(natureDeplacement);
 	}
 	
 	@Override

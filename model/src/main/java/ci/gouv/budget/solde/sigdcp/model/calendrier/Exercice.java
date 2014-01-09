@@ -35,6 +35,7 @@ public class Exercice  extends AbstractModel<Integer>  implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fin;
 	private String libelle;
+	private Boolean statut;
 	
 	public Exercice() {}
 }

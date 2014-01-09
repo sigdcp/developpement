@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+	
+	    <p:submenu label="Calendrier des missions">  
+	    	<p:menuitem value="Définir l'exercice courant" outcome="enregistrerExerciceForm" styleClass="decormenu">
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+	    	<p:menuitem value="Créer un calendrier de mission" outcome="enregistrerCalendrierForm" styleClass="decormenu">
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+	    	<p:menuitem value="Ajouter une mission à un calendrier" outcome="ajouterMissionForm">
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+			
+	    	<p:menuitem><p:spacer style="height:5px"/><p:separator style="border:#999 1px solid; margin-bottom:5px"/></p:menuitem>
+	    	
+	    	<p:menuitem value="Consulter calendrier mission" outcome="consulterCalendrierListe" styleClass="decormenu"/>
+	    	<p:menuitem value="Suivre exécution mission" outcome="suivreExecutionMissionListe"/>
+	    	
+	    </p:submenu> 
+	   
+	</ui:composition>
+	
+</body>
+</html>

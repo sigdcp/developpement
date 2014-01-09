@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.service.TextService;
 import lombok.Getter;
 
@@ -22,6 +23,14 @@ public class ServiceConstantResources implements Serializable{
 	private static final long serialVersionUID = 1583754563831914427L;
 
 	@Inject private TextService textService;
+	
+	/**/
+	@Getter private final String statutSoumis = Code.STATUT_SOUMIS;
+	@Getter private final String statutRecevable = Code.STATUT_RECEVABLE;
+	@Getter private final String statutConforme = Code.STATUT_CONFORME;
+	@Getter private final String statutLiquide = Code.STATUT_LIQUIDE;
+	@Getter private final String statutRegle = Code.STATUT_REGLE;
+	/**/
 	
 	@Getter private String fullDateTimePattern = "EEEE , dd/MM/yyyy HH:mm";
 	@Getter private String dateTimePattern = "dd/MM/yyyy HH:mm";

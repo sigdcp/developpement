@@ -20,7 +20,7 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Jp
 				.getSingleResult();
 	}
 	*/
-	
+	 
 	@Override
 	public Collection<DOSSIER> readByStatut(Statut statut) {
 		return entityManager.createQuery("SELECT d FROM Dossier d "
@@ -40,10 +40,16 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Jp
 	}
 	
 	@Override
-	public Collection<DOSSIER> readByNatureDeplacementAndStatut(
-			NatureDeplacement natureDeplacement, Statut statut) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<DOSSIER> readByNatureDeplacementAndStatut(NatureDeplacement natureDeplacement, Statut statut) {
+		return entityManager.createQuery("SELECT d FROM Dossier d "
+				+ "WHERE d.deplacement.nature = :nature"
+				+ " AND  EXISTS("
+				+ "SELECT t FROM Traitement t WHERE t.dossier = d AND t.statut = :statut"
+				+ ")"
+				, clazz)
+				.setParameter("nature", natureDeplacement)
+				.setParameter("statut", statut)
+				.getResultList();
 	}
 
 }

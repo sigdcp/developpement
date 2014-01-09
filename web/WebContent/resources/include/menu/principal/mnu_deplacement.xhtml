@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+	    <p:submenu label="Traitement des déplacements">  
+	    	<p:menuitem value="Réaliser Feuille de déplacement" outcome="realiserFeuilleDeplacementListe" styleClass="decormenu">
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+	    	<p:menuitem value="Receptionner Feuille déplacement" outcome="receptionnerFeuilleDeplacementListe">
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+			</p:menuitem>
+			
+	    	<p:menuitem><p:spacer style="height:5px"/><p:separator style="border:#999 1px solid; margin-bottom:5px"/></p:menuitem>
+	    	
+	    	<p:menuitem value="Consulter Feuille de déplacement" outcome="consulterFeuilleDeplacementListe"/>
+	    	
+	    </p:submenu> 
+	   
+	</ui:composition>
+	
+</body>
+</html>

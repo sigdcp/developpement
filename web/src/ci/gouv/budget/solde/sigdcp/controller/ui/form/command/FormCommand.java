@@ -33,6 +33,8 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 	
 	public FormCommand(AbstractFormUIController<DTO> form) {
 		this.form = form;
+		setUpdate("@form");
+		setProcess("@form");
 	}
 	/*
 	public FormCommand(AbstractFormUIController<DTO> form,String labelId, String icon,String notificationMessageId ,String successOutcome,Action _action) {

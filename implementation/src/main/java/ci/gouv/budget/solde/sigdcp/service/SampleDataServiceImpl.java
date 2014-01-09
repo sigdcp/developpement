@@ -14,6 +14,7 @@ import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CategorieDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.GroupeTypePiece;
@@ -62,6 +63,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	private Localite abidjan,bouake,paris,dakar,delhi;
 	private NatureDeplacement mhci;
 	private AgentEtat agentEtat1,agentEtat2,agentEtat3,agentEtat4;
+	private Section serviceExploitation,serviceEtude;
 	
 	@Override 
 	public void create() {
@@ -271,10 +273,9 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(mef);
 		Section bud = new Section(null,Code.SECTION_MIN_MB, "Budget", ministere);
 		em.persist(bud);
-		Section sexp = new Section(bud,Code.SECTION_SERV_EXP, "Exploitation", service);
-		em.persist(sexp);
-		Section set = new Section(bud,Code.SECTION_SERV_ET, "Etude et développement", service);
-		em.persist(set);
+		
+		em.persist(serviceExploitation = new Section(bud,Code.SECTION_SERV_EXP, "Exploitation", service));
+		em.persist(serviceEtude = new Section(bud,Code.SECTION_SERV_ET, "Etude et développement", service));
 		
 		Date dateNaiss = new Date();
 		em.persist(agentEtat1 = new AgentEtat("AE1","A99", "Tata", "Pion", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
@@ -295,61 +296,58 @@ public class SampleDataServiceImpl implements SampleDataService {
 		inscrireAgentEtat("DZ100", "Kadi", "mariam", new Date(), new Contact("mail@yahoo.com", "123456", "01 BP Abidjan", "Rue des jardins", null), Sexe.FEMININ, 
 				situationMatrimoniale1, coteDivoire, null, null, null, null, null, bud, profession1,policier);
 		
-		Deplacement deplacementAffectation = new Deplacement(date(), date(), date(), null, affectation, sexp, set, abidjan, bouake);
-		em.persist(deplacementAffectation);
-		Deplacement deplacementRetraite = new Deplacement(date(), date(), date(), null, retraite, sexp, set, bouake, abidjan);
-		em.persist(deplacementRetraite);
 		
-		DossierDD dossierDD1 = new DossierDD(numero(), date(), numero(), date(), deplacementAffectation, a2, agentEtat1, 500, 500, date(), numero(), abidjan, date(), date());
-		em.persist(dossierDD1);
+		creerDossierDD(affectation, agentEtat2);
+		creerDossierDD(affectation, agentEtat3);
 		
-		DossierDD dossierDD2 = new DossierDD(numero(), date(), numero(), date(), deplacementRetraite, a2, agentEtat1, 300, 150, date(), numero(), abidjan, date(), date());
-		em.persist(dossierDD2);
+		DossierDD dossierDDAff1 = creerDossierDD(affectation, agentEtat1),
+				dossierDDAff2 = creerDossierDD(affectation, agentEtat2),
+				dossierDDAff3 = creerDossierDD(affectation, agentEtat3),
+				dossierDDMut1 = creerDossierDD(mutation, agentEtat1),
+				dossierDDMut2 = creerDossierDD(mutation, agentEtat2),
+				dossierDDRet1 = creerDossierDD(retraite, agentEtat1),
+				dossierDDRet2 = creerDossierDD(retraite, agentEtat3);
 		
-		Statut soumis = new Statut("SOUMIS", "Soumis", 0);
+		
+		
+		Statut soumis = new Statut(Code.STATUT_SOUMIS, "Soumis", 0);
 		em.persist(soumis);
-		Statut recevable = new Statut("VR", "Reçevable", 0);
+		Statut recevable = new Statut(Code.STATUT_RECEVABLE, "Reçevable", 0);
 		em.persist(recevable);
-		Statut conforme = new Statut("VC", "Conforme", 0);
+		Statut conforme = new Statut(Code.STATUT_CONFORME, "Conforme", 0);
 		em.persist(conforme);
-		Statut liquide = new Statut("L", "Liquide", 0);
+		Statut liquide = new Statut(Code.STATUT_LIQUIDE, "Liquide", 0);
 		em.persist(liquide);
 		Statut paye = new Statut("P", "Paye", 0);
 		em.persist(paye);
 		
 		NatureOperation soumission = new NatureOperation("SOU", "Soumission");
 		em.persist(soumission);
-		NatureOperation valRecevabilite = new NatureOperation("VAL_REC", "Validation Reçevabilité");
-		em.persist(valRecevabilite);
-		NatureOperation valConformite = new NatureOperation("VAL_CON", "Validation Conformité");
-		em.persist(valConformite);
+		NatureOperation validationRecevabilite = new NatureOperation("VAL_REC", "Validation Reçevabilité");
+		em.persist(validationRecevabilite);
+		NatureOperation validationConformite = new NatureOperation("VAL_CON", "Validation Conformité");
+		em.persist(validationConformite);
 		NatureOperation liquidation = new NatureOperation("LIQ", "Liquidation");
 		em.persist(liquidation);
 		NatureOperation reglement = new NatureOperation("PAIE", "Reglement");
 		em.persist(reglement);
 		
-		Operation soumissionOp = new Operation(date(), soumission);em.persist(soumissionOp);
-		em.persist(new Traitement(soumissionOp,null,dossierDD1,soumis));
+		operation(soumission, dossierDDAff1, soumis);
+		operation(validationRecevabilite, dossierDDAff1, recevable);
+		operation(validationConformite, dossierDDAff1, conforme);
+		operation(liquidation, dossierDDAff1, liquide);
+		operation(reglement, dossierDDAff1, paye);
 		
-		Operation validerRecevabilite1 = new Operation(date(), valRecevabilite);em.persist(validerRecevabilite1);
-		em.persist(new Traitement(validerRecevabilite1,null,dossierDD1,recevable));
+		operation(soumission, dossierDDAff3, soumis);
 		
-		Operation validerConformite1 = new Operation(date(), valRecevabilite);em.persist(validerConformite1);
-		em.persist(new Traitement(validerConformite1,null,dossierDD1,conforme));
+		operation(soumission, dossierDDMut2, soumis);
+		operation(validationRecevabilite, dossierDDMut2, recevable);
 		
-		Operation liquider = new Operation(date(), liquidation);em.persist(liquider);
-		em.persist(new Traitement(liquider,null,dossierDD1,liquide));
+		operation(soumission, dossierDDRet1, soumis);
 		
-		Operation payer = new Operation(date(), reglement);em.persist(payer);
-		em.persist(new Traitement(payer,null,dossierDD1,paye));
-		
-		
-		Operation validerRecevabilite2 = new Operation(date(), valRecevabilite);em.persist(validerRecevabilite2);
-		em.persist(new Traitement(validerRecevabilite2,null,dossierDD2,recevable));
-		
-		Operation validerConformite2 = new Operation(date(), valRecevabilite);em.persist(validerConformite2);
-		em.persist(new Traitement(validerConformite1,null,dossierDD2,conforme));
-		
+		operation(soumission, dossierDDRet2, soumis);
+		operation(validationRecevabilite, dossierDDRet2, recevable);
+				
 		em.persist(elohimVoyages = new Prestataire("P1","Elohim Voyages",new Contact("elohim@mail.com", "11223344", "01 BP Abidjan 01", null, abidjan),date()));
 		em.persist(mistralVoyages = new Prestataire("P2","Mistral Voyages",new Contact("mistral@mail.com", "44556677", "02 BP Abidjan 02", null, abidjan),date()));
 		
@@ -392,6 +390,20 @@ public class SampleDataServiceImpl implements SampleDataService {
 		}
 		mission.setDossierDuResponsable(dossiers.get(0));
 		em.merge(mission);
+	}
+	
+	public DossierDD creerDossierDD(NatureDeplacement natureDeplacement,AgentEtat agentEtat){
+		Deplacement deplacement = new Deplacement(date(), date(), date(), null, natureDeplacement, serviceExploitation, serviceEtude, abidjan, bouake);
+		em.persist(deplacement);
+		DossierDD dossier = new DossierDD(numero(), date(), numero(), date(), deplacement, agentEtat.getGrade(), agentEtat, 500, 500, date(), numero(), abidjan, date(), date());
+		em.persist(dossier);
+		return dossier;
+	}
+	
+	public void operation(NatureOperation natureOperation,Dossier dossier,Statut statut){
+		Operation operation = new Operation(date(), natureOperation);
+		em.persist(operation);
+		em.persist(new Traitement(operation,null,dossier,statut));
 	}
 	
 	static long ID = 0;

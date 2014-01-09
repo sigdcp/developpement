@@ -25,6 +25,8 @@ public abstract class AbstractUIController implements Serializable {
 	@Inject @Getter protected NavigationManager navigationManager;
 	@Inject @Getter protected MessageManager messageManager;
 	
+	@Getter @Setter protected String previousPath;
+	
 	/*
 	 * Attributes
 	 */
@@ -35,7 +37,7 @@ public abstract class AbstractUIController implements Serializable {
 	private void __postConsctruct__(){
 		//postConstruct();
 		if(InitWhen.POST_CONSTRUCT.equals(initWhen()))
-			initialisation();
+			__initialisation__();
 	}
 	
 	//protected final void postConstruct(){}
@@ -44,14 +46,18 @@ public abstract class AbstractUIController implements Serializable {
 		// with JSF 2.2 use <f:action instead
 		if (!FacesContext.getCurrentInstance().isPostback()) {
 	        //__firstPreRenderView__();
-	        if(InitWhen.FIRST_PRERENDER_VIEW.equals(initWhen())){
-				initialisation();
-				//validationFailed = FacesContext.getCurrentInstance().isValidationFailed();
-	        }
+	        if(InitWhen.FIRST_PRERENDER_VIEW.equals(initWhen()))
+	        	__initialisation__();
 	    }
 	}
 	
 	//public final void __firstPreRenderView__(){};
+	
+	private void __initialisation__(){
+		//validationFailed = FacesContext.getCurrentInstance().isValidationFailed();
+		initialisation();
+		//previousPath = 
+	}
 	
 	protected void initialisation(){}
 	
@@ -63,5 +69,9 @@ public abstract class AbstractUIController implements Serializable {
 	
 	protected String text(String id){
 		return messageManager.getTextService().find(id);
+	}
+	
+	protected String text(String id,Object[] parameters){
+		return messageManager.getTextService().find(id,parameters);
 	}
 }

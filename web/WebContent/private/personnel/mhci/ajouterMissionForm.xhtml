@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{ajouterMissionController.crudType}" converter="#{viewParamEnumConverter}" />	           
+	    	<f:event type="preRenderView" listener="#{ajouterMissionController.preRenderView}" /> 
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml"> 
+				<ui:param name="uiController" value="#{ajouterMissionController}" />
+				<ui:define name="contenu">	
+				
+				<p:panelGrid columns="2" styleClass="panelGridNoBorder">
+				<h:panelGroup>
+					<p:panelGrid columns="3">
+					
+							<p:outputLabel for="ministere" value="#{constantResources.text('ministere')}" />
+							<p:selectOneMenu id="ministere" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+								<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+								<f:selectItems value="#{ministeres}"/>
+							</p:selectOneMenu>
+							<p:message for="ministere" />
+							
+							<p:outputLabel for="dotation" value="#{constantResources.text('objet.mission')}" />
+							<p:inputText id="dotation" required="true" requiredMessage="#{valueRequiredMessage}"/>
+							<p:message for="dotation" />
+					
+							<p:outputLabel for="periode" value="#{constantResources.text('periode')}" />
+							<p:selectOneMenu id="periode" value="#{ajouterMissionController.mission.mois}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+								<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+								<f:selectItems value="#{periodes}"/>
+							</p:selectOneMenu>
+							<p:message for="periode" />
+							
+							<p:outputLabel for="transport" value="#{constantResources.text('montant.transport')}" />
+							<p:inputText id="transport" required="true" requiredMessage="#{valueRequiredMessage}"/>
+							<p:message for="transport" />
+							
+							<p:outputLabel for="divers" value="#{constantResources.text('divers')}" />
+							<p:inputText id="divers" required="true" requiredMessage="#{valueRequiredMessage}"/>
+							<p:message for="divers" />
+							
+						</p:panelGrid>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+						<p:panelGrid columns="3">
+							
+									<p:outputLabel for="destination" value="#{constantResources.text('destination')}" />
+									<p:selectOneMenu id="destination" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+										<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+										<f:selectItems value="#{localites}"/>
+									</p:selectOneMenu>
+									<p:message for="destination" />
+									
+									<p:outputLabel for="duree" value="#{constantResources.text('duree')}" />
+									<p:inputText id="duree" required="true" requiredMessage="#{valueRequiredMessage}"/>
+									<p:message for="duree" />
+									
+									<p:outputLabel for="indemnite" value="#{constantResources.text('montant.indemnite')}" />
+									<p:inputText id="indemnite"  required="true" requiredMessage="#{valueRequiredMessage}"/>
+									<p:message for="indemnite" />
+									
+						</p:panelGrid>
+				</h:panelGroup>
+				
+
+				<h:panelGroup>
+				<p:fieldset legend="Nombre Participant par groupe">
+					<p:panelGrid columns="3">
+						<p:outputLabel for="groupeA" value="#{constantResources.text('groupeA')}" />
+						<p:inputText id="groupeA"  required="true" requiredMessage="#{valueRequiredMessage}"/>
+						<p:message for="groupeA" />
+						
+						<p:outputLabel for="groupeB" value="#{constantResources.text('groupeB')}" />
+						<p:inputText id="groupeB"  required="true" requiredMessage="#{valueRequiredMessage}"/>
+						<p:message for="groupeB" />
+						
+						<p:outputLabel for="groupeH" value="#{constantResources.text('groupeH')}" />
+						<p:inputText id="groupeH"  required="true" requiredMessage="#{valueRequiredMessage}"/>
+						<p:message for="groupeH" />	
+					</p:panelGrid>
+				</p:fieldset>
+				</h:panelGroup>
+				
+				<h:panelGroup> 
+					<p:panelGrid columns="3">
+						<p:outputLabel for="objectif" value="#{constantResources.text('objectif')}" />
+						<p:inputTextarea id="objectif"  required="true" requiredMessage="#{valueRequiredMessage}"/>
+						<p:message for="objectif" /> 
+						
+						<p:outputLabel for="resultat" value="#{constantResources.text('resultat')}" />
+						<p:inputTextarea id="resultat"  required="true" requiredMessage="#{valueRequiredMessage}"/>
+						<p:message for="resultat" />
+					</p:panelGrid>
+				</h:panelGroup>
+				</p:panelGrid>
+				
+					<br/>
+						<p:selectBooleanCheckbox id="ajouterMission" value="#{ajouterMissionController.ajouterMission}" />
+						<p:outputLabel value="Revenir sur le formulaire pour saisir une autre mission" style="margin-left:5px" />
+						<br/>
+						
+						
+				</ui:define>
+				
+				
+				
+			</ui:decorate>
+				
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>
