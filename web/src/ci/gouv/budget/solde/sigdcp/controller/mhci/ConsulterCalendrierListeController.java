@@ -4,47 +4,48 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedBean;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import lombok.Getter;
-import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractUIController;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
-import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
-import ci.gouv.budget.solde.sigdcp.service.dossier.DossierDDService;
+import ci.gouv.budget.solde.sigdcp.controller.AbstractEntityListController;
+import ci.gouv.budget.solde.sigdcp.model.calendrier.CalendrierMission;
+import ci.gouv.budget.solde.sigdcp.service.calendrier.CalendrierMissionService;
 
-@Named @RequestScoped
-public class ConsulterCalendrierListeController extends AbstractUIController implements Serializable {
+@Named @ViewScoped
+public class ConsulterCalendrierListeController extends AbstractEntityListController<CalendrierMission> implements Serializable {
 
 	private static final long serialVersionUID = -2412073347414420827L;
 
 	/*
 	 * Services
 	 */
-	@Inject private DossierDDService dossierService;
+	@Inject private CalendrierMissionService calendrierMissionService;
 	
 	/*
 	 * Dto
 	 */
-	@Getter private List<DossierDD> list;
 	
-	/*
-	 * Paramètres url
-	 */
-	@Getter @Setter private String nextViewOutcome;
 
 	@Override
 	public void initialisation() {
 		super.initialisation();
-		list = dossierService.findAll(); 
+		title = "Ecran de consultation de calendrier des missions";
+		internalCode = "FS_MHCI_03_Ecran_04";
+		System.out.println(nextViewOutcome);
 	}
-	/*
-	public String href(Dossier dossier){
-		return navigationManager.addQueryParameters(nextViewOutcome, 
-				new String[]{constantResources.getRequestParamDossier(),dossier.getNumero(),constantResources.getRequestParamCrudType(),constantResources.getRequestParamCrudUpdate()});
+
+	@Override
+	protected List<CalendrierMission> load() {
+		return calendrierMissionService.findAll();
 	}
-	*/
+
+	@Override
+	public String href(CalendrierMission calendrierMission) {
+		
+		return navigationManager.addQueryParameters(nextViewOutcome, new Object[]{webConstantResources.getRequestParamCalendrierMission(),calendrierMission.getId()});
+	}
+	
+	
 	
 }

@@ -81,87 +81,90 @@
     TARGET="rules:#identification#liste#inscriptionListe.xhtml"
     TITLE="validerInscriptionListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="validerInscriptionBeneficiaireBatchForm::#identification#form#validationInscriptionBeneficiaireBatchForm.xhtml"
+    ID="validerInscriptionBatchForm::#identification#form#validationInscriptionBeneficiaireBatchForm.xhtml"
     NAME="output17"
+    PATH="/identification/form/validationInscriptionBeneficiaireBatchForm.xhtml"
+    TARGET="rules:#identification#form#validationInscriptionBeneficiaireBatchForm.xhtml"
+    TITLE="validerInscriptionBatchForm" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="validerInscriptionBeneficiaireBatchForm::#identification#form#validationInscriptionBeneficiaireBatchForm.xhtml"
+    NAME="output18"
     PATH="/identification/form/validationInscriptionBeneficiaireBatchForm.xhtml"
     TARGET="rules:#identification#form#validationInscriptionBeneficiaireBatchForm.xhtml"
     TITLE="validerInscriptionBeneficiaireBatchForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="validerInscriptionADBatchForm::#identification#form#validationInscriptionADBatchForm.xhtml"
-    NAME="output18"
+    NAME="output19"
     PATH="/identification/form/validationInscriptionADBatchForm.xhtml"
     TARGET="rules:#identification#form#validationInscriptionADBatchForm.xhtml"
     TITLE="validerInscriptionADBatchForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="connexionForm::#identification#form#connexionForm.xhtml"
-    NAME="output19" PATH="/identification/form/connexionForm.xhtml"
+    NAME="output20" PATH="/identification/form/connexionForm.xhtml"
     TARGET="rules:#identification#form#connexionForm.xhtml"
     TITLE="connexionForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="demandeListe::#dossier#liste#demandeListe.xhtml" NAME="output20"
+    ID="demandeListe::#dossier#liste#demandeListe.xhtml" NAME="output21"
     PATH="/dossier/liste/demandeListe.xhtml"
     TARGET="rules:#dossier#liste#demandeListe.xhtml"
     TITLE="demandeListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="enregistrerDemandeForm::#dossier#form#enregistrerDemandeForm.xhtml"
-    NAME="output21" PATH="/dossier/form/enregistrerDemandeForm.xhtml"
+    NAME="output22" PATH="/dossier/form/enregistrerDemandeForm.xhtml"
     TARGET="rules:#dossier#form#enregistrerDemandeForm.xhtml"
     TITLE="enregistrerDemandeForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
+    ID="enregistrerDemandeMHCIForm::#dossier#form#enregistrerDemandeMHCIForm.xhtml"
+    NAME="output23"
+    PATH="/dossier/form/enregistrerDemandeMHCIForm.xhtml"
+    TARGET="rules:#dossier#form#enregistrerDemandeMHCIForm.xhtml"
+    TITLE="enregistrerDemandeMHCIForm" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
     ID="enregistrerDemandeTRForm::#dossier#form#enregistrerDemandeTRForm.xhtml"
-    NAME="output22" PATH="/dossier/form/enregistrerDemandeTRForm.xhtml"
+    NAME="output24" PATH="/dossier/form/enregistrerDemandeTRForm.xhtml"
     TARGET="rules:#dossier#form#enregistrerDemandeTRForm.xhtml"
     TITLE="enregistrerDemandeTRForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
+    ID="soumettreFeuilleDeplacementForm::#dossier#form#soumettreFeuilleDeplacementForm.xhtml"
+    NAME="output25"
+    PATH="/dossier/form/soumettreFeuilleDeplacementForm.xhtml"
+    TARGET="rules:#dossier#form#soumettreFeuilleDeplacementForm.xhtml"
+    TITLE="soumettreFeuilleDeplacementForm" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
     ID="soumettreFeuilleDeplacementListe::#dossier#liste#dossierListe.xhtml"
-    NAME="output23" PATH="/dossier/liste/dossierListe.xhtml"
+    NAME="output26" PATH="/dossier/liste/dossierListe.xhtml"
     TARGET="rules:#dossier#liste#dossierListe.xhtml"
     TITLE="soumettreFeuilleDeplacementListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="soumettreBonTransportListe::#dossier#liste#dossierListe.xhtml"
-    NAME="output24" PATH="/dossier/liste/dossierListe.xhtml"
-    TARGET="rules:#dossier#liste#dossierListe.xhtml"
-    TITLE="soumettreBonTransportListe" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
     ID="soumettreBonTransportForm::#dossier#form#soumettreBonTransportForm.xhtml"
-    NAME="output25" PATH="/dossier/form/soumettreBonTransportForm.xhtml"
+    NAME="output27" PATH="/dossier/form/soumettreBonTransportForm.xhtml"
     TARGET="rules:#dossier#form#soumettreBonTransportForm.xhtml"
     TITLE="soumettreBonTransportForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="soumettreDemandeForm::#dossier#form#soumettreDemandeForm.xhtml"
-    NAME="output26" PATH="/dossier/form/soumettreDemandeForm.xhtml"
+    NAME="output28" PATH="/dossier/form/soumettreDemandeForm.xhtml"
     TARGET="rules:#dossier#form#soumettreDemandeForm.xhtml"
     TITLE="soumettreDemandeForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="enregistrerDemandeDDForm::#dossier#form#enregistrerDemandeDDForm.xhtml"
-    NAME="output27" PATH="/dossier/form/enregistrerDemandeDDForm.xhtml"
+    NAME="output29" PATH="/dossier/form/enregistrerDemandeDDForm.xhtml"
     TARGET="rules:#dossier#form#enregistrerDemandeDDForm.xhtml"
     TITLE="enregistrerDemandeDDForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="consulterDemandeDDForm::#dossier#form#enregistrerDemandeDDForm.xhtml"
-    NAME="output28" PATH="/dossier/form/enregistrerDemandeDDForm.xhtml"
+    NAME="output30" PATH="/dossier/form/enregistrerDemandeDDForm.xhtml"
     TARGET="rules:#dossier#form#enregistrerDemandeDDForm.xhtml"
     TITLE="consulterDemandeDDForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="depotDossierListe::#dossier#liste#dossierListe.xhtml"
-    NAME="output29" PATH="/dossier/liste/dossierListe.xhtml"
+    NAME="output31" PATH="/dossier/liste/dossierListe.xhtml"
     TARGET="rules:#dossier#liste#dossierListe.xhtml"
     TITLE="depotDossierListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="validerRecevabiliteDossierListe::#dossier#liste#dossierListe.xhtml"
-    NAME="output30" PATH="/dossier/liste/dossierListe.xhtml"
-    TARGET="rules:#dossier#liste#dossierListe.xhtml"
-    TITLE="validerRecevabiliteDossierListe" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
     ID="validerConformiteDossierListe::#dossier#liste#dossierListe.xhtml"
-    NAME="output31" PATH="/dossier/liste/dossierListe.xhtml"
-    TARGET="rules:#dossier#liste#dossierListe.xhtml"
-    TITLE="validerConformiteDossierListe" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="editerFeuilleDeplacementListe::#dossier#liste#dossierListe.xhtml"
     NAME="output32" PATH="/dossier/liste/dossierListe.xhtml"
     TARGET="rules:#dossier#liste#dossierListe.xhtml"
-    TITLE="editerFeuilleDeplacementListe" model-entity="JSFProcessItemOutput"/>
+    TITLE="validerConformiteDossierListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="editerBonTransportListe::#dossier#liste#dossierListe.xhtml"
     NAME="output33" PATH="/dossier/liste/dossierListe.xhtml"
@@ -393,77 +396,121 @@
     TARGET="rules:#dossier#form#remboursement#editionBonCommande.xhtml"
     TITLE="editionBonCommande" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="enregistrerExerciceForm::#private#personnel#mhci#enregistrerExerciceForm.xhtml"
+    ID="distributionBonCommandeForm::#dossier#form#remboursement#distributionBonCommandeForm.xhtml"
     NAME="output74"
+    PATH="/dossier/form/remboursement/distributionBonCommandeForm.xhtml"
+    TARGET="rules:#dossier#form#remboursement#distributionBonCommandeForm.xhtml"
+    TITLE="distributionBonCommandeForm" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="index::#index.xhtml" NAME="output75"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="succes::#succes.xhtml" NAME="output76"
+    PATH="/succes.xhtml" TARGET="rules:#succes.xhtml" TITLE="succes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="enregistrerExerciceForm::#private#personnel#mhci#enregistrerExerciceForm.xhtml"
+    NAME="output77"
     PATH="/private/personnel/mhci/enregistrerExerciceForm.xhtml"
     TARGET="rules:#private#personnel#mhci#enregistrerExerciceForm.xhtml"
     TITLE="enregistrerExerciceForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="enregistrerCalendrierForm::#private#personnel#mhci#enregistrerCalendrierForm.xhtml"
-    NAME="output75"
+    NAME="output78"
     PATH="/private/personnel/mhci/enregistrerCalendrierForm.xhtml"
     TARGET="rules:#private#personnel#mhci#enregistrerCalendrierForm.xhtml"
     TITLE="enregistrerCalendrierForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="ajouterMissionForm::#private#personnel#mhci#ajouterMissionForm.xhtml"
-    NAME="output76"
+    NAME="output79"
     PATH="/private/personnel/mhci/ajouterMissionForm.xhtml"
     TARGET="rules:#private#personnel#mhci#ajouterMissionForm.xhtml"
     TITLE="ajouterMissionForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="consulterCalendrierListe::#private#personnel#consultation#consulterCalendrierListe.xhtml"
-    NAME="output77"
+    NAME="output80"
     PATH="/private/personnel/consultation/consulterCalendrierListe.xhtml"
     TARGET="rules:#private#personnel#consultation#consulterCalendrierListe.xhtml"
     TITLE="consulterCalendrierListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="calendrierDetailView::#private#personnel#consultation#calendrierDetailView.xhtml"
-    NAME="output78"
+    NAME="output81"
     PATH="/private/personnel/consultation/calendrierDetailView.xhtml"
     TARGET="rules:#private#personnel#consultation#calendrierDetailView.xhtml"
     TITLE="calendrierDetailView" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="suivreExecutionMissionListe::#private#personnel#consultation#suivreExecutionMissionListe.xhtml"
-    NAME="output79"
+    NAME="output82"
     PATH="/private/personnel/consultation/suivreExecutionMissionListe.xhtml"
     TARGET="rules:#private#personnel#consultation#suivreExecutionMissionListe.xhtml"
     TITLE="suivreExecutionMissionListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="missionExecuteDetailView::#private#personnel#consultation#missionExecuteDetailView.xhtml"
-    NAME="output80"
+    NAME="output83"
     PATH="/private/personnel/consultation/missionExecuteDetailView.xhtml"
     TARGET="rules:#private#personnel#consultation#missionExecuteDetailView.xhtml"
     TITLE="missionExecuteDetailView" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="realiserFeuilleDeplacementListe::#private#personnel#mhci#realiserFeuilleDeplacementListe.xhtml"
-    NAME="output81"
+    NAME="output84"
     PATH="/private/personnel/mhci/realiserFeuilleDeplacementListe.xhtml"
     TARGET="rules:#private#personnel#mhci#realiserFeuilleDeplacementListe.xhtml"
     TITLE="realiserFeuilleDeplacementListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="receptionnerFeuilleDeplacementListe::#private#personnel#mhci#receptionnerFeuilleDeplacementListe.xhtml"
-    NAME="output82"
+    NAME="output85"
     PATH="/private/personnel/mhci/receptionnerFeuilleDeplacementListe.xhtml"
     TARGET="rules:#private#personnel#mhci#receptionnerFeuilleDeplacementListe.xhtml"
     TITLE="receptionnerFeuilleDeplacementListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="receptionnerFeuilleDeplacementForm::#private#personnel#mhci#receptionnerFeuilleDeplacementForm.xhtml"
-    NAME="output83"
+    NAME="output86"
     PATH="/private/personnel/mhci/receptionnerFeuilleDeplacementForm.xhtml"
     TARGET="rules:#private#personnel#mhci#receptionnerFeuilleDeplacementForm.xhtml"
     TITLE="receptionnerFeuilleDeplacementForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="consulterFeuilleDeplacementListe::#private#personnel#consultation#consulterFeuilleDeplacementListe.xhtml"
-    NAME="output84"
+    NAME="output87"
     PATH="/private/personnel/consultation/consulterFeuilleDeplacementListe.xhtml"
     TARGET="rules:#private#personnel#consultation#consulterFeuilleDeplacementListe.xhtml"
     TITLE="consulterFeuilleDeplacementListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="feuilleDeplacementDetailView::#private#personnel#consultation#feuilleDeplacementDetailView.xhtml"
-    NAME="output85"
+    NAME="output88"
     PATH="/private/personnel/consultation/feuilleDeplacementDetailView.xhtml"
     TARGET="rules:#private#personnel#consultation#feuilleDeplacementDetailView.xhtml"
     TITLE="feuilleDeplacementDetailView" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="dossierlisteTR::#private#personnel#irie#listeTR.xhtml"
+    NAME="output89" PATH="/private/personnel/irie/listeTR.xhtml"
+    TARGET="rules:#private#personnel#irie#listeTR.xhtml"
+    TITLE="dossierlisteTR" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="dossierlisteREMB::#private#personnel#irie#listeREMB.xhtml"
+    NAME="output90" PATH="/private/personnel/irie/listeREMB.xhtml"
+    TARGET="rules:#private#personnel#irie#listeREMB.xhtml"
+    TITLE="dossierlisteREMB" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="facturedefinitiveForm::#private#personnel#irie#facturedefinitiveForm.xhtml"
+    NAME="output91"
+    PATH="/private/personnel/irie/facturedefinitiveForm.xhtml"
+    TARGET="rules:#private#personnel#irie#facturedefinitiveForm.xhtml"
+    TITLE="facturedefinitiveForm" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="decisionrembForm::#private#personnel#irie#decisionrembForm.xhtml"
+    NAME="output92"
+    PATH="/private/personnel/irie/decisionrembForm.xhtml"
+    TARGET="rules:#private#personnel#irie#decisionrembForm.xhtml"
+    TITLE="decisionrembForm" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="listefacturedef::#private#personnel#irie#listefacturedefinitive.xhtml"
+    NAME="output93"
+    PATH="/private/personnel/irie/listefacturedefinitive.xhtml"
+    TARGET="rules:#private#personnel#irie#listefacturedefinitive.xhtml"
+    TITLE="listefacturedef" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="listedecisionremb::#private#personnel#irie#listedecisionREMB.xhtml"
+    NAME="output94"
+    PATH="/private/personnel/irie/listedecisionREMB.xhtml"
+    TARGET="rules:#private#personnel#irie#listedecisionREMB.xhtml"
+    TITLE="listedecisionremb" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
@@ -730,4 +777,24 @@
   NAME="rules:#private#personnel#consultation#consulterFeuilleDeplacementListe.xhtml"
   PATH="/private/personnel/consultation/consulterFeuilleDeplacementListe.xhtml"
   SHAPE="304,2865,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#irie#listeTR.xhtml"
+  PATH="/private/personnel/irie/listeTR.xhtml" SHAPE="304,3057,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#irie#listeREMB.xhtml"
+  PATH="/private/personnel/irie/listeREMB.xhtml" SHAPE="304,3057,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#irie#facturedefinitiveForm.xhtml"
+  PATH="/private/personnel/irie/facturedefinitiveForm.xhtml"
+  SHAPE="304,3057,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#irie#decisionrembForm.xhtml"
+  PATH="/private/personnel/irie/decisionrembForm.xhtml"
+  SHAPE="304,3057,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#irie#listefacturedefinitive.xhtml"
+  PATH="/private/personnel/irie/listefacturedefinitive.xhtml"
+  SHAPE="304,3089,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#irie#listedecisionREMB.xhtml"
+  PATH="/private/personnel/irie/listedecisionREMB.xhtml"
+  SHAPE="304,3121,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

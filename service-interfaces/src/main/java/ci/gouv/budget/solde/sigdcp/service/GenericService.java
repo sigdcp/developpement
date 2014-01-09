@@ -8,6 +8,8 @@ public interface GenericService extends AbstractService<AbstractModel<Object>, O
 
 	<TYPE> TYPE findByClass(Class<TYPE> aClass,String identifier);
 	
+	<TYPE, TYPE_ID> TYPE findByClass(Class<TYPE> aClass,Class<TYPE_ID> aIdClass,String identifier);
+	
 	<TYPE> Collection<TYPE> findAllByClass(Class<TYPE> aClass);
 	
 }

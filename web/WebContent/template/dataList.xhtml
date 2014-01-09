@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+ 	
+		<p:fieldset legend="#{constantResources.text('criteresrecherche')}" rendered="#{controller.rechercherCommande != null}">
+			<p:panelGrid columns="2" styleClass="panelGridNoBorder">
+				<h:panelGroup>
+					<ui:insert name="criteresrecherche" />
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<ui:include src="/resources/include/component/formCommand.xhtml" >
+						<ui:param name="command" value="#{controller.rechercherCommande}" />
+					</ui:include>
+				</h:panelGroup>
+								
+			</p:panelGrid>
+		</p:fieldset>
+		
+		<p:spacer height="5" />
+		
+		<p:dataTable id="datatable" value="#{controller.list}" var="record" rowIndexVar="index" rowKey="#{index}" selectionMode="multiple" selection="#{controller.selectedMultiple}">
+			<p:column selectionMode="multiple" width="1%" rendered="#{controller.isBatchProcessing}"/>
+			<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
+			
+			<ui:insert name="colonnes" />
+		
+			<p:column headerText="#{constantResources.text('action')}" rendered="#{controller.showActionsColumn}">
+				<p:commandButton value="#{constantResources.text('bouton.details')}" type="button" rendered="#{controller.isBatchProcessing}"/>
+				
+				<!--
+				<p:commandButton value="#{constantResources.text('bouton.selectionner')}" action="#{controller.href(record)}" immediate="true" process="@this"
+					rendered="#{not controller.isBatchProcessing}"/>
+				-->
+				<p:button value="#{constantResources.text('bouton.selectionner')}" href="#{controller.href(record)}"  rendered="#{not controller.isBatchProcessing}"/>
+			</p:column>
+			
+		</p:dataTable>
+		
+</ui:composition>

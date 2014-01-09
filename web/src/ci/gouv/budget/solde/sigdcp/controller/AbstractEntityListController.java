@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import org.apache.commons.lang3.StringUtils;
+
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractFormUIController;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.Action;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.FormCommand;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 
 public abstract class AbstractEntityListController<ENTITY extends AbstractModel<?>> extends AbstractFormUIController<ENTITY> implements Serializable {
@@ -33,6 +36,8 @@ public abstract class AbstractEntityListController<ENTITY extends AbstractModel<
 	 * Paramètres url
 	 */
 	@Getter @Setter protected String nextViewOutcome;
+	
+	@Getter protected FormCommand<ENTITY> rechercherCommande;
 		
 	@Override
 	protected void initialisation() {
@@ -56,7 +61,19 @@ public abstract class AbstractEntityListController<ENTITY extends AbstractModel<
 		return ProcessingType.BATCH.equals(getProcessingType());
 	}
 	
+	protected void enableSearch(){
+		rechercherCommande = createCommand().init("bouton.rechercher", "ui-icon-search", null, new Action() {
+			private static final long serialVersionUID = -5307893903678626614L;
+			@Override
+			protected void __execute__() throws Exception {
+				onSearchCommandAction();
+			}
+		} ).onSuccessStayOnCurrentView();
+	}
 	
+	protected void onSearchCommandAction(){
+		
+	}
 	
 	
 }

@@ -52,9 +52,10 @@ public class Mission  extends Deplacement   implements Serializable{
 	
 	public Mission() {}
 
-	public Mission(Date dateDepart, Date dateArrivee,NatureDeplacement nature,Localite depart, Localite arrivee,
+	public Mission(CalendrierMission calendrierMission,Date dateDepart, Date dateArrivee,NatureDeplacement nature,Localite depart, Localite arrivee,
 			String designation, Integer mois, Integer dureeJour,String objetifs, String resultatsAttendu) {
 		super(null, dateDepart, dateArrivee, null, nature,null,null, depart, arrivee);
+		this.calendrierMission = calendrierMission;
 		this.designation = designation;
 		this.mois = mois;
 		this.dureeJour = dureeJour;

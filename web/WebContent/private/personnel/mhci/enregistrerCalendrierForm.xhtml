@@ -22,12 +22,14 @@
 				<ui:define name="contenu">	
 				
 					<p:panelGrid columns="3" styleClass="panelGridNoBorder">
+						<!--
 						<p:outputLabel for="exercice" value="#{constantResources.text('exercice')}" />
 						<p:selectOneMenu id="exercice" value="#{enregistrerCalendrierController.calendrierMission.exercice}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
 							<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 							<f:selectItems value="#{exercices}"/>
 						</p:selectOneMenu>
 						<p:message for="exercice" />
+						-->
 						
 						<p:outputLabel for="ministere" value="#{constantResources.text('ministere')}" />
 						<p:selectOneMenu id="ministere" value="#{enregistrerCalendrierController.calendrierMission.section}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
@@ -40,16 +42,21 @@
 						<p:inputText id="dotation"  value="#{enregistrerCalendrierController.calendrierMission.dotation}" required="true" requiredMessage="#{valueRequiredMessage}"/>
 						<p:message for="dotation" />
 						
+						<!--
 						<p:outputLabel for="statut" value="#{constantResources.text('statut')}" />
 						<h:panelGroup>
 						<p:selectBooleanCheckbox id="statut" value="#{enregistrerCalendrierController.calendrierMission.actif}" />
 						<p:outputLabel value="Définir comme calendrier actif" style="margin-left:5px"/>
 						</h:panelGroup>
 						<p:outputLabel value="" />
+						-->
 						
-					</p:panelGrid><br/>
+						<p:outputLabel value="#{constantResources.text('ajoutermissioncalendrier')}"  />
 						<p:selectBooleanCheckbox id="ajouterMission" value="#{enregistrerCalendrierController.ajouterMission}" />
-						<p:outputLabel value="Ajouter des missions à ce calendrier" style="margin-left:5px" />
+						<h:outputText value="" />
+					</p:panelGrid><br/>
+						
+						
 						<br/>
 							
 				</ui:define>

@@ -19,7 +19,8 @@
 	<ui:define name="metadata">
 		<f:metadata>
         	<f:viewParam name="#{webConstantResources.requestParamStatut}" value="#{dossierListeController.statut}" converter="#{viewParamStatutConverter}"/> 
-        	<f:viewParam name="#{webConstantResources.requestParamNextViewOutcome}" value="#{dossierListeController.nextViewOutcome}" />     
+        	<f:viewParam name="#{webConstantResources.requestParamNextViewOutcome}" value="#{dossierListeController.nextViewOutcome}" />
+        	     
 		    <f:event type="preRenderView" listener="#{dossierListeController.preRenderView}" />
     	</f:metadata>
 	</ui:define>		

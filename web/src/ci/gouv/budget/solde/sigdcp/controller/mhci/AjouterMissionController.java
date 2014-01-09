@@ -34,7 +34,7 @@ public class AjouterMissionController extends AbstractEntityFormUIController<Mis
 		super.initialisation();
 		title = "Ecran d'ajout d'une mission à un calendrier";
 		internalCode = "FS_MHCI_03_Ecran_03";
-		defaultSubmitCommand.setValue(messageManager.getTextService().find("boutton.enregistrer"));
+		defaultSubmitCommand.setValue(messageManager.getTextService().find("bouton.enregistrer"));
 		//defaultSubmitAction.setAjax(false);
 	}
 	

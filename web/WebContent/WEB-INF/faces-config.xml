@@ -377,6 +377,7 @@
   <navigation-case>
    <from-outcome>calendrierDetailView</from-outcome>
    <to-view-id>/private/personnel/consultation/calendrierDetailView.xhtml</to-view-id>
+   <redirect></redirect>
   </navigation-case>
   <navigation-case>
    <from-outcome>suivreExecutionMissionListe</from-outcome>
@@ -405,6 +406,39 @@
   <navigation-case>
    <from-outcome>feuilleDeplacementDetailView</from-outcome>
    <to-view-id>/private/personnel/consultation/feuilleDeplacementDetailView.xhtml</to-view-id>
+  </navigation-case>
+  
+   
+ <!-- Irie -->
+    <navigation-case>
+     <from-outcome>dossierlisteTR</from-outcome>
+   <to-view-id>/private/personnel/irie/listeTR.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
+   <navigation-case>
+     <from-outcome>dossierlisteREMB</from-outcome>
+   <to-view-id>/private/personnel/irie/listeREMB.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
+  <navigation-case>
+     <from-outcome>facturedefinitiveForm</from-outcome>
+   <to-view-id>/private/personnel/irie/facturedefinitiveForm.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
+    <navigation-case>
+     <from-outcome>decisionrembForm</from-outcome>
+   <to-view-id>/private/personnel/irie/decisionrembForm.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
+      <navigation-case>
+     <from-outcome>listefacturedef</from-outcome>
+   <to-view-id>/private/personnel/irie/listefacturedefinitive.xhtml</to-view-id>
+   <redirect ></redirect>    
+  </navigation-case>
+   <navigation-case>
+     <from-outcome>listedecisionremb</from-outcome>
+   <to-view-id>/private/personnel/irie/listedecisionREMB.xhtml</to-view-id>
+   <redirect ></redirect>    
   </navigation-case>
  </navigation-rule>
 

@@ -8,13 +8,52 @@
 <body>
 	<ui:composition>
 		
-	    <p:submenu label="Traitement des déplacements">  
+	    <p:submenu label="Traiter les demandes">  
+	    	<p:menuitem value="#{constantResources.text('recevabilitedemande')}" outcome="dossierliste">
+	    		<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="validationrecevabilite"/>
+	    		<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutSoumis}"/>
+	    	</p:menuitem>
+	    	<p:menuitem value="#{constantResources.text('conformitedossier')}" outcome="validationconformite">
+	    		<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutRecevable}"/>
+	    	</p:menuitem>
+	    	
+	    	<p:menuitem><p:spacer style="height:5px"/><p:separator style="border:#999 1px solid; margin-bottom:5px"/></p:menuitem>
+	    	
 	    	<p:menuitem value="Réaliser Feuille de déplacement" outcome="realiserFeuilleDeplacementListe" styleClass="decormenu">
 				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
 			</p:menuitem>
 	    	<p:menuitem value="Receptionner Feuille déplacement" outcome="receptionnerFeuilleDeplacementListe">
 				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
 			</p:menuitem>
+			
+			<p:menuitem><p:spacer style="height:5px"/><p:separator style="border:#999 1px solid; margin-bottom:5px"/></p:menuitem>
+			
+			<p:menuitem value="Attestation de prise en charge" outcome="dossierlisteTR">
+	    	<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+			</p:menuitem>
+			<p:menuitem value="Saisie Facture" outcome="facturedefinitiveForm">
+			<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>	
+			</p:menuitem>
+			<p:menuitem value="Afficher les factures définitives" outcome="listefacturedef">
+			<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+			</p:menuitem>
+			
+			<p:menuitem><p:spacer style="height:5px"/><p:separator style="border:#999 1px solid; margin-bottom:5px"/></p:menuitem>
+			
+			<p:menuitem value="Projet de remboursement" outcome="dossierlisteREMB">
+	    	<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+			</p:menuitem>
+			<p:menuitem value="Saisie Décision" outcome="decisionrembForm">
+			<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+			</p:menuitem>
+			<p:menuitem value="Afficher les Décisions de remboursement" outcome="listedecisionremb">
+			<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>	
+			</p:menuitem>		
+			
+			<p:menuitem><p:spacer style="height:5px"/><p:separator style="border:#999 1px solid; margin-bottom:5px"/></p:menuitem>
+			
+			<p:menuitem value="Cotation de billet d'avion" outcome="demandecotationbilletavionmission"/>
+	    	<p:menuitem value="Commande de billet d'avion" outcome="commandebilletavionmission"/>
 			
 	    	<p:menuitem><p:spacer style="height:5px"/><p:separator style="border:#999 1px solid; margin-bottom:5px"/></p:menuitem>
 	    	

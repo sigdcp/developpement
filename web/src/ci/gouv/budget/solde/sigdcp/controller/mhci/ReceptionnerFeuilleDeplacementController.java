@@ -30,7 +30,7 @@ public class ReceptionnerFeuilleDeplacementController extends AbstractEntityForm
 		super.initialisation();
 		title = "Formulaire de réception feuille de déplacement visée";
 		internalCode = "FS_MHCI_02_Ecran_02";
-		defaultSubmitCommand.setValue(messageManager.getTextService().find("boutton.enregistrer"));
+		defaultSubmitCommand.setValue(messageManager.getTextService().find("bouton.enregistrer"));
 		//defaultSubmitAction.setAjax(false);
 	}
 	

@@ -8,7 +8,47 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <body>
 	<ui:composition>
-
+	
+	<ui:decorate template="/template/dataList.xhtml">
+		<ui:define name="criteresrecherche">
+			<p:panelGrid columns="6" styleClass="panelGridNoBorder">
+				
+				<p:outputLabel for="dateDebut" value="#{constantResources.text('datedebut')}" />
+				<p:calendar id="dateDebut" value="#{controller.dateDebut}"/>
+								
+				<p:outputLabel for="dateFin" value="#{constantResources.text('datefin')}" />
+				<p:calendar id="dateFin" value="#{controller.dateFin}"/>
+								
+				<p:outputLabel for="natureDep" value="#{constantResources.text('nature')}" />
+				<p:selectOneMenu id="natureDep" value="#{controller.natureDeplacement}" converter="#{objectConverter}" >
+					<f:selectItem noSelectionOption="" itemLabel="#{constantResources.text('tout')}"/>
+					<f:selectItems value="#{natureDeplacements}" var="nd" itemLabel="#{nd.libelle}" />
+				</p:selectOneMenu>
+								
+			</p:panelGrid>		
+		</ui:define>
+		
+		<ui:define name="colonnes">
+			<p:column headerText="#{constantResources.text('numero')}" sortBy="#{record.numero}" filterBy="#{record.numero}">
+				<h:outputText value="#{record.numero}" />
+			</p:column>
+			<p:column headerText="#{constantResources.text('datecreation')}" sortBy="#{record.deplacement.dateCreation}">
+				<h:outputText value="#{record.deplacement.dateCreation}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+			</p:column>
+			<p:column headerText="#{constantResources.text('nature')}" sortBy="#{record.deplacement.nature.libelle}">
+				<h:outputText value="#{record.deplacement.nature.libelle}" />
+			</p:column>
+			<p:column headerText="#{constantResources.text('matricule')}" sortBy="#{record.beneficiaire.matricule}" filterBy="#{record.beneficiaire.matricule}">
+				<h:outputText value="#{record.beneficiaire.matricule}" />
+			</p:column>
+			<p:column headerText="#{constantResources.text('nomprenoms')}" sortBy="#{record.beneficiaire.nomPrenoms}" filterBy="#{record.beneficiaire.nomPrenoms}">
+				<h:outputText value="#{record.beneficiaire.nomPrenoms}" />
+			</p:column>		
+		</ui:define>
+	</ui:decorate>
+	
+	
+<!--
 		<p:fieldset legend="#{constantResources.text('criteresrecherche')}">
 			<p:panelGrid columns="7" styleClass="panelGridNoBorder">
 				
@@ -36,21 +76,7 @@
 		<p:dataTable id="datatable" value="#{controller.list}" var="dossier" rowIndexVar="index" rowKey="#{index}" selectionMode="multiple" selection="#{controller.selectedMultiple}">
 			<p:column selectionMode="multiple" width="1%" rendered="#{controller.isBatchProcessing}"/>
 			<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
-			<p:column headerText="#{constantResources.text('numero')}" sortBy="#{dossier.numero}" filterBy="#{dossier.numero}">
-				<h:outputText value="#{dossier.numero}" />
-			</p:column>
-			<p:column headerText="#{constantResources.text('datecreation')}" sortBy="#{dossier.deplacement.dateCreation}">
-				<h:outputText value="#{dossier.deplacement.dateCreation}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
-			</p:column>
-			<p:column headerText="#{constantResources.text('nature')}" sortBy="#{dossier.deplacement.nature.libelle}">
-				<h:outputText value="#{dossier.deplacement.nature.libelle}" />
-			</p:column>
-			<p:column headerText="#{constantResources.text('matricule')}" sortBy="#{dossier.beneficiaire.matricule}" filterBy="#{dossier.beneficiaire.matricule}">
-				<h:outputText value="#{dossier.beneficiaire.matricule}" />
-			</p:column>
-			<p:column headerText="#{constantResources.text('nomprenoms')}" sortBy="#{dossier.beneficiaire.nomPrenoms}" filterBy="#{dossier.beneficiaire.nomPrenoms}">
-				<h:outputText value="#{dossier.beneficiaire.nomPrenoms}" />
-			</p:column>
+
 		
 			<p:column headerText="#{constantResources.text('action')}" rendered="#{controller.showActionsColumn}">
 				<p:commandButton value="#{constantResources.text('bouton.details')}" type="button" rendered="#{controller.isBatchProcessing}"/>
@@ -59,7 +85,7 @@
 			</p:column>
 			
 		</p:dataTable>
-		
+-->		
 	</ui:composition>
 </body>
 </html>

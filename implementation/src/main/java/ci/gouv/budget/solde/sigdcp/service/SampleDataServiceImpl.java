@@ -2,6 +2,7 @@ package ci.gouv.budget.solde.sigdcp.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import ci.gouv.budget.solde.sigdcp.model.Code;
+import ci.gouv.budget.solde.sigdcp.model.calendrier.CalendrierMission;
+import ci.gouv.budget.solde.sigdcp.model.calendrier.Exercice;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CategorieDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
@@ -55,6 +58,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 
 	@PersistenceContext
 	private EntityManager em ;
+	private Exercice exercice2012,exercice2013,exercice2014;
 	private TypeDepense priseEnCharge,remboursement;
 	private TypeAgentEtat fonctionnaire,contractuel,policier,gendarme;
 	private TypePersonne ayantDroit;
@@ -63,10 +67,17 @@ public class SampleDataServiceImpl implements SampleDataService {
 	private Localite abidjan,bouake,paris,dakar,delhi;
 	private NatureDeplacement mhci;
 	private AgentEtat agentEtat1,agentEtat2,agentEtat3,agentEtat4;
-	private Section serviceExploitation,serviceEtude;
+	private Section ministereEconomie,ministereBudget,ministereSante,serviceExploitation,serviceEtude;
+	private List<CalendrierMission> calendrierMissions=new LinkedList<>();
+	private List<DossierMission> dossierMissions = new LinkedList<>();
+	
 	
 	@Override 
 	public void create() {
+		
+		em.persist(exercice2012 = new Exercice(2012, date(), date(), null, false));
+		em.persist(exercice2013 = new Exercice(2013, date(), date(), null, false));
+		em.persist(exercice2014 = new Exercice(2014, date(), date(), null, true));
 		
 		em.persist(new TypeClasseVoyage(Code.TYPE_CLASSE_VOYAGE_1ERE,"1ère classe"));
 		em.persist(new TypeClasseVoyage(Code.TYPE_CLASSE_VOYAGE_2EME,"2ème classe"));
@@ -269,32 +280,30 @@ public class SampleDataServiceImpl implements SampleDataService {
 		TypeSection service = new TypeSection(Code.TYPE_SECTION_SERVICE, "Service");
 		em.persist(service);
 		
-		Section mef = new Section(null,Code.SECTION_MIN_MEF, "Economie et finances", ministere);
-		em.persist(mef);
-		Section bud = new Section(null,Code.SECTION_MIN_MB, "Budget", ministere);
-		em.persist(bud);
+		em.persist(ministereEconomie = new Section(null,Code.SECTION_MIN_MEF, "Economie et finances", ministere));
+		em.persist(ministereBudget= new Section(null,Code.SECTION_MIN_MB, "Budget", ministere));
 		
-		em.persist(serviceExploitation = new Section(bud,Code.SECTION_SERV_EXP, "Exploitation", service));
-		em.persist(serviceEtude = new Section(bud,Code.SECTION_SERV_ET, "Etude et développement", service));
+		em.persist(serviceExploitation = new Section(ministereBudget,Code.SECTION_SERV_EXP, "Exploitation", service));
+		em.persist(serviceEtude = new Section(ministereBudget,Code.SECTION_SERV_ET, "Etude et développement", service));
 		
 		Date dateNaiss = new Date();
 		em.persist(agentEtat1 = new AgentEtat("AE1","A99", "Tata", "Pion", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
-				coteDivoire, new Date(),  a1, echelon1, position1, 2000, fonction1, bud, profession1, null));
+				coteDivoire, new Date(),  a1, echelon1, position1, 2000, fonction1, ministereBudget, profession1, null));
 		
 		em.persist(agentEtat2 = new AgentEtat("AE2","A18", "Toto", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.FEMININ, situationMatrimoniale1, 
-				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, bud, profession2, null));
+				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, ministereBudget, profession2, null));
 		
 		em.persist(agentEtat3 = new AgentEtat("AE3","A500", "Zaza", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
-				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, bud, profession2, null));
+				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, ministereBudget, profession2, null));
 		
 		inscrireAgentEtat("DZ12", "Zadi", "Alain", new Date(), new Contact("mail@yahoo.com", "123456", "01 BP Abidjan", "Rue des jardins", null), Sexe.MASCULIN, 
-				situationMatrimoniale1, coteDivoire, null, null, null, null, null, bud, profession1,gendarme);
+				situationMatrimoniale1, coteDivoire, null, null, null, null, null, ministereBudget, profession1,gendarme);
 		
 		inscrireAgentEtat("DZ44", "Tata", "Mole", new Date(), new Contact("mail@yahoo.com", "123456", "01 BP Abidjan", "Rue des jardins", null), Sexe.MASCULIN, 
-				situationMatrimoniale1, coteDivoire, null, null, null, null, null, bud, profession1,gendarme);
+				situationMatrimoniale1, coteDivoire, null, null, null, null, null, ministereBudget, profession1,gendarme);
 		
 		inscrireAgentEtat("DZ100", "Kadi", "mariam", new Date(), new Contact("mail@yahoo.com", "123456", "01 BP Abidjan", "Rue des jardins", null), Sexe.FEMININ, 
-				situationMatrimoniale1, coteDivoire, null, null, null, null, null, bud, profession1,policier);
+				situationMatrimoniale1, coteDivoire, null, null, null, null, null, ministereBudget, profession1,policier);
 		
 		
 		creerDossierDD(affectation, agentEtat2);
@@ -351,9 +360,17 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(elohimVoyages = new Prestataire("P1","Elohim Voyages",new Contact("elohim@mail.com", "11223344", "01 BP Abidjan 01", null, abidjan),date()));
 		em.persist(mistralVoyages = new Prestataire("P2","Mistral Voyages",new Contact("mistral@mail.com", "44556677", "02 BP Abidjan 02", null, abidjan),date()));
 		
-		creerMission("Conférence panafricaine des ministres de la fonction publique",3,7,paris,new AgentEtat[]{ agentEtat1,agentEtat2 });
-		creerMission("Forum sur la modernisation de l'administration publique et des institutions de l'Etat",5,7,dakar,new AgentEtat[]{ agentEtat1,agentEtat3 });
-		creerMission("Suivi des stagiaires en formation à l'étranger",9,12,delhi,new AgentEtat[]{ agentEtat3,agentEtat2 });
+		creerCalendrierMission(10000000f, ministereEconomie, exercice2012);
+		creerCalendrierMission(20000000f, ministereEconomie, exercice2013);
+		creerCalendrierMission(15000000f, ministereEconomie, exercice2014);
+		
+		creerCalendrierMission(50000000f, ministereBudget, exercice2012);
+		creerCalendrierMission(35000000f, ministereBudget, exercice2013);
+		
+		creerCalendrierMission(5000000f, ministereSante, exercice2012);
+		creerCalendrierMission(47000000f, ministereSante, exercice2014);
+				
+		
 		
 	}
 	
@@ -379,8 +396,8 @@ public class SampleDataServiceImpl implements SampleDataService {
 		return inscription;
 	}
 	
-	public void creerMission(String designation,Integer mois,Integer dureeJour,Localite lieu,AgentEtat[] agentEtats){
-		Mission mission = new Mission(date(),date(),mhci,abidjan,lieu,designation,mois,dureeJour,"Environnement","Bonne gestion");
+	public void creerMission(CalendrierMission calendrierMission,String designation,Integer mois,Integer dureeJour,Localite lieu,AgentEtat[] agentEtats){
+		Mission mission = new Mission(calendrierMission,date(),date(),mhci,abidjan,lieu,designation,mois,dureeJour,"Environnement","Bonne gestion");
 		em.persist(mission);
 		List<DossierMission> dossiers = new ArrayList<>();
 		for(AgentEtat agentEtat : agentEtats){
@@ -390,6 +407,17 @@ public class SampleDataServiceImpl implements SampleDataService {
 		}
 		mission.setDossierDuResponsable(dossiers.get(0));
 		em.merge(mission);
+	}
+	
+	public void creerCalendrierMission(Float montant,Section ministere,Exercice exercice){
+		CalendrierMission calendrierMission = new CalendrierMission(montant,false,ministere,exercice);
+		em.persist(calendrierMission);
+		calendrierMissions.add(calendrierMission);
+		
+		creerMission(calendrierMission,"Conférence panafricaine des ministres de la fonction publique",3,7,paris,new AgentEtat[]{ agentEtat1,agentEtat2 });
+		creerMission(calendrierMission,"Forum sur la modernisation de l'administration publique et des institutions de l'Etat",5,7,dakar,new AgentEtat[]{ agentEtat1,agentEtat3 });
+		creerMission(calendrierMission,"Suivi des stagiaires en formation à l'étranger",9,12,delhi,new AgentEtat[]{ agentEtat3,agentEtat2 });
+		
 	}
 	
 	public DossierDD creerDossierDD(NatureDeplacement natureDeplacement,AgentEtat agentEtat){

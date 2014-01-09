@@ -32,7 +32,7 @@
 							</p:selectOneMenu>
 							<p:message for="ministere" />
 							
-							<p:outputLabel for="dotation" value="#{constantResources.text('objet.mission')}" />
+							<p:outputLabel for="dotation" value="#{constantResources.text('objet')}" />
 							<p:inputText id="dotation" required="true" requiredMessage="#{valueRequiredMessage}"/>
 							<p:message for="dotation" />
 					
@@ -77,6 +77,22 @@
 				
 
 				<h:panelGroup>
+				
+				<p:dataTable value="#{groupeMissions}" var="groupe" rowIndexVar="index">
+					<f:facet name="header">
+						<h:outputText value="#{constantResources.text('nombreparticipantpargroupe')}" />
+					</f:facet>
+					<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
+					<p:column headerText="#{constantResources.text('groupe')}"><h:outputText value="#{groupe}" /> </p:column>
+					<p:column headerText="#{constantResources.text('nombreparticipant')}">
+						<p:inputText id="nb#{index}"  required="true" requiredMessage="#{valueRequiredMessage}"/>
+						<!--
+						<p:message for="nb#{index}" />
+						-->
+					</p:column>
+					
+				</p:dataTable>
+				<!--
 				<p:fieldset legend="Nombre Participant par groupe">
 					<p:panelGrid columns="3">
 						<p:outputLabel for="groupeA" value="#{constantResources.text('groupeA')}" />
@@ -92,6 +108,7 @@
 						<p:message for="groupeH" />	
 					</p:panelGrid>
 				</p:fieldset>
+				-->
 				</h:panelGroup>
 				
 				<h:panelGroup> 
@@ -108,8 +125,9 @@
 				</p:panelGrid>
 				
 					<br/>
+						<p:outputLabel value="#{constantResources.text('revenirajoutermission')}"  />
 						<p:selectBooleanCheckbox id="ajouterMission" value="#{ajouterMissionController.ajouterMission}" />
-						<p:outputLabel value="Revenir sur le formulaire pour saisir une autre mission" style="margin-left:5px" />
+						
 						<br/>
 						
 						

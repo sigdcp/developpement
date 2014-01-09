@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+
+					
+				<p:panel  header="Décision de remboursement">
+					<p:panelGrid columns="#{editable?6:4}" styleClass="panelGridNoBorder" columnClasses="c1,c2,c3,c1,c2,c3">
+						
+							<p:outputLabel for="Numdecis" value="Numéro de la Décision" />
+							<p:inputText id="Numdecis" value="" required="true" requiredMessage="#{valueRequiredMessage}" />
+							<h:outputText value="#{enregistrerDemandeDDController.dossier.numeroRegistreMariage}" rendered="#{not editable and enregistrerDemandeDDController.marie}"/>
+							<p:message for="Numdecis" rendered="#{editable and enregistrerDemandeDDController.marie}"/>	
+							<h:outputText value="" /><h:outputText value="" /><h:outputText value="" rendered="#{editable and enregistrerDemandeDDController.marie}"/>	
+							
+							<p:outputLabel for="datedecis" value="Signé le"  />
+							<p:calendar id="datedecis" value="#{enregistrerDemandeDDController.dossier.dateCessationService}" pattern="#{constantResources.datePattern}" required="true" requiredMessage="#{valueRequiredMessage}" 
+								/>
+							<h:outputText value="#{enregistrerDemandeDDController.dossier.dateCessationService}" rendered="#{not editable and enregistrerDemandeDDController.showDateCessationService}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+							<p:message for="datefact" rendered="#{enregistrerDemandeDDController.showDateCessationService}"/>
+				
+							<p:outputLabel for="Emetfact" value="Demandé par" />
+							<p:inputText id="Emetfact" value="#{enregistrerDemandeDDController.dossier.numeroRegistreMariage}" required="true" requiredMessage="#{valueRequiredMessage}" />
+							<h:outputText value="#{enregistrerDemandeDDController.dossier.numeroRegistreMariage}" rendered="#{not editable and enregistrerDemandeDDController.marie}"/>
+							<p:message for="Emetfact" rendered="#{editable and enregistrerDemandeDDController.marie}"/>	
+							<h:outputText value="" rendered="#{editable and enregistrerDemandeDDController.marie}"/><h:outputText value="" rendered="#{editable and enregistrerDemandeDDController.marie}"/><h:outputText value="" rendered="#{editable and enregistrerDemandeDDController.marie}"/>	
+							
+							<p:outputLabel for="DossierRef" value="Demande n°" />
+							<p:inputText id="DossierRef" value="#{enregistrerDemandeDDController.dossier.numeroRegistreMariage}" required="true" requiredMessage="#{valueRequiredMessage}" />
+							<h:outputText value="#{enregistrerDemandeDDController.dossier.numeroRegistreMariage}" rendered="#{not editable and enregistrerDemandeDDController.marie}"/>
+							<p:message for="DossierRef" rendered="#{editable and enregistrerDemandeDDController.marie}"/>	
+							<h:outputText value="" rendered="#{editable and enregistrerDemandeDDController.marie}"/><h:outputText value="" rendered="#{editable and enregistrerDemandeDDController.marie}"/><h:outputText value="" rendered="#{editable and enregistrerDemandeDDController.marie}"/>	
+							
+							<p:outputLabel for="Montantfact" value="Montant à rembourser" />
+							<p:inputText id="Montantfact" value="#{enregistrerDemandeDDController.dossier.numeroRegistreMariage}" required="true" requiredMessage="#{valueRequiredMessage}" />
+							<h:outputText value="#{enregistrerDemandeDDController.dossier.numeroRegistreMariage}" rendered="#{not editable and enregistrerDemandeDDController.marie}"/>
+							<p:message for="Montantfact" rendered="#{editable and enregistrerDemandeDDController.marie}"/>	
+							<h:outputText value="" rendered="#{editable and enregistrerDemandeDDController.marie}"/><h:outputText value="" rendered="#{editable and enregistrerDemandeDDController.marie}"/><h:outputText value="" rendered="#{editable and enregistrerDemandeDDController.marie}"/>	
+							
+							<p:outputLabel for="Motif" value="Motif remboursement"/>
+							<p:inputText id="Motif" value="#{enregistrerDemandeDDController.nombreEnfant}" />
+							<h:outputText rendered="#{not editable}" value="#{enregistrerDemandeDDController.nombreEnfant}"/>
+							<p:message for="Motif" rendered="#{editable}"/>
+							<h:outputText value="" />
+								
+							<p:outputLabel value="Joindre une copie numérique" />
+							<p:fileUpload value="#{dto.file}" id="fichier#{index}" mode="simple" required="false" requiredMessage="#{valueRequiredMessage}" />								
+						</p:panelGrid>
+						
+						<f:facet name="footer">  
+			           		<p:commandButton value="Enregistrer" /> 
+			        	</f:facet>	
+					
+				</p:panel>
+
+	  	</ui:define>
+	</ui:composition>
+</body>
+</html>

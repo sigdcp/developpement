@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam id="nextViewOutcome" name="#{webConstantResources.requestParamNextViewOutcome}" value="#{dossierListeController.nextViewOutcome}" converter="#{viewParamOutcomeConverter}" >
+				<f:attribute name="#{webConstantResources.requestParamOutcomeAction}" value="false" />
+			</f:viewParam>
+        	<f:event type="preRenderView" listener="#{dossierListeController.preRenderView}" />    	
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:param name="uiController" value="#{dossierListeController}" />
+		<ui:define name="contenu">
+			<p:dataTable id="listeDossier" value="#{dossierListeController.list}" var="dossier" rowIndexVar="index" rowKey="index" selection="#{dossierListeController.selecteddossier}">
+				<f:facet name="header"><h:outputText value="Liste des factures définitives" /> </f:facet>
+				<ui:include src="/dossier/include/dossierTableauColonnesFACT.xhtml" />
+				<f:facet name="footer">  
+           			 <p:commandButton id="viewButton" value="Fermer" icon="ui-icon-search"/>  
+        		</f:facet>
+			</p:dataTable>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

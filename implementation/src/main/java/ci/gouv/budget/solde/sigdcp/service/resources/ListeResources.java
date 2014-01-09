@@ -25,6 +25,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.Profession;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.Sexe;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
+import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeMission;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.TypeClasseVoyage;
 import ci.gouv.budget.solde.sigdcp.model.prestation.Prestataire;
 
@@ -111,6 +112,11 @@ public class ListeResources {
     @Produces @Named
     public List<Prestataire> getAgenceVoyages(){
     	return new LinkedList<>(prestataireDao.readAll()); 
+    }
+    
+    @Produces @Named
+    public List<GroupeMission> getGroupeMissions(){
+    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(GroupeMission.class)); 
     }
     
     @Produces @Named

@@ -26,18 +26,18 @@
 						<p:inputText id="annee" required="true" requiredMessage="#{valueRequiredMessage}" />
 						<p:message for="annee" />
 						
-						<p:outputLabel for="debut" value="#{constantResources.text('debut.exercice')}" />
+						<p:outputLabel for="debut" value="#{constantResources.text('datedebut')}" />
 						<p:calendar id="debut"  value="#{enregistrerExerciceController.exercice.debut}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}"/>
 						<p:message for="debut" />
 						
-						<p:outputLabel for="fin" value="#{constantResources.text('fin.exercice')}" />
+						<p:outputLabel for="fin" value="#{constantResources.text('datefin')}" />
 						<p:calendar id="fin"  value="#{enregistrerExerciceController.exercice.fin}" required="true" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}"/>
 						<p:message for="fin" />
 						
 						<p:outputLabel for="statut" value="#{constantResources.text('statut')}" />
 						<h:panelGroup>
-						<p:selectBooleanCheckbox id="statut" value="#{enregistrerExerciceController.exercice.statut}" />
-						<p:outputLabel value="Définir comme exercice courant" style="margin-left:5px" />
+							<p:selectBooleanCheckbox id="statut" value="#{enregistrerExerciceController.exercice.statut}" />
+							<p:outputLabel value="Définir comme exercice courant" style="margin-left:5px" />
 						</h:panelGroup>
 						<p:outputLabel value="" /> 
 					</p:panelGrid>

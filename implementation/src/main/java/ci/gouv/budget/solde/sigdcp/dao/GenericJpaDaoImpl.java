@@ -55,15 +55,27 @@ public class GenericJpaDaoImpl implements GenericDao , Serializable {
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public <TYPE> TYPE readByClass(Class<TYPE> aClass,String identifier) {
+	public <TYPE, TYPE_ID> TYPE readByClass(Class<TYPE> aClass,Class<TYPE_ID> aIdClass,String identifierAsString) {
+		TYPE_ID identifier = null;
+		if(String.class.equals(aIdClass))
+			identifier = (TYPE_ID) identifierAsString;
+		else if(Long.class.equals(aIdClass))
+			identifier = (TYPE_ID) new Long(identifierAsString);
 		try {
+			
 			return entityManager.createQuery("SELECT entity FROM "+aClass.getSimpleName()+" entity WHERE entity."+identifierFieldName(aClass)+" = :identifier", aClass)
 					.setParameter("identifier", identifier)
 					.getSingleResult();
-		}catch (NoResultException e2) {
+		}catch (NoResultException e) {
 			return null;
 		}
+	}
+	
+	@Override
+	public <TYPE> TYPE readByClass(Class<TYPE> aClass, String identifier) {
+		return readByClass(aClass, String.class, identifier);
 	}
 	
 	@Override

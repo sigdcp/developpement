@@ -13,8 +13,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import ci.gouv.budget.solde.sigdcp.controller.AbstractEntityListController;
-import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.Action;
-import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.FormCommand;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
@@ -29,8 +27,6 @@ public class DossierListeController extends AbstractEntityListController<Dossier
 
 	private static final long serialVersionUID = -2412073347414420827L;
 
-	public enum ProcessingType{BATCH,SINGLE}
-	
 	/*
 	 * Services
 	 */
@@ -48,24 +44,12 @@ public class DossierListeController extends AbstractEntityListController<Dossier
 	 */
 	@Getter @Setter private Statut statut;
 	
-	@Getter private FormCommand<Dossier> rechercherCommande;
-	
 	@Override
 	protected void initialisation() {
 		super.initialisation();
 		title = text("liste.dossier.ayantstatut",new Object[]{statut});
 		internalCode = "FS_DEM_01_Ecran_01";
-		
-		rechercherCommande = createCommand().init("bouton.rechercher", "ui-icon-search", null, new Action() {
-			private static final long serialVersionUID = -5307893903678626614L;
-			@Override
-			protected void __execute__() throws Exception {
-				if(natureDeplacement==null)
-					list = load();
-				else
-					list = new LinkedList<>(dossierService.findByNatureDeplacementAndStatut(natureDeplacement, statut));
-			}
-		} ).onSuccessStayOnCurrentView();
+		enableSearch();
 	}
 	
 	@Override
@@ -74,7 +58,7 @@ public class DossierListeController extends AbstractEntityListController<Dossier
 	}
 	
 	public String href(Dossier dossier){
-		String outcome = navigationManager.url(nextViewOutcome+outcomeSuffix(dossier));
+		String outcome = navigationManager.url(nextViewOutcome+outcomeSuffix(dossier),getIsBatchProcessing());
 		return navigationManager.addQueryParameters(outcome, 
 				new Object[]{
 				webConstantResources.getRequestParamDossier(),dossier.getNumero()
@@ -90,6 +74,14 @@ public class DossierListeController extends AbstractEntityListController<Dossier
 		if(dossier instanceof DossierTransit) return "_t";
 		log.warning("Cannot build outcome suffix for "+dossier);
 		return null;
+	}
+	
+	@Override
+	protected void onSearchCommandAction() {
+		if(natureDeplacement==null)
+			list = load();
+		else
+			list = new LinkedList<>(dossierService.findByNatureDeplacementAndStatut(natureDeplacement, statut));
 	}
 	
 	

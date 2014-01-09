@@ -18,39 +18,50 @@
 	</ui:define>
 		
 	<ui:composition template="/template/commun.xhtml">
-		<ui:param name="uiController" value="#{consulterCalendrierListeController}" />
+
+	
 		<ui:define name="contenu">
-		<p:panel>
-		<f:facet name="header"><h:outputText value="Ecran de consultation de calendrier des missions (FS_MHCI_03_Ecran_04)" /> </f:facet>
 		
-		<h:form>
-		<p:fieldset legend="#{constantResources.text('critere.recherche')}" style="width:60%">
-			<p:panelGrid columns="7" styleClass="panelGridNoBorder">
-			<p:outputLabel for="ministere" value="#{constantResources.text('ministere')} :" />
-					<p:selectOneMenu id="ministere" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
-						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
-						<f:selectItems value="#{ministeres}"/>
-					</p:selectOneMenu><p:message for="ministere" />
-			<p:outputLabel for="exercice" value="#{constantResources.text('exercice')} :" />
-					<p:selectOneMenu id="exercice" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
-						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
-						<f:selectItems value="#{exercices}"/>
-					</p:selectOneMenu><p:message for="exercice" />
-					<p:commandButton value="#{constantResources.text('boutton.rechercher')}" ajax="false" update="@form"/>
-			</p:panelGrid>
-		</p:fieldset>
-			</h:form>
-		<p:spacer height="10"/>
-			<p:dataTable id="listeCalendrier" value="" var="calendrier" rowIndexVar="index">				
-				<p:column headerText="#" ><h:outputText value="#{index+1}" /></p:column>
-				<p:column headerText="#{constantResources.text('exercice')}" ><h:outputText value="" /></p:column>
-				<p:column headerText="#{constantResources.text('ministere')}" ><h:outputText value="" /></p:column>
-				<p:column headerText="#{constantResources.text('budget')}" ><h:outputText value="" /></p:column>
-				<p:column style="width:4%">
-					<p:button value="#{constantResources.text('boutton.details')}" outcome="calendrierDetailView" />
-				</p:column>
-			</p:dataTable>
-			</p:panel>
+	<ui:decorate template="/template/dataList.xhtml">
+		<ui:param name="controller" value="#{consulterCalendrierListeController}" />
+		<ui:define name="criteresrecherche">
+			<p:panelGrid columns="6" styleClass="panelGridNoBorder">
+				<p:outputLabel for="ministere" value="#{constantResources.text('ministere')} :" />
+						<p:selectOneMenu id="ministere"  converter="#{objectConverter}">
+							<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+							<f:selectItems value="#{ministeres}"/>
+						</p:selectOneMenu><p:message for="ministere" />
+				<p:outputLabel for="exercice" value="#{constantResources.text('exercice')} :" />
+						<p:selectOneMenu id="exercice" converter="#{objectConverter}">
+							<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+							<f:selectItems value="#{exercices}"/>
+						</p:selectOneMenu><p:message for="exercice" />
+						
+				</p:panelGrid>			
+		</ui:define>
+		
+		<ui:define name="colonnes">
+			<p:column headerText="#{constantResources.text('exercice')}" ><h:outputText value="#{record.exercice.annee}" /></p:column>
+			<p:column headerText="#{constantResources.text('ministere')}" ><h:outputText value="#{record.section}" /></p:column>
+			<p:column headerText="#{constantResources.text('budget')}" ><h:outputText value="#{record.dotation}"><f:convertNumber currencySymbol="" /> </h:outputText> </p:column>
+		</ui:define>
+	</ui:decorate>		
+		
+			<!--ui:decorate template="/template/formTemplate.xhtml"> 
+				<ui:param name="uiController" value="#{consulterCalendrierListeController}" />
+				<ui:define name="contenu">	
+
+					<p:fieldset legend="#{constantResources.text('criteresrecherche')}" style="width:60%" >
+						
+					</p:fieldset> 
+					
+					<p:spacer height="10"/>
+						<p:dataTable id="listeCalendrier" value="#{consulterCalendrierListeController.list}" var="calendrier" rowIndexVar="index">				
+							
+						</p:dataTable>
+				</ui:define>
+			</ui:decorate>
+			-->
 		</ui:define>
 
 

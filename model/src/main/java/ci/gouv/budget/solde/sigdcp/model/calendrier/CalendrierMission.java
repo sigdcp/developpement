@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -28,14 +29,23 @@ public class CalendrierMission  extends AbstractModel<Long>  implements Serializ
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private Long id;
+	@Id @GeneratedValue private Long id;
 	private Float dotation;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateCreation;
+	@Temporal(TemporalType.TIMESTAMP) private Date dateCreation;
 	private Boolean actif;
-	@ManyToOne
-	private Section section;//TODO To be changed to section
-	@ManyToOne
-	private Exercice exercice;
+	@ManyToOne private Section section;	
+	@ManyToOne private Exercice exercice;
+	
+	public CalendrierMission() {}
+	
+	public CalendrierMission(Float dotation, Boolean actif, Section section,
+			Exercice exercice) {
+		super();
+		this.dotation = dotation;
+		this.actif = actif;
+		this.section = section;
+		this.exercice = exercice;
+	}
+	
+	
 }

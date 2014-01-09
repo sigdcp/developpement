@@ -29,7 +29,7 @@
 			<p:outputLabel for="numeroFd" value="#{constantResources.text('numero.abbrege')} #{constantResources.text('feuille.deplacement')} :" />
 					<p:inputText  id="numeroFd" required="true" requiredMessage="#{valueRequiredMessage}"/>
 					<p:message for="numeroFd" />
-					<p:commandButton value="#{constantResources.text('boutton.rechercher')}" ajax="false" update="@form"/>
+					<p:commandButton value="#{constantResources.text('bouton.rechercher')}" ajax="false" update="@form"/>
 			</p:panelGrid>
 		</p:fieldset>
 			</h:form>
@@ -41,7 +41,7 @@
 				<p:column headerText="#{constantResources.text('matricule')}" ><h:outputText value="" /></p:column>
 				<p:column headerText="#{constantResources.text('nom.prenoms')}" ><h:outputText value="" /></p:column>
 				<p:column style="width:4%">
-					<p:button value="#{constantResources.text('boutton.receptionner')}" outcome="receptionnerFeuilleDeplacementForm">
+					<p:button value="#{constantResources.text('bouton.receptionner')}" outcome="receptionnerFeuilleDeplacementForm">
 						<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
 					</p:button>
 				</p:column>

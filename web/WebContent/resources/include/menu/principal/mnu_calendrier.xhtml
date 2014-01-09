@@ -21,7 +21,9 @@
 			
 	    	<p:menuitem><p:spacer style="height:5px"/><p:separator style="border:#999 1px solid; margin-bottom:5px"/></p:menuitem>
 	    	
-	    	<p:menuitem value="Consulter calendrier mission" outcome="consulterCalendrierListe" styleClass="decormenu"/>
+	    	<p:menuitem value="Consulter calendrier mission" outcome="consulterCalendrierListe" styleClass="decormenu">
+	    		<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="calendrierDetailView" />
+	    	</p:menuitem>
 	    	<p:menuitem value="Suivre exécution mission" outcome="suivreExecutionMissionListe"/>
 	    	
 	    </p:submenu> 

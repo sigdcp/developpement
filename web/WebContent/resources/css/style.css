@@ -1,5 +1,9 @@
 @CHARSET "ISO-8859-1";
 
+.ui-menu-list a{
+	font-size: 9pt;
+}
+
 .noborder{
 	border: none !important;
 }

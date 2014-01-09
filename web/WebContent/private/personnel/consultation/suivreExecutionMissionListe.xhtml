@@ -36,7 +36,7 @@
 						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 						<f:selectItems value="#{exercices}"/>
 					</p:selectOneMenu><p:message for="exercice" />
-					<p:commandButton value="#{constantResources.text('boutton.rechercher')}" ajax="false" update="@form"/>
+					<p:commandButton value="#{constantResources.text('bouton.rechercher')}" ajax="false" update="@form"/>
 			</p:panelGrid>
 		</p:fieldset>
 			</h:form>
@@ -49,7 +49,7 @@
 				<p:column headerText="Total exécuté" ><h:outputText value="" /></p:column>
 				<p:column headerText="Ecart" ><h:outputText value="" /></p:column>
 				<p:column style="width:4%">
-					<p:button value="#{constantResources.text('boutton.details')}" outcome="missionExecuteDetailView" />
+					<p:button value="#{constantResources.text('bouton.details')}" outcome="missionExecuteDetailView" />
 				</p:column>
 			</p:dataTable>
 			</p:panel>

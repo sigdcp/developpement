@@ -16,6 +16,11 @@ public class GenericServiceImpl implements GenericService , Serializable {
 	@Inject private GenericDao dao;
 	
 	@Override
+	public <TYPE, TYPE_ID> TYPE findByClass(Class<TYPE> aClass,Class<TYPE_ID> aIdClass,String identifier) {
+		return dao.readByClass(aClass, aIdClass,identifier);
+	}
+	
+	@Override
 	public final <TYPE> TYPE findByClass(Class<TYPE> aClass, String identifier) {
 		return dao.readByClass(aClass, identifier);
 	}
