@@ -31,7 +31,7 @@ public class DossierListeController extends AbstractEntityListUIController<Dossi
 	/*
 	 * Services
 	 */
-	@Inject private DossierService dossierService;
+	@Inject protected DossierService dossierService;
 	
 	/*
 	 * Dto
@@ -43,7 +43,7 @@ public class DossierListeController extends AbstractEntityListUIController<Dossi
 	/*
 	 * Paramètres url
 	 */
-	@Getter @Setter private Statut statut;
+	@Getter @Setter protected Statut statut;
 	
 	@Override
 	protected void initialisation() {

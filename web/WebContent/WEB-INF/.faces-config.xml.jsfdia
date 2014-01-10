@@ -36,36 +36,38 @@
     NAME="output6" PATH="/private/demande/dd.xhtml"
     TARGET="rules:#private#demande#dd.xhtml" TITLE="demandeddForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="demandeddDialog::#private#demande#ddDialog.xhtml" NAME="output7"
-    PATH="/private/demande/ddDialog.xhtml"
-    TARGET="rules:#private#demande#ddDialog.xhtml"
-    TITLE="demandeddDialog" model-entity="JSFProcessItemOutput"/>
+    ID="generationattestationpc::#private#personnel#dossier#gapc.xhtml"
+    NAME="output7" PATH="/private/personnel/dossier/gapc.xhtml"
+    TARGET="rules:#private#personnel#dossier#gapc.xhtml"
+    TITLE="generationattestationpc" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="generationprojetdecisionremb::#private#personnel#dossier#gpdr.xhtml"
+    NAME="output8" PATH="/private/personnel/dossier/gpdr.xhtml"
+    TARGET="rules:#private#personnel#dossier#gpdr.xhtml"
+    TITLE="generationprojetdecisionremb" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="apcDialog::#private#personnel#edition#apcDialog.xhtml"
+    NAME="output9" PATH="/private/personnel/edition/apcDialog.xhtml"
+    TARGET="rules:#private#personnel#edition#apcDialog.xhtml"
+    TITLE="apcDialog" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="pdrDialog::#private#personnel#edition#pdrDialog.xhtml"
+    NAME="output10" PATH="/private/personnel/edition/pdrDialog.xhtml"
+    TARGET="rules:#private#personnel#edition#pdrDialog.xhtml"
+    TITLE="pdrDialog" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="demandetrForm::#private#demande#tr.xhtml"
-    NAME="output8" PATH="/private/demande/tr.xhtml"
+    NAME="output11" PATH="/private/demande/tr.xhtml"
     TARGET="rules:#private#demande#tr.xhtml" TITLE="demandetrForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="demandemhciForm::#private#demande#mhci.xhtml" NAME="output9"
-    PATH="/private/demande/mhci.xhtml"
-    TARGET="rules:#private#demande#mhci.xhtml" TITLE="demandemhciForm" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
     ID="demandeconsultation::#private#demande#details.xhtml"
-    NAME="output10" PATH="/private/demande/details.xhtml"
+    NAME="output12" PATH="/private/demande/details.xhtml"
     TARGET="rules:#private#demande#details.xhtml"
     TITLE="demandeconsultation" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="inscriptionpersonne::#public#inscriptionpersonne.xhtml"
-    NAME="output11" PATH="/public/inscriptionpersonne.xhtml"
+    NAME="output13" PATH="/public/inscriptionpersonne.xhtml"
     TARGET="rules:#public#inscriptionpersonne.xhtml"
     TITLE="inscriptionpersonne" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="demandeliste::#private#demande#liste.xhtml"
-    NAME="output12" PATH="/private/demande/liste.xhtml"
-    TARGET="rules:#private#demande#liste.xhtml" TITLE="demandeliste" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="inscriptionBeneficiaireForm::#identification#form#inscriptionBeneficiaireForm.xhtml"
-    NAME="output13"
-    PATH="/identification/form/inscriptionBeneficiaireForm.xhtml"
-    TARGET="rules:#identification#form#inscriptionBeneficiaireForm.xhtml"
-    TITLE="inscriptionBeneficiaireForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="inscriptionAyantDroitForm::#identification#form#inscriptionAyantDroitForm.xhtml"
     NAME="output14"
@@ -178,57 +180,56 @@
     TARGET="rules:#dossier#liste#dossierListe.xhtml"
     TITLE="validerConformiteDossierListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="editerBonTransportListe::#dossier#liste#dossierListe.xhtml"
+    ID="editerFeuilleDeplacementListe::#dossier#liste#dossierListe.xhtml"
     NAME="output35" PATH="/dossier/liste/dossierListe.xhtml"
+    TARGET="rules:#dossier#liste#dossierListe.xhtml"
+    TITLE="editerFeuilleDeplacementListe" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="editerBonTransportListe::#dossier#liste#dossierListe.xhtml"
+    NAME="output36" PATH="/dossier/liste/dossierListe.xhtml"
     TARGET="rules:#dossier#liste#dossierListe.xhtml"
     TITLE="editerBonTransportListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="liquiderDossierListe::#dossier#liste#dossierListe.xhtml"
-    NAME="output36" PATH="/dossier/liste/dossierListe.xhtml"
+    NAME="output37" PATH="/dossier/liste/dossierListe.xhtml"
     TARGET="rules:#dossier#liste#dossierListe.xhtml"
     TITLE="liquiderDossierListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="creerBordereauBLForm::#dossier#form#creationBordereauBLForm.xhtml"
-    NAME="output37" PATH="/dossier/form/creationBordereauBLForm.xhtml"
+    NAME="output38" PATH="/dossier/form/creationBordereauBLForm.xhtml"
     TARGET="rules:#dossier#form#creationBordereauBLForm.xhtml"
     TITLE="creerBordereauBLForm" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="validerBordereauBLListe::#dossier#liste#bordereauBLListe.xhtml"
-    NAME="output38" PATH="/dossier/liste/bordereauBLListe.xhtml"
-    TARGET="rules:#dossier#liste#bordereauBLListe.xhtml"
-    TITLE="validerBordereauBLListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="editerBordereauBLListe::#dossier#liste#bordereauBLListe.xhtml"
     NAME="output39" PATH="/dossier/liste/bordereauBLListe.xhtml"
     TARGET="rules:#dossier#liste#bordereauBLListe.xhtml"
     TITLE="editerBordereauBLListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="editerBulletinLiquidationListe::#dossier#liste#bulletinLiquidationListe.xhtml"
+    ID="reglerBulletinLiquidationListe::#dossier#liste#bulletinLiquidationListe.xhtml"
     NAME="output40" PATH="/dossier/liste/bulletinLiquidationListe.xhtml"
+    TARGET="rules:#dossier#liste#bulletinLiquidationListe.xhtml"
+    TITLE="reglerBulletinLiquidationListe" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="editerBulletinLiquidationListe::#dossier#liste#bulletinLiquidationListe.xhtml"
+    NAME="output41" PATH="/dossier/liste/bulletinLiquidationListe.xhtml"
     TARGET="rules:#dossier#liste#bulletinLiquidationListe.xhtml"
     TITLE="editerBulletinLiquidationListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
+    ID="consulterDossierDDListe::#dossier#liste#dossierListe.xhtml"
+    NAME="output42" PATH="/dossier/liste/dossierListe.xhtml"
+    TARGET="rules:#dossier#liste#dossierListe.xhtml"
+    TITLE="consulterDossierDDListe" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
     ID="tableauBordDDVue::#dossier#consultation#tableauBordDDVue.xhtml"
-    NAME="output41" PATH="/dossier/consultation/tableauBordDDVue.xhtml"
+    NAME="output43" PATH="/dossier/consultation/tableauBordDDVue.xhtml"
     TARGET="rules:#dossier#consultation#tableauBordDDVue.xhtml"
     TITLE="tableauBordDDVue" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="depotDossierForm::#dossier#form#depotDossierForm.xhtml"
-    NAME="output42" PATH="/dossier/form/depotDossierForm.xhtml"
-    TARGET="rules:#dossier#form#depotDossierForm.xhtml"
-    TITLE="depotDossierForm" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
     ID="validerRecevabiliteDossierForm::#dossier#form#validerRecevabiliteDossierForm.xhtml"
-    NAME="output43"
+    NAME="output44"
     PATH="/dossier/form/validerRecevabiliteDossierForm.xhtml"
     TARGET="rules:#dossier#form#validerRecevabiliteDossierForm.xhtml"
     TITLE="validerRecevabiliteDossierForm" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="editerFeuilleDeplacementForm::#dossier#form#editerFeuilleDeplacementForm.xhtml"
-    NAME="output44"
-    PATH="/dossier/form/editerFeuilleDeplacementForm.xhtml"
-    TARGET="rules:#dossier#form#editerFeuilleDeplacementForm.xhtml"
-    TITLE="editerFeuilleDeplacementForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="editerBonTransportForm::#dossier#form#editerBonTransportForm.xhtml"
     NAME="output45" PATH="/dossier/form/editerBonTransportForm.xhtml"
@@ -801,4 +802,12 @@
   SHAPE="304,3153,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#private#demande#ddDialog.xhtml"
   PATH="/private/demande/ddDialog.xhtml" SHAPE="304,3153,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#dossier#gapc.xhtml"
+  PATH="/private/personnel/dossier/gapc.xhtml" SHAPE="304,3153,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#edition#apcDialog.xhtml"
+  PATH="/private/personnel/edition/apcDialog.xhtml" SHAPE="304,3153,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#dossier#gpdr.xhtml"
+  PATH="/private/personnel/dossier/gpdr.xhtml" SHAPE="304,3153,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#edition#pdrDialog.xhtml"
+  PATH="/private/personnel/edition/pdrDialog.xhtml" SHAPE="304,3265,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

@@ -40,8 +40,33 @@
   </navigation-case>
   
     <navigation-case>
+   <from-outcome>generationattestationpc</from-outcome>
+   <to-view-id>/private/personnel/dossier/gapc.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+      <navigation-case>
+   <from-outcome>generationprojetdecisionremb</from-outcome>
+   <to-view-id>/private/personnel/dossier/gpdr.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+
+  
+    <navigation-case>
    <from-outcome>demandeddDialog</from-outcome>
    <to-view-id>/private/demande/ddDialog.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+      <navigation-case>
+   <from-outcome>apcDialog</from-outcome>
+   <to-view-id>/private/personnel/edition/apcDialog.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>pdrDialog</from-outcome>
+   <to-view-id>/private/personnel/edition/pdrDialog.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
   

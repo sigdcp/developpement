@@ -84,8 +84,8 @@
 			
 			<p:menuitem><p:spacer style="height:5px"/><p:separator style="border:#999 1px solid; margin-bottom:5px"/></p:menuitem>
 			
-			<p:menuitem value="Attestation de prise en charge" outcome="dossierlisteTR">
-	    	<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+			<p:menuitem value="Attestation de prise en charge" outcome="generationattestationpc">
+	    		<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutConforme}"/>
 			</p:menuitem>
 			<p:menuitem value="Saisie Facture" outcome="facturedefinitiveForm">
 			<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>	
@@ -96,8 +96,8 @@
 			
 			<p:menuitem><p:spacer style="height:5px"/><p:separator style="border:#999 1px solid; margin-bottom:5px"/></p:menuitem>
 			
-			<p:menuitem value="Projet de remboursement" outcome="dossierlisteREMB">
-	    	<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+			<p:menuitem value="Projet de remboursement" outcome="generationprojetdecisionremb">
+	    		<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutConforme}"/>
 			</p:menuitem>
 			<p:menuitem value="Saisie Décision" outcome="decisionrembForm">
 			<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>

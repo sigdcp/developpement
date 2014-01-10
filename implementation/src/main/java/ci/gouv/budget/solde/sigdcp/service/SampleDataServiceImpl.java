@@ -20,6 +20,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTransit;
 import ci.gouv.budget.solde.sigdcp.model.dossier.GroupeTypePiece;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureOperation;
@@ -296,6 +297,9 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(agentEtat3 = new AgentEtat("AE3","A500", "Zaza", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
 				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, ministereBudget, profession2, null));
 		
+		em.persist(agentEtat4 = new AgentEtat("AE4","A800", "Zaza", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
+				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, ministereEconomie, profession2, null));
+		
 		inscrireAgentEtat("DZ12", "Zadi", "Alain", new Date(), new Contact("mail@yahoo.com", "123456", "01 BP Abidjan", "Rue des jardins", null), Sexe.MASCULIN, 
 				situationMatrimoniale1, coteDivoire, null, null, null, null, null, ministereBudget, profession1,gendarme);
 		
@@ -317,7 +321,10 @@ public class SampleDataServiceImpl implements SampleDataService {
 				dossierDDRet1 = creerDossierDD(retraite, agentEtat1),
 				dossierDDRet2 = creerDossierDD(retraite, agentEtat3);
 		
-		
+		DossierTransit dossierTransit1 = creerDossierTR(tr, agentEtat1),
+				dossierTransit2 = creerDossierTR(tr, agentEtat2),
+				dossierTransit3 = creerDossierTR(tr, agentEtat3),
+				dossierTransit4 = creerDossierTR(tr, agentEtat4);
 		
 		Statut soumis = new Statut(Code.STATUT_SOUMIS, "Soumis", 0);
 		em.persist(soumis);
@@ -356,6 +363,19 @@ public class SampleDataServiceImpl implements SampleDataService {
 		
 		operation(soumission, dossierDDRet2, soumis);
 		operation(validationRecevabilite, dossierDDRet2, recevable);
+		
+		operation(soumission, dossierTransit1, soumis);
+		operation(validationRecevabilite, dossierTransit1, recevable);
+		operation(validationConformite, dossierTransit1, conforme);
+		
+		operation(soumission, dossierTransit2, soumis);
+		operation(validationRecevabilite, dossierTransit2, recevable);
+		operation(validationConformite, dossierTransit2, conforme);
+		
+		operation(soumission, dossierTransit3, soumis);
+		operation(validationRecevabilite, dossierTransit3, recevable);
+		
+		operation(soumission, dossierTransit4, soumis);
 				
 		em.persist(elohimVoyages = new Prestataire("P1","Elohim Voyages",new Contact("elohim@mail.com", "11223344", "01 BP Abidjan 01", null, abidjan),date()));
 		em.persist(mistralVoyages = new Prestataire("P2","Mistral Voyages",new Contact("mistral@mail.com", "44556677", "02 BP Abidjan 02", null, abidjan),date()));
@@ -424,6 +444,14 @@ public class SampleDataServiceImpl implements SampleDataService {
 		Deplacement deplacement = new Deplacement(date(), date(), date(), null, natureDeplacement, serviceExploitation, serviceEtude, abidjan, bouake);
 		em.persist(deplacement);
 		DossierDD dossier = new DossierDD(numero(), date(), numero(), date(), deplacement, agentEtat.getGrade(), agentEtat, 500, 500, date(), numero(), abidjan, date(), date());
+		em.persist(dossier);
+		return dossier;
+	}
+	
+	public DossierTransit creerDossierTR(NatureDeplacement natureDeplacement,AgentEtat agentEtat){
+		Deplacement deplacement = new Deplacement(date(), date(), date(), null, natureDeplacement, serviceExploitation, serviceEtude, abidjan, bouake);
+		em.persist(deplacement);
+		DossierTransit dossier = new DossierTransit(numero(), date(), numero(), date(), deplacement, agentEtat.getGrade(), agentEtat, date(),date(),500f, 500f);
 		em.persist(dossier);
 		return dossier;
 	}

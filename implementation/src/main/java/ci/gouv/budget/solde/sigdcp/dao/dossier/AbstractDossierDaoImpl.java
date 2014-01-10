@@ -33,9 +33,7 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Jp
 	}
 	
 	@Override
-	public Collection<DOSSIER> readByNatureDeplacement(
-			NatureDeplacement natureDeplacement) {
-		// TODO Auto-generated method stub
+	public Collection<DOSSIER> readByNatureDeplacement(NatureDeplacement natureDeplacement) {
 		return null;
 	}
 	
