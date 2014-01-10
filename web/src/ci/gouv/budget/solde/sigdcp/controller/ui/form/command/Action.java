@@ -12,11 +12,12 @@ public abstract class Action implements Serializable {
 
 	private Integer executionCount = 0;
 	
-	protected abstract void __execute__() throws Exception;
+	protected abstract Object __execute__(Object object) throws Exception;
 	
-	public final void execute() throws Exception {
-		__execute__();
+	public final Object execute(Object object) throws Exception {
+		Object o = __execute__(object);
 		executionCount++;
+		return o;
 	}
 	
 	public Boolean isExecutedAtLeastOnce(){

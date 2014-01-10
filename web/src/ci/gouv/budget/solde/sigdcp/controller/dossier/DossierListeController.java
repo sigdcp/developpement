@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -12,7 +13,7 @@ import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
-import ci.gouv.budget.solde.sigdcp.controller.AbstractEntityListController;
+import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEntityListUIController;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
@@ -23,7 +24,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierService;
 
 @Named @ViewScoped @Log
-public class DossierListeController extends AbstractEntityListController<Dossier> implements Serializable {
+public class DossierListeController extends AbstractEntityListUIController<Dossier> implements Serializable {
 
 	private static final long serialVersionUID = -2412073347414420827L;
 
@@ -50,6 +51,11 @@ public class DossierListeController extends AbstractEntityListController<Dossier
 		title = text("liste.dossier.ayantstatut",new Object[]{statut});
 		internalCode = "FS_DEM_01_Ecran_01";
 		enableSearch();
+	}
+	
+	@Override
+	protected String identifierFieldName() {
+		return "numero";
 	}
 	
 	@Override
@@ -84,6 +90,11 @@ public class DossierListeController extends AbstractEntityListController<Dossier
 			list = new LinkedList<>(dossierService.findByNatureDeplacementAndStatut(natureDeplacement, statut));
 	}
 	
-	
+	@Override
+	protected void detailsOutcomeParameters(Map<String, List<String>> parameters,Dossier dossier) {
+		addParameters(parameters, webConstantResources.getRequestParamDossier(), dossier.getNumero());
+		addParameters(parameters, webConstantResources.getRequestParamCrudType(), webConstantResources.getRequestParamCrudRead());
+		addParameters(parameters, webConstantResources.getRequestParamViewType(), webConstantResources.getRequestParamDialog());
+	}
 	
 }

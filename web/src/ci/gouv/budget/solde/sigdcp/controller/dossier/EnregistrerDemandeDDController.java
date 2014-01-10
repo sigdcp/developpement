@@ -52,7 +52,6 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIController<
 		//enregistrerAction.setValidator(validator);
 		//soumettreAction.setValidator(validator);
 		
-		
 		if(isNatureDeplacementAffectation()){
 			showDatePriseService = Boolean.TRUE;
 			showServiceAcceuil = Boolean.TRUE;

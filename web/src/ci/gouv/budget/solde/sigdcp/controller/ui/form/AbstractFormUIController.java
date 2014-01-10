@@ -63,18 +63,22 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 		defaultSubmitCommand = createCommand().init("bouton.envoyer","ui-icon-check",null, new Action() {
 			private static final long serialVersionUID = 1L;
 			@Override
-			protected void __execute__() throws Exception {
+			protected Object __execute__(Object object) throws Exception {
 				onDefaultSubmitAction();
+				return null;
 			}
 		});
+		defaultSubmitCommand.setRendered(!isRead());
 		
 		closeCommand = createCommand().init("bouton.fermer","ui-icon-close",null, new Action() {
 			private static final long serialVersionUID = 1L;
 			@Override
-			protected void __execute__() throws Exception {
+			protected Object __execute__(Object object) throws Exception {
 				onCloseAction();
+				return null;
 			}
 		});
+		closeCommand.setRendered(!isDialog());
 		closeCommand.setSuccessOutcome(userSessionManager.isLoggedIn()?"espacePrivee":"index");
 		closeCommand.setImmediate(Boolean.TRUE);
 		closeCommand.setProcess("@this");

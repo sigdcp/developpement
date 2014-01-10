@@ -33,8 +33,9 @@ public class WizardHelper<OBJECT> extends Wizard implements Serializable {
 		previous = form.createCommand().init("bouton.precedent","ui-icon-arrowthick-1-w",null,new Action() {
 			private static final long serialVersionUID = 1L;
 			@Override
-			protected void __execute__() throws Exception {
+			protected Object __execute__(Object object) throws Exception {
 				previous();
+				return null;
 			}
 		}).onSuccessStayOnCurrentView();
 		config(previous, "previous();");
@@ -42,8 +43,9 @@ public class WizardHelper<OBJECT> extends Wizard implements Serializable {
 		next = form.createCommand().init("bouton.suivant","ui-icon-arrowthick-1-e",null,new Action() {
 			private static final long serialVersionUID = -5533784525516672597L;
 			@Override
-			protected void __execute__() throws Exception {
+			protected Object __execute__(Object object) throws Exception {
 				next();
+				return null;
 			}
 		}).onSuccessStayOnCurrentView();
 		config(next, String.format("next();"));

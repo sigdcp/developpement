@@ -62,6 +62,8 @@ public class WebConstantResources implements Serializable{
 	
 	@Getter private final String requestParamNextViewOutcome = "nvo";
 	@Getter private final String requestParamPreviousURL = "purl";
+	@Getter private final String requestParamViewType = "vt";
+	@Getter private final String requestParamDialog = "dlg";
 	/*
 	@Getter private final String requestParamAction = "action";
 	@Getter private final String requestParamActionEditer = "editer";

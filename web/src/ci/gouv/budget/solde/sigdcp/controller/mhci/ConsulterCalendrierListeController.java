@@ -8,12 +8,12 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import ci.gouv.budget.solde.sigdcp.controller.AbstractEntityListController;
+import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEntityListUIController;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.CalendrierMission;
 import ci.gouv.budget.solde.sigdcp.service.calendrier.CalendrierMissionService;
 
 @Named @ViewScoped
-public class ConsulterCalendrierListeController extends AbstractEntityListController<CalendrierMission> implements Serializable {
+public class ConsulterCalendrierListeController extends AbstractEntityListUIController<CalendrierMission> implements Serializable {
 
 	private static final long serialVersionUID = -2412073347414420827L;
 

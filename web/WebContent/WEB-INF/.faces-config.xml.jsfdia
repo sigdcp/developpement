@@ -35,9 +35,11 @@
    <PROCESS-ITEM-OUTPUT ID="demandeddForm::#private#demande#dd.xhtml"
     NAME="output6" PATH="/private/demande/dd.xhtml"
     TARGET="rules:#private#demande#dd.xhtml" TITLE="demandeddForm" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="demandefoForm::#public#demande#fo.xhtml"
-    NAME="output7" PATH="/public/demande/fo.xhtml"
-    TARGET="rules:#public#demande#fo.xhtml" TITLE="demandefoForm" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="demandeddDialog::#private#demande#ddDialog.xhtml" NAME="output7"
+    PATH="/private/demande/ddDialog.xhtml"
+    TARGET="rules:#private#demande#ddDialog.xhtml"
+    TITLE="demandeddDialog" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="demandetrForm::#private#demande#tr.xhtml"
     NAME="output8" PATH="/private/demande/tr.xhtml"
     TARGET="rules:#private#demande#tr.xhtml" TITLE="demandetrForm" model-entity="JSFProcessItemOutput"/>
@@ -166,15 +168,15 @@
     TARGET="rules:#dossier#liste#dossierListe.xhtml"
     TITLE="depotDossierListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="validerConformiteDossierListe::#dossier#liste#dossierListe.xhtml"
+    ID="validerRecevabiliteDossierListe::#dossier#liste#dossierListe.xhtml"
     NAME="output33" PATH="/dossier/liste/dossierListe.xhtml"
     TARGET="rules:#dossier#liste#dossierListe.xhtml"
-    TITLE="validerConformiteDossierListe" model-entity="JSFProcessItemOutput"/>
+    TITLE="validerRecevabiliteDossierListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="editerFeuilleDeplacementListe::#dossier#liste#dossierListe.xhtml"
+    ID="validerConformiteDossierListe::#dossier#liste#dossierListe.xhtml"
     NAME="output34" PATH="/dossier/liste/dossierListe.xhtml"
     TARGET="rules:#dossier#liste#dossierListe.xhtml"
-    TITLE="editerFeuilleDeplacementListe" model-entity="JSFProcessItemOutput"/>
+    TITLE="validerConformiteDossierListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="editerBonTransportListe::#dossier#liste#dossierListe.xhtml"
     NAME="output35" PATH="/dossier/liste/dossierListe.xhtml"
@@ -191,20 +193,20 @@
     TARGET="rules:#dossier#form#creationBordereauBLForm.xhtml"
     TITLE="creerBordereauBLForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="editerBordereauBLListe::#dossier#liste#bordereauBLListe.xhtml"
+    ID="validerBordereauBLListe::#dossier#liste#bordereauBLListe.xhtml"
     NAME="output38" PATH="/dossier/liste/bordereauBLListe.xhtml"
+    TARGET="rules:#dossier#liste#bordereauBLListe.xhtml"
+    TITLE="validerBordereauBLListe" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="editerBordereauBLListe::#dossier#liste#bordereauBLListe.xhtml"
+    NAME="output39" PATH="/dossier/liste/bordereauBLListe.xhtml"
     TARGET="rules:#dossier#liste#bordereauBLListe.xhtml"
     TITLE="editerBordereauBLListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="editerBulletinLiquidationListe::#dossier#liste#bulletinLiquidationListe.xhtml"
-    NAME="output39" PATH="/dossier/liste/bulletinLiquidationListe.xhtml"
+    NAME="output40" PATH="/dossier/liste/bulletinLiquidationListe.xhtml"
     TARGET="rules:#dossier#liste#bulletinLiquidationListe.xhtml"
     TITLE="editerBulletinLiquidationListe" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="consulterDossierDDListe::#dossier#liste#dossierListe.xhtml"
-    NAME="output40" PATH="/dossier/liste/dossierListe.xhtml"
-    TARGET="rules:#dossier#liste#dossierListe.xhtml"
-    TITLE="consulterDossierDDListe" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="tableauBordDDVue::#dossier#consultation#tableauBordDDVue.xhtml"
     NAME="output41" PATH="/dossier/consultation/tableauBordDDVue.xhtml"
@@ -797,4 +799,6 @@
   NAME="rules:#private#personnel#dossier#listedecisionREMB.xhtml"
   PATH="/private/personnel/dossier/listedecisionREMB.xhtml"
   SHAPE="304,3153,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#ddDialog.xhtml"
+  PATH="/private/demande/ddDialog.xhtml" SHAPE="304,3153,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

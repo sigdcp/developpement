@@ -11,7 +11,7 @@
 		<p:commandButton 
 			value="#{command.value}"  
 			icon="#{command.icon}" 
-			action="#{command.execute}" 
+			action="#{command.execute(executeObjectParam)}" 
 			update="#{command.update}" 
 			rendered="#{command.rendered}"
 			ajax="#{command.ajax}" 

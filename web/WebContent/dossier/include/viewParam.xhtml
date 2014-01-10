@@ -14,6 +14,8 @@
 	    <f:viewParam id="natureDeplacementId" name="#{webConstantResources.requestParamNatureDeplacement}" value="#{controller.natureDaplacement}" converter="#{viewParamNatureDeplacementConverter}" />
 	    
 	    <f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{controller.crudType}" converter="#{viewParamEnumConverter}" />
+	    
+	    <f:viewParam id="viewTypeId" name="#{webConstantResources.requestParamViewType}" value="#{controller.viewType}" />
 	           
 	    <f:event type="preRenderView" listener="#{controller.preRenderView}" />    
 	</ui:composition>

@@ -30,6 +30,7 @@ public class DossierTransit extends Dossier implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateFin;
 	
+	
 	private Float poidsBagagesKg;
 	
 	private Float montantFacture;

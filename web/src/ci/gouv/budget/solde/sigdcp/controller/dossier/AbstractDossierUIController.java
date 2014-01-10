@@ -15,7 +15,6 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
-import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.PieceJustificativeAFournirService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.PieceJustificativeService;
@@ -51,7 +50,7 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	@Override
 	protected void initialisation() {
 		super.initialisation();
-		entity.setBeneficiaire((AgentEtat) userSessionManager.getUser());
+		//entity.setBeneficiaire((AgentEtat) userSessionManager.getUser());
 		title = "Formulaire de : "+entity.getDeplacement().getNature().getLibelle();
 		
 		defaultSubmitCommand.setValue(text("bouton.soumettre"));
@@ -61,8 +60,9 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		enregistrerCommand = createCommand().init("bouton.enregistrer","ui-icon-check","notification.demande.enregistree1", new Action() {
 			private static final long serialVersionUID = 1L;
 			@Override
-			protected void __execute__() throws Exception {
+			protected Object __execute__(Object object) throws Exception {
 				getDossierService().enregistrer(entity, pieceJustificativeUploader.process());
+				return null;
 			}
 		}).onSuccessStayOnCurrentView();
 		enregistrerCommand.setAjax(Boolean.FALSE);
@@ -96,6 +96,8 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	public DOSSIER getDossier(){
 		return entity;
 	}
+	
+	
 	
 		
 }

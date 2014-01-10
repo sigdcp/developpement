@@ -1,6 +1,8 @@
 package ci.gouv.budget.solde.sigdcp.controller.ui.form.command;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.faces.context.FacesContext;
 
@@ -31,6 +33,8 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 	@Getter @Setter
 	protected Action _action;
 	
+	protected Collection<Object[]> extraValidators=new LinkedList<>();
+	
 	public FormCommand(AbstractFormUIController<DTO> form) {
 		this.form = form;
 		setUpdate("@form");
@@ -55,10 +59,10 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 		return this;
 	}
 	
-	public final String execute(){
+	public final String execute(Object object){
 		if(valide()){
 			try {
-				_action.execute();
+				_action.execute(object);
 				String message = notificationMessage();
 				if(StringUtils.isNotEmpty(message))
 					form.getMessageManager().addInfo(message,Boolean.FALSE);
@@ -71,6 +75,10 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 		}
 		return echec();
 	}
+	
+	public final String execute(){
+		return execute(null);
+	}
 	/*
 	protected abstract void action() throws Exception;
 	*/
@@ -80,24 +88,48 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 	 */
 	@SuppressWarnings("unchecked")
 	protected Boolean valide(){
-		if(form.getDto() == null)
-			return Boolean.TRUE;
-		if(validator==null)
-			validator = (AbstractValidator<DTO>) new AbstractValidator<>(form.getDto().getClass());
-	
-		validator.validate(form.getDto());
-		for(String m : validator.getMessages()){
-			form.getMessageManager().addError(m,Boolean.FALSE);
-			System.out.println(m);
+		Boolean succeed = Boolean.TRUE;
+		if(form.getDto() != null){
+			if(validator==null)
+				validator = (AbstractValidator<DTO>) new AbstractValidator<>(form.getDto().getClass());
+			//validator.validate(form.getDto());
+			if(!validate((AbstractValidator<Object>) validator, form.getDto()))
+				succeed = Boolean.FALSE;
 		}
-		if(validator.isSucces())
+		
+		System.out.println("FormCommand.valide() : "+extraValidators);
+		for(Object[] object : extraValidators){
+			//AbstractValidator<Object> v = ;
+			//Object bean = ;
+			if(!validate((AbstractValidator<Object>) object[0], object[1]))
+				succeed = Boolean.FALSE;
+			/*
+			v.validate(bean);
+			*/
+		}
+		
+		if(succeed)
 			;
 		else{
 			FacesContext.getCurrentInstance().validationFailed();
 		}
-		return validator.isSucces();
+		return succeed;
 	}
 	
+	private Boolean validate(AbstractValidator<Object> validator,Object bean){
+		System.out.println(validator);
+		validator.validate(bean);
+		for(String m : validator.getMessages()){
+			form.getMessageManager().addError(m,Boolean.FALSE);
+			//System.out.println(m);
+		}
+		return validator.isSucces();
+	}
+	/*
+	protected Collection<Object[]> extraValidators(){
+		return null;
+	}
+	*/
 	private String echec(){
 		return null;
 	}
@@ -116,6 +148,8 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 
 	/*-----------------------------------------------------------------------------------------------------------*/
 	
-
+	public void addExtraValidator(AbstractValidator<?> validator,Object object){
+		extraValidators.add(new Object[]{validator,object});
+	}
 	
 }

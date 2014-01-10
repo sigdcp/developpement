@@ -12,6 +12,7 @@ import ci.gouv.budget.solde.sigdcp.controller.MessageManager;
 import ci.gouv.budget.solde.sigdcp.controller.NavigationManager;
 import ci.gouv.budget.solde.sigdcp.controller.WebConstantResources;
 import ci.gouv.budget.solde.sigdcp.service.resources.ServiceConstantResources;
+import ci.gouv.budget.solde.sigdcp.service.utils.ServiceUtils;
 
 
 public abstract class AbstractUIController implements Serializable {
@@ -24,8 +25,9 @@ public abstract class AbstractUIController implements Serializable {
 	@Inject @Getter protected WebConstantResources webConstantResources;
 	@Inject @Getter protected NavigationManager navigationManager;
 	@Inject @Getter protected MessageManager messageManager;
+	@Inject @Getter protected ServiceUtils serviceUtils;
 	
-	@Getter @Setter protected String previousPath;
+	@Getter @Setter protected String previousPath,viewType;
 	
 	/*
 	 * Attributes
@@ -73,5 +75,9 @@ public abstract class AbstractUIController implements Serializable {
 	
 	protected String text(String id,Object[] parameters){
 		return messageManager.getTextService().find(id,parameters);
+	}
+	
+	protected Boolean isDialog(){
+		return webConstantResources.getRequestParamDialog().equals(viewType);
 	}
 }

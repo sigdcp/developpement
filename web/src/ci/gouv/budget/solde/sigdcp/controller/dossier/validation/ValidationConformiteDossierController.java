@@ -6,7 +6,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import ci.gouv.budget.solde.sigdcp.controller.dossier.DossierListeController;
-import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.Action;
 
 @Named @ViewScoped
 public class ValidationConformiteDossierController extends DossierListeController implements Serializable {
@@ -28,9 +27,14 @@ public class ValidationConformiteDossierController extends DossierListeControlle
 		//title = "Ecran de Validation de la conformité des dossiers";
 		internalCode = "FS_REC_02_Ecran_01";
 		defaultSubmitCommand.setValue(text("bouton.enregistrer"));
+		
+		
 	}
 	
-	
+	@Override
+	protected String detailsOutcome() {
+		return "demandeddDialog";
+	}
 
 	
 	
