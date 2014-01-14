@@ -8,35 +8,30 @@
 
 package ci.gouv.budget.solde.sigdcp.model.dossier;
 
-import java.util.Date;
+import java.io.Serializable;
 
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 @Getter @Setter 
 @Entity @AllArgsConstructor
-public class PieceProduite  extends AbstractModel<String>  implements Serializable{
+public class PieceProduite  extends Document  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	private String numero;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date date;
 	
 	@ManyToOne
 	private TypePieceProduite type;
 	
 	public PieceProduite() {}
+
+	public PieceProduite(String numero, TypePieceProduite type) {
+		super(numero);
+		this.type = type;
+	}
+	
+	
 }

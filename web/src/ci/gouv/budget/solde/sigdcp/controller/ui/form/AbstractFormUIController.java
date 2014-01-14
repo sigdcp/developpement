@@ -29,7 +29,7 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 	protected FormCommand<DTO> defaultSubmitCommand,closeCommand;
 	protected WizardHelper<DTO> wizardHelper;
 	@Inject protected UserSessionManager userSessionManager;
-	protected Boolean showFieldRequired = Boolean.TRUE;
+	protected Boolean showFieldRequired;
 	
 	@Override
 	protected InitWhen initWhen() {
@@ -40,6 +40,7 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 	@Override
 	protected void initialisation() {
 		super.initialisation();
+		showFieldRequired = isEditable();
 		if(isCreate())
 			initCreateOperation();
 		else if(isRead())

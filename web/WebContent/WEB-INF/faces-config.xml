@@ -72,9 +72,33 @@
 
   <navigation-case>
    <from-outcome>souscriptionliste</from-outcome>
-   <to-view-id>/private/personnel/identification/agent.xhtml</to-view-id>
+   <to-view-id>/private/personnel/identification/valideragent.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
+  
+    <navigation-case>
+   <from-outcome>souscriptionDialog</from-outcome>
+   <to-view-id>/public/inscriptionpersonneDialog.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+
+    <navigation-case>
+   <from-outcome>tableaubord</from-outcome>
+   <to-view-id>/private/personnel/stats/tableaubord.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+ 
+     <navigation-case>
+   <from-outcome>viserdocument</from-outcome>
+   <to-view-id>/private/personnel/dossier/validation/viser.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+
+     <navigation-case>
+   <from-outcome>viserdocumentDialog</from-outcome>
+   <to-view-id>/private/personnel/dossier/validation/viserDialog.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>  
   
   <navigation-case>
    <from-outcome>demandefoForm</from-outcome>

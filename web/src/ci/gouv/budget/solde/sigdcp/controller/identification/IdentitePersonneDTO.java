@@ -14,7 +14,7 @@ public class IdentitePersonneDTO implements Serializable {
 	private InfosInscriptionPersonne personne;
 	
 	@Getter @Setter
-	private Boolean agentEtat;
+	private Boolean agentEtat,editable;
 	
 	@Getter @Setter
 	private String tp;

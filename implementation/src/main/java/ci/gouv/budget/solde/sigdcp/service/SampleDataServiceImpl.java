@@ -27,10 +27,12 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.NatureOperation;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Operation;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
+import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypePieceJustificative;
+import ci.gouv.budget.solde.sigdcp.model.dossier.TypePieceProduite;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Contact;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.geographie.TypeLocalite;
@@ -71,10 +73,15 @@ public class SampleDataServiceImpl implements SampleDataService {
 	private Section ministereEconomie,ministereBudget,ministereSante,serviceExploitation,serviceEtude;
 	private List<CalendrierMission> calendrierMissions=new LinkedList<>();
 	private List<DossierMission> dossierMissions = new LinkedList<>();
-	
+	private List<PieceProduite> pieceProduites = new LinkedList<>();
+	private NatureOperation natureOperationLiquidation,natureOperationRBTBL,natureOperationRBTF,natureOperationRFDMission;
+	private TypePieceProduite typePieceProduiteBL,typePieceProduiteBTBL,typePieceProduiteBTF;
 	
 	@Override 
 	public void create() {
+		em.persist(typePieceProduiteBL = new TypePieceProduite(Code.TYPE_PIECE_PRODUITE_BL, "Bulletin de liquidation"));
+		em.persist(typePieceProduiteBTBL = new TypePieceProduite(Code.TYPE_PIECE_PRODUITE_BTBL, "Bordereau de transmission de bulletins de liquidation"));
+		em.persist(typePieceProduiteBTF = new TypePieceProduite(Code.TYPE_PIECE_PRODUITE_BTF, "Bordereau de transmission de factures"));
 		
 		em.persist(exercice2012 = new Exercice(2012, date(), date(), null, false));
 		em.persist(exercice2013 = new Exercice(2013, date(), date(), null, false));
@@ -343,15 +350,17 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(validationRecevabilite);
 		NatureOperation validationConformite = new NatureOperation("VAL_CON", "Validation Conformité");
 		em.persist(validationConformite);
-		NatureOperation liquidation = new NatureOperation("LIQ", "Liquidation");
-		em.persist(liquidation);
+		
+		em.persist(natureOperationLiquidation = new NatureOperation(Code.NATURE_OPERATION_LIQUIDATION, "Liquidation"));
+		em.persist(natureOperationRBTBL = new NatureOperation(Code.NATURE_OPERATION_REALISTION_BTBL, "Réalisation de bordereau de bulletins de liquidation"));
+		em.persist(natureOperationRBTF = new NatureOperation(Code.NATURE_OPERATION_REALISTION_BTF, "Réalisation de bordereau de factures"));
 		NatureOperation reglement = new NatureOperation("PAIE", "Reglement");
 		em.persist(reglement);
 		
 		operation(soumission, dossierDDAff1, soumis);
 		operation(validationRecevabilite, dossierDDAff1, recevable);
 		operation(validationConformite, dossierDDAff1, conforme);
-		operation(liquidation, dossierDDAff1, liquide);
+		operation(natureOperationLiquidation, dossierDDAff1, liquide);
 		operation(reglement, dossierDDAff1, paye);
 		
 		operation(soumission, dossierDDAff3, soumis);
@@ -460,6 +469,12 @@ public class SampleDataServiceImpl implements SampleDataService {
 		Operation operation = new Operation(date(), natureOperation);
 		em.persist(operation);
 		em.persist(new Traitement(operation,null,dossier,statut));
+		if(natureOperationLiquidation.equals(natureOperation))
+			em.persist(new PieceProduite(numero(), typePieceProduiteBL));
+		else if(natureOperationRBTBL.equals(natureOperation))
+			em.persist(new PieceProduite(numero(), typePieceProduiteBTBL));
+		else if(natureOperationRBTF.equals(natureOperation))
+			em.persist(new PieceProduite(numero(), typePieceProduiteBTF));
 	}
 	
 	static long ID = 0;

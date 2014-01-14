@@ -119,7 +119,7 @@ public abstract class AbstractEntityListUIController<ENTITY extends AbstractMode
 	
 	@Override
 	protected void onDefaultSubmitAction() throws Exception {
-		System.out.println(selectedMultiple);
+		
 	}
 	
 	protected void onDetailsCommandAction(ENTITY object) {

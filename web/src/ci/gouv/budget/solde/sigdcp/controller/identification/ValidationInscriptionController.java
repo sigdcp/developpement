@@ -1,60 +1,90 @@
 package ci.gouv.budget.solde.sigdcp.controller.identification;
 
-/*
-@Named @FlowScoped(value=FlowDefinitions.FLOW_VALIDATION_INSCRIPTION_ID)
-public class ValidationInscriptionController extends AbstractUIFlowController implements Serializable {
+import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import lombok.Getter;
+import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEntityListUIController;
+import ci.gouv.budget.solde.sigdcp.model.identification.Inscription;
+import ci.gouv.budget.solde.sigdcp.service.identification.InscriptionService;
+
+
+@Named @ViewScoped
+public class ValidationInscriptionController extends AbstractEntityListUIController<Inscription> implements Serializable {
 
 	private static final long serialVersionUID = 6591392098578555259L;
 	
-	public static final String FLOW_VALIDATION_INSCRIPTION_ID = "validationinscription";
-	
 	@Inject private InscriptionService inscriptionService;
-	
-	@Getter @Setter protected List<Inscription> inscriptions; 
-	@Getter @Setter protected List<Inscription> inscriptionsSelectionnes;
-	@Setter @Getter protected Inscription inscriptionSelectionne;
+	 
+	//@Getter @Setter protected List<Inscription> inscriptionsSelectionnes;
+	//@Setter @Getter protected Inscription inscriptionSelectionne;
 	
 	@Getter @Setter
 	private Boolean accepte;
 	
-	protected void postConstruct(){
-		super.postConstruct();
-		inscriptions = new LinkedList<Inscription>(inscriptionService.findInscriptionsAValider());
+	@Override
+	protected InitWhen initWhen() {
+		return InitWhen.POST_CONSTRUCT;
 	}
 	
-	public String valider(){
+	@Override
+	protected void initialisation() {
+		super.initialisation();
+		title="Validation des souscriptions";
+		internalCode = "FS_ID_02_Ecran_01";
+		/*
+		wizardHelper = new WizardHelper<Inscription>(this,"selection","confirmation"){
+			private static final long serialVersionUID = -2560968105025120145L;
+			@Override
+			protected void move(Integer stepCount) {
+				super.move(stepCount);
+				showFieldRequired = !getSubmitAction().isRendered();
+			}
+		};*/
+	}
+	
+	@Override
+	protected List<Inscription> load() {
+		return new LinkedList<Inscription>(inscriptionService.findInscriptionsAValider());
+	}
+	
+	@Override
+	protected void onDefaultSubmitAction() throws Exception {
+		super.onDefaultSubmitAction();
 		if(Boolean.TRUE.equals(accepte))
-			inscriptionService.accepterInscription(inscriptionsSelectionnes);
+			inscriptionService.accepterInscription(selectedMultiple);
 		else
-			inscriptionService.rejeterInscription(inscriptionsSelectionnes);
-		return "succes";
+			inscriptionService.rejeterInscription(selectedMultiple);
 	}
 	
-	public String accepter(){
-		if(validInputs()){
-			accepte = Boolean.TRUE;
-			return FlowDefinitions.FLOW_VALIDATION_INSCRIPTION_CONFIRMATION_ID;
-		}
+	@Override
+	public String href(Inscription entity) {
 		return null;
 	}
 	
-	public String rejeter(){
-		if(validInputs()){
-			accepte = Boolean.FALSE;
-			return FlowDefinitions.FLOW_VALIDATION_INSCRIPTION_CONFIRMATION_ID;
-		}
-		return null;
+	@Override
+	public String getRecordIdentifierFieldName() {
+		return "code";
 	}
 	
-	private Boolean validInputs(){
-		if( inscriptionsSelectionnes==null || inscriptionsSelectionnes.isEmpty() ){
-			addMessageError("Selectionnez au moins une inscription");
-			return Boolean.FALSE;
-		}
-		return Boolean.TRUE;
+	@Override
+	protected String detailsOutcome() {
+		return "souscriptionDialog";
 	}
 	
-	
+	@Override
+	protected void detailsOutcomeParameters(Map<String, List<String>> parameters,Inscription inscription) {
+		addParameters(parameters, webConstantResources.getRequestParamInscription(), inscription.getCode());
+		addParameters(parameters, webConstantResources.getRequestParamCrudType(), webConstantResources.getRequestParamCrudRead());
+		addParameters(parameters, webConstantResources.getRequestParamViewType(), webConstantResources.getRequestParamDialog());
+	}
 
-}*/
+}
 

@@ -23,7 +23,7 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	@Inject private DeplacementDao deplacementDao;
 	@Inject private PieceJustificativeDao pieceJustificativeDao;
 	
-	@Inject
+	//@Inject
 	public AbstractDossierServiceImpl(AbstractDossierDao<DOSSIER> dao) {
 		super(dao); 
 	}

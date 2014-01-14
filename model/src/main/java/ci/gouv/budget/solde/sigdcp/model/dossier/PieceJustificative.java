@@ -11,42 +11,26 @@ package ci.gouv.budget.solde.sigdcp.model.dossier;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import ci.gouv.budget.solde.sigdcp.model.fichier.Fichier;
 
 @Getter @Setter 
 @Entity
-public class PieceJustificative  extends AbstractModel<Long>  implements Serializable{
+public class PieceJustificative  extends Document  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	@Id @GeneratedValue
-	private Long id;
-	
-	private String numero;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateEtablissement;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateEffetDecision;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	private Fichier fichier = new Fichier();
-	
-	private String fonctionSignataire;
-	
+		
 	@ManyToOne
 	private PieceJustificativeAFournir model;
 	
@@ -62,8 +46,7 @@ public class PieceJustificative  extends AbstractModel<Long>  implements Seriali
 	}
 
 	public PieceJustificative(String numero, PieceJustificativeAFournir model) {
-		super();
-		this.numero = numero;
+		super(numero);
 		this.model = model;
 	}
 	

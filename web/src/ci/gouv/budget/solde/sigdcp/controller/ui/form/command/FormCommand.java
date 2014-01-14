@@ -97,7 +97,7 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 				succeed = Boolean.FALSE;
 		}
 		
-		System.out.println("FormCommand.valide() : "+extraValidators);
+		//System.out.println("FormCommand.valide() : "+extraValidators);
 		for(Object[] object : extraValidators){
 			//AbstractValidator<Object> v = ;
 			//Object bean = ;

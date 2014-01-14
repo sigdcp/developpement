@@ -33,7 +33,7 @@ public class InscriptionPersonneController extends AbstractEntityFormUIControlle
 		super.initialisation();
         if(inscriptionAgentEtat)
         	title = "Ouverture de compte";
- 
+     
         demandeurDto = new IdentitePersonneDTO(entity.getPersonneDemandeur(),inscriptionAgentEtat);
         PieceJustificative pieceIdentite = new PieceJustificative();
         

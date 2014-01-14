@@ -64,11 +64,8 @@
 	    	
 	    </p:submenu>
 	    
-	    <p:submenu label="Comptes utilisateurs">  
-	    	<p:menuitem value="Valider les souscriptions" outcome="souscriptionliste">
-	    		<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="validationrecevabilite"/>
-	    		<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutSoumis}"/>
-	    	</p:menuitem>
+	    <p:submenu label="Identification">  
+	    	<p:menuitem value="Valider les souscriptions" outcome="souscriptionliste"/>
 	    	
 	    </p:submenu>
 	    
@@ -80,6 +77,7 @@
 	    	<p:menuitem value="#{constantResources.text('conformitedossier')}" outcome="validationconformite">
 	    		<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutRecevable}"/>
 	    	</p:menuitem>
+	    	<p:menuitem value="Viser des documents" outcome="viserdocument"/>
 	    	
 	    	<p:menuitem><p:spacer style="height:5px"/><p:separator style="border:#999 1px solid; margin-bottom:5px"/></p:menuitem>
 	    	
@@ -125,7 +123,13 @@
 	    	
 	    	<p:menuitem value="Consulter Feuille de déplacement" outcome="consulterFeuilleDeplacementListe"/>
 	    	
-	    </p:submenu> 
+	    </p:submenu>
+	    
+	    <p:submenu label="Statistiques">  
+	    	<p:menuitem value="Tableau de bord" outcome="tableaubord"/>
+	    	
+	    </p:submenu>
+	     
 	</ui:composition>
 </body>
 </html>

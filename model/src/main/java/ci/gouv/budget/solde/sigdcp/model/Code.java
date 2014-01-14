@@ -37,7 +37,15 @@ public interface Code {
 	String GROUPE_TYPE_PIECE_IDENTITE = "IDENTITE";
 	
 	/*
-	 * Type de pieces
+	 * Type de pieces produites
+	 */
+	
+	String TYPE_PIECE_PRODUITE_BL = "BL";
+	String TYPE_PIECE_PRODUITE_BTBL = "BTBL";
+	String TYPE_PIECE_PRODUITE_BTF = "BTF";
+	
+	/*
+	 * Type de pieces justificatives
 	 */
 	
 	String TYPE_PIECE_CNI = "CNI";
@@ -139,6 +147,13 @@ public interface Code {
 	String GROUPE_MISSION_HORS_GROUPE = "H";
 	String GROUPE_MISSION_A = "A";
 	String GROUPE_MISSION_B = "B";
+	
+	/*
+	 * Nature operation
+	 */
+	String NATURE_OPERATION_LIQUIDATION="LIQ";
+	String NATURE_OPERATION_REALISTION_BTBL="RBTBL";
+	String NATURE_OPERATION_REALISTION_BTF="RBTF";
 	
 	/*
 	 * statut

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body onload="testValid()">
+
+	<ui:define name="metadata">
+		<f:metadata>
+        	  
+		    <f:event type="preRenderView" listener="#{pieceProduiteListeController.preRenderView}" />
+    	</f:metadata>
+	</ui:define>		
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{pieceProduiteListeController}" />
+				<ui:define name="contenu">	
+					
+					<ui:decorate template="/template/dataList.xhtml">
+						<ui:param name="controller" value="#{pieceProduiteListeController}" />
+						<!--
+						<ui:define name="criteresrecherche">
+							<p:panelGrid columns="6" styleClass="panelGridNoBorder">
+								
+								<p:outputLabel for="dateDebut" value="#{constantResources.text('datedebut')}" />
+								<p:calendar id="dateDebut" value="#{controller.dateDebut}"/>
+												
+								<p:outputLabel for="dateFin" value="#{constantResources.text('datefin')}" />
+								<p:calendar id="dateFin" value="#{controller.dateFin}"/>
+												
+								<p:outputLabel for="natureDep" value="#{constantResources.text('nature')}" />
+								<p:selectOneMenu id="natureDep" value="#{controller.natureDeplacement}" converter="#{objectConverter}" >
+									<f:selectItem noSelectionOption="" itemLabel="#{constantResources.text('tout')}"/>
+									<f:selectItems value="#{natureDeplacements}" var="nd" itemLabel="#{nd.libelle}" />
+								</p:selectOneMenu>
+												
+							</p:panelGrid>		
+						</ui:define>
+						-->
+						<ui:define name="colonnes">
+							<p:column headerText="#{constantResources.text('numero')}" sortBy="#{record.numero}" filterBy="#{record.numero}">
+								<h:outputText value="#{record.numero}" />
+							</p:column>
+							<p:column headerText="#{constantResources.text('type')}" sortBy="#{record.type}" filterBy="#{record.type}">
+								<h:outputText value="#{record.type}" />
+							</p:column>
+							<p:column headerText="#{constantResources.text('dossier')}" >
+								<h:outputText value="D100"/>
+							</p:column>		
+						</ui:define>
+					</ui:decorate>					
+							
+				</ui:define>
+				
+			</ui:decorate>
+				
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

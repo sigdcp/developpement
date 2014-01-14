@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event type="preRenderView" listener="#{tableauBordController.preRenderView}" />
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{tableauBordController}" />
+				<ui:define name="contenu">
+			 		
+			 		<p:panelGrid columns="2" styleClass="panelGridNoBorder">
+			 			<h:panelGroup>
+							<p:panelGrid columns="6">
+						
+								<p:outputLabel for="dateDebut" value="#{constantResources.text('datedebut')}" />
+								<p:calendar id="dateDebut" value="#{tableauBordController.dateDebut}"/>
+												
+								<p:outputLabel for="dateFin" value="#{constantResources.text('datefin')}" />
+								<p:calendar id="dateFin" value="#{tableauBordController.dateFin}"/>
+												
+								<p:outputLabel for="natureDep" value="#{constantResources.text('nature')}" />
+								<p:selectOneMenu id="natureDep" value="#{tableauBordController.natureDeplacement}" converter="#{objectConverter}" >
+									<f:selectItem noSelectionOption="" itemLabel="#{constantResources.text('tout')}"/>
+									<f:selectItems value="#{natureDeplacements}" var="nd" itemLabel="#{nd.libelle}" />
+								</p:selectOneMenu>
+												
+							</p:panelGrid>			 			
+			 			</h:panelGroup>
+			 			<h:panelGroup>
+			 				<p:commandButton value="Rechercher" />
+			 			</h:panelGroup>
+			 		</p:panelGrid>
+								
+      				<p:separator/>
+      				<p:dataTable value="#{tableauBordController.tableauBord.statutDetails}" var="details">
+      					<f:facet name="header"><h:outputText value="Nombre de dossier" /> </f:facet>
+      					<p:column><h:outputText value="#{details.statut}" /> </p:column>
+      					<p:column><h:outputText value="#{details.count}" /> </p:column>
+      				</p:dataTable>
+      				
+      				<p:separator/> 
+					
+					<p:barChart id="basic" value="#{tableauBordController.categoryModel}" legendPosition="ne"  min="0" max="200" style="height:250px"/>  
+					
+				</ui:define>
+				
+				
+			</ui:decorate>
+				
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

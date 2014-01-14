@@ -10,10 +10,9 @@ import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeDao;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypePieceJustificative;
-import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
 
 @Stateless
-public class PieceJustificativeServiceImpl extends DefaultServiceImpl<PieceJustificative, Long> implements PieceJustificativeService , Serializable {
+public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<PieceJustificative> implements PieceJustificativeService , Serializable {
 
 	private static final long serialVersionUID = -7601857525393731774L;
 	
