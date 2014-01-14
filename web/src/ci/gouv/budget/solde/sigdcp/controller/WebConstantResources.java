@@ -18,6 +18,7 @@ import ci.gouv.budget.solde.sigdcp.model.calendrier.CalendrierMission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
+import ci.gouv.budget.solde.sigdcp.model.prestation.Facture;
 import ci.gouv.budget.solde.sigdcp.service.GenericService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
@@ -53,6 +54,11 @@ public class WebConstantResources implements Serializable{
 	@Getter private final String requestParamCalendrierMission = "cmid";
 	@Produces @Named public ViewParamConverter getViewParamCalendrierMissionConverter(){
 		return new ViewParamConverter(genericService, CalendrierMission.class,Long.class);
+	}
+	
+	@Getter private final String requestParamFacture = "factid";
+	@Produces @Named public ViewParamConverter getViewParamFactureConverter(){
+		return new ViewParamConverter(genericService, Facture.class);
 	}
 	
 	@Getter private final String requestParamCrudType = "ct";

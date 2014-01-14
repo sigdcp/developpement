@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<f:viewParam id="dossierId" name="#{webConstantResources.requestParamDossier}" value="#{controller.entity}" converter="#{viewParamFactureConverter}" />
+	    
+	    <f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{controller.crudType}" converter="#{viewParamEnumConverter}" />
+	    
+	    <f:viewParam id="viewTypeId" name="#{webConstantResources.requestParamViewType}" value="#{controller.viewType}" />
+	           
+	    <f:event type="preRenderView" listener="#{controller.preRenderView}" />    
+	</ui:composition>
+</body>
+</html>

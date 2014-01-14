@@ -74,6 +74,8 @@ public class DossierListeController extends AbstractEntityListUIController<Dossi
 	}
 	
 	private String outcomeSuffix(Dossier dossier){
+		if("decisionrembForm".equals(nextViewOutcome))
+			return "";
 		if(dossier instanceof DossierDD) return "_dd";
 		if(dossier instanceof DossierObseques) return "_o";
 		if(dossier instanceof DossierMission) return "_m";

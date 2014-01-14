@@ -64,6 +64,14 @@
 	    	
 	    </p:submenu>
 	    
+	    <p:submenu label="Comptes utilisateurs">  
+	    	<p:menuitem value="Valider les souscriptions" outcome="souscriptionliste">
+	    		<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="validationrecevabilite"/>
+	    		<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutSoumis}"/>
+	    	</p:menuitem>
+	    	
+	    </p:submenu>
+	    
 	    <p:submenu label="Traiter les demandes">  
 	    	<p:menuitem value="#{constantResources.text('recevabilitedemande')}" outcome="dossierliste">
 	    		<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="validationrecevabilite"/>
@@ -88,7 +96,7 @@
 	    		<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutConforme}"/>
 			</p:menuitem>
 			<p:menuitem value="Saisie Facture" outcome="facturedefinitiveForm">
-			<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>	
+				<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
 			</p:menuitem>
 			<p:menuitem value="Afficher les factures définitives" outcome="listefacturedef">
 			<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
@@ -99,13 +107,15 @@
 			<p:menuitem value="Projet de remboursement" outcome="generationprojetdecisionremb">
 	    		<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutConforme}"/>
 			</p:menuitem>
-			<p:menuitem value="Saisie Décision" outcome="decisionrembForm">
-			<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+			<p:menuitem value="Saisie Décision" outcome="dossierliste">
+				<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="decisionrembForm"/>
+				<f:param name="#{webConstantResources.requestParamStatut}" value="#{constantResources.statutConforme}"/>
 			</p:menuitem>
+			<!-- 
 			<p:menuitem value="Afficher les Décisions de remboursement" outcome="listedecisionremb">
 			<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>	
 			</p:menuitem>		
-			
+			-->
 			<p:menuitem><p:spacer style="height:5px"/><p:separator style="border:#999 1px solid; margin-bottom:5px"/></p:menuitem>
 			
 			<p:menuitem value="Cotation de billet d'avion" outcome="demandecotationbilletavionmission"/>

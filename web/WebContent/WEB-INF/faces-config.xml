@@ -69,6 +69,12 @@
    <to-view-id>/private/personnel/edition/pdrDialog.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
+
+  <navigation-case>
+   <from-outcome>souscriptionliste</from-outcome>
+   <to-view-id>/private/personnel/identification/agent.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
   
   <navigation-case>
    <from-outcome>demandefoForm</from-outcome>
