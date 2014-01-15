@@ -1,5 +1,7 @@
-package ci.gouv.budget.solde.sigdcp.service;
+package ci.gouv.budget.solde.sigdcp.service.sampledata;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -9,6 +11,9 @@ import java.util.UUID;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.CalendrierMission;
@@ -38,6 +43,7 @@ import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.geographie.TypeLocalite;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Categorie;
+import ci.gouv.budget.solde.sigdcp.model.identification.DelegueSotra;
 import ci.gouv.budget.solde.sigdcp.model.identification.Echelon;
 import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
 import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
@@ -54,6 +60,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.TypeSection;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeMission;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.TypeClasseVoyage;
 import ci.gouv.budget.solde.sigdcp.model.prestation.Prestataire;
+import ci.gouv.budget.solde.sigdcp.service.SampleDataService;
 
 
 @Stateless//(mappedName="SampleDataService") @Remote
@@ -68,7 +75,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	private TypePieceJustificative extraitNaissance,extraitMariage,cni,feuilleDep,bonTransport;
 	private Prestataire elohimVoyages,mistralVoyages;
 	private Localite abidjan,bouake,paris,dakar,delhi;
-	private NatureDeplacement mhci;
+	private NatureDeplacement mhci,natureDeplacementMutation,natureDeplacementAffectation,natureDeplacementDepartRetraite;
 	private AgentEtat agentEtat1,agentEtat2,agentEtat3,agentEtat4;
 	private Section ministereEconomie,ministereBudget,ministereSante,serviceExploitation,serviceEtude;
 	private List<CalendrierMission> calendrierMissions=new LinkedList<>();
@@ -178,31 +185,30 @@ public class SampleDataServiceImpl implements SampleDataService {
 		CategorieDeplacement sotra = new CategorieDeplacement(Code.CATEGORIE_DEPLACEMENT_TRANSPORT_URBAIN, "Sotra");
 		em.persist(sotra);
 		
-		NatureDeplacement affectation=new NatureDeplacement(deplacementDefinitif, Code.NATURE_DEPLACEMENT_AFFECTATION,"Affectation", 2);
-		em.persist(affectation);
-		em.persist(pjaf(affectation,remboursement,fonctionnaire, decisionAffectation));
-		communPieceJustificativeAFournir(affectation, remboursement, fonctionnaire);
-		communDDPieceJustificativeAFournir(affectation);
+		natureDeplacementAffectation = creerNatureDeplacement(deplacementDefinitif,Code.NATURE_DEPLACEMENT_AFFECTATION,"Affectation");
+		em.persist(pjaf(natureDeplacementAffectation,remboursement,fonctionnaire, decisionAffectation));
+		communPieceJustificativeAFournir(natureDeplacementAffectation, remboursement, fonctionnaire);
+		communDDPieceJustificativeAFournir(natureDeplacementAffectation);
 		
-		NatureDeplacement mutation = new NatureDeplacement(deplacementDefinitif, Code.NATURE_DEPLACEMENT_MUTATION,"Mutation", 2);
-		em.persist(mutation);
-		em.persist(pjaf(mutation,remboursement,fonctionnaire,avisMutation));
-		communPieceJustificativeAFournir(mutation, remboursement, fonctionnaire);
-		communDDPieceJustificativeAFournir(mutation);
+		natureDeplacementMutation =creerNatureDeplacement(deplacementDefinitif,Code.NATURE_DEPLACEMENT_MUTATION,"Mutation");
+		em.persist(natureDeplacementMutation);
+		em.persist(pjaf(natureDeplacementMutation,remboursement,fonctionnaire,avisMutation));
+		communPieceJustificativeAFournir(natureDeplacementMutation, remboursement, fonctionnaire);
+		communDDPieceJustificativeAFournir(natureDeplacementMutation);
 			
-		NatureDeplacement retraite = new NatureDeplacement(deplacementDefinitif, Code.NATURE_DEPLACEMENT_RETRAITE,"Retraite", 2);
-		em.persist(retraite);
-		em.persist(pjaf(retraite,remboursement,fonctionnaire,avisMutation));
-		communPieceJustificativeAFournir(retraite, remboursement, fonctionnaire);
-		communDDPieceJustificativeAFournir(retraite);
+		natureDeplacementDepartRetraite = creerNatureDeplacement(deplacementDefinitif,Code.NATURE_DEPLACEMENT_RETRAITE,"Départ à la retraite");
+		em.persist(natureDeplacementDepartRetraite);
+		em.persist(pjaf(natureDeplacementDepartRetraite,remboursement,fonctionnaire,avisMutation));
+		communPieceJustificativeAFournir(natureDeplacementDepartRetraite, remboursement, fonctionnaire);
+		communDDPieceJustificativeAFournir(natureDeplacementDepartRetraite);
 		
-		em.persist(mhci = new NatureDeplacement(mission, Code.NATURE_DEPLACEMENT_MISSION_HCI,"Mission Hors Côte d'Ivoire", 2));
+		em.persist(mhci = creerNatureDeplacement(mission, Code.NATURE_DEPLACEMENT_MISSION_HCI,"Mission Hors Côte d'Ivoire"));
 		em.persist(pjaf(mhci,priseEnCharge,null, com));
 		em.persist(pjaf(mhci,priseEnCharge,null, att));
 		em.persist(pjaf(mhci,priseEnCharge,null, om));
 		communPieceJustificativeAFournir(mhci, priseEnCharge, null);
 		
-		NatureDeplacement fo = new NatureDeplacement(obseque, Code.NATURE_DEPLACEMENT_OBSEQUE_FRAIS,"Frais d'obsèques", 2);
+		NatureDeplacement fo = creerNatureDeplacement(obseque, Code.NATURE_DEPLACEMENT_OBSEQUE_FRAIS,"Frais d'obsèques");
 		em.persist(fo);
 		em.persist(pjaf(fo,priseEnCharge,fonctionnaire,certdeces));
 		em.persist(pjaf(fo,priseEnCharge,fonctionnaire, extdeces));
@@ -212,7 +218,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 		communPieceJustificativeAFournir(fo, priseEnCharge, fonctionnaire);
 		
 		
-		NatureDeplacement tr = new NatureDeplacement(transit, Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES,"Transit de Bagages", 2);
+		NatureDeplacement tr =creerNatureDeplacement(transit, Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES,"Transit de Bagages");
 		em.persist(tr);
 		em.persist(pjaf(tr,priseEnCharge,fonctionnaire, attms,Boolean.TRUE));
 		em.persist(pjaf(tr,priseEnCharge,fonctionnaire, attfs,Boolean.TRUE));
@@ -221,6 +227,8 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(pjaf(tr,priseEnCharge,fonctionnaire, ccs,Boolean.TRUE));
 		em.persist(pjaf(tr,priseEnCharge,fonctionnaire, attmae,Boolean.TRUE));
 		communPieceJustificativeAFournir(tr, priseEnCharge, fonctionnaire);
+		
+		NatureDeplacement carteBusSotra =creerNatureDeplacement(sotra, Code.NATURE_DEPLACEMENT_TRANSPORT_CARTE_SOTRA,"Carte de bus SOTRA");
 		
 		CauseDeces causeDeces1 = new CauseDeces("c1", "Maladie");
 		em.persist(causeDeces1);
@@ -316,17 +324,24 @@ public class SampleDataServiceImpl implements SampleDataService {
 		inscrireAgentEtat("DZ100", "Kadi", "mariam", new Date(), new Contact("mail@yahoo.com", "123456", "01 BP Abidjan", "Rue des jardins", null), Sexe.FEMININ, 
 				situationMatrimoniale1, coteDivoire, null, null, null, null, null, ministereBudget, profession1,policier);
 		
+		/*
+		creerDelegueSotra("A905", "Zara", "Tara", dateNaiss,new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
+				coteDivoire,  a2, echelon1, position1, 2000, fonction1, ministereEconomie, profession2);
+		creerDelegueSotra("A901", "Zapa", "Tapa", dateNaiss,new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
+				coteDivoire,  a2, echelon1, position1, 2000, fonction1, ministereEconomie, profession2);
+		creerDelegueSotra("A980", "Zaka", "Taka", dateNaiss,new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
+				coteDivoire,  a2, echelon1, position1, 2000, fonction1, ministereEconomie, profession2);
+		*/
+		creerDossierDD(natureDeplacementAffectation, agentEtat2);
+		creerDossierDD(natureDeplacementAffectation, agentEtat3);
 		
-		creerDossierDD(affectation, agentEtat2);
-		creerDossierDD(affectation, agentEtat3);
-		
-		DossierDD dossierDDAff1 = creerDossierDD(affectation, agentEtat1),
-				dossierDDAff2 = creerDossierDD(affectation, agentEtat2),
-				dossierDDAff3 = creerDossierDD(affectation, agentEtat3),
-				dossierDDMut1 = creerDossierDD(mutation, agentEtat1),
-				dossierDDMut2 = creerDossierDD(mutation, agentEtat2),
-				dossierDDRet1 = creerDossierDD(retraite, agentEtat1),
-				dossierDDRet2 = creerDossierDD(retraite, agentEtat3);
+		DossierDD dossierDDAff1 = creerDossierDD(natureDeplacementAffectation, agentEtat1),
+				dossierDDAff2 = creerDossierDD(natureDeplacementAffectation, agentEtat2),
+				dossierDDAff3 = creerDossierDD(natureDeplacementAffectation, agentEtat3),
+				dossierDDMut1 = creerDossierDD(natureDeplacementMutation, agentEtat1),
+				dossierDDMut2 = creerDossierDD(natureDeplacementMutation, agentEtat2),
+				dossierDDRet1 = creerDossierDD(natureDeplacementDepartRetraite, agentEtat1),
+				dossierDDRet2 = creerDossierDD(natureDeplacementDepartRetraite, agentEtat3);
 		
 		DossierTransit dossierTransit1 = creerDossierTR(tr, agentEtat1),
 				dossierTransit2 = creerDossierTR(tr, agentEtat2),
@@ -409,6 +424,15 @@ public class SampleDataServiceImpl implements SampleDataService {
 				nationalite, new Date(),  grade, echelon, position, indice, fonction, ministere, profession, null);
 		em.persist(agentEtat);
 		return agentEtat;
+	}
+	
+	public DelegueSotra creerDelegueSotra(String matricule, String nom, String prenoms, Date dateNaissance, Contact contact, Sexe sexe, SituationMatrimoniale situationMatrimoniale, 
+			Localite nationalite, Grade grade, Echelon echelon, Position position, Integer indice, Fonction fonction, Section ministere, Profession profession){
+		DelegueSotra delegueSotra = new DelegueSotra(nextIdString(),matricule, nom, prenoms, dateNaissance, contact, sexe, situationMatrimoniale, 
+				nationalite, new Date(),  grade, echelon, position, indice, fonction, ministere, profession, null,agentEtat1,ministereBudget);
+		
+		em.persist(delegueSotra);
+		return delegueSotra;
 	}
 	
 	public InfosInscriptionPersonne creerPersonneInscription(String matricule, String nom, String prenoms, Date dateNaissance, Contact contact, Sexe sexe,  Localite nationalite, Profession profession,
@@ -516,6 +540,18 @@ public class SampleDataServiceImpl implements SampleDataService {
 		p.setDerivee(Boolean.TRUE);
 		em.persist(p = pjaf(natureDeplacement, remboursement, fonctionnaire, bonTransport));
 		p.setDerivee(Boolean.TRUE);
+	}
+	
+	private NatureDeplacement creerNatureDeplacement(CategorieDeplacement categorie,String code,String libelle){
+		NatureDeplacement natureDeplacement = new NatureDeplacement(categorie, code, libelle,0);
+		
+		try {
+			natureDeplacement.setDescription(IOUtils.toString(this.getClass().getResourceAsStream("naturedep/"+code+".html"),"UTF-8"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		em.persist(natureDeplacement);
+		return natureDeplacement;
 	}
 
 }

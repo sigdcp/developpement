@@ -6,21 +6,32 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.shiro.SecurityUtils;
-import org.omnifaces.util.Faces;
-
-import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
+import lombok.Getter;
+import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractFormUIController;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
+import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.service.identification.CompteUtilisateurService;
+import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
 @Named @RequestScoped
-public class LogoutController extends AbstractFormUIController<CompteUtilisateur> implements Serializable {
+public class RecupererCompteController extends AbstractFormUIController<CompteUtilisateur> implements Serializable {
  
 	private static final long serialVersionUID = 6591392098578555259L;
 	
+	/*
+	 * Services
+	 */
 	@Inject private CompteUtilisateurService compteUtilisateurService;
-	@Inject UserSessionManager userSessionManager;
+	
+
+	/*
+	 * Dtos
+	 */
+	
+	@Getter private CompteUtilisateur compteUtilisateur = new CompteUtilisateur();
+	@Getter @Setter private Boolean remember = Boolean.FALSE;
+	@Getter @Setter private String matricule;
 	
 	@Override
 	protected InitWhen initWhen() {
@@ -29,18 +40,24 @@ public class LogoutController extends AbstractFormUIController<CompteUtilisateur
 	
 	@Override
 	protected void initialisation() {
+		crudType = CRUDType.CREATE;
 		super.initialisation();
-		defaultSubmitCommand.setValue("bouton.sedeconnecter");
-		defaultSubmitCommand.setSuccessOutcome("index");
+		title = "Récupérer mot de passe oublié";
+		defaultSubmitCommand.setValue(text("bouton.valider"));
+		compteUtilisateur.setPersonne(new Personne());
+		
 	}
 	
 	@Override
 	protected void onDefaultSubmitAction() {
-		compteUtilisateurService.deconnecter(userSessionManager.getCompte());
-		 SecurityUtils.getSubject().logout();
-	     Faces.invalidateSession();
+		
+	}
+	
+	@Override
+	public CompteUtilisateur getDto() {
+		return compteUtilisateur;
 	}
 	
 	
-
+	
 }

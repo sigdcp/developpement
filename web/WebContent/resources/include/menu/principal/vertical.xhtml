@@ -23,10 +23,18 @@
 					}
 		</style>
 		
-		<h:form>
-			<p:slideMenu  style="width:auto;">
+		<h:form rendered="#{not empty request.remoteUser}">
+			
+			<p:slideMenu model="#{menuModel}" backLabel="#{constantResources.text('menu.bouton.back')}" />
+			
+			
+			
+			<!--p:slideMenu  style="width:auto;">
 				<ui:include src="/resources/include/menu/principal/contenu.xhtml"></ui:include>
-			</p:slideMenu>
+			</p:slideMenu-->
+		
+			
+			
 			<!-- <p:menu  style="width:auto;margin:5px 5px 15px 5px;padding:0">
 				<ui:include src="/resources/include/menu/principal/mnu_saisiedemande.xhtml"></ui:include>
 			</p:menu>

@@ -13,25 +13,29 @@
 			<h:form prependId="false">
 				<div style="padding-bottom:10px;">
 				<!-- <div  style="padding-bottom:10px;height: 700px;"> -->
-				
+					
 					<p:panel header="Espace Fonctionnaire/Agent de l'Etat"> 
 			  		
 				  		<p:outputPanel rendered="#{empty request.remoteUser}">
 					  		<p:messages globalOnly="true" autoUpdate="true"/>
-						
+							
 							<h:panelGrid columns="2" cellpadding="5" style="margin:auto">
+								<h:outputText value="" /><p:message for="username" />
 								<p:outputLabel for="username" value="Nom d'utilisateur" />	
 								<p:inputText id="username" value="#{loginController.dto.username}" required="true" requiredMessage="Saisissez votre Nom d'utilisateur" />
 								
+								<h:outputText value="" /><p:message for="password" />
 								<p:outputLabel for="password" value="Mot de passe" />
 								<p:password id="password" value="#{loginController.dto.password}" required="true" requiredMessage="Saisissez votre Vot de passe" />
 							</h:panelGrid>
 							<br/>
 							<center>
-								<p:commandButton value="Connexion" action="#{loginController.defaultSubmitAction.execute}" icon="ui-icon-check" style="width:200px;text-align:center" update="@form" />
+								<p:commandButton value="Connexion" action="#{loginController.defaultSubmitCommand.execute}" icon="ui-icon-check" style="width:200px;text-align:center" update="@form" />
 							
 						  		<br/><br/>
-						  		<p:commandLink value="Mot de passe oublié ? Cliquez ici!"  action="/public/recupererMotDePasseForm.xhtml" immediate="true"  />
+						  		<h:link outcome="/public/recupererMotDePasseForm.xhtml" >
+						  			Mot de passe oublié ? Cliquez ici!
+						  		</h:link>
 						  		<br/>
 					  		</center>
 					  		</p:outputPanel> 

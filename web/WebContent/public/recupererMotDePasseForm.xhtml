@@ -59,28 +59,28 @@ var i;
 });
 			
 </h:outputScript>
-			<h:form id="coordonnees" onsubmit="envoiForm(event);">
-			<div  style="padding-bottom:10px;padding-top:50px;width:40%;margin:auto">
-				<p:panel header="Récupérer Mot de passe oublié">
-					
+
+
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{recupererCompteController}" />
+				<ui:define name="contenu">	
 					<h:panelGrid columns="3" cellpadding="5" style="margin:auto">
 						<p:outputLabel for="matricule" value="Matricule" />	
-						<p:inputText id="matricule" value="#{connexionFormController.matricule}" required="true" requiredMessage="Saisissez votre matricule" />
+						<p:inputText id="matricule" value="#{recupererCompteController.matricule}" required="true" requiredMessage="Saisissez votre matricule" />
 						 <p:message for="matricule"/>
 						 
 						<p:outputLabel for="email" value="E-mail" />
-						<p:inputText id="email" value="#{connexionFormController.email}" required="true" requiredMessage="Saisissez votre E-mail" />
+						<p:inputText id="email" value="#{recupererCompteController.compteUtilisateur.personne.contact.email}" required="true" requiredMessage="Saisissez votre E-mail" />
 						<p:message for="email"/>
 						
-					</h:panelGrid><br/>
-					<center>
-						<p:commandButton value="Valider" icon="ui-icon-check" action="recupererMotDePasseSucces" ajax="false" style="text-align:center" />
-					</center>
-			  		<br/>
-			  		</p:panel>
-			</div>			
+					</h:panelGrid>
+				</ui:define>
+					
+			</ui:decorate>
+
 			
-			</h:form>
+			
+			
 			</ui:define>
 			
 			

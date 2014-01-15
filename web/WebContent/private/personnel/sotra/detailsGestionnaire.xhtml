@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>	           
+	    	<f:event type="preRenderView" listener="#{detailsGestionnaireFormController.preRenderView}" /> 
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{detailsGestionnaireFormController}" />
+				<ui:define name="contenu">	
+				
+				 	<p:fieldset legend="Gestionnaire">
+				 	  <p:panelGrid columns="4" styleClass="panelGridNoBorder">  
+				     	 <h:outputText   value =" #{constantResources.text('matricule')}"  />
+				     	  <h:outputText  value="" />
+				    	   <h:outputText   value =" #{constantResources.text('nomprenoms')} "  />
+		 			 	 <h:outputText  value="" />
+				        <h:outputText   value =" #{constantResources.text('service')}"  />
+		 			 	 <h:outputText  value="" />
+				 	     <h:outputText   value =" #{constantResources.text('ministere')}"  />
+		 			 	 <h:outputText  value="" />
+				        <h:outputText   value =" #{constantResources.text('code')} "  />
+		 			 	 <h:outputText  value="" />
+				       
+				        </p:panelGrid>  
+				 	</p:fieldset>
+				 	<br/>
+				 	
+					<p:fieldset legend="Service d'accueil">
+				 	 <p:panelGrid columns="4" styleClass="panelGridNoBorder" > 
+				 	     <h:outputText value="#{constantResources.text('libelle')} " /> 
+				     	 <h:outputText value =""  />
+				     	
+				    	 <h:outputText value="#{constantResources.text('sigle')}" /> 
+				     	 <h:outputText   value ="" />
+				     
+				     	 
+				    	 <h:outputText value="#{constantResources.text('ministere')} " /> 
+				     	 <h:outputText value =""  />
+				     	
+				   		    	  
+				        </p:panelGrid> 
+				        
+				       
+				 	</p:fieldset>
+				 	<br/>
+				 	
+				 	<p:fieldset legend="Intérimaire">
+				 	 <p:panelGrid columns="4" styleClass="panelGridNoBorder" > 
+				 	    <h:outputText   value="#{constantResources.text('matricule')}" /> 
+				 	    <h:outputText   value ="" />
+				     
+				    	
+				    			    	
+				    	<h:outputText value="#{constantResources.text('nomprenoms')} " /> 
+				     	<h:outputText   value =""  />
+				     
+				     	 
+				     	 <h:outputText   value ="#{constantResources.text('serviceorigine')}"  />
+		 			 	 <h:outputText  value="" />
+		 			 
+		 			 	 
+				    	<h:outputText value="#{constantResources.text('ministereorigine')} " /> 
+				     	 <h:outputText   value =""  />
+				    
+				   		    	  
+				        </p:panelGrid> 
+				 	
+				 	</p:fieldset>
+				 	<br/>
+				 	
+				 	<p:commandButton value ="#{constantResources.text('afficherpieces')}"> </p:commandButton>
+				 	<br/>
+				  <p:selectOneRadio id="options">  
+                 	 <f:selectItem itemLabel="#{constantResources.text('accepter')}" itemValue="1" />  
+            <f:selectItem itemLabel="#{constantResources.text('refuser')}" itemValue="2" />  
+           
+        </p:selectOneRadio>  
+  
+				 
+							
+				</ui:define>
+				
+				<!-- <ui:define name="actions">
+					
+					<ui:include src="/resources/include/component/formCommand.xhtml" >
+						<ui:param name="command" value="#{enregistrerDemandeMHCIFormController.enregistrerCommand}" />
+					</ui:include>
+					
+				</ui:define> -->
+				
+			</ui:decorate>
+				
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

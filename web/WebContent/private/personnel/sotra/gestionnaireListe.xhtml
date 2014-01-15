@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam id="nextViewOutcome" name="#{webConstantResources.requestParamNextViewOutcome}" value="#{validationGestionnaireListeController.nextViewOutcome}" converter="#{viewParamOutcomeConverter}" >
+				<f:attribute name="#{webConstantResources.requestParamOutcomeAction}" value="false" />
+			</f:viewParam>
+        	<f:event type="preRenderView" listener="#{gestionnaireListeController.preRenderView}" />    	
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+	<ui:param name="uiController" value="#{gestionnaireListeController}" />
+	
+		<ui:define name="contenu">			
+		
+			<ui:decorate template="/template/formTemplate.xhtml"> 
+				<ui:param name="uiController" value="#{gestionnaireListeController}" />
+				<ui:define name="contenu">	
+
+					<ui:decorate template="/template/dataList.xhtml">					
+					<ui:param name="controller" value="#{gestionnaireListeController}" />
+					
+					<!-- Debut contenu -->
+					
+					<ui:define name="criteresrecherche">
+						<p:panelGrid columns="4" styleClass="panelGridNoBorder">
+						
+							<p:outputLabel value="#{constantResources.text('datedebut')}" />
+							<p:calendar pattern="#{constantResources.datePattern}"/>
+							
+							<p:outputLabel value="#{constantResources.text('datefin')}" />
+							<p:calendar  pattern="#{constantResources.datePattern}"/>
+																
+							</p:panelGrid>			
+					</ui:define>
+					
+					<ui:define name="colonnes">
+						<p:column headerText="#{constantResources.text('matricule')}" ><h:outputText value="" /></p:column>
+						<p:column headerText="#{constantResources.text('nomprenoms')}" ><h:outputText value="" /></p:column>
+						<p:column headerText="#{constantResources.text('service')}" ><h:outputText value=""/></p:column>
+						<p:column headerText="#{constantResources.text('ministereorigine')}" ><h:outputText value=""/></p:column>
+						<p:column headerText="#{constantResources.text('serviceagerer')}" ><h:outputText value=""/></p:column>
+						<p:column headerText="#{constantResources.text('ministere')}" ><h:outputText value=""/></p:column>
+						<p:column headerText="#{constantResources.text('dateinscription')}" ><h:outputText value="" /></p:column>
+						<p:column headerText="#{constantResources.text('datevalidation')}" ><h:outputText value="" /></p:column>
+					</ui:define>
+					<!--  le bouton details affiche detailsGestionnaire.xhtml sans les boutons accepter et refuser -->
+					<!-- Fin contenu -->
+					
+				</ui:decorate>	
+				</ui:define>
+			</ui:decorate>
+			
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

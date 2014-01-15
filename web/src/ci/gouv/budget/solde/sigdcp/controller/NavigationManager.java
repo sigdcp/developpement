@@ -39,6 +39,7 @@ public class NavigationManager implements Serializable {
 	public String url(/*FacesContext facesContext,*/String id,Object[] parameters,Boolean actionOutcome){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		NavigationCase navigationCase = ((ConfigurableNavigationHandler)facesContext.getApplication().getNavigationHandler()).getNavigationCase(facesContext, null, id);
+		//System.out.println(id+" / "+navigationCase);
 		String s = navigationCase.getToViewId(facesContext);
 		StringBuilder url;
 		if(Boolean.TRUE.equals(actionOutcome))
@@ -49,7 +50,7 @@ public class NavigationManager implements Serializable {
 		if(Boolean.TRUE.equals(actionOutcome))
 	    	addParameter(url, QUERY_PARAMETER_FACES_REDIRECT_NAME, navigationCase.isRedirect());
 	    if(parameters!=null && parameters.length>0){
-	    	for(int i=0;i<parameters.length-1;i++)
+	    	for(int i=0;i<parameters.length-1;i=i+2)
 				addParameter(url, (String) parameters[i], parameters[i+1]);
 	    }
 		return url.toString();

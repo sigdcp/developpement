@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<h:form rendered="true">
+
+		<p:panel header="LES DEPENSES PRISES EN CHARGE PAR LE SIGDCP"
+			style="width:100%">
+			<p:accordionPanel rendered="true" activeIndex="#{index}">
+				<p:tab title="AFFECTATION">
+
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt;width:400px;">
+						C'est le déplacement effectué par un fonctionnaire ou un agent de l'Etat lors de sa première prise de service au lieu de son affectation.<br /> L'affectation donne droit à une indemnité qui est fonction de la catégorie, du grade, du sexe, de la situation matrimoniale et du nombre d'enfant de l'intéressé.<br /> Elle tient compte également de distance parcourue.
+					</p>
+					<div style="text-align: right; margin: 25px">
+						<p:button styleClass="orange" icon="ui-icon-search"
+							outcome="/public/affectation.xhtml" value="Lire plus" />
+					</div>
+				</p:tab>
+				<p:tab title="MUTATION">
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt;width:400px;">
+						C'est le déplacement effectué par un fonctionnaire ou un agent de l'Etat pour un changement de résidence pour se rendre du lieu de l'ancienne résidence au lieu de la nouvelle. La mutation donne droit à une indemnité qui est fonction de la catégorie, du grade, du sexe, de la situation matrimoniale et du nombre d'enfant de l'intéressé.<br /> Elle tient compte également de distance parcourue.
+					</p>
+
+					<div style="text-align: right; margin: 25px">
+						<p:button styleClass="orange" icon="ui-icon-search"
+							outcome="/public/mutation.xhtml" value="Lire plus..." />
+					</div>
+				</p:tab>
+				<p:tab title="DEPART A LA RETRAITE">
+
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt;width:400px;">
+						Ce déplacement concerne les fonctionnaires et agents de l’Etat qui cessent définitivement leurs fonctions pour un motif autre que la revocation, pour se rendre du lieu de la dernière affectation au lieu où  il  a déclaré vouloir  se  retirer sur le territoire de la République.
+					</p>
+
+					<div style="text-align: right; margin: 25px">
+						<p:button styleClass="orange" icon="ui-icon-search"
+							outcome="/public/retraite.xhtml" value="Lire plus..." />
+					</div>
+				</p:tab>
+				<p:tab title="FRAIS D'OBSEQUE">
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt;width:400px;">
+						Les frais engendrés par les obsèques d’un fonctionnaire ou d’un	agent de l’Etat en activité sont à la charge de l’Etat de Côte d’Ivoire. La prise en charge funéraire couvre les frais de transport du corps et l’acquisition du cercueil selon un barème indiciaire. 
+					</p>
+
+					<div style="text-align: right; margin: 25px">
+						<p:button styleClass="orange" icon="ui-icon-search"
+							outcome="/public/obseque.xhtml" value="Lire plus..." />
+					</div>
+				</p:tab>
+				<p:tab title="MISSION HORS CÔTE D'IVOIRE">
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt;width:400px;">
+					Le Service Mission Hors Côte d'Ivoire de la Direction de la Solde a en charge la gestion de toutes les missions des Fonctionnaires et Agents de l'Etat (hormis celle des E.P.N et des Projets) en vue de leur délivrer des titres de transport (billet d'avion) et indemnités de mission. Il en est de même des stages de formation à l'extérieur et des départs en congés des expatriés pour le paiement des billets d'avion. 
+					</p>
+
+					<div style="text-align: right; margin: 25px">
+						<p:button styleClass="orange" icon="ui-icon-search"
+							outcome="/public/mission.xhtml" value="Lire plus..." />
+					</div>
+				</p:tab>
+				<p:tab title="TRANSIT DES BAGGAGES">
+
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt;width:400px;">
+					Le transit concerne les frais engendrés par le retour de stage et l'affectation (rappel des fonctionnaires du Ministère des Affaires Etrangères) d'un fonctionnaire ou d'un agent de l'Etat.<br /> Ces frais sont pris en charge par l'Etat de Côte d'Ivoire par l'intermédiaire de la Direction de la Solde.
+					</p>
+
+					<div style="text-align: right; margin: 25px">
+						<p:button styleClass="orange" icon="ui-icon-search"
+							outcome="/public/transit.xhtml" value="Lire plus..." />
+					</div>
+				</p:tab>
+				<p:tab title="CARTE SOTRA">
+
+					<p style="text-align: justify; line-height: 22px; font-size: 9pt;width:400px;">
+					Le service Sotre de la Direction de la solde a en charge la gestion de cartes de bus des fonctionnaires et agents de l'Administrations Publique travaillant dans le District d'Abidjan, en vue de leur délivrer les cartes de bus de la sotra.<br />Cependant, les bénéficiaires doivent satisfaire certaines conditions:
+					</p>
+					
+					<div style="text-align: right; margin: 25px">
+						<p:button styleClass="orange" icon="ui-icon-search"
+							outcome="/public/sotra.xhtml" value="Lire plus..." />
+					</div>
+					
+				</p:tab>
+			</p:accordionPanel>
+
+		</p:panel>
+
+	</h:form>
+
+
+</h:body>
+
+</html>

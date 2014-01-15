@@ -5,10 +5,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
 
 <h:body>
-
+	<o:importConstants type="ci.gouv.budget.solde.sigdcp.model.Code" />
 	<p:panel header="A PROPOS DU SIGDCP" style="width:100%">
 		<p style="text-align: justify; line-height: 22px; font-size: 9pt">
 		Le Système Intégré de Gestion des Dépenses Communes du Personnel (SIGDCP) est une application mise en place pour gérer les dépenses effectuées par les fonctionnaires et agents de l'Etat lors de leurs différents déplacements à l'intérieur (déplacements définitifs) et à l'extérieur de la Côte d'Ivoire (Missions hors Côte d'Ivoire et transits).<br/>
@@ -22,9 +23,39 @@
 	</p:panel>
 
 	<br />
+	
+	<h:form>
+	<p:accordionPanel value="#{publicHomeController.serviceProposeDtos}" var="serviceDto">
+			<p:tab title="#{serviceDto.title}">
+				<p style="text-align: justify; line-height: 22px; font-size: 9pt"><h:outputText value="#{serviceDto.descriptionApercu}" escape="false"/></p>
+						
+				<div style="text-align: right; margin: 25px">
+					<p:button icon="ui-icon-search" outcome="naturedepinfos" value="Lire plus" >
+						<f:param name="#{serviceDto.lirePlusRequestParamName}" value="#{serviceDto.lirePlusRequestParamValue}"/>
+					</p:button>
+				</div>
+				<p:separator />
+				<div style="text-align: center;">
+					<p:button value="Dépôt de dossier" icon="ui-icon-check" outcome="demandeliste" rendered="#{serviceDto.showDepotDossierButton}">
+						<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+					</p:button>
 
-	<h:form rendered="true">
+					<p:button value="Ouverture de compte" icon="ui-icon-check" outcome="inscriptionpersonne" rendered="#{serviceDto.showSouscrireButton and empty request.remoteUser}">
+						<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+					</p:button>
+					<p:button value="Cliquer ici pour solliciter ce service"  outcome="#{serviceDto.outcome}" icon="ui-icon-check" style="text-align:center" rendered="#{serviceDto.showSolliciterButton}">
+						<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="#{serviceDto.natureDeplacement.code}" />
+						<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+					</p:button>
+				</div>				
+			</p:tab>
+		</p:accordionPanel>
+	</h:form>
 
+	<h:form rendered="false" >
+		
+		
+		
 		<p:panel header="LES DEPENSES PRISES EN CHARGE PAR LE SIGDCP"
 			style="width:100%">
 			<p:accordionPanel rendered="true">
@@ -33,9 +64,12 @@
 					<p style="text-align: justify; line-height: 22px; font-size: 9pt">
 						C'est le déplacement effectué par un fonctionnaire ou un agent de l'Etat lors de sa première prise de service au lieu de son affectation.<br /> L'affectation donne droit à une indemnité qui est fonction de la catégorie, du grade, du sexe, de la situation matrimoniale et du nombre d'enfant de l'intéressé.<br /> Elle tient compte également de la distance parcourue.
 					</p>
+					
+
 					<div style="text-align: right; margin: 25px">
-						<p:button icon="ui-icon-search"
-							outcome="/public/affectation.xhtml" value="Lire plus" />
+						<p:button icon="ui-icon-search" outcome="naturedepinfos" value="Lire plus" >
+							<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="#{Code.NATURE_DEPLACEMENT_AFFECTATION}"/>
+						</p:button>
 					</div>
 					<p:separator />
 					<div style="text-align: center;">

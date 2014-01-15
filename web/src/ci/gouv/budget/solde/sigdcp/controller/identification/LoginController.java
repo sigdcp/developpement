@@ -36,7 +36,7 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
 	 * Dtos
 	 */
 	
-	
+	@Getter private Credentials credentials = new Credentials();
 	@Getter @Setter private Boolean remember = Boolean.FALSE;
 	@Getter @Setter private String matricule;
 	@Getter @Setter private String email;
@@ -50,6 +50,7 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
 	protected void initialisation() {
 		super.initialisation();
 		defaultSubmitCommand.setValue("bouton.seconnecter");
+		
 	}
 	
 	@Override
@@ -63,6 +64,11 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
         catch (Exception e) {
         	throw new RuntimeException("Utilisateur inconnu");
         }
+	}
+	
+	@Override
+	public Credentials getDto() {
+		return credentials;
 	}
 	
 }

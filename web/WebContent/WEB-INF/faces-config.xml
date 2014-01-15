@@ -8,6 +8,30 @@
    <to-view-id>/private/espacePrive.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
+  
+  
+
+   <navigation-case>
+   <from-outcome>inscriregestionairecartesotra</from-outcome>
+   <to-view-id>/private/demande/gestionnairecartesotra.xhtml</to-view-id>
+  </navigation-case>
+  
+     <navigation-case>
+   <from-outcome>validergestionairecartesotra</from-outcome>
+   <to-view-id>/private/personnel/sotra/validationGestionnaireListe.xhtml</to-view-id>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>login</from-outcome>
+   <to-view-id>/public/login.xhtml</to-view-id>
+  </navigation-case>
+
+  <navigation-case>
+   <from-outcome>naturedepinfos</from-outcome>
+   <to-view-id>/public/naturedeplacement.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>  
+  
   <navigation-case>
    <from-outcome>dossierliste</from-outcome>
    <to-view-id>/private/personnel/dossier/liste.xhtml</to-view-id>

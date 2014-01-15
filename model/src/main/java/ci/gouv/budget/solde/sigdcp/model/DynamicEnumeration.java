@@ -32,11 +32,20 @@ public class DynamicEnumeration  extends AbstractModel<String>  implements Seria
 	
 	protected String libelle;
 	
-	@Column(length=1 * 1024)
+	@Column(length=10 * 1024)
 	private String description;
+	
+	private Integer shortDescriptionBenginIndex,shortDescriptionEndIndex;
 	
 	public DynamicEnumeration() {}
 
+	public DynamicEnumeration(String code, String libelle, String description) {
+		super();
+		this.code = code;
+		this.libelle = libelle;
+		this.description = description;
+	}
+	
 	public DynamicEnumeration(String code, String libelle) {
 		this(code,libelle,null);
 	}
@@ -70,6 +79,10 @@ public class DynamicEnumeration  extends AbstractModel<String>  implements Seria
 	public String toString() {
 		return libelle;
 	}
+
+
+
+
 
 
 
