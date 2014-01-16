@@ -18,7 +18,7 @@ import ci.gouv.budget.solde.sigdcp.model.calendrier.CalendrierMission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
-import ci.gouv.budget.solde.sigdcp.model.identification.Inscription;
+import ci.gouv.budget.solde.sigdcp.model.identification.Souscription;
 import ci.gouv.budget.solde.sigdcp.model.prestation.Facture;
 import ci.gouv.budget.solde.sigdcp.service.GenericService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
@@ -62,9 +62,9 @@ public class WebConstantResources implements Serializable{
 		return new ViewParamConverter(genericService, Facture.class);
 	}
 	
-	@Getter private final String requestParamInscription = "insid";
-	@Produces @Named public ViewParamConverter getViewParamInscriptionConverter(){
-		return new ViewParamConverter(genericService, Inscription.class);
+	@Getter private final String requestParamSouscription = "sousid";
+	@Produces @Named public ViewParamConverter getViewParamSouscriptionConverter(){
+		return new ViewParamConverter(genericService, Souscription.class);
 	}
 	
 	@Getter private final String requestParamCrudType = "ct";

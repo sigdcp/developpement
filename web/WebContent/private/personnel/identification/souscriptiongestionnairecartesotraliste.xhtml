@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam id="nextViewOutcome" name="#{webConstantResources.requestParamNextViewOutcome}" value="#{souscriptionGestionnaireCarteSotraListeController.nextViewOutcome}" converter="#{viewParamOutcomeConverter}" >
+				<f:attribute name="#{webConstantResources.requestParamOutcomeAction}" value="false" />
+			</f:viewParam>
+        	<f:event type="preRenderView" listener="#{souscriptionGestionnaireCarteSotraListeController.preRenderView}" />    	
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">			
+		
+			<ui:decorate template="/template/formTemplate.xhtml"> 
+				<ui:param name="uiController" value="#{souscriptionGestionnaireCarteSotraListeController}" />
+				<ui:define name="contenu">	
+					<ui:decorate template="/template/dataList.xhtml">					
+						<ui:param name="controller" value="#{souscriptionGestionnaireCarteSotraListeController}" />
+						<ui:define name="colonnes">
+							<p:column headerText="#{constantResources.text('matricule')}" ><h:outputText value="#{record.gestionnaire.matricule}" /></p:column>
+							<p:column headerText="#{constantResources.text('nomprenoms')}" ><h:outputText value="#{record.gestionnaire.nomPrenoms}" /></p:column>
+							
+							<p:column headerText="#{constantResources.text('service')}" ><h:outputText value="#{record.gestionnaire.section}"/></p:column>
+							<p:column headerText="#{constantResources.text('ministereorigine')}" ><h:outputText value="#{record.gestionnaire.section.parent}"/></p:column>
+							
+							<p:column headerText="#{constantResources.text('serviceagerer')}" ><h:outputText value="#{record.nomSectionAGerer}"/></p:column>
+							<p:column headerText="#{constantResources.text('ministere')}" ><h:outputText value="#{record.ministere}"/></p:column>
+							
+						</ui:define>
+						
+					</ui:decorate>	
+				</ui:define>
+			</ui:decorate>
+			
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

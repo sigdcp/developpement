@@ -27,7 +27,7 @@ public class Section  extends DynamicEnumeration  implements Serializable{
 	private TypeSection type;
 	
 	@ManyToOne
-	Section parent;
+	private Section parent;
 	
 	public Section() {}
 

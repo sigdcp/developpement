@@ -30,17 +30,17 @@
 			<p:selectOneRadio id="questionAgent" value="#{personneDto.agentEtat}" required="true"  requiredMessage="#{valueRequiredMessage}" rendered="#{questionAgentEtat}">
 				<f:selectItem itemValue="true" itemLabel="Oui"/>
 				<f:selectItem itemValue="false" itemLabel="Non"/>
-				<p:ajax event="click" update="@parent" />
+				<p:ajax event="click" update="@parent" /> 
 			</p:selectOneRadio>
 			<p:message for="questionAgent" rendered="#{questionAgentEtat}"/>
 						
 			<p:outputLabel for="typePersonne" value="Type d'agent " rendered="#{personneDto.agentEtat}"/>
-			<p:selectOneMenu id="typePersonne" value="#{personneDto.personne.type}" required="true" requiredMessage="#{valueRequiredMessage}" 
+			<p:selectOneMenu id="typePersonne" value="#{personneDto.infosSouscriptionComptePersonne.type}" required="true" requiredMessage="#{valueRequiredMessage}" 
 				converter="#{objectConverter}" rendered="#{personneDto.editable and personneDto.agentEtat}">
 				<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 				<f:selectItems value="#{typeAgentEtats}" var="typeAgentEtat" itemLabel="#{typeAgentEtat.libelle}" />
 			</p:selectOneMenu>
-			<h:outputText value="#{personneDto.personne.type}" rendered="#{not personneDto.editable}"/>
+			<h:outputText value="#{personneDto.infosSouscriptionComptePersonne.type}" rendered="#{not personneDto.editable}"/>
 			<p:message for="typePersonne" rendered="#{personneDto.editable and personneDto.agentEtat}"/>
 			
 			<p:outputLabel for="matricule" value="Matricule" rendered="#{personneDto.agentEtat}" />
@@ -48,9 +48,9 @@
 			<p:inputMask id="matricule" value="#{personneDto.personne.matricule}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.agentEtat}" 
 				mask="#{webConstantResources.inputMatriculePattern}"/>
 				-->
-			<p:inputText id="matricule" value="#{personneDto.personne.matricule}" required="true" requiredMessage="#{valueRequiredMessage}" 
+			<p:inputText id="matricule" value="#{personneDto.infosSouscriptionComptePersonne.matricule}" required="true" requiredMessage="#{valueRequiredMessage}" 
 				rendered="#{personneDto.editable and personneDto.agentEtat}"/>
-			<h:outputText value="#{personneDto.personne.matricule}" rendered="#{not personneDto.editable}"/>
+			<h:outputText value="#{personneDto.infosSouscriptionComptePersonne.matricule}" rendered="#{not personneDto.editable}"/>
 			<p:message for="matricule" rendered="#{personneDto.editable and personneDto.agentEtat}" />
 			
 			<p:outputLabel for="nom#{iid}" value="Nom" />

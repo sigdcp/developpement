@@ -22,6 +22,8 @@ public class PieceJustificativeUploader implements Serializable {
 	@Setter @Getter protected PieceJustificative pieceJustificativeSelectionne;
 	@Getter private List<PieceJustificativeDTO> collection = new LinkedList<>();
 	
+	@Getter @Setter private Boolean showInputs=Boolean.TRUE;
+	
 	/*
 	public PieceJustificativeUploader(List<PieceJustificative> pieces) {
 		super();

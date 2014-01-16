@@ -24,7 +24,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Getter @Setter 
-@Entity
+@Entity //TODO rename it to Compte
 public class CompteUtilisateur  extends AbstractModel<Long>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;

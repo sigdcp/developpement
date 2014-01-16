@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+
+
+	<ui:composition>
+
+		<ui:include src="/identification/include/outputAgentEtat.xhtml" >
+			<ui:param name="agentEtat" value="#{userSessionManager.user}" />
+			<ui:param name="columnCount" value="6" />
+		</ui:include>
+		<br/>
+		<p:fieldset legend="Service à gérer">
+			<p:panelGrid columns="9" styleClass="panelGridNoBorder">
+				<p:outputLabel for="libelle" value="Libellé: " />
+				<p:inputText id="libelle" required="true" value="" requiredMessage="#{valueRequiredMessage}" rendered="#{controller.editable}"/>
+				<p:message for="libelle" rendered="#{controller.editable}"/>
+
+				<p:outputLabel for="sigle" value="Sigle: " />
+				<p:inputText id="sigle" required="true" value="" requiredMessage="#{valueRequiredMessage}" rendered="#{controller.editable}"/>
+				<p:message for="sigle" rendered="#{controller.editable}"/>
+
+				<p:outputLabel for="ministere" value="Ministere" rendered="#{profession==null or profession}" />
+				<p:selectOneMenu id="ministere" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{controller.editable}">
+					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}" />
+					<f:selectItems value="#{ministeres}" />
+				</p:selectOneMenu>
+				<h:outputText value="#{personneDto.personne.profession}" rendered="#{not controller.editable}" />
+				<p:message for="ministere" rendered="#{controller.editable}" />
+
+			</p:panelGrid>
+
+
+		</p:fieldset>
+		<br/>
+
+		<p:fieldset legend="Intérimaire">
+			<p:panelGrid columns="9" styleClass="panelGridNoBorder">
+				<p:outputLabel for="matricule" value="Matricule: " />
+				<p:inputText id="matricule" required="true" value="" requiredMessage="#{valueRequiredMessage}" rendered="#{controller.editable}"/>
+				<p:message for="matricule" rendered="#{controller.editable}"/>
+
+				<h:outputText value="Nom et prénoms: " />
+				<h:outputText value="" />
+			
+
+				<h:outputText value="Service :" />
+				<h:outputText value="" />
+				
+
+				<h:outputText value="Ministère: " />
+				<h:outputText value="" />
+				
+
+			</p:panelGrid>
+
+		</p:fieldset>
+		
+		<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml"/>
+		
+		<!--
+		<br/>
+	 	<p:fieldset legend="Joindre fichiers">
+	 		<p:panelGrid columns="3" styleClass="panelGridNoBorder" > 
+			<p:outputLabel for="piece" value ="Pièce d'identité" />
+		<p:fileUpload id="piece" required="true" requiredMessage="#{valueRequiredMessage}"  mode="simple"/>
+		 <p:message for="piece"/>
+		<p:outputLabel for="decret" value ="Décret de création du service" />
+		<p:fileUpload id="decret" required="true" requiredMessage="#{valueRequiredMessage}"  mode="simple"/>
+		 <p:message for="decret"/>
+		<p:outputLabel for="noteserv" value ="Note de service" />
+		<p:fileUpload id="noteserv" required="true" requiredMessage="#{valueRequiredMessage}"  mode="simple"/>
+		 <p:message for="noteserv"/>
+		 
+		</p:panelGrid>
+		</p:fieldset>
+		-->
+
+	</ui:composition>
+</body>
+</html>

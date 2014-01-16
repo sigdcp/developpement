@@ -10,28 +10,27 @@
 <h:body>
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewParam name="#{webConstantResources.requestParamPreviousURL}" value="#{validationRecevabiliteDossierDDController.previousPath}" />    
-        	<ui:include src="/dossier/include/viewParam.xhtml">
-        		<ui:param name="controller" value="#{validationRecevabiliteDossierDDController}"/>
-        	</ui:include>	
+			<f:viewParam name="#{webConstantResources.requestParamSouscription}" value="#{validationSouscriptionGestionnaireCarteSotraController.entity}" converter="#{viewParamSouscriptionConverter}"/>
+			<f:event listener="#{validationSouscriptionGestionnaireCarteSotraController.preRenderView}" type="preRenderView" />
     	</f:metadata>
 	</ui:define>	
 		
 	<ui:composition template="/template/commun.xhtml">
 		<ui:define name="contenu">
 			<ui:decorate template="/template/formTemplate.xhtml">
-				<ui:param name="uiController" value="#{validationRecevabiliteDossierDDController}" />
+				<ui:param name="uiController" value="#{validationSouscriptionGestionnaireCarteSotraController}" />
 				<ui:define name="contenu">	
 					
-					<ui:include src="/dossier/include/formDossierDD.xhtml" >
-						<ui:param name="controller" value="#{validationRecevabiliteDossierDDController}"/>
+					<ui:include src="/identification/include/souscriptionGestionnaireCarteSotraForm.xhtml" >
+						<ui:param name="controller" value="#{validationSouscriptionGestionnaireCarteSotraController}"/>
 					</ui:include>
 					
 					<p:spacer height="5"/>
 					
 					<ui:include src="/resources/include/component/validation.xhtml" >
-						<ui:param name="dto" value="#{validationRecevabiliteDossierDDController.validationDto}"/>
+						<ui:param name="dto" value="#{validationSouscriptionGestionnaireCarteSotraController.validationDto}"/>
 					</ui:include>
+
 				</ui:define>
 				
 			</ui:decorate>

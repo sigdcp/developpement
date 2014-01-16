@@ -4,14 +4,15 @@ import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.model.identification.InfosInscriptionPersonne;
+import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
+import ci.gouv.budget.solde.sigdcp.model.identification.souscription.InfosSouscriptionComptePersonne;
 
 public class IdentitePersonneDTO implements Serializable {
 
 	private static final long serialVersionUID = 1673292991759713069L;
 	
 	@Getter
-	private InfosInscriptionPersonne personne;
+	private InfosSouscriptionComptePersonne infosSouscriptionComptePersonne;
 	
 	@Getter @Setter
 	private Boolean agentEtat,editable;
@@ -19,19 +20,24 @@ public class IdentitePersonneDTO implements Serializable {
 	@Getter @Setter
 	private String tp;
 
-	public IdentitePersonneDTO(InfosInscriptionPersonne personne) {
+	public IdentitePersonneDTO(Boolean editable,InfosSouscriptionComptePersonne infosSouscriptionComptePersonne) {
 		super();
-		this.personne = personne;
+		this.editable=editable;
+		this.infosSouscriptionComptePersonne = infosSouscriptionComptePersonne;
 	}
 
-	public IdentitePersonneDTO(InfosInscriptionPersonne personne,Boolean agentEtat) {
+	public IdentitePersonneDTO(Boolean editable,InfosSouscriptionComptePersonne infosSouscriptionComptePersonne,Boolean agentEtat) {
 		super();
-		this.personne = personne;
+		this.editable=editable;
+		this.infosSouscriptionComptePersonne = infosSouscriptionComptePersonne;
 		this.agentEtat = agentEtat;
 		
 		
 	}
-
+	
+	public Personne getPersonne(){
+		return infosSouscriptionComptePersonne.getPersonne();
+	}
 	
 	
 }

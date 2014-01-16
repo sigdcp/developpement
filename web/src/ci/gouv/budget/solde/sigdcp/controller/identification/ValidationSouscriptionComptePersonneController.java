@@ -1,27 +1,24 @@
 package ci.gouv.budget.solde.sigdcp.controller.identification;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEntityListUIController;
-import ci.gouv.budget.solde.sigdcp.model.identification.Inscription;
-import ci.gouv.budget.solde.sigdcp.service.identification.InscriptionService;
+import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionComptePersonne;
 
 
 @Named @ViewScoped
-public class ValidationInscriptionController extends AbstractEntityListUIController<Inscription> implements Serializable {
+public class ValidationSouscriptionComptePersonneController extends AbstractEntityListUIController<SouscriptionComptePersonne> implements Serializable {
 
 	private static final long serialVersionUID = 6591392098578555259L;
 	
-	@Inject private InscriptionService inscriptionService;
+	//@Inject private SouscriptionCompteService souscriptionCompteService;
 	 
 	//@Getter @Setter protected List<Inscription> inscriptionsSelectionnes;
 	//@Setter @Getter protected Inscription inscriptionSelectionne;
@@ -51,21 +48,21 @@ public class ValidationInscriptionController extends AbstractEntityListUIControl
 	}
 	
 	@Override
-	protected List<Inscription> load() {
-		return new LinkedList<Inscription>(inscriptionService.findInscriptionsAValider());
+	protected List<SouscriptionComptePersonne> load() {
+		return null;//new LinkedList<Souscription>(souscriptionCompteService.findSouscriptionsAValider());
 	}
 	
 	@Override
 	protected void onDefaultSubmitAction() throws Exception {
-		super.onDefaultSubmitAction();
+		/*super.onDefaultSubmitAction();
 		if(Boolean.TRUE.equals(accepte))
-			inscriptionService.accepterInscription(selectedMultiple);
+			souscriptionCompteService.accepter(selectedMultiple);
 		else
-			inscriptionService.rejeterInscription(selectedMultiple);
+			souscriptionCompteService.rejeter(selectedMultiple);*/
 	}
 	
 	@Override
-	public String href(Inscription entity) {
+	public String href(SouscriptionComptePersonne entity) {
 		return null;
 	}
 	
@@ -80,8 +77,8 @@ public class ValidationInscriptionController extends AbstractEntityListUIControl
 	}
 	
 	@Override
-	protected void detailsOutcomeParameters(Map<String, List<String>> parameters,Inscription inscription) {
-		addParameters(parameters, webConstantResources.getRequestParamInscription(), inscription.getCode());
+	protected void detailsOutcomeParameters(Map<String, List<String>> parameters,SouscriptionComptePersonne souscriptionComptePersonne) {
+		addParameters(parameters, webConstantResources.getRequestParamSouscription(), souscriptionComptePersonne.getCode());
 		addParameters(parameters, webConstantResources.getRequestParamCrudType(), webConstantResources.getRequestParamCrudRead());
 		addParameters(parameters, webConstantResources.getRequestParamViewType(), webConstantResources.getRequestParamDialog());
 	}

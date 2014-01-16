@@ -47,8 +47,8 @@ import ci.gouv.budget.solde.sigdcp.model.identification.DelegueSotra;
 import ci.gouv.budget.solde.sigdcp.model.identification.Echelon;
 import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
 import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
-import ci.gouv.budget.solde.sigdcp.model.identification.InfosInscriptionPersonne;
-import ci.gouv.budget.solde.sigdcp.model.identification.Inscription;
+import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
+import ci.gouv.budget.solde.sigdcp.model.identification.Souscription;
 import ci.gouv.budget.solde.sigdcp.model.identification.Position;
 import ci.gouv.budget.solde.sigdcp.model.identification.Profession;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
@@ -57,6 +57,9 @@ import ci.gouv.budget.solde.sigdcp.model.identification.SituationMatrimoniale;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypePersonne;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeSection;
+import ci.gouv.budget.solde.sigdcp.model.identification.souscription.InfosSouscriptionComptePersonne;
+import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionComptePersonne;
+import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionGestionnaireCarteSotra;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeMission;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.TypeClasseVoyage;
 import ci.gouv.budget.solde.sigdcp.model.prestation.Prestataire;
@@ -74,7 +77,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	private TypePersonne ayantDroit;
 	private TypePieceJustificative extraitNaissance,extraitMariage,cni,feuilleDep,bonTransport;
 	private Prestataire elohimVoyages,mistralVoyages;
-	private Localite abidjan,bouake,paris,dakar,delhi;
+	private Localite abidjan,bouake,paris,dakar,delhi,coteDivoire;
 	private NatureDeplacement mhci,natureDeplacementMutation,natureDeplacementAffectation,natureDeplacementDepartRetraite;
 	private AgentEtat agentEtat1,agentEtat2,agentEtat3,agentEtat4;
 	private Section ministereEconomie,ministereBudget,ministereSante,serviceExploitation,serviceEtude;
@@ -244,15 +247,12 @@ public class SampleDataServiceImpl implements SampleDataService {
 		TypeLocalite zone = new TypeLocalite(Code.TYPE_LOCALITE_ZONE,"Zone");
 		em.persist(zone);
 		
-		em.persist(abidjan = new Localite("ABJ", "Abidjan", null,ville));
-		em.persist(bouake = new Localite("BK", "Bouaké", null,ville));
+		em.persist(coteDivoire = new Localite(Code.LOCALITE_COTE_DIVOIRE, "Côte d'Ivoire", null, pays));
+		em.persist(abidjan = new Localite("ABJ", "Abidjan", coteDivoire,ville));
+		em.persist(bouake = new Localite("BK", "Bouaké", coteDivoire,ville));
 		em.persist(paris = new Localite("PAR", "Paris", null,ville));
 		em.persist(dakar = new Localite("DK", "Dakar", null,ville));
 		em.persist(delhi = new Localite("DH", "New Dheli", null,ville));
-		
-		Localite coteDivoire = new Localite(Code.LOCALITE_COTE_DIVOIRE, "Côte d'Ivoire", null,pays);
-		em.persist(coteDivoire);
-		
 		
 		Categorie categorieA = new Categorie("A", "A");
 		em.persist(categorieA);
@@ -304,16 +304,16 @@ public class SampleDataServiceImpl implements SampleDataService {
 		
 		Date dateNaiss = new Date();
 		em.persist(agentEtat1 = new AgentEtat("AE1","A99", "Tata", "Pion", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
-				coteDivoire, new Date(),  a1, echelon1, position1, 2000, fonction1, ministereBudget, profession1, null));
+				coteDivoire, new Date(),  a1, echelon1, position1, 2000, fonction1, serviceEtude, profession1, null));
 		
 		em.persist(agentEtat2 = new AgentEtat("AE2","A18", "Toto", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.FEMININ, situationMatrimoniale1, 
-				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, ministereBudget, profession2, null));
+				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, serviceEtude, profession2, null));
 		
 		em.persist(agentEtat3 = new AgentEtat("AE3","A500", "Zaza", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
-				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, ministereBudget, profession2, null));
+				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, serviceExploitation, profession2, null));
 		
 		em.persist(agentEtat4 = new AgentEtat("AE4","A800", "Zaza", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
-				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, ministereEconomie, profession2, null));
+				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, serviceExploitation, profession2, null));
 		
 		inscrireAgentEtat("DZ12", "Zadi", "Alain", new Date(), new Contact("mail@yahoo.com", "123456", "01 BP Abidjan", "Rue des jardins", null), Sexe.MASCULIN, 
 				situationMatrimoniale1, coteDivoire, null, null, null, null, null, ministereBudget, profession1,gendarme);
@@ -324,14 +324,11 @@ public class SampleDataServiceImpl implements SampleDataService {
 		inscrireAgentEtat("DZ100", "Kadi", "mariam", new Date(), new Contact("mail@yahoo.com", "123456", "01 BP Abidjan", "Rue des jardins", null), Sexe.FEMININ, 
 				situationMatrimoniale1, coteDivoire, null, null, null, null, null, ministereBudget, profession1,policier);
 		
-		/*
-		creerDelegueSotra("A905", "Zara", "Tara", dateNaiss,new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
-				coteDivoire,  a2, echelon1, position1, 2000, fonction1, ministereEconomie, profession2);
-		creerDelegueSotra("A901", "Zapa", "Tapa", dateNaiss,new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
-				coteDivoire,  a2, echelon1, position1, 2000, fonction1, ministereEconomie, profession2);
-		creerDelegueSotra("A980", "Zaka", "Taka", dateNaiss,new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
-				coteDivoire,  a2, echelon1, position1, 2000, fonction1, ministereEconomie, profession2);
-		*/
+		
+		inscrireGCS(agentEtat1, ministereEconomie,"Trésor",null, agentEtat2);
+		inscrireGCS(agentEtat2, ministereBudget,"Direction générale du budget","DGBF", agentEtat3);
+		inscrireGCS(agentEtat3, ministereEconomie, "Impots","DGI",agentEtat4);
+		
 		creerDossierDD(natureDeplacementAffectation, agentEtat2);
 		creerDossierDD(natureDeplacementAffectation, agentEtat3);
 		
@@ -401,7 +398,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 		
 		operation(soumission, dossierTransit4, soumis);
 				
-		em.persist(elohimVoyages = new Prestataire("P1","Elohim Voyages",new Contact("elohim@mail.com", "11223344", "01 BP Abidjan 01", null, abidjan),date()));
+		em.persist(elohimVoyages = new Prestataire("P1","Elohim Voyages",contact(),date()));
 		em.persist(mistralVoyages = new Prestataire("P2","Mistral Voyages",new Contact("mistral@mail.com", "44556677", "02 BP Abidjan 02", null, abidjan),date()));
 		
 		creerCalendrierMission(10000000f, ministereEconomie, exercice2012);
@@ -435,16 +432,28 @@ public class SampleDataServiceImpl implements SampleDataService {
 		return delegueSotra;
 	}
 	
-	public InfosInscriptionPersonne creerPersonneInscription(String matricule, String nom, String prenoms, Date dateNaissance, Contact contact, Sexe sexe,  Localite nationalite, Profession profession,
-			TypeAgentEtat typeAgentEtat,PieceJustificative pieceIdentite){
-		InfosInscriptionPersonne infosInscriptionPersonne = new InfosInscriptionPersonne(null,nom,prenoms,dateNaissance,contact,sexe,nationalite,typeAgentEtat,matricule,profession,pieceIdentite);
-		return infosInscriptionPersonne;
+	private Contact contact(){
+		return new Contact("user@mail.com", "11223344", "01 BP Abidjan 01", null, abidjan);
 	}
 	
-	public Inscription inscrireAgentEtat(String matricule, String nom, String prenoms, Date dateNaissance, Contact contact, Sexe sexe, SituationMatrimoniale situationMatrimoniale, 
+	public Personne creerPersonne(String nom, String prenoms,PieceJustificative pieceIdentite){
+		Personne personne = new Personne(numero(), nom, prenoms, date(), contact(), Sexe.MASCULIN, null, coteDivoire,null, date());
+		return personne;
+	}
+	
+	public InfosSouscriptionComptePersonne creerInfosSouscriptionComptePersonne(String matricule, String nom, String prenoms,TypeAgentEtat typeAgentEtat,PieceJustificative pieceIdentite){
+		return new InfosSouscriptionComptePersonne(null,creerPersonne(nom, prenoms, pieceIdentite),gendarme,matricule);
+	}
+	
+	public SouscriptionComptePersonne inscrireAgentEtat(String matricule, String nom, String prenoms, Date dateNaissance, Contact contact, Sexe sexe, SituationMatrimoniale situationMatrimoniale, 
 			Localite nationalite, Grade grade, Echelon echelon, Position position, Integer indice, Fonction fonction, Section ministere, Profession profession, TypeAgentEtat typeAgentEtat){
-		Inscription inscription = new Inscription(nextIdString(),creerPersonneInscription(matricule, nom, prenoms, dateNaissance, contact, sexe, nationalite, profession, 
-				typeAgentEtat, null),null,null,new Date(),null,null);
+		SouscriptionComptePersonne inscription = new SouscriptionComptePersonne(nextIdString(),date(),null,null,creerInfosSouscriptionComptePersonne(matricule, nom, prenoms, typeAgentEtat, null),null,null);
+		em.persist(inscription);
+		return inscription;
+	}
+	
+	public SouscriptionGestionnaireCarteSotra inscrireGCS(AgentEtat gestionnaire,Section ministere,String libelle,String sigle,AgentEtat interimaire){
+		SouscriptionGestionnaireCarteSotra inscription = new SouscriptionGestionnaireCarteSotra(nextIdString(),date(),null,null,gestionnaire,ministere,libelle,sigle,interimaire);
 		em.persist(inscription);
 		return inscription;
 	}

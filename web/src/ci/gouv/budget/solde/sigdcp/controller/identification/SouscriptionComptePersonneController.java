@@ -9,17 +9,18 @@ import javax.inject.Named;
 import lombok.Getter;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIController;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
-import ci.gouv.budget.solde.sigdcp.model.identification.Inscription;
-import ci.gouv.budget.solde.sigdcp.service.identification.InscriptionService;
+import ci.gouv.budget.solde.sigdcp.model.identification.Souscription;
+import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionComptePersonne;
+import ci.gouv.budget.solde.sigdcp.service.identification.SouscriptionComptePersonneService;
 
 @Named @ViewScoped
-public class InscriptionPersonneController extends AbstractEntityFormUIController<Inscription> implements Serializable {
+public class SouscriptionComptePersonneController extends AbstractEntityFormUIController<SouscriptionComptePersonne> implements Serializable {
 
 	private static final long serialVersionUID = 1588915965471299089L;
 	/*
 	 * Services
 	 */
-	@Inject private InscriptionService inscriptionService;
+	@Inject private SouscriptionComptePersonneService inscriptionService;
 	
 	/*
 	 * DTOs
@@ -34,11 +35,11 @@ public class InscriptionPersonneController extends AbstractEntityFormUIControlle
         if(inscriptionAgentEtat)
         	title = "Ouverture de compte";
      
-        demandeurDto = new IdentitePersonneDTO(entity.getPersonneDemandeur(),inscriptionAgentEtat);
+        demandeurDto = new IdentitePersonneDTO(isCreate(),entity.getPersonneDemandeur(),inscriptionAgentEtat);
         PieceJustificative pieceIdentite = new PieceJustificative();
         
         //pieceIdentite.setModel(new PieceJustificativeAFournir(null,Boolean.FALSE, 3, 2, new TypePieceJustificative("cni", "CNI")));
-        demandeurDto.getPersonne().setPieceIdentite(pieceIdentite);
+        demandeurDto.getInfosSouscriptionComptePersonne().getPersonne().setPieceIdentite(pieceIdentite);
         
         //demandeurDto.getPersonne().setNationalite();
         
@@ -68,7 +69,7 @@ public class InscriptionPersonneController extends AbstractEntityFormUIControlle
     }
     */
 	
-	public Inscription getInscription() {
+	public Souscription getInscription() {
 		return entity;
 	}
 

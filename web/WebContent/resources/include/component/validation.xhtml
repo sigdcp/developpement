@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		<p:panelGrid id="pg" columns="3" styleClass="panelGridNoBorder">
+			<p:outputLabel for="rq" value="#{dto.questionLibelle}" />
+			<p:selectOneRadio id="rq" value="#{dto.accepter}">
+				<f:selectItem itemLabel="#{constantResources.text('oui')}" itemValue="true"/>
+				<f:selectItem itemLabel="#{constantResources.text('non')}" itemValue="false"/>
+				<p:ajax event="change" update="@form"/>
+			</p:selectOneRadio>
+			<p:message for="rq" />
+			
+			<p:outputLabel for="mr" value="#{constantResources.text('motif')}" rendered="#{dto.accepter!=null and  not dto.accepter}"/>
+			<p:selectOneMenu id="mr" rendered="#{dto.accepter!=null and not dto.accepter}">
+				<f:selectItem itemLabel="Motif 1" />
+				<f:selectItem itemLabel="Motif 2" />
+			</p:selectOneMenu>
+			<p:message for="mr" rendered="#{dto.accepter!=null and not dto.accepter}"/>
+			
+			<p:outputLabel for="cr" value="#{constantResources.text('commentaire')}" rendered="#{dto.accepter!=null and not dto.accepter}"/>
+			<p:inputTextarea id="cr" rendered="#{dto.accepter!=null and not dto.accepter}"/>
+			<p:message for="cr" rendered="#{dto.accepter!=null and not dto.accepter}"/>
+			
+		</p:panelGrid>
+		
+	</ui:composition>
+</body>
+</html>

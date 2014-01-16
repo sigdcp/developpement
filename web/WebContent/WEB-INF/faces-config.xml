@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
  <navigation-rule>
   <from-view-id>*</from-view-id>
   <navigation-case>
@@ -13,12 +13,20 @@
 
    <navigation-case>
    <from-outcome>inscriregestionairecartesotra</from-outcome>
-   <to-view-id>/private/demande/gestionnairecartesotra.xhtml</to-view-id>
+   <to-view-id>/private/personnel/identification/souscriptiongestionnairecarte.xhtml</to-view-id>
+    <redirect/>
+  </navigation-case>
+
+     <navigation-case>
+   <from-outcome>souscriptiongestionnairecartesotraliste</from-outcome>
+   <to-view-id>/private/personnel/identification/souscriptiongestionnairecartesotraliste.xhtml</to-view-id>
+    <redirect/>
   </navigation-case>
   
      <navigation-case>
    <from-outcome>validergestionairecartesotra</from-outcome>
-   <to-view-id>/private/personnel/sotra/validationGestionnaireListe.xhtml</to-view-id>
+   <to-view-id>/private/personnel/identification/validationsouscriptiongestionnairecartesotra.xhtml</to-view-id>
+    <redirect/>
   </navigation-case>
   
    <navigation-case>
@@ -42,6 +50,25 @@
    <to-view-id>/private/personnel/dossier/validation/recevabilitedd.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>validationrecevabilite_t</from-outcome>
+   <to-view-id>/private/personnel/dossier/validation/recevabilitedd.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case> 
+  
+    <navigation-case>
+   <from-outcome>validationrecevabilite_o</from-outcome>
+   <to-view-id>/private/personnel/dossier/validation/recevabilitedd.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+    <navigation-case>
+   <from-outcome>validationrecevabilite_m</from-outcome>
+   <to-view-id>/private/personnel/dossier/validation/recevabilitedd.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
   <navigation-case>
    <from-outcome>validationconformite</from-outcome>
    <to-view-id>/private/personnel/dossier/validation/conformite.xhtml</to-view-id>

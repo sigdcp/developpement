@@ -6,7 +6,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import lombok.Getter;
-import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.controller.ValidationDto;
 import ci.gouv.budget.solde.sigdcp.controller.dossier.EnregistrerDemandeDDController;
 
 @Named @ViewScoped
@@ -21,7 +21,7 @@ public class ValidationRecevabiliteDossierDDController extends EnregistrerDemand
 	/*
 	 * Dto
 	 */
-	@Getter @Setter private Boolean accepter;
+	@Getter private ValidationDto validationDto;
 		
 	@Override
 	protected void initialisation() {
@@ -29,11 +29,13 @@ public class ValidationRecevabiliteDossierDDController extends EnregistrerDemand
 		title = "Ecran de Validation de la recevabilité d'une demande : "+entity.getDeplacement().getNature().getLibelle();
 		internalCode = "FS_DEM_01_Ecran_02";
 		defaultSubmitCommand.setValue(text("bouton.enregistrer"));
+		
+		validationDto = new ValidationDto(text("souscriptiongcsvalidequestion"));
 	}
 
 	@Override
 	protected void onDefaultSubmitAction() throws Exception {
-		if(accepter)
+		if(Boolean.TRUE.equals(validationDto.getAccepter()))
 			getDossierService().accepterRecevabilite(entity);
 		else
 			getDossierService().rejeterConformite(entity, null);

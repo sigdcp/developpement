@@ -25,11 +25,11 @@
 		</style>	
 
 		<ui:decorate template="/template/formTemplate.xhtml">
-			<ui:param name="uiController" value="#{inscriptionPersonneController}" />
+			<ui:param name="uiController" value="#{souscriptionComptePersonneController}" />
 			<ui:define name="contenu">
 				<ui:include src="/identification/include/inputIdentite.xhtml">
-					<ui:param name="personneDto" value="#{inscriptionPersonneController.demandeurDto}"/>
-					<ui:param name="questionAgentEtat" value="#{not inscriptionPersonneController.inscriptionAgentEtat}" />
+					<ui:param name="personneDto" value="#{souscriptionComptePersonneController.demandeurDto}"/>
+					<ui:param name="questionAgentEtat" value="#{not souscriptionComptePersonneController.inscriptionAgentEtat}" />
 					<ui:param name="pieceIdentite" value="true" />
 					<ui:param name="columnCount" value="6" />
 				</ui:include>
@@ -50,7 +50,7 @@
 					
 				</p:panelGrid>
 				-->
-				<p:panelGrid styleClass="panelGridNoBorder" columns="1" rendered="#{inscriptionPersonneController.create and false}" > 
+				<p:panelGrid styleClass="panelGridNoBorder" columns="1" rendered="#{souscriptionComptePersonneController.create and false}" > 
 					<p:message for="captcha"/> 
 					<p:captcha id="captcha" language="fr" required="true" requiredMessage="#{valueRequiredMessage}" validatorMessage="Le texte entré ne correspond pas"/>
 				</p:panelGrid>

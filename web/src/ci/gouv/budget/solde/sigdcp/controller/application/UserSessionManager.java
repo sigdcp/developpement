@@ -44,15 +44,16 @@ public class UserSessionManager implements Serializable{
 	 * The connected user
 	 * @return
 	 */
-	@Named @SessionScoped
+	@Named @SessionScoped @User
 	public Personne getUser(){
 		//return compte.getPersonne();
 		return agentEtatService.findAll().get(0);// TODO to be removed : just for testing
 	}
 	
-	@Named @Produces @SessionScoped
+	@Named @Produces /*@RequestScoped*/ @SessionScoped
 	public MenuModel getMenuModel(){
 		Submenu formulerUneDemande = menuManager.addSubmenu("menu.formulerdemande");
+		
 		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.affectation", "demandeddForm",new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_AFFECTATION });
 		
@@ -69,7 +70,9 @@ public class UserSessionManager implements Serializable{
 		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.consulter","demandeliste",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
 		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.deposercourrier","demandeliste", new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
 		
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.gerercartesotra","inscriregestionairecartesotra", new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.gerercartesotra","inscriregestionairecartesotra",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()
+		});
 		
 		Submenu calendrierMissions = menuManager.addSubmenu("menu.calendrier");
 		menuManager.addMenuItem(calendrierMissions, "menu.calendrier.missions","enregistrerCalendrierForm",new Object[]{webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()});
@@ -81,7 +84,9 @@ public class UserSessionManager implements Serializable{
 		
 		Submenu identification = menuManager.addSubmenu("menu.identification");
 		menuManager.addMenuItem(identification, "menu.identification.validersouscriptions","souscriptionliste", new Object[]{});
-		menuManager.addMenuItem(identification, "menu.identification.validergcs","validergestionairecartesotra", new Object[]{});
+		menuManager.addMenuItem(identification, "menu.identification.validergcs","souscriptiongestionnairecartesotraliste", new Object[]{
+				webConstantResources.getRequestParamNextViewOutcome(),"validergestionairecartesotra"
+		});
 		
 		
 		Submenu traitementDemande = menuManager.addSubmenu("menu.traitementdemande");

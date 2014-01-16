@@ -16,11 +16,11 @@
 				<h:outputText value="#{dto.piece.model}" />		
 			</p:column>
 			
-			<p:column headerText="Numéro #{dto.editable}">
+			<p:column headerText="Numéro #{dto.editable}" rendered="#{controller.pieceJustificativeUploader.showInputs}">
 				<p:inputText  value="#{dto.piece.numero}" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{dto.editable}"/>
 				<h:outputText value="#{dto.piece.numero}" rendered="#{not dto.editable}"/>
 			</p:column>
-			<p:column headerText="Date d'établissement ">
+			<p:column headerText="Date d'établissement " rendered="#{controller.pieceJustificativeUploader.showInputs}">
 				<p:calendar value="#{dto.piece.dateEtablissement}" pattern="#{constantResources.datePattern}" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{dto.editable}"/>
 				<h:outputText value="#{dto.piece.dateEtablissement}" rendered="#{not dto.editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 			</p:column>
@@ -30,7 +30,7 @@
 				<h:outputText value="#{dto.piece.dateEffetDecision}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 			</p:column>
 			-->
-			<p:column headerText="Fonction du signataire">
+			<p:column headerText="Fonction du signataire" rendered="#{controller.pieceJustificativeUploader.showInputs}">
 				<p:inputText value="#{dto.piece.fonctionSignataire}" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{dto.editable}"/>
 				<h:outputText value="#{dto.piece.fonctionSignataire}" rendered="#{not dto.editable}"/>	
 			</p:column>

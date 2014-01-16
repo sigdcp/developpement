@@ -23,9 +23,11 @@
 								  <ui:include src="/public/home.xhtml"/>				  	
 							  	</td>
 							 	<td valign="top" align="right" style="padding:0px 10px 30px 10px;">
-							    <ui:include src="/public/connexionForm.xhtml"/>
-							    <p:spacer style="height:5px"/>
-							    <ui:include src="/public/lucarne.xhtml"/>
+							 		<ui:fragment rendered="#{empty request.remoteUser}">
+							 			<ui:include src="/public/connexionForm.xhtml"/>
+							    		<p:spacer style="height:5px"/>
+							 		</ui:fragment>
+							    	<ui:include src="/public/lucarne.xhtml"/>
 							    </td>
 						 	</tr>
 						</table>

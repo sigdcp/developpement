@@ -7,13 +7,12 @@ import java.util.Date;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import ci.gouv.budget.solde.sigdcp.dao.identification.InscriptionDao;
-import ci.gouv.budget.solde.sigdcp.model.identification.Inscription;
-import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
+import ci.gouv.budget.solde.sigdcp.dao.identification.SouscriptionComptePersonneDao;
+import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionComptePersonne;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 
 @Stateless
-public class InscriptionServiceImpl extends DefaultServiceImpl<Inscription, String> implements InscriptionService,Serializable {
+public class SouscriptionComptePersonneServiceImpl extends AbstractSouscriptionServiceImpl<SouscriptionComptePersonne> implements SouscriptionComptePersonneService,Serializable {
 	
 	private static final long serialVersionUID = 1170771216036513138L;
 /*
@@ -22,12 +21,12 @@ public class InscriptionServiceImpl extends DefaultServiceImpl<Inscription, Stri
 	@Inject private NotificationSystem notificationSystem;
 	*/
 	@Inject
-	public InscriptionServiceImpl(InscriptionDao dao) {
+	public SouscriptionComptePersonneServiceImpl(SouscriptionComptePersonneDao dao) {
 		super(dao);
 	}
 
 	@Override
-	public void inscrire(Inscription inscription) throws ServiceException {
+	public void inscrire(SouscriptionComptePersonne souscriptionCompte) throws ServiceException {
 		//ServiceUtils.throwNotYetImplemented();
 		//inscription.setCode(System.currentTimeMillis()+"");
 		/*switch(inscription.getType()){
@@ -45,7 +44,7 @@ public class InscriptionServiceImpl extends DefaultServiceImpl<Inscription, Stri
 	}
 
 	@Override
-	public void accepterInscription(Inscription inscription)throws ServiceException {
+	public void accepter(SouscriptionComptePersonne souscriptionCompte)throws ServiceException {
 		/*Beneficiaire beneficiaire;
 		inscription.setDateValidation(new Date());
 		inscription.setAccepte(Boolean.TRUE);*/
@@ -73,37 +72,38 @@ public class InscriptionServiceImpl extends DefaultServiceImpl<Inscription, Stri
 			break;
 		default: throw new ServiceException("Ce type d'inscription n'est pas supporté");
 		}*/
-		dao.update(inscription);
+		dao.update(souscriptionCompte);
 	} 
 
 	@Override
-	public void accepterInscription(Collection<Inscription> inscriptions) throws ServiceException {
-		for(Inscription inscription : inscriptions)
-			accepterInscription(inscription);
+	public void accepter(Collection<SouscriptionComptePersonne> souscriptionComptes) throws ServiceException {
+		for(SouscriptionComptePersonne souscriptionCompte : souscriptionComptes)
+			accepter(souscriptionCompte);
 	}
 	
 	@Override
-	public void rejeterInscription(Inscription inscription) throws ServiceException {
-		inscription.setDateValidation(new Date());
-		inscription.setAccepte(Boolean.FALSE);
-		dao.update(inscription);
+	public void rejeter(SouscriptionComptePersonne souscriptionCompte) throws ServiceException {
+		souscriptionCompte.setDateValidation(new Date());
+		souscriptionCompte.setAcceptee(Boolean.FALSE);
+		dao.update(souscriptionCompte);
 	}
 	
 	@Override
-	public void rejeterInscription(Collection<Inscription> inscriptions) throws ServiceException {
-		for(Inscription inscription : inscriptions)
-			rejeterInscription(inscription);
+	public void rejeter(Collection<SouscriptionComptePersonne> souscriptionComptes) throws ServiceException {
+		for(SouscriptionComptePersonne souscriptionCompte : souscriptionComptes)
+			rejeter(souscriptionCompte);
 	}
 
 	@Override
-	public Collection<Inscription> findInscriptionsAValiderByTypePersonneId(String typePersonneId) {
-		return ((InscriptionDao)dao).findByDateValidationIsNullByTypePersonneId(typePersonneId);
+	public Collection<SouscriptionComptePersonne> findSouscriptionsAValiderByTypePersonneId(String typePersonneId) {
+		return ((SouscriptionComptePersonneDao)dao).findByDateValidationIsNullByTypePersonneId(typePersonneId);
 	}
 	
 	@Override
-	public Collection<Inscription> findInscriptionsAValider() {
-		return ((InscriptionDao)dao).findByDateValidationIsNull();
+	public Collection<SouscriptionComptePersonne> findSouscriptionsAValider() {
+		return ((SouscriptionComptePersonneDao)dao).findByDateValidationIsNull();
 	}
+	
 	/*
 	private Beneficiaire createBeneficiaireFrom(Inscription inscription){
 		InfosInscriptionPersonne b = inscription.getBeneficiaireInfos();
