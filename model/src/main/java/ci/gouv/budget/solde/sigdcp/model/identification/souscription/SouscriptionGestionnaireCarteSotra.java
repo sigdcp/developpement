@@ -11,9 +11,11 @@ package ci.gouv.budget.solde.sigdcp.model.identification.souscription;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -41,7 +43,12 @@ public class SouscriptionGestionnaireCarteSotra  extends Souscription  implement
 	@ManyToOne private Section ministere;
 	private String libelleSection;
 	private String sigleSection;
-	private PieceJustificative decretCreationSection=new PieceJustificative(),noteService=new PieceJustificative();
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	private PieceJustificative decretCreationSection=new PieceJustificative();
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	private PieceJustificative noteService=new PieceJustificative();
 	
 	/**
 	 * Identification de son intérimaire
