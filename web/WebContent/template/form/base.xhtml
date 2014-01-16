@@ -29,7 +29,16 @@
 	 	</p:layout>
  	</h:form>
  	-->
+ 	<script>
+ 	function quitter(){
+ 		if(confirm('Voulez-vous quitter cette page? Toutes vos modifications seront perdues.')){
+ 		window.back();
+ 		return true;
+ 		}
+ 		else return false;
+ 	}
  	
+ 	</script>
 		<h:form id="form" enctype="multipart/form-data">
 			<ui:insert name="title">
 				<table class="formHeaderClass"><tr>

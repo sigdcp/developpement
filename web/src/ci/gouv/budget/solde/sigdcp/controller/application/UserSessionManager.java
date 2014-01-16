@@ -79,7 +79,8 @@ public class UserSessionManager implements Serializable{
 		menuManager.addMenuItem(calendrierMissions, "menu.calendrier.exercicecourant","enregistrerExerciceForm",new Object[]{webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()});
 		menuManager.addMenuItem(calendrierMissions, "menu.calendrier.ajoutermission","ajouterMissionForm",new Object[]{webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()});
 		menuManager.addMenuItem(calendrierMissions, "menu.calendrier.consultermissions","consulterCalendrierListe",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"calendrierDetailView"});
-		menuManager.addMenuItem(calendrierMissions, "menu.calendrier.suivreexecutionmissions","suivreExecutionMissionListe");
+		menuManager.addMenuItem(calendrierMissions, "menu.calendrier.suivreexecutionmissions","suivreExecutionCalendrierListe",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"executionCalendrierMissionDetailView"});
+		
 		
 		
 		Submenu identification = menuManager.addSubmenu("menu.identification");
@@ -118,7 +119,7 @@ public class UserSessionManager implements Serializable{
 		});
 		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.cotationbilletavion","demandecotationbilletavionmission", new Object[]{});
 		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.commandebilletavion","commandebilletavionmission", new Object[]{});
-		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.consulterfdmhci","consulterFeuilleDeplacementListe", new Object[]{});
+		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.consulterfdmhci","consulterFeuilleDeplacementListe", new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"feuilleDeplacementDetailView"});
 
 		
 		Submenu statistiques = menuManager.addSubmenu("menu.statistiques");

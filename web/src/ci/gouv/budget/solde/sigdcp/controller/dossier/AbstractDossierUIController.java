@@ -68,8 +68,8 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		enregistrerCommand.setAjax(Boolean.FALSE);
 		
 		//just for testing
-		defaultSubmitCommand.setImmediate(Boolean.TRUE);
-		enregistrerCommand.setImmediate(Boolean.TRUE);
+		//defaultSubmitCommand.setImmediate(Boolean.TRUE);
+		//enregistrerCommand.setImmediate(Boolean.TRUE);
 		
 	}
 	

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam id="nextViewOutcome" name="#{webConstantResources.requestParamNextViewOutcome}" value="#{suivreExecutionCalendrierMissionController.nextViewOutcome}" converter="#{viewParamOutcomeConverter}" >
+				<f:attribute name="#{webConstantResources.requestParamOutcomeAction}" value="false" />
+			</f:viewParam>
+        	<f:event type="preRenderView" listener="#{suivreExecutionCalendrierMissionController.preRenderView}" />    	
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{suivreExecutionCalendrierMissionController}" />
+				<ui:define name="contenu">
+				
+			<ui:decorate template="/template/dataList.xhtml">
+				<ui:param name="controller" value="#{suivreExecutionCalendrierMissionController}" />
+				<ui:define name="criteresrecherche">
+					<p:panelGrid columns="3" styleClass="panelGridNoBorder">
+							
+					<p:outputLabel for="exercice" value="#{constantResources.text('exercice')}" />
+							<p:selectOneMenu id="exercice" value="#{record.exercice}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+								<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+								<f:selectItems value="#{exercices}" var="exo" itemLabel="#{exo.annee}"/>
+							</p:selectOneMenu><p:message for="exercice" />
+					</p:panelGrid>			
+		</ui:define>
+		<ui:define name="colonnes">
+				<p:column headerText="#{constantResources.text('exercice')}" sortBy="" ><h:outputText value="#{record.exercice.annee}" /></p:column>
+				<p:column headerText="#{constantResources.text('ministere')}" sortBy="" filterBy="" ><h:outputText value="#{record.section}" /></p:column>
+				<p:column headerText="#{constantResources.text('montantvalide')}" sortBy=""><h:outputText value="#{record.dotation}"><f:convertNumber currencySymbol="" /> </h:outputText></p:column>
+				<p:column headerText="#{constantResources.text('totalexecute')}" sortBy="" ><h:outputText value=""><f:convertNumber currencySymbol="" /> </h:outputText></p:column>
+				<p:column headerText="#{constantResources.text('ecart')}" sortBy="" ><h:outputText value=""><f:convertNumber currencySymbol="" /> </h:outputText></p:column>
+			
+		</ui:define>
+		</ui:decorate>
+		</ui:define>
+		</ui:decorate>
+		
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

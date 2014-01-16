@@ -31,11 +31,12 @@ public class EnregistrerCalendrierController extends AbstractEntityFormUIControl
 	
 	@Override
 	public void initialisation() {
+		super.initialisation();
 		title = "Ecran de création d'un calendrier de mission";
 		internalCode = "FS_MHCI_03_Ecran_02";
-		super.initialisation();
 		defaultSubmitCommand.setValue(messageManager.getTextService().find("bouton.enregistrer"));
-		//defaultSubmitAction.setAjax(false);
+		//defaultSubmitCommand.setAjax(false);
+		defaultSubmitCommand.setSuccessOutcome("ajouterMissionForm");
 	}
 	
 	public CalendrierMission getCalendrierMission(){

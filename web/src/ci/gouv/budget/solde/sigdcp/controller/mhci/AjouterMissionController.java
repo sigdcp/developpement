@@ -19,7 +19,7 @@ public class AjouterMissionController extends AbstractEntityFormUIController<Mis
 	/*
 	 * Services
 	 */  
-	//@Inject private DossierDDService dossierDDService;
+	//
 	
 	
 	@Getter @Setter private Boolean ajouterMission ;
@@ -36,12 +36,13 @@ public class AjouterMissionController extends AbstractEntityFormUIController<Mis
 		internalCode = "FS_MHCI_03_Ecran_03";
 		defaultSubmitCommand.setValue(messageManager.getTextService().find("bouton.enregistrer"));
 		//defaultSubmitAction.setAjax(false);
+		
 	}
 	
+
 	public Mission getMission(){
 		return entity;
 	}
-	
 
 	
 }

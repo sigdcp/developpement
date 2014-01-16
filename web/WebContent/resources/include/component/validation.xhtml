@@ -10,7 +10,7 @@
 	<ui:composition>
 		<p:panelGrid id="pg" columns="3" styleClass="panelGridNoBorder">
 			<p:outputLabel for="rq" value="#{dto.questionLibelle}" />
-			<p:selectOneRadio id="rq" value="#{dto.accepter}">
+			<p:selectOneRadio id="rq" value="#{dto.accepter}" required="true" requiredMessage="#{valuesRequiredMessage}">
 				<f:selectItem itemLabel="#{constantResources.text('oui')}" itemValue="true"/>
 				<f:selectItem itemLabel="#{constantResources.text('non')}" itemValue="false"/>
 				<p:ajax event="change" update="@form"/>
@@ -18,7 +18,7 @@
 			<p:message for="rq" />
 			
 			<p:outputLabel for="mr" value="#{constantResources.text('motif')}" rendered="#{dto.accepter!=null and  not dto.accepter}"/>
-			<p:selectOneMenu id="mr" rendered="#{dto.accepter!=null and not dto.accepter}">
+			<p:selectOneMenu id="mr" rendered="#{dto.accepter!=null and not dto.accepter}" required="true" requiredMessage="#{valuesRequiredMessage}">
 				<f:selectItem itemLabel="Motif 1" />
 				<f:selectItem itemLabel="Motif 2" />
 			</p:selectOneMenu>

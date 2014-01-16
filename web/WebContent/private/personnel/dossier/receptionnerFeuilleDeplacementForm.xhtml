@@ -21,16 +21,21 @@
 				<ui:param name="uiController" value="#{receptionnerFeuilleDeplacementController}" />
 				<ui:define name="contenu">	
 				<br/>
-				<p:outputLabel value="#{constantResources.text('numero.abbrege')} #{constantResources.text('feuille.deplacement')} : " />
-				<p:outputLabel style="margin-left:100px" value="#{constantResources.text('matricule')} : " />
-				<p:outputLabel style="margin-left:50px" value="#{constantResources.text('nom.prenoms')} : " />
+				<p:panelGrid columns="2" styleClass="panelGridNoBorder">
+				<p:outputLabel value="#{constantResources.text('numero.abbrege')} #{constantResources.text('feuille.deplacement')}" />
+				<p:outputLabel value=": " />
+				<p:outputLabel value="#{constantResources.text('matricule')} : " />
+				<p:outputLabel value=": " />
+				<p:outputLabel value="#{constantResources.text('nomprenoms')} : " />
+				<p:outputLabel value=": " />
 				
-				<br/><br/><br/><br/>
+				</p:panelGrid>
+				<br/><br/><br/>
 				<p:fieldset legend="#{constantResources.text('visas.constates')}">
 				<p:panelGrid columns="3" styleClass="panelGridNoBorder">
 				<h:panelGroup>
 					<p:panelGrid columns="3">
-						<p:outputLabel for="villeDepart" value="#{constantResources.text('ville.depart')}" />
+						<p:outputLabel for="villeDepart" value="#{constantResources.text('villedepart')}" />
 						<p:inputText id="villeDepart" required="true" requiredMessage="#{valueRequiredMessage}" />
 						<p:message for="villeDepart" />
 						
@@ -41,7 +46,7 @@
 					</h:panelGroup>
 					<h:panelGroup>
 					<p:panelGrid columns="3">
-						<p:outputLabel for="villeArrivee" value="#{constantResources.text('ville.arrivee')}" />
+						<p:outputLabel for="villeArrivee" value="#{constantResources.text('villearrivee')}" />
 						<p:inputText id="villeArrivee" required="true" requiredMessage="#{valueRequiredMessage}" />
 						<p:message for="villeArrivee" />
 						
@@ -57,9 +62,9 @@
 					<p:spacer height="10"/>
 						<p:dataTable id="listevisa" value="" var="visa" rowIndexVar="index">				
 							<p:column headerText="#" ><h:outputText value="#{index+1}" /></p:column>
-							<p:column headerText="#{constantResources.text('ville.depart')}" ><h:outputText value="" /></p:column>
+							<p:column headerText="#{constantResources.text('villedepart')}" ><h:outputText value="" /></p:column>
 							<p:column headerText="#{constantResources.text('date.heure.depart')}" ><h:outputText value="" /></p:column>
-							<p:column headerText="#{constantResources.text('ville.arrivee')}" ><h:outputText value="" /></p:column>
+							<p:column headerText="#{constantResources.text('villearrivee')}" ><h:outputText value="" /></p:column>
 							<p:column headerText="#{constantResources.text('date.heure.arrivee')}" ><h:outputText value="" /></p:column>
 							<p:column style="width:4%">
 								<p:button value="#{constantResources.text('bouton.supprimer')}"/>

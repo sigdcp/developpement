@@ -9,21 +9,18 @@
 
 <h:body>
 	<ui:define name="metadata">
-		<f:metadata>
-        	<f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{enregistrerCalendrierController.crudType}" converter="#{viewParamEnumConverter}" />	           
-	    	<f:event type="preRenderView" listener="#{enregistrerCalendrierController.preRenderView}" /> 
+		<f:metadata>	           
+	    	<f:event type="preRenderView" listener="#{consulterFeuilleDeplacementFormController.preRenderView}" /> 
     	</f:metadata>
 	</ui:define>
 		
 	<ui:composition template="/template/commun.xhtml">
-		<ui:define name="contenu">
-		<ui:param name="uiController" value="#{consulterCalendrierListeController}" />
+		<ui:param name="uiController" value="#{consulterFeuilleDeplacementFormController}" />
+		<ui:define name="contenu">		
 		
-		<p:panel>
-		<f:facet name="header"><h:outputText value="Ecran de consultation détaillée d'une feuille de déplacement (FS_MHCI_02_Ecran_04)" /> </f:facet>
-			
-				
-					<br/>
+			<ui:decorate template="/template/formTemplate.xhtml"> 
+				<ui:param name="uiController" value="#{consulterFeuilleDeplacementFormController}" />
+				<ui:define name="contenu">	
 				<p:panelGrid columns="2" styleClass="panelGridNoBorder">
 				<p:outputLabel value="#{constantResources.text('numero.abbrege')} #{constantResources.text('feuille.deplacement')}" /><p:outputLabel value=":" />
 				<p:outputLabel value="#{constantResources.text('matricule')}" /><p:outputLabel value=":" />
@@ -43,9 +40,14 @@
 						</p:dataTable>
 					
 					</p:fieldset>
-					<br/>
 				
-			</p:panel>	
+		</ui:define>
+		</ui:decorate>
+		
+		
+		
+		
+		
 		</ui:define>
 
 

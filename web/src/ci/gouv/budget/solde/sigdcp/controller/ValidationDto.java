@@ -2,6 +2,8 @@ package ci.gouv.budget.solde.sigdcp.controller;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +14,7 @@ public class ValidationDto implements Serializable {
 
 	
 	private String questionLibelle;
+	@NotNull
 	private Boolean accepter;
 	
 	public ValidationDto(String questionLibelle) {

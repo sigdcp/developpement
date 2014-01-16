@@ -4,47 +4,60 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedBean;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractUIController;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
-import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
-import ci.gouv.budget.solde.sigdcp.service.dossier.DossierDDService;
+import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEntityListUIController;
+import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
 
 @Named @RequestScoped
-public class ReceptionnerFeuilleDeplacementListeController extends AbstractUIController implements Serializable {
+public class ReceptionnerFeuilleDeplacementListeController extends AbstractEntityListUIController<PieceProduite> implements Serializable {
 
 	private static final long serialVersionUID = -2412073347414420827L;
 
 	/*
 	 * Services
 	 */
-	@Inject private DossierDDService dossierService;
+	
 	
 	/*
 	 * Dto
 	 */
-	@Getter private List<DossierDD> list;
+	
 	
 	/*
 	 * Paramètres url
 	 */
-	@Getter @Setter private String nextViewOutcome;
-
+	
 	@Override
 	public void initialisation() {
 		super.initialisation();
-		list = dossierService.findAll(); 
+		title = "Ecran de réception d'une feuille de déplacement";
+		internalCode = "FS_MHCI_02_Ecran_01";
+		
+		closeCommand.setRendered(Boolean.FALSE);
+		defaultSubmitCommand.setRendered(Boolean.FALSE);
 	}
 	
-	public String href(Dossier dossier){
-		return null;//navigationManager.addQueryParameters(nextViewOutcome, 
-				//new String[]{constantResources.getRequestParamDossier(),dossier.getNumero(),constantResources.getRequestParamCrudType(),constantResources.getRequestParamCrudUpdate()});
+	
+
+
+
+	@Override
+	protected List<PieceProduite> load() {
+		return null;
 	}
+
+
+
+	@Override
+	public String href(PieceProduite entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 	
 	
 }

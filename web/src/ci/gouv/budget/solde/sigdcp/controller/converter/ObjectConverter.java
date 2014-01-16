@@ -11,6 +11,7 @@ import javax.inject.Named;
 import lombok.extern.java.Log;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
+import ci.gouv.budget.solde.sigdcp.model.calendrier.Exercice;
 
 /**
  * Converter Using View Map to store and retrieve object.
@@ -39,12 +40,15 @@ public class ObjectConverter implements Converter {
 	private String getIdentifier(Object object){
 		if(object == null)
 			return null;
-		if(object instanceof AbstractModel<?>){
+		if(object instanceof DynamicEnumeration){
 			return ((DynamicEnumeration) object).getCode();
+		}else if(object instanceof Exercice){
+			return ((Exercice) object).getAnnee().toString();
 		}else
 			log.warning("Cannot find identitifer of this object type : "+object.getClass());
 		return null;
 	}
+	
 	
 	private String createNewIdentifierFrom(String identifier){
 		return identifier+System.currentTimeMillis();

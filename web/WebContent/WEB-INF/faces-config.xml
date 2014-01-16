@@ -472,16 +472,21 @@
    <redirect/>
   </navigation-case>
   <navigation-case>
-   <from-outcome>suivreExecutionMissionListe</from-outcome>
-   <to-view-id>/private/personnel/consultation/suivreExecutionMissionListe.xhtml</to-view-id>
+   <from-outcome>suivreExecutionCalendrierListe</from-outcome>
+   <to-view-id>/private/personnel/consultation/suivreExecutionCalendrierMissionListe.xhtml</to-view-id>
   </navigation-case>
   <navigation-case>
-   <from-outcome>missionExecuteDetailView</from-outcome>
-   <to-view-id>/private/personnel/consultation/missionExecuteDetailView.xhtml</to-view-id>
+   <from-outcome>executionCalendrierMissionDetailView</from-outcome>
+   <to-view-id>/private/personnel/consultation/executionCalendrierMissionDetailView.xhtml</to-view-id>
   </navigation-case>
   <navigation-case>
    <from-outcome>realiserFeuilleDeplacementListe</from-outcome>
-   <to-view-id>/private/personnel/dossier/realiserFeuilleDeplacementListe.xhtml</to-view-id>
+   <to-view-id>/private/personnel/dossier/gfd.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>afdDialog</from-outcome>
+   <to-view-id>/private/personnel/edition/pdrDialog.xhtml</to-view-id>
+   <redirect/>
   </navigation-case>
   <navigation-case>
    <from-outcome>receptionnerFeuilleDeplacementListe</from-outcome>
@@ -499,6 +504,8 @@
    <from-outcome>feuilleDeplacementDetailView</from-outcome>
    <to-view-id>/private/personnel/consultation/feuilleDeplacementDetailView.xhtml</to-view-id>
   </navigation-case>
+  
+  
   <!-- Irie -->
   <navigation-case>
    <from-outcome>dossierlisteTR</from-outcome>

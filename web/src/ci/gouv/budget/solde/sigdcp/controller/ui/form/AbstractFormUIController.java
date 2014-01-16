@@ -80,7 +80,10 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 			}
 		});
 		closeCommand.setRendered(!isDialog());
-		closeCommand.setSuccessOutcome(userSessionManager.isLoggedIn()?"espacePrivee":"index");
+		closeCommand.setOnclick("return quitter();");
+		closeCommand.setSuccessOutcome(null);
+		closeCommand.setAjax(Boolean.FALSE);
+		//closeCommand.setSuccessOutcome(userSessionManager.isLoggedIn()?"espacePrivee":"index");
 		closeCommand.setImmediate(Boolean.TRUE);
 		closeCommand.setProcess("@this");
 	}

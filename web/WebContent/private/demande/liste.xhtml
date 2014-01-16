@@ -10,26 +10,35 @@
 <h:body>
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewParam id="nextViewOutcome" name="#{webConstantResources.requestParamNextViewOutcome}" value="#{dossierListeController.nextViewOutcome}" converter="#{viewParamOutcomeConverter}" >
+			<f:viewParam id="nextViewOutcome" name="#{webConstantResources.requestParamNextViewOutcome}" value="#{demandeListeController.nextViewOutcome}" converter="#{viewParamOutcomeConverter}" >
 				<f:attribute name="#{webConstantResources.requestParamOutcomeAction}" value="false" />
 			</f:viewParam>
-        	<f:event type="preRenderView" listener="#{dossierListeController.preRenderView}" />    	
+        	<f:event type="preRenderView" listener="#{demandeListeController.preRenderView}" />    	
     	</f:metadata>
 	</ui:define>
 		
 	<ui:composition template="/template/commun.xhtml">
-		<ui:param name="uiController" value="#{dossierListeController}" />
 		<ui:define name="contenu">
-			<p:dataTable id="listeDossier" value="#{dossierListeController.list}" var="dossier" rowIndexVar="index">
-				<f:facet name="header"><h:outputText value="Liste des demandes" /> </f:facet>
-				<ui:include src="/dossier/include/demandeTableauColonnes.xhtml" />
-				<p:column style="width:4%">
-					<p:button value="#{constantResources.text('bouton.details')}" href="#{dossierListeController.href(dossier)}" />
-				</p:column>
-			</p:dataTable>
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{demandeListeController}" />
+				<ui:define name="contenu">
+		
+					<ui:decorate template="/template/dataList.xhtml">
+						<ui:param name="controller" value="#{demandeListeController}" />
+												
+						<ui:define name="colonnes">
+							<p:column headerText="N°"><h:outputText value="#{record.numero}" /></p:column>
+							<p:column headerText="Nature"><h:outputText value="#{record.deplacement.nature.libelle}" /></p:column>
+							<p:column headerText="Date de soumission"><h:outputText value="#{record.dateDepot}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
+							<p:column headerText="Date de validation"><h:outputText value="#{record.dateDepot}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
+							<p:column headerText="Date de dépôt"><h:outputText value="#{record.dateDepot}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
+							<p:column headerText="Statut"><h:outputText value="Soumise" /></p:column>
+						</ui:define>
+					</ui:decorate>		
+				</ui:define>
+				</ui:decorate>
 		</ui:define>
-
-
+		
 	</ui:composition>
 
 </h:body>

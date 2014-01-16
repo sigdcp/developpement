@@ -1,16 +1,15 @@
 package ci.gouv.budget.solde.sigdcp.controller.mhci;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEntityListUIController;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIController;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
 
 @Named @RequestScoped
-public class ConsulterFeuilleDeplacementListeController extends AbstractEntityListUIController<PieceProduite> implements Serializable {
+public class ConsulterFeuilleDeplacementFormController extends AbstractEntityFormUIController<PieceProduite> implements Serializable {
 
 	private static final long serialVersionUID = -2412073347414420827L;
 
@@ -31,29 +30,15 @@ public class ConsulterFeuilleDeplacementListeController extends AbstractEntityLi
 	@Override
 	public void initialisation() {
 		super.initialisation();
-		title = "Ecran de consultation des feuilles de déplacement";
-		internalCode = "FS_MHCI_02_Ecran_03";
+		title = "Ecran de consultation détaillée d'une feuille de déplacement";
+		internalCode = "FS_MHCI_02_Ecran_04";
 		
-		closeCommand.setRendered(Boolean.FALSE);
+		closeCommand.setValue(text("retouraliste"));
 		defaultSubmitCommand.setRendered(Boolean.FALSE);
 	}
 	
 
 
-
-	@Override
-	public String href(PieceProduite entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	@Override
-	protected List<PieceProduite> load() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	
 	

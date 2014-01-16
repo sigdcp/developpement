@@ -34,7 +34,11 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Jp
 	
 	@Override
 	public Collection<DOSSIER> readByNatureDeplacement(NatureDeplacement natureDeplacement) {
-		return null;
+		return entityManager.createQuery("SELECT d FROM Dossier d "
+				+ "WHERE d.deplacement.nature = :nature"
+				, clazz)
+				.setParameter("nature", natureDeplacement)
+				.getResultList();
 	}
 	
 	@Override

@@ -152,4 +152,8 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 		extraValidators.add(new Object[]{validator,object});
 	}
 	
+	public void addExtraValidatorFor(Object object){
+		addExtraValidator(new AbstractValidator<>(object.getClass()), object);
+	}
+	
 }

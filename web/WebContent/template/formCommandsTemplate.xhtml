@@ -9,13 +9,12 @@
  	
 	<p:spacer height="#{spacerHeight}" />
 	<table style="margin: auto;"><tr><td>
-		<!--
-		<p:commandButton immediate="true" action="#{uiController.close}" value="#{constantResources.text('boutonfermer')}" icon="ui-icon-close" 
-			rendered="#{closeable}" process="@this"/>
-		-->	
-		<ui:include src="/resources/include/component/formCommand.xhtml" >
+		
+		<p:button value="#{constantResources.text('bouton.fermer')}" icon="ui-icon-close" rendered="#{uiController.closeCommand.rendered}" onclick="return quitter();"/>
+			
+		<!-- <ui:include src="/resources/include/component/formCommand.xhtml" >
 			<ui:param name="command" value="#{uiController.closeCommand}" />
-		</ui:include>
+		</ui:include> -->
 		
 		<ui:include src="/resources/include/component/formCommand.xhtml" >
 			<ui:param name="command" value="#{uiController.wizardHelper.previous}" />

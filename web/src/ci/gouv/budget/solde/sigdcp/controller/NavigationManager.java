@@ -69,6 +69,7 @@ public class NavigationManager implements Serializable {
 	}
 	
 	public String addQueryParameters(String aUrl,Object[] parameters){
+		System.out.println(aUrl);
 		StringBuilder url = new StringBuilder(aUrl);
 	    if(parameters!=null && parameters.length>0){
 	    	for(int i=0;i<parameters.length-1;i=i+2)

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:viewParam name="#{webConstantResources.requestParamCalendrierMission}" value="#{consulterCalendrierMissionController.entity}" converter="#{viewParamCalendrierMissionConverter}" />	           
+	    	<f:event type="preRenderView" listener="#{consulterCalendrierMissionController.preRenderView}" /> 
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml"> 
+				<ui:param name="uiController" value="#{missionExecuteController}" />
+				<ui:define name="contenu">	
+					<p:panelGrid columns="3" styleClass="panelGridNoBorder">
+						<h:outputText value="#{constantResources.text('exercice')}" />
+						<h:outputText value=":" /><h:outputText value="#{consulterCalendrierMissionController.entity.exercice.annee}" />
+						
+						<h:outputText value="#{constantResources.text('ministere')}" />
+						<h:outputText value=":" /><h:outputText value="#{consulterCalendrierMissionController.entity.section}" />
+						
+						<h:outputText value="#{constantResources.text('montantvalide')}" /><h:outputText value=":" />
+						<h:panelGroup>
+						<p:panelGrid columns="5">
+						<h:outputText value="#{consulterCalendrierMissionController.entity.dotation}" ><f:convertNumber currencySymbol=""/> </h:outputText>						
+						
+						<h:outputText value="#{constantResources.text('montantexecute')}" />
+						<h:outputText value=":" />
+						
+						<h:outputText value="#{constantResources.text('ecart')}" />
+						<h:outputText value=":" />
+						</p:panelGrid>
+						</h:panelGroup>
+						
+												
+					</p:panelGrid><br/>
+						
+					<p:spacer height="10"/>
+					<p:dataTable id="listeMission" value="#{consulterCalendrierMissionController.missionDtos}" var="missionDto" rowIndexVar="index">				
+							<p:column headerText="#" ><h:outputText value="#{index+1}" /></p:column>
+							<p:column headerText="#{constantResources.text('numero.abbrege')} #{constantResources.text('communication')}" ><h:outputText value="" /></p:column>
+							<p:column headerText="#{constantResources.text('montantexecute')}" ><h:outputText value="" /></p:column>
+							<p:column headerText="#{constantResources.text('objet')}" ><h:outputText value="" /></p:column>
+						</p:dataTable>
+					
+				</ui:define>
+				</ui:decorate>
+		
+		
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

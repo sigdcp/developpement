@@ -9,12 +9,14 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import ci.gouv.budget.solde.sigdcp.dao.DynamicEnumerationDao;
+import ci.gouv.budget.solde.sigdcp.dao.calendrier.ExerciceDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.NatureDeplacementDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.TypePieceDao;
 import ci.gouv.budget.solde.sigdcp.dao.geographie.LocaliteDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.SectionDao;
 import ci.gouv.budget.solde.sigdcp.dao.prestation.PrestataireDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
+import ci.gouv.budget.solde.sigdcp.model.calendrier.Exercice;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
@@ -122,6 +124,18 @@ public class ListeResources {
     @Produces @Named
     public Sexe[] getSexes(){
     	return Sexe.values();
+    }
+   
+    @Produces @Named
+    public List<Section> getMinisteres(){
+    	return new LinkedList<>(sectionDao.readBySectionTypeId(Code.TYPE_SECTION_MINISTERE));
+    }
+    
+
+    @Inject private ExerciceDao exerciceDao;
+    @Produces @Named
+    public List<Exercice> getExercices(){
+    	return new LinkedList<>(exerciceDao.readAll());
     }
     
     

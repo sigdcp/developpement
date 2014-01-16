@@ -20,32 +20,29 @@
 	<ui:composition template="/template/commun.xhtml">
 		<ui:param name="uiController" value="#{consulterFeuilleDeplacementListeController}" />
 		<ui:define name="contenu">
-		<p:panel>
-		<f:facet name="header"><h:outputText value="Ecran de consultation des feuilles de déplacement (FS_MHCI_02_Ecran_03)" /> </f:facet>
 		
-		<h:form>
-		<p:fieldset legend="#{constantResources.text('critere.recherche')}" style="width:60%">
-			<p:panelGrid columns="4" styleClass="panelGridNoBorder">
-			<p:outputLabel for="numeroFd" value="#{constantResources.text('numero.abbrege')} #{constantResources.text('feuille.deplacement')} :" />
-					<p:inputText  id="numeroFd" required="true" requiredMessage="#{valueRequiredMessage}"/>
-					<p:message for="numeroFd" />
-					<p:commandButton value="#{constantResources.text('bouton.rechercher')}" ajax="false" update="@form"/>
-			</p:panelGrid>
-		</p:fieldset>
-			</h:form>
-		<p:spacer height="10"/>
-			<p:dataTable id="listeDemandeMhci" value="" var="dossier" rowIndexVar="index">				
-				<p:column headerText="#" ><h:outputText value="#{index+1}" /></p:column>
-				<p:column headerText="#{constantResources.text('numero')}" ><h:outputText value="" /></p:column>
-				<p:column headerText="#{constantResources.text('date.creation')}" ><h:outputText value="" /></p:column>
-				<p:column headerText="#{constantResources.text('matricule')}" ><h:outputText value="" /></p:column>
-				<p:column headerText="#{constantResources.text('nom.prenoms')}" ><h:outputText value="" /></p:column>
-				<p:column style="width:4%">
-					<p:button value="#{constantResources.text('bouton.details')}" outcome="feuilleDeplacementDetailView"/>
-					
-				</p:column>
-			</p:dataTable>
-			</p:panel>
+		
+			<ui:decorate template="/template/formTemplate.xhtml"> 
+				<ui:param name="uiController" value="#{consulterFeuilleDeplacementListeController}" />
+				<ui:define name="contenu">	
+				
+					<ui:decorate template="/template/dataList.xhtml">
+						<ui:param name="controller" value="#{consulterFeuilleDeplacementListeController}" />
+						
+						<ui:define name="colonnes">
+								
+							<p:column headerText="#{constantResources.text('numero')}" sortBy="" ><h:outputText value="" /></p:column>
+							<p:column headerText="#{constantResources.text('datecreation')}" sortBy="" ><h:outputText value="" /></p:column>
+							<p:column headerText="#{constantResources.text('matricule')}" sortBy="" filterBy="" ><h:outputText value="" /></p:column>
+							<p:column headerText="#{constantResources.text('nomprenoms')}" sortBy="" filterBy="" ><h:outputText value="" /></p:column>
+							
+							
+						</ui:define>
+					</ui:decorate>
+			
+				</ui:define>
+		</ui:decorate>
+		
 		</ui:define>
 
 

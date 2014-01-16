@@ -10,58 +10,42 @@
 <h:body>
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewParam id="nextViewOutcome" name="#{webConstantResources.requestParamNextViewOutcome}" value="#{consulterCalendrierListeController.nextViewOutcome}" converter="#{viewParamOutcomeConverter}" >
+			<f:viewParam id="nextViewOutcome" name="#{webConstantResources.requestParamNextViewOutcome}" value="#{calendrierMissionController.nextViewOutcome}" converter="#{viewParamOutcomeConverter}" >
 				<f:attribute name="#{webConstantResources.requestParamOutcomeAction}" value="false" />
 			</f:viewParam>
-        	<f:event type="preRenderView" listener="#{consulterCalendrierListeController.preRenderView}" />    	
+        	<f:event type="preRenderView" listener="#{calendrierMissionController.preRenderView}" />    	
     	</f:metadata>
 	</ui:define>
 		
 	<ui:composition template="/template/commun.xhtml">
-
 	
 		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{calendrierMissionController}" />
+				<ui:define name="contenu">
 		
-	<ui:decorate template="/template/dataList.xhtml">
-		<ui:param name="controller" value="#{consulterCalendrierListeController}" />
-		<ui:define name="criteresrecherche">
-			<p:panelGrid columns="6" styleClass="panelGridNoBorder">
-				<p:outputLabel for="ministere" value="#{constantResources.text('ministere')} :" />
-						<p:selectOneMenu id="ministere"  converter="#{objectConverter}">
-							<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
-							<f:selectItems value="#{ministeres}"/>
-						</p:selectOneMenu><p:message for="ministere" />
-				<p:outputLabel for="exercice" value="#{constantResources.text('exercice')} :" />
-						<p:selectOneMenu id="exercice" converter="#{objectConverter}">
-							<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
-							<f:selectItems value="#{exercices}"/>
-						</p:selectOneMenu><p:message for="exercice" />
+					<ui:decorate template="/template/dataList.xhtml">
+						<ui:param name="controller" value="#{calendrierMissionController}" />
+						<ui:define name="criteresrecherche">
+							<p:panelGrid columns="6" styleClass="panelGridNoBorder">
+								<p:outputLabel for="exercice" value="#{constantResources.text('exercice')} :" />
+										<p:selectOneMenu id="exercice" value="#{controller.exercice}" converter="#{objectConverter}">
+											<f:selectItem noSelectionOption=""  itemLabel="#{constantResources.text('tout')}"/>
+											<f:selectItems value="#{exercices}" var="exo" itemLabel="#{exo.annee}"/>
+										</p:selectOneMenu><p:message for="exercice" />
+										
+								</p:panelGrid>			
+						</ui:define>
 						
-				</p:panelGrid>			
-		</ui:define>
-		
-		<ui:define name="colonnes">
-			<p:column headerText="#{constantResources.text('exercice')}" ><h:outputText value="#{record.exercice.annee}" /></p:column>
-			<p:column headerText="#{constantResources.text('ministere')}" ><h:outputText value="#{record.section}" /></p:column>
-			<p:column headerText="#{constantResources.text('budget')}" ><h:outputText value="#{record.dotation}"><f:convertNumber currencySymbol="" /> </h:outputText> </p:column>
-		</ui:define>
-	</ui:decorate>		
-		
-			<!--ui:decorate template="/template/formTemplate.xhtml"> 
-				<ui:param name="uiController" value="#{consulterCalendrierListeController}" />
-				<ui:define name="contenu">	
-
-					<p:fieldset legend="#{constantResources.text('criteresrecherche')}" style="width:60%" >
-						
-					</p:fieldset> 
-					
-					<p:spacer height="10"/>
-						<p:dataTable id="listeCalendrier" value="#{consulterCalendrierListeController.list}" var="calendrier" rowIndexVar="index">				
-							
-						</p:dataTable>
+						<ui:define name="colonnes">
+							<p:column headerText="#{constantResources.text('exercice')}" sortBy="" ><h:outputText value="#{record.exercice.annee}" /></p:column>
+							<p:column headerText="#{constantResources.text('ministere')}" sortBy="" filterBy="" ><h:outputText value="#{record.section}" /></p:column>
+							<p:column headerText="#{constantResources.text('budget')}" sortBy="" ><h:outputText value="#{record.dotation}"><f:convertNumber currencySymbol="" /> </h:outputText> </p:column>
+						</ui:define>
+					</ui:decorate>		
 				</ui:define>
-			</ui:decorate>
-			-->
+				</ui:decorate>
+			
 		</ui:define>
 
 
