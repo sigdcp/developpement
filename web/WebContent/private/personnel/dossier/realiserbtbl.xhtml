@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{bordereauBulletinLiquidationController.crudType}" converter="#{viewParamEnumConverter}" />   
+		    <f:event type="preRenderView" listener="#{bordereauBulletinLiquidationController.preRenderView}" />
+    	</f:metadata>
+	</ui:define>		
+		<ui:composition template="/template/commun.xhtml">
+			<ui:define name="contenu">
+				<ui:decorate template="/template/formTemplate.xhtml">
+					<ui:param name="uiController" value="#{bordereauBulletinLiquidationController}" />
+					<ui:define name="contenu">
+					
+						<style>
+							.c1{
+								font-weight: bold;
+								width: 200px;
+							}
+							.c2{
+								
+							}
+							.c3{
+								
+							}
+						</style>
+		
+									
+				
+							<p:panelGrid columns="6" styleClass="panelGridNoBorder" >							
+												        
+								<p:outputLabel for="typeDeplacement" value="Boredereau de " />
+								<p:selectOneRadio id="typeDeplacement"  required="truee" requiredMessage="#{valueRequiredMessage}">
+									<f:selectItems value="#{typeDeplacements}"/>
+								</p:selectOneRadio>
+								<p:message for="typeDeplacement" />
+								
+								<p:outputLabel for="montantBordereau" value="Montant plafond du bordereau" />
+								<p:inputText id="montantBordereau" value="#{bordereauBulletinLiquidationController.entity.montantPlafond}" rendered="#{bordereauBulletinLiquidationController.editable}" />
+								<p:outputLabel value="#{bordereauBulletinLiquidationController.entity.montantPlafond}" rendered="#{not bordereauBulletinLiquidationController.editable}" />
+								<p:message for="montantBordereau" rendered="#{bordereauBulletinLiquidationController.editable}"/>
+	
+							</p:panelGrid>
+
+					<ui:decorate template="/template/dataList.xhtml">
+						<ui:param name="controller" value="#{bordereauBulletinLiquidationController.selectionPieceController}" />
+						<ui:define name="colonnes">
+							<p:column headerText="Numéro" ><h:outputText value="#{record.pieceProduite.numero}" /></p:column>
+							<p:column headerText="Nom et prénoms" ><h:outputText value="#{record.dossier.beneficiaire.nomPrenoms}" /></p:column>
+							<p:column headerText="Matricule" ><h:outputText value="#{record.dossier.beneficiaire.matricule}" /></p:column>
+							<p:column headerText="N° Dossier" ><h:outputText value="#{record.dossier.numero}" /></p:column>
+							<p:column headerText="Nature dossier" ><h:outputText value="#{record.dossier.deplacement.nature.libelle}" /></p:column>
+							<p:column headerText="Montant" ><h:outputText value="100000" /></p:column>
+						</ui:define>
+					</ui:decorate>								
+						
+						<p:spacer height="5" />
+						<!--p:dataTable id="listeBL" value="#{bordereauBulletinLiquidationController.traitements}" var="traitement" rowIndexVar="index" rowKey="#{traitement.id}"
+							selection="#{bordereauBulletinLiquidationController.traitementSelectionnes}">
+							<f:facet name="header"><h:outputText value="Liste des bulletins de liquidation" /> </f:facet>
+							<p:column selectionMode="multiple"/>
+
+		
+							<p:column style="width:10%">	
+								
+								<p:button value="#{constantResources.text('bouton.aperçu')}" href="#{bordereauBulletinLiquidationController.href(dossier)}" />
+								<p:button value="#{constantResources.text('bouton.pieces')}" href="#{bordereauBulletinLiquidationController.href(dossier)}" />
+								
+								<p:button value="#{constantResources.text('bouton.retirer')}" href="#{bordereauBulletinLiquidationController.href(dossier)}" />
+								
+							</p:column>
+						</p:dataTable-->
+						
+					</ui:define>
+					
+				</ui:decorate>	
+		</ui:define>
+					
+	</ui:composition>
+			
+	</h:body>
+
+</html>

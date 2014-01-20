@@ -19,6 +19,7 @@ import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.CalendrierMission;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Exercice;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
+import ci.gouv.budget.solde.sigdcp.model.dossier.BulletinLiquidation;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CategorieDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
@@ -503,11 +504,11 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(operation);
 		em.persist(new Traitement(operation,null,dossier,statut));
 		if(natureOperationLiquidation.equals(natureOperation))
-			em.persist(new PieceProduite(numero(), typePieceProduiteBL));
+			em.persist(new BulletinLiquidation(numero(), typePieceProduiteBL, date(), null, 120000));
 		else if(natureOperationRBTBL.equals(natureOperation))
-			em.persist(new PieceProduite(numero(), typePieceProduiteBTBL));
+			;//em.persist(new PieceProduite(numero(), typePieceProduiteBTBL));
 		else if(natureOperationRBTF.equals(natureOperation))
-			em.persist(new PieceProduite(numero(), typePieceProduiteBTF));
+			;//em.persist(new PieceProduite(numero(), typePieceProduiteBTF));
 	}
 	
 	static long ID = 0;

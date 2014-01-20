@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+
+		<navigation-case>
+			<from-outcome>souscriptionDialog</from-outcome>
+			<to-view-id>/public/inscriptionpersonneDialog.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>demandeddDialog</from-outcome>
+			<to-view-id>/private/demande/ddDialog.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>apcDialog</from-outcome>
+			<to-view-id>/private/personnel/edition/apcDialog.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>pdrDialog</from-outcome>
+			<to-view-id>/private/personnel/edition/pdrDialog.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>viserdocumentDialog</from-outcome>
+			<to-view-id>/private/personnel/dossier/validation/viserDialog.xhtml
+			</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>afdDialog</from-outcome>
+			<to-view-id>/private/personnel/edition/pdrDialog.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>blDialog</from-outcome>
+			<to-view-id>/private/personnel/edition/blDialog.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+
+</faces-config>

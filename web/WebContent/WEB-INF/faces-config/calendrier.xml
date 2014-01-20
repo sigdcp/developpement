@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+
+		<navigation-case>
+			<from-outcome>enregistrerExerciceForm</from-outcome>
+			<to-view-id>/private/personnel/calendrier/enregistrerExerciceForm.xhtml
+			</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>enregistrerCalendrierForm</from-outcome>
+			<to-view-id>/private/personnel/calendrier/enregistrerCalendrierForm.xhtml
+			</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ajouterMissionForm</from-outcome>
+			<to-view-id>/private/personnel/calendrier/ajouterMissionForm.xhtml
+			</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>consulterCalendrierListe</from-outcome>
+			<to-view-id>/private/personnel/consultation/consulterCalendrierListe.xhtml
+			</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>calendrierDetailView</from-outcome>
+			<to-view-id>/private/personnel/consultation/calendrierDetailView.xhtml
+			</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>suivreExecutionCalendrierListe</from-outcome>
+			<to-view-id>/private/personnel/consultation/suivreExecutionCalendrierMissionListe.xhtml
+			</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>executionCalendrierMissionDetailView</from-outcome>
+			<to-view-id>/private/personnel/consultation/executionCalendrierMissionDetailView.xhtml
+			</to-view-id>
+		</navigation-case>
+		
+
+	</navigation-rule>
+
+</faces-config>

@@ -18,7 +18,11 @@ import org.apache.commons.lang3.StringUtils;
 public class NavigationManager implements Serializable {
 	
 	private static final long serialVersionUID = 4432678991321751425L;
-
+	
+	/**
+	 * 
+	 */
+	private static final String OUTCOME_NOT_FOUND = "outcomenotfound";
 	/**
 	 * We stay on the same view after action
 	 */
@@ -40,6 +44,10 @@ public class NavigationManager implements Serializable {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		NavigationCase navigationCase = ((ConfigurableNavigationHandler)facesContext.getApplication().getNavigationHandler()).getNavigationCase(facesContext, null, id);
 		//System.out.println(id+" / "+navigationCase);
+		if(navigationCase==null){
+			log.severe("No Navigation Case found for "+id);
+			return url(OUTCOME_NOT_FOUND, new Object[]{"oc",id});
+		}
 		String s = navigationCase.getToViewId(facesContext);
 		StringBuilder url;
 		if(Boolean.TRUE.equals(actionOutcome))

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+	<navigation-rule>
+
+		<from-view-id>*</from-view-id>
+		
+			<!-- autentification -->
+		   <navigation-case>
+   <from-outcome>login</from-outcome>
+   <to-view-id>/public/login.xhtml</to-view-id>
+  </navigation-case>
+		
+		<navigation-case>
+			<from-outcome>espacePrivee</from-outcome>
+			<to-view-id>/private/espacePrive.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<!-- Agent de l'état -->
+		  <navigation-case>
+   <from-outcome>inscriptionpersonne</from-outcome>
+   <to-view-id>/public/inscriptionpersonne.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+		
+		  <navigation-case>
+   <from-outcome>souscriptionliste</from-outcome>
+   <to-view-id>/private/personnel/identification/valideragent.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+
+		<!-- Gestionnaire de carte -->
+
+		<navigation-case>
+			<from-outcome>inscriregestionairecartesotra</from-outcome>
+			<to-view-id>/private/personnel/identification/souscriptiongestionnairecarte.xhtml
+			</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>souscriptiongestionnairecartesotraliste</from-outcome>
+			<to-view-id>/private/personnel/identification/souscriptiongestionnairecartesotraliste.xhtml
+			</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>validergestionairecartesotra</from-outcome>
+			<to-view-id>/private/personnel/identification/validationsouscriptiongestionnairecartesotra.xhtml
+			</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<!-- Beneficiaire de carte -->
+
+		<navigation-case>
+			<from-outcome>listebasegestionnaire</from-outcome>
+			<to-view-id>/private/demande/gestionnairecartesotraliste.xhtml
+			</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>inscriptionlistebasegcs</from-outcome>
+			<to-view-id>/private/demande/inscriptionlistegestionnairecartesotraForm.xhtml
+			</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>inscritslistebasegcs</from-outcome>
+			<to-view-id>/private/personnel/identification/inscritslbgestionnairecartesotraliste.xhtml
+			</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>validationinscriptionlb</from-outcome>
+			<to-view-id>/private/personnel/identification/validationincriptionlistebasegscForm.xhtml
+			</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>consulterbeneficiairelistebase</from-outcome>
+			<to-view-id>/private/personnel/identification/consulterbeneficiairelistebase.xhtml
+			</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>detailbeneficiairelistebase</from-outcome>
+			<to-view-id>/private/personnel/identification/beneficiairelistebasedetail.xhtml
+			</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+
+</faces-config>

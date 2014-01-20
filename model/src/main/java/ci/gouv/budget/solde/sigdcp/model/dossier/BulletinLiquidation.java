@@ -12,28 +12,33 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter 
 @Entity
-public class BordereauTransmission  extends PieceProduite  implements Serializable{
+public class BulletinLiquidation  extends PieceProduite  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	//@OneToMany
 		//private LinkedList<PieceProduite> pieceProduites = new LinkedList<PieceProduite>();
 	
-	private Integer montantPlafond;
+	@ManyToOne
+	private BordereauTransmission bordereauTransmission;
 	
-	public BordereauTransmission() {
+	private Integer montant;
+	
+	public BulletinLiquidation() {
 		super();
 	}
 
-	public BordereauTransmission(String numero, TypePieceProduite type, Date dateEtablissement,Integer montantPlafond) {
+	public BulletinLiquidation(String numero, TypePieceProduite type, Date dateEtablissement,BordereauTransmission bordereauTransmission,Integer montant) {
 		super(numero, type,dateEtablissement);
-		this.montantPlafond=montantPlafond;
+		this.bordereauTransmission = bordereauTransmission;
+		this.montant=montant;
 	}
 	
 	

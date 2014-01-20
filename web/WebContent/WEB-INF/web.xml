@@ -2,6 +2,19 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
 	<display-name>SIGDCP</display-name>
 	
+	<context-param>
+	    <param-name>javax.faces.CONFIG_FILES</param-name>
+	    <param-value>
+	    	/WEB-INF/faces-config/identification.xml,
+	    	/WEB-INF/faces-config/indemnite.xml,
+	    	/WEB-INF/faces-config/dossier.xml,
+	    	/WEB-INF/faces-config/geographie.xml,
+	    	/WEB-INF/faces-config/prestation.xml,
+	    	/WEB-INF/faces-config/calendrier.xml,
+	    	/WEB-INF/faces-config/dialog.xml,
+	    	/WEB-INF/faces-config/stats.xml,
+	    </param-value>
+	  </context-param>
 	
 	<context-param>
 	    <param-name>sigdcp.SHOW_VIEW_ID</param-name>

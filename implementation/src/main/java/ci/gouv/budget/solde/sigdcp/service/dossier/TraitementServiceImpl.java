@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import ci.gouv.budget.solde.sigdcp.dao.dossier.TraitementDao;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
+import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
 
@@ -24,6 +25,11 @@ public class TraitementServiceImpl extends DefaultServiceImpl<Traitement, Long> 
 	@Override
 	public Collection<Traitement> findByDossier(Dossier dossier) {
 		return ((TraitementDao)dao).readAllByDossier(dossier);
+	}
+	
+	@Override
+	public Traitement findByPieceProduite(PieceProduite pieceProduite) {
+		return ((TraitementDao)dao).readByPieceProduite(pieceProduite);
 	}
 
 }

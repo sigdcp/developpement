@@ -11,7 +11,7 @@
 	<ui:define name="metadata">
 		<f:metadata>
 			<f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{inscriptionPersonneController.crudType}" converter="#{viewParamEnumConverter}" />
-			<f:viewParam id="entityId" name="#{webConstantResources.requestParamInscription}" value="#{inscriptionPersonneController.entity}" converter="#{viewParamInscriptionConverter}" />
+			<f:viewParam id="entityId" name="#{webConstantResources.requestParamSouscription}" value="#{inscriptionPersonneController.entity}" converter="#{viewParamInscriptionConverter}" />
 			<f:viewParam id="viewTypeId" name="#{webConstantResources.requestParamViewType}" value="#{inscriptionPersonneController.viewType}" />
         	<f:event type="preRenderView" listener="#{inscriptionPersonneController.preRenderView}" />    	
     	</f:metadata>

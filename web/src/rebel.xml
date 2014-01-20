@@ -2,18 +2,18 @@
 <application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
 
 	<classpath>
-		<dir name="C:/Users/seutch/git/sigdcp/Version 0.1/web/target/classes">
+		<dir name="C:/Users/christian/git/sigdcp/Version 0.1/web/target/classes">
 		</dir>
 	</classpath>
 
 	<web>
 		<link target="/">
-			<dir name="C:/Users/seutch/git/sigdcp/Version 0.1/web/target/m2e-wtp/web-resources">
+			<dir name="C:/Users/christian/git/sigdcp/Version 0.1/web/target/m2e-wtp/web-resources">
 				<exclude name="/"/>
 			</dir>
 		</link>
 		<link target="/">
-			<dir name="C:/Users/seutch/git/sigdcp/Version 0.1/web/WebContent">
+			<dir name="C:/Users/christian/git/sigdcp/Version 0.1/web/WebContent">
 			</dir>
 		</link>
 	</web>

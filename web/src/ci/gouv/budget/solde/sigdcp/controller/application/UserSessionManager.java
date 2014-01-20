@@ -121,6 +121,10 @@ public class UserSessionManager implements Serializable{
 		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.receptionnerdecisionremboursement","dossierliste", new Object[]{
 				webConstantResources.getRequestParamStatut(),Code.STATUT_CONFORME,webConstantResources.getRequestParamNextViewOutcome(),"decisionrembForm"
 		});
+		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.realiserbtbl","realiserbtbl", new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()
+		});
+		
 		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.cotationbilletavion","demandecotationbilletavionmission", new Object[]{});
 		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.commandebilletavion","commandebilletavionmission", new Object[]{});
 		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.consulterfdmhci","consulterFeuilleDeplacementListe", new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"feuilleDeplacementDetailView"});

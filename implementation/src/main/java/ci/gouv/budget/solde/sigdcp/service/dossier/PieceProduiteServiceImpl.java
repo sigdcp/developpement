@@ -1,6 +1,7 @@
 package ci.gouv.budget.solde.sigdcp.service.dossier;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -16,6 +17,17 @@ public class PieceProduiteServiceImpl extends AbstractDocumentServiceImpl<PieceP
 	@Inject
 	public PieceProduiteServiceImpl(PieceProduiteDao dao) {
 		super(dao);
+	}
+	 
+	@Override
+	public Collection<PieceProduite> findByTypeId(String typeId) {
+		return ((PieceProduiteDao)dao).readByTypeId(typeId);
+	}
+	
+	@Override
+	public Collection<PieceProduite> findByCategorieIdByTypePieceId(String cdid, String typeId) {
+		
+		return null;
 	}
 
 }
