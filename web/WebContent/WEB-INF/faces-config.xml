@@ -29,6 +29,40 @@
     <redirect/>
   </navigation-case>
   
+  <!-- AM -->
+  <navigation-case>
+   <from-outcome>listebasegestionnaire</from-outcome>
+   <to-view-id>/private/demande/gestionnairecartesotraliste.xhtml</to-view-id>
+    <redirect/>
+  </navigation-case> 
+   <navigation-case>
+   <from-outcome>inscriptionlistebasegcs</from-outcome>
+   <to-view-id>/private/demande/inscriptionlistegestionnairecartesotraForm.xhtml</to-view-id>
+    <redirect/>
+  </navigation-case> 
+    <navigation-case>
+   <from-outcome>inscritslistebasegcs</from-outcome>
+   <to-view-id>/private/personnel/identification/inscritslbgestionnairecartesotraliste.xhtml</to-view-id>
+    <redirect/>
+  </navigation-case>  
+     <navigation-case>
+   <from-outcome>validationinscriptionlb</from-outcome>
+   <to-view-id>/private/personnel/identification/validationincriptionlistebasegscForm.xhtml</to-view-id>
+    <redirect/>
+  </navigation-case>
+     <navigation-case>
+   <from-outcome>consulterbeneficiairelistebase</from-outcome>
+   <to-view-id>/private/personnel/identification/consulterbeneficiairelistebase.xhtml</to-view-id>
+    <redirect/>
+  </navigation-case>
+     <navigation-case>
+   <from-outcome>detailbeneficiairelistebase</from-outcome>
+   <to-view-id>/private/personnel/identification/beneficiairelistebasedetail.xhtml</to-view-id>
+    <redirect/>
+  </navigation-case>
+  
+     
+     
    <navigation-case>
    <from-outcome>login</from-outcome>
    <to-view-id>/public/login.xhtml</to-view-id>

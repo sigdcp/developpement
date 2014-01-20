@@ -73,6 +73,8 @@ public class UserSessionManager implements Serializable{
 		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.gerercartesotra","inscriregestionairecartesotra",new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()
 		});
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.inscrirelistebasegestionnaire","listebasegestionnaire",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"inscriptionlistebasegcs"});
+		
 		
 		Submenu calendrierMissions = menuManager.addSubmenu("menu.calendrier");
 		menuManager.addMenuItem(calendrierMissions, "menu.calendrier.missions","enregistrerCalendrierForm",new Object[]{webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()});
@@ -88,6 +90,8 @@ public class UserSessionManager implements Serializable{
 		menuManager.addMenuItem(identification, "menu.identification.validergcs","souscriptiongestionnairecartesotraliste", new Object[]{
 				webConstantResources.getRequestParamNextViewOutcome(),"validergestionairecartesotra"
 		});
+		menuManager.addMenuItem(identification, "menu.identification.validerlistebasegcs","inscritslistebasegcs",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"validationinscriptionlb"});
+		menuManager.addMenuItem(identification, "menu.identification.consulterbeneficiaire","consulterbeneficiairelistebase",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"detailbeneficiairelistebase"});
 		
 		
 		Submenu traitementDemande = menuManager.addSubmenu("menu.traitementdemande");

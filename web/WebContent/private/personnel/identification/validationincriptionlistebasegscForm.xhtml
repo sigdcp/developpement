@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="#{webConstantResources.requestParamSouscription}" value="#{validationInscriptionListeGestionnaireCarteSotraController.entity}" converter="#{viewParamSouscriptionConverter}"/>
+			<f:event listener="#{validationInscriptionListeGestionnaireCarteSotraController.preRenderView}" type="preRenderView" />
+    	</f:metadata>
+	</ui:define>	
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{validationInscriptionListeGestionnaireCarteSotraController}" />
+				<ui:define name="contenu">	
+					
+					<ui:include src="/identification/include/outputAgentEtat.xhtml" >
+						<ui:param name="agentEtat" value="#{userSessionManager.user}" />
+						<ui:param name="columnCount" value="6" />
+					</ui:include>
+					
+					<p:spacer height="5"/>
+					
+					<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml"/>
+					
+					<p:spacer height="5"/>
+					
+					<ui:include src="/resources/include/component/validation.xhtml" >
+						<ui:param name="dto" value="#{validationInscriptionListeGestionnaireCarteSotraController.validationDto}"/>
+					</ui:include>
+
+				</ui:define>
+				
+			</ui:decorate>
+				
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

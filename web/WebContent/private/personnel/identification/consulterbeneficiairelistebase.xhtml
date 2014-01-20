@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam id="nextViewOutcome" name="#{webConstantResources.requestParamNextViewOutcome}" value="#{consulterBeneficiaireListebaseController.nextViewOutcome}" converter="#{viewParamOutcomeConverter}" >
+				<f:attribute name="#{webConstantResources.requestParamOutcomeAction}" value="false" />
+			</f:viewParam>
+        	<f:event type="preRenderView" listener="#{consulterBeneficiaireListebaseController.preRenderView}" />    	
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">			
+		
+			<ui:decorate template="/template/formTemplate.xhtml"> 
+				<ui:param name="uiController" value="#{consulterBeneficiaireListebaseController}" />
+				<ui:define name="contenu">	
+					<ui:decorate template="/template/dataList.xhtml">					
+						<ui:param name="controller" value="#{consulterBeneficiaireListebaseController}" />
+						<ui:define name="colonnes">
+							<p:column headerText="#{constantResources.text('code')}" filterBy="#{record.gestionnaire.code}" ><h:outputText value="#{record.gestionnaire.code}" /></p:column>							
+							<p:column headerText="#{constantResources.text('servicegerer')}" filterBy="#{record.nomSectionAGerer}" ><h:outputText value="#{record.nomSectionAGerer}"/></p:column>
+							<p:column headerText="#{constantResources.text('ministere')}" filterBy="#{record.ministere}" ><h:outputText value="#{record.ministere}"/></p:column>
+							
+						</ui:define>
+						
+					</ui:decorate>	
+				</ui:define>
+			</ui:decorate>
+			
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

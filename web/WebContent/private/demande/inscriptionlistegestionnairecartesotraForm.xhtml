@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+		<f:viewParam name="#{webConstantResources.requestParamSouscription}" value="#{inscriptionListeGestionnaireCarteSotraForm.gestionnaire}" converter="#{viewParamSouscriptionConverter}"/>
+        	<f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{inscriptionListeGestionnaireCarteSotraForm.crudType}" converter="#{viewParamEnumConverter}" />	           
+	    	<f:event type="preRenderView" listener="#{inscriptionListeGestionnaireCarteSotraForm.preRenderView}" /> 
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{inscriptionListeGestionnaireCarteSotraForm}" />
+				<ui:define name="contenu">	
+				<p:fieldset legend="Information sur le gestionnaire">
+					<p:panelGrid columns="2" styleClass="panelGridNoBorder">
+					<p:outputLabel value="#{constantResources.text('code')}" />
+					<p:outputLabel value=": #{inscriptionListeGestionnaireCarteSotraForm.gestionnaire.code}" />
+					<p:outputLabel value="#{constantResources.text('service')}" />
+					<p:outputLabel value=": #{inscriptionListeGestionnaireCarteSotraForm.gestionnaire.nomSectionAGerer}" />
+					<p:outputLabel value="#{constantResources.text('ministere')}" />
+					<p:outputLabel value=": #{inscriptionListeGestionnaireCarteSotraForm.gestionnaire.ministere}" />
+					
+					</p:panelGrid>
+				</p:fieldset>
+				
+				<p:spacer height="5"/>
+
+				<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml"/>
+					
+								
+				</ui:define>
+				
+				
+				
+			</ui:decorate>
+				
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>
