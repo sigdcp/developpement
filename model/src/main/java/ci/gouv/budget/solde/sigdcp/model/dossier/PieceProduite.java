@@ -40,5 +40,4 @@ public class PieceProduite  extends Document  implements Serializable{
 		this.dateEtablissement=dateEtablissement;
 	}
 	
-	
 }

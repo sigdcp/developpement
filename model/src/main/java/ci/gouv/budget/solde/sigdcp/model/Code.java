@@ -41,8 +41,8 @@ public interface Code {
 	 */
 	
 	String TYPE_PIECE_PRODUITE_BL = "BL";
-	String TYPE_PIECE_PRODUITE_BTBL = "BTBL";
-	String TYPE_PIECE_PRODUITE_BTF = "BTF";
+	String TYPE_PIECE_PRODUITE_BT = "BT";
+	//String TYPE_PIECE_PRODUITE_BTF = "BTF";
 	
 	/*
 	 * Type de pieces justificatives

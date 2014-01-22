@@ -1,7 +1,6 @@
 package ci.gouv.budget.solde.sigdcp.service.sampledata;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -12,13 +11,13 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.CalendrierMission;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Exercice;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
+import ci.gouv.budget.solde.sigdcp.model.dossier.BordereauTransmission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.BulletinLiquidation;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CategorieDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
@@ -49,7 +48,6 @@ import ci.gouv.budget.solde.sigdcp.model.identification.Echelon;
 import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
 import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
-import ci.gouv.budget.solde.sigdcp.model.identification.Souscription;
 import ci.gouv.budget.solde.sigdcp.model.identification.Position;
 import ci.gouv.budget.solde.sigdcp.model.identification.Profession;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
@@ -85,14 +83,14 @@ public class SampleDataServiceImpl implements SampleDataService {
 	private List<CalendrierMission> calendrierMissions=new LinkedList<>();
 	private List<DossierMission> dossierMissions = new LinkedList<>();
 	private List<PieceProduite> pieceProduites = new LinkedList<>();
+	private List<Object[]> bulletinLiquidations = new LinkedList<>();
 	private NatureOperation natureOperationLiquidation,natureOperationRBTBL,natureOperationRBTF,natureOperationRFDMission;
-	private TypePieceProduite typePieceProduiteBL,typePieceProduiteBTBL,typePieceProduiteBTF;
+	private TypePieceProduite typePieceProduiteBL,typePieceProduiteBT;
 	
 	@Override 
 	public void create() {
 		em.persist(typePieceProduiteBL = new TypePieceProduite(Code.TYPE_PIECE_PRODUITE_BL, "Bulletin de liquidation"));
-		em.persist(typePieceProduiteBTBL = new TypePieceProduite(Code.TYPE_PIECE_PRODUITE_BTBL, "Bordereau de transmission de bulletins de liquidation"));
-		em.persist(typePieceProduiteBTF = new TypePieceProduite(Code.TYPE_PIECE_PRODUITE_BTF, "Bordereau de transmission de factures"));
+		em.persist(typePieceProduiteBT = new TypePieceProduite(Code.TYPE_PIECE_PRODUITE_BT, "Bordereau de transmission"));
 		
 		em.persist(exercice2012 = new Exercice(2012, date(), date(), null, false));
 		em.persist(exercice2013 = new Exercice(2013, date(), date(), null, false));
@@ -411,8 +409,10 @@ public class SampleDataServiceImpl implements SampleDataService {
 		
 		creerCalendrierMission(5000000f, ministereSante, exercice2012);
 		creerCalendrierMission(47000000f, ministereSante, exercice2014);
-				
 		
+		creerBordereauTransmission();
+		creerBordereauTransmission();
+		creerBordereauTransmission();
 		
 	}
 	
@@ -502,13 +502,31 @@ public class SampleDataServiceImpl implements SampleDataService {
 	public void operation(NatureOperation natureOperation,Dossier dossier,Statut statut){
 		Operation operation = new Operation(date(), natureOperation);
 		em.persist(operation);
-		em.persist(new Traitement(operation,null,dossier,statut));
-		if(natureOperationLiquidation.equals(natureOperation))
-			em.persist(new BulletinLiquidation(numero(), typePieceProduiteBL, date(), null, 120000));
-		else if(natureOperationRBTBL.equals(natureOperation))
+		Traitement traitement = new Traitement(operation,null,dossier,statut);
+		em.persist(traitement);
+		if(natureOperationLiquidation.equals(natureOperation)){
+			BulletinLiquidation bl = new BulletinLiquidation(numero(), typePieceProduiteBL, date(), null, 120000);
+			em.persist(bl);
+			bulletinLiquidations.add(new Object[]{dossier,bl});
+			traitement.setPieceProduite(bl);
+			em.merge(traitement);
+		}else if(natureOperationRBTBL.equals(natureOperation))
 			;//em.persist(new PieceProduite(numero(), typePieceProduiteBTBL));
 		else if(natureOperationRBTF.equals(natureOperation))
 			;//em.persist(new PieceProduite(numero(), typePieceProduiteBTF));
+	}
+	
+	public BordereauTransmission creerBordereauTransmission(){
+		BordereauTransmission bt = new BordereauTransmission(numero(), typePieceProduiteBT, date());
+		em.persist(bt);
+		Operation operation = new Operation(date(), null);
+		em.persist(operation);
+		for(Object[] d : bulletinLiquidations){
+			((BulletinLiquidation)d[1]).setBordereauTransmission(bt);
+			em.merge(d[1]);
+			em.persist(new Traitement(operation,bt,(Dossier) d[0],null));
+		}
+		return bt;
 	}
 	
 	static long ID = 0;

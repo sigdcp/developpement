@@ -48,6 +48,12 @@
 			<to-view-id>/private/personnel/edition/blDialog.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>btDialog</from-outcome>
+			<to-view-id>/private/personnel/edition/btDialog.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 
 	</navigation-rule>
 

@@ -7,5 +7,4 @@ public interface AbstractDocumentDao<DOCUMENT extends Document> extends DataAcce
 
 	
 	
-
 }

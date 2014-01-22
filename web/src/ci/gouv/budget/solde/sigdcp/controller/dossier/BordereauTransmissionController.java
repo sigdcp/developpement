@@ -11,7 +11,7 @@ import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIContro
 import ci.gouv.budget.solde.sigdcp.model.dossier.BordereauTransmission;
 
 @Named @ViewScoped
-public class BordereauBulletinLiquidationController extends AbstractEntityFormUIController<BordereauTransmission> implements Serializable {
+public class BordereauTransmissionController extends AbstractEntityFormUIController<BordereauTransmission> implements Serializable {
 
 	private static final long serialVersionUID = -1893812779864962658L;
 

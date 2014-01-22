@@ -35,5 +35,12 @@ public class TraitementDaoImpl extends JpaDaoImpl<Traitement, Long> implements T
 				.setParameter("pieceProduite", pieceProduite)
 				.getSingleResult();*/
 	}
+
+	@Override
+	public Collection<Traitement> readByPieceProduiteTypeId(String typePieceProduiteId) {
+		return entityManager.createQuery("SELECT traitement FROM Traitement traitement WHERE traitement.pieceProduite.type.code = :tppid", clazz)
+				.setParameter("tppid", typePieceProduiteId)
+				.getResultList();
+	}
 	
 }

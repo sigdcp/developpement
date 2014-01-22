@@ -113,6 +113,18 @@
     NAME="output21" PATH="/private/personnel/dossier/realiserbtbl.xhtml"
     TARGET="rules:#private#personnel#dossier#realiserbtbl.xhtml"
     TITLE="realiserbtbl" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="listerbt::#private#personnel#dossier#listebordereau.xhtml"
+    NAME="output22"
+    PATH="/private/personnel/dossier/listebordereau.xhtml"
+    TARGET="rules:#private#personnel#dossier#listebordereau.xhtml"
+    TITLE="listerbt" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="listerbl::#private#personnel#dossier#listebulletinliquidation.xhtml"
+    NAME="output23"
+    PATH="/private/personnel/dossier/listebulletinliquidation.xhtml"
+    TARGET="rules:#private#personnel#dossier#listebulletinliquidation.xhtml"
+    TITLE="listerbl" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#private#personnel#dossier#gpdr.xhtml"
@@ -169,4 +181,12 @@
   NAME="rules:#private#personnel#dossier#realiserbtbl.xhtml"
   PATH="/private/personnel/dossier/realiserbtbl.xhtml"
   SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#dossier#listebordereau.xhtml"
+  PATH="/private/personnel/dossier/listebordereau.xhtml"
+  SHAPE="304,849,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#dossier#listebulletinliquidation.xhtml"
+  PATH="/private/personnel/dossier/listebulletinliquidation.xhtml"
+  SHAPE="304,881,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

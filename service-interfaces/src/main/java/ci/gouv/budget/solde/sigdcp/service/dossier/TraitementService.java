@@ -13,6 +13,8 @@ public interface TraitementService extends AbstractService<Traitement,Long> {
 	
 	Traitement findByPieceProduite(PieceProduite pieceProduite);
 	
+	Collection<Traitement> findByPieceProduiteTypeId(String typePieceProduiteId);
+	
 	/**
 	 * Ramene les traitements les plus récents
 	 * @param categorieDeplacementId

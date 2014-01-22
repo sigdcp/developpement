@@ -38,6 +38,11 @@
     NAME="output6" PATH="/private/personnel/edition/blDialog.xhtml"
     TARGET="rules:#private#personnel#edition#blDialog.xhtml"
     TITLE="blDialog" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="btDialog::#private#personnel#edition#btDialog.xhtml"
+    NAME="output7" PATH="/private/personnel/edition/btDialog.xhtml"
+    TARGET="rules:#private#personnel#edition#btDialog.xhtml"
+    TITLE="btDialog" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#private#personnel#edition#pdrDialog.xhtml"
@@ -54,4 +59,6 @@
   SHAPE="304,641,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#private#personnel#edition#blDialog.xhtml"
   PATH="/private/personnel/edition/blDialog.xhtml" SHAPE="304,337,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#edition#btDialog.xhtml"
+  PATH="/private/personnel/edition/btDialog.xhtml" SHAPE="304,369,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

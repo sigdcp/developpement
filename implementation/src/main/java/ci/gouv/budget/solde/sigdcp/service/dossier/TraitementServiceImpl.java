@@ -31,5 +31,10 @@ public class TraitementServiceImpl extends DefaultServiceImpl<Traitement, Long> 
 	public Traitement findByPieceProduite(PieceProduite pieceProduite) {
 		return ((TraitementDao)dao).readByPieceProduite(pieceProduite);
 	}
+	
+	@Override
+	public Collection<Traitement> findByPieceProduiteTypeId(String typePieceProduiteId) {
+		return ((TraitementDao)dao).readByPieceProduiteTypeId(typePieceProduiteId);
+	}
 
 }

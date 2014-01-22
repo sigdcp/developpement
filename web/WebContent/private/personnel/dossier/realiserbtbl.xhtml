@@ -10,14 +10,14 @@
 	<h:body>
 	<ui:define name="metadata">
 		<f:metadata>
-        	<f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{bordereauBulletinLiquidationController.crudType}" converter="#{viewParamEnumConverter}" />   
-		    <f:event type="preRenderView" listener="#{bordereauBulletinLiquidationController.preRenderView}" />
+        	<f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{bordereauTransmissionController.crudType}" converter="#{viewParamEnumConverter}" />   
+		    <f:event type="preRenderView" listener="#{bordereauTransmissionController.preRenderView}" />
     	</f:metadata>
 	</ui:define>		
 		<ui:composition template="/template/commun.xhtml">
 			<ui:define name="contenu">
 				<ui:decorate template="/template/formTemplate.xhtml">
-					<ui:param name="uiController" value="#{bordereauBulletinLiquidationController}" />
+					<ui:param name="uiController" value="#{bordereauTransmissionController}" />
 					<ui:define name="contenu">
 					
 						<style>
@@ -35,23 +35,23 @@
 		
 									
 				
-							<p:panelGrid columns="6" styleClass="panelGridNoBorder" >							
-												        
-								<p:outputLabel for="typeDeplacement" value="Boredereau de " />
-								<p:selectOneRadio id="typeDeplacement"  required="truee" requiredMessage="#{valueRequiredMessage}">
-									<f:selectItems value="#{typeDeplacements}"/>
-								</p:selectOneRadio>
-								<p:message for="typeDeplacement" />
-								
-								<p:outputLabel for="montantBordereau" value="Montant plafond du bordereau" />
-								<p:inputText id="montantBordereau" value="#{bordereauBulletinLiquidationController.entity.montantPlafond}" rendered="#{bordereauBulletinLiquidationController.editable}" />
-								<p:outputLabel value="#{bordereauBulletinLiquidationController.entity.montantPlafond}" rendered="#{not bordereauBulletinLiquidationController.editable}" />
-								<p:message for="montantBordereau" rendered="#{bordereauBulletinLiquidationController.editable}"/>
-	
-							</p:panelGrid>
+						<p:panelGrid columns="6" styleClass="panelGridNoBorder" >							
+											        
+							<p:outputLabel for="typeDeplacement" value="Boredereau de " />
+							<p:selectOneRadio id="typeDeplacement"  required="truee" requiredMessage="#{valueRequiredMessage}">
+								<f:selectItems value="#{typeDeplacements}"/>
+							</p:selectOneRadio>
+							<p:message for="typeDeplacement" />
+							
+							<p:outputLabel for="montantBordereau" value="Montant plafond du bordereau" />
+							<p:inputText id="montantBordereau" value="#{bordereauTransmissionController.entity.montantPlafond}" rendered="#{bordereauTransmissionController.editable}" />
+							<p:outputLabel value="#{bordereauTransmissionController.entity.montantPlafond}" rendered="#{not bordereauTransmissionController.editable}" />
+							<p:message for="montantBordereau" rendered="#{bordereauTransmissionController.editable}"/>
+
+						</p:panelGrid>
 
 					<ui:decorate template="/template/dataList.xhtml">
-						<ui:param name="controller" value="#{bordereauBulletinLiquidationController.selectionPieceController}" />
+						<ui:param name="controller" value="#{bordereauTransmissionController.selectionPieceController}" />
 						<ui:define name="colonnes">
 							<p:column headerText="Numéro" ><h:outputText value="#{record.pieceProduite.numero}" /></p:column>
 							<p:column headerText="Nom et prénoms" ><h:outputText value="#{record.dossier.beneficiaire.nomPrenoms}" /></p:column>
@@ -63,18 +63,18 @@
 					</ui:decorate>								
 						
 						<p:spacer height="5" />
-						<!--p:dataTable id="listeBL" value="#{bordereauBulletinLiquidationController.traitements}" var="traitement" rowIndexVar="index" rowKey="#{traitement.id}"
-							selection="#{bordereauBulletinLiquidationController.traitementSelectionnes}">
+						<!--p:dataTable id="listeBL" value="#{bordereauTransmissionController.traitements}" var="traitement" rowIndexVar="index" rowKey="#{traitement.id}"
+							selection="#{bordereauTransmissionController.traitementSelectionnes}">
 							<f:facet name="header"><h:outputText value="Liste des bulletins de liquidation" /> </f:facet>
 							<p:column selectionMode="multiple"/>
 
 		
 							<p:column style="width:10%">	
 								
-								<p:button value="#{constantResources.text('bouton.aperçu')}" href="#{bordereauBulletinLiquidationController.href(dossier)}" />
-								<p:button value="#{constantResources.text('bouton.pieces')}" href="#{bordereauBulletinLiquidationController.href(dossier)}" />
+								<p:button value="#{constantResources.text('bouton.aperçu')}" href="#{bordereauTransmissionController.href(dossier)}" />
+								<p:button value="#{constantResources.text('bouton.pieces')}" href="#{bordereauTransmissionController.href(dossier)}" />
 								
-								<p:button value="#{constantResources.text('bouton.retirer')}" href="#{bordereauBulletinLiquidationController.href(dossier)}" />
+								<p:button value="#{constantResources.text('bouton.retirer')}" href="#{bordereauTransmissionController.href(dossier)}" />
 								
 							</p:column>
 						</p:dataTable-->

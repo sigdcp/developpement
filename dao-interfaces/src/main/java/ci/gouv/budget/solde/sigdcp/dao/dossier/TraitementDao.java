@@ -13,5 +13,7 @@ public interface TraitementDao extends DataAccessObject<Traitement,Long> {
 	
 	Traitement readByPieceProduite(PieceProduite pieceProduite);
 	
+	Collection<Traitement> readByPieceProduiteTypeId(String typePieceProduiteId);
+	
 	Collection<Traitement> readByCategorieDeplacementIdByTypePieceProduiteIdByRecent(String categorieDeplacementId,String typePieceProduiteId,Boolean recent);
 }

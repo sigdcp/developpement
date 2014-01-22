@@ -25,18 +25,21 @@ public class BordereauTransmission  extends PieceProduite  implements Serializab
 	//@OneToMany
 		//private LinkedList<PieceProduite> pieceProduites = new LinkedList<PieceProduite>();
 	
-	private Integer montantPlafond;
+	//private Integer montantPlafond;
 	
 	public BordereauTransmission() {
 		super();
 	}
 
-	public BordereauTransmission(String numero, TypePieceProduite type, Date dateEtablissement,Integer montantPlafond) {
+	public BordereauTransmission(String numero, TypePieceProduite type, Date dateEtablissement/*,Integer montantPlafond*/) {
 		super(numero, type,dateEtablissement);
-		this.montantPlafond=montantPlafond;
+		//this.montantPlafond=montantPlafond;
 	}
 	
-	
+	public BordereauTransmission(BordereauTransmission bordereauTransmission) {
+		this(bordereauTransmission.numero,bordereauTransmission.getType(),bordereauTransmission.getDateEtablissement());
+		setId(bordereauTransmission.getId());
+	}
 	
 	
 }

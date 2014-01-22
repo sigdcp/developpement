@@ -92,7 +92,9 @@ public abstract class AbstractEntityListUIController<ENTITY extends AbstractMode
 	
 	protected abstract List<ENTITY> load();
 	
-	public abstract String href(ENTITY entity);
+	public String href(ENTITY entity){
+		return null;
+	}
 	
 	protected ProcessingType getProcessingType(){
 		return StringUtils.isEmpty(nextViewOutcome)?ProcessingType.BATCH:ProcessingType.SINGLE;
@@ -138,7 +140,7 @@ public abstract class AbstractEntityListUIController<ENTITY extends AbstractMode
 	}
 	
 	protected void detailsOutcomeParameters(Map<String, List<String>> parameters,ENTITY object){
-		throw new RuntimeException("No outcome defined");
+		throw new RuntimeException("No outcome parameters defined");
 	}
 	
 	protected void addParameters(Map<String, List<String>> parameters,String name,String...values){
