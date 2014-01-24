@@ -27,7 +27,6 @@ public class BulletinLiquidationListeController extends AbstractTraitementListeC
 		List<TraitementDto> l = new LinkedList<>();
 		for(Traitement trt : traitementService.findByPieceProduiteTypeId(Code.TYPE_PIECE_PRODUITE_BL))
 			l.add(new TraitementDto(trt));
-		System.out.println(l);
 		return l;
 	}
 	
