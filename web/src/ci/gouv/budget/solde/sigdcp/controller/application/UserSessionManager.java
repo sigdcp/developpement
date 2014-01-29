@@ -34,7 +34,7 @@ public class UserSessionManager implements Serializable{
 	//@Inject transient private WebConstantResources webConstantResources;
 	
 	@Getter @Setter
-	private CompteUtilisateur compte;
+	private CompteUtilisateur compte; 
 	
 	public Boolean isLoggedIn(){
 		return StringUtils.isNotEmpty(Faces.getRemoteUser());
