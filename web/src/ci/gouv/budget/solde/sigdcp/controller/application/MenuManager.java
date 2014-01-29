@@ -22,13 +22,11 @@ public class MenuManager implements Serializable {
 
 	private static final long serialVersionUID = 3655022050936615701L;
 	
-	@Inject
-	private TextService textService;
+	@Inject private TextService textService;
 	@Inject private NavigationManager navigationManager;
 	
 	@Getter private BaseMenuModel model = new DefaultMenuModel();
 
-	
 	@SuppressWarnings("unchecked")
 	public Submenu addSubmenu(Submenu parent,String labelId){
 		DefaultSubMenu submenu = new DefaultSubMenu();  

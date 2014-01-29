@@ -7,74 +7,40 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import org.apache.commons.lang3.StringUtils;
 import org.omnifaces.util.Faces;
 import org.primefaces.model.menu.MenuModel;
 import org.primefaces.model.menu.Submenu;
 
 import ci.gouv.budget.solde.sigdcp.controller.WebConstantResources;
 import ci.gouv.budget.solde.sigdcp.model.Code;
-import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
-import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
-import ci.gouv.budget.solde.sigdcp.service.identification.AgentEtatService;
+import ci.gouv.budget.solde.sigdcp.service.identification.Role;
 
-@Named @SessionScoped 
-public class UserSessionManager implements Serializable{
+public class MenuBuilder implements Serializable {
 
-	private static final long serialVersionUID = 258649685790992448L;
-
-	/*
-	 * Services
-	 */
-	@Inject private AgentEtatService agentEtatService;
+	private static final long serialVersionUID = -429285625794463130L;
 	
-	//@Inject transient private WebConstantResources webConstantResources;
+	@Inject private MenuManager menuManager;
+	@Inject transient private WebConstantResources webConstantResources;
 	
-	@Getter @Setter
-	private CompteUtilisateur compte;
-	
-	public Boolean isLoggedIn(){
-		return StringUtils.isNotEmpty(Faces.getRemoteUser());
-	}
-	
-	/**
-	 * The connected user
-	 * @return
-	 */
-	@Named @SessionScoped @User
-	public Personne getUser(){
-		//return compte.getPersonne();
-		return agentEtatService.findAll().get(0);// TODO to be removed : just for testing
-	}
-	/*
-	@Named @Produces @SessionScoped
+	@Named @Produces /*@RequestScoped*/ @SessionScoped
 	public MenuModel getMenuModel(){
-		Submenu formulerUneDemande = menuManager.addSubmenu("menu.formulerdemande");
+		if(Faces.isUserInRole(Role.AGENT_ETAT.getCode()))
+			agentEtat();
 		
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.affectation", "demandeddForm",new Object[]{
-				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_AFFECTATION });
+		if(Faces.isUserInRole(Role.GESTIONNAIRE_CARTE_SOTRA.getCode()))
+			gestionnaireCarteSotra();
 		
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.mutation","demandeddForm",new Object[]{
-				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_MUTATION});
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.departretraite","demandeddForm",new Object[]{
-				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_RETRAITE});
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.obseques","demandefoForm",new Object[]{
-				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_OBSEQUE_FRAIS});
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.mhci","demandemhciForm",new Object[]{
-				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_MISSION_HCI});
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.tr","demandetrForm",new Object[]{
-				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES});
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.consulter","demandeliste",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.deposercourrier","demandeliste", new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
+		if(Faces.isUserInRole(Role.DIRECTEUR.getCode()))
+			directeur();
 		
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.gerercartesotra","inscriregestionairecartesotra",new Object[]{
-				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()
-		});
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.inscrirelistebasegestionnaire","listebasegestionnaire",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"inscriptionlistebasegcs"});
+		if(Faces.isUserInRole(Role.LIQUIDATEUR.getCode()))
+			liquidateur();
 		
+		if(Faces.isUserInRole(Role.PAYEUR.getCode()))
+			payeur();
+		
+		if(Faces.isUserInRole(Role.RESPONSABLE.getCode()))
+			responsable();
 		
 		Submenu calendrierMissions = menuManager.addSubmenu("menu.calendrier");
 		menuManager.addMenuItem(calendrierMissions, "menu.calendrier.missions","enregistrerCalendrierForm",new Object[]{webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()});
@@ -141,7 +107,50 @@ public class UserSessionManager implements Serializable{
 		
 		return menuManager.getModel();
 	}
-	*/
 	
+	private void agentEtat(){
+		Submenu formulerUneDemande = menuManager.addSubmenu("menu.formulerdemande");
+		
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.affectation", "demandeddForm",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_AFFECTATION });
+		
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.mutation","demandeddForm",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_MUTATION});
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.departretraite","demandeddForm",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_RETRAITE});
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.obseques","demandefoForm",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_OBSEQUE_FRAIS});
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.mhci","demandemhciForm",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_MISSION_HCI});
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.tr","demandetrForm",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES});
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.consulter","demandeliste",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.deposercourrier","demandeliste", new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
+		
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.gerercartesotra","inscriregestionairecartesotra",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()
+		});
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.inscrirelistebasegestionnaire","listebasegestionnaire",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"inscriptionlistebasegcs"});
+	}
 	
+	private void gestionnaireCarteSotra(){
+		
+	}
+	
+	private void liquidateur(){
+		
+	}
+	
+	private void responsable(){
+		
+	}
+	
+	private void directeur(){
+		
+	}
+	
+	private void payeur(){
+		
+	}
+
 }
