@@ -50,6 +50,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.model.identification.Position;
 import ci.gouv.budget.solde.sigdcp.model.identification.Profession;
+import ci.gouv.budget.solde.sigdcp.model.identification.QuestionSecrete;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.Sexe;
 import ci.gouv.budget.solde.sigdcp.model.identification.SituationMatrimoniale;
@@ -89,6 +90,9 @@ public class SampleDataServiceImpl implements SampleDataService {
 	
 	@Override 
 	public void create() {
+		em.persist(new QuestionSecrete("Quel est votre date de 1er RDV?"));
+		em.persist(new QuestionSecrete("Quel est votre ville préférée?"));
+		
 		em.persist(typePieceProduiteBL = new TypePieceProduite(Code.TYPE_PIECE_PRODUITE_BL, "Bulletin de liquidation"));
 		em.persist(typePieceProduiteBT = new TypePieceProduite(Code.TYPE_PIECE_PRODUITE_BT, "Bordereau de transmission"));
 		

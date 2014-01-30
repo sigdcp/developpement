@@ -10,16 +10,20 @@ package ci.gouv.budget.solde.sigdcp.model.identification.souscription;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
+import ci.gouv.budget.solde.sigdcp.model.identification.ReponseSecrete;
 import ci.gouv.budget.solde.sigdcp.model.identification.Souscription;
 
 @Getter @Setter 
@@ -37,12 +41,23 @@ public class SouscriptionComptePersonne  extends Souscription  implements Serial
 	@ManyToOne
 	private NatureDeplacement natureDeplacement;
 	
+	/*
+	 * Infos sur le compte utilisateur
+	 */
+	
+	private String motPasse;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	private Set<ReponseSecrete> reponseSecretes = new LinkedHashSet<>();
+	
 	/**
 	 * Identification de la personne référencée (peut etre le defunt dans le cas des FO) 
 	 */
 	@OneToOne(cascade=CascadeType.ALL)
 	private InfosSouscriptionComptePersonne personneReferencee = new InfosSouscriptionComptePersonne();
-		
+	
+	
+	
 	public SouscriptionComptePersonne() {}
 
 	public SouscriptionComptePersonne(String code, Date dateCreation,

@@ -24,7 +24,7 @@ public class MenuBuilder implements Serializable {
 	
 	@Named @Produces /*@RequestScoped*/ @SessionScoped
 	public MenuModel getMenuModel(){
-		if(Faces.isUserInRole(Role.AGENT_ETAT.getCode()))
+		//if(Faces.isUserInRole(Role.AGENT_ETAT.getCode()))
 			agentEtat();
 		
 		if(Faces.isUserInRole(Role.GESTIONNAIRE_CARTE_SOTRA.getCode()))

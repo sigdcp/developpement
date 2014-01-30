@@ -7,8 +7,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Getter;
+import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIController;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
+import ci.gouv.budget.solde.sigdcp.model.identification.ReponseSecrete;
 import ci.gouv.budget.solde.sigdcp.model.identification.Souscription;
 import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionComptePersonne;
 import ci.gouv.budget.solde.sigdcp.service.identification.SouscriptionComptePersonneService;
@@ -20,13 +22,16 @@ public class SouscriptionComptePersonneController extends AbstractEntityFormUICo
 	/*
 	 * Services
 	 */
-	@Inject private SouscriptionComptePersonneService inscriptionService;
+	@Inject private SouscriptionComptePersonneService souscriptionService;
+	
 	
 	/*
 	 * DTOs
 	 */
 
 	@Getter private IdentitePersonneDTO demandeurDto;
+	@Getter @Setter private ReponseSecrete reponseSecrete;
+	@Getter @Setter private String confirmationMotPasse;
 	@Getter private Boolean inscriptionAgentEtat=Boolean.TRUE;
 	
 	@Override
@@ -45,12 +50,16 @@ public class SouscriptionComptePersonneController extends AbstractEntityFormUICo
         
         defaultSubmitCommand.setValue(text("bouton.ouvrircompte"));
         defaultSubmitCommand.setNotificationMessageId("notification.compte.ouvert");
-       
+        
+        reponseSecrete = new ReponseSecrete();
+        entity.getReponseSecretes().add(reponseSecrete);
+        
+        //defaultSubmitCommand.setImmediate(Boolean.TRUE);
     }
 	
 	@Override
 	protected void onDefaultSubmitAction() throws Exception {
-		inscriptionService.inscrire(entity);
+		souscriptionService.souscrire(entity);
 	}
     
     /*

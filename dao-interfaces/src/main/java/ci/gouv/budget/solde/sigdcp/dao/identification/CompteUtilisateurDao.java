@@ -14,5 +14,6 @@ public interface CompteUtilisateurDao extends DataAccessObject<CompteUtilisateur
 	 */
 	CompteUtilisateur findByUsernameByPassword(String username,String password);
 	
-
+	CompteUtilisateur readByMatricule(String matricule);
+	
 }

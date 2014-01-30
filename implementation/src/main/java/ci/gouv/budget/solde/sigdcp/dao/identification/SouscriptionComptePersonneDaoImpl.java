@@ -8,6 +8,10 @@ public class SouscriptionComptePersonneDaoImpl extends AbstractSouscriptionDaoIm
 
 	private static final long serialVersionUID = -2609724288199083806L;
 	
+	@Override
+	public SouscriptionComptePersonne readByMatricule(String matricule) {
+		return null;
+	}
 	
 }
  

@@ -36,6 +36,8 @@ public class CompteUtilisateur  extends AbstractModel<Long>  implements Serializ
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreation;
 	
+	private Boolean verouille = Boolean.FALSE;
+	
 	@ManyToOne
 	private Personne personne;
 }

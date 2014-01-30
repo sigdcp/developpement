@@ -7,16 +7,30 @@ import java.util.Date;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import ci.gouv.budget.solde.sigdcp.dao.identification.AgentEtatDao;
+import ci.gouv.budget.solde.sigdcp.dao.identification.CompteUtilisateurDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.SouscriptionComptePersonneDao;
+import ci.gouv.budget.solde.sigdcp.model.Code;
+import ci.gouv.budget.solde.sigdcp.model.MailMessage;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
+import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionComptePersonne;
+import ci.gouv.budget.solde.sigdcp.service.MailService;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 
 @Stateless
 public class SouscriptionComptePersonneServiceImpl extends AbstractSouscriptionServiceImpl<SouscriptionComptePersonne> implements SouscriptionComptePersonneService,Serializable {
 	
 	private static final long serialVersionUID = 1170771216036513138L;
-/*
-	@Inject private AgentEtatDao beneficiaireDao;
+
+	@Inject private SouscriptionComptePersonneDao souscriptionComptePersonneDao;
+	@Inject private AgentEtatDao agentEtatDao;
+	@Inject private CompteUtilisateurDao compteUtilisateurDao;
+	@Inject private MailService mailService;
+	/*
 	@Inject private PersonneDao ayantDroitDao;
 	@Inject private NotificationSystem notificationSystem;
 	*/
@@ -26,7 +40,50 @@ public class SouscriptionComptePersonneServiceImpl extends AbstractSouscriptionS
 	}
 
 	@Override
-	public void inscrire(SouscriptionComptePersonne souscriptionCompte) throws ServiceException {
+	public void souscrire(SouscriptionComptePersonne souscriptionComptePersonne) throws ServiceException {
+		souscriptionComptePersonne.setPersonneReferencee(null);
+		souscriptionComptePersonne.setCode(System.currentTimeMillis()+"");
+		souscriptionComptePersonne.getPersonneDemandeur().getPersonne().setCode(System.currentTimeMillis()+"");
+		// Est ce qu'il a déja une inscription en cours de validation ou acceptée
+		SouscriptionComptePersonne souscriptionComptePersonneExistante = souscriptionComptePersonneDao.readByMatricule(souscriptionComptePersonne.getPersonneDemandeur().getMatricule());
+		
+		if(souscriptionComptePersonneExistante!=null){
+			if(souscriptionComptePersonneExistante.getDateValidation()==null)
+				throw new ServiceException("Vous avez une souscription déja en cours de validation");
+		
+			if( Boolean.TRUE.equals(souscriptionComptePersonneExistante.getAcceptee()))
+				throw new ServiceException("Vous avez déja souscrit");
+		}
+		
+		if(!Code.TYPE_AGENT_ETAT_GENDARME.equals(souscriptionComptePersonne.getPersonneDemandeur().getType().getCode())){
+			//ce n'est pas un gendarme
+			//Est ce qu'il est connu du système
+			AgentEtat agentEtat = agentEtatDao.readByMatricule(souscriptionComptePersonne.getPersonneDemandeur().getMatricule());
+			if(agentEtat==null)
+				throw new ServiceException("Votre matricule est inconnu");
+			//Est ce qu'il à un compte
+			CompteUtilisateur compteUtilisateur = compteUtilisateurDao.readByMatricule(agentEtat.getMatricule());
+			if(compteUtilisateur!=null)
+				throw new ServiceException("Vous avez deja un compte");
+			if(!cohente(souscriptionComptePersonne))
+				throw new ServiceException("Les informations saisies ne sont pas cohérentes");
+			
+			souscriptionComptePersonne.setDateCreation(new Date());
+			souscriptionComptePersonneDao.create(souscriptionComptePersonne);
+			compteUtilisateur = new CompteUtilisateur();
+			compteUtilisateur.getCredentials().setUsername(souscriptionComptePersonne.getPersonneDemandeur().getPersonne().getContact().getEmail());
+			compteUtilisateur.getCredentials().setPassword(souscriptionComptePersonne.getMotPasse());
+			compteUtilisateurDao.create(compteUtilisateur);
+			
+			mailService.send(new MailMessage("Vous venez de créer un compte", "Login : "+compteUtilisateur.getCredentials().getUsername()), agentEtat.getContact().getEmail());
+			
+		}else{
+			//c'est un gendarme
+			souscriptionComptePersonne.setDateCreation(new Date());
+			souscriptionComptePersonneDao.create(souscriptionComptePersonne);
+			mailService.send(new MailMessage("Vous serez information de la suite", ""),souscriptionComptePersonne.getPersonneDemandeur().getPersonne().getContact().getEmail());
+		}
+		
 		//ServiceUtils.throwNotYetImplemented();
 		//inscription.setCode(System.currentTimeMillis()+"");
 		/*switch(inscription.getType()){
@@ -41,6 +98,10 @@ public class SouscriptionComptePersonneServiceImpl extends AbstractSouscriptionS
 		*/
 		//inscription.setDateCreation(new Date());
 		//dao.create(inscription);
+	}
+	
+	private boolean cohente(SouscriptionComptePersonne souscriptionComptePersonne){
+		return true;
 	}
 
 	@Override

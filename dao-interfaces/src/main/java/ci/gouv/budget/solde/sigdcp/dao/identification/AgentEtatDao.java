@@ -4,7 +4,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 
 public interface AgentEtatDao extends AbstractPersonneDao<AgentEtat> {
 
-	AgentEtat findByMatricule(String matricule);
+	AgentEtat readByMatricule(String matricule);
 
 }
  

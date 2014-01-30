@@ -14,7 +14,7 @@ public interface AbstractSouscriptionService<SOUSCRIPTION extends Souscription> 
 	 * @param inscription
 	 * @throws ServiceException
 	 */
-	void inscrire(SOUSCRIPTION souscription) throws ServiceException ;
+	void souscrire(SOUSCRIPTION souscription) throws ServiceException ;
 	
 	/**
 	 * Accepte une inscription afin de lui permettre d'acceder au système

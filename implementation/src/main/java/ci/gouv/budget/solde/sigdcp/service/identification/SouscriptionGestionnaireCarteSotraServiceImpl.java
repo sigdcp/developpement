@@ -21,7 +21,7 @@ public class SouscriptionGestionnaireCarteSotraServiceImpl extends AbstractSousc
 	}
 
 	@Override
-	public void inscrire(SouscriptionGestionnaireCarteSotra souscription)throws ServiceException {
+	public void souscrire(SouscriptionGestionnaireCarteSotra souscription)throws ServiceException {
 	
 	}
  

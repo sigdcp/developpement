@@ -9,9 +9,9 @@ import javax.faces.convert.Converter;
 import javax.inject.Named;
 
 import lombok.extern.java.Log;
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Exercice;
+import ci.gouv.budget.solde.sigdcp.model.identification.QuestionSecrete;
 
 /**
  * Converter Using View Map to store and retrieve object.
@@ -44,6 +44,8 @@ public class ObjectConverter implements Converter {
 			return ((DynamicEnumeration) object).getCode();
 		}else if(object instanceof Exercice){
 			return ((Exercice) object).getAnnee().toString();
+		}else if(object instanceof QuestionSecrete){
+			return ((QuestionSecrete) object).getId().toString();
 		}else
 			log.warning("Cannot find identitifer of this object type : "+object.getClass());
 		return null;

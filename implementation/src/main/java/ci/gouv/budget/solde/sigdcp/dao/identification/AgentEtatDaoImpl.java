@@ -12,7 +12,7 @@ public class AgentEtatDaoImpl extends AbstractPersonneDaoImpl<AgentEtat> impleme
 	private static final long serialVersionUID = -2609724288199083806L;
 
 	@Override
-	public AgentEtat findByMatricule(String matricule) {
+	public AgentEtat readByMatricule(String matricule) {
 		try {
 			return entityManager.createQuery("SELECT ae FROM AgentEtat ae WHERE ae.matricule = :matricule", clazz)
 					.setParameter("matricule", matricule)

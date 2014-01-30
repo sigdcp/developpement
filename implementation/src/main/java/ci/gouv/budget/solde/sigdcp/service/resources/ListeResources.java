@@ -24,6 +24,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.TypePiece;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.identification.Categorie;
 import ci.gouv.budget.solde.sigdcp.model.identification.Profession;
+import ci.gouv.budget.solde.sigdcp.model.identification.QuestionSecrete;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.Sexe;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
@@ -41,6 +42,11 @@ public class ListeResources {
  
 	@Inject private DynamicEnumerationDao dynamicEnumerationDao;
 	@Inject private PrestataireDao prestataireDao;
+	
+	@Produces @Named
+    public List<QuestionSecrete> getQuestionSecretes(){
+    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(QuestionSecrete.class)); 
+    }
 	
     @Produces @Named
     public List<Categorie> getCategories(){
