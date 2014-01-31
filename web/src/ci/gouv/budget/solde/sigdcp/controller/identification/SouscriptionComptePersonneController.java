@@ -38,7 +38,7 @@ public class SouscriptionComptePersonneController extends AbstractEntityFormUICo
 	protected void initialisation() {
 		super.initialisation();
         if(inscriptionAgentEtat)
-        	title = "Ouverture de compte";
+        	title = "Formulaire de souscription";
      
         demandeurDto = new IdentitePersonneDTO(isCreate(),entity.getPersonneDemandeur(),inscriptionAgentEtat);
         PieceJustificative pieceIdentite = new PieceJustificative();

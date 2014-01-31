@@ -6,12 +6,11 @@ import java.util.List;
 
 import ci.gouv.budget.solde.sigdcp.dao.DataAccessObject;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import ci.gouv.budget.solde.sigdcp.service.AbstractService;
 
 public class DefaultServiceImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIANT>,TYPE_IDENTIFIANT> implements AbstractService<TYPE_MODEL,TYPE_IDENTIFIANT> , Serializable {
 
 	private static final long serialVersionUID = -7601857525393731774L;
-	
+
 	protected DataAccessObject<TYPE_MODEL, TYPE_IDENTIFIANT> dao;
 	
 	public DefaultServiceImpl(DataAccessObject<TYPE_MODEL, TYPE_IDENTIFIANT> dao) {
@@ -29,7 +28,11 @@ public class DefaultServiceImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIAN
 	public List<TYPE_MODEL> findAll() {
 		return new LinkedList<>(dao.readAll());
 	}
-
 	
+	/*------------------------------------------------------------------------------*/
+	
+	protected static void serviceException(ServiceExceptionType type){
+		throw new ServiceException(type.getLibelle());
+	}
 
 }

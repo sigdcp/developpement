@@ -8,11 +8,6 @@
 
 	<web>
 		<link target="/">
-			<dir name="C:/Users/christian/git/sigdcp/Version 0.1/web/target/m2e-wtp/web-resources">
-				<exclude name="/"/>
-			</dir>
-		</link>
-		<link target="/">
 			<dir name="C:/Users/christian/git/sigdcp/Version 0.1/web/WebContent">
 			</dir>
 		</link>

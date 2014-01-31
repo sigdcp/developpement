@@ -42,10 +42,10 @@ public class Party extends AbstractModel<String>  implements Serializable{
 	private Date dateCreation;
 	
 	public Party() {}
-
+ 
 	public Party(String code, String nom,Contact contact,Date dateCreation) {
 		this.code = code;
-		this.nom = nom;
+		this.nom = nom; 
 		this.contact = contact;
 		this.dateCreation = dateCreation;
 	}

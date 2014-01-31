@@ -1,5 +1,41 @@
 @CHARSET "ISO-8859-1";
 
+
+.formTableCommand .ui-button{
+	width: 200px;
+	margin-left: 6px;
+}
+/*
+.formTableCommand .ui-button .ui-icon{
+	border: 1px solid blue !important;
+	float: right;
+}
+
+.formTableCommand .ui-button .ui-c{
+	color:red;
+	border: 1px solid blue !important;
+	width: 50px !important;
+	float: right;
+	
+}*/
+
+.securiteAvertissement{
+	border: 1px solid gray !important;
+	background:#eee;
+	padding: 10px;
+}
+
+.souscriptionComptePersonneReserveA{
+	padding: 5px;
+	text-align: center;
+	font-style: italic;
+}
+
+.inputDescription{
+	font-style: italic;
+	
+}
+
 .ui-menu-list a{
 	font-size: 9pt;
 }

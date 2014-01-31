@@ -7,9 +7,6 @@ import java.util.Date;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 import ci.gouv.budget.solde.sigdcp.dao.identification.AgentEtatDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.CompteUtilisateurDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.SouscriptionComptePersonneDao;
@@ -20,6 +17,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionComptePersonne;
 import ci.gouv.budget.solde.sigdcp.service.MailService;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
+import static ci.gouv.budget.solde.sigdcp.service.ServiceExceptionType.*;
 
 @Stateless
 public class SouscriptionComptePersonneServiceImpl extends AbstractSouscriptionServiceImpl<SouscriptionComptePersonne> implements SouscriptionComptePersonneService,Serializable {
@@ -49,24 +47,30 @@ public class SouscriptionComptePersonneServiceImpl extends AbstractSouscriptionS
 		
 		if(souscriptionComptePersonneExistante!=null){
 			if(souscriptionComptePersonneExistante.getDateValidation()==null)
-				throw new ServiceException("Vous avez une souscription déja en cours de validation");
+				serviceException(IDENTIFICATION_SOUSCRIPTION_COMPTE_ENCOURS);
 		
 			if( Boolean.TRUE.equals(souscriptionComptePersonneExistante.getAcceptee()))
-				throw new ServiceException("Vous avez déja souscrit");
+				serviceException(IDENTIFICATION_SOUSCRIPTION_COMPTE_ACCEPTE);
 		}
 		
 		if(!Code.TYPE_AGENT_ETAT_GENDARME.equals(souscriptionComptePersonne.getPersonneDemandeur().getType().getCode())){
 			//ce n'est pas un gendarme
 			//Est ce qu'il est connu du système
 			AgentEtat agentEtat = agentEtatDao.readByMatricule(souscriptionComptePersonne.getPersonneDemandeur().getMatricule());
+			System.out.println(agentEtat);
 			if(agentEtat==null)
-				throw new ServiceException("Votre matricule est inconnu");
+				serviceException(IDENTIFICATION_SOUSCRIPTION_COMPTE_MATRCULE_INCONNU);
 			//Est ce qu'il à un compte
 			CompteUtilisateur compteUtilisateur = compteUtilisateurDao.readByMatricule(agentEtat.getMatricule());
 			if(compteUtilisateur!=null)
-				throw new ServiceException("Vous avez deja un compte");
+				serviceException(IDENTIFICATION_SOUSCRIPTION_COMPTE_EXISTE);
+			//Est ce que ce compte n'est pas déja lié à l'adresse email
+			compteUtilisateur = compteUtilisateurDao.readByMatricule(agentEtat.getMatricule());
+			if(compteUtilisateur!=null)
+				serviceException(IDENTIFICATION_SOUSCRIPTION_COMPTE_MAIL_EXISTE);
+				
 			if(!cohente(souscriptionComptePersonne))
-				throw new ServiceException("Les informations saisies ne sont pas cohérentes");
+				serviceException(IDENTIFICATION_SOUSCRIPTION_COMPTE_INCOHERENT);
 			
 			souscriptionComptePersonne.setDateCreation(new Date());
 			souscriptionComptePersonneDao.create(souscriptionComptePersonne);
@@ -84,20 +88,6 @@ public class SouscriptionComptePersonneServiceImpl extends AbstractSouscriptionS
 			mailService.send(new MailMessage("Vous serez information de la suite", ""),souscriptionComptePersonne.getPersonneDemandeur().getPersonne().getContact().getEmail());
 		}
 		
-		//ServiceUtils.throwNotYetImplemented();
-		//inscription.setCode(System.currentTimeMillis()+"");
-		/*switch(inscription.getType()){
-		
-		case BENEFICIAIRE:
-			inscription.setAyantDroitInfos(null);
-			break;
-		case AYANT_DROIT:
-			
-			break;
-		}
-		*/
-		//inscription.setDateCreation(new Date());
-		//dao.create(inscription);
 	}
 	
 	private boolean cohente(SouscriptionComptePersonne souscriptionComptePersonne){
