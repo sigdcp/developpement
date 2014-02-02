@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 @Getter @Setter 
 @Entity
@@ -31,7 +33,8 @@ public class Contact extends AbstractModel<Long> implements Serializable{
 	@Id @GeneratedValue
 	private Long id;
 	
-	@Email
+	@Email(groups=Client.class)
+	@NotNull(message="adresse email",groups=Client.class)
 	private String email;
 	
 	private String telephone;

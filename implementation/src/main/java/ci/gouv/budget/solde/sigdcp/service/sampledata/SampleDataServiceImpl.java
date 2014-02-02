@@ -2,6 +2,7 @@ package ci.gouv.budget.solde.sigdcp.service.sampledata;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,6 +44,8 @@ import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.geographie.TypeLocalite;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Categorie;
+import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
+import ci.gouv.budget.solde.sigdcp.model.identification.Credentials;
 import ci.gouv.budget.solde.sigdcp.model.identification.DelegueSotra;
 import ci.gouv.budget.solde.sigdcp.model.identification.Echelon;
 import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
@@ -51,6 +54,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.model.identification.Position;
 import ci.gouv.budget.solde.sigdcp.model.identification.Profession;
 import ci.gouv.budget.solde.sigdcp.model.identification.QuestionSecrete;
+import ci.gouv.budget.solde.sigdcp.model.identification.Role;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.Sexe;
 import ci.gouv.budget.solde.sigdcp.model.identification.SituationMatrimoniale;
@@ -305,10 +309,14 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(serviceExploitation = new Section(ministereBudget,Code.SECTION_SERV_EXP, "Exploitation", service));
 		em.persist(serviceEtude = new Section(ministereBudget,Code.SECTION_SERV_ET, "Etude et développement", service));
 		
+		
 		agentEtat1 = creerAgentEtat("096000T", "Fiellou", "N'Dri", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
 		agentEtat2 = creerAgentEtat("101000G", "Edoh", "Vincent", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
 		agentEtat3 = creerAgentEtat("201000L", "Losseni", "Diarrassouba", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
 		agentEtat4 = creerAgentEtat("175000H", "Thio", "Bekpancha", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		
+		em.persist(new CompteUtilisateur(new Credentials("sigdcp", "sigdcp"),agentEtat1,Arrays.asList(Role.AGENT_ETAT)));
+		
 		/*
 		em.persist(agentEtat1 = new AgentEtat("AE1","A99", "Tata", "Pion", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
 				coteDivoire, new Date(),  a1, echelon1, position1, 2000, fonction1, serviceEtude, profession1, null));
@@ -322,6 +330,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(agentEtat4 = new AgentEtat("AE4","A800", "Zaza", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
 				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, serviceExploitation, profession2, null));
 		*/
+		/*
 		inscrireAgentEtat("DZ12", "Zadi", "Alain", new Date(), new Contact("mail@yahoo.com", "123456", "01 BP Abidjan", "Rue des jardins", null), Sexe.MASCULIN, 
 				situationMatrimoniale1, coteDivoire, null, null, null, null, null, ministereBudget, profession1,gendarme);
 		
@@ -421,7 +430,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 		creerBordereauTransmission();
 		creerBordereauTransmission();
 		creerBordereauTransmission();
-		
+		*/
 	}
 	
 	public AgentEtat creerAgentEtat(String matricule, String nom, String prenoms, Date dateNaissance, Contact contact, Sexe sexe, SituationMatrimoniale situationMatrimoniale, 

@@ -9,6 +9,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import lombok.Getter;
+
+import org.apache.commons.lang3.StringUtils;
+
 import ci.gouv.budget.solde.sigdcp.service.TextService;
 
 @Singleton
@@ -20,6 +23,9 @@ public class MessageManager implements Serializable {
 	 
 	public void add(Severity severity,String text,Boolean isMessageId){
 		String message = isMessageId?textService.find(text):text;
+		message = StringUtils.replace(message, "\r\n", "<br/>");
+		message = StringUtils.replace(message, "\n", "<br/>");
+		//message = StringEscapeUtils.escapeHtml4(message);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity,message, message));
 	}
 	

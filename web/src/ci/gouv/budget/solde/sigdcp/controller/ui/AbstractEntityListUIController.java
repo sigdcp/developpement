@@ -18,7 +18,6 @@ import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractFormUIController;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.Action;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.FormCommand;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import ci.gouv.budget.solde.sigdcp.service.utils.validaton.AbstractValidator;
 
 public abstract class AbstractEntityListUIController<ENTITY extends AbstractModel<?>> extends AbstractFormUIController<ENTITY> implements Serializable {
 
@@ -58,9 +57,6 @@ public abstract class AbstractEntityListUIController<ENTITY extends AbstractMode
 		showFieldRequired = Boolean.FALSE;
 		
 		defaultSubmitCommand.setRendered(ProcessingType.BATCH.equals(getProcessingType()));
-		defaultSubmitCommand.addExtraValidator(new AbstractValidator<Object>(){
-			private static final long serialVersionUID = 1401664740657460715L;
-		}, this);
 		
 		closeCommand.setRendered(ProcessingType.BATCH.equals(getProcessingType()));
 		

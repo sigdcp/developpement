@@ -5,17 +5,19 @@ import java.io.Serializable;
 import javax.validation.constraints.AssertTrue;
 
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.System;
 
 public class DossierDDValidator extends AbstractValidator<DossierDD> implements Serializable {
 
 	private static final long serialVersionUID = -261860698364195138L;
 	
-	@AssertTrue(message="Le dossier doit appartenir a un bénéficiaire")
+	@AssertTrue(message="Le dossier doit appartenir a un bénéficiaire",groups=System.class)
 	private boolean hasBenficiaire(){
 		return object.getBeneficiaire()!=null;
 	}
 	
-	@AssertTrue(message="la date de prise de service doit être inférieur a la date de cessation de service")
+	@AssertTrue(message="la date de prise de service doit être inférieur a la date de cessation de service",groups=Client.class)
 	private boolean hasDatePriseServiceBeforeDateCessationService(){
 		return false;//object.getDatePriseService().before(object.getDateCessationService());
 	}

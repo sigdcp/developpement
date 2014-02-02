@@ -44,7 +44,7 @@ public class RecupererCompteController extends AbstractFormUIController<CompteUt
 		super.initialisation();
 		title = "Récupérer mot de passe oublié";
 		defaultSubmitCommand.setValue(text("bouton.valider"));
-		compteUtilisateur.setPersonne(new Personne());
+		//compteUtilisateur.setPersonne(new Personne());
 		
 	}
 	

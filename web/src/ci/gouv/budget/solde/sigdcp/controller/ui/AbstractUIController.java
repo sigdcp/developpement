@@ -3,7 +3,10 @@ package ci.gouv.budget.solde.sigdcp.controller.ui;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 
 import lombok.Getter;
@@ -79,5 +82,10 @@ public abstract class AbstractUIController implements Serializable {
 	
 	protected Boolean isDialog(){
 		return webConstantResources.getRequestParamDialog().equals(viewType);
+	}
+	
+	protected void validationException(UIInput input,String message){
+		input.setValid(Boolean.FALSE);
+		throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,message,message));
 	}
 }

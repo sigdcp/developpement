@@ -15,7 +15,8 @@ public class CompteUtilisateurDaoImpl extends JpaDaoImpl<CompteUtilisateur, Long
 	@Override
 	public CompteUtilisateur readByMatricule(String matricule) {
 		try {
-			return entityManager.createQuery("SELECT cu FROM CompteUtilisateur cu WHERE TYPE(cu.personne) IN AgentEtat AND cu.personne.matricule = :matricule", clazz)
+			return entityManager.createQuery("SELECT cu FROM CompteUtilisateur cu WHERE EXISTS"
+					+ " ( SELECT ae FROM AgentEtat ae WHERE ae = cu.utilisateur AND ae.matricule = :matricule)", clazz)
 					.setParameter("matricule", matricule)
 					.getSingleResult();
 		} catch (NoResultException e) {
@@ -28,7 +29,7 @@ public class CompteUtilisateurDaoImpl extends JpaDaoImpl<CompteUtilisateur, Long
 	@Override
 	public CompteUtilisateur readByEMail(String email) {
 		try {
-			return entityManager.createQuery("SELECT cu FROM CompteUtilisateur cu WHERE cu.personne.contact.email = :email", clazz)
+			return entityManager.createQuery("SELECT cu FROM CompteUtilisateur cu WHERE cu.utilisateur.contact.email = :email", clazz)
 					.setParameter("email", email)
 					.getSingleResult();
 		} catch (NoResultException e) {
