@@ -28,7 +28,6 @@ import ci.gouv.budget.solde.sigdcp.model.identification.QuestionSecrete;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.Sexe;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
-import ci.gouv.budget.solde.sigdcp.model.identification.Personne.PieceIdentiteType;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeMission;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.TypeClasseVoyage;
 import ci.gouv.budget.solde.sigdcp.model.prestation.Prestataire;
@@ -43,11 +42,6 @@ public class ListeResources {
  
 	@Inject private DynamicEnumerationDao dynamicEnumerationDao;
 	@Inject private PrestataireDao prestataireDao;
-	
-	@Produces @Named
-    public PieceIdentiteType[] getPieceIdentiteTypes(){
-    	return PieceIdentiteType.values(); 
-    }
 	
 	@Produces @Named
     public List<QuestionSecrete> getQuestionSecretes(){

@@ -6,13 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
@@ -23,11 +21,9 @@ public class ReponseSecrete extends AbstractModel<Long> implements Serializable 
 	@Id @GeneratedValue
 	private Long id;
 	
-	@ManyToOne 
-	@NotNull(groups=Client.class)
+	@ManyToOne
 	private QuestionSecrete question;
 	
-	@NotNull(groups=Client.class)
 	private String libelle;
 
 	public ReponseSecrete(QuestionSecrete question,String libelle) {

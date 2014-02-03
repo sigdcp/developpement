@@ -32,11 +32,7 @@ public class DefaultServiceImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIAN
 	/*------------------------------------------------------------------------------*/
 	
 	protected static void serviceException(ServiceExceptionType type){
-		serviceException(type.getLibelle());
-	}
-	
-	protected static void serviceException(String message){
-		throw new ServiceException(message);
+		throw new ServiceException(type.getLibelle());
 	}
 
 }

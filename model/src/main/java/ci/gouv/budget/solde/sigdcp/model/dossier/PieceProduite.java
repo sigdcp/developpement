@@ -13,6 +13,8 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +28,9 @@ public class PieceProduite  extends Document  implements Serializable{
 	
 	@ManyToOne
 	private TypePieceProduite type;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateEtablissement;
 	
 	public PieceProduite() {}
 

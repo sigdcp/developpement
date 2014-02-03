@@ -3,8 +3,6 @@ package ci.gouv.budget.solde.sigdcp.service.utils.validaton;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -12,7 +10,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 
 import lombok.Getter;
-import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 public class AbstractValidator<OBJECT> implements Serializable {
 
@@ -23,10 +20,8 @@ public class AbstractValidator<OBJECT> implements Serializable {
 	//the object to validate
 	@Getter protected OBJECT object;
 	
-	protected List<Class<?>> groups = new LinkedList<>();
-	
 	// the processor
-	protected Validator validator;
+	private Validator validator;
 
 	// the results
 	@Getter private Set<String> messages;
@@ -47,18 +42,13 @@ public class AbstractValidator<OBJECT> implements Serializable {
 		this.objectClass = objectClass;
 		validatorClass = (Class<AbstractValidator<OBJECT>>) this.getClass();
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
-		groups.add(Client.class);
 	}
 	
-	public AbstractValidator<OBJECT> init(OBJECT object){
+	public void validate(OBJECT object){
 		/* initialize fields */
 		this.object=object;
-		
-		return this;
-	}
-	
-	public void validate(){
 		messages = new LinkedHashSet<>();
+		
 		/* processing */
 		process(objectClass, object);
 		process(validatorClass, this);
@@ -66,7 +56,7 @@ public class AbstractValidator<OBJECT> implements Serializable {
 	
 	private <T> void process(Class<T> aClass,T aObject){
 		/* bean validation */
-		Set<ConstraintViolation<T>> constraintViolationsModel = validator.validate(aObject,groups==null?null:groups.toArray(new Class<?>[]{}));
+		Set<ConstraintViolation<T>> constraintViolationsModel = validator.validate(aObject);
 		
 		/* collect messages */
 		if(!constraintViolationsModel.isEmpty())
@@ -75,7 +65,6 @@ public class AbstractValidator<OBJECT> implements Serializable {
 	}
 	
 	protected String formatMessage(ConstraintViolation<?> constraintViolation){
-		//return constraintViolation.getPropertyPath()+" "+constraintViolation.getMessage();
 		return constraintViolation.getMessage();
 	}
 	

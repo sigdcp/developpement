@@ -9,15 +9,12 @@
 package ci.gouv.budget.solde.sigdcp.model.dossier;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,9 +32,6 @@ public class Document  extends AbstractModel<Long>  implements Serializable{
 	private Long id;
 	
 	protected String numero;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	protected Date dateEtablissement;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	protected Fichier fichier = new Fichier();

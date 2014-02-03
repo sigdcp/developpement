@@ -8,62 +8,36 @@
 
 package ci.gouv.budget.solde.sigdcp.model.identification;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
+import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
+
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Getter;
-import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-
 @Getter @Setter 
-@Entity
+@Entity //TODO rename it to Compte
 public class CompteUtilisateur  extends AbstractModel<Long>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue private Long id;
+	@Id private Long id;
 	
-	@Embedded private Credentials credentials = new Credentials();
+	@Embedded private Credentials credentials;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreation;
 	
 	private Boolean verouille = Boolean.FALSE;
 	
-	@ManyToOne @JoinColumn(nullable=false)
-	private Party utilisateur;
-	
-	@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "UserRoles", joinColumns = { @JoinColumn(name = "userId") })
-    @Column(name = "role")
-    private List<Role> roles;
-	
-	public CompteUtilisateur() {}
-
-	public CompteUtilisateur(Credentials credentials, Party utilisateur,
-			List<Role> roles) {
-		super();
-		this.credentials = credentials;
-		this.utilisateur = utilisateur;
-		this.roles = roles;
-	}
-	
-	
+	@ManyToOne
+	private Personne personne;
 }

@@ -38,6 +38,8 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
 	
 	@Getter private Credentials credentials = new Credentials();
 	@Getter @Setter private Boolean remember = Boolean.FALSE;
+	@Getter @Setter private String matricule;
+	@Getter @Setter private String email;
 	
 	@Override
 	protected InitWhen initWhen() {
@@ -54,12 +56,10 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
 	@Override
 	protected void onDefaultSubmitAction() {
 		try {
-			System.out.println("LoginController.onDefaultSubmitAction()");
 			compteUtilisateurService.authentifier(getDto().getUsername(), getDto().getPassword());
             SecurityUtils.getSubject().login(new UsernamePasswordToken(getDto().getUsername(), getDto().getPassword(), remember));
             SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());
             Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : HOME_URL);
-            
         }
         catch (Exception e) {
         	throw new RuntimeException("Utilisateur inconnu");

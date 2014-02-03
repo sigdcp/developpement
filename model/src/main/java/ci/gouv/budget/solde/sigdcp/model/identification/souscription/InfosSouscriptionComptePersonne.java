@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +21,6 @@ import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
-import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 @Getter @Setter 
 @Entity @AllArgsConstructor
@@ -33,16 +30,13 @@ public class InfosSouscriptionComptePersonne  extends AbstractModel<Long>  imple
 
 	@Id @GeneratedValue private Long id;
 		
-	@ManyToOne(cascade=CascadeType.PERSIST) @Valid
-	private Personne personne = new Personne();
+	@ManyToOne(cascade=CascadeType.PERSIST) private Personne personne = new Personne();
 	
 	/*
 	 * Agents de l'état
 	 */
-	@NotNull(groups=Client.class)
 	@ManyToOne private TypeAgentEtat type;
 	
-	@NotNull(groups=Client.class)
 	private String matricule;
 	
 	public InfosSouscriptionComptePersonne() {}

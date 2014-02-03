@@ -36,7 +36,7 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 		deplacementDao.create(dossier.getDeplacement());
 		dao.create(dossier);
 		for(PieceJustificative pieceJustificative : pieceJustificatives){
-			//pieceJustificative.setDossier(dossier);
+			pieceJustificative.setDossier(dossier);
 			pieceJustificativeDao.create(pieceJustificative);
 		}
 		

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +14,7 @@ public class ValidationDto implements Serializable {
 
 	
 	private String questionLibelle;
-	@NotNull(groups=Client.class)
+	@NotNull
 	private Boolean accepter;
 	
 	public ValidationDto(String questionLibelle) {

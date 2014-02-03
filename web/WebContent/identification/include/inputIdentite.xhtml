@@ -10,7 +10,6 @@
 	<ui:composition>
 
 		<ui:param name="columnCount" value="#{columnCount==null?3:columnCount}" />
-		<ui:param name="required" value="#{souscriptionComptePersonneController.requiredEnabled}" />
 		
 		<style>
 			.c1{
@@ -28,7 +27,7 @@
 		<p:fieldset legend="Identification">
 			<p:panelGrid id="panelIdentite" columns="#{personneDto.editable?columnCount:4}" styleClass="panelGridNoBorder" columnClasses="#{personneDto.editable?'c1,c2,c3,c1,c2,c3':'c1,c2,c1,c2'}"> 
 		    	<p:outputLabel for="questionAgent" value="Etes vous un agent de l'état ?" rendered="#{questionAgentEtat}"/>
-				<p:selectOneRadio id="questionAgent" value="#{personneDto.agentEtat}" required="#{required}"  requiredMessage="#{valueRequiredMessage}" rendered="#{questionAgentEtat}">
+				<p:selectOneRadio id="questionAgent" value="#{personneDto.agentEtat}" required="true"  requiredMessage="#{valueRequiredMessage}" rendered="#{questionAgentEtat}">
 					<f:selectItem itemValue="true" itemLabel="Oui"/>
 					<f:selectItem itemValue="false" itemLabel="Non"/>
 					<p:ajax event="click" update="@parent" /> 
@@ -36,61 +35,50 @@
 				<p:message for="questionAgent" rendered="#{questionAgentEtat}"/>
 							
 				<p:outputLabel for="typePersonne" value="Type d'agent " rendered="#{personneDto.agentEtat}"/>
-				<p:selectOneMenu id="typePersonne" value="#{personneDto.infosSouscriptionComptePersonne.type}" required="#{required}" requiredMessage="#{valueRequiredMessage}" 
-					converter="#{objectConverter}" rendered="#{personneDto.editable and personneDto.agentEtat}" binding="#{typePersonne}">
+				<p:selectOneMenu id="typePersonne" value="#{personneDto.infosSouscriptionComptePersonne.type}" required="true" requiredMessage="#{valueRequiredMessage}" 
+					converter="#{objectConverter}" rendered="#{personneDto.editable and personneDto.agentEtat}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{typeAgentEtats}" var="typeAgentEtat" itemLabel="#{typeAgentEtat.libelle}" />
-					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 				</p:selectOneMenu>
 				<h:outputText value="#{personneDto.infosSouscriptionComptePersonne.type}" rendered="#{not personneDto.editable}"/>
 				<p:message for="typePersonne" rendered="#{personneDto.editable and personneDto.agentEtat}"/>
 				
 				<p:outputLabel for="matricule" value="Matricule" rendered="#{personneDto.agentEtat}" />
 				<!-- A Debogger - Valeur ne saffiche a laffectation
-				<p:inputMask id="matricule" value="#{personneDto.personne.matrrequired="#{required}"d="true" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.agentEtat}" 
+				<p:inputMask id="matricule" value="#{personneDto.personne.matricule}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.agentEtat}" 
 					mask="#{webConstantResources.inputMatriculePattern}"/>
 					-->
-				<p:inputText id="matricule" value="#{personneDto.infosSouscriptionComptePersonne.matricule}" required="#{required}" requiredMessage="#{valueRequiredMessage}" 
-					rendered="#{personneDto.editable and personneDto.agentEtat}" validator="#{souscriptionComptePersonneController.validateMatricule}">
-					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
-					<f:attribute name="typePersonne" value="#{typePersonne}"/>
-				</p:inputText>
+				<p:inputText id="matricule" value="#{personneDto.infosSouscriptionComptePersonne.matricule}" required="true" requiredMessage="#{valueRequiredMessage}" 
+					rendered="#{personneDto.editable and personneDto.agentEtat}"/>
 				<h:outputText value="#{personneDto.infosSouscriptionComptePersonne.matricule}" rendered="#{not personneDto.editable}"/>
 				<p:message for="matricule" rendered="#{personneDto.editable and personneDto.agentEtat}" />
 				
 				<p:outputLabel for="nom#{iid}" value="Nom" />
-			 	<p:inputText id="nom#{iid}" required="#{required}" value="#{personneDto.personne.nom}" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.editable}">
-			 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
-			 	</p:inputText>
+			 	<p:inputText id="nom#{iid}" required="true" value="#{personneDto.personne.nom}" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.editable}"/>
 			 	<h:outputText value="#{personneDto.personne.nom}" rendered="#{not personneDto.editable}"/>
 			 	<p:message for="nom#{iid}" rendered="#{personneDto.editable}"/>
 				
 				<p:outputLabel for="prenoms#{iid}" value="Prenoms" />
-				<p:inputText id="prenoms#{iid}" value="#{personneDto.personne.prenoms}" rendered="#{personneDto.editable}"/>
+				<p:inputText id="prenoms#{iid}" value="#{personneDto.personne.prenoms}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.editable}"/>
 				<h:outputText value="#{personneDto.personne.prenoms}" rendered="#{not personneDto.editable}"/>
 				<p:message for="prenoms#{iid}" rendered="#{personneDto.editable}"/>
 				
-				<!--  -->
 				<p:outputLabel for="datenaissance#{iid}" value="Date Naissance" />
-				<p:calendar id="datenaissance#{iid}" required="#{required}" navigator="true" value="#{personneDto.personne.dateNaissance}" requiredMessage="#{valueRequiredMessage}" 
-					 pattern="#{constantResources. datePattern}" readonlyInput="true" rendered="#{personneDto.editable}" validator="#{souscriptionComptePersonneController.validateDateNaissance}"
-					 mindate="#{constantResources.dateMaximum}" maxdate="#{constantResources.dateNaissanceMinimum}" >
-					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
-				</p:calendar>
+				<p:calendar id="datenaissance#{iid}" required="true" navigator="true" value="#{personneDto.personne.dateNaissance}" requiredMessage="#{valueRequiredMessage}" 
+					mindate="#{constantResources.dateMaximum}" maxdate="#{constantResources.dateNaissanceMinimum}" pattern="#{constantResources. datePattern}" readonlyInput="true" rendered="#{personneDto.editable}"/>
 				<h:outputText value="#{personneDto.personne.dateNaissance}" rendered="#{not personneDto.editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/> </h:outputText>
 				<p:message for="datenaissance#{iid}" rendered="#{personneDto.editable}"/>
 				
 				<p:outputLabel for="sexe#{iid}" value="Sexe" rendered="#{sexe==null or sexe}"/>
-				<p:selectOneRadio id="sexe#{iid}" value="#{personneDto.personne.sexe}" required="#{required}" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.editable and (sexe==null or sexe)}">
+				<p:selectOneRadio id="sexe#{iid}" value="#{personneDto.personne.sexe}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.editable and (sexe==null or sexe)}">
 					<f:selectItems value="#{sexes}"/>
-					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 				</p:selectOneRadio>
 				<h:outputText value="#{personneDto.personne.sexe}" rendered="#{not personneDto.editable}"/>
 				<p:message for="sexe#{iid}" rendered="#{personneDto.editable and (sexe==null or sexe)}"/> 
 	
 				<!--
 				<p:outputLabel for="profession#{iid}" value="Profession" rendered="#{profession==null or profession}"/>
-				<p:selectOneMenu id="profession#{iid}" value="#{personneDto.personne.profession}" required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
+				<p:selectOneMenu id="profession#{iid}" value="#{personneDto.personne.profession}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
 					rendered="#{personneDto.editable and (profession==null or profession)}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{professions}" />
@@ -100,11 +88,10 @@
 				-->
 				
 				<p:outputLabel for="nationalite#{iid}" value="Nationalité" rendered="#{nationalite==null or nationalite}"/>
-				<p:selectOneMenu id="nationalite#{iid}" value="#{personneDto.personne.nationalite}" required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
+				<p:selectOneMenu id="nationalite#{iid}" value="#{personneDto.personne.nationalite}" required="true" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
 					rendered="#{personneDto.editable and (nationalite==null or nationalite)}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{pays}" />
-					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 				</p:selectOneMenu>
 				<h:outputText value="#{personneDto.personne.nationalite}" rendered="#{not personneDto.editable}"/>
 				<p:message for="nationalite#{iid}" rendered="#{personneDto.editable and (nationalite==null or nationalite)}"/>
@@ -112,22 +99,21 @@
 				<h:outputText value="" /><h:outputText value="" /><h:outputText value="" />
 				
 				<p:outputLabel for="natpid#{iid}" value="Nature de la pièce d'identitité" rendered="#{pieceIdentite}"/>
-				<p:selectOneMenu id="natpid#{iid}" value="#{personneDto.infosSouscriptionComptePersonne.personne.pieceIdentiteType}"  required="#{required}" requiredMessage="#{valueRequiredMessage}" 
+				<p:selectOneMenu id="natpid#{iid}" value="#{personneDto.tp}"  required="true" requiredMessage="#{valueRequiredMessage}" 
 					rendered="#{personneDto.editable and pieceIdentite}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
-					<f:selectItems value="#{pieceIdentiteTypes}"/>
+					<f:selectItem itemLabel="Carte nationale d'identité" itemValue="1"/>
+					<f:selectItem itemLabel="Attestation d'identitté" itemValue="2"/>
+					<f:selectItem itemLabel="Passport" itemValue="3"/>
 					<!--
 					<f:selectItems value="#{typePieceIdentites}" />
 					-->
-					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 				</p:selectOneMenu>
 				<h:outputText value="#{personneDto.tp}" rendered="#{not personneDto.editable}"/>
 				<p:message for="natpid#{iid}" rendered="#{personneDto.editable and pieceIdentite}"/> 
 				
 				<p:outputLabel for="numpid#{iid}" value="Numéro de la pièce d'identité" rendered="#{pieceIdentite}"/>
-				<p:inputText id="numpid#{iid}" value="#{personneDto.infosSouscriptionComptePersonne.personne.pieceIdentiteNumero}" required="#{required}" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.editable and pieceIdentite}">
-					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
-				</p:inputText>
+				<p:inputText id="numpid#{iid}" value="#{personneDto.personne.pieceIdentite.numero}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.editable and pieceIdentite}"/>
 				<h:outputText value="#{personneDto.personne.pieceIdentite.numero}" rendered="#{not personneDto.editable}"/>
 				<p:message for="numpid#{iid}" rendered="#{personneDto.editable and pieceIdentite}"/>			
 			</p:panelGrid>
@@ -136,30 +122,25 @@
 		<p:spacer height="5" />
 		<p:fieldset legend="Contacts">
 			<p:panelGrid id="panelContacts" columns="#{personneDto.editable?columnCount:4}" styleClass="panelGridNoBorder" columnClasses="#{personneDto.editable?'c1,c2,c3,c1,c2,c3':'c1,c2,c1,c2'}"> 
-				
-				<p:outputLabel for="email" value="Email" />
-				<p:inputText id="email" value="#{personneDto.personne.contact.email}" required="#{required}" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.editable}">
-					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
-				</p:inputText>
-				<h:outputText value="#{personneDto.personne.contact.email}" rendered="#{not personneDto.editable}"/>
-				<p:message for="email" rendered="#{personneDto.editable}"/> 
-				
 				<p:outputLabel for="adresse" value="Adresse postale: " /> 
-				<p:inputText id="adresse" value="#{personneDto.personne.contact.boitePostale}" rendered="#{personneDto.editable}"/>
+				<p:inputText id="adresse" value="#{personneDto.personne.contact.boitePostale}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.editable}"/>
 				<h:outputText value="#{personneDto.personne.contact.boitePostale}" rendered="#{not personneDto.editable}"/>
 				<p:message for="adresse" rendered="#{personneDto.editable}"/> 
 				
 				<p:outputLabel for="telephone" value="Téléphone" />
 				<!--
-				<p:inputMask id="telephone" value="#{personneDto.personne.contact.telephone}" required="#{required}" requiredMessage="#{valueRequiredMessage}" mask="#{webConstantResources.inputPhoneNumberPattern}"
+				<p:inputMask id="telephone" value="#{personneDto.personne.contact.telephone}" required="true" requiredMessage="#{valueRequiredMessage}" mask="#{webConstantResources.inputPhoneNumberPattern}"
 					rendered="#{personneDto.editable}"/>	
 					-->	 
-				<p:inputText id="telephone" value="#{personneDto.personne.contact.telephone}" mask="#{webConstantResources.inputPhoneNumberPattern}"
+				<p:inputText id="telephone" value="#{personneDto.personne.contact.telephone}" required="true" requiredMessage="#{valueRequiredMessage}" mask="#{webConstantResources.inputPhoneNumberPattern}"
 					rendered="#{personneDto.editable}"/>	
 				<h:outputText value="#{personneDto.personne.contact.telephone}" rendered="#{not personneDto.editable}"/>
 				<p:message for="telephone" rendered="#{personneDto.editable}"/> 
 				
-							
+				<p:outputLabel for="email" value="Email" />
+				<p:inputText id="email" value="#{personneDto.personne.contact.email}" required="true" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.editable}"/>
+				<h:outputText value="#{personneDto.personne.contact.email}" rendered="#{not personneDto.editable}"/>
+				<p:message for="email" rendered="#{personneDto.editable}"/> 			
 			</p:panelGrid>
 		</p:fieldset>	
 			

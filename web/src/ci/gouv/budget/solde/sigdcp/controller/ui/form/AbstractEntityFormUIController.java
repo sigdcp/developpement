@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.logging.Level;
 
-import javax.validation.Valid;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -17,8 +15,6 @@ public abstract class AbstractEntityFormUIController<ENTITY extends AbstractMode
 	private static final long serialVersionUID = 393104164741887088L;
 	
 	protected Class<ENTITY> entityClass;
-	
-	@Valid
 	@Getter @Setter protected ENTITY entity;
 	
 	@SuppressWarnings("unchecked")

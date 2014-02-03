@@ -80,8 +80,8 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		super.initCreateOperation();
 		entity.setDeplacement(createDeplacement());
 		entity.getDeplacement().setNature(natureDaplacement);
-		//for(PieceJustificativeAFournir pieceJustificativeAFournir : pieceJustificativeAFournirService.findByNatureDeplacementId(entity.getDeplacement().getNature().getCode()))
-		//	pieceJustificativeUploader.addPieceJustificative(new PieceJustificative(pieceJustificativeAFournir, entity));
+		for(PieceJustificativeAFournir pieceJustificativeAFournir : pieceJustificativeAFournirService.findByNatureDeplacementId(entity.getDeplacement().getNature().getCode()))
+			pieceJustificativeUploader.addPieceJustificative(new PieceJustificative(pieceJustificativeAFournir, entity));
 	}
 	
 	@Override

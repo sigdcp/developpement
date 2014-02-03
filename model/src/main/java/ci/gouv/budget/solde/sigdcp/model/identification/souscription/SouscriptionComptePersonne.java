@@ -19,16 +19,12 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.identification.ReponseSecrete;
 import ci.gouv.budget.solde.sigdcp.model.identification.Souscription;
-import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 @Getter @Setter 
 @Entity @DiscriminatorValue("Compte")
@@ -39,7 +35,7 @@ public class SouscriptionComptePersonne  extends Souscription  implements Serial
 	/**
 	 * Identification de la personne qui souscrit
 	 */
-	@OneToOne(cascade=CascadeType.ALL) @Valid
+	@OneToOne(cascade=CascadeType.ALL)
 	private InfosSouscriptionComptePersonne personneDemandeur = new InfosSouscriptionComptePersonne();
 	
 	@ManyToOne
@@ -49,19 +45,18 @@ public class SouscriptionComptePersonne  extends Souscription  implements Serial
 	 * Infos sur le compte utilisateur
 	 */
 	
-	@Size(min=8,message="Le mot de passe doit avoir 8 caractères au minimum",groups=Client.class)
-	@NotNull(groups=Client.class)
-	private String password;
+	private String motPasse;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@Size(min=1,message="Veuillez saisir une reponse secrete",groups=Client.class)
 	private Set<ReponseSecrete> reponseSecretes = new LinkedHashSet<>();
 	
 	/**
 	 * Identification de la personne référencée (peut etre le defunt dans le cas des FO) 
 	 */
-	@OneToOne(cascade=CascadeType.ALL) @Valid
-	private InfosSouscriptionComptePersonne personneReferencee;
+	@OneToOne(cascade=CascadeType.ALL)
+	private InfosSouscriptionComptePersonne personneReferencee = new InfosSouscriptionComptePersonne();
+	
+	
 	
 	public SouscriptionComptePersonne() {}
 

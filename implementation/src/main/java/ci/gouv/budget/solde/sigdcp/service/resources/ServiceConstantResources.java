@@ -32,19 +32,18 @@ public class ServiceConstantResources implements Serializable{
 	@Getter private final String statutRegle = Code.STATUT_REGLE;
 	/**/
 	
-	@Getter private final String fullDateTimePattern = "EEEE , dd/MM/yyyy HH:mm";
-	@Getter private final String dateTimePattern = "dd/MM/yyyy HH:mm";
-	@Getter private final String fullDatePattern = "EEEE , dd/MM/yyyy";
-	@Getter private final String datePattern = "dd/MM/yyyy";
+	@Getter private String fullDateTimePattern = "EEEE , dd/MM/yyyy HH:mm";
+	@Getter private String dateTimePattern = "dd/MM/yyyy HH:mm";
+	@Getter private String fullDatePattern = "EEEE , dd/MM/yyyy";
+	@Getter private String datePattern = "dd/MM/yyyy";
 	
-	@Getter private final String matriculeFonctionnairePattern = "\\d\\d\\d\\d\\d\\d[a-zA-Z]";
-	@Getter private final String matriculeGendarmePattern = "\\d\\d\\d\\d\\d\\d[a-zA-Z]";
+	@Getter private String matriculePattern = "\\d\\d\\d\\d\\d\\d[a-zA-Z]";
 	
-	@Getter private Integer ageMinimumAns = 19;
+	@Getter private Integer AgeMinimumAns = 19;
 	
 	public Date getDateNaissanceMinimum(){
 		Calendar calendar = Calendar.getInstance();
-		calendar.roll(Calendar.YEAR, -ageMinimumAns);
+		calendar.roll(Calendar.YEAR, -AgeMinimumAns);
 		return calendar.getTime();
 	}
 	
