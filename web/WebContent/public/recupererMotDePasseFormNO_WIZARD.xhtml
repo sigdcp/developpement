@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+		
+		<ui:composition template="/template/vide.xhtml">
+			
+			<ui:define name="contenu">
+		
+				<ui:decorate template="/template/formWizardTemplate.xhtml">
+					<ui:param name="uiController" value="#{recupererPasswordController}" />
+					<ui:define name="contenu">	
+						<p:outputPanel id="agentEtat" rendered="#{not recupererPasswordController.valideAgentEtat}">
+							<h:panelGrid columns="3" cellpadding="5" style="margin:auto">
+								
+								<p:outputLabel for="typePersonne" value="Vous êtes un"/>
+								<p:selectOneMenu id="typePersonne" value="#{recupererPasswordController.agentEtat.type}" required="true" requiredMessage="#{valueRequiredMessage}" 
+									converter="#{objectConverter}" binding="#{typePersonne}">
+									<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+									<f:selectItems value="#{typeAgentEtats}" var="typeAgentEtat" itemLabel="#{typeAgentEtat.libelle}" />
+									<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+								</p:selectOneMenu>
+								<p:message for="typePersonne"/>
+								
+								<p:outputLabel for="matricule" value="Matricule" />	
+								<p:inputText id="matricule" value="#{recupererPasswordController.agentEtat.matricule}" required="true" requiredMessage="#{valueRequiredMessage}"
+									validator="#{validationManager.validateMatricule}">
+									<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+									<f:attribute name="typePersonne" value="#{typePersonne}"/>
+								</p:inputText>
+								<p:message for="matricule"/>
+								 
+								<p:outputLabel for="email" value="E-mail" />
+								<p:inputText id="email" value="#{recupererPasswordController.agentEtat.contact.email}" required="true" requiredMessage="#{valueRequiredMessage}" >
+									<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+								</p:inputText>
+								<p:message for="email"/>
+								 
+							</h:panelGrid>						
+						</p:outputPanel>
+						
+						<p:outputPanel id="compteUtilisateur" rendered="#{recupererPasswordController.valideAgentEtat}">
+							
+							<p:dataTable value="#{recupererPasswordController.reponseSecretes}" var="reponse">
+								
+								<p:column headerText="Question">
+									<h:outputText value="#{reponse.question.libelle}" />
+								</p:column>
+								
+								<p:column headerText="Réponse">
+									<p:inputText value="#{reponse.libelle}" />
+								</p:column>
+								
+							</p:dataTable>
+							
+						</p:outputPanel>
+					</ui:define>
+				</ui:decorate>			
+			</ui:define>
+			
+			
+		</ui:composition>
+
+	</h:body>
+
+</html>

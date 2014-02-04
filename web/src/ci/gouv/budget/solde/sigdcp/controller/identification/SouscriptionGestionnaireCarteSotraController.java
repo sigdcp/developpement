@@ -54,14 +54,14 @@ public class SouscriptionGestionnaireCarteSotraController extends AbstractEntity
 	protected void initCreateOperation() {
 		super.initCreateOperation();
 		entity.setGestionnaire((AgentEtat) sessionManager.getUser());
-		entity.getGestionnaire().getPieceIdentite().setModel(new PieceJustificativeAFournir(null, null, null, new TypePieceJustificative(Code.TYPE_PIECE_CNI, "Pièce d'identité"), 1, true, 1, false));
+		//entity.getGestionnaire().getPieceIdentite().setModel(new PieceJustificativeAFournir(null, null, null, new TypePieceJustificative(Code.TYPE_PIECE_CNI, "Pièce d'identité"), 1, true, 1, false));
 		entity.getDecretCreationSection().setModel(new PieceJustificativeAFournir(null, null, null, new TypePieceJustificative(Code.TYPE_PIECE_CNI, "Décret de création du service"), 1, true, 1, false));
 		entity.getNoteService().setModel(new PieceJustificativeAFournir(null, null, null, new TypePieceJustificative(Code.TYPE_PIECE_CNI, "Note de service"), 1, true, 1, false));
 		
 		pieceJustificativeUploader = new PieceJustificativeUploader();
 		pieceJustificativeUploader.setShowInputs(Boolean.FALSE);
 		
-		pieceJustificativeUploader.addPieceJustificative(entity.getGestionnaire().getPieceIdentite());
+		//pieceJustificativeUploader.addPieceJustificative(entity.getGestionnaire().getPieceIdentite());
 		pieceJustificativeUploader.addPieceJustificative(entity.getDecretCreationSection());
 		pieceJustificativeUploader.addPieceJustificative(entity.getNoteService());
 	}

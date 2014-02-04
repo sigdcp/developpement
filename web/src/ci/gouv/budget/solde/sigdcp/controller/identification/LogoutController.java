@@ -36,9 +36,10 @@ public class LogoutController extends AbstractFormUIController<CompteUtilisateur
 	
 	@Override
 	protected void onDefaultSubmitAction() {
-		compteUtilisateurService.deconnecter(userSessionManager.getCompte());
-		 SecurityUtils.getSubject().logout();
-	     Faces.invalidateSession();
+		compteUtilisateurService.deconnecter(userSessionManager.getCompteUtilisateur());
+		SecurityUtils.getSubject().logout();
+		Faces.invalidateSession();
+		
 	}
 	
 	

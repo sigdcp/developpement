@@ -31,18 +31,26 @@
 				</ui:insert>
 				<p:separator/>
 				
-				<p:messages globalOnly="true"/>
+				<p:messages globalOnly="true" escape="false"/>
 				
-				<ui:insert name="__contenu__" >
-					<h1><h:outputText value="Contenu à définir" /> </h1>
-				</ui:insert>
-				
-				<p:separator/>
-				
-				<ui:decorate template="/template/formCommandsTemplate.xhtml"/>	
-				
+				<p:outputPanel id="bodyPanel" >
+					<ui:insert name="__contenu__" >
+						<h1><h:outputText value="Contenu à définir" /> </h1>
+					</ui:insert>
+					
+					<p:separator/>
+					
+					<ui:decorate template="/template/formCommandsTemplate.xhtml"/>	
+					
+					<p:commandButton id="actionBtn" value="TestBlock" icon="ui-icon-check"  onstart="PF('bui').show()" oncomplete="PF('bui').hide()" rendered="true"/> 				
+				</p:outputPanel>				
 			</td>
 		</tr> </table>
+		
+		<p:blockUI block="bodyPanel" widgetVar="bui" rendered="false">  
+	        LOADING<br />  
+	        
+	    </p:blockUI>  
 
 	</h:form> 	
  	

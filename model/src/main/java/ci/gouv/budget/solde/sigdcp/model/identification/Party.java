@@ -19,26 +19,33 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Contact;
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.System;
 
 @Getter @Setter 
-@Entity @Inheritance(strategy=InheritanceType.JOINED)
+@Entity @Inheritance(strategy=InheritanceType.JOINED) @EqualsAndHashCode(of="code",callSuper=false)
 public class Party extends AbstractModel<String>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id private String code;
 	
+	@NotNull(groups=Client.class)
 	private String nom;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL) @Valid
 	private Contact contact = new Contact();
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull(groups=System.class)
 	private Date dateCreation;
 	
 	public Party() {}

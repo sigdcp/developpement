@@ -6,81 +6,70 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	<h:head>
-    ...
-</h:head>
+	
 	<h:body>
+		
 		<ui:composition template="/template/vide.xhtml">
-	<!-- <script type="text/javascript">
-				$(function(){
-					alert("L'adresse est vide.");
-			);
-	</script>		
-	<script>
-	 alert("L'adresse est vide.");
-function envoiForm(event) {
- // if (this.elements.adresse.value === "") {
-    alert("L'adresse est vide.");
-    event.preventDefault();
- // }
-}
-
-var formulaire = document.getElementById("coordonnees");
-formulaire.addEventListener("submit", envoiForm, false);
-</script> -->
+			
 			<ui:define name="contenu">
-			
-<h:outputScript target="head" >
-$(function(){  
-$('input[type=text],select,textarea').keypress(function( event ) {
-if ( event.which == 13 ) {
- //var allInputs = $("input,select");
-     event.preventDefault();
-  }
-    
-});
-<!-- $("input,select").bind("keydown", function (e) {
-var i;
-        if (e.keyCode == 13) {
-            var allInputs = $("input,select");
-            for (key in allInputs){
-          		i+=1;
-                if (allInputs[i] == this) {
-                    while ((allInputs[i]).name == (allInputs[i + 1]).name) {
-                        i++;
-                    }
-
-                    if ((i + 1)!= allInputs.length) $(allInputs[i + 1]).focus();
-                }
-            }
-        }
-    });
- -->
-});
-			
-</h:outputScript>
-
-
-			<ui:decorate template="/template/formTemplate.xhtml">
-				<ui:param name="uiController" value="#{recupererCompteController}" />
-				<ui:define name="contenu">	
-					<h:panelGrid columns="3" cellpadding="5" style="margin:auto">
-						<p:outputLabel for="matricule" value="Matricule" />	
-						<p:inputText id="matricule" value="#{recupererCompteController.matricule}" required="true" requiredMessage="Saisissez votre matricule" />
-						 <p:message for="matricule"/>
-						 
-						<p:outputLabel for="email" value="E-mail" />
-						<p:inputText id="email" value="#{recupererCompteController.compteUtilisateur.personne.contact.email}" required="true" requiredMessage="Saisissez votre E-mail" />
-						<p:message for="email"/>
+		
+				<ui:decorate template="/template/formTemplate.xhtml">
+					<ui:param name="uiController" value="#{recupererPasswordController}" />
+					<ui:define name="contenu">	
+						<p:outputPanel id="agentEtat" rendered="#{not recupererPasswordController.defaultSubmitCommand.rendered}">
+							<h:panelGrid columns="3" cellpadding="5" style="margin:auto">
+								
+								<p:outputLabel for="typePersonne" value="Vous êtes un"/>
+								<p:selectOneMenu id="typePersonne" value="#{recupererPasswordController.agentEtat.type}" required="true" requiredMessage="#{valueRequiredMessage}" 
+									converter="#{objectConverter}" binding="#{typePersonne}">
+									<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+									<f:selectItems value="#{typeAgentEtats}" var="typeAgentEtat" itemLabel="#{typeAgentEtat.libelle}" />
+									<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+								</p:selectOneMenu>
+								<p:message for="typePersonne"/>
+								
+								<p:outputLabel for="matricule" value="Matricule" />	
+								<p:inputText id="matricule" value="#{recupererPasswordController.agentEtat.matricule}" required="true" requiredMessage="#{valueRequiredMessage}"
+									validator="#{validationManager.validateMatricule}">
+									<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+									<f:attribute name="typePersonne" value="#{typePersonne}"/>
+								</p:inputText>
+								<p:message for="matricule"/>
+								 
+								<p:outputLabel for="email" value="E-mail" />
+								<p:inputText id="email" value="#{recupererPasswordController.agentEtat.contact.email}" required="true" requiredMessage="#{valueRequiredMessage}" >
+									<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+								</p:inputText>
+								<p:message for="email"/>
+								 
+							</h:panelGrid>						
+						</p:outputPanel>
 						
-					</h:panelGrid>
-				</ui:define>
-					
-			</ui:decorate>
-
-			
-			
-			
+						<p:outputPanel id="compteUtilisateur" rendered="#{recupererPasswordController.defaultSubmitCommand.rendered}">
+							
+							<p:dataTable value="#{recupererPasswordController.reponseSecretes}" var="reponse" rowIndexVar="index">
+								
+								<p:column headerText="Question">
+									<h:outputText value="#{reponse.question.libelle}" />
+								</p:column>
+								
+								<p:column headerText="Réponse">
+									<p:panelGrid columns="2" styleClass="panelGridNoBorder">
+										<p:inputText id="reponse" value="#{reponse.libelle}" size="30" required="true" requiredMessage="#{valueRequiredMessage}"/>
+										<p:message for="reponse" />
+									</p:panelGrid>
+								</p:column>
+								
+							</p:dataTable>
+							
+						</p:outputPanel>
+					</ui:define>
+					<ui:define name="actions">
+						<ui:include src="/resources/include/component/formCommand.xhtml" >
+							<ui:param name="command" value="#{recupererPasswordController.validerAgentEtat}" />
+						</ui:include>
+					</ui:define>
+				</ui:decorate>			
 			</ui:define>
 			
 			

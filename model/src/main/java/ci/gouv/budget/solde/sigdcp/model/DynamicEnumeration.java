@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +28,7 @@ public class DynamicEnumeration  extends AbstractModel<String>  implements Seria
 	private static final long serialVersionUID = -8639942019354737162L;
 	
 	@Id
-	@NotNull
+	@NotNull(groups=Client.class)
 	protected String code;
 	
 	protected String libelle;

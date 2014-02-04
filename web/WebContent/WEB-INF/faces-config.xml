@@ -4,15 +4,29 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
+
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>succes</from-outcome>
+			<to-view-id>/succes.xhtml</to-view-id>
+		</navigation-case>
+
 		<navigation-case>
 			<from-outcome>outcomenotfound</from-outcome>
 			<to-view-id>/public/outcomenotfound.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+
 	<application>
-		<action-listener>org.primefaces.application.DialogActionListener
+		<action-listener>
+			org.primefaces.application.DialogActionListener
 		</action-listener>
-		<navigation-handler>org.primefaces.application.DialogNavigationHandler
+		<navigation-handler>
+			org.primefaces.application.DialogNavigationHandler
 		</navigation-handler>
 		<view-handler>org.primefaces.application.DialogViewHandler
 		</view-handler>

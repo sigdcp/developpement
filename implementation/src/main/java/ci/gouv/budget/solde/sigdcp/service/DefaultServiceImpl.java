@@ -4,13 +4,17 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import ci.gouv.budget.solde.sigdcp.dao.DataAccessObject;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.service.resources.ServiceConstantResources;
 
 public class DefaultServiceImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIANT>,TYPE_IDENTIFIANT> implements AbstractService<TYPE_MODEL,TYPE_IDENTIFIANT> , Serializable {
 
 	private static final long serialVersionUID = -7601857525393731774L;
 
+	@Inject protected ServiceConstantResources constantResources;
 	protected DataAccessObject<TYPE_MODEL, TYPE_IDENTIFIANT> dao;
 	
 	public DefaultServiceImpl(DataAccessObject<TYPE_MODEL, TYPE_IDENTIFIANT> dao) {
@@ -31,8 +35,22 @@ public class DefaultServiceImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIAN
 	
 	/*------------------------------------------------------------------------------*/
 	
+	protected static void serviceException(ServiceExceptionType type,Boolean rollback){
+		serviceException(type.getLibelle(),rollback);
+	}
 	protected static void serviceException(ServiceExceptionType type){
-		throw new ServiceException(type.getLibelle());
+		serviceException(type, Boolean.TRUE);
+	}
+	
+	protected static void serviceException(String message,Boolean rollback){
+		//System.out.println("Rollback : "+rollback);
+		if(rollback)
+			throw new ServiceException(message);
+		//System.out.println("DefaultServiceImpl.serviceException()");
+		throw new ServiceExceptionNoRollBack(message);
+	}
+	protected static void serviceException(String message){
+		serviceException(message, Boolean.TRUE);
 	}
 
 }

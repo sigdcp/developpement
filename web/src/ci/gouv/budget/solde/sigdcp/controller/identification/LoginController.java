@@ -15,7 +15,9 @@ import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.omnifaces.util.Faces;
 
+import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractFormUIController;
+import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.model.identification.Credentials;
 import ci.gouv.budget.solde.sigdcp.service.identification.CompteUtilisateurService;
 
@@ -35,11 +37,9 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
 	/*
 	 * Dtos
 	 */
-	
+	@Inject private UserSessionManager userSessionManager;
 	@Getter private Credentials credentials = new Credentials();
 	@Getter @Setter private Boolean remember = Boolean.FALSE;
-	@Getter @Setter private String matricule;
-	@Getter @Setter private String email;
 	
 	@Override
 	protected InitWhen initWhen() {
@@ -50,20 +50,18 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
 	protected void initialisation() {
 		super.initialisation();
 		defaultSubmitCommand.setValue("bouton.seconnecter");
-		
 	}
 	
 	@Override
-	protected void onDefaultSubmitAction() {
-		try {
-			compteUtilisateurService.authentifier(getDto().getUsername(), getDto().getPassword());
-            SecurityUtils.getSubject().login(new UsernamePasswordToken(getDto().getUsername(), getDto().getPassword(), remember));
-            SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());
-            Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : HOME_URL);
-        }
-        catch (Exception e) {
-        	throw new RuntimeException("Utilisateur inconnu");
-        }
+	protected void onDefaultSubmitAction() throws Exception {
+		
+		//Thread.sleep(2000);
+		
+		CompteUtilisateur compteUtilisateur = compteUtilisateurService.authentifier(credentials);
+        SecurityUtils.getSubject().login(new UsernamePasswordToken(getDto().getUsername(), getDto().getPassword(), remember));
+        userSessionManager.setCompteUtilisateur(compteUtilisateur);
+        SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());
+        Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : HOME_URL);
 	}
 	
 	@Override

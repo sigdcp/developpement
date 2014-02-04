@@ -7,6 +7,7 @@ import javax.persistence.NonUniqueResultException;
 
 import ci.gouv.budget.solde.sigdcp.dao.JpaDaoImpl;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
+import ci.gouv.budget.solde.sigdcp.model.identification.Credentials;
 
 public class CompteUtilisateurDaoImpl extends JpaDaoImpl<CompteUtilisateur, Long> implements CompteUtilisateurDao , Serializable {
 
@@ -15,7 +16,8 @@ public class CompteUtilisateurDaoImpl extends JpaDaoImpl<CompteUtilisateur, Long
 	@Override
 	public CompteUtilisateur readByMatricule(String matricule) {
 		try {
-			return entityManager.createQuery("SELECT cu FROM CompteUtilisateur cu WHERE TYPE(cu.personne) IN AgentEtat AND cu.personne.matricule = :matricule", clazz)
+			return entityManager.createQuery("SELECT cu FROM CompteUtilisateur cu WHERE EXISTS"
+					+ " ( SELECT ae FROM AgentEtat ae WHERE ae = cu.utilisateur AND ae.matricule = :matricule)", clazz)
 					.setParameter("matricule", matricule)
 					.getSingleResult();
 		} catch (NoResultException e) {
@@ -28,8 +30,47 @@ public class CompteUtilisateurDaoImpl extends JpaDaoImpl<CompteUtilisateur, Long
 	@Override
 	public CompteUtilisateur readByEMail(String email) {
 		try {
-			return entityManager.createQuery("SELECT cu FROM CompteUtilisateur cu WHERE cu.personne.contact.email = :email", clazz)
+			return entityManager.createQuery("SELECT cu FROM CompteUtilisateur cu WHERE cu.utilisateur.contact.email = :email", clazz)
 					.setParameter("email", email)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		} catch (NonUniqueResultException e) {
+			throw e;
+		} 
+	}
+	
+	@Override
+	public CompteUtilisateur readByUsername(String username) {
+		try {
+			return entityManager.createQuery("SELECT cu FROM CompteUtilisateur cu WHERE cu.credentials.username = :username", clazz)
+					.setParameter("username", username)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		} catch (NonUniqueResultException e) {
+			throw e;
+		} 
+	}
+	
+	@Override
+	public CompteUtilisateur readByCredentials(Credentials credentials) {
+		try {
+			return entityManager.createQuery("SELECT cu FROM CompteUtilisateur cu WHERE cu.credentials = :credentials", clazz)
+					.setParameter("credentials", credentials)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		} catch (NonUniqueResultException e) {
+			throw e;
+		} 
+	}
+	
+	@Override
+	public CompteUtilisateur readByTokenDeverouillage(String tokenDeverouillage) {
+		try {
+			return entityManager.createQuery("SELECT cu FROM CompteUtilisateur cu WHERE cu.tokenDeverouillage = :tokenDeverouillage", clazz)
+					.setParameter("tokenDeverouillage", tokenDeverouillage)
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;

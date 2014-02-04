@@ -20,6 +20,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.model.identification.Souscription;
 import ci.gouv.budget.solde.sigdcp.model.prestation.Facture;
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 import ci.gouv.budget.solde.sigdcp.service.GenericService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
@@ -76,6 +77,7 @@ public class WebConstantResources implements Serializable{
 	@Getter private final String requestParamPreviousURL = "purl";
 	@Getter private final String requestParamViewType = "vt";
 	@Getter private final String requestParamDialog = "dlg";
+	@Getter private final String requestParamToken = "token";
 	/*
 	@Getter private final String requestParamAction = "action";
 	@Getter private final String requestParamActionEditer = "editer";
@@ -93,8 +95,9 @@ public class WebConstantResources implements Serializable{
 	//@Getter private final String outcomeValidationRecevabiliteDD = "validationrecevabilitedd";
 
 	@Getter @Produces @Named private final String valueRequiredMessage = "Champ obligatoire";
-	@Getter @Produces @Named private final String valuesRequiredMessage = "Tous les champs avec * sont obligatiore";
+	@Getter @Produces @Named private final String valuesRequiredMessage = "Tous les champs avec * sont obligatoire";
 	@Getter @Produces @Named private final String noSelectionOptionMessage = "--Selectionnez--";
+	@Getter @Produces @Named private final String clientValidationGroupClass = Client.class.getName();
 	
 	@Getter private final String widgetVarWizard = "myWizard";
 	

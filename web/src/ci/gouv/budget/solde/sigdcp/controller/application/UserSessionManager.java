@@ -3,7 +3,6 @@ package ci.gouv.budget.solde.sigdcp.controller.application;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -12,11 +11,7 @@ import lombok.Setter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.omnifaces.util.Faces;
-import org.primefaces.model.menu.MenuModel;
-import org.primefaces.model.menu.Submenu;
 
-import ci.gouv.budget.solde.sigdcp.controller.WebConstantResources;
-import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.service.identification.AgentEtatService;
@@ -34,7 +29,7 @@ public class UserSessionManager implements Serializable{
 	//@Inject transient private WebConstantResources webConstantResources;
 	
 	@Getter @Setter
-	private CompteUtilisateur compte; 
+	private CompteUtilisateur compteUtilisateur; 
 	
 	public Boolean isLoggedIn(){
 		return StringUtils.isNotEmpty(Faces.getRemoteUser());

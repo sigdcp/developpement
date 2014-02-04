@@ -80,4 +80,5 @@ public abstract class AbstractUIController implements Serializable {
 	protected Boolean isDialog(){
 		return webConstantResources.getRequestParamDialog().equals(viewType);
 	}
+	
 }

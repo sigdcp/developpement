@@ -29,7 +29,7 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 	protected FormCommand<DTO> defaultSubmitCommand,closeCommand;
 	protected WizardHelper<DTO> wizardHelper;
 	@Inject protected UserSessionManager userSessionManager;
-	protected Boolean showFieldRequired;
+	protected Boolean showFieldRequired,requiredEnabled=Boolean.TRUE;
 	
 	@Override
 	protected InitWhen initWhen() {
@@ -69,9 +69,12 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 				return null;
 			}
 		});
+		defaultSubmitCommand.setId("actionBtn");
+		defaultSubmitCommand.setOnstart("PF('bui').show();");
+		defaultSubmitCommand.setOnstart("PF('bui').hide();");
 		defaultSubmitCommand.setRendered(!isRead());
 		
-		closeCommand = createCommand().init("bouton.fermer","ui-icon-close",null, new Action() {
+		closeCommand = createCommand().init("bouton.annuler","ui-icon-close",null, new Action() {
 			private static final long serialVersionUID = 1L;
 			@Override
 			protected Object __execute__(Object object) throws Exception {

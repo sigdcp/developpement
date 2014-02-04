@@ -2,6 +2,8 @@ package ci.gouv.budget.solde.sigdcp.controller.ui.form;
 
 import java.io.Serializable;
 
+import javax.faces.context.FacesContext;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +21,7 @@ public class WizardHelper<OBJECT> extends Wizard implements Serializable {
 	private AbstractFormUIController<OBJECT> form;
 	private String widgetVar;
 	private FormCommand<OBJECT> previous,next,submitAction;
-	private Integer currentStepIndex=0;
+	protected Integer currentStepIndex=0;
 	private String[] stepIds;
 	
 	public WizardHelper(AbstractFormUIController<OBJECT> form,String...stepIds) {
@@ -56,13 +58,28 @@ public class WizardHelper<OBJECT> extends Wizard implements Serializable {
 		button.setOncomplete(script);
 	}
 	
-	protected void previous(){
-		move(-1);
+	private void previous(){
+		try {
+			__previous__();
+			move(-1);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
-	protected void next(){
-		move(1);
+	protected void __previous__(){}
+	
+	private void next(){
+		try {
+			__next__();
+			move(1);
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().validationFailed();
+			throw e;
+		}
 	}
+	
+	protected void __next__(){}
 	
 	protected void move(Integer stepCount){
 		currentStepIndex += stepCount; 
@@ -78,7 +95,7 @@ public class WizardHelper<OBJECT> extends Wizard implements Serializable {
 	public String onFlowProcess(FlowEvent event) { 
 		String currentStepId = __onFlowProcess__(event);
 		
-		System.out.println("WizardHelper.onFlowProcess() : "+event.getNewStep()+" : "+submitAction.isRendered());
+		//System.out.println("WizardHelper.onFlowProcess() : "+event.getNewStep()+" : "+submitAction.isRendered());
 		return currentStepId;
 	}
 	

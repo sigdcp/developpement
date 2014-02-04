@@ -2,6 +2,7 @@ package ci.gouv.budget.solde.sigdcp.service.sampledata;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,14 +44,19 @@ import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.geographie.TypeLocalite;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Categorie;
+import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
+import ci.gouv.budget.solde.sigdcp.model.identification.Credentials;
 import ci.gouv.budget.solde.sigdcp.model.identification.DelegueSotra;
 import ci.gouv.budget.solde.sigdcp.model.identification.Echelon;
 import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
 import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
+import ci.gouv.budget.solde.sigdcp.model.identification.Party;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.model.identification.Position;
 import ci.gouv.budget.solde.sigdcp.model.identification.Profession;
 import ci.gouv.budget.solde.sigdcp.model.identification.QuestionSecrete;
+import ci.gouv.budget.solde.sigdcp.model.identification.ReponseSecrete;
+import ci.gouv.budget.solde.sigdcp.model.identification.Role;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.Sexe;
 import ci.gouv.budget.solde.sigdcp.model.identification.SituationMatrimoniale;
@@ -87,11 +93,13 @@ public class SampleDataServiceImpl implements SampleDataService {
 	private List<Object[]> bulletinLiquidations = new LinkedList<>();
 	private NatureOperation natureOperationLiquidation,natureOperationRBTBL,natureOperationRBTF,natureOperationRFDMission;
 	private TypePieceProduite typePieceProduiteBL,typePieceProduiteBT;
+	private QuestionSecrete  questionSecrete1,questionSecrete2,questionSecrete3;
 	
 	@Override 
 	public void create() {
-		em.persist(new QuestionSecrete("Quel est votre date de 1er RDV?"));
-		em.persist(new QuestionSecrete("Quel est votre ville préférée?"));
+		em.persist(questionSecrete1 = new QuestionSecrete("Quel est le nom de votre 1er Chef de service"));
+		em.persist(questionSecrete2 = new QuestionSecrete("Quel est le nom de votre fruit préféré?"));
+		em.persist(questionSecrete3 = new QuestionSecrete("Quel direction vous visiez pour votre 1ere affection?"));
 		
 		em.persist(typePieceProduiteBL = new TypePieceProduite(Code.TYPE_PIECE_PRODUITE_BL, "Bulletin de liquidation"));
 		em.persist(typePieceProduiteBT = new TypePieceProduite(Code.TYPE_PIECE_PRODUITE_BT, "Bordereau de transmission"));
@@ -305,10 +313,19 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(serviceExploitation = new Section(ministereBudget,Code.SECTION_SERV_EXP, "Exploitation", service));
 		em.persist(serviceEtude = new Section(ministereBudget,Code.SECTION_SERV_ET, "Etude et développement", service));
 		
-		agentEtat1 = creerAgentEtat("096000T", "Fiellou", "N'Dri", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
-		agentEtat2 = creerAgentEtat("101000G", "Edoh", "Vincent", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
-		agentEtat3 = creerAgentEtat("201000L", "Losseni", "Diarrassouba", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
-		agentEtat4 = creerAgentEtat("175000H", "Thio", "Bekpancha", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		
+		agentEtat1 = creerAgentEtat(fonctionnaire,"096000T", "Fiellou", "N'Dri", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		agentEtat2 = creerAgentEtat(fonctionnaire,"101000G", "Edoh", "Vincent", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		agentEtat3 = creerAgentEtat(fonctionnaire,"201000L", "Losseni", "Diarrassouba", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		agentEtat4 = creerAgentEtat(fonctionnaire,"175000H", "Thio", "Bekpancha", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		
+		
+		creerCompteUtilisateur(agentEtat1, "sigdcp", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete1,"Tata pion"},{questionSecrete3,"Dgbf"} });
+		creerCompteUtilisateur(agentEtat2, "sigdcp1", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete3,"tresor"} });
+		creerCompteUtilisateur(agentEtat3, "sigdcp2", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete2,"orange"},{questionSecrete3,"Dgbf"} });
+		creerCompteUtilisateur(agentEtat4, "sigdcp3", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete1,"Tata pion"},{questionSecrete2,"mangue"},{questionSecrete3,"Dgbf"} });
+		
+		
 		/*
 		em.persist(agentEtat1 = new AgentEtat("AE1","A99", "Tata", "Pion", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
 				coteDivoire, new Date(),  a1, echelon1, position1, 2000, fonction1, serviceEtude, profession1, null));
@@ -322,6 +339,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(agentEtat4 = new AgentEtat("AE4","A800", "Zaza", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
 				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, serviceExploitation, profession2, null));
 		*/
+		/*
 		inscrireAgentEtat("DZ12", "Zadi", "Alain", new Date(), new Contact("mail@yahoo.com", "123456", "01 BP Abidjan", "Rue des jardins", null), Sexe.MASCULIN, 
 				situationMatrimoniale1, coteDivoire, null, null, null, null, null, ministereBudget, profession1,gendarme);
 		
@@ -421,13 +439,14 @@ public class SampleDataServiceImpl implements SampleDataService {
 		creerBordereauTransmission();
 		creerBordereauTransmission();
 		creerBordereauTransmission();
-		
+		*/
 	}
 	
-	public AgentEtat creerAgentEtat(String matricule, String nom, String prenoms, Date dateNaissance, Contact contact, Sexe sexe, SituationMatrimoniale situationMatrimoniale, 
+	public AgentEtat creerAgentEtat(TypeAgentEtat typeAgentEtat,String matricule, String nom, String prenoms, Date dateNaissance, Contact contact, Sexe sexe, SituationMatrimoniale situationMatrimoniale, 
 			Localite nationalite, Grade grade, Echelon echelon, Position position, Integer indice, Fonction fonction, Section ministere, Profession profession){
 		AgentEtat agentEtat = new AgentEtat(nextIdString(),matricule, nom, prenoms, dateNaissance, contact, sexe, situationMatrimoniale, 
 				nationalite, new Date(),  grade, echelon, position, indice, fonction, ministere, profession, null);
+		agentEtat.setType(typeAgentEtat);
 		em.persist(agentEtat);
 		return agentEtat;
 	}
@@ -442,7 +461,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	}
 	
 	private Contact contact(){
-		return new Contact("user@mail.com", "11223344", "01 BP Abidjan 01", null, abidjan);
+		return new Contact("christian.komenan@budget.gouv.ci", "11223344", "01 BP Abidjan 01", null, abidjan);
 	}
 	
 	public Personne creerPersonne(String nom, String prenoms,PieceJustificative pieceIdentite){
@@ -588,6 +607,19 @@ public class SampleDataServiceImpl implements SampleDataService {
 		}
 		em.persist(natureDeplacement);
 		return natureDeplacement;
+	}
+	
+	private void creerCompteUtilisateur(Party utilisateur,String username,String password,Role[] roles,Object[][] rs){
+		CompteUtilisateur compteUtilisateur = new CompteUtilisateur(new Credentials(username, password),utilisateur,Arrays.asList(roles));
+		for(Object[] o : rs)
+			compteUtilisateur.getReponseSecretes().add(new ReponseSecrete((QuestionSecrete)o[0], (String)o[1]));
+		
+		em.persist(compteUtilisateur);
+		/*
+		compteUtilisateur1.getReponseSecretes().add(new ReponseSecrete(questionSecrete1, "Tata pion"));
+		compteUtilisateur1.getReponseSecretes().add(new ReponseSecrete(questionSecrete3, "dgbf"));
+		*/
+		
 	}
 
 }
