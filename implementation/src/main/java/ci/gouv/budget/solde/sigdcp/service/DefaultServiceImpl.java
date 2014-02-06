@@ -1,20 +1,30 @@
 package ci.gouv.budget.solde.sigdcp.service;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import ci.gouv.budget.solde.sigdcp.dao.DataAccessObject;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
+import ci.gouv.budget.solde.sigdcp.model.identification.Party;
+import ci.gouv.budget.solde.sigdcp.service.MailerServiceImpl.MessageType;
 import ci.gouv.budget.solde.sigdcp.service.resources.ServiceConstantResources;
+import ci.gouv.budget.solde.sigdcp.service.utils.NavigationHelper;
+import ci.gouv.budget.solde.sigdcp.service.utils.communication.NotificationService;
 
 public class DefaultServiceImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIANT>,TYPE_IDENTIFIANT> implements AbstractService<TYPE_MODEL,TYPE_IDENTIFIANT> , Serializable {
 
 	private static final long serialVersionUID = -7601857525393731774L;
 
 	@Inject protected ServiceConstantResources constantResources;
+	@Inject protected NotificationService notificationService;
+	@Inject protected NavigationHelper navigationHelper;
+	
 	protected DataAccessObject<TYPE_MODEL, TYPE_IDENTIFIANT> dao;
 	
 	public DefaultServiceImpl(DataAccessObject<TYPE_MODEL, TYPE_IDENTIFIANT> dao) {
@@ -35,9 +45,23 @@ public class DefaultServiceImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIAN
 	
 	/*------------------------------------------------------------------------------*/
 	
+	protected void notifier(MessageType messageType,Object[] theParameters, Party receiver) {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		for(int i=0;i<theParameters.length-1;i=i+2)
+			parameters.put((String)theParameters[0], theParameters[i+1]);
+		notificationService.send(messageType.getSubject(), messageType.getTemplateId(), parameters, receiver);
+	}
+	
+	protected void notifier(MessageType messageType,Object[] theParameters, CompteUtilisateur compteUtilisateur) {
+		notifier(messageType, theParameters, compteUtilisateur.getUtilisateur());
+	}
+	
+	/*------------------------------------------------------------------------------*/
+	
 	protected static void serviceException(ServiceExceptionType type,Boolean rollback){
 		serviceException(type.getLibelle(),rollback);
 	}
+
 	protected static void serviceException(ServiceExceptionType type){
 		serviceException(type, Boolean.TRUE);
 	}

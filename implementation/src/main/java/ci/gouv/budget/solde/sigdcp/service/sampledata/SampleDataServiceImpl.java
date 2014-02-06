@@ -314,17 +314,17 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(serviceEtude = new Section(ministereBudget,Code.SECTION_SERV_ET, "Etude et développement", service));
 		
 		
-		agentEtat1 = creerAgentEtat(fonctionnaire,"096000T", "Fiellou", "N'Dri", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
-		agentEtat2 = creerAgentEtat(fonctionnaire,"101000G", "Edoh", "Vincent", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
-		agentEtat3 = creerAgentEtat(fonctionnaire,"201000L", "Losseni", "Diarrassouba", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
-		agentEtat4 = creerAgentEtat(fonctionnaire,"175000H", "Thio", "Bekpancha", date(), contact(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		agentEtat1 = creerAgentEtat(fonctionnaire,"096000T", "Fiellou", "N'Dri", date(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		agentEtat2 = creerAgentEtat(fonctionnaire,"101000G", "Edoh", "Vincent", date(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		agentEtat3 = creerAgentEtat(fonctionnaire,"201000L", "Losseni", "Diarrassouba", date(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		agentEtat4 = creerAgentEtat(fonctionnaire,"175000H", "Thio", "Bekpancha", date(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
 		
-		
+		/*
 		creerCompteUtilisateur(agentEtat1, "sigdcp", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete1,"Tata pion"},{questionSecrete3,"Dgbf"} });
 		creerCompteUtilisateur(agentEtat2, "sigdcp1", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete3,"tresor"} });
 		creerCompteUtilisateur(agentEtat3, "sigdcp2", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete2,"orange"},{questionSecrete3,"Dgbf"} });
 		creerCompteUtilisateur(agentEtat4, "sigdcp3", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete1,"Tata pion"},{questionSecrete2,"mangue"},{questionSecrete3,"Dgbf"} });
-		
+		*/
 		
 		/*
 		em.persist(agentEtat1 = new AgentEtat("AE1","A99", "Tata", "Pion", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
@@ -442,9 +442,9 @@ public class SampleDataServiceImpl implements SampleDataService {
 		*/
 	}
 	
-	public AgentEtat creerAgentEtat(TypeAgentEtat typeAgentEtat,String matricule, String nom, String prenoms, Date dateNaissance, Contact contact, Sexe sexe, SituationMatrimoniale situationMatrimoniale, 
+	public AgentEtat creerAgentEtat(TypeAgentEtat typeAgentEtat,String matricule, String nom, String prenoms, Date dateNaissance, Sexe sexe, SituationMatrimoniale situationMatrimoniale, 
 			Localite nationalite, Grade grade, Echelon echelon, Position position, Integer indice, Fonction fonction, Section ministere, Profession profession){
-		AgentEtat agentEtat = new AgentEtat(nextIdString(),matricule, nom, prenoms, dateNaissance, contact, sexe, situationMatrimoniale, 
+		AgentEtat agentEtat = new AgentEtat(nextIdString(),matricule, nom, prenoms, dateNaissance, new Contact(), sexe, situationMatrimoniale, 
 				nationalite, new Date(),  grade, echelon, position, indice, fonction, ministere, profession, null);
 		agentEtat.setType(typeAgentEtat);
 		em.persist(agentEtat);

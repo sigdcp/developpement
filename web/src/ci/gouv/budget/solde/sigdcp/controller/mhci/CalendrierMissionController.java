@@ -54,7 +54,7 @@ public class CalendrierMissionController extends AbstractEntityListUIController<
 	@Override
 	public String href(CalendrierMission calendrierMission) {
 		
-		return navigationManager.addQueryParameters(nextViewOutcome, new Object[]{webConstantResources.getRequestParamCalendrierMission(),calendrierMission.getId()});
+		return navigationHelper.addQueryParameters(nextViewOutcome, new Object[]{webConstantResources.getRequestParamCalendrierMission(),calendrierMission.getId()});
 	}
 	
 	@Override

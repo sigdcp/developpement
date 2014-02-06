@@ -51,6 +51,8 @@ public interface CompteUtilisateurService extends AbstractService<CompteUtilisat
 	 */
 	void recupererPasswordEtape2(AgentEtat agentEtat, Collection<ReponseSecrete> reponses) throws ServiceException;
 	
-	CompteUtilisateur findByCodeVerrou(String code);
+	void deverouillable(Verrou verrou) throws ServiceException;
+	
+	CompteUtilisateur findByCredentials(Credentials credentials);
 	
 }

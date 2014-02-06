@@ -12,6 +12,7 @@ import ci.gouv.budget.solde.sigdcp.controller.MessageManager;
 import ci.gouv.budget.solde.sigdcp.controller.NavigationManager;
 import ci.gouv.budget.solde.sigdcp.controller.WebConstantResources;
 import ci.gouv.budget.solde.sigdcp.service.resources.ServiceConstantResources;
+import ci.gouv.budget.solde.sigdcp.service.utils.NavigationHelper;
 import ci.gouv.budget.solde.sigdcp.service.utils.ServiceUtils;
 
 
@@ -24,6 +25,7 @@ public abstract class AbstractUIController implements Serializable {
 	@Inject @Getter protected ServiceConstantResources constantResources;
 	@Inject @Getter protected WebConstantResources webConstantResources;
 	@Inject @Getter protected NavigationManager navigationManager;
+	@Inject protected NavigationHelper navigationHelper;
 	@Inject @Getter protected MessageManager messageManager;
 	@Inject @Getter protected ServiceUtils serviceUtils;
 	

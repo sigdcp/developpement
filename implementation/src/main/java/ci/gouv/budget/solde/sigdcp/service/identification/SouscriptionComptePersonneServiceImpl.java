@@ -3,7 +3,6 @@ package ci.gouv.budget.solde.sigdcp.service.identification;
 import static ci.gouv.budget.solde.sigdcp.service.ServiceExceptionType.IDENTIFICATION_SOUSCRIPTION_COMPTE_ACCEPTE;
 import static ci.gouv.budget.solde.sigdcp.service.ServiceExceptionType.IDENTIFICATION_SOUSCRIPTION_COMPTE_ENCOURS;
 import static ci.gouv.budget.solde.sigdcp.service.ServiceExceptionType.IDENTIFICATION_SOUSCRIPTION_COMPTE_EXISTE;
-import static ci.gouv.budget.solde.sigdcp.service.ServiceExceptionType.IDENTIFICATION_SOUSCRIPTION_COMPTE_INCOHERENT;
 import static ci.gouv.budget.solde.sigdcp.service.ServiceExceptionType.IDENTIFICATION_SOUSCRIPTION_COMPTE_MAIL_EXISTE;
 import static ci.gouv.budget.solde.sigdcp.service.ServiceExceptionType.IDENTIFICATION_SOUSCRIPTION_COMPTE_MATRCULE_INCONNU;
 
@@ -20,11 +19,11 @@ import ci.gouv.budget.solde.sigdcp.dao.identification.AgentEtatDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.CompteUtilisateurDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.SouscriptionComptePersonneDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
-import ci.gouv.budget.solde.sigdcp.model.MailMessage;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
+import ci.gouv.budget.solde.sigdcp.model.identification.ReponseSecrete;
 import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionComptePersonne;
-import ci.gouv.budget.solde.sigdcp.service.MailService;
+import ci.gouv.budget.solde.sigdcp.service.MailerServiceImpl;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 import ci.gouv.budget.solde.sigdcp.service.utils.validaton.SouscriptionComptePersonneValidator;
 
@@ -37,12 +36,7 @@ public class SouscriptionComptePersonneServiceImpl extends AbstractSouscriptionS
 	@Inject private SouscriptionComptePersonneDao souscriptionComptePersonneDao;
 	@Inject private AgentEtatDao agentEtatDao;
 	@Inject private CompteUtilisateurDao compteUtilisateurDao;
-	@Inject private MailService mailService;
 	
-	/*
-	@Inject private PersonneDao ayantDroitDao;
-	@Inject private NotificationSystem notificationSystem;
-	*/
 	@Inject
 	public SouscriptionComptePersonneServiceImpl(SouscriptionComptePersonneDao dao) {
 		super(dao);
@@ -50,19 +44,14 @@ public class SouscriptionComptePersonneServiceImpl extends AbstractSouscriptionS
 
 	@Override
 	public void souscrire(SouscriptionComptePersonne souscriptionComptePersonne) throws ServiceException {
-		validator.init(souscriptionComptePersonne).validate();
-		if(!validator.isSucces())
+		//validator.init(souscriptionComptePersonne);
+		if(!validator.validate(souscriptionComptePersonne).isSucces())
 			serviceException(validator.getMessagesAsString());
-		
-		souscriptionComptePersonne.setPersonneReferencee(null);
-		souscriptionComptePersonne.setCode(System.currentTimeMillis()+"");
-		souscriptionComptePersonne.getPersonneDemandeur().getPersonne().setCode(System.currentTimeMillis()+"");
+	
 		// Est ce qu'il a déja une inscription en cours de validation ou acceptée
 		SouscriptionComptePersonne souscriptionComptePersonneExistante = souscriptionComptePersonneDao.readByMatricule(souscriptionComptePersonne.getPersonneDemandeur().getMatricule());
 		
-		if(souscriptionComptePersonneExistante!=null){
-			System.out
-					.println("SouscriptionComptePersonneServiceImpl.souscrire()");
+		if(souscriptionComptePersonneExistante!=null){			
 			if(souscriptionComptePersonneExistante.getDateValidation()==null)
 				serviceException(IDENTIFICATION_SOUSCRIPTION_COMPTE_ENCOURS);
 		
@@ -85,33 +74,62 @@ public class SouscriptionComptePersonneServiceImpl extends AbstractSouscriptionS
 			compteUtilisateur = compteUtilisateurDao.readByMatricule(agentEtat.getMatricule());
 			if(compteUtilisateur!=null)
 				serviceException(IDENTIFICATION_SOUSCRIPTION_COMPTE_MAIL_EXISTE);
-				
-			if(!cohente(souscriptionComptePersonne))
-				serviceException(IDENTIFICATION_SOUSCRIPTION_COMPTE_INCOHERENT);
 			
-			souscriptionComptePersonne.setDateCreation(new Date());
+			//Utiliser un validator Specific pour la coherence
+			//if(!cohente(souscriptionComptePersonne))
+			//	serviceException(IDENTIFICATION_SOUSCRIPTION_COMPTE_INCOHERENT);
+			
 			souscriptionComptePersonne.setDateValidation(souscriptionComptePersonne.getDateCreation());
 			souscriptionComptePersonne.setAcceptee(Boolean.TRUE);
-			souscriptionComptePersonneDao.create(souscriptionComptePersonne);
-			compteUtilisateur = new CompteUtilisateur();
-			compteUtilisateur.setUtilisateur(agentEtat);
-			compteUtilisateur.getCredentials().setUsername(souscriptionComptePersonne.getPersonneDemandeur().getPersonne().getContact().getEmail());
-			compteUtilisateur.getCredentials().setPassword(souscriptionComptePersonne.getPassword());
-			compteUtilisateurDao.create(compteUtilisateur);
-			
-			mailService.send(new MailMessage("Souscription SIGDCP", "Votre compte a ete creer avec succes<br/>Votre login est : "+compteUtilisateur.getCredentials().getUsername()), agentEtat.getContact().getEmail());
+			createSouscription(souscriptionComptePersonne);
+			updateAgentEtat(agentEtat, souscriptionComptePersonne);
+			compteUtilisateur = createCompteUtilisteur(souscriptionComptePersonne,agentEtat);
+			notifier(MailerServiceImpl.MessageType.AVIS_SOUSCRIPTION_COMPTE_PERSONNE_ACCEPTEE,new Object[]{},agentEtat);
 			
 		}else{
 			//c'est un gendarme
-			souscriptionComptePersonne.setDateCreation(new Date());
-			souscriptionComptePersonneDao.create(souscriptionComptePersonne);
-			mailService.send(new MailMessage("Souscription SIGDCP", "Votre sousciption a ete creer avec succes. Elle sera traitee"),souscriptionComptePersonne.getPersonneDemandeur().getPersonne().getContact().getEmail());
-		}
-		
+			
+			//Utiliser un validator Specific pour la coherence
+			createSouscription(souscriptionComptePersonne);
+			notifier(MailerServiceImpl.MessageType.AVIS_SOUSCRIPTION_COMPTE_PERSONNE_ENREGISTREE,new Object[]{},souscriptionComptePersonne.getPersonneDemandeur().getPersonne());
+		}	
 	}
 	
-	private boolean cohente(SouscriptionComptePersonne souscriptionComptePersonne){
-		return true;
+	private void updateAgentEtat(AgentEtat agentEtat,SouscriptionComptePersonne souscriptionComptePersonne){
+		agentEtat.getContact().setEmail(souscriptionComptePersonne.getPersonneDemandeur().getPersonne().getContact().getEmail());
+		agentEtat.getContact().setBoitePostale(souscriptionComptePersonne.getPersonneDemandeur().getPersonne().getContact().getBoitePostale());
+		agentEtat.getContact().setTelephone(souscriptionComptePersonne.getPersonneDemandeur().getPersonne().getContact().getTelephone());
+		agentEtatDao.update(agentEtat);
+	}
+	
+	/**
+	 * Initialisations des attributs et persistence
+	 * @param souscriptionComptePersonne
+	 */
+	private void createSouscription(SouscriptionComptePersonne souscriptionComptePersonne){
+		souscriptionComptePersonne.setPersonneReferencee(null);
+		souscriptionComptePersonne.setCode(System.currentTimeMillis()+"");
+		souscriptionComptePersonne.getPersonneDemandeur().getPersonne().setCode(System.currentTimeMillis()+"");
+		souscriptionComptePersonne.setDateCreation(new Date());
+		souscriptionComptePersonneDao.create(souscriptionComptePersonne);
+	}
+	
+	/**
+	 * Initialisations des attributs et persistence
+	 * 
+	 */
+	private CompteUtilisateur createCompteUtilisteur(SouscriptionComptePersonne souscriptionComptePersonne,AgentEtat agentEtat){
+		CompteUtilisateur compteUtilisateur = new CompteUtilisateur();
+		compteUtilisateur.setDateCreation(new Date());
+		compteUtilisateur.setUtilisateur(agentEtat);
+		compteUtilisateur.getCredentials().setUsername(souscriptionComptePersonne.getPersonneDemandeur().getPersonne().getContact().getEmail());
+		compteUtilisateur.getCredentials().setPassword(souscriptionComptePersonne.getPassword());
+		for(ReponseSecrete reponseSecrete : souscriptionComptePersonne.getReponseSecretes()){
+			reponseSecrete.setId(null);
+			compteUtilisateur.getReponseSecretes().add(reponseSecrete);
+		}
+		compteUtilisateurDao.create(compteUtilisateur);
+		return compteUtilisateur;
 	}
 
 	@Override

@@ -13,11 +13,32 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import ci.gouv.budget.solde.sigdcp.model.MailMessage;
+import ci.gouv.budget.solde.sigdcp.model.identification.Party;
+import ci.gouv.budget.solde.sigdcp.service.utils.communication.MailService;
 
 public class MailerServiceImpl implements MailService, Serializable {
 
 	private static final long serialVersionUID = -8680313005464068114L;
+	
+	@Getter @AllArgsConstructor
+	public enum MessageType{
+		AVIS_SOUSCRIPTION_COMPTE_PERSONNE_ENREGISTREE("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
+		AVIS_SOUSCRIPTION_COMPTE_PERSONNE_ACCEPTEE("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
+		AVIS_SOUSCRIPTION_COMPTE_PERSONNE_REFUSEE("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
+		
+		AVIS_COMPTE_UTILISATEUR_VERROUILLE_ACCES_MULTIPLE("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
+		AVIS_COMPTE_UTILISATEUR_DEVERROUILLE_ACCES_MULTIPLE("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
+		AVIS_COMPTE_UTILISATEUR_VERROUILLE_REINITIALISATION_PASSWORD("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
+		AVIS_COMPTE_UTILISATEUR_DEVERROUILLE_REINITIALISATION_PASSWORD("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
+		AVIS_COMPTE_UTILISATEUR_ETAT_SESSION("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
+		
+		;
+		private String subject;
+		private String templateId;
+	}
 	
 	@Resource(lookup = "mail/sigdcp")
     private Session session;
@@ -46,8 +67,19 @@ public class MailerServiceImpl implements MailService, Serializable {
 		return receiverAddresses.toArray(new InternetAddress[]{});
 	}
 	
+	private InternetAddress[] addressesParty(Party...parties){
+		Collection<String> receiverAddresses = new LinkedList<>();
+		for(Party party : parties)
+			receiverAddresses.add(party.getContact().getEmail());
+		return addresses(receiverAddresses);
+	}
+	
 	private InternetAddress[] addresses(Collection<String> receivers){
 		return addresses(receivers.toArray(new String[]{}));
+	}
+	
+	private InternetAddress[] addressesParty(Collection<Party> receivers){
+		return addressesParty(receivers.toArray(new Party[]{}));
 	}
 	
 	private void send(MailMessage mailMessage,InternetAddress[] receivers) {
@@ -63,6 +95,21 @@ public class MailerServiceImpl implements MailService, Serializable {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	@Override
+	public void send(MailMessage message, Party[] receivers) {
+		send(message, addressesParty(receivers));
+	}
+
+	@Override
+	public void send(MailMessage message, Party receiver) {
+		send(message, new Party[]{receiver});
+	}
+
+	@Override
+	public void sendParty(MailMessage message, Collection<Party> receivers) {
+		send(message, addressesParty(receivers));
+	}
     
     public void test(){
     	try {
@@ -77,5 +124,7 @@ public class MailerServiceImpl implements MailService, Serializable {
 			e.printStackTrace();
 		} 
     }
+
+
     
 }

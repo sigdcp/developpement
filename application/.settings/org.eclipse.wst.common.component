@@ -17,6 +17,9 @@
         <dependent-module archiveName="sigdcp-service-0.0.1.jar" deploy-path="/lib" handle="module:/resource/service-interfaces/service-interfaces">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="freemarker-2.3.20.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/freemarker/freemarker/2.3.20/freemarker-2.3.20.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="lombok-1.12.2.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/projectlombok/lombok/1.12.2/lombok-1.12.2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>

@@ -12,7 +12,7 @@ import lombok.Getter;
 
 import org.apache.commons.lang3.StringUtils;
 
-import ci.gouv.budget.solde.sigdcp.service.TextService;
+import ci.gouv.budget.solde.sigdcp.service.utils.TextService;
 
 @Singleton
 public class MessageManager implements Serializable {

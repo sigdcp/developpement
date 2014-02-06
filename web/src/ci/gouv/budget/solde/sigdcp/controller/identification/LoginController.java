@@ -17,8 +17,11 @@ import org.omnifaces.util.Faces;
 
 import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractFormUIController;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.Action;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.model.identification.Credentials;
+import ci.gouv.budget.solde.sigdcp.service.ServiceException;
+import ci.gouv.budget.solde.sigdcp.service.ServiceExceptionType;
 import ci.gouv.budget.solde.sigdcp.service.identification.CompteUtilisateurService;
 
 @Named @RequestScoped
@@ -50,19 +53,29 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
 	protected void initialisation() {
 		super.initialisation();
 		defaultSubmitCommand.setValue("bouton.seconnecter");
+		defaultSubmitCommand.set_echec(new Action() {
+			private static final long serialVersionUID = -1763345724770503035L;
+			@Override
+			protected Object __execute__(Object object) throws Exception {
+				if(object instanceof ServiceException && 
+						ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_VEROUILLE.getLibelle().equals( ((ServiceException)object).getMessage()))
+					return "/error/verrou.jsf";
+				return null;
+			}
+		});
 	}
 	
 	@Override
 	protected void onDefaultSubmitAction() throws Exception {
-		
-		//Thread.sleep(2000);
-		
-		CompteUtilisateur compteUtilisateur = compteUtilisateurService.authentifier(credentials);
+		CompteUtilisateur compteUtilisateur = null;
+		compteUtilisateur = compteUtilisateurService.authentifier(credentials);
         SecurityUtils.getSubject().login(new UsernamePasswordToken(getDto().getUsername(), getDto().getPassword(), remember));
         userSessionManager.setCompteUtilisateur(compteUtilisateur);
         SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());
         Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : HOME_URL);
 	}
+	
+	
 	
 	@Override
 	public Credentials getDto() {

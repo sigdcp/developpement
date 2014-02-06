@@ -1,4 +1,4 @@
-package ci.gouv.budget.solde.sigdcp.service;
+package ci.gouv.budget.solde.sigdcp.service.utils;
 
 public interface TextService {
 	

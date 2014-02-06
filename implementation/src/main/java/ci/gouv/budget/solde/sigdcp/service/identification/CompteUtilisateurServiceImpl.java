@@ -1,7 +1,5 @@
 package ci.gouv.budget.solde.sigdcp.service.identification;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -10,12 +8,13 @@ import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.ServletRequest;
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
 import ci.gouv.budget.solde.sigdcp.dao.identification.AgentEtatDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.CompteUtilisateurDao;
-import ci.gouv.budget.solde.sigdcp.model.MailMessage;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.model.identification.Credentials;
@@ -23,7 +22,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.ReponseSecrete;
 import ci.gouv.budget.solde.sigdcp.model.identification.Verrou;
 import ci.gouv.budget.solde.sigdcp.model.identification.Verrou.Cause;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
-import ci.gouv.budget.solde.sigdcp.service.MailService;
+import ci.gouv.budget.solde.sigdcp.service.MailerServiceImpl;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 import ci.gouv.budget.solde.sigdcp.service.ServiceExceptionType;
 
@@ -35,7 +34,6 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 	private static final Integer MAX_TENTATIVE_AUTH = 3;
 	
 	@Inject private AuthentificationInfos infos;
-	@Inject private MailService mailService;
 	@Inject private AgentEtatDao agentEtatDao;
 	
 	@Inject
@@ -49,7 +47,7 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 		//	serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_CONNECTE);
 		
 		CompteUtilisateur compteUtilisateur = ((CompteUtilisateurDao)dao).readByUsername(credentials.getUsername());// readByCredentials(credentials);
-		Boolean verouille = compteUtilisateur!=null && compteUtilisateur.getVerrou()!=null /*&& isValidTokenDeverouillage(compteUtilisateur.getTokenDeverouillage())*/;
+		//Boolean verouille = compteUtilisateur!=null && compteUtilisateur.getVerrou()!=null /*&& isValidTokenDeverouillage(compteUtilisateur.getTokenDeverouillage())*/;
 		
 		if(compteUtilisateur==null)//aucun compte avec ce username a été trouvé
 			serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_INCONNU);
@@ -63,15 +61,17 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 		infos.setNombreTentative(infos.getNombreTentative()+1);
 		//System.out.println("CompteUtilisateurServiceImpl.authentifier() "+infos.getNombreTentative());
 		if(!compteUtilisateur.getCredentials().equals(credentials)){//le mot de passe ne correspond pas
-			if(!verouille && infos.getNombreTentative() == MAX_TENTATIVE_AUTH){
+			if(compteUtilisateur.getVerrou()==null && infos.getNombreTentative() == MAX_TENTATIVE_AUTH){
 				verouiller(compteUtilisateur,Cause.ACCESS_MULTIPLE);
 				serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_INCONNU,Boolean.FALSE);//we do not roll back transaction
 			}else
 				serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_INCONNU);
 		}
 		
-		if(verouille)
+		if(compteUtilisateur.getVerrou()!=null){
+			notifierVerrou(compteUtilisateur);
 			serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_VEROUILLE);
+		}
 		
 		infos.setTimestampDebut(System.currentTimeMillis());
 		
@@ -80,10 +80,9 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 	
 	@Override
 	public void deconnecter(CompteUtilisateur compteUtilisateur) throws ServiceException {
-		if(compteUtilisateur==null)
+		if(compteUtilisateur==null || infos.getTimestampDebut()==null)
 			return;
-		
-		mailService.send(new MailMessage("Compte SIGDCP", "Vous vous êtes connecté le "+new Date(infos.getTimestampDebut())+" et déconnecté le "+new Date()), compteUtilisateur.getUtilisateur().getContact().getEmail());
+		notifier(MailerServiceImpl.MessageType.AVIS_COMPTE_UTILISATEUR_ETAT_SESSION,new Object[]{new Date(infos.getTimestampDebut()),new Date()}, compteUtilisateur);
 		infos.clear();
 	}
 	
@@ -91,78 +90,70 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 	public void verouiller(CompteUtilisateur compteUtilisateur,Cause causeVerrouillage) throws ServiceException {
 		compteUtilisateur.setVerrou(new Verrou(RandomStringUtils.randomAlphanumeric(64), causeVerrouillage, new Date(), RandomStringUtils.randomAlphanumeric(32)));
 		dao.update(compteUtilisateur);
-		//envoi du mail
-		ServletRequest request = (ServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		String lien = null;
-		String codeVerrou = null;
-		try{
-			codeVerrou = URLEncoder.encode(compteUtilisateur.getVerrou().getCode(),"UTF-8");
-		}catch(UnsupportedEncodingException e){
-			e.printStackTrace();
-		}
-		switch(causeVerrouillage){
+		notifierVerrou(compteUtilisateur);
+	}
+	
+	private void notifierVerrou(CompteUtilisateur compteUtilisateur){
+		switch(compteUtilisateur.getVerrou().getCause()){
 		case ACCESS_MULTIPLE:
-			lien = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getServletContext().getContextPath()+"/public/deverouillage.jsf?"+
-					 constantResources.getWebRequestParamCodeDeverouillage()+"="+codeVerrou;
-			mailService.send(new MailMessage("Compte SIGDCP", "Votre compte a été vérouillé. Votre code de dévérouillage est : "+compteUtilisateur.getVerrou().getJeton()+
-					"Cliquez sur ce lien et suivez les insctructions pour dévérouiller votre compte. "+lien)
-			, compteUtilisateur.getUtilisateur().getContact().getEmail());
-			
+			notifier(MailerServiceImpl.MessageType.AVIS_COMPTE_UTILISATEUR_VERROUILLE_ACCES_MULTIPLE,
+					new Object[]{compteUtilisateur.getVerrou().getJeton(),lienDeverouillage(compteUtilisateur)},compteUtilisateur);
 			break;
 			
 		case REINITIALISATION_PASSWORD:
-			lien = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getServletContext().getContextPath()+"/public/reinitialiserpassword.jsf"+
-					constantResources.getWebRequestParamCodeDeverouillage()+"="+codeVerrou;
-			mailService.send(new MailMessage("Compte SIGDCP", "Votre compte a été vérouillé. Votre code de dévérouillage est : "+compteUtilisateur.getVerrou().getJeton()+
-					"Cliquez sur ce lien et suivez les insctructions pour réinitialiser votre mot de passe. "+lien)
-			, compteUtilisateur.getUtilisateur().getContact().getEmail());
-			
+			notifier(MailerServiceImpl.MessageType.AVIS_COMPTE_UTILISATEUR_VERROUILLE_REINITIALISATION_PASSWORD,
+					new Object[]{compteUtilisateur.getVerrou().getJeton(),lienDeverouillage(compteUtilisateur)},compteUtilisateur);
 			break;
 		}
+	}
+	
+	private String lienDeverouillage(CompteUtilisateur compteUtilisateur){
+		ServletRequest request = (ServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		switch(compteUtilisateur.getVerrou().getCause()){
+		case ACCESS_MULTIPLE:
+			return navigationHelper.addQueryParameters(request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getServletContext().getContextPath()+"/public/deverouillage.jsf",
+					new Object[]{constantResources.getWebRequestParamVerrouCode(),compteUtilisateur.getVerrou().getCode(),constantResources.getWebRequestParamVerrouCause(),
+				constantResources.getWebRequestParamVerrouCause(compteUtilisateur.getVerrou().getCause())});
+		case REINITIALISATION_PASSWORD:
+			return navigationHelper.addQueryParameters(request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getServletContext().getContextPath()+"/public/reinitialiserpassword.jsf",
+					new Object[]{constantResources.getWebRequestParamVerrouCode(),compteUtilisateur.getVerrou().getCode(),constantResources.getWebRequestParamVerrouCause(),
+				constantResources.getWebRequestParamVerrouCause(compteUtilisateur.getVerrou().getCause())});
+		}
+		return null;
 	}
 		
 	@Override
 	public void deverouiller(Verrou verrou,Credentials credentials) throws ServiceException {
-		CompteUtilisateur compteUtilisateur = ((CompteUtilisateurDao)dao).readByCredentials(credentials);
+		CompteUtilisateur compteUtilisateur = ((CompteUtilisateurDao)dao).readByUsername(credentials.getUsername());
 		if(compteUtilisateur==null)
 			serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_INEXISTANT);
 		
 		//est ce que le compte est verouille
 		if(compteUtilisateur.getVerrou()==null)
 			serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_ACTIF);
-		
-		if(!compteUtilisateur.getVerrou().getCode().equals(verrou.getCode()))
+				
+		if(compteUtilisateur.getVerrou().getCause()==null || !compteUtilisateur.getVerrou().getCode().equals(verrou.getCode()))
 			serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_CODE_DEVEROUILLAGE_INCONNU);
 		
+		if(Cause.ACCESS_MULTIPLE.equals(verrou.getCause()) && !compteUtilisateur.getCredentials().getPassword().equals(credentials.getPassword()) )
+			serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_INEXISTANT);
+			
 		if(!compteUtilisateur.getVerrou().getJeton().equals(verrou.getJeton()))
 			serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_JETON_DEVEROUILLAGE_INCONNU);
-		
-		compteUtilisateur.setVerrou(null);
-		
-		switch(compteUtilisateur.getVerrou().getCause()){
+				
+		switch(verrou.getCause()){
 		case ACCESS_MULTIPLE:
 			infos.clear();
-			mailService.send(new MailMessage("Compte SIGDCP", "Votre compte à été dévérouillé.") , compteUtilisateur.getUtilisateur().getContact().getEmail());
+			notifier(MailerServiceImpl.MessageType.AVIS_COMPTE_UTILISATEUR_DEVERROUILLE_ACCES_MULTIPLE,new Object[]{},compteUtilisateur);
 			break;
 		case REINITIALISATION_PASSWORD:
 			compteUtilisateur.getCredentials().setPassword(credentials.getPassword());//on ecrase son ancien mot de passe avec le nouveau
-			mailService.send(new MailMessage("Compte SIGDCP", "Votre mot de passe à été reinitialiser et dévérouillé.") , compteUtilisateur.getUtilisateur().getContact().getEmail());
+			notifier(MailerServiceImpl.MessageType.AVIS_COMPTE_UTILISATEUR_DEVERROUILLE_REINITIALISATION_PASSWORD,new Object[]{},compteUtilisateur);
 			break;
 		}
-		
+		compteUtilisateur.setVerrou(null);
 		dao.update(compteUtilisateur);
 	}
-	
-	/*
-	private Boolean isValidTokenDeverouillage(String token){
-		return token!=null;
-	}*/
-	
-	@Override
-	public CompteUtilisateur findByCodeVerrou(String codeVerrou) {
-		return ((CompteUtilisateurDao)dao).readByTokenDeverouillage(codeVerrou);
-	}
-
 	
 	@Override
 	public Collection<ReponseSecrete> recupererPasswordEtape1(AgentEtat agentEtat) throws ServiceException {
@@ -204,6 +195,18 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 						serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_REPONSE_INCORRECT);
 		
 		verouiller(compteUtilisateur,Cause.REINITIALISATION_PASSWORD);
+	}
+	
+	@Override
+	public void deverouillable(Verrou verrou) throws ServiceException {
+		CompteUtilisateur compteUtilisateur = ((CompteUtilisateurDao)dao).readByCodeVerrouByCauseVerrou(verrou.getCode(), verrou.getCause());
+		if(compteUtilisateur==null)
+			serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_CODE_DEVEROUILLAGE_INCONNU);
+	}
+	
+	@Override @Transactional(value=TxType.NEVER)
+	public CompteUtilisateur findByCredentials(Credentials credentials) {
+		return ((CompteUtilisateurDao)dao).readByCredentials(credentials);
 	}
 	
 }

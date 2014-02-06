@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+
+		<ui:composition template="/template/vide.xhtml">
+		
+			<ui:define name="contenu">
+				<h1><h:outputText value="Compte utilisateur." /></h1>
+				
+				<p:messages globalOnly="true" />
+				
+				<p:panelGrid columns="3">
+					<h:outputLink value="http://mail.yahoo.fr">Yahoo</h:outputLink>
+					<h:outputLink value="http://mail.google.com">Gmail</h:outputLink>
+					<h:outputLink value="http://www.hotmail.fr">Hotmail</h:outputLink>
+					
+				</p:panelGrid>
+				
+				<p:button value="Acceuil" outcome="index" />
+			</ui:define>
+	
+		</ui:composition>
+
+	</h:body>
+
+</html>

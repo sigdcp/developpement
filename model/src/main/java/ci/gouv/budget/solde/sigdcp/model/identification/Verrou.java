@@ -9,7 +9,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,7 +36,7 @@ public class Verrou implements Serializable {
 	/**
 	 * Code devant etre saisi par l'utilisateur lors du deverouillage du compte
 	 */
-	
+	@NotNull(groups=Client.class)
 	private String jeton;
 	
 	public Verrou() {}

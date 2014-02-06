@@ -65,7 +65,7 @@ public class DossierListeController extends AbstractEntityListUIController<Dossi
 	
 	public String href(Dossier dossier){
 		String outcome = navigationManager.url(nextViewOutcome+outcomeSuffix(dossier),getIsBatchProcessing());
-		return navigationManager.addQueryParameters(outcome, 
+		return navigationHelper.addQueryParameters(outcome, 
 				new Object[]{
 				webConstantResources.getRequestParamDossier(),dossier.getNumero()
 				,webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudRead()

@@ -15,7 +15,7 @@ import org.primefaces.model.menu.MenuItem;
 import org.primefaces.model.menu.Submenu;
 
 import ci.gouv.budget.solde.sigdcp.controller.NavigationManager;
-import ci.gouv.budget.solde.sigdcp.service.TextService;
+import ci.gouv.budget.solde.sigdcp.service.utils.TextService;
 
 
 public class MenuManager implements Serializable {

@@ -33,7 +33,7 @@ public class GestionnaireCarteSotraListeController extends SouscriptionGestionna
 
 	@Override
 	public String href(SouscriptionGestionnaireCarteSotra souscriptionGestionnaireCarteSotra) {
-		return navigationManager.addQueryParameters(nextViewOutcome, new Object[]{webConstantResources.getRequestParamSouscription(), souscriptionGestionnaireCarteSotra.getCode()});
+		return navigationHelper.addQueryParameters(nextViewOutcome, new Object[]{webConstantResources.getRequestParamSouscription(), souscriptionGestionnaireCarteSotra.getCode()});
 	}
 	
 	@Override

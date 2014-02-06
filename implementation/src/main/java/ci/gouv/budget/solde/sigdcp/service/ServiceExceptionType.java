@@ -13,13 +13,13 @@ public enum ServiceExceptionType{
 	IDENTIFICATION_SOUSCRIPTION_COMPTE_INCOHERENT("Les informations saisies ne sont pas cohérentes"),
 	
 	IDENTIFICATION_COMPTE_UTILISATEUR_CONNECTE("Vous êtes déja connecté"),
-	IDENTIFICATION_COMPTE_UTILISATEUR_VEROUILLE("Votre compte est vérouillé"),
-	IDENTIFICATION_COMPTE_UTILISATEUR_DEVEROUILLAGE_MAUVAIS_ENDROIT("Votre compte est vérouillé. Veuillez consulter votre email et suivre les instructions pour le dévérouiller"),
+	IDENTIFICATION_COMPTE_UTILISATEUR_VEROUILLE("Votre compte est vérouillé. Veuillez consulter votre email et suivre les instructions pour le dévérouiller."),
+	//IDENTIFICATION_COMPTE_UTILISATEUR_DEVEROUILLAGE_MAUVAIS_ENDROIT("Votre compte est vérouillé. Veuillez consulter votre email et suivre les instructions pour le dévérouiller"),
 	IDENTIFICATION_COMPTE_UTILISATEUR_ACTIF("Votre compte est actif"),
 	IDENTIFICATION_COMPTE_UTILISATEUR_INCONNU("Nom d'utilisateur ou mot de passe incorrect"),
 	IDENTIFICATION_COMPTE_UTILISATEUR_INEXISTANT("Vous n'avez pas de compte dans notre système"),
-	IDENTIFICATION_COMPTE_UTILISATEUR_CODE_DEVEROUILLAGE_INCONNU("Url de dévérouillage incorrect"),
-	IDENTIFICATION_COMPTE_UTILISATEUR_JETON_DEVEROUILLAGE_INCONNU("Le jeton de dévérouillage n'est pas valide"),
+	IDENTIFICATION_COMPTE_UTILISATEUR_CODE_DEVEROUILLAGE_INCONNU("Les paramètres de dévérouillage sont incorrects"),
+	IDENTIFICATION_COMPTE_UTILISATEUR_JETON_DEVEROUILLAGE_INCONNU("Le code de dévérouillage n'est pas valide"),
 	IDENTIFICATION_COMPTE_UTILISATEUR_REPONSE_INCORRECT("Une ou plusieurs des réponses sont incorrectes"),
 	
 	SAISIE_INCOHERENTE("Les informations saisies sont incohérentes"),

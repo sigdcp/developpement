@@ -8,13 +8,20 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
  	<script>
- 	function quitter(){
- 		if(confirm('Voulez-vous quitter cette page? Toutes vos modifications seront perdues.')){
- 		window.back();
- 		return true;
- 		}
- 		else return false;
- 	}
+	 	function quitter(){
+	 		if(confirm('Voulez-vous quitter cette page? Toutes vos modifications seront perdues.')){
+	 		window.back();
+	 		return true;
+	 		}
+	 		else return false;
+	 	}
+	 	
+	 	function formSubmitOnstart(){
+	 		PF('bui').show();
+	 	}
+	 	function formSubmitOncomplete(){
+	 		PF('bui').hide();
+	 	}
  	
  	</script>
  	
@@ -41,15 +48,14 @@
 					<p:separator/>
 					
 					<ui:decorate template="/template/formCommandsTemplate.xhtml"/>	
-					
-					<p:commandButton id="actionBtn" value="TestBlock" icon="ui-icon-check"  onstart="PF('bui').show()" oncomplete="PF('bui').hide()" rendered="true"/> 				
+							
 				</p:outputPanel>				
 			</td>
 		</tr> </table>
 		
-		<p:blockUI block="bodyPanel" widgetVar="bui" rendered="false">  
-	        LOADING<br />  
-	        
+		<p:blockUI block="bodyPanel" widgetVar="bui" > 
+	        Traitement en cours , veuillez patienter...
+	        <p:graphicImage value="/resources/images/processing.gif" />
 	    </p:blockUI>  
 
 	</h:form> 	

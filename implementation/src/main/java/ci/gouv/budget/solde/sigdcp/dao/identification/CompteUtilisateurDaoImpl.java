@@ -8,6 +8,7 @@ import javax.persistence.NonUniqueResultException;
 import ci.gouv.budget.solde.sigdcp.dao.JpaDaoImpl;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.model.identification.Credentials;
+import ci.gouv.budget.solde.sigdcp.model.identification.Verrou.Cause;
 
 public class CompteUtilisateurDaoImpl extends JpaDaoImpl<CompteUtilisateur, Long> implements CompteUtilisateurDao , Serializable {
 
@@ -67,10 +68,11 @@ public class CompteUtilisateurDaoImpl extends JpaDaoImpl<CompteUtilisateur, Long
 	}
 	
 	@Override
-	public CompteUtilisateur readByTokenDeverouillage(String tokenDeverouillage) {
+	public CompteUtilisateur readByCodeVerrouByCauseVerrou(String code,Cause cause) {
 		try {
-			return entityManager.createQuery("SELECT cu FROM CompteUtilisateur cu WHERE cu.tokenDeverouillage = :tokenDeverouillage", clazz)
-					.setParameter("tokenDeverouillage", tokenDeverouillage)
+			return entityManager.createQuery("SELECT cu FROM CompteUtilisateur cu WHERE cu.verrou.code = :code AND cu.verrou.cause = :cause", clazz)
+					.setParameter("code", code)
+					.setParameter("cause", cause)
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;

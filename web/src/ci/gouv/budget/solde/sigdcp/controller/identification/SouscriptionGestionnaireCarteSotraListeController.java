@@ -41,7 +41,7 @@ public class SouscriptionGestionnaireCarteSotraListeController extends AbstractE
 
 	@Override
 	public String href(SouscriptionGestionnaireCarteSotra souscriptionGestionnaireCarteSotra) {
-		return navigationManager.addQueryParameters(nextViewOutcome, new Object[]{
+		return navigationHelper.addQueryParameters(nextViewOutcome, new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudRead(),
 				webConstantResources.getRequestParamSouscription(), souscriptionGestionnaireCarteSotra.getCode()});
 	}

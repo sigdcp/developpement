@@ -56,8 +56,6 @@ public class SouscriptionComptePersonneController extends AbstractEntityFormUICo
         	title = "Formulaire de souscription";
         
         demandeurDto = new IdentitePersonneDTO(isCreate(),entity.getPersonneDemandeur(),inscriptionAgentEtat);
-        
-        //pieceIdentite.setModel(new PieceJustificativeAFournir(null,Boolean.FALSE, 3, 2, new TypePieceJustificative("cni", "CNI")));
         demandeurDto.getInfosSouscriptionComptePersonne().getPersonne().setPieceIdentiteType(PieceIdentiteType.CNI);
         demandeurDto.getInfosSouscriptionComptePersonne().getPersonne().setNationalite(localiteService.findById(Code.LOCALITE_COTE_DIVOIRE));
         demandeurDto.getInfosSouscriptionComptePersonne().setType(genericService.findByClass(TypeAgentEtat.class, String.class,Code.TYPE_AGENT_ETAT_FONCTIONNAIRE));
@@ -65,6 +63,7 @@ public class SouscriptionComptePersonneController extends AbstractEntityFormUICo
         defaultSubmitCommand.getObjectValidators().add(new ObjectValidator<SouscriptionComptePersonne>(entity, validator));
         defaultSubmitCommand.setValue(text("bouton.souscrirecompte"));
         defaultSubmitCommand.setNotificationMessageId("notification.compte.ouvert");
+        defaultSubmitCommand.setSuccessOutcome("login");
         
         reponseSecrete = new ReponseSecrete();
         entity.getReponseSecretes().add(reponseSecrete);
@@ -80,12 +79,11 @@ public class SouscriptionComptePersonneController extends AbstractEntityFormUICo
 	protected SouscriptionComptePersonne createEntityInstance() {
 		return new SouscriptionComptePersonne();
 	}
-    	
-	/*
+	
 	@AssertTrue(message="Les mots de passe ne correspondent pas",groups=Client.class)
 	public boolean isPasswordsMatch(){
 		return entity.getPassword().equals(confirmationMotPasse);
 	}
-	*/
+	
 
 }

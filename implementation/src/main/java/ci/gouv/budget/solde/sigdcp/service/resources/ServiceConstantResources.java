@@ -9,15 +9,17 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import ci.gouv.budget.solde.sigdcp.model.Code;
-import ci.gouv.budget.solde.sigdcp.service.TextService;
+import ci.gouv.budget.solde.sigdcp.model.identification.Verrou.Cause;
+import ci.gouv.budget.solde.sigdcp.service.utils.TextService;
 import lombok.Getter;
+import lombok.extern.java.Log;
 
 /**
  * Les constantes du systeme
  * @author christian
  *
  */
-@Singleton @Named("constantResources")
+@Singleton @Named("constantResources") @Log
 public class ServiceConstantResources implements Serializable{
 	
 	private static final long serialVersionUID = 1583754563831914427L;
@@ -42,7 +44,11 @@ public class ServiceConstantResources implements Serializable{
 	
 	@Getter private Integer ageMinimumAns = 19;
 	
-	@Getter private final String webRequestParamCodeDeverouillage = "coddev";
+	@Getter private final String webRequestParamVerrouCode = "codever";
+	@Getter private final String webRequestParamVerrouCause = "causever";
+	
+	@Getter private final String webRequestParamVerrouCauseAccessMultiple = Cause.ACCESS_MULTIPLE.name().toLowerCase();
+	@Getter private final String webRequestParamVerrouCauseReinitialiserPassword = Cause.REINITIALISATION_PASSWORD.name().toLowerCase();
 	
 	public Date getDateNaissanceMinimum(){
 		Calendar calendar = Calendar.getInstance();
@@ -54,6 +60,15 @@ public class ServiceConstantResources implements Serializable{
 		Calendar calendar = Calendar.getInstance();
 		calendar.roll(Calendar.YEAR, -100);
 		return calendar.getTime();
+	}
+	
+	public String getWebRequestParamVerrouCause(Cause cause){
+		if(Cause.ACCESS_MULTIPLE.equals(cause))
+			return webRequestParamVerrouCauseAccessMultiple;
+		if(Cause.REINITIALISATION_PASSWORD.equals(cause))
+			return webRequestParamVerrouCauseReinitialiserPassword;
+		log.info("Service Cannot Map "+cause+" to a web request param");
+		return null;
 	}
 	
 	public String text(String id){

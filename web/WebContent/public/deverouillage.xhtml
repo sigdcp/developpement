@@ -10,12 +10,13 @@
 <h:body>
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewParam name="#{constantResources.webRequestParamCodeDeverouillage}" value="#{deverouillerCompteUtilisateurController.verrou.code}" required="true" requiredMessage="INVALID" />
-			<f:event type="preRenderView" listener="#{deverouillerCompteUtilisateurController.preRenderView}" /> 
+			<ui:include src="/identification/include/deverouillageViewParam.xhtml" >
+				<ui:param name="controller" value="#{deverouillerCompteUtilisateurController}" />
+			</ui:include>
 		</f:metadata>
 	</ui:define>
 		
-	<ui:composition template="/template/commun.xhtml">
+	<ui:composition template="/template/vide.xhtml">
 		<ui:define name="contenu">
 			<ui:decorate template="/template/formTemplate.xhtml">
 				<ui:param name="uiController" value="#{deverouillerCompteUtilisateurController}" />
@@ -25,21 +26,21 @@
 						
 						<p:outputLabel for="username" value="Nom d'utilisateur"  />
 						<p:inputText id="username" value="#{deverouillerCompteUtilisateurController.credentials.username}" required="#{deverouillerCompteUtilisateurController.requiredEnabled}" 
-							requiredMessage="#{valueRequiredMessage}" size="30" >
+							requiredMessage="#{valueRequiredMessage}" size="50" >
 							<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 						</p:inputText>
 						<p:message for="username"  />
 						
 						<p:outputLabel for="password" value="Mot de passe"  />
 						<p:password id="password" value="#{deverouillerCompteUtilisateurController.credentials.password}" required="#{deverouillerCompteUtilisateurController.requiredEnabled}" 
-							requiredMessage="#{valueRequiredMessage}" size="30" >
+							requiredMessage="#{valueRequiredMessage}" size="50">
 							<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 						</p:password>
 						<p:message for="password"  />
-						
+										
 						<p:outputLabel for="token" value="Code"  />
 						<p:inputText id="token" value="#{deverouillerCompteUtilisateurController.verrou.jeton}" required="#{deverouillerCompteUtilisateurController.requiredEnabled}" 
-							requiredMessage="#{valueRequiredMessage}" size="30" >
+							requiredMessage="#{valueRequiredMessage}" size="50" >
 							<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 						</p:inputText>
 						<p:message for="token"  />

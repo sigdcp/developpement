@@ -2,23 +2,20 @@ package ci.gouv.budget.solde.sigdcp.service.utils.validaton;
 
 import java.io.Serializable;
 
-import javax.inject.Inject;
 import javax.validation.constraints.AssertTrue;
+
+import lombok.Getter;
 
 import org.apache.commons.lang3.StringUtils;
 
-import lombok.Getter;
 import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionComptePersonne;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
-import ci.gouv.budget.solde.sigdcp.service.utils.ServiceValidationUtils;
 
 @Getter
 public class SouscriptionComptePersonneValidator extends AbstractValidator<SouscriptionComptePersonne> implements Serializable {
  
 	private static final long serialVersionUID = -261860698364195138L;
-	
-	@Inject private ServiceValidationUtils validationUtils;
-	
+
 	/*
 	@AssertTrue(message="Matricule incorrect",groups=Client.class)
 	private boolean matriculeFormatCorrect;

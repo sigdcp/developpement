@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -15,10 +16,13 @@ import org.apache.commons.lang3.StringUtils;
 
 import lombok.Getter;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
+import ci.gouv.budget.solde.sigdcp.service.utils.ServiceValidationUtils;
 
 public class AbstractValidator<OBJECT> implements Serializable {
 
 	private static final long serialVersionUID = -261860698364195138L;
+	
+	@Inject protected ServiceValidationUtils validationUtils;	
 	
 	protected Class<OBJECT> objectClass;
 	protected Class<AbstractValidator<OBJECT>> validatorClass;
@@ -52,18 +56,21 @@ public class AbstractValidator<OBJECT> implements Serializable {
 		groups.add(Client.class);
 	}
 	
+	/*
 	public AbstractValidator<OBJECT> init(OBJECT object){
-		/* initialize fields */
+		// initialize fields 
 		this.object=object;
 		
 		return this;
-	}
+	}*/
 	
-	public void validate(){
+	public AbstractValidator<OBJECT> validate(OBJECT object){
+		this.object=object;
 		messages = new LinkedHashSet<>();
 		/* processing */
 		process(objectClass, object);
 		process(validatorClass, this);
+		return this;
 	}
 	
 	private <T> void process(Class<T> aClass,T aObject){

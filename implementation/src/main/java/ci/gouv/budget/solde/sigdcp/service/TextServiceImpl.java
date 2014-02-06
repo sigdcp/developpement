@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 
 import javax.inject.Singleton;
 
+import ci.gouv.budget.solde.sigdcp.service.utils.TextService;
+
 /**
  * Provided localized text
  * @author Komenan Y .Christian

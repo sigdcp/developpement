@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractFormUIController;
 import ci.gouv.budget.solde.sigdcp.model.MailMessage;
-import ci.gouv.budget.solde.sigdcp.service.MailService;
+import ci.gouv.budget.solde.sigdcp.service.utils.communication.MailService;
 
 @Named @RequestScoped
 public class MailTestController extends AbstractFormUIController<Object> implements Serializable {

@@ -8,8 +8,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import lombok.Getter;
-import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEntityListUIController;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierService;
@@ -40,8 +38,8 @@ public class DemandeListeController extends AbstractEntityListUIController<Dossi
 		list = dossierService.findAll(); 
 	}
 	
-	public String href(Dossier dossier){System.out.println("DemandeListeController.href() "+nextViewOutcome);
-		return navigationManager.addQueryParameters(nextViewOutcome, 
+	public String href(Dossier dossier){//System.out.println("DemandeListeController.href() "+nextViewOutcome);
+		return navigationHelper.addQueryParameters(nextViewOutcome, 
 				new String[]{webConstantResources.getRequestParamDossier(),dossier.getNumero(),webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudRead()});
 	}
 

@@ -11,8 +11,13 @@
 		</navigation-case>
 
 		<navigation-case>
+			<from-outcome>consulteremail</from-outcome>
+			<to-view-id>/message/consulteremail.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
 			<from-outcome>succes</from-outcome>
-			<to-view-id>/succes.xhtml</to-view-id>
+			<to-view-id>/message/succes.xhtml</to-view-id>
 		</navigation-case>
 
 		<navigation-case>

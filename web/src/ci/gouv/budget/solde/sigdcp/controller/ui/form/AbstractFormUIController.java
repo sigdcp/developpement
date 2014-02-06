@@ -69,9 +69,9 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 				return null;
 			}
 		});
-		defaultSubmitCommand.setId("actionBtn");
-		defaultSubmitCommand.setOnstart("PF('bui').show();");
-		defaultSubmitCommand.setOnstart("PF('bui').hide();");
+		defaultSubmitCommand.setOnclick("formSubmitOnstart();");
+		defaultSubmitCommand.setOnstart("formSubmitOnstart();");
+		defaultSubmitCommand.setOncomplete("formSubmitOncomplete();");
 		defaultSubmitCommand.setRendered(!isRead());
 		
 		closeCommand = createCommand().init("bouton.annuler","ui-icon-close",null, new Action() {

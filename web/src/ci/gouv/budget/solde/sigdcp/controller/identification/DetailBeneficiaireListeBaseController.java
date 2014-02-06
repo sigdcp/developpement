@@ -41,7 +41,7 @@ public class DetailBeneficiaireListeBaseController extends AbstractEntityListUIC
 
 	@Override
 	public String href(AgentEtat agentEtat) {
-		return navigationManager.addQueryParameters(nextViewOutcome, new Object[]{webConstantResources.getRequestParamSouscription(), agentEtat.getCode()});
+		return navigationHelper.addQueryParameters(nextViewOutcome, new Object[]{webConstantResources.getRequestParamSouscription(), agentEtat.getCode()});
 	}
 	
 	@Override

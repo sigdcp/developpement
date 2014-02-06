@@ -3,11 +3,13 @@ package ci.gouv.budget.solde.sigdcp.controller.ui.form.command;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Level;
 
 import javax.faces.context.FacesContext;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.java.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.component.commandbutton.CommandButton;
@@ -19,6 +21,7 @@ import ci.gouv.budget.solde.sigdcp.service.utils.validaton.ObjectValidator;
 /**
  * Commande d'un formulaire
  */
+@Log
 public class FormCommand<DTO> extends CommandButton implements Serializable {
 
 	private static final long serialVersionUID = 3873845367443589081L;
@@ -29,7 +32,7 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 	protected String successOutcome=NavigationManager.OUTCOME_SUCCESS_VIEW,notificationMessageId;
 	
 	@Getter @Setter
-	protected Action _action;
+	protected Action _action,_echec;
 	
 	@Getter
 	protected Collection<ObjectValidator<?>> objectValidators=new LinkedList<>();
@@ -50,6 +53,7 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 	}
 	
 	public final String execute(Object object){
+				
 		if(valide()){
 			try {
 				_action.execute(object);
@@ -58,12 +62,12 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 					form.getMessageManager().addInfo(message,Boolean.FALSE);
 			} catch (Exception e) {
 				form.getMessageManager().addError(e);
-				return echec();
+				return echec(e);
 			}
 			//System.out.println("OUTCOME : "+successOutcome);
 			return successOutcome;
 		}
-		return echec();
+		return echec(null);
 	}
 	
 	public final String execute(){
@@ -93,8 +97,15 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 		return succeed;
 	}
 
-	private String echec(){
-		return null;
+	private String echec(Exception exception){
+		if(_echec==null)
+			return null;
+		try {
+			return (String) _echec.__execute__(exception);
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.toString(), e);
+			return null;
+		}
 	}
 	
 	protected String notificationMessage(){

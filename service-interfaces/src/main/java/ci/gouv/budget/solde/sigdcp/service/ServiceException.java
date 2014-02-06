@@ -8,7 +8,7 @@ import javax.ejb.ApplicationException;
 public class ServiceException extends AbstractServiceException implements Serializable {
 
 	private static final long serialVersionUID = 5016330302249841870L;
-
+	
 	public ServiceException() {
 		super();
 	}

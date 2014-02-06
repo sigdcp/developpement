@@ -19,10 +19,12 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.model.identification.Souscription;
+import ci.gouv.budget.solde.sigdcp.model.identification.Verrou.Cause;
 import ci.gouv.budget.solde.sigdcp.model.prestation.Facture;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 import ci.gouv.budget.solde.sigdcp.service.GenericService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
+import ci.gouv.budget.solde.sigdcp.service.resources.ServiceConstantResources;
 
 /**
  * Les constantes web
@@ -37,6 +39,7 @@ public class WebConstantResources implements Serializable{
 	@Inject private GenericService genericService;
 	//@Inject private TextService textService;
 	@Inject protected NavigationManager navigationManager;
+	@Inject protected ServiceConstantResources serviceConstantResources;
 	
 	@Getter private final String requestParamNatureDeplacement = "nd";
 	@Produces @Named public ViewParamConverter getViewParamNatureDeplacementConverter(){
@@ -72,7 +75,7 @@ public class WebConstantResources implements Serializable{
 	@Getter private final String requestParamCrudCreate = "create";
 	@Getter private final String requestParamCrudRead = "read";
 	@Getter private final String requestParamCrudUpdate = "update";
-	
+		
 	@Getter private final String requestParamNextViewOutcome = "nvo";
 	@Getter private final String requestParamPreviousURL = "purl";
 	@Getter private final String requestParamViewType = "vt";
@@ -106,12 +109,19 @@ public class WebConstantResources implements Serializable{
 			
 			@Override
 			public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String string) throws ConverterException {
+				//CRUD
 				if(requestParamCrudCreate.equals(string))
 					return CRUDType.CREATE;
 				if(requestParamCrudRead.equals(string))
 					return CRUDType.READ;
 				if(requestParamCrudUpdate.equals(string))
 					return CRUDType.UPDATE;
+				//Cause Verrou
+				if(serviceConstantResources.getWebRequestParamVerrouCauseAccessMultiple().equals(string))
+					return Cause.ACCESS_MULTIPLE;
+				if(serviceConstantResources.getWebRequestParamVerrouCauseReinitialiserPassword().equals(string))
+					return Cause.REINITIALISATION_PASSWORD;
+				
 				log.severe("Cannot be mapped to an enum value : "+string);
 				return null;
 			}

@@ -23,7 +23,8 @@ public class ObjectValidator<OBJECT> {
 	public Boolean validate(){
 		if(validator==null)
 			validator = (AbstractValidator<OBJECT>) new AbstractValidator<>(object.getClass());
-		validator.init(object).validate();
+		//validator.init(object).validate();
+		validator.validate(object);
 		//System.out.println("Validating : "+object+" Success : "+validator.isSucces());
 		return validator.isSucces();
 	}
