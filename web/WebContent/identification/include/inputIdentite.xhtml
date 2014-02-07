@@ -138,7 +138,8 @@
 			<p:panelGrid id="panelContacts" columns="#{personneDto.editable?columnCount:4}" styleClass="panelGridNoBorder" columnClasses="#{personneDto.editable?'c1,c2,c3,c1,c2,c3':'c1,c2,c1,c2'}"> 
 				
 				<p:outputLabel for="email" value="Email" />
-				<p:inputText id="email" value="#{personneDto.personne.contact.email}" required="#{required}" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.editable}">
+				<p:inputText id="email" value="#{personneDto.personne.contact.email}" required="#{required}" requiredMessage="#{valueRequiredMessage}" rendered="#{personneDto.editable}"
+					validator="#{validationManager.validateAdresseElectroniqueCompte}">
 					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 				</p:inputText>
 				<h:outputText value="#{personneDto.personne.contact.email}" rendered="#{not personneDto.editable}"/>

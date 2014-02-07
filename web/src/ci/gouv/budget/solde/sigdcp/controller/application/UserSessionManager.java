@@ -39,13 +39,22 @@ public class UserSessionManager implements Serializable{
 		return (Personne) compteUtilisateur.getUtilisateur();
 	}
 
+	/*
 	public void longRun(){
-		try {
+		try {O
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
+	/*
+	public void onNewOrder(@Observes OrderBy event) {
+		System.out.println("Event captured - " + event);
+	}*/
+	/*
+	 public void onNewOrder(@Observes String event) {
+		 
+	     System.out.println("UserSessionManager.onNewOrder() : "+event);
+	  }*/
 	
 }

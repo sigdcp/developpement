@@ -11,8 +11,9 @@ package ci.gouv.budget.solde.sigdcp.model.identification;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -55,7 +56,7 @@ public class CompteUtilisateur  extends AbstractModel<Long>  implements Serializ
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "UserRoles", joinColumns = { @JoinColumn(name = "userId") })
     @Column(name = "role")
-    private List<Role> roles;
+    private Set<Role> roles =new HashSet<>();
 	
 	@Embedded
 	private Verrou verrou;
@@ -65,7 +66,7 @@ public class CompteUtilisateur  extends AbstractModel<Long>  implements Serializ
 	
 	public CompteUtilisateur() {}
 
-	public CompteUtilisateur(Credentials credentials, Party utilisateur,List<Role> roles) {
+	public CompteUtilisateur(Credentials credentials, Party utilisateur,Set<Role> roles) {
 		super();
 		this.credentials = credentials;
 		this.utilisateur = utilisateur;

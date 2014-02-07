@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import ci.gouv.budget.solde.sigdcp.dao.identification.CompteUtilisateurDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.resources.ServiceConstantResources;
@@ -13,6 +14,8 @@ import ci.gouv.budget.solde.sigdcp.service.resources.ServiceConstantResources;
 public class ServiceValidationUtils {
 	
 	private @Inject ServiceConstantResources constantResources;
+	
+	@Inject private CompteUtilisateurDao compteUtilisateurDao;
 	
 	/*
 	 * Matricule
@@ -49,6 +52,17 @@ public class ServiceValidationUtils {
 		if(password==null ||password.length()<8)
 			throw new Exception("Au moins 8 caractères");
 	}
+	
+	
+	public void validateUsernameUnique(String username) throws Exception{
+		if(!isUsernameUnique(username))
+			throw new Exception("cette adresse email est déja lié à un compte");
+	}
+
+	public boolean isUsernameUnique(String username) {
+		return compteUtilisateurDao.readByUsername(username)==null;
+	}
+	
 	
 	/*
 	public static void main(String[] args) {

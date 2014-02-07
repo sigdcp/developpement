@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.ejb.Stateless;
@@ -610,7 +612,10 @@ public class SampleDataServiceImpl implements SampleDataService {
 	}
 	
 	private void creerCompteUtilisateur(Party utilisateur,String username,String password,Role[] roles,Object[][] rs){
-		CompteUtilisateur compteUtilisateur = new CompteUtilisateur(new Credentials(username, password),utilisateur,Arrays.asList(roles));
+		Set<Role> r = new HashSet<Role>();
+		for(Role role : roles)
+			r.add(role);
+		CompteUtilisateur compteUtilisateur = new CompteUtilisateur(new Credentials(username, password),utilisateur,r);
 		for(Object[] o : rs)
 			compteUtilisateur.getReponseSecretes().add(new ReponseSecrete((QuestionSecrete)o[0], (String)o[1]));
 		

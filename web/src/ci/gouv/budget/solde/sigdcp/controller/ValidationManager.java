@@ -70,6 +70,14 @@ public class ValidationManager implements Serializable {
 		}
 	}
 	
+	public void validateAdresseElectroniqueCompte(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validationUtils.validateUsernameUnique((String) value);
+		} catch (Exception e) {
+			validationException((UIInput) uiComponent, e.getMessage());
+		}
+	}
+	
 	/*----------------------------------------------------------------------------------------------------------*/
 	
 	private void validationException(UIInput input,String message){

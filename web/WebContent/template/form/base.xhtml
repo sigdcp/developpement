@@ -54,8 +54,11 @@
 		</tr> </table>
 		
 		<p:blockUI block="bodyPanel" widgetVar="bui" > 
-	        Traitement en cours , veuillez patienter...
-	        <p:graphicImage value="/resources/images/processing.gif" />
+			<table><tr style="vertical-align: middle;">
+				<td><h:outputText value="Traitement en cours , veuillez patienter..." /> </td> 
+				<td><p:graphicImage value="/resources/images/processing.gif" /></td> 
+			</tr> </table>
+	        
 	    </p:blockUI>  
 
 	</h:form> 	

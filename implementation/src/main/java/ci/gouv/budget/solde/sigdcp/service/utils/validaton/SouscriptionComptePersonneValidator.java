@@ -15,7 +15,9 @@ import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 public class SouscriptionComptePersonneValidator extends AbstractValidator<SouscriptionComptePersonne> implements Serializable {
  
 	private static final long serialVersionUID = -261860698364195138L;
-
+	
+	
+	
 	/*
 	@AssertTrue(message="Matricule incorrect",groups=Client.class)
 	private boolean matriculeFormatCorrect;
@@ -55,6 +57,11 @@ public class SouscriptionComptePersonneValidator extends AbstractValidator<Sousc
 	@AssertTrue(message="numero de la piece d'identite est obligatiore",groups=Client.class)
 	public boolean isPieceIdentiteNumeroCorrect(){
 		return StringUtils.isNotEmpty(object.getPersonneDemandeur().getPersonne().getPieceIdentiteNumero());
+	}
+	
+	@AssertTrue(message="cette adresse email est déja lié à un compte",groups=Client.class)
+	public boolean isAddresseElectroniqueUnique(){
+		return validationUtils.isUsernameUnique(object.getPersonneDemandeur().getPersonne().getContact().getEmail());
 	}
 	
 	

@@ -32,7 +32,7 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 	protected String successOutcome=NavigationManager.OUTCOME_SUCCESS_VIEW,notificationMessageId;
 	
 	@Getter @Setter
-	protected Action _action,_echec;
+	protected Action _action,_echec,_notificationMessage;
 	
 	@Getter
 	protected Collection<ObjectValidator<?>> objectValidators=new LinkedList<>();
@@ -109,9 +109,17 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 	}
 	
 	protected String notificationMessage(){
-		if(StringUtils.isNotEmpty(notificationMessageId))
-			return form.getMessageManager().getTextService().find(notificationMessageId);
-		return null;
+		if(_notificationMessage==null)
+			if(StringUtils.isNotEmpty(notificationMessageId))
+				return form.getMessageManager().getTextService().find(notificationMessageId);
+			else 
+				return null;
+		try {
+			return (String) _notificationMessage.execute(null);
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.toString(), e);
+			return null;
+		}
 	}
 	
 	public FormCommand<DTO> onSuccessStayOnCurrentView(){

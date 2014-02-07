@@ -13,7 +13,7 @@ import org.primefaces.model.menu.Submenu;
 
 import ci.gouv.budget.solde.sigdcp.controller.WebConstantResources;
 import ci.gouv.budget.solde.sigdcp.model.Code;
-import ci.gouv.budget.solde.sigdcp.service.identification.Role;
+import ci.gouv.budget.solde.sigdcp.model.identification.Role;
 
 public class MenuBuilder implements Serializable {
 
@@ -24,7 +24,7 @@ public class MenuBuilder implements Serializable {
 	
 	@Named @Produces /*@RequestScoped*/ @SessionScoped
 	public MenuModel getMenuModel(){
-		//if(Faces.isUserInRole(Role.AGENT_ETAT.getCode()))
+		if(Faces.isUserInRole(Role.AGENT_ETAT.getCode()))
 			agentEtat();
 		
 		if(Faces.isUserInRole(Role.GESTIONNAIRE_CARTE_SOTRA.getCode()))
@@ -41,7 +41,7 @@ public class MenuBuilder implements Serializable {
 		
 		if(Faces.isUserInRole(Role.RESPONSABLE.getCode()))
 			responsable();
-		
+		/*
 		Submenu calendrierMissions = menuManager.addSubmenu("menu.calendrier");
 		menuManager.addMenuItem(calendrierMissions, "menu.calendrier.missions","enregistrerCalendrierForm",new Object[]{webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()});
 		menuManager.addMenuItem(calendrierMissions, "menu.calendrier.exercicecourant","enregistrerExerciceForm",new Object[]{webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()});
@@ -104,7 +104,7 @@ public class MenuBuilder implements Serializable {
 		
 		Submenu statistiques = menuManager.addSubmenu("menu.statistiques");
 		menuManager.addMenuItem(statistiques, "menu.statistiques.tableaubord","tableaubord", new Object[]{});
-		
+		*/
 		return menuManager.getModel();
 	}
 	

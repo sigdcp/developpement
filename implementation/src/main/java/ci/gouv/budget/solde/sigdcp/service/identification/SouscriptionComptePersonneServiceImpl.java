@@ -19,11 +19,12 @@ import ci.gouv.budget.solde.sigdcp.dao.identification.AgentEtatDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.CompteUtilisateurDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.SouscriptionComptePersonneDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
+import ci.gouv.budget.solde.sigdcp.model.communication.NotificationMessageType;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.model.identification.ReponseSecrete;
+import ci.gouv.budget.solde.sigdcp.model.identification.Role;
 import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionComptePersonne;
-import ci.gouv.budget.solde.sigdcp.service.MailerServiceImpl;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 import ci.gouv.budget.solde.sigdcp.service.utils.validaton.SouscriptionComptePersonneValidator;
 
@@ -84,14 +85,18 @@ public class SouscriptionComptePersonneServiceImpl extends AbstractSouscriptionS
 			createSouscription(souscriptionComptePersonne);
 			updateAgentEtat(agentEtat, souscriptionComptePersonne);
 			compteUtilisateur = createCompteUtilisteur(souscriptionComptePersonne,agentEtat);
-			notifier(MailerServiceImpl.MessageType.AVIS_SOUSCRIPTION_COMPTE_PERSONNE_ACCEPTEE,new Object[]{},agentEtat);
+			notifier(NotificationMessageType.AVIS_SOUSCRIPTION_COMPTE_PERSONNE_FONCTIONNAIRE,new Object[]{
+					"loginUtilisateur",compteUtilisateur.getCredentials().getUsername(),"motPasseUtilisateur",compteUtilisateur.getCredentials().getPassword(),
+					"nomPrenomsAgentEtat",agentEtat.getNomPrenoms()
+			},agentEtat);
 			
 		}else{
 			//c'est un gendarme
 			
 			//Utiliser un validator Specific pour la coherence
 			createSouscription(souscriptionComptePersonne);
-			notifier(MailerServiceImpl.MessageType.AVIS_SOUSCRIPTION_COMPTE_PERSONNE_ENREGISTREE,new Object[]{},souscriptionComptePersonne.getPersonneDemandeur().getPersonne());
+			notifier(NotificationMessageType.AVIS_SOUSCRIPTION_COMPTE_PERSONNE_ENREGISTREE,new Object[]{"nomPrenomsAgentEtat",souscriptionComptePersonne.getPersonneDemandeur().getPersonne().getNomPrenoms()},
+					souscriptionComptePersonne.getPersonneDemandeur().getPersonne());
 		}	
 	}
 	
@@ -128,6 +133,7 @@ public class SouscriptionComptePersonneServiceImpl extends AbstractSouscriptionS
 			reponseSecrete.setId(null);
 			compteUtilisateur.getReponseSecretes().add(reponseSecrete);
 		}
+		compteUtilisateur.getRoles().add(Role.AGENT_ETAT);
 		compteUtilisateurDao.create(compteUtilisateur);
 		return compteUtilisateur;
 	}

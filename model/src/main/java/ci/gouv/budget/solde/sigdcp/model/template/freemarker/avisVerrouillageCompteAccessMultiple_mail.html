@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 	<head>
-		<meta charset="ISO-8859-1">
-		<title>Insert title here</title>
+		<meta charset="UTF-8">
 	</head>
 	<body>
-		<b>Objet : Avis de verrouillage de compte "SIGDCP" pour ${motifVerrouillage}</b>
 		<br>Bonjour ${nomPrenomsAgentEtat}
 		<p>
 			Votre compte vient d'être verrouillé pour échec à trois tentatives de connexion.
 			Veuillez examiner les détails de la tentative de connexin :
         </p>
         <p>
-        	Date (Jour/Heure) : <b>${dateHeureVerrouillage}</b><br>
+        	Date (Jour/Heure) : <b>${dateHeureVerouillage}</b><br>
             Adresse IP : <b>${adresseIP}</b><br>
             Localisation : <b>${adresseGeographique}</b><br>
         </p>
@@ -26,7 +24,8 @@
                <i><a href="#">- Login oublié, cliqueze ici.</a></i>
             </p>
             <p>
-            Toutefois, vous ne pourrez accéder à votre compte après avoir solliciter le service de "Déverrouillage de compte".
+            Code de déverouillage : ${codeDeverouillage}<br>
+            Lien de déverouillage : ${lienDeverouillage}
 			<p>
 			Cordialement;<br>
 			L'équipe "SIGDCP" de la Direction Générale du Budget et des Finances.

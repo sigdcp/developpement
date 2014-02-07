@@ -3,6 +3,7 @@ package ci.gouv.budget.solde.sigdcp.controller.ui;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.event.Observes;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -11,6 +12,7 @@ import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.controller.MessageManager;
 import ci.gouv.budget.solde.sigdcp.controller.NavigationManager;
 import ci.gouv.budget.solde.sigdcp.controller.WebConstantResources;
+import ci.gouv.budget.solde.sigdcp.service.communication.NotificationEvent;
 import ci.gouv.budget.solde.sigdcp.service.resources.ServiceConstantResources;
 import ci.gouv.budget.solde.sigdcp.service.utils.NavigationHelper;
 import ci.gouv.budget.solde.sigdcp.service.utils.ServiceUtils;
@@ -81,6 +83,10 @@ public abstract class AbstractUIController implements Serializable {
 	
 	protected Boolean isDialog(){
 		return webConstantResources.getRequestParamDialog().equals(viewType);
+	}
+	
+	public void onEvent(@Observes NotificationEvent notificationEvent) {
+		messageManager.addInfo(notificationEvent.getMessage().toString(), false);
 	}
 	
 }

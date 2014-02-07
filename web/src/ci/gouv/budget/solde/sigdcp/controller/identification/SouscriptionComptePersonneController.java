@@ -69,7 +69,7 @@ public class SouscriptionComptePersonneController extends AbstractEntityFormUICo
         entity.getReponseSecretes().add(reponseSecrete);
            
     }
-	
+		
 	@Override
 	protected void onDefaultSubmitAction() throws Exception {
 		souscriptionService.souscrire(entity);

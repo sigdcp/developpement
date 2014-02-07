@@ -1,6 +1,7 @@
 package ci.gouv.budget.solde.sigdcp.service;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,9 +11,9 @@ import javax.inject.Inject;
 
 import ci.gouv.budget.solde.sigdcp.dao.DataAccessObject;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.model.communication.NotificationMessageType;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.model.identification.Party;
-import ci.gouv.budget.solde.sigdcp.service.MailerServiceImpl.MessageType;
 import ci.gouv.budget.solde.sigdcp.service.resources.ServiceConstantResources;
 import ci.gouv.budget.solde.sigdcp.service.utils.NavigationHelper;
 import ci.gouv.budget.solde.sigdcp.service.utils.communication.NotificationService;
@@ -45,14 +46,14 @@ public class DefaultServiceImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIAN
 	
 	/*------------------------------------------------------------------------------*/
 	
-	protected void notifier(MessageType messageType,Object[] theParameters, Party receiver) {
+	protected void notifier(NotificationMessageType messageType,Object[] theParameters, Party receiver) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		for(int i=0;i<theParameters.length-1;i=i+2)
-			parameters.put((String)theParameters[0], theParameters[i+1]);
-		notificationService.send(messageType.getSubject(), messageType.getTemplateId(), parameters, receiver);
+			parameters.put((String)theParameters[i], theParameters[i+1]);
+		notificationService.send(messageType, parameters, receiver);
 	}
 	
-	protected void notifier(MessageType messageType,Object[] theParameters, CompteUtilisateur compteUtilisateur) {
+	protected void notifier(NotificationMessageType messageType,Object[] theParameters, CompteUtilisateur compteUtilisateur) {
 		notifier(messageType, theParameters, compteUtilisateur.getUtilisateur());
 	}
 	
@@ -75,6 +76,10 @@ public class DefaultServiceImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIAN
 	}
 	protected static void serviceException(String message){
 		serviceException(message, Boolean.TRUE);
+	}
+	
+	protected String formatDate(Date date){
+		return date.toString();
 	}
 
 }

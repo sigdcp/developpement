@@ -15,6 +15,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import ci.gouv.budget.solde.sigdcp.dao.identification.AgentEtatDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.CompteUtilisateurDao;
+import ci.gouv.budget.solde.sigdcp.model.communication.NotificationMessageType;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.model.identification.Credentials;
@@ -22,7 +23,6 @@ import ci.gouv.budget.solde.sigdcp.model.identification.ReponseSecrete;
 import ci.gouv.budget.solde.sigdcp.model.identification.Verrou;
 import ci.gouv.budget.solde.sigdcp.model.identification.Verrou.Cause;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
-import ci.gouv.budget.solde.sigdcp.service.MailerServiceImpl;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 import ci.gouv.budget.solde.sigdcp.service.ServiceExceptionType;
 
@@ -82,7 +82,8 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 	public void deconnecter(CompteUtilisateur compteUtilisateur) throws ServiceException {
 		if(compteUtilisateur==null || infos.getTimestampDebut()==null)
 			return;
-		notifier(MailerServiceImpl.MessageType.AVIS_COMPTE_UTILISATEUR_ETAT_SESSION,new Object[]{new Date(infos.getTimestampDebut()),new Date()}, compteUtilisateur);
+		notifier(NotificationMessageType.AVIS_COMPTE_UTILISATEUR_ETAT_SESSION,new Object[]{"nomPrenomsAgentEtat",compteUtilisateur.getUtilisateur().getNom(),
+				"dateHeureConnexion",formatDate(new Date(infos.getTimestampDebut())),"dateHeureDeconnexion",formatDate(new Date()),"adresseIP","000.000.000.000","adresseGeographique","A déterminer"}, compteUtilisateur);
 		infos.clear();
 	}
 	
@@ -96,13 +97,15 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 	private void notifierVerrou(CompteUtilisateur compteUtilisateur){
 		switch(compteUtilisateur.getVerrou().getCause()){
 		case ACCESS_MULTIPLE:
-			notifier(MailerServiceImpl.MessageType.AVIS_COMPTE_UTILISATEUR_VERROUILLE_ACCES_MULTIPLE,
-					new Object[]{compteUtilisateur.getVerrou().getJeton(),lienDeverouillage(compteUtilisateur)},compteUtilisateur);
+			notifier(NotificationMessageType.AVIS_COMPTE_UTILISATEUR_VERROUILLE_ACCES_MULTIPLE,
+					new Object[]{"nomPrenomsAgentEtat",compteUtilisateur.getUtilisateur().getNom(),"codeDeverouillage",compteUtilisateur.getVerrou().getJeton(),
+					"lienDeverouillage",lienDeverouillage(compteUtilisateur),"dateHeureVerouillage",formatDate(new Date()),"adresseIP","000.000.000.000","adresseGeographique","A déterminer"},compteUtilisateur);
 			break;
 			
 		case REINITIALISATION_PASSWORD:
-			notifier(MailerServiceImpl.MessageType.AVIS_COMPTE_UTILISATEUR_VERROUILLE_REINITIALISATION_PASSWORD,
-					new Object[]{compteUtilisateur.getVerrou().getJeton(),lienDeverouillage(compteUtilisateur)},compteUtilisateur);
+			notifier(NotificationMessageType.AVIS_COMPTE_UTILISATEUR_VERROUILLE_REINITIALISATION_PASSWORD,
+					new Object[]{"nomPrenomsAgentEtat",compteUtilisateur.getUtilisateur().getNom(),"codeDeverouillage",compteUtilisateur.getVerrou().getJeton(),
+					"lienDeverouillage",lienDeverouillage(compteUtilisateur)},compteUtilisateur);
 			break;
 		}
 	}
@@ -144,11 +147,14 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 		switch(verrou.getCause()){
 		case ACCESS_MULTIPLE:
 			infos.clear();
-			notifier(MailerServiceImpl.MessageType.AVIS_COMPTE_UTILISATEUR_DEVERROUILLE_ACCES_MULTIPLE,new Object[]{},compteUtilisateur);
+			notifier(NotificationMessageType.AVIS_COMPTE_UTILISATEUR_DEVERROUILLE_ACCES_MULTIPLE,new Object[]{"nomPrenomsAgentEtat",compteUtilisateur.getUtilisateur().getNom()},
+					compteUtilisateur);
 			break;
 		case REINITIALISATION_PASSWORD:
 			compteUtilisateur.getCredentials().setPassword(credentials.getPassword());//on ecrase son ancien mot de passe avec le nouveau
-			notifier(MailerServiceImpl.MessageType.AVIS_COMPTE_UTILISATEUR_DEVERROUILLE_REINITIALISATION_PASSWORD,new Object[]{},compteUtilisateur);
+			notifier(NotificationMessageType.AVIS_COMPTE_UTILISATEUR_DEVERROUILLE_REINITIALISATION_PASSWORD,new Object[]{"nomPrenomsAgentEtat",compteUtilisateur.getUtilisateur().getNom(),"loginUtilisateur",credentials.getUsername(),
+					"motPasseUtilisateur",credentials.getPassword()},
+					compteUtilisateur);
 			break;
 		}
 		compteUtilisateur.setVerrou(null);

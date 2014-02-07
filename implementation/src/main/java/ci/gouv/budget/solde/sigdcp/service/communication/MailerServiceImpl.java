@@ -1,4 +1,4 @@
-package ci.gouv.budget.solde.sigdcp.service;
+package ci.gouv.budget.solde.sigdcp.service.communication;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -13,46 +13,27 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import ci.gouv.budget.solde.sigdcp.model.MailMessage;
+import ci.gouv.budget.solde.sigdcp.model.communication.NotificationMessage;
 import ci.gouv.budget.solde.sigdcp.model.identification.Party;
 import ci.gouv.budget.solde.sigdcp.service.utils.communication.MailService;
 
 public class MailerServiceImpl implements MailService, Serializable {
 
 	private static final long serialVersionUID = -8680313005464068114L;
-	
-	@Getter @AllArgsConstructor
-	public enum MessageType{
-		AVIS_SOUSCRIPTION_COMPTE_PERSONNE_ENREGISTREE("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
-		AVIS_SOUSCRIPTION_COMPTE_PERSONNE_ACCEPTEE("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
-		AVIS_SOUSCRIPTION_COMPTE_PERSONNE_REFUSEE("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
 		
-		AVIS_COMPTE_UTILISATEUR_VERROUILLE_ACCES_MULTIPLE("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
-		AVIS_COMPTE_UTILISATEUR_DEVERROUILLE_ACCES_MULTIPLE("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
-		AVIS_COMPTE_UTILISATEUR_VERROUILLE_REINITIALISATION_PASSWORD("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
-		AVIS_COMPTE_UTILISATEUR_DEVERROUILLE_REINITIALISATION_PASSWORD("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
-		AVIS_COMPTE_UTILISATEUR_ETAT_SESSION("SIGDCP","avisVerrouillageCompteAccessMultiple_mail"),
-		
-		;
-		private String subject;
-		private String templateId;
-	}
-	
 	@Resource(lookup = "mail/sigdcp")
     private Session session;
 
 	@Override
-	public void send(MailMessage message, String receiver) {
+	public void send(NotificationMessage message, String receiver) {
 		send(message, new String[]{receiver});
 	}
 		
-	public void send(MailMessage mailMessage,String[] receivers)  { 
+	public void send(NotificationMessage mailMessage,String[] receivers)  { 
 		send(mailMessage, addresses(receivers));
 	}
 	
-	public void send(MailMessage mailMessage,Collection<String> receivers) {
+	public void send(NotificationMessage mailMessage,Collection<String> receivers) {
 		send(mailMessage, addresses(receivers));
 	}
 	
@@ -82,7 +63,7 @@ public class MailerServiceImpl implements MailService, Serializable {
 		return addressesParty(receivers.toArray(new Party[]{}));
 	}
 	
-	private void send(MailMessage mailMessage,InternetAddress[] receivers) {
+	private void send(NotificationMessage mailMessage,InternetAddress[] receivers) {
 		MimeMessage message = new MimeMessage(session);
 		try {
 			message.setFrom(new InternetAddress(session.getProperty("mail.from")));
@@ -97,29 +78,29 @@ public class MailerServiceImpl implements MailService, Serializable {
 	}
 	
 	@Override
-	public void send(MailMessage message, Party[] receivers) {
+	public void send(NotificationMessage message, Party[] receivers) {
 		send(message, addressesParty(receivers));
 	}
 
 	@Override
-	public void send(MailMessage message, Party receiver) {
+	public void send(NotificationMessage message, Party receiver) {
 		send(message, new Party[]{receiver});
 	}
 
 	@Override
-	public void sendParty(MailMessage message, Collection<Party> receivers) {
+	public void sendParty(NotificationMessage message, Collection<Party> receivers) {
 		send(message, addressesParty(receivers));
 	}
     
     public void test(){
     	try {
-			send(new MailMessage("Configuration Exchange 2010 SMTP Relay","http://www.youtube.com/watch?v=gj61RzL_WFc"),  new String[]{"komenanyc@yahoo.com"});
+			send(new NotificationMessage("Configuration Exchange 2010 SMTP Relay","http://www.youtube.com/watch?v=gj61RzL_WFc"),  new String[]{"komenanyc@yahoo.com"});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	
     	try {
-			send(new MailMessage("Configuration Exchange 2010 SMTP Relay","http://www.youtube.com/watch?v=gj61RzL_WFc"),  new String[]{"christian.komenan@budget.gouv.ci"});
+			send(new NotificationMessage("Configuration Exchange 2010 SMTP Relay","http://www.youtube.com/watch?v=gj61RzL_WFc"),  new String[]{"christian.komenan@budget.gouv.ci"});
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
