@@ -59,10 +59,11 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
 			protected Object __execute__(Object object) throws Exception {
 				if(object instanceof ServiceException && 
 						ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_VEROUILLE.getLibelle().equals( ((ServiceException)object).getMessage()))
-					return "/error/verrou.jsf";
+					return "/message/consultermail.jsf";
 				return null;
 			}
 		});
+		//onServiceNotificationEventEnabled = true;
 	}
 	
 	@Override

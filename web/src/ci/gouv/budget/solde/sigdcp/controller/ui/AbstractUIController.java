@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;
+import javax.enterprise.event.TransactionPhase;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -37,7 +38,8 @@ public abstract class AbstractUIController implements Serializable {
 	 * Attributes
 	 */
 	@Getter @Setter protected String title = "Titre de la vue",internalCode="FS_PS_NOM_ECRAN_NUMERO";
-	@Getter @Setter protected Boolean showInternalCode = Boolean.TRUE,validationFailed=Boolean.FALSE;
+	@Getter @Setter protected Boolean showInternalCode = Boolean.TRUE,validationFailed=Boolean.FALSE,
+			onServiceNotificationEventEnabled;
 	
 	@PostConstruct
 	private void __postConsctruct__(){
@@ -85,8 +87,10 @@ public abstract class AbstractUIController implements Serializable {
 		return webConstantResources.getRequestParamDialog().equals(viewType);
 	}
 	
-	public void onEvent(@Observes NotificationEvent notificationEvent) {
-		messageManager.addInfo(notificationEvent.getMessage().toString(), false);
+	public void onServiceNotificationEvent(@Observes(during = TransactionPhase.AFTER_COMPLETION) NotificationEvent notificationEvent) {
+		if(Boolean.TRUE.equals(onServiceNotificationEventEnabled)){
+			messageManager.addInfo(notificationEvent.getMessage().toString(), false);
+		}
 	}
 	
 }

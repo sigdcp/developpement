@@ -17,6 +17,9 @@ public class NotificationServiceImpl implements NotificationService,Serializable
 
 	private static final long serialVersionUID = -4376077455219565698L;
 	
+	private static final Boolean mail = Boolean.TRUE;
+	private static final Boolean fire = Boolean.FALSE;
+	
 	@Inject private MailService mailService;
 	@Inject private TemplateEngineService templateEngineService;
 	
@@ -33,12 +36,14 @@ public class NotificationServiceImpl implements NotificationService,Serializable
 	public NotificationMessage send(NotificationMessageType messageType,Map<String, Object> parameters, String receiver) {
 		NotificationMessage message = new NotificationMessage(messageType.getSubject(), 
 				templateEngineService.find(messageType.getEmailTemplateId(), parameters));
-		mailService.send(message, receiver);
+		if(mail)
+			mailService.send(message, receiver);
 		
 		//when mail not working use console for testing
 		//System.out.println(message);
 		
-		eventService.fire(new NotificationEvent(message));
+		if(fire)
+			eventService.fire(new NotificationEvent(message));
 		return message;
 	}
 	

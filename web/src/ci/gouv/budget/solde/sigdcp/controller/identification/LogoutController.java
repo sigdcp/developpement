@@ -31,7 +31,8 @@ public class LogoutController extends AbstractFormUIController<CompteUtilisateur
 	protected void initialisation() {
 		super.initialisation();
 		defaultSubmitCommand.setValue("bouton.sedeconnecter");
-		defaultSubmitCommand.setSuccessOutcome("index");
+		defaultSubmitCommand.setSuccessOutcome("login");
+		//onServiceNotificationEventEnabled = true;
 	}
 	
 	@Override

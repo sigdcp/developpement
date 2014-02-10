@@ -45,6 +45,7 @@ public class RecupererPasswordController extends AbstractFormUIController<Object
 		title = "Récupérer mot de passe oublié";
 		defaultSubmitCommand.setValue(text("bouton.valider"));
 		defaultSubmitCommand.setRendered(Boolean.FALSE);
+		defaultSubmitCommand.setSuccessOutcome("consulteremail");
 		
 		validerAgentEtat = createCommand().init("bouton.valider", "ui-icon-check", null, new Action() {
 			private static final long serialVersionUID = 634657461132080790L;

@@ -70,7 +70,8 @@ public class MailerServiceImpl implements MailService, Serializable {
 			message.setRecipients(Message.RecipientType.TO, receivers);
 			message.setSubject(mailMessage.getSubject());
 			message.setSentDate(new Date());
-			message.setText(mailMessage.getBody());
+			message.setContent(mailMessage.getBody(), "text/html; charset=utf-8");
+			//message.setText(mailMessage.getBody());
 			Transport.send(message);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
