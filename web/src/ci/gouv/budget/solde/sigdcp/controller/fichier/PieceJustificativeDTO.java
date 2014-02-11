@@ -18,10 +18,15 @@ public class PieceJustificativeDTO implements Serializable {
 	private UploadedFile file;
 	private Boolean numeroEditable = Boolean.TRUE,dateEtablissementEditable=Boolean.TRUE;
 	private Boolean editable=Boolean.TRUE;
+	private String libelle;
 	
 	public PieceJustificativeDTO(PieceJustificative piece) {
 		super();
 		this.piece = piece;
+		numeroEditable = Boolean.FALSE.equals(piece.getModel().getDerivee());
+		dateEtablissementEditable = numeroEditable;
 	}
+	
+	
 
 }

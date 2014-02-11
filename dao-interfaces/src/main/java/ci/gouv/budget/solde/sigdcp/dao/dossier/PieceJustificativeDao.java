@@ -12,5 +12,4 @@ public interface PieceJustificativeDao extends AbstractDocumentDao<PieceJustific
 	
 	Collection<PieceJustificative> readByDossierByType(Dossier dossier,TypePieceJustificative type);
 	
-
 }

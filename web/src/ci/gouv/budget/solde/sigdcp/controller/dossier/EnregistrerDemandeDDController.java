@@ -3,15 +3,19 @@ package ci.gouv.budget.solde.sigdcp.controller.dossier;
 
 import java.io.Serializable;
 
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierDDService;
  
 @Named @ViewScoped
@@ -24,9 +28,13 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIController<
 	 */  
 	@Inject private DossierDDService dossierDDService;
 	
-	
+	@NotNull(groups=Client.class)
 	@Getter @Setter private Boolean marie;
-	@Getter @Setter private Integer nombreEnfant;
+	
+	@NotNull(groups=Client.class)
+	@Getter @Setter private Integer nombreEnfant=0;
+	
+	//private PieceJustificativeAFournir extraitMariage;
 	
 
 	/*
@@ -48,9 +56,14 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIController<
 	@Override
 	protected void initialisation() {
 		super.initialisation();
+		entity.setBeneficiaire((AgentEtat) userSessionManager.getUser());
+		requiredEnabled=false;
 		//DossierDDValidator validator = new DossierDDValidator();
 		//enregistrerAction.setValidator(validator);
 		//soumettreAction.setValidator(validator);
+		
+		marie = (Boolean) parametres.get(constantResources.getFormParamMarie());
+		nombreEnfant = (Integer) parametres.get(constantResources.getFormParamNombreEnfant());
 		
 		if(isNatureDeplacementAffectation()){
 			showDatePriseService = Boolean.TRUE;
@@ -64,6 +77,17 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIController<
 			showDateMiseRetraite = Boolean.TRUE;
 			showServiceOrigine = Boolean.TRUE;
 		}
+		
+	}
+	
+	public void marieListener(){
+		parametres.put(constantResources.getFormParamMarie(), marie);
+		updatePieceJustificatives();
+	}
+	
+	public void nombreEnfantListener(ValueChangeEvent valueChangeEvent){
+		parametres.put(constantResources.getFormParamNombreEnfant(), valueChangeEvent.getNewValue());
+		updatePieceJustificatives();
 	}
 		
 	public boolean isNatureDeplacementAffectation(){

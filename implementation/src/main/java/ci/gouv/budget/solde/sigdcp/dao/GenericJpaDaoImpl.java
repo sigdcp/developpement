@@ -76,5 +76,10 @@ public class GenericJpaDaoImpl implements GenericDao , Serializable {
 		throw new RuntimeException("Must not be called");
 	}
 	
+	@Override
+	public Boolean exist(Object identifiant) {
+		throw new RuntimeException("Must not be called");
+	}
+	
 }
 

@@ -6,6 +6,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+
+import org.apache.commons.lang3.StringUtils;
 
 import ci.gouv.budget.solde.sigdcp.dao.DataAccessObject;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
@@ -47,6 +50,18 @@ public class JpaDaoImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIANT>,TYPE_
 		return entityManager.createQuery("SELECT record FROM "+clazz.getSimpleName()+" record", clazz).getResultList();
 	}
 
-	
+	@Override
+	public Boolean exist(TYPE_IDENTIFIANT identifiant) {
+		if(identifiant==null)
+			return false;
+		if(identifiant instanceof CharSequence && StringUtils.isEmpty((CharSequence) identifiant) )
+			return false;
+		try {
+			entityManager.getReference(clazz, identifiant);
+			return true;
+		} catch (EntityNotFoundException e) {
+			return false;
+		}
+	}
 	
 }

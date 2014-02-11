@@ -22,4 +22,6 @@ public interface PieceProduiteService extends AbstractDocumentService<PieceProdu
 	 */
 	Collection<PieceProduite> findByCategorieIdByTypePieceId(String cdid,String typeId);
 	
+	
+	
 }

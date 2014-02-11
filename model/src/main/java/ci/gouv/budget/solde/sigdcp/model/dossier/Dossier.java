@@ -13,18 +13,22 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
+import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 
 @Getter @Setter 
-@Entity 
+@Entity @EqualsAndHashCode(of={"numero"},callSuper=false)
 public class Dossier  extends AbstractModel<String>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -35,9 +39,10 @@ public class Dossier  extends AbstractModel<String>  implements Serializable{
 	
 	private String numeroCourrier;
 	
-	//@NotNull(message="la date de prise de service ne peut pas etre NULL")
 	@Temporal(TemporalType.TIMESTAMP) private Date datePriseService;
 	
+	@JoinColumn(nullable=false)
+	@NotNull
 	@ManyToOne private Deplacement deplacement;
 	
 	/**
@@ -45,7 +50,12 @@ public class Dossier  extends AbstractModel<String>  implements Serializable{
 	 */
 	@ManyToOne private Grade grade;
 	
+	@JoinColumn(nullable=false)
+	@NotNull
 	@ManyToOne private AgentEtat beneficiaire;
+	
+	@ManyToOne
+	private Section service;
 	
 	public Dossier() {}
 
@@ -59,5 +69,7 @@ public class Dossier  extends AbstractModel<String>  implements Serializable{
 		this.grade = grade;
 		this.beneficiaire = beneficiaire;
 	}
+	
+	
 	
 }

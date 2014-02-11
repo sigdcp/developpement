@@ -9,4 +9,9 @@ public interface PieceJustificativeAFournirService extends AbstractService<Piece
 
 	Collection<PieceJustificativeAFournir> findByNatureDeplacementId(String id);
 	
+	PieceJustificativeAFournir findByNatureDeplacementIdByTypePiece(String id,String typePieceId);
+	
+	Collection<PieceJustificativeAFournir> findBaseByNatureDeplacementId(String id);
+	
+	Collection<PieceJustificativeAFournir> findDeriveeByNatureDeplacementId(String id);
 }

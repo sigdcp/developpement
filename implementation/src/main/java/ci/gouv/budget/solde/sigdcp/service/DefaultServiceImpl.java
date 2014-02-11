@@ -44,6 +44,11 @@ public class DefaultServiceImpl<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIAN
 		return new LinkedList<>(dao.readAll());
 	}
 	
+	@Override
+	public Boolean exist(TYPE_IDENTIFIANT identifiant) {
+		return dao.exist(identifiant);
+	}
+	
 	/*------------------------------------------------------------------------------*/
 	
 	protected void notifier(NotificationMessageType messageType,Object[] theParameters, Party receiver) {

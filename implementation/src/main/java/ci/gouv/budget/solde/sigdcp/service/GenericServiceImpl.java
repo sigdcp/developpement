@@ -40,6 +40,10 @@ public class GenericServiceImpl implements GenericService , Serializable {
 		throw new RuntimeException("Must not be called");
 	}
 	
+	@Override
+	public Boolean exist(Object identifiant) {
+		throw new RuntimeException("Must not be called");
+	}
 
 }
 

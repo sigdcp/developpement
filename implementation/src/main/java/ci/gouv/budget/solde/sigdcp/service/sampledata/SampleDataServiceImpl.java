@@ -96,6 +96,8 @@ public class SampleDataServiceImpl implements SampleDataService {
 	private NatureOperation natureOperationLiquidation,natureOperationRBTBL,natureOperationRBTF,natureOperationRFDMission;
 	private TypePieceProduite typePieceProduiteBL,typePieceProduiteBT;
 	private QuestionSecrete  questionSecrete1,questionSecrete2,questionSecrete3;
+	private NatureOperation saisieO,soumission;
+	private Statut saisieS,soumis;
 	
 	@Override 
 	public void create() {
@@ -315,14 +317,40 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(serviceExploitation = new Section(ministereBudget,Code.SECTION_SERV_EXP, "Exploitation", service));
 		em.persist(serviceEtude = new Section(ministereBudget,Code.SECTION_SERV_ET, "Etude et développement", service));
 		
+		em.persist(saisieO = new NatureOperation(Code.NATURE_OPERATION_SAISIE, "Saisie"));
+		em.persist(soumission = new NatureOperation(Code.NATURE_OPERATION_SOUMISSION, "Soumission"));
+		
+		NatureOperation validationRecevabilite = new NatureOperation("VAL_REC", "Validation Reçevabilité");
+		em.persist(validationRecevabilite);
+		NatureOperation validationConformite = new NatureOperation("VAL_CON", "Validation Conformité");
+		em.persist(validationConformite);
+		
+		em.persist(natureOperationLiquidation = new NatureOperation(Code.NATURE_OPERATION_LIQUIDATION, "Liquidation"));
+		em.persist(natureOperationRBTBL = new NatureOperation(Code.NATURE_OPERATION_REALISTION_BTBL, "Réalisation de bordereau de bulletins de liquidation"));
+		em.persist(natureOperationRBTF = new NatureOperation(Code.NATURE_OPERATION_REALISTION_BTF, "Réalisation de bordereau de factures"));
+		NatureOperation reglement = new NatureOperation("PAIE", "Reglement");
+		em.persist(reglement);		
+		
+		em.persist(saisieS = new Statut(Code.STATUT_SAISIE, "Saisie", 0));
+		em.persist(soumis = new Statut(Code.STATUT_SOUMIS, "Soumis", 0));
+		
+		Statut recevable = new Statut(Code.STATUT_RECEVABLE, "Reçevable", 0);
+		em.persist(recevable);
+		Statut conforme = new Statut(Code.STATUT_CONFORME, "Conforme", 0);
+		em.persist(conforme);
+		Statut liquide = new Statut(Code.STATUT_LIQUIDE, "Liquide", 0);
+		em.persist(liquide);
+		Statut paye = new Statut("P", "Paye", 0);
+		em.persist(paye);
 		
 		agentEtat1 = creerAgentEtat(fonctionnaire,"096000T", "Fiellou", "N'Dri", date(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
 		agentEtat2 = creerAgentEtat(fonctionnaire,"101000G", "Edoh", "Vincent", date(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
 		agentEtat3 = creerAgentEtat(fonctionnaire,"201000L", "Losseni", "Diarrassouba", date(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
 		agentEtat4 = creerAgentEtat(fonctionnaire,"175000H", "Thio", "Bekpancha", date(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
 		
+		creerCompteUtilisateur(agentEtat1, "christian.komenan@budget.gouv.ci", "sigdcp", new Object[][]{ {questionSecrete3,"Dgbf"} });
+		
 		/*
-		creerCompteUtilisateur(agentEtat1, "sigdcp", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete1,"Tata pion"},{questionSecrete3,"Dgbf"} });
 		creerCompteUtilisateur(agentEtat2, "sigdcp1", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete3,"tresor"} });
 		creerCompteUtilisateur(agentEtat3, "sigdcp2", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete2,"orange"},{questionSecrete3,"Dgbf"} });
 		creerCompteUtilisateur(agentEtat4, "sigdcp3", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete1,"Tata pion"},{questionSecrete2,"mangue"},{questionSecrete3,"Dgbf"} });
@@ -372,29 +400,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 				dossierTransit3 = creerDossierTR(tr, agentEtat3),
 				dossierTransit4 = creerDossierTR(tr, agentEtat4);
 		
-		Statut soumis = new Statut(Code.STATUT_SOUMIS, "Soumis", 0);
-		em.persist(soumis);
-		Statut recevable = new Statut(Code.STATUT_RECEVABLE, "Reçevable", 0);
-		em.persist(recevable);
-		Statut conforme = new Statut(Code.STATUT_CONFORME, "Conforme", 0);
-		em.persist(conforme);
-		Statut liquide = new Statut(Code.STATUT_LIQUIDE, "Liquide", 0);
-		em.persist(liquide);
-		Statut paye = new Statut("P", "Paye", 0);
-		em.persist(paye);
-		
-		NatureOperation soumission = new NatureOperation("SOU", "Soumission");
-		em.persist(soumission);
-		NatureOperation validationRecevabilite = new NatureOperation("VAL_REC", "Validation Reçevabilité");
-		em.persist(validationRecevabilite);
-		NatureOperation validationConformite = new NatureOperation("VAL_CON", "Validation Conformité");
-		em.persist(validationConformite);
-		
-		em.persist(natureOperationLiquidation = new NatureOperation(Code.NATURE_OPERATION_LIQUIDATION, "Liquidation"));
-		em.persist(natureOperationRBTBL = new NatureOperation(Code.NATURE_OPERATION_REALISTION_BTBL, "Réalisation de bordereau de bulletins de liquidation"));
-		em.persist(natureOperationRBTF = new NatureOperation(Code.NATURE_OPERATION_REALISTION_BTF, "Réalisation de bordereau de factures"));
-		NatureOperation reglement = new NatureOperation("PAIE", "Reglement");
-		em.persist(reglement);
+
 		
 		operation(soumission, dossierDDAff1, soumis);
 		operation(validationRecevabilite, dossierDDAff1, recevable);
@@ -513,15 +519,17 @@ public class SampleDataServiceImpl implements SampleDataService {
 	}
 	
 	public DossierDD creerDossierDD(NatureDeplacement natureDeplacement,AgentEtat agentEtat){
-		Deplacement deplacement = new Deplacement(date(), date(), date(), null, natureDeplacement, serviceExploitation, serviceEtude, abidjan, bouake);
+		Deplacement deplacement = new Deplacement(date(), date(), date(), null, natureDeplacement, abidjan, bouake);
 		em.persist(deplacement);
 		DossierDD dossier = new DossierDD(numero(), date(), numero(), date(), deplacement, agentEtat.getGrade(), agentEtat, 500, 500, date(), numero(), abidjan, date(), date());
+		dossier.setServiceOrigine(serviceExploitation);
+		dossier.setService(serviceEtude);
 		em.persist(dossier);
 		return dossier;
 	}
 	
 	public DossierTransit creerDossierTR(NatureDeplacement natureDeplacement,AgentEtat agentEtat){
-		Deplacement deplacement = new Deplacement(date(), date(), date(), null, natureDeplacement, serviceExploitation, serviceEtude, abidjan, bouake);
+		Deplacement deplacement = new Deplacement(date(), date(), date(), null, natureDeplacement, abidjan, bouake);
 		em.persist(deplacement);
 		DossierTransit dossier = new DossierTransit(numero(), date(), numero(), date(), deplacement, agentEtat.getGrade(), agentEtat, date(),date(),500f, 500f);
 		em.persist(dossier);
@@ -529,7 +537,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	}
 	
 	public void operation(NatureOperation natureOperation,Dossier dossier,Statut statut){
-		Operation operation = new Operation(date(), natureOperation);
+		Operation operation = new Operation(date(), natureOperation,null);
 		em.persist(operation);
 		Traitement traitement = new Traitement(operation,null,dossier,statut);
 		em.persist(traitement);
@@ -548,7 +556,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	public BordereauTransmission creerBordereauTransmission(){
 		BordereauTransmission bt = new BordereauTransmission(numero(), typePieceProduiteBT, date());
 		em.persist(bt);
-		Operation operation = new Operation(date(), null);
+		Operation operation = new Operation(date(), null,null);
 		em.persist(operation);
 		for(Object[] d : bulletinLiquidations){
 			((BulletinLiquidation)d[1]).setBordereauTransmission(bt);
@@ -611,20 +619,15 @@ public class SampleDataServiceImpl implements SampleDataService {
 		return natureDeplacement;
 	}
 	
-	private void creerCompteUtilisateur(Party utilisateur,String username,String password,Role[] roles,Object[][] rs){
+	private void creerCompteUtilisateur(Party utilisateur,String username,String password,Object[][] rs){
 		Set<Role> r = new HashSet<Role>();
-		for(Role role : roles)
-			r.add(role);
+		if(utilisateur instanceof AgentEtat)
+			r.add(Role.AGENT_ETAT);
 		CompteUtilisateur compteUtilisateur = new CompteUtilisateur(new Credentials(username, password),utilisateur,r);
 		for(Object[] o : rs)
 			compteUtilisateur.getReponseSecretes().add(new ReponseSecrete((QuestionSecrete)o[0], (String)o[1]));
 		
 		em.persist(compteUtilisateur);
-		/*
-		compteUtilisateur1.getReponseSecretes().add(new ReponseSecrete(questionSecrete1, "Tata pion"));
-		compteUtilisateur1.getReponseSecretes().add(new ReponseSecrete(questionSecrete3, "dgbf"));
-		*/
-		
 	}
 
 }

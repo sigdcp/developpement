@@ -54,7 +54,7 @@ public class Mission  extends Deplacement   implements Serializable{
 
 	public Mission(CalendrierMission calendrierMission,Date dateDepart, Date dateArrivee,NatureDeplacement nature,Localite depart, Localite arrivee,
 			String designation, Integer mois, Integer dureeJour,String objetifs, String resultatsAttendu) {
-		super(null, dateDepart, dateArrivee, null, nature,null,null, depart, arrivee);
+		super(null, dateDepart, dateArrivee, null, nature, depart, arrivee);
 		this.calendrierMission = calendrierMission;
 		this.designation = designation;
 		this.mois = mois;

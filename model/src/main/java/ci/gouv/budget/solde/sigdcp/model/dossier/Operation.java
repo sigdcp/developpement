@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 
 @Getter @Setter 
 @Entity
@@ -37,12 +38,16 @@ public class Operation  extends AbstractModel<Long>  implements Serializable{
 	@ManyToOne
 	private NatureOperation nature;
 	
+	@ManyToOne
+	private Personne creePar;
+	
 	public Operation() {}
 
-	public Operation(Date date, NatureOperation nature) {
+	public Operation(Date date, NatureOperation nature,Personne creePar) {
 		super();
 		this.date = date;
 		this.nature = nature;
+		this.creePar = creePar;
 	}
 	
 	

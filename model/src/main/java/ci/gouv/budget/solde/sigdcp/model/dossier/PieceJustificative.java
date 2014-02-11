@@ -9,6 +9,7 @@
 package ci.gouv.budget.solde.sigdcp.model.dossier;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -25,6 +26,9 @@ public class PieceJustificative  extends Document  implements Serializable{
 	@ManyToOne
 	private PieceJustificativeAFournir model;
 	
+	@ManyToOne
+	private Dossier dossier;
+	
 	public PieceJustificative() {}
 
 	public PieceJustificative(PieceJustificativeAFournir model) {
@@ -32,9 +36,11 @@ public class PieceJustificative  extends Document  implements Serializable{
 		this.model = model;
 	}
 
-	public PieceJustificative(String numero, PieceJustificativeAFournir model) {
+	public PieceJustificative(Dossier dossier,String numero, PieceJustificativeAFournir model,Date dateEtablissement) {
 		super(numero);
 		this.model = model;
+		this.dossier=dossier;
+		this.dateEtablissement=dateEtablissement;
 	}
 	
 	

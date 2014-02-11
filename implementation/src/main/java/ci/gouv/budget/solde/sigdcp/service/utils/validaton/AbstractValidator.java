@@ -15,6 +15,7 @@ import javax.validation.Validator;
 import org.apache.commons.lang3.StringUtils;
 
 import lombok.Getter;
+import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 import ci.gouv.budget.solde.sigdcp.service.utils.ServiceValidationUtils;
 
@@ -35,7 +36,8 @@ public class AbstractValidator<OBJECT> implements Serializable {
 	protected Validator validator;
 
 	// the results
-	@Getter private Set<String> messages;
+	@Getter protected Set<String> messages = new LinkedHashSet<>();
+	@Getter @Setter private Boolean autoClearMessages=Boolean.TRUE;
 
 	public AbstractValidator(Class<OBJECT> objectClass) {
 		super();
@@ -66,7 +68,8 @@ public class AbstractValidator<OBJECT> implements Serializable {
 	
 	public AbstractValidator<OBJECT> validate(OBJECT object){
 		this.object=object;
-		messages = new LinkedHashSet<>();
+		if(Boolean.TRUE.equals(autoClearMessages))
+			messages = new LinkedHashSet<>();
 		/* processing */
 		process(objectClass, object);
 		process(validatorClass, this);
@@ -84,8 +87,8 @@ public class AbstractValidator<OBJECT> implements Serializable {
 	}
 	
 	protected String formatMessage(ConstraintViolation<?> constraintViolation){
-		//return constraintViolation.getPropertyPath()+" "+constraintViolation.getMessage();
-		return constraintViolation.getMessage();
+		return constraintViolation.getPropertyPath()+" "+constraintViolation.getMessage();
+		//return constraintViolation.getMessage();
 	}
 	
 	public Boolean isSucces(){
@@ -94,6 +97,13 @@ public class AbstractValidator<OBJECT> implements Serializable {
 	
 	public String getMessagesAsString(){
 		return messages==null?"":StringUtils.join(messages, "\r\n");
+	}
+	
+	protected boolean isNull(Object value){
+		if(value instanceof String)
+			return StringUtils.isEmpty((CharSequence) value);
+		
+		return value == null;
 	}
 	
 }

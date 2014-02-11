@@ -6,24 +6,15 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
+import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.service.AbstractService;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 
 public interface AbstractDossierService<DOSSIER extends Dossier> extends AbstractService<DOSSIER,String> {
-
-	/**
-	 * Transactions : service métier
-	 */
 	
-	/**
-	 * Attribut un numero au dossier et l'enregistre 
-	 * @param dossier
-	 * @throws ServiceException
-	 */
+	void enregistrer(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException;
 	
-	void enregistrer(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives) throws ServiceException;
-	
-	void soumettre(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives) throws ServiceException;
+	void soumettre(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException;
 	
 	void deposer(DOSSIER dossier) throws ServiceException;
 	
@@ -49,7 +40,7 @@ public interface AbstractDossierService<DOSSIER extends Dossier> extends Abstrac
 	 * Lectures
 	 */
 	
-	//DOSSIER findByIdWithPieceJustificative(String identifiant);
+	DOSSIER findSaisieByPersonneByNatureDeplacement(Personne personne,NatureDeplacement natureDeplacement);
 	
 	Collection<DOSSIER> findByNatureDeplacementAndStatut(NatureDeplacement natureDeplacement,Statut statut);
 	

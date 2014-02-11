@@ -22,7 +22,12 @@ public enum ServiceExceptionType{
 	IDENTIFICATION_COMPTE_UTILISATEUR_JETON_DEVEROUILLAGE_INCONNU("Le code de dévérouillage n'est pas valide"),
 	IDENTIFICATION_COMPTE_UTILISATEUR_REPONSE_INCORRECT("Une ou plusieurs des réponses sont incorrectes"),
 	
+	DOSSIER_STATUT_ILLELGAL("Cette operation ne peut pas etre réalisée."),
+	DOSSIER_PIECE_JUSTIFICATIVE_MANQUANTE("Toutes les pieces justificatives doivent être fournies."),
+	
 	SAISIE_INCOHERENTE("Les informations saisies sont incohérentes"),
+	
+	
 	
 	;
 	

@@ -50,6 +50,9 @@ public class ServiceConstantResources implements Serializable{
 	@Getter private final String webRequestParamVerrouCauseAccessMultiple = Cause.ACCESS_MULTIPLE.name().toLowerCase();
 	@Getter private final String webRequestParamVerrouCauseReinitialiserPassword = Cause.REINITIALISATION_PASSWORD.name().toLowerCase();
 	
+	@Getter private final String formParamMarie = "marie";
+	@Getter private final String formParamNombreEnfant = "nbrenf";
+	
 	public Date getDateNaissanceMinimum(){
 		Calendar calendar = Calendar.getInstance();
 		calendar.roll(Calendar.YEAR, -ageMinimumAns);

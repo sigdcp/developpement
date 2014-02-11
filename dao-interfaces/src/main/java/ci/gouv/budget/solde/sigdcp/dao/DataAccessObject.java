@@ -27,4 +27,5 @@ public interface DataAccessObject<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFI
 	
 	public Collection<TYPE_MODEL> readAll();
 
+	public Boolean exist(TYPE_IDENTIFIANT identifiant);
 }

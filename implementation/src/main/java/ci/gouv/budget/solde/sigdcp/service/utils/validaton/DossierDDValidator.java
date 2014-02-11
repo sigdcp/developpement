@@ -4,23 +4,65 @@ import java.io.Serializable;
 
 import javax.validation.constraints.AssertTrue;
 
+import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
+import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
-import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.System;
 
-public class DossierDDValidator extends AbstractValidator<DossierDD> implements Serializable {
+public class DossierDDValidator extends AbstractDossierValidator<DossierDD> implements Serializable {
 
 	private static final long serialVersionUID = -261860698364195138L;
 	
+	
+	
+	@AssertTrue(message="le service est obligatoire",groups=Client.class)
+	public boolean isServiceAcceuil(){
+		if(Code.NATURE_DEPLACEMENT_AFFECTATION.equals(object.getDeplacement().getNature().getCode()))
+			return object.getService()!=null;
+		return true;
+	}
+	
+	@AssertTrue(message="la date d'arrivée est obligatoire",groups=Client.class)
+	public boolean isDateArrivee(){
+		return object.getDeplacement().getDateArrivee()!=null;
+	}
+	
+	@AssertTrue(message="la date de départ doit etre inférieure à la date d'arrivée",groups=Client.class)
+	public boolean isDateDepartAvantDateArrivee(){
+		if(object.getDeplacement().getDateArrivee()==null)
+			return true;
+		return /*object.getDeplacement().getDateArrivee()!=null &&*/ object.getDeplacement().getDateDepart().before(object.getDeplacement().getDateArrivee());
+	}
+	
+	@AssertTrue(message="###",groups=Client.class)
+	public boolean isPieceJustificativesCorrect(){
+		pieceJustificativeValidator.setAutoClearMessages(Boolean.FALSE);
+		pieceJustificativeValidator.setSoumission(soumission);
+		for(PieceJustificative pj : pieceJustificatives)
+			pieceJustificativeValidator.validate(pj);
+		messages.addAll(pieceJustificativeValidator.getMessages());
+		pieceJustificativeValidator.getMessages().clear();
+		return pieceJustificativeValidator.isSucces();
+	}
+	
+	/*
+	@AssertTrue(message="la date de prise de service est obligatoire",groups=Client.class)
+	private boolean isDatePriseNotNull(){
+		return object.getDatePriseService()!=null;
+	}
+	*/
+	/*
 	@AssertTrue(message="Le dossier doit appartenir a un bénéficiaire",groups=System.class)
 	private boolean hasBenficiaire(){
 		return object.getBeneficiaire()!=null;
 	}
-	
+	*/
+	/*
 	@AssertTrue(message="la date de prise de service doit être inférieur a la date de cessation de service",groups=Client.class)
-	private boolean hasDatePriseServiceBeforeDateCessationService(){
-		return false;//object.getDatePriseService().before(object.getDateCessationService());
+	private boolean isDatePriseServiceBeforeDateCessationService(){
+		return object.getDatePriseService().before(object.getDateCessationService());
 	}
+	*/
 	
 	/*
 	Date datecourante = new Date();

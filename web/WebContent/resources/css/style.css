@@ -25,6 +25,12 @@
 	padding: 10px;
 }
 
+.pieceAImprimer{
+	border: 1px solid gray !important;
+	background:#eee;
+	padding: 10px;
+}
+
 .souscriptionComptePersonneReserveA{
 	padding: 5px;
 	text-align: center;

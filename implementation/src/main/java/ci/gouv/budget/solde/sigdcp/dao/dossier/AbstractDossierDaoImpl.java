@@ -2,24 +2,49 @@ package ci.gouv.budget.solde.sigdcp.dao.dossier;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import ci.gouv.budget.solde.sigdcp.dao.JpaDaoImpl;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
+import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 
 public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends JpaDaoImpl<DOSSIER, String> implements AbstractDossierDao<DOSSIER>, Serializable {
 
 	private static final long serialVersionUID = -2609724288199083806L;
 	
-	/*
+	@SuppressWarnings("unchecked")
 	@Override
-	public DOSSIER readWithPieceJustificative(String identifiant) {
-		return entityManager.createQuery("SELECT d FROM Dossier d JOIN FETCH d.pieceJustificatives WHERE d.numero = :numero", clazz)
-				.setParameter("numero", identifiant)
-				.getSingleResult();
+	public DOSSIER readSaisieByPersonneByNatureDeplacement(Personne personne, NatureDeplacement natureDeplacement) {
+		/*try {
+			return entityManager.createQuery("SELECT d FROM Dossier d "
+					+ "WHERE "
+					//+ "d.beneficiaire = :personne"
+					//+ " AND "
+					+ "d.deplacement.nature = :nature ("
+					+ " SELECT t FROM Traitement t WHERE t.dossier = d AND t.auteur = :personne"
+					+ ")"
+					, clazz)
+					.setParameter("personne", personne)
+					.setParameter("nature", natureDeplacement)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		} catch (NonUniqueResultException e) {
+			throw e;
+		}*/
+		
+		List<Traitement> traitements = entityManager.createQuery("SELECT t FROM Traitement t WHERE t.dossier.deplacement.nature = :nature AND t.operation.creePar = :personne ORDER BY t.operation.date ASC"
+				, Traitement.class)
+				.setParameter("personne", personne)
+				.setParameter("nature", natureDeplacement)
+				.setMaxResults(2)
+				.getResultList();
+		
+		return (DOSSIER) (traitements.size()==1?traitements.get(0).getDossier():null);
 	}
-	*/
 	 
 	@Override
 	public Collection<DOSSIER> readByStatut(Statut statut) {

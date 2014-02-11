@@ -24,4 +24,6 @@ public interface AbstractService<TYPE_MODEL extends AbstractModel<TYPE_IDENTIFIA
 	 */
 	public List<TYPE_MODEL> findAll();
 	
+	public Boolean exist(TYPE_IDENTIFIANT identifiant);
+	
 }

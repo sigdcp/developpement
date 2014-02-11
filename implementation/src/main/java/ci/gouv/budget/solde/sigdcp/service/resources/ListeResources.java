@@ -23,6 +23,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypePiece;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.identification.Categorie;
+import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
 import ci.gouv.budget.solde.sigdcp.model.identification.Profession;
 import ci.gouv.budget.solde.sigdcp.model.identification.QuestionSecrete;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
@@ -47,6 +48,11 @@ public class ListeResources {
 	@Produces @Named
     public PieceIdentiteType[] getPieceIdentiteTypes(){
     	return PieceIdentiteType.values(); 
+    }
+	
+	@Produces @Named
+    public List<Fonction> getFonctions(){
+    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(Fonction.class)); 
     }
 	
 	@Produces @Named

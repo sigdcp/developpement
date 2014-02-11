@@ -8,21 +8,37 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <body>
 	<ui:composition>
-		
+	
+		<ui:fragment rendered="#{not empty controller.pieceJustificativeUploader.AImprimer}">
+			<div class="pieceAImprimer">
+				<h:outputText value="#{constantResources.text('pieceaimprimer')}" />
+				<ui:repeat value="#{controller.pieceJustificativeUploader.AImprimer}" var="piece" rowIndexVar="index">
+					<b><h:outputText value="#{piece}" /></b><h:outputText value=" - " />
+				</ui:repeat>
+			</div> 		
+		</ui:fragment>
+
+		<p:spacer height="5"/>
 		<p:messages for="dt" />
 		<p:dataTable id="dt" value="#{controller.pieceJustificativeUploader.collection}" var="dto" rowIndexVar="index">
 			<f:facet name="header">Pièces justificatives</f:facet>
 			 <p:column headerText="Type Pièce">
-				<h:outputText value="#{dto.piece.model}" />		
+				<h:outputText value="#{dto.libelle}" />	
+				<p:button icon="ui-icon-print" title="Imprimer" outcome="imprimerpiecejustificative" rendered="#{dto.piece.model.derivee}" >
+					<f:param name="#{webConstantResources.requestParamPieceJustificative}" value="#{dto.piece.id}" />
+				</p:button>	
 			</p:column>
 			
 			<p:column headerText="Numéro #{dto.editable}" rendered="#{controller.pieceJustificativeUploader.showInputs}">
-				<p:inputText  value="#{dto.piece.numero}" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{dto.editable}"/>
-				<h:outputText value="#{dto.piece.numero}" rendered="#{not dto.editable}"/>
+				<p:inputText  value="#{dto.piece.numero}" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{dto.editable and dto.numeroEditable}"/>
+				<h:outputText value="#{dto.piece.numero}" rendered="#{not dto.editable or not dto.numeroEditable}"/>
 			</p:column>
 			<p:column headerText="Date d'établissement " rendered="#{controller.pieceJustificativeUploader.showInputs}">
-				<p:calendar value="#{dto.piece.dateEtablissement}" pattern="#{constantResources.datePattern}" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{dto.editable}"/>
-				<h:outputText value="#{dto.piece.dateEtablissement}" rendered="#{not dto.editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				<p:calendar value="#{dto.piece.dateEtablissement}" pattern="#{constantResources.datePattern}" required="false" requiredMessage="#{valueRequiredMessage}" 
+					rendered="#{dto.editable and dto.dateEtablissementEditable}"/>
+				<h:outputText value="#{dto.piece.dateEtablissement}" rendered="#{not dto.editable or not dto.dateEtablissementEditable}">
+					<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+				</h:outputText>
 			</p:column>
 			<!--
 			<p:column headerText="Date d'effet">
@@ -31,8 +47,15 @@
 			</p:column>
 			-->
 			<p:column headerText="Fonction du signataire" rendered="#{controller.pieceJustificativeUploader.showInputs}">
-				<p:inputText value="#{dto.piece.fonctionSignataire}" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{dto.editable}"/>
+				<p:selectOneMenu id="fonction#{iid}" value="#{dto.piece.fonctionSignataire}" required="false" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
+					rendered="#{dto.editable}">
+					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+					<f:selectItems value="#{fonctions}" />
+				</p:selectOneMenu>
 				<h:outputText value="#{dto.piece.fonctionSignataire}" rendered="#{not dto.editable}"/>	
+				<!--
+				<p:message for="fonction#{iid}" rendered="#{personneDto.editable and (fonction==null or fonction)}"/> 
+					-->			
 			</p:column>
 			
 			<p:column headerText="Fichier">

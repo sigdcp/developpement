@@ -12,14 +12,18 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
+import ci.gouv.budget.solde.sigdcp.model.identification.Section;
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 @Getter @Setter 
 @Entity 
@@ -53,6 +57,9 @@ public class DossierDD  extends Dossier   implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCessationService;
 	
+	@ManyToOne
+	private Section serviceOrigine;
+	
 	public DossierDD() {}
 
 	public DossierDD(String numero, Date dateDepot, String numeroCourrier,Date datePriseService, Deplacement deplacement,
@@ -66,6 +73,12 @@ public class DossierDD  extends Dossier   implements Serializable{
 		this.numeroRegistreMariage = numeroRegistreMariage;
 		this.dateMariage = dateMariage;
 		this.dateCessationService = dateCessationService;
+	}
+	
+	@NotNull(groups=Client.class)
+	@Override
+	public Date getDatePriseService() {
+		return super.getDatePriseService();
 	}
 	
 	

@@ -24,5 +24,20 @@ public class PieceJustificativeAFournirServiceImpl extends DefaultServiceImpl<Pi
 	public Collection<PieceJustificativeAFournir> findByNatureDeplacementId(String id) {
 		return ((PieceJustificativeAFournirDao)dao).readAllByNatureDeplacementId(id);
 	}
+	
+	@Override
+	public PieceJustificativeAFournir findByNatureDeplacementIdByTypePiece(String id,String typePieceId) {
+		return ((PieceJustificativeAFournirDao)dao).readByNatureDeplacementIdByTypePieceId(id, typePieceId);
+	}
+	
+	@Override
+	public Collection<PieceJustificativeAFournir> findBaseByNatureDeplacementId(String id) {
+		return ((PieceJustificativeAFournirDao)dao).readBaseByNatureDeplacementId(id);
+	}
+	
+	@Override
+	public Collection<PieceJustificativeAFournir> findDeriveeByNatureDeplacementId(String id) {
+		return ((PieceJustificativeAFournirDao)dao).readDeriveeByNatureDeplacementId(id);
+	}
 
 }

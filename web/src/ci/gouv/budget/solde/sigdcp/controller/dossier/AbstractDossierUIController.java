@@ -1,11 +1,17 @@
 package ci.gouv.budget.solde.sigdcp.controller.dossier;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import org.apache.commons.lang3.StringUtils;
+
+import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
 import ci.gouv.budget.solde.sigdcp.controller.fichier.PieceJustificativeUploader;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIController;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.Action;
@@ -14,7 +20,8 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
+import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.PieceJustificativeAFournirService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.PieceJustificativeService;
@@ -35,12 +42,13 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	 */
 	
 	@Inject @Getter protected PieceJustificativeUploader pieceJustificativeUploader;
-	
+	protected Map<String, Object> parametres;
 	
 	/*
 	 * Paramètres de requete
 	 */
 	@Setter @Getter protected NatureDeplacement natureDaplacement;
+	@Inject protected UserSessionManager userSessionManager;
 	
 	/*
 	 * Actions
@@ -61,16 +69,48 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 			private static final long serialVersionUID = 1L;
 			@Override
 			protected Object __execute__(Object object) throws Exception {
-				getDossierService().enregistrer(entity, pieceJustificativeUploader.process());
+				getDossierService().enregistrer(entity, pieceJustificativeUploader.process(),creerPar());
 				return null;
 			}
 		}).onSuccessStayOnCurrentView();
 		enregistrerCommand.setAjax(Boolean.FALSE);
 		
+		DOSSIER dossierEnCoursSaisie = getDossierService().findSaisieByPersonneByNatureDeplacement((AgentEtat) userSessionManager.getUser(), natureDaplacement);
+		if(dossierEnCoursSaisie!=null)
+			entity = dossierEnCoursSaisie;
+		if(dossierEnCoursSaisie!=null || getDossierService().exist(entity.getNumero()))
+			pieceJustificativeUploader.setAImprimer(pieceJustificativeAFournirService.findDeriveeByNatureDeplacementId(natureDaplacement.getCode()));
+		
+		updatePieceJustificatives(true);
+		parametres = pieceJustificativeService.findParametresByDossier(entity, pieceJustificativeUploader.getPieceJustificatives());
+		
+		defaultSubmitCommand.setRendered(StringUtils.isNotEmpty(entity.getNumero()));
+		
 		//just for testing
 		//defaultSubmitCommand.setImmediate(Boolean.TRUE);
 		//enregistrerCommand.setImmediate(Boolean.TRUE);
 		
+	}
+	
+	protected Personne creerPar(){
+		return userSessionManager.getUser();
+	}
+	
+	protected void updatePieceJustificatives(boolean first){
+		Collection<PieceJustificative> pieceJustificatives;
+		if(first)
+			pieceJustificatives = pieceJustificativeService.findByDossier(entity, null, parametres);
+		else
+			pieceJustificatives = pieceJustificativeService.findByDossier(entity, pieceJustificativeUploader.getPieceJustificatives(), parametres);
+		
+		pieceJustificativeUploader.clear();
+		for(PieceJustificative pieceJustificative : pieceJustificatives)
+			pieceJustificativeUploader.addPieceJustificative(pieceJustificative);
+		pieceJustificativeUploader.updateLibelle();
+	}
+	
+	protected void updatePieceJustificatives(){
+		updatePieceJustificatives(false);
 	}
 	
 	protected abstract DOSSIER_SERVICE getDossierService();
@@ -80,13 +120,12 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		super.initCreateOperation();
 		entity.setDeplacement(createDeplacement());
 		entity.getDeplacement().setNature(natureDaplacement);
-		//for(PieceJustificativeAFournir pieceJustificativeAFournir : pieceJustificativeAFournirService.findByNatureDeplacementId(entity.getDeplacement().getNature().getCode()))
-		//	pieceJustificativeUploader.addPieceJustificative(new PieceJustificative(pieceJustificativeAFournir, entity));
+		
 	}
 	
 	@Override
 	protected void onDefaultSubmitAction() throws Exception {
-		getDossierService().soumettre(entity, pieceJustificativeUploader.process());
+		getDossierService().soumettre(entity, pieceJustificativeUploader.process(),userSessionManager.getUser());
 	}
 	
 	protected Deplacement createDeplacement(){

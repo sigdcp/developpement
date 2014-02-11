@@ -1,6 +1,7 @@
 package ci.gouv.budget.solde.sigdcp.service.dossier;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -8,36 +9,30 @@ import javax.inject.Inject;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.DossierDDDao;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
+import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
+import ci.gouv.budget.solde.sigdcp.service.utils.validaton.DossierDDValidator;
 
 @Stateless
 public class DossierDDServiceImpl extends AbstractDossierServiceImpl<DossierDD> implements DossierDDService,Serializable {
 	
 	private static final long serialVersionUID = -7765679080076677680L;
 	
-	//@Inject private TypePieceJustificativeService typePieceJustificativeService;
-	//@Inject private PieceJustificativeService pieceJustificativeService;
+	@Inject private DossierDDValidator dossierDDValidator;
 	
 	@Inject
 	public DossierDDServiceImpl(DossierDDDao dao) {
 		super(dao);
 	}
-	
+		
 	@Override
-	public byte[] editerFeuilleDeplacement(DossierDD dossier) throws ServiceException {
-		/*
-		PieceJustificative feuilleDeplacement = new PieceJustificative(typePieceJustificativeService.findById(TypePieceJustificativeEnum.FD.name()),dossier);
-		feuilleDeplacement.setNumero("FD/2013/"+System.currentTimeMillis());
-		pieceJustificativeService.creer(feuilleDeplacement);
-		//on genere l'état sous forme binaire
-		byte[] etat = null;
-		*/
-		return null;//etat;
+	protected void validationSaisie(DossierDD dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne,Boolean soumission)throws ServiceException {
+		dossierDDValidator.setPieceJustificatives(pieceJustificatives);
+		dossierDDValidator.setSoumission(soumission);
+		if(!dossierDDValidator.validate(dossier).isSucces())
+			throw new ServiceException(dossierDDValidator.getMessagesAsString());
 	}
 	
-	@Override
-	public void soumettreFeuilleDeplacement(DossierDD dossier,PieceJustificative pieceJustificative) throws ServiceException {
-		dao.update(dossier);
-	}
+
 
 }

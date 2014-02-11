@@ -19,7 +19,7 @@ public class TraitementDaoImpl extends JpaDaoImpl<Traitement, Long> implements T
 				.getResultList();
 	}
 	
-	@Override
+	@Override 
 	public Traitement readByPieceProduite(PieceProduite pieceProduite) {
 		return entityManager.createQuery("SELECT traitement FROM Traitement traitement WHERE traitement.pieceProduite = :pieceProduite", clazz)
 				.setParameter("pieceProduite", pieceProduite)

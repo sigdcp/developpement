@@ -13,6 +13,12 @@
 		</navigation-case>
 
 		<navigation-case>
+			<from-outcome>imprimerpiecejustificative</from-outcome>
+			<to-view-id>/private/demande/impression.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
 			<from-outcome>demandeddForm</from-outcome>
 			<to-view-id>/private/demande/dd.xhtml</to-view-id>
 			<redirect />

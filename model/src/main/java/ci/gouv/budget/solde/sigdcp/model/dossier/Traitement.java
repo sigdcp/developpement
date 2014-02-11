@@ -40,6 +40,13 @@ public class Traitement  extends AbstractModel<Long>  implements Serializable{
 	@ManyToOne
 	private Statut statut;
 	
+	@ManyToOne
+	private Motif motif;
+	
+	private String observation;
+	
+	private ValidationType validationType;
+	
 	public Traitement() {}
 
 	public Traitement(Operation operation,

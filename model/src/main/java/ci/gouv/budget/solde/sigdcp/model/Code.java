@@ -151,6 +151,8 @@ public interface Code {
 	/*
 	 * Nature operation
 	 */
+	String NATURE_OPERATION_SAISIE="SAISIE";
+	String NATURE_OPERATION_SOUMISSION="SOUMIS";
 	String NATURE_OPERATION_LIQUIDATION="LIQ";
 	String NATURE_OPERATION_REALISTION_BTBL="RBTBL";
 	String NATURE_OPERATION_REALISTION_BTF="RBTF";
@@ -158,6 +160,7 @@ public interface Code {
 	/*
 	 * statut
 	 */
+	String STATUT_SAISIE = "SAISIE";
 	String STATUT_SOUMIS = "SOUMIS";
 	String STATUT_RECEVABLE = "RECEVABLE";
 	String STATUT_CONFORME = "CONFORME";

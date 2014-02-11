@@ -16,13 +16,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypePersonne;
 
 @Getter @Setter 
-@Entity
+@Entity @EqualsAndHashCode(of={"id"},callSuper=false)
 public class PieceJustificativeAFournir  extends AbstractModel<Long>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;

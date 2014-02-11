@@ -7,12 +7,14 @@
     PATH="/public/naturedeplacement.xhtml"
     TARGET="rules:#public#naturedeplacement.xhtml"
     TITLE="naturedepinfos" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="imprimerpiecejustificative::#private#demande#impression.xhtml"
+    NAME="output1" PATH="/private/demande/impression.xhtml"
+    TARGET="rules:#private#demande#impression.xhtml"
+    TITLE="imprimerpiecejustificative" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="demandeddForm::#private#demande#dd.xhtml"
-    NAME="output1" PATH="/private/demande/dd.xhtml"
+    NAME="output2" PATH="/private/demande/dd.xhtml"
     TARGET="rules:#private#demande#dd.xhtml" TITLE="demandeddForm" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="demandefoForm::#public#demande#fo.xhtml"
-    NAME="output2" PATH="/public/demande/fo.xhtml"
-    TARGET="rules:#public#demande#fo.xhtml" TITLE="demandefoForm" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="demandetrForm::#private#demande#tr.xhtml"
     NAME="output3" PATH="/private/demande/tr.xhtml"
     TARGET="rules:#private#demande#tr.xhtml" TITLE="demandetrForm" model-entity="JSFProcessItemOutput"/>
@@ -189,4 +191,6 @@
   NAME="rules:#private#personnel#dossier#listebulletinliquidation.xhtml"
   PATH="/private/personnel/dossier/listebulletinliquidation.xhtml"
   SHAPE="304,881,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#impression.xhtml"
+  PATH="/private/demande/impression.xhtml" SHAPE="304,881,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

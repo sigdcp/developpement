@@ -1,12 +1,16 @@
 package ci.gouv.budget.solde.sigdcp.service.dossier;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import ci.gouv.budget.solde.sigdcp.dao.dossier.DossierMissionDao;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
+import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
+import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
+import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 
 @Stateless
 public class DossierMissionServiceImpl extends AbstractDossierServiceImpl<DossierMission> implements DossierMissionService,Serializable {
@@ -16,6 +20,14 @@ public class DossierMissionServiceImpl extends AbstractDossierServiceImpl<Dossie
 	@Inject
 	public DossierMissionServiceImpl(DossierMissionDao dao) {
 		super(dao);
+	}
+	
+	@Override
+	protected void validationSaisie(DossierMission dossier,
+			Collection<PieceJustificative> pieceJustificatives,
+			Personne personne, Boolean soumission) throws ServiceException {
+		// TODO Auto-generated method stub
+		
 	}
  
 }
