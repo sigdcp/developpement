@@ -6,31 +6,35 @@
 	<navigation-rule>
 
 		<from-view-id>*</from-view-id>
-		
-			<!-- autentification -->
-		   <navigation-case>
-   <from-outcome>login</from-outcome>
-   <to-view-id>/public/login.xhtml</to-view-id>
-  </navigation-case>
-		
+
+		<!-- autentification -->
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/public/login.xhtml</to-view-id>
+		</navigation-case>
+
 		<navigation-case>
 			<from-outcome>espacePrivee</from-outcome>
+			<!--
 			<to-view-id>/private/espacePrive.xhtml</to-view-id>
+			-->
+			<to-view-id>/private/demande/liste.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-		
+
 		<!-- Agent de l'état -->
-		  <navigation-case>
-   <from-outcome>inscriptionpersonne</from-outcome>
-   <to-view-id>/public/inscriptionpersonne.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
-		
-		  <navigation-case>
-   <from-outcome>souscriptionliste</from-outcome>
-   <to-view-id>/private/personnel/identification/valideragent.xhtml</to-view-id>
-   <redirect/>
-  </navigation-case>
+		<navigation-case>
+			<from-outcome>inscriptionpersonne</from-outcome>
+			<to-view-id>/public/inscriptionpersonne.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>souscriptionliste</from-outcome>
+			<to-view-id>/private/personnel/identification/valideragent.xhtml
+			</to-view-id>
+			<redirect />
+		</navigation-case>
 
 		<!-- Gestionnaire de carte -->
 

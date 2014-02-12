@@ -28,15 +28,15 @@ public class ServiceProposeDto implements Serializable  {
 		lirePlusRequestParamValue = natureDeplacement.getCode();
 		
 		if(Code.CATEGORIE_DEPLACEMENT_DEFINITIF.equals(natureDeplacement.getCategorie().getCode()))
-			outcome = "demandeddForm";
+			outcome = "demande_dd";
 		else if(Code.CATEGORIE_DEPLACEMENT_MISSION.equals(natureDeplacement.getCategorie().getCode()))
-			outcome = "demandemhciForm";
+			outcome = "demande_m";
 		else if(Code.CATEGORIE_DEPLACEMENT_OBSEQUE.equals(natureDeplacement.getCategorie().getCode()))
-			outcome = "demandefoForm";
+			outcome = "demande_o";
 		else if(Code.CATEGORIE_DEPLACEMENT_TRANSIT.equals(natureDeplacement.getCategorie().getCode()))
-			outcome = "demandetrForm";
+			outcome = "demande_t";
 		else if(Code.CATEGORIE_DEPLACEMENT_TRANSPORT_URBAIN.equals(natureDeplacement.getCategorie().getCode()))
-			outcome = "demandeddForm";
+			outcome = "demande_dd";
 		
 		if(Code.NATURE_DEPLACEMENT_OBSEQUE_FRAIS.equals(natureDeplacement.getCode())){
 			showDepotDossierButton = Boolean.FALSE;

@@ -111,18 +111,18 @@ public class MenuBuilder implements Serializable {
 	private void agentEtat(){
 		Submenu formulerUneDemande = menuManager.addSubmenu("menu.formulerdemande");
 		
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.affectation", "demandeddForm",new Object[]{
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.affectation", "demande_dd",new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_AFFECTATION });
 		
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.mutation","demandeddForm",new Object[]{
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.mutation","demande_dd",new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_MUTATION});
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.departretraite","demandeddForm",new Object[]{
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.departretraite","demande_dd",new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_RETRAITE});
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.obseques","demandefoForm",new Object[]{
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.obseques","demande_o",new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_OBSEQUE_FRAIS});
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.mhci","demandemhciForm",new Object[]{
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.mhci","demande_m",new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_MISSION_HCI});
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.tr","demandetrForm",new Object[]{
+		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.tr","demande_t",new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES});
 		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.consulter","demandeliste",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
 		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.deposercourrier","demandeliste", new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});

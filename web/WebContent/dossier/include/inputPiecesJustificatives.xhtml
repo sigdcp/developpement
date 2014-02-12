@@ -9,7 +9,7 @@
 <body>
 	<ui:composition>
 	
-		<ui:fragment rendered="#{not empty controller.pieceJustificativeUploader.AImprimer}">
+		<ui:fragment rendered="#{controller.editable and not empty controller.pieceJustificativeUploader.AImprimer}">
 			<div class="pieceAImprimer">
 				<h:outputText value="#{constantResources.text('pieceaimprimer')}" />
 				<ui:repeat value="#{controller.pieceJustificativeUploader.AImprimer}" var="piece" rowIndexVar="index">
@@ -24,43 +24,43 @@
 			<f:facet name="header">Pièces justificatives</f:facet>
 			 <p:column headerText="Type Pièce">
 				<h:outputText value="#{dto.libelle}" />	
-				<p:button icon="ui-icon-print" title="Imprimer" outcome="imprimerpiecejustificative" rendered="#{dto.piece.model.derivee}" >
+				<p:button icon="ui-icon-print" title="Imprimer" outcome="imprimerpiecejustificative" rendered="#{dto.piece.model.derivee and controller.editable}" >
 					<f:param name="#{webConstantResources.requestParamPieceJustificative}" value="#{dto.piece.id}" />
 				</p:button>	
 			</p:column>
 			
-			<p:column headerText="Numéro #{dto.editable}" rendered="#{controller.pieceJustificativeUploader.showInputs}">
-				<p:inputText  value="#{dto.piece.numero}" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{dto.editable and dto.numeroEditable}"/>
-				<h:outputText value="#{dto.piece.numero}" rendered="#{not dto.editable or not dto.numeroEditable}"/>
+			<p:column headerText="Numéro" rendered="#{controller.pieceJustificativeUploader.showInputs}">
+				<p:inputText  value="#{dto.piece.numero}" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{controller.editable and dto.numeroEditable}"/>
+				<h:outputText value="#{dto.piece.numero}" rendered="#{not controller.editable or not dto.numeroEditable}"/>
 			</p:column>
 			<p:column headerText="Date d'établissement " rendered="#{controller.pieceJustificativeUploader.showInputs}">
 				<p:calendar value="#{dto.piece.dateEtablissement}" pattern="#{constantResources.datePattern}" required="false" requiredMessage="#{valueRequiredMessage}" 
-					rendered="#{dto.editable and dto.dateEtablissementEditable}"/>
-				<h:outputText value="#{dto.piece.dateEtablissement}" rendered="#{not dto.editable or not dto.dateEtablissementEditable}">
+					rendered="#{controller.editable and dto.dateEtablissementEditable}"/>
+				<h:outputText value="#{dto.piece.dateEtablissement}" rendered="#{not controller.editable or not dto.dateEtablissementEditable}">
 					<f:convertDateTime pattern="#{constantResources.datePattern}"/>
 				</h:outputText>
 			</p:column>
 			<!--
 			<p:column headerText="Date d'effet">
-				<p:calendar value="#{dto.piece.dateEffetDecision}" pattern="#{constantResources.datePattern}" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{dto.editable}"/>	
+				<p:calendar value="#{dto.piece.dateEffetDecision}" pattern="#{constantResources.datePattern}" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{controller.editable}"/>	
 				<h:outputText value="#{dto.piece.dateEffetDecision}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 			</p:column>
 			-->
 			<p:column headerText="Fonction du signataire" rendered="#{controller.pieceJustificativeUploader.showInputs}">
 				<p:selectOneMenu id="fonction#{iid}" value="#{dto.piece.fonctionSignataire}" required="false" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
-					rendered="#{dto.editable}">
+					rendered="#{controller.editable}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{fonctions}" />
 				</p:selectOneMenu>
-				<h:outputText value="#{dto.piece.fonctionSignataire}" rendered="#{not dto.editable}"/>	
+				<h:outputText value="#{dto.piece.fonctionSignataire}" rendered="#{not controller.editable}"/>	
 				<!--
-				<p:message for="fonction#{iid}" rendered="#{personneDto.editable and (fonction==null or fonction)}"/> 
+				<p:message for="fonction#{iid}" rendered="#{personnecontroller.editable and (fonction==null or fonction)}"/> 
 					-->			
 			</p:column>
 			
 			<p:column headerText="Fichier">
-				<p:fileUpload value="#{dto.file}" id="fichier#{index}" mode="simple" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{dto.editable}"/>
-				<p:commandButton value="Voir" icon="ui-icon-search" rendered="#{not dto.editable}" oncomplete="PF('imageDialog').show();" update="@form:display @form:imageDialogHeader">
+				<p:fileUpload value="#{dto.file}" id="fichier#{index}" mode="simple" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{controller.editable}"/>
+				<p:commandButton value="Voir" icon="ui-icon-search" rendered="#{not controller.editable}" oncomplete="PF('imageDialog').show();" update="@form:display @form:imageDialogHeader">
 					<f:setPropertyActionListener value="#{dto.piece}" target="#{uploader.pieceJustificativeSelectionne}" />
 				</p:commandButton>
 			</p:column>

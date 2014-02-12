@@ -10,29 +10,31 @@
 <h:body>
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewParam id="nextViewOutcome" name="#{webConstantResources.requestParamNextViewOutcome}" value="#{demandeListeController.nextViewOutcome}" converter="#{viewParamOutcomeConverter}" >
+			<f:viewParam id="nextViewOutcome" name="#{webConstantResources.requestParamNextViewOutcome}" value="#{dossierAgentEtatListeController.nextViewOutcome}" converter="#{viewParamOutcomeConverter}" >
 				<f:attribute name="#{webConstantResources.requestParamOutcomeAction}" value="false" />
 			</f:viewParam>
-        	<f:event type="preRenderView" listener="#{demandeListeController.preRenderView}" />    	
+        	<f:event type="preRenderView" listener="#{dossierAgentEtatListeController.preRenderView}" />    	
     	</f:metadata>
 	</ui:define>
 		
 	<ui:composition template="/template/commun.xhtml">
 		<ui:define name="contenu">
 			<ui:decorate template="/template/formTemplate.xhtml">
-				<ui:param name="uiController" value="#{demandeListeController}" />
+				<ui:param name="uiController" value="#{dossierAgentEtatListeController}" />
 				<ui:define name="contenu">
 		
 					<ui:decorate template="/template/dataList.xhtml">
-						<ui:param name="controller" value="#{demandeListeController}" />
+						<ui:param name="controller" value="#{dossierAgentEtatListeController}" />
 												
 						<ui:define name="colonnes">
 							<p:column headerText="N°"><h:outputText value="#{record.numero}" /></p:column>
-							<p:column headerText="Nature"><h:outputText value="#{record.deplacement.nature.libelle}" /></p:column>
-							<p:column headerText="Date de soumission"><h:outputText value="#{record.dateDepot}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
-							<p:column headerText="Date de validation"><h:outputText value="#{record.dateDepot}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
+							<p:column headerText="Nature"><h:outputText value="#{record.dossier.deplacement.nature.libelle}" /></p:column>
+							<!--
+							<p:column headerText="Date de soumission"><h:outputText value="#{record.dateSoumission}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
+							<p:column headerText="Date de validation de la recevabilité"><h:outputText value="#{record.dateValidationRecevabilite}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
 							<p:column headerText="Date de dépôt"><h:outputText value="#{record.dateDepot}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
-							<p:column headerText="Statut"><h:outputText value="Soumise" /></p:column>
+							-->
+							<p:column headerText="Statut"><h:outputText value="#{record.statut}" /></p:column>
 						</ui:define>
 					</ui:decorate>		
 				</ui:define>

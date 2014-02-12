@@ -12,34 +12,31 @@
     NAME="output1" PATH="/private/demande/impression.xhtml"
     TARGET="rules:#private#demande#impression.xhtml"
     TITLE="imprimerpiecejustificative" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="demandeddForm::#private#demande#dd.xhtml"
+   <PROCESS-ITEM-OUTPUT ID="demande_dd::#private#demande#dd.xhtml"
     NAME="output2" PATH="/private/demande/dd.xhtml"
-    TARGET="rules:#private#demande#dd.xhtml" TITLE="demandeddForm" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="demandetrForm::#private#demande#tr.xhtml"
-    NAME="output3" PATH="/private/demande/tr.xhtml"
-    TARGET="rules:#private#demande#tr.xhtml" TITLE="demandetrForm" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="demandemhciForm::#private#demande#mhci.xhtml" NAME="output4"
-    PATH="/private/demande/mhci.xhtml"
-    TARGET="rules:#private#demande#mhci.xhtml" TITLE="demandemhciForm" model-entity="JSFProcessItemOutput"/>
+    TARGET="rules:#private#demande#dd.xhtml" TITLE="demande_dd" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="demande_o::#public#demande#fo.xhtml"
+    NAME="output3" PATH="/public/demande/fo.xhtml"
+    TARGET="rules:#public#demande#fo.xhtml" TITLE="demande_o" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="demande_t::#private#demande#tr.xhtml"
+    NAME="output4" PATH="/private/demande/tr.xhtml"
+    TARGET="rules:#private#demande#tr.xhtml" TITLE="demande_t" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="demande_m::#private#demande#mhci.xhtml"
+    NAME="output5" PATH="/private/demande/mhci.xhtml"
+    TARGET="rules:#private#demande#mhci.xhtml" TITLE="demande_m" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="demandeliste::#private#demande#liste.xhtml"
-    NAME="output5" PATH="/private/demande/liste.xhtml"
+    NAME="output6" PATH="/private/demande/liste.xhtml"
     TARGET="rules:#private#demande#liste.xhtml" TITLE="demandeliste" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="demandeconsultation::#private#demande#details.xhtml"
-    NAME="output6" PATH="/private/demande/details.xhtml"
+    NAME="output7" PATH="/private/demande/details.xhtml"
     TARGET="rules:#private#demande#details.xhtml"
     TITLE="demandeconsultation" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="generationattestationpc::#private#personnel#dossier#gapc.xhtml"
-    NAME="output7" PATH="/private/personnel/dossier/gapc.xhtml"
+    NAME="output8" PATH="/private/personnel/dossier/gapc.xhtml"
     TARGET="rules:#private#personnel#dossier#gapc.xhtml"
     TITLE="generationattestationpc" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="generationprojetdecisionremb::#private#personnel#dossier#gpdr.xhtml"
-    NAME="output8" PATH="/private/personnel/dossier/gpdr.xhtml"
-    TARGET="rules:#private#personnel#dossier#gpdr.xhtml"
-    TITLE="generationprojetdecisionremb" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="dossierliste::#private#personnel#dossier#liste.xhtml"
     NAME="output9" PATH="/private/personnel/dossier/liste.xhtml"

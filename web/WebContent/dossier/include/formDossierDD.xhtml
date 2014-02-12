@@ -25,6 +25,25 @@
 		<ui:param name="editable" value="#{editable==null?controller.editable:editable}" />
 		<ui:param name="requiredEnabled" value="#{controller.requiredEnabled}" />
 		
+		<h:outputText value="Statut : #{controller.statutCourant}" rendered="#{controller.statutCourant!=null}"/>
+		
+		<p:fieldset legend="Dépot du dossier" rendered="#{controller.showDepotDossier}">
+			<p:panelGrid columns="5" styleClass="panelGridNoBorder" >
+				<h:outputText value="" /><p:message for="numCourrier" /><h:outputText value="" /><p:message for="datCourrier" /><h:outputText value="" />
+				
+				<p:outputLabel value="Numéro de courrier" for="numCourrier"/>
+				<p:inputText id="numCourrier" />
+				
+				<p:outputLabel value="Date de dépot" for="datCourrier"/>
+				<p:calendar id="datCourrier" />
+				
+				<ui:include src="/resources/include/component/formCommand.xhtml" >
+					<ui:param name="command" value="#{controller.depotCommand}" />
+				</ui:include>
+				
+			</p:panelGrid>			
+		</p:fieldset>
+		
 		<p:fieldset legend="Agent" id="fieldsetAgent">	
 			<ui:include src="/identification/include/outputAgentEtat.xhtml" >
 				<ui:param name="agentEtat" value="#{controller.dossier.beneficiaire}" />

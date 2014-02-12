@@ -19,23 +19,23 @@
 		</navigation-case>
 
 		<navigation-case>
-			<from-outcome>demandeddForm</from-outcome>
+			<from-outcome>demande_dd</from-outcome>
 			<to-view-id>/private/demande/dd.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 
 		<navigation-case>
-			<from-outcome>demandefoForm</from-outcome>
+			<from-outcome>demande_o</from-outcome>
 			<to-view-id>/public/demande/fo.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>demandetrForm</from-outcome>
+			<from-outcome>demande_t</from-outcome>
 			<to-view-id>/private/demande/tr.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>demandemhciForm</from-outcome>
+			<from-outcome>demande_m</from-outcome>
 			<to-view-id>/private/demande/mhci.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>

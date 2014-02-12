@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="login::#public#login.xhtml" NAME="output"
+    PATH="/public/login.xhtml" TARGET="rules:#public#login.xhtml"
+    TITLE="login" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="espacePrivee::#private#demande#liste.xhtml"
+    NAME="output1" PATH="/private/demande/liste.xhtml"
+    TARGET="rules:#private#demande#liste.xhtml" TITLE="espacePrivee" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="inscriptionpersonne::#public#inscriptionpersonne.xhtml"
+    NAME="output2" PATH="/public/inscriptionpersonne.xhtml"
+    TARGET="rules:#public#inscriptionpersonne.xhtml"
+    TITLE="inscriptionpersonne" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="souscriptionliste::#private#personnel#identification#valideragent.xhtml"
+    NAME="output3"
+    PATH="/private/personnel/identification/valideragent.xhtml"
+    TARGET="rules:#private#personnel#identification#valideragent.xhtml"
+    TITLE="souscriptionliste" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="inscriregestionairecartesotra::#private#personnel#identification#souscriptiongestionnairecarte.xhtml"
+    NAME="output4"
+    PATH="/private/personnel/identification/souscriptiongestionnairecarte.xhtml"
+    TARGET="rules:#private#personnel#identification#souscriptiongestionnairecarte.xhtml"
+    TITLE="inscriregestionairecartesotra" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="souscriptiongestionnairecartesotraliste::#private#personnel#identification#souscriptiongestionnairecartesotraliste.xhtml"
+    NAME="output5"
+    PATH="/private/personnel/identification/souscriptiongestionnairecartesotraliste.xhtml"
+    TARGET="rules:#private#personnel#identification#souscriptiongestionnairecartesotraliste.xhtml"
+    TITLE="souscriptiongestionnairecartesotraliste" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="validergestionairecartesotra::#private#personnel#identification#validationsouscriptiongestionnairecartesotra.xhtml"
+    NAME="output6"
+    PATH="/private/personnel/identification/validationsouscriptiongestionnairecartesotra.xhtml"
+    TARGET="rules:#private#personnel#identification#validationsouscriptiongestionnairecartesotra.xhtml"
+    TITLE="validergestionairecartesotra" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="listebasegestionnaire::#private#demande#gestionnairecartesotraliste.xhtml"
+    NAME="output7"
+    PATH="/private/demande/gestionnairecartesotraliste.xhtml"
+    TARGET="rules:#private#demande#gestionnairecartesotraliste.xhtml"
+    TITLE="listebasegestionnaire" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="inscriptionlistebasegcs::#private#demande#inscriptionlistegestionnairecartesotraForm.xhtml"
+    NAME="output8"
+    PATH="/private/demande/inscriptionlistegestionnairecartesotraForm.xhtml"
+    TARGET="rules:#private#demande#inscriptionlistegestionnairecartesotraForm.xhtml"
+    TITLE="inscriptionlistebasegcs" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="inscritslistebasegcs::#private#personnel#identification#inscritslbgestionnairecartesotraliste.xhtml"
+    NAME="output9"
+    PATH="/private/personnel/identification/inscritslbgestionnairecartesotraliste.xhtml"
+    TARGET="rules:#private#personnel#identification#inscritslbgestionnairecartesotraliste.xhtml"
+    TITLE="inscritslistebasegcs" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="validationinscriptionlb::#private#personnel#identification#validationincriptionlistebasegscForm.xhtml"
+    NAME="output10"
+    PATH="/private/personnel/identification/validationincriptionlistebasegscForm.xhtml"
+    TARGET="rules:#private#personnel#identification#validationincriptionlistebasegscForm.xhtml"
+    TITLE="validationinscriptionlb" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="consulterbeneficiairelistebase::#private#personnel#identification#consulterbeneficiairelistebase.xhtml"
+    NAME="output11"
+    PATH="/private/personnel/identification/consulterbeneficiairelistebase.xhtml"
+    TARGET="rules:#private#personnel#identification#consulterbeneficiairelistebase.xhtml"
+    TITLE="consulterbeneficiairelistebase" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="detailbeneficiairelistebase::#private#personnel#identification#beneficiairelistebasedetail.xhtml"
+    NAME="output12"
+    PATH="/private/personnel/identification/beneficiairelistebasedetail.xhtml"
+    TARGET="rules:#private#personnel#identification#beneficiairelistebasedetail.xhtml"
+    TITLE="detailbeneficiairelistebase" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#identification#consulterbeneficiairelistebase.xhtml"
+  PATH="/private/personnel/identification/consulterbeneficiairelistebase.xhtml"
+  SHAPE="304,1649,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#public#inscriptionpersonne.xhtml"
+  PATH="/public/inscriptionpersonne.xhtml" SHAPE="304,641,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#identification#inscritslbgestionnairecartesotraliste.xhtml"
+  PATH="/private/personnel/identification/inscritslbgestionnairecartesotraliste.xhtml"
+  SHAPE="304,1425,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#identification#souscriptiongestionnairecartesotraliste.xhtml"
+  PATH="/private/personnel/identification/souscriptiongestionnairecartesotraliste.xhtml"
+  SHAPE="304,977,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#identification#valideragent.xhtml"
+  PATH="/private/personnel/identification/valideragent.xhtml"
+  SHAPE="304,753,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#identification#beneficiairelistebasedetail.xhtml"
+  PATH="/private/personnel/identification/beneficiairelistebasedetail.xhtml"
+  SHAPE="304,1761,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#identification#validationsouscriptiongestionnairecartesotra.xhtml"
+  PATH="/private/personnel/identification/validationsouscriptiongestionnairecartesotra.xhtml"
+  SHAPE="304,1089,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#demande#gestionnairecartesotraliste.xhtml"
+  PATH="/private/demande/gestionnairecartesotraliste.xhtml"
+  SHAPE="304,1201,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#public#login.xhtml"
+  PATH="/public/login.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#identification#validationincriptionlistebasegscForm.xhtml"
+  PATH="/private/personnel/identification/validationincriptionlistebasegscForm.xhtml"
+  SHAPE="304,1537,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#demande#inscriptionlistegestionnairecartesotraForm.xhtml"
+  PATH="/private/demande/inscriptionlistegestionnairecartesotraForm.xhtml"
+  SHAPE="304,1313,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#identification#souscriptiongestionnairecarte.xhtml"
+  PATH="/private/personnel/identification/souscriptiongestionnairecarte.xhtml"
+  SHAPE="304,865,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#liste.xhtml"
+  PATH="/private/demande/liste.xhtml" SHAPE="304,529,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

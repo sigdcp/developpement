@@ -40,13 +40,14 @@ public class DossierAgentEtatListeController extends AbstractEntityListUIControl
 		internalCode = "FS_DEM_01_Ecran_01";
 		defaultSubmitCommand.setRendered(Boolean.FALSE);
 		closeCommand.setRendered(Boolean.FALSE);
+		nextViewOutcome = "demande";
 	}
 	
 	@Override
-	protected InitWhen initWhen() {
-		return InitWhen.POST_CONSTRUCT;
+	protected ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEntityListUIController.ProcessingType getProcessingType() {
+		return ProcessingType.SINGLE;
 	}
-	
+		
 	@Override
 	protected String identifierFieldName() {
 		return "numero";
@@ -57,14 +58,16 @@ public class DossierAgentEtatListeController extends AbstractEntityListUIControl
 		return new LinkedList<>(dossierService.findByAgentEtatDto((AgentEtat) userSessionManager.getUser()));
 	}
 	
-	public String href(Dossier dossier){
-		String outcome = navigationManager.url(nextViewOutcome+outcomeSuffix(dossier),getIsBatchProcessing());
-		return navigationHelper.addQueryParameters(outcome, 
+	public String href(DossierDto dossierDto){
+		String outcome = navigationManager.url(nextViewOutcome+outcomeSuffix(dossierDto.getDossier()),getIsBatchProcessing());
+		String url = navigationHelper.addQueryParameters(outcome, 
 				new Object[]{
-				webConstantResources.getRequestParamDossier(),dossier.getNumero()
+				webConstantResources.getRequestParamDossier(),dossierDto.getNumero()
 				,webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudRead()
 				//,webConstantResources.getRequestParamPreviousURL(),navigationManager.getRequestUrl()
 				});
+		System.out.println(url);
+		return url;
 	}
 	
 	private String outcomeSuffix(Dossier dossier){

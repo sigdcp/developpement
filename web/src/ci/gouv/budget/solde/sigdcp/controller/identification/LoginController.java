@@ -29,7 +29,7 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
  
 	private static final long serialVersionUID = 6591392098578555259L;
 	
-	public static final String HOME_URL = "private/espacePrive.jsf";
+	//public static final String HOME_URL = "private/espacePrive.jsf";
 	
 	/*
 	 * Services
@@ -73,7 +73,7 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
         SecurityUtils.getSubject().login(new UsernamePasswordToken(getDto().getUsername(), getDto().getPassword(), remember));
         userSessionManager.setCompteUtilisateur(compteUtilisateur);
         SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());
-        Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : HOME_URL);
+        Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : navigationManager.url("espacePrivee",false).substring(1));
 	}
 	
 	
