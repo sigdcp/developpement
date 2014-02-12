@@ -23,16 +23,16 @@
 				<ui:param name="uiController" value="#{consulterDemandeController}" />
 				<ui:define name="contenu">
 					<h1><h:outputText value="Dossier N° #{consulterDemandeController.entity.numero}" /> </h1>
-					<h4><h:outputText value="Statut courant : #{consulterDemandeController.statut}" /> </h4>
+					<h4><h:outputText value="Statut courant : #{consulterDemandeController.statutCourant}" /> </h4>
 					<p:separator/>	
 					<table style="width:100%"><tr style="vertical-align: top;"> 
 						<td>
 							<h:panelGroup>
 								<p:panelGrid columns="2" styleClass="panelGridNoBorder">
 									<h:outputText value="Nature du déplacement" /><h:outputText value="#{consulterDemandeController.entity.deplacement.nature.libelle}" />
-									<h:outputText value="Date de soumission" /><h:outputText value="#{consulterDemandeController.dateSoumission}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
-									<h:outputText value="Date de validation" /><h:outputText value="#{consulterDemandeController.dateValidation}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+									<!--
 									<h:outputText value="Date de depot" /><h:outputText value="#{consulterDemandeController.entity.dateDepot}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+									-->
 								</p:panelGrid>	
 								<p:separator/>		
 								<p:panelGrid columns="3" styleClass="panelGridNoBorder" >

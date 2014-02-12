@@ -24,22 +24,22 @@ public class MenuBuilder implements Serializable {
 	
 	@Named @Produces /*@RequestScoped*/ @SessionScoped
 	public MenuModel getMenuModel(){
-		if(Faces.isUserInRole(Role.AGENT_ETAT.getCode()))
+		if(Faces.isUserInRole(Role.AGENT_ETAT.name()))
 			agentEtat();
 		
-		if(Faces.isUserInRole(Role.GESTIONNAIRE_CARTE_SOTRA.getCode()))
+		if(Faces.isUserInRole(Role.GESTIONNAIRE_CARTE_SOTRA.name()))
 			gestionnaireCarteSotra();
 		
-		if(Faces.isUserInRole(Role.DIRECTEUR.getCode()))
+		if(Faces.isUserInRole(Role.DIRECTEUR.name()))
 			directeur();
 		
-		if(Faces.isUserInRole(Role.LIQUIDATEUR.getCode()))
+		if(Faces.isUserInRole(Role.LIQUIDATEUR.name()))
 			liquidateur();
 		
-		if(Faces.isUserInRole(Role.PAYEUR.getCode()))
+		if(Faces.isUserInRole(Role.PAYEUR.name()))
 			payeur();
 		
-		if(Faces.isUserInRole(Role.RESPONSABLE.getCode()))
+		if(Faces.isUserInRole(Role.RESPONSABLE.name()))
 			responsable();
 		/*
 		Submenu calendrierMissions = menuManager.addSubmenu("menu.calendrier");

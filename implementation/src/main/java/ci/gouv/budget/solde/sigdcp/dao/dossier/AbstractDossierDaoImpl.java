@@ -9,6 +9,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 
 public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends JpaDaoImpl<DOSSIER, String> implements AbstractDossierDao<DOSSIER>, Serializable {
@@ -44,6 +45,13 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Jp
 				.getResultList();
 		
 		return (DOSSIER) (traitements.size()==1?traitements.get(0).getDossier():null);
+	}
+	
+	@Override
+	public Collection<DOSSIER> readByAgentEtat(AgentEtat agentEtat) {
+		return entityManager.createQuery("SELECT d FROM Dossier d WHERE d.beneficiaire = :agentEtat", clazz)
+				.setParameter("agentEtat", agentEtat)
+				.getResultList();
 	}
 	 
 	@Override

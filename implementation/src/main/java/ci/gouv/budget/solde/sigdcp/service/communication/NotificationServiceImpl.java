@@ -17,7 +17,7 @@ public class NotificationServiceImpl implements NotificationService,Serializable
 
 	private static final long serialVersionUID = -4376077455219565698L;
 	
-	private static final Boolean mail = Boolean.TRUE;
+	private static final Boolean mail = Boolean.FALSE;
 	private static final Boolean fire = Boolean.FALSE;
 	
 	@Inject private MailService mailService;

@@ -3,6 +3,7 @@ package ci.gouv.budget.solde.sigdcp.service.dossier;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedHashSet;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,7 @@ import ci.gouv.budget.solde.sigdcp.dao.dossier.StatutDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.TraitementDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDto;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureOperation;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Operation;
@@ -26,6 +28,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
@@ -184,6 +187,20 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	@Override
 	public Collection<DOSSIER> findByStatut(Statut statut) {
 		return ((AbstractDossierDao<DOSSIER>)dao).readByStatut(statut);
+	}
+	
+	@Override
+	public Collection<DOSSIER> findByAgentEtat(AgentEtat agentEtat) {
+		return ((AbstractDossierDao<DOSSIER>)dao).readByAgentEtat(agentEtat);
+	}
+	
+	@Override
+	public Collection<DossierDto> findByAgentEtatDto(AgentEtat agentEtat) {
+		Collection<DOSSIER> dossiers = ((AbstractDossierDao<DOSSIER>)dao).readByAgentEtat(agentEtat);
+		Collection<DossierDto> dossierDtos = new LinkedHashSet<>();
+		for(DOSSIER dossier : dossiers)
+			dossierDtos.add(new DossierDto(dossier, statutDao.readCourantByDossier(dossier)));
+		return dossierDtos;
 	}
 
 }

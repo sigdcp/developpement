@@ -6,6 +6,7 @@ import ci.gouv.budget.solde.sigdcp.dao.DataAccessObject;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 
 public interface AbstractDossierDao<DOSSIER extends Dossier> extends DataAccessObject<DOSSIER,String> {
@@ -17,6 +18,13 @@ public interface AbstractDossierDao<DOSSIER extends Dossier> extends DataAccessO
 	 * @return
 	 */
 	DOSSIER readSaisieByPersonneByNatureDeplacement(Personne personne,NatureDeplacement natureDeplacement);
+	
+	/**
+	 * Liste des dossiers appartenant a un agent de l'état
+	 * @param personne
+	 * @return
+	 */
+	Collection<DOSSIER> readByAgentEtat(AgentEtat agentEtat);
 	
 	Collection<DOSSIER> readByNatureDeplacementAndStatut(NatureDeplacement natureDeplacement,Statut statut);
 	

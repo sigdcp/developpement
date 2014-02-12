@@ -7,6 +7,7 @@ import ci.gouv.budget.solde.sigdcp.dao.JpaDaoImpl;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 
 public class TraitementDaoImpl extends JpaDaoImpl<Traitement, Long> implements TraitementDao, Serializable {
 
@@ -16,6 +17,13 @@ public class TraitementDaoImpl extends JpaDaoImpl<Traitement, Long> implements T
 	public Collection<Traitement> readAllByDossier(Dossier dossier) {
 		return entityManager.createQuery("SELECT traitement FROM Traitement traitement WHERE traitement.dossier = :dossier", clazz)
 				.setParameter("dossier", dossier)
+				.getResultList();
+	}
+	
+	@Override
+	public Collection<Traitement> readByAgentEtat(AgentEtat agentEtat) {
+		return entityManager.createQuery("SELECT DISTINCT traitement FROM Traitement traitement WHERE traitement.dossier.beneficiaire = :agentEtat", clazz)
+				.setParameter("agentEtat", agentEtat)
 				.getResultList();
 	}
 	

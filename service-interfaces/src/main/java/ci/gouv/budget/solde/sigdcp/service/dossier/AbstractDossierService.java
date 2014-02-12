@@ -3,9 +3,11 @@ package ci.gouv.budget.solde.sigdcp.service.dossier;
 import java.util.Collection;
 
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDto;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.service.AbstractService;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
@@ -45,6 +47,10 @@ public interface AbstractDossierService<DOSSIER extends Dossier> extends Abstrac
 	Collection<DOSSIER> findByNatureDeplacementAndStatut(NatureDeplacement natureDeplacement,Statut statut);
 	
 	Collection<DOSSIER> findByStatut(Statut statut);
+	
+	Collection<DOSSIER> findByAgentEtat(AgentEtat agentEtat);
+	
+	Collection<DossierDto> findByAgentEtatDto(AgentEtat agentEtat);
 	
 	Collection<DOSSIER> findByNatureDeplacement(NatureDeplacement natureDeplacement);
 

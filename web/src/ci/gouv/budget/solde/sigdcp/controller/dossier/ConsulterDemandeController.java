@@ -1,7 +1,6 @@
 package ci.gouv.budget.solde.sigdcp.controller.dossier;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
 import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
+import ci.gouv.budget.solde.sigdcp.service.dossier.DossierService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.TraitementService;
 
 @Named @ViewScoped
@@ -21,14 +21,13 @@ public class ConsulterDemandeController extends AbstractDossierUIController<Doss
 
 	private static final long serialVersionUID = 1027310826427829321L;
 	
-	//@Inject private DossierDDService dossierService;
+	@Inject private DossierService dossierService;
 	@Inject private TraitementService traitementService;
 	
 	/*
 	 * Infos sur le dossier selectionné
 	 */
-	@Getter private Statut statut;
-	@Getter private Date dateSoumission = new Date(),dateValidation=new Date();
+
 	@Getter private List<Traitement> traitements;
 	
 	@Override
@@ -36,13 +35,17 @@ public class ConsulterDemandeController extends AbstractDossierUIController<Doss
 		super.initialisation();
 		title = "Consultation des demandes";
 		traitements = new LinkedList<>(traitementService.findByDossier(entity));
-		if(!traitements.isEmpty())
-			statut = traitements.get(0).getStatut();
+		
+		defaultSubmitCommand.setRendered(Boolean.FALSE);
 	}
 	
 	@Override
 	protected AbstractDossierService<Dossier> getDossierService() {
-		return null;
+		return dossierService;
+	}
+	
+	public Statut getStatutCourant(){
+		return traitements.isEmpty()?null: traitements.get(traitements.size()-1).getStatut();
 	}
 	
 }

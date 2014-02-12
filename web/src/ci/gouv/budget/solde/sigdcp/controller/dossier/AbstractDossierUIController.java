@@ -75,9 +75,16 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		}).onSuccessStayOnCurrentView();
 		enregistrerCommand.setAjax(Boolean.FALSE);
 		
+		if(natureDaplacement==null)
+			natureDaplacement = entity.getDeplacement().getNature();
+		
 		DOSSIER dossierEnCoursSaisie = getDossierService().findSaisieByPersonneByNatureDeplacement((AgentEtat) userSessionManager.getUser(), natureDaplacement);
 		if(dossierEnCoursSaisie!=null)
 			entity = dossierEnCoursSaisie;
+		
+		//System.out.println(pieceJustificativeUploader);
+		//System.out.println(pieceJustificativeAFournirService);
+		System.out.println(natureDaplacement);
 		if(dossierEnCoursSaisie!=null || getDossierService().exist(entity.getNumero()))
 			pieceJustificativeUploader.setAImprimer(pieceJustificativeAFournirService.findDeriveeByNatureDeplacementId(natureDaplacement.getCode()));
 		

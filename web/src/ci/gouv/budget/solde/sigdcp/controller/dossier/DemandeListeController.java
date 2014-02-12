@@ -10,17 +10,19 @@ import javax.inject.Named;
 
 import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEntityListUIController;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierService;
+import ci.gouv.budget.solde.sigdcp.service.dossier.TraitementService;
 
 @Named @RequestScoped
-public class DemandeListeController extends AbstractEntityListUIController<Dossier> implements Serializable {
+public class DemandeListeController extends AbstractEntityListUIController<Traitement> implements Serializable {
 
 	private static final long serialVersionUID = -2412073347414420827L;
 
 	/*
 	 * Services
 	 */
-	@Inject private DossierService dossierService;
+	@Inject private TraitementService traitementService;
 	
 	/*
 	 * Dto
@@ -35,7 +37,7 @@ public class DemandeListeController extends AbstractEntityListUIController<Dossi
 	protected void initialisation() {
 		super.initialisation();
 		title="Liste des demandes";
-		list = dossierService.findAll(); 
+		//list = traitementService.fin findAll(); 
 	}
 	
 	public String href(Dossier dossier){//System.out.println("DemandeListeController.href() "+nextViewOutcome);
@@ -44,8 +46,8 @@ public class DemandeListeController extends AbstractEntityListUIController<Dossi
 	}
 
 	@Override
-	protected List<Dossier> load() {
-		return new LinkedList<>(dossierService.findAll());
+	protected List<Traitement> load() {
+		return null;//new LinkedList<>(dossierService.findAll());
 	}
 	
 	@Override

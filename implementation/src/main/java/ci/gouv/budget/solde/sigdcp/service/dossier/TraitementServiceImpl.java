@@ -10,6 +10,7 @@ import ci.gouv.budget.solde.sigdcp.dao.dossier.TraitementDao;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
 
 @Stateless
@@ -25,6 +26,11 @@ public class TraitementServiceImpl extends DefaultServiceImpl<Traitement, Long> 
 	@Override
 	public Collection<Traitement> findByDossier(Dossier dossier) {
 		return ((TraitementDao)dao).readAllByDossier(dossier);
+	}
+	
+	@Override
+	public Collection<Traitement> findByAgentEtat(AgentEtat agentEtat) {
+		return ((TraitementDao)dao).readByAgentEtat(agentEtat);
 	}
 	
 	@Override

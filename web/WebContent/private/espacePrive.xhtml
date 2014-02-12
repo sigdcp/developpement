@@ -10,14 +10,26 @@
 		<h:outputStylesheet library="css" name="style.css" />
     </h:head>
     
-    <ui:insert name="metadata"/>
+    <ui:insert name="metadata">
+    
+    </ui:insert>
  
 	<h:body>
-	<ui:composition template="/template/commun.xhtml">
+		<ui:composition template="/template/commun.xhtml">
 			
 			<ui:define name="contenu">
 			
-
+				<ui:decorate template="/template/formTemplate.xhtml">
+					<ui:param name="uiController" value="#{dossierAgentEtatListeController}" />
+					<ui:define name="contenu">	
+						
+						<ui:include src="/dossier/include/listeagentetat.xhtml">
+							<ui:param name="controller" value="#{dossierAgentEtatListeController}" />
+						</ui:include>
+								
+					</ui:define>
+					
+				</ui:decorate>				
 		    
 			</ui:define>
 			
