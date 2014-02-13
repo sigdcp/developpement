@@ -24,12 +24,13 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.TypePiece;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.identification.Categorie;
 import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
+import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
+import ci.gouv.budget.solde.sigdcp.model.identification.Personne.PieceIdentiteType;
 import ci.gouv.budget.solde.sigdcp.model.identification.Profession;
 import ci.gouv.budget.solde.sigdcp.model.identification.QuestionSecrete;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.Sexe;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
-import ci.gouv.budget.solde.sigdcp.model.identification.Personne.PieceIdentiteType;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeMission;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.TypeClasseVoyage;
 import ci.gouv.budget.solde.sigdcp.model.prestation.Prestataire;
@@ -53,6 +54,11 @@ public class ListeResources {
 	@Produces @Named
     public List<Fonction> getFonctions(){
     	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(Fonction.class)); 
+    }
+	
+	@Produces @Named
+    public List<Grade> getGrades(){
+    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(Grade.class)); 
     }
 	
 	@Produces @Named

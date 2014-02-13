@@ -62,10 +62,10 @@ public class DossierDD  extends Dossier   implements Serializable{
 	
 	public DossierDD() {}
 
-	public DossierDD(String numero, Date dateDepot, String numeroCourrier,Date datePriseService, Deplacement deplacement,
+	public DossierDD(String numero, Courrier courrier,Date datePriseService, Deplacement deplacement,
 			Grade grade, AgentEtat beneficiaire,Integer poidsBagageAutorise, Integer poidsBagageConstate,
 			Date dateMiseRetraite, String numeroRegistreMariage,Localite mairieMariage,Date dateMariage,Date dateCessationService) {
-		super(numero, dateDepot, numeroCourrier, datePriseService, deplacement,grade, beneficiaire);
+		super(numero, courrier, datePriseService, deplacement,grade, beneficiaire);
 		this.poidsBagageAutorise = poidsBagageAutorise;
 		this.poidsBagageConstate = poidsBagageConstate;
 		this.dateMiseRetraite = dateMiseRetraite;

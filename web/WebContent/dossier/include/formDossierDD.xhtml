@@ -28,19 +28,28 @@
 		<h:outputText value="Statut : #{controller.statutCourant}" rendered="#{controller.statutCourant!=null}"/>
 		
 		<p:fieldset legend="Dépot du dossier" rendered="#{controller.showDepotDossier}">
-			<p:panelGrid columns="5" styleClass="panelGridNoBorder" >
-				<h:outputText value="" /><p:message for="numCourrier" /><h:outputText value="" /><p:message for="datCourrier" /><h:outputText value="" />
+			<p:panelGrid columns="6" styleClass="panelGridNoBorder" columnClasses="#{editable?'c1,c2,c3,c1,c2,c3':'c1,c2,c1,c2'}">
 				
 				<p:outputLabel value="Numéro de courrier" for="numCourrier"/>
-				<p:inputText id="numCourrier" />
+				<p:inputText id="numCourrier" value="#{controller.entity.courrier.numero}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" rendered="#{editable==null or editable}"/>
+				</p:inputText>
+				<h:outputText value="#{controller.entity.courrier.numero}" rendered="#{not editable}"/>
+				<p:message for="numCourrier" rendered="#{editable==null or editable}"/>
 				
 				<p:outputLabel value="Date de dépot" for="datCourrier"/>
-				<p:calendar id="datCourrier" />
+				<p:calendar id="datCourrier" value="#{controller.entity.courrier.date}" pattern="#{constantResources.datePattern}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}"
+					rendered="#{editable==null or editable}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+				</p:calendar>
+				<h:outputText value="#{controller.entity.courrier.date}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				<p:message for="datCourrier" rendered="#{editable==null or editable}"/>
 				
+				<!--
 				<ui:include src="/resources/include/component/formCommand.xhtml" >
 					<ui:param name="command" value="#{controller.depotCommand}" />
 				</ui:include>
-				
+				-->
 			</p:panelGrid>			
 		</p:fieldset>
 		
@@ -50,7 +59,7 @@
 				<ui:param name="columnCount" value="6" />
 			</ui:include>  
 			<p:spacer height="5" />
-			<p:panelGrid columns="#{editable?6:4}" styleClass="panelGridNoBorder" columnClasses="c1,c2,c3,c1,c2,c3">
+			<p:panelGrid columns="#{editable?6:4}" styleClass="panelGridNoBorder" columnClasses="#{editable?'c1,c2,c3,c1,c2,c3':'c1,c2,c1,c2'}">
 				<p:outputLabel for="dateCessationService" value="Date de cessation de service" rendered="#{controller.showDateCessationService}" />
 				<p:calendar id="dateCessationService" value="#{controller.dossier.dateCessationService}" pattern="#{constantResources.datePattern}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" 
 					rendered="#{controller.showDateCessationService and (editable==null or editable)}">

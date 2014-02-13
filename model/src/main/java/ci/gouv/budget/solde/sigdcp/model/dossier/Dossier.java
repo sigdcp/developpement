@@ -11,6 +11,7 @@ package ci.gouv.budget.solde.sigdcp.model.dossier;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -35,9 +36,7 @@ public class Dossier  extends AbstractModel<String>  implements Serializable{
 
 	@Id private String numero;
 	
-	@Temporal(TemporalType.TIMESTAMP) private Date dateDepot;
-	
-	private String numeroCourrier;
+	@Embedded private Courrier courrier = new Courrier();
 	
 	@Temporal(TemporalType.TIMESTAMP) private Date datePriseService;
 	
@@ -48,22 +47,26 @@ public class Dossier  extends AbstractModel<String>  implements Serializable{
 	/**
 	 * Le grade au moment de la demande
 	 */
+	@JoinColumn(nullable=false)
+	@NotNull
 	@ManyToOne private Grade grade;
 	
 	@JoinColumn(nullable=false)
 	@NotNull
 	@ManyToOne private AgentEtat beneficiaire;
 	
+	/**
+	 * Le service dans lequel il est au moment ou il fait la demande
+	 */
 	@ManyToOne
 	private Section service;
 	
 	public Dossier() {}
 
-	public Dossier(String numero, Date dateDepot, String numeroCourrier,Date datePriseService, Deplacement deplacement,Grade grade, AgentEtat beneficiaire) {
+	public Dossier(String numero, Courrier courrier,Date datePriseService, Deplacement deplacement,Grade grade, AgentEtat beneficiaire) {
 		super();
 		this.numero = numero;
-		this.dateDepot = dateDepot;
-		this.numeroCourrier = numeroCourrier;
+		this.courrier=courrier;
 		this.datePriseService = datePriseService;
 		this.deplacement = deplacement;
 		this.grade = grade;

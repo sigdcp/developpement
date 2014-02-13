@@ -39,11 +39,11 @@ public class DossierTransit extends Dossier implements Serializable{
 	
 	public DossierTransit() {}
 
-	public DossierTransit(String numero, Date dateDepot, String numeroCourrier,
+	public DossierTransit(String numero, Courrier courrier,
 			Date datePriseService, Deplacement deplacement, Grade grade,
 			AgentEtat beneficiaire, Date dateMiseStage, Date dateFin,
 			Float poidsBagagesKg, Float montantFacture) {
-		super(numero, dateDepot, numeroCourrier, datePriseService, deplacement,
+		super(numero,courrier , datePriseService, deplacement,
 				grade, beneficiaire);
 		this.dateMiseStage = dateMiseStage;
 		this.dateFin = dateFin;
