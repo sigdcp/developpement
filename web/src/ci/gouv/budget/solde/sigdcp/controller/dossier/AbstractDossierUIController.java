@@ -57,17 +57,30 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	/*
 	 * Actions
 	 */
-	protected FormCommand<DOSSIER> enregistrerCommand,depotCommand;
+	protected FormCommand<DOSSIER> enregistrerCommand/*,depotCommand*/;
 	
 	@Override
 	protected void initialisation() {
 		super.initialisation();
-		//entity.setBeneficiaire((AgentEtat) userSessionManager.getUser());
+		
+		DOSSIER dossierEnCoursSaisie = getDossierService().findSaisieByPersonneByNatureDeplacement((AgentEtat) userSessionManager.getUser(), entity.getDeplacement().getNature());
+		if(dossierEnCoursSaisie!=null)
+			entity = dossierEnCoursSaisie;
+		statutCourant = statutService.findCourantByDossier(entity);
+		if(statutCourant!=null && Code.STATUT_SOUMIS.equals(statutCourant.getCode()))
+			showDepotDossier=true;
+		if(dossierEnCoursSaisie!=null || getDossierService().exist(entity.getNumero()))
+			pieceJustificativeUploader.setAImprimer(pieceJustificativeAFournirService.findDeriveeByNatureDeplacementId(entity.getDeplacement().getNature().getCode()));
+		updatePieceJustificatives(true);
+		parametres = pieceJustificativeService.findParametresByDossier(entity, pieceJustificativeUploader.getPieceJustificatives());
+		
+		
 		title = "Formulaire de : "+entity.getDeplacement().getNature().getLibelle();
 	
 		defaultSubmitCommand.setValue(text("bouton.soumettre"));
 		defaultSubmitCommand.setNotificationMessageId("notification.demande.soumise");
 		defaultSubmitCommand.setAjax(Boolean.FALSE);
+		defaultSubmitCommand.setRendered(isEditable() && StringUtils.isNotEmpty(entity.getNumero()));
 		
 		enregistrerCommand = createCommand().init("bouton.enregistrer","ui-icon-check","notification.demande.enregistree1", new Action() {
 			private static final long serialVersionUID = 1L;
@@ -75,11 +88,11 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 			protected Object __execute__(Object object) throws Exception {
 				getDossierService().enregistrer(entity, pieceJustificativeUploader.process(),creerPar());
 				return null;
-			}
+			} 
 		}).onSuccessStayOnCurrentView();
 		enregistrerCommand.setAjax(Boolean.FALSE);
 		enregistrerCommand.setRendered(isEditable());
-		
+		/*
 		depotCommand = createCommand().init("bouton.valider","ui-icon-check","notification.demande.deposer", new Action() {
 			private static final long serialVersionUID = 1L;
 			@Override
@@ -88,34 +101,13 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 				return null;
 			}
 		}).onSuccessStayOnCurrentView();
+		*/
 		enregistrerCommand.setAjax(Boolean.FALSE);
-		
+		/*
 		if(natureDaplacement==null)
 			natureDaplacement = entity.getDeplacement().getNature();
-		
-		DOSSIER dossierEnCoursSaisie = getDossierService().findSaisieByPersonneByNatureDeplacement((AgentEtat) userSessionManager.getUser(), natureDaplacement);
-		if(dossierEnCoursSaisie!=null)
-			entity = dossierEnCoursSaisie;
-		
-		statutCourant = statutService.findCourantByDossier(entity);
-		if(statutCourant!=null && Code.STATUT_SOUMIS.equals(statutCourant.getCode()))
-			showDepotDossier=true;
-		
-		//System.out.println(pieceJustificativeUploader);
-		//System.out.println(pieceJustificativeAFournirService);
-		//System.out.println(natureDaplacement);
-		if(dossierEnCoursSaisie!=null || getDossierService().exist(entity.getNumero()))
-			pieceJustificativeUploader.setAImprimer(pieceJustificativeAFournirService.findDeriveeByNatureDeplacementId(natureDaplacement.getCode()));
-		
-		updatePieceJustificatives(true);
-		parametres = pieceJustificativeService.findParametresByDossier(entity, pieceJustificativeUploader.getPieceJustificatives());
-		
-		defaultSubmitCommand.setRendered(isEditable() && StringUtils.isNotEmpty(entity.getNumero()));
-		
-		//just for testing
-		//defaultSubmitCommand.setImmediate(Boolean.TRUE);
-		//enregistrerCommand.setImmediate(Boolean.TRUE);
-		
+		*/
+				
 	}
 	
 	protected Personne creerPar(){

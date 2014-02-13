@@ -24,6 +24,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.BordereauTransmission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.BulletinLiquidation;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CategorieDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Courrier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
@@ -499,7 +500,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(mission);
 		List<DossierMission> dossiers = new ArrayList<>();
 		for(AgentEtat agentEtat : agentEtats){
-			DossierMission dossier = new DossierMission("DM"+nextIdString(),date(),"C/01",mission,agentEtat.getGrade(),agentEtat);
+			DossierMission dossier = new DossierMission("DM"+nextIdString(),courrier(),mission,agentEtat.getGrade(),agentEtat);
 			em.persist(dossier);
 			dossiers.add(dossier);
 		}
@@ -521,7 +522,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	public DossierDD creerDossierDD(NatureDeplacement natureDeplacement,AgentEtat agentEtat){
 		Deplacement deplacement = new Deplacement(date(), date(), date(), null, natureDeplacement, abidjan, bouake);
 		em.persist(deplacement);
-		DossierDD dossier = new DossierDD(numero(), date(), numero(), date(), deplacement, agentEtat.getGrade(), agentEtat, 500, 500, date(), numero(), abidjan, date(), date());
+		DossierDD dossier = new DossierDD(numero(), courrier(), date(), deplacement, agentEtat.getGrade(), agentEtat, 500, 500, date(), numero(), abidjan, date(), date());
 		dossier.setServiceOrigine(serviceExploitation);
 		dossier.setService(serviceEtude);
 		em.persist(dossier);
@@ -531,7 +532,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	public DossierTransit creerDossierTR(NatureDeplacement natureDeplacement,AgentEtat agentEtat){
 		Deplacement deplacement = new Deplacement(date(), date(), date(), null, natureDeplacement, abidjan, bouake);
 		em.persist(deplacement);
-		DossierTransit dossier = new DossierTransit(numero(), date(), numero(), date(), deplacement, agentEtat.getGrade(), agentEtat, date(),date(),500f, 500f);
+		DossierTransit dossier = new DossierTransit(numero(), courrier(), date(), deplacement, agentEtat.getGrade(), agentEtat, date(),date(),500f, 500f);
 		em.persist(dossier);
 		return dossier;
 	}
@@ -578,6 +579,10 @@ public class SampleDataServiceImpl implements SampleDataService {
 	
 	static String numero(){
 		return UUID.randomUUID().toString();
+	}
+	
+	static Courrier courrier(){
+		return new Courrier(UUID.randomUUID().toString(),new Date());
 	}
 	
 	public PieceJustificativeAFournir pjaf(NatureDeplacement natureDeplacement,TypeDepense typeDepense,TypePersonne typePersonne,
