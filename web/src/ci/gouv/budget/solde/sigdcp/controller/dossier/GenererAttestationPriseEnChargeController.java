@@ -40,7 +40,7 @@ public class GenererAttestationPriseEnChargeController extends DossierListeContr
 	
 	@Override
 	protected List<Dossier> load() {
-		return new LinkedList<>(dossierService.findByNatureDeplacementAndStatut(natureDeplacementService.findById(Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES), statut));
+		return new LinkedList<>(dossierService.findByNatureDeplacementAndStatut(natureDeplacementService.findById(Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_MAE), statut));
 	}
 	
 	@Override

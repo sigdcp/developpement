@@ -57,7 +57,7 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	
 	@Override
 	public void enregistrer(String typeDepenseCode,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException {
-		System.out.println("AbstractDossierServiceImpl.enregistrer()");
+		
 		validationSaisie(typeDepenseCode,dossier, pieceJustificatives,personne,false);
 		//est ce une creation ou une mise à jour
 		Date dateCourante = new Date();
@@ -83,6 +83,7 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 			dao.update(dossier);
 		}else{
 			//mise a jour d'un dossier qui est en saisie uniquement
+			
 			Statut statutCourant = dossier.getDernierTraitement().getStatut();
 			if(statutCourant!=null && !Code.STATUT_SAISIE.equals(statutCourant.getCode()))
 				serviceException(ServiceExceptionType.DOSSIER_STATUT_ILLELGAL);

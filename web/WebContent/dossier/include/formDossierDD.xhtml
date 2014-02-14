@@ -25,34 +25,8 @@
 		<ui:param name="editable" value="#{editable==null?controller.editable:editable}" />
 		<ui:param name="requiredEnabled" value="#{controller.requiredEnabled}" />
 		
-		<ui:fragment rendered="#{controller.showCourrier}">
-			<p:fieldset legend="Dépot du dossier" >
-				<p:panelGrid columns="#{controller.courrierEditable?6:4}" styleClass="panelGridNoBorder" columnClasses="#{controller.courrierEditable?'c1,c2,c3,c1,c2,c3':'c1,c2,c1,c2'}">
-					
-					<p:outputLabel value="Numéro de courrier" for="numCourrier"/>
-					<p:inputText id="numCourrier" value="#{controller.entity.courrier.numero}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" rendered="#{controller.courrierEditable}">
-						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
-					</p:inputText>
-					<h:outputText value="#{controller.entity.courrier.numero}" rendered="#{not controller.courrierEditable}"/>
-					<p:message for="numCourrier" rendered="#{controller.courrierEditable}"/>
-					
-					<p:outputLabel value="Date de dépot" for="datCourrier"/>
-					<p:calendar id="datCourrier" value="#{controller.entity.courrier.date}" pattern="#{constantResources.datePattern}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}"
-						rendered="#{controller.courrierEditable}">
-						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
-					</p:calendar>
-					<h:outputText value="#{controller.entity.courrier.date}" rendered="#{not controller.courrierEditable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
-					<p:message for="datCourrier" rendered="#{controller.courrierEditable}"/>
-					
-					<!--
-					<ui:include src="/resources/include/component/formCommand.xhtml" >
-						<ui:param name="command" value="#{controller.depotCommand}" />
-					</ui:include>
-					-->
-				</p:panelGrid>			
-			</p:fieldset>
-			<p:spacer height="5"/>
-		</ui:fragment>
+		<ui:include src="/dossier/include/inputCourrier.xhtml" />
+
 		<p:fieldset legend="Agent" id="fieldsetAgent" toggleable="#{controller.courrierEditable}" collapsed="#{controller.courrierEditable}">	
 			<ui:include src="/identification/include/outputAgentEtat.xhtml" >
 				<ui:param name="agentEtat" value="#{controller.dossier.beneficiaire}" />

@@ -26,8 +26,12 @@
 		</style>		
 		<ui:param name="editable" value="#{enregistrerDemandeTRFormController.editable}" />
 		
+		<ui:include src="/dossier/include/inputCourrier.xhtml" >
+			<ui:param name="controller" value="#{enregistrerDemandeTRFormController}" />
+		</ui:include>
+		
 		<p:fieldset legend="Agent" >			
-			<p:panelGrid columns="#{editable?6:4}" styleClass="panelGridNoBorder" columnClasses="c1" rendered="#{editable}">	
+			<p:panelGrid columns="#{editable?6:4}" styleClass="panelGridNoBorder" columnClasses="c1" rendered="false">	
 				<p:outputLabel for="profession" value="Vous êtes un " rendered="#{editable}"/>			
 				<p:selectOneRadio id="profession" required="#{required}" requiredMessage="#{valueRequiredMessage}" value="#{enregistrerDemandeTRFormController.mae}" rendered="#{editable}">
 					<f:selectItem itemLabel="Fonctionnaire Stagiaire" itemValue="false" />
@@ -39,6 +43,11 @@
 				<h:outputText value="" rendered="#{editable}"/><h:outputText value="" rendered="#{editable}"/><h:outputText value="" rendered="#{editable}"/>
 			</p:panelGrid>
 			
+			<ui:include src="/identification/include/outputAgentEtat.xhtml" >
+				<ui:param name="agentEtat" value="#{enregistrerDemandeTRFormController.entity.beneficiaire}" />
+				<ui:param name="columnCount" value="6" />
+			</ui:include>  
+			<p:spacer height="5" />
 				
 				
 			<p:panelGrid id="panelGrid2" columns="#{editable?6:4}" styleClass="panelGridNoBorder" columnClasses="#{editable?'c1,c2,c3,c1,c2,c3':'c1,c2,c1,c2'} ">			        
@@ -74,7 +83,7 @@
 		
 		<p:fieldset legend="Transit">				
 			
-			<h:panelGrid columns="#{editable?6:4}" columnClasses="c11">				
+			<h:panelGrid columns="#{editable?6:4}" columnClasses="c11" rendered="#{enregistrerDemandeTRFormController.editable}">				
 				<p:outputLabel for="typeDepense" value="Est ce une prise en charge ou un remboursement ?" />
 				<p:selectOneRadio id="typeDepense" value="#{enregistrerDemandeTRFormController.typeDepense}"  required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
 					<f:selectItems value="#{typeDepenes}"/>

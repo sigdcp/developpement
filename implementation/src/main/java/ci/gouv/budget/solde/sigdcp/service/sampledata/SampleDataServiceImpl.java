@@ -85,7 +85,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	private TypeDepense priseEnCharge,remboursement;
 	private TypeAgentEtat fonctionnaire,contractuel,policier,gendarme;
 	private TypePersonne ayantDroit;
-	private TypePieceJustificative extraitNaissance,extraitMariage,cni,feuilleDep,bonTransport;
+	private TypePieceJustificative extraitNaissance,extraitMariage,cni,feuilleDep,bonTransport,factprof,factdef ;
 	private Prestataire elohimVoyages,mistralVoyages;
 	private Localite abidjan,bouake,paris,dakar,delhi,coteDivoire;
 	private NatureDeplacement mhci,natureDeplacementMutation,natureDeplacementAffectation,natureDeplacementDepartRetraite;
@@ -177,9 +177,9 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(bullsal);
 		TypePieceJustificative cpps = new TypePieceJustificative(Code.TYPE_PIECE_CERTIFICAT_PREMIERE_PRISE_SERVICE, "Certificat de première prise de service");
 		em.persist(cpps);
-		TypePieceJustificative factprof = new TypePieceJustificative(Code.TYPE_PIECE_FACTURE_PROFORMA, "Facture proforma");
+		factprof = new TypePieceJustificative(Code.TYPE_PIECE_FACTURE_PROFORMA, "Facture proforma");
 		em.persist(factprof);
-		TypePieceJustificative factdef = new TypePieceJustificative(Code.TYPE_PIECE_FACTURE_DEFINITIVE, "Facture définitive");
+		factdef = new TypePieceJustificative(Code.TYPE_PIECE_FACTURE_DEFINITIVE, "Facture définitive");
 		em.persist(factdef);
 		TypePieceJustificative extdeces = new TypePieceJustificative(Code.TYPE_PIECE_EXTRAIT_DECES, "Extrait de décès");
 		em.persist(extdeces);
@@ -243,21 +243,24 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(pjaf(fo,priseEnCharge,ayantDroit, cni));
 		communPieceJustificativeAFournir(fo, priseEnCharge, fonctionnaire);
 		
-		
-		NatureDeplacement tr =creerNatureDeplacement(transit, Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES,"Transit de Bagages");
-		em.persist(tr);
+		NatureDeplacement trmae =creerNatureDeplacement(transit, Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_MAE,"Transit de Bagages des Agent du ministere des Affaires étrangères");
+		em.persist(trmae);
 		for(TypeDepense typeDepense : new TypeDepense[]{priseEnCharge,remboursement}){
-			em.persist(pjaf(tr,typeDepense,null, attms,Boolean.TRUE));
-			em.persist(pjaf(tr,typeDepense,null, attfs,Boolean.TRUE));
-			em.persist(pjaf(tr,typeDepense,null, decisrappel,Boolean.TRUE));
-			em.persist(pjaf(tr,typeDepense,null, cps,Boolean.TRUE));
-			em.persist(pjaf(tr,typeDepense,null, ccs,Boolean.TRUE));
-			em.persist(pjaf(tr,typeDepense,null, attmae,Boolean.TRUE));
+			em.persist(pjaf(trmae,typeDepense,null, decisrappel));
+			em.persist(pjaf(trmae,typeDepense,null, cps));
+			em.persist(pjaf(trmae,typeDepense,null, ccs));
+			em.persist(pjaf(trmae,typeDepense,null, attmae));
 			
 		}
-		em.persist(pjaf(tr,priseEnCharge,fonctionnaire, factprof,Boolean.TRUE));
-		em.persist(pjaf(tr,remboursement,fonctionnaire, factdef,Boolean.TRUE));
-		//communPieceJustificativeAFournir(tr, , fonctionnaire);
+		communTRPieceJustificativeAFournir(trmae);
+		
+		NatureDeplacement trstage =creerNatureDeplacement(transit, Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_STAGIAIRE,"Transit de Bagages des statgiaires");
+		em.persist(trstage);
+		for(TypeDepense typeDepense : new TypeDepense[]{priseEnCharge,remboursement}){
+			em.persist(pjaf(trstage,typeDepense,fonctionnaire, attms));
+			em.persist(pjaf(trstage,typeDepense,fonctionnaire, attfs));			
+		}
+		communTRPieceJustificativeAFournir(trstage);
 		
 		NatureDeplacement carteBusSotra =creerNatureDeplacement(sotra, Code.NATURE_DEPLACEMENT_TRANSPORT_CARTE_SOTRA,"Carte de bus SOTRA");
 		
@@ -622,6 +625,11 @@ public class SampleDataServiceImpl implements SampleDataService {
 		p.setDerivee(Boolean.TRUE);
 		em.persist(p = pjaf(natureDeplacement, remboursement, fonctionnaire, bonTransport));
 		p.setDerivee(Boolean.TRUE);
+	}
+	
+	public void communTRPieceJustificativeAFournir(NatureDeplacement natureDeplacement){
+		em.persist(pjaf(natureDeplacement,priseEnCharge,null, factprof,Boolean.TRUE));
+		em.persist(pjaf(natureDeplacement,remboursement,null, factdef,Boolean.TRUE));
 	}
 	
 	private NatureDeplacement creerNatureDeplacement(CategorieDeplacement categorie,String code,String libelle){

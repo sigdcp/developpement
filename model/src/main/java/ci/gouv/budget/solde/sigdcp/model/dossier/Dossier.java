@@ -47,8 +47,6 @@ public class Dossier  extends AbstractModel<String>  implements Serializable{
 	/**
 	 * Le grade au moment de la demande
 	 */
-	@JoinColumn(nullable=false)
-	@NotNull
 	@ManyToOne private Grade grade;
 	
 	@JoinColumn(nullable=false)
