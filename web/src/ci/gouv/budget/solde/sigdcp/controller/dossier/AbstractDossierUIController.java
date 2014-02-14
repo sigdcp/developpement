@@ -72,7 +72,7 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		DOSSIER dossierEnCoursSaisie = getDossierService().findSaisieByPersonneByNatureDeplacement((AgentEtat) userSessionManager.getUser(), entity.getDeplacement().getNature());
 		if(dossierEnCoursSaisie!=null)
 			entity = dossierEnCoursSaisie;
-		//statutCourant = statutService.findCourantByDossier(entity);
+		entity.setBeneficiaire(beneficiaire());
 		
 		if(entity.getDernierTraitement()!=null) 
 			if(Code.STATUT_SAISIE.equals(entity.getDernierTraitement().getStatut().getCode()))
@@ -145,7 +145,11 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	}
 	
 	protected Personne creerPar(){
-		return userSessionManager.getUser();
+		return beneficiaire();
+	}
+	
+	protected AgentEtat beneficiaire(){
+		return (AgentEtat) userSessionManager.getUser();
 	}
 	
 	protected void updatePieceJustificatives(boolean first){
@@ -188,6 +192,8 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	protected Deplacement createDeplacement(){
 		return new Deplacement();
 	}
+	
+	
 	
 	public DOSSIER getDossier(){
 		return entity;

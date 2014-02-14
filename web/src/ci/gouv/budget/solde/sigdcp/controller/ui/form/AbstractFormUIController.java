@@ -57,7 +57,11 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 	}
 	
 	public FormCommand<DTO> createCommand(){
-		return new FormCommand<DTO>(this);
+		FormCommand<DTO> c = new FormCommand<DTO>(this);
+		c.setOnclick("formSubmitOnstart();");
+		c.setOnstart("formSubmitOnstart();");
+		c.setOncomplete("formSubmitOncomplete();");
+		return c;
 	}
 	
 	protected void initCommands(){

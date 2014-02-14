@@ -11,7 +11,6 @@ import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTransit;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
-import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierTransitService;
 
 
@@ -31,7 +30,6 @@ public class EnregistrerDemandeTRFormController extends AbstractDossierUIControl
 	protected void initialisation() {
 		typeDepense =  genericService.findByClass(TypeDepense.class, String.class, Code.TYPE_DEPENSE_PRISE_EN_CHARGE);
 		super.initialisation();
-		entity.setBeneficiaire((AgentEtat) userSessionManager.getUser());
 		mae = Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_MAE.equals(entity.getDeplacement().getNature().getCode());
 	}
 		
@@ -47,60 +45,10 @@ public class EnregistrerDemandeTRFormController extends AbstractDossierUIControl
 	
 	public void typeDepenseListener(){
 		updatePieceJustificatives();
-		System.out.println(typeDepense+" : "+pieceJustificativeUploader.getPieceJustificatives());
+		//System.out.println(typeDepense+" : "+pieceJustificativeUploader.getPieceJustificatives());
 	}
 	
-	/*
-	public String enregistrer() {
-		Date datecourante = new Date();
-		boolean succes= true;
-			
-		if (!ordonner(dossierTR.getDatePriseService(),datecourante))
-		{
-			addMessageError("la date de prise de service ne doit pas être supérieure à la date d'aujourd'hui");
-			succes=false;
-		}
-		
-		if (!ordonner(dossierTR.getDateMiseStage(),datecourante))
-		{
-			addMessageError("la date de mise en stage ne doit pas être supérieure à la date d'aujourd'hui");
-			succes=false;
-		}
-		
-		if (!ordonner(dossierTR.getDateFin(),dossierTR.getDateFin()))
-		{
-			addMessageError("la date de cessation de service ne doit pas être supérieure à la date de prise de service");
-			succes=false;
-		}
-		if (!ordonner(dossierTR.getDateFin(),dossierTR.getDatePriseService()))
-		{
-			addMessageError("la date de cessation de service ne doit pas être supérieure à la date de prise de service");
-			succes=false;
-		}
-		
-		if (!ordonner(dossierTR.getDeplacement().getDateArrivee(),datecourante))
-		{
-			addMessageError("la date de d'arrivée ne doit pas être supérieure à la date d'aujourd'hui");
-			succes=false;
-		}
-		
-		if (!ordonner(dossierTR.getDeplacement().getDateArrivee(),dossierTR.getDateFin()))
-		{
-			addMessageError("la date de d'arrivée ne doit pas être supérieure à la date de cessation de service ou de fin de stage");
-			succes=false;
-		}
-		if (!ordonner(dossierTR.getDeplacement().getDateDepart(),dossierTR.getDeplacement().getDateArrivee()))
-		{
-			addMessageError("la date de départ ne doit pas être supérieure à la date d'arrivée");
-			succes=false;
-		}
-		//dossierService.inscrire(dossierService);
-		if (succes)
-			return "succes";
-			return null;
-		
-	}
-	*/
+
 
 }
 		

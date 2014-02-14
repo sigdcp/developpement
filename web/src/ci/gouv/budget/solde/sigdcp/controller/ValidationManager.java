@@ -13,6 +13,7 @@ import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.utils.ServiceValidationUtils;
 
@@ -21,7 +22,10 @@ public class ValidationManager implements Serializable {
 
 	private static final long serialVersionUID = -5187172212708031726L;
 	
+	@Inject private WebConstantResources webConstantResources;
 	@Inject private ServiceValidationUtils validationUtils; 
+	
+	/* Identification */
 	
 	public void validateMatricule(FacesContext facesContext,UIComponent uiComponent,Object value){
 		String matricule = (String) value;
@@ -75,6 +79,24 @@ public class ValidationManager implements Serializable {
 			validationUtils.validateUsernameUnique((String) value);
 		} catch (Exception e) {
 			validationException((UIInput) uiComponent, e.getMessage());
+		}
+	}
+	
+	/* Demande */
+	
+	public void validateGrade(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validationUtils.validateUsernameUnique((String) value);
+		} catch (Exception e) {
+			validationException((UIInput) uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validateDatePriseService(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validationUtils.validateDatePriseService((AgentEtat)uiComponent.getAttributes().get("agentEtat"), (Date)value);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
 		}
 	}
 	

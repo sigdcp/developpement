@@ -1,12 +1,17 @@
 package ci.gouv.budget.solde.sigdcp.service.utils;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import org.apache.commons.lang3.time.DateUtils;
+import org.hibernate.validator.constraints.br.CNPJ;
+
 import ci.gouv.budget.solde.sigdcp.dao.identification.CompteUtilisateurDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.resources.ServiceConstantResources;
 
@@ -36,7 +41,7 @@ public class ServiceValidationUtils {
 	 */
 	
 	public Boolean isMajeur(Date dateNaissance){
-		return dateNaissance.before(constantResources.getDateNaissanceMinimum());
+		return dateNaissance!=null && dateNaissance.before(constantResources.getDateNaissanceMinimum());
 	}
 	
 	public void validateDateNaissance(Date dateNaissance) throws Exception{
@@ -62,6 +67,14 @@ public class ServiceValidationUtils {
 	public boolean isUsernameUnique(String username) {
 		return compteUtilisateurDao.readByUsername(username)==null;
 	}
+	
+	/* Demande */
+	
+	public void validateDatePriseService(AgentEtat agentEtat,Date datePriseService) throws Exception{
+		if(datePriseService==null || !isMajeur(agentEtat.getDateNaissance()) || datePriseService.before(DateUtils.addYears(agentEtat.getDateNaissance(), constantResources.getAgeMinimumAns())))
+			throw new Exception("incorrect");
+	}
+	
 	
 	
 	/*
