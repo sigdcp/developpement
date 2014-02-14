@@ -5,7 +5,9 @@ import java.util.Collection;
 
 import ci.gouv.budget.solde.sigdcp.dao.JpaDaoImpl;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
+import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 
@@ -48,6 +50,14 @@ public class TraitementDaoImpl extends JpaDaoImpl<Traitement, Long> implements T
 	public Collection<Traitement> readByPieceProduiteTypeId(String typePieceProduiteId) {
 		return entityManager.createQuery("SELECT traitement FROM Traitement traitement WHERE traitement.pieceProduite.type.code = :tppid", clazz)
 				.setParameter("tppid", typePieceProduiteId)
+				.getResultList();
+	}
+	
+	@Override
+	public Collection<Traitement> readByNatureDeplacementByStatut(NatureDeplacement natureDeplacement, Statut statut) {
+		return entityManager.createQuery("SELECT traitement FROM Traitement traitement WHERE traitement.dossier.deplacement.nature = :nature AND traitement.statut = :statut", clazz)
+				.setParameter("nature", natureDeplacement)
+				.setParameter("statut", statut)
 				.getResultList();
 	}
 	

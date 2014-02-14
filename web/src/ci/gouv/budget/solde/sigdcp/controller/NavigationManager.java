@@ -38,7 +38,7 @@ public class NavigationManager implements Serializable {
 	
 	@Inject private NavigationHelper navigationHelper;
 		
-	public String url(/*FacesContext facesContext,*/String id,Object[] parameters,Boolean actionOutcome){
+	public String url(String id,Object[] parameters,Boolean actionOutcome,Boolean partial){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		NavigationCase navigationCase = ((ConfigurableNavigationHandler)facesContext.getApplication().getNavigationHandler()).getNavigationCase(facesContext, null, id);
 		//System.out.println(id+" / "+navigationCase);
@@ -59,7 +59,14 @@ public class NavigationManager implements Serializable {
 	    	for(int i=0;i<parameters.length-1;i=i+2)
 				navigationHelper.addParameter(url, (String) parameters[i], parameters[i+1]);
 	    }
-		return url.toString();
+	    if(Boolean.TRUE.equals(partial))
+	    	return url.toString();
+	    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+	    return request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getServletContext().getContextPath()+url;
+	}
+	
+	public String url(String id,Object[] parameters,Boolean actionOutcome){
+		return url(id, parameters, actionOutcome, Boolean.TRUE);
 	}
 	
 	public String url(/*FacesContext facesContext,*/String id,Object[] parameters){
@@ -70,8 +77,8 @@ public class NavigationManager implements Serializable {
 		return url(/*facesContext,*/id, null,actionOutcome);
 	}
 	
-	public String url(/*FacesContext facesContext,*/String id){
-		return url(/*facesContext,*/id, Boolean.TRUE);
+	public String url(String id){
+		return url(id, Boolean.TRUE);
 	}
 	
 

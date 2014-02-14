@@ -36,7 +36,7 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Jp
 		} catch (NonUniqueResultException e) {
 			throw e;
 		}*/
-		
+		//TODO a changer. dossier connait son dernier traitement
 		List<Traitement> traitements = entityManager.createQuery("SELECT t FROM Traitement t WHERE t.dossier.deplacement.nature = :nature AND t.operation.creePar = :personne ORDER BY t.operation.date ASC"
 				, Traitement.class)
 				.setParameter("personne", personne)
@@ -53,15 +53,17 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Jp
 				.setParameter("agentEtat", agentEtat)
 				.getResultList();
 	}
-	 
+	
 	@Override
 	public Collection<DOSSIER> readByStatut(Statut statut) {
-		return entityManager.createQuery("SELECT d FROM Dossier d "
-				+ "WHERE EXISTS("
-				+ "SELECT t FROM Traitement t WHERE t.dossier = d AND t.statut = :statut"
-				+ ")"
+		return readByStatutId(statut.getCode());
+	}
+	 
+	@Override
+	public Collection<DOSSIER> readByStatutId(String id) {
+		return entityManager.createQuery("SELECT d FROM Dossier d WHERE d.dernierTraitement.statut.code = :code"
 				, clazz)
-				.setParameter("statut", statut)
+				.setParameter("code", id)
 				.getResultList();
 	}
 	
@@ -76,13 +78,29 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Jp
 	
 	@Override
 	public Collection<DOSSIER> readByNatureDeplacementAndStatut(NatureDeplacement natureDeplacement, Statut statut) {
-		return entityManager.createQuery("SELECT d FROM Dossier d "
-				+ "WHERE d.deplacement.nature = :nature"
-				+ " AND  EXISTS("
-				+ "SELECT t FROM Traitement t WHERE t.dossier = d AND t.statut = :statut"
+		/*return entityManager.createQuery("SELECT d FROM Dossier d "
+				+ "WHERE d.deplacement.nature = :nature AND "
+				+ "EXISTS("
+				+ " SELECT t FROM Traitement t WHERE t.dossier = d AND t.statut = :statut GROUP BY t.dossier ORDER BY t.operation.date DESC"
 				+ ")"
 				, clazz)
+				//.setParameter("nature", natureDeplacement)
+				//.setParameter("statut", statut)
+				.getResultList();
+				*/
+		
+		return entityManager.createQuery("SELECT d FROM Dossier d WHERE d.deplacement.nature = :nature AND d.dernierTraitement.statut = :statut ORDER BY d.deplacement.dateCreation ASC"
+				, clazz)
 				.setParameter("nature", natureDeplacement)
+				.setParameter("statut", statut)
+				.getResultList();
+	}
+	
+	@Override
+	public Collection<DOSSIER> readByNatureDeplacementsByStatut(Collection<NatureDeplacement> natureDeplacements, Statut statut) {		
+		return entityManager.createQuery("SELECT d FROM Dossier d WHERE d.deplacement.nature IN (:natureDeplacements) AND d.dernierTraitement.statut = :statut ORDER BY d.deplacement.dateCreation ASC"
+				, clazz)
+				.setParameter("natureDeplacements", natureDeplacements)
 				.setParameter("statut", statut)
 				.getResultList();
 	}

@@ -8,7 +8,9 @@ import javax.inject.Named;
 
 import lombok.Getter;
 import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTransit;
+import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierTransitService;
 
 
@@ -23,10 +25,29 @@ public class EnregistrerDemandeTRFormController extends AbstractDossierUIControl
 	@Inject private DossierTransitService dossierTransitService;
 	
 	@Getter @Setter private Boolean mae;
+	
+	@Override
+	protected void initialisation() {
+		typeDepense =  genericService.findByClass(TypeDepense.class, String.class, Code.TYPE_DEPENSE_PRISE_EN_CHARGE);
+		super.initialisation();
+	}
 		
 	@Override
 	protected DossierTransitService getDossierService() {
 		return dossierTransitService;
+	}
+	
+	public void typeAgentListener(){
+		parametres.put(constantResources.getFormParamMae(), mae);
+		updatePieceJustificatives();
+	}
+	
+	public void typeDepenseListener(){
+		System.out
+				.println("EnregistrerDemandeTRFormController.typeDepenseListener()");
+		//parametres.put(constantResources.getFormParamRemboursement(), remb);
+		updatePieceJustificatives();
+		System.out.println(typeDepense+" : "+pieceJustificativeUploader.getPieceJustificatives());
 	}
 	
 	/*

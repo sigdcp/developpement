@@ -18,7 +18,7 @@ public class Courrier implements Serializable {
 
 	private static final long serialVersionUID = -3015414113393307367L;
 
-	@Column(unique=true)
+	@Column(name="numerocourrier",unique=true)
 	private String numero;
 	
 	@Column(name="datedepot")

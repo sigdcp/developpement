@@ -11,8 +11,7 @@ import ci.gouv.budget.solde.sigdcp.controller.ValidationDto;
 import ci.gouv.budget.solde.sigdcp.controller.dossier.EnregistrerDemandeDDController;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 
-@Named @ViewScoped
-public class ValidationRecevabiliteDossierDDController extends EnregistrerDemandeDDController implements Serializable {
+public class ValidationRecevabiliteDossierDDControllerOLD extends EnregistrerDemandeDDController implements Serializable {
 
 	private static final long serialVersionUID = -2412073347414420827L;
 
@@ -29,7 +28,8 @@ public class ValidationRecevabiliteDossierDDController extends EnregistrerDemand
 	@Override
 	protected void initialisation() {
 		super.initialisation();
-		title = "Ecran de Validation de la recevabilité d'une demande : "+entity.getDeplacement().getNature().getLibelle();
+		instructions=null;
+		title = "Validation de la recevabilité : "+entity.getDeplacement().getNature().getLibelle();
 		internalCode = "FS_DEM_01_Ecran_02";
 		validationDto = new ValidationDto(text("souscriptiongcsvalidequestion"));
 		

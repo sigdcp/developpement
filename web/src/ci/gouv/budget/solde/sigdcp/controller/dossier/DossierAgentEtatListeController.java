@@ -14,7 +14,6 @@ import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
 import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEntityListUIController;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
-import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDto;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierObseques;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTransit;
@@ -22,7 +21,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierService;
 
 @Named @ViewScoped @Log
-public class DossierAgentEtatListeController extends AbstractEntityListUIController<DossierDto> implements Serializable {
+public class DossierAgentEtatListeController extends AbstractEntityListUIController<Dossier> implements Serializable {
 
 	private static final long serialVersionUID = -2412073347414420827L;
 
@@ -54,15 +53,15 @@ public class DossierAgentEtatListeController extends AbstractEntityListUIControl
 	}
 	
 	@Override
-	protected List<DossierDto> load() {
-		return new LinkedList<>(dossierService.findByAgentEtatDto((AgentEtat) userSessionManager.getUser()));
+	protected List<Dossier> load() {
+		return new LinkedList<>(dossierService.findByAgentEtat((AgentEtat) userSessionManager.getUser()));
 	}
 	
-	public String href(DossierDto dossierDto){
-		String outcome = navigationManager.url(nextViewOutcome+outcomeSuffix(dossierDto.getDossier()),getIsBatchProcessing());
+	public String href(Dossier dossier){
+		String outcome = navigationManager.url(nextViewOutcome+outcomeSuffix(dossier),getIsBatchProcessing());
 		String url = navigationHelper.addQueryParameters(outcome, 
 				new Object[]{
-				webConstantResources.getRequestParamDossier(),dossierDto.getNumero()
+				webConstantResources.getRequestParamDossier(),dossier.getNumero()
 				,webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudRead()
 				//,webConstantResources.getRequestParamPreviousURL(),navigationManager.getRequestUrl()
 				});
@@ -82,8 +81,8 @@ public class DossierAgentEtatListeController extends AbstractEntityListUIControl
 	}
 
 	@Override
-	protected void detailsOutcomeParameters(Map<String, List<String>> parameters,DossierDto dossierDto) {
-		addParameters(parameters, webConstantResources.getRequestParamDossier(), dossierDto.getDossier().getNumero());
+	protected void detailsOutcomeParameters(Map<String, List<String>> parameters,Dossier dossier) {
+		addParameters(parameters, webConstantResources.getRequestParamDossier(), dossier.getNumero());
 		addParameters(parameters, webConstantResources.getRequestParamCrudType(), webConstantResources.getRequestParamCrudRead());
 		addParameters(parameters, webConstantResources.getRequestParamViewType(), webConstantResources.getRequestParamDialog());
 	}

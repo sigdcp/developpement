@@ -31,6 +31,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTransit;
 import ci.gouv.budget.solde.sigdcp.model.dossier.GroupeTypePiece;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Motif;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureOperation;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Operation;
@@ -102,6 +103,10 @@ public class SampleDataServiceImpl implements SampleDataService {
 	
 	@Override 
 	public void create() {
+		em.persist(new Motif("m1", "Pièce justificative pas valide"));
+		em.persist(new Motif("m2", "Identité douteuse"));
+		em.persist(new Motif("m3", "Incohérences des informations"));
+		
 		em.persist(questionSecrete1 = new QuestionSecrete("Quel est le nom de votre 1er Chef de service"));
 		em.persist(questionSecrete2 = new QuestionSecrete("Quel est le nom de votre fruit préféré?"));
 		em.persist(questionSecrete3 = new QuestionSecrete("Quel direction vous visiez pour votre 1ere affection?"));
@@ -174,6 +179,8 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(cpps);
 		TypePieceJustificative factprof = new TypePieceJustificative(Code.TYPE_PIECE_FACTURE_PROFORMA, "Facture proforma");
 		em.persist(factprof);
+		TypePieceJustificative factdef = new TypePieceJustificative(Code.TYPE_PIECE_FACTURE_DEFINITIVE, "Facture définitive");
+		em.persist(factdef);
 		TypePieceJustificative extdeces = new TypePieceJustificative(Code.TYPE_PIECE_EXTRAIT_DECES, "Extrait de décès");
 		em.persist(extdeces);
 		TypePieceJustificative cpc = new TypePieceJustificative(Code.TYPE_PIECE_CERTIFICAT_PRESENCE_CORPS, "Certificat de Présence au corps");
@@ -239,13 +246,18 @@ public class SampleDataServiceImpl implements SampleDataService {
 		
 		NatureDeplacement tr =creerNatureDeplacement(transit, Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES,"Transit de Bagages");
 		em.persist(tr);
-		em.persist(pjaf(tr,priseEnCharge,fonctionnaire, attms,Boolean.TRUE));
-		em.persist(pjaf(tr,priseEnCharge,fonctionnaire, attfs,Boolean.TRUE));
-		em.persist(pjaf(tr,priseEnCharge,fonctionnaire, decisrappel,Boolean.TRUE));
-		em.persist(pjaf(tr,priseEnCharge,fonctionnaire, cps,Boolean.TRUE));
-		em.persist(pjaf(tr,priseEnCharge,fonctionnaire, ccs,Boolean.TRUE));
-		em.persist(pjaf(tr,priseEnCharge,fonctionnaire, attmae,Boolean.TRUE));
-		communPieceJustificativeAFournir(tr, priseEnCharge, fonctionnaire);
+		for(TypeDepense typeDepense : new TypeDepense[]{priseEnCharge,remboursement}){
+			em.persist(pjaf(tr,typeDepense,null, attms,Boolean.TRUE));
+			em.persist(pjaf(tr,typeDepense,null, attfs,Boolean.TRUE));
+			em.persist(pjaf(tr,typeDepense,null, decisrappel,Boolean.TRUE));
+			em.persist(pjaf(tr,typeDepense,null, cps,Boolean.TRUE));
+			em.persist(pjaf(tr,typeDepense,null, ccs,Boolean.TRUE));
+			em.persist(pjaf(tr,typeDepense,null, attmae,Boolean.TRUE));
+			
+		}
+		em.persist(pjaf(tr,priseEnCharge,fonctionnaire, factprof,Boolean.TRUE));
+		em.persist(pjaf(tr,remboursement,fonctionnaire, factdef,Boolean.TRUE));
+		//communPieceJustificativeAFournir(tr, , fonctionnaire);
 		
 		NatureDeplacement carteBusSotra =creerNatureDeplacement(sotra, Code.NATURE_DEPLACEMENT_TRANSPORT_CARTE_SOTRA,"Carte de bus SOTRA");
 		
@@ -321,9 +333,9 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(saisieO = new NatureOperation(Code.NATURE_OPERATION_SAISIE, "Saisie"));
 		em.persist(soumission = new NatureOperation(Code.NATURE_OPERATION_SOUMISSION, "Soumission"));
 		
-		NatureOperation validationRecevabilite = new NatureOperation("VAL_REC", "Validation Reçevabilité");
+		NatureOperation validationRecevabilite = new NatureOperation(Code.NATURE_OPERATION_RECEVABILITE, "Validation Reçevabilité");
 		em.persist(validationRecevabilite);
-		NatureOperation validationConformite = new NatureOperation("VAL_CON", "Validation Conformité");
+		NatureOperation validationConformite = new NatureOperation(Code.NATURE_OPERATION_CONFORMITE, "Validation Conformité");
 		em.persist(validationConformite);
 		
 		em.persist(natureOperationLiquidation = new NatureOperation(Code.NATURE_OPERATION_LIQUIDATION, "Liquidation"));

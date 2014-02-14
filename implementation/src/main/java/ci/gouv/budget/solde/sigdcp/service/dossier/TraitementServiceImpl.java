@@ -8,7 +8,9 @@ import javax.inject.Inject;
 
 import ci.gouv.budget.solde.sigdcp.dao.dossier.TraitementDao;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
+import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
@@ -41,6 +43,11 @@ public class TraitementServiceImpl extends DefaultServiceImpl<Traitement, Long> 
 	@Override
 	public Collection<Traitement> findByPieceProduiteTypeId(String typePieceProduiteId) {
 		return ((TraitementDao)dao).readByPieceProduiteTypeId(typePieceProduiteId);
+	}
+	
+	@Override
+	public Collection<Traitement> findByNatureDeplacementByStatut(NatureDeplacement natureDeplacement, Statut statut) {
+		return ((TraitementDao)dao).readByNatureDeplacementByStatut(natureDeplacement, statut);
 	}
 
 }

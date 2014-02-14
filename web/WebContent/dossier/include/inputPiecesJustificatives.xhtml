@@ -8,7 +8,8 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <body>
 	<ui:composition>
-	
+		
+		<!--
 		<ui:fragment rendered="#{controller.editable and not empty controller.pieceJustificativeUploader.AImprimer}">
 			<div class="pieceAImprimer">
 				<h:outputText value="#{constantResources.text('pieceaimprimer')}" />
@@ -17,7 +18,7 @@
 				</ui:repeat>
 			</div> 		
 		</ui:fragment>
-
+		-->
 		<p:spacer height="5"/>
 		<p:messages for="dt" />
 		<p:dataTable id="dt" value="#{controller.pieceJustificativeUploader.collection}" var="dto" rowIndexVar="index">
@@ -59,7 +60,8 @@
 			</p:column>
 			
 			<p:column headerText="Fichier">
-				<p:fileUpload value="#{dto.file}" id="fichier#{index}" mode="simple" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{controller.editable}"/>
+				<p:fileUpload value="#{dto.file}" id="fichier#{index}" mode="simple" required="false" requiredMessage="#{valueRequiredMessage}" rendered="#{controller.editable and dto.showFile}"/>
+				<p:commandButton value="Supprimer fichier joint" action="#{dto.supprimerFichier}" icon="ui-icon-close" rendered="#{controller.editable and not dto.showFile}" update="@parent"/>
 				<p:commandButton value="Voir" icon="ui-icon-search" rendered="#{not controller.editable}" oncomplete="PF('imageDialog').show();" update="@form:display @form:imageDialogHeader">
 					<f:setPropertyActionListener value="#{dto.piece}" target="#{uploader.pieceJustificativeSelectionne}" />
 				</p:commandButton>

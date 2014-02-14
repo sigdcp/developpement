@@ -2,16 +2,20 @@ package ci.gouv.budget.solde.sigdcp.service.dossier;
 
 import java.util.Collection;
 
+import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
+import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.service.AbstractService;
 
 public interface PieceJustificativeAFournirService extends AbstractService<PieceJustificativeAFournir,Long> {
 
-	Collection<PieceJustificativeAFournir> findByNatureDeplacementId(String id);
+	Collection<PieceJustificativeAFournir> findByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId,String typeDepenseId);
 	
-	PieceJustificativeAFournir findByNatureDeplacementIdByTypePiece(String id,String typePieceId);
+	PieceJustificativeAFournir findByNatureDeplacementIdByTypePieceIdByTypeDepenseId(String natureDeplacementId,String typePieceId,String typeDepenseId);
 	
-	Collection<PieceJustificativeAFournir> findBaseByNatureDeplacementId(String id);
+	Collection<PieceJustificativeAFournir> findBaseByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId,String typeDepenseId);
 	
-	Collection<PieceJustificativeAFournir> findDeriveeByNatureDeplacementId(String id);
+	Collection<PieceJustificativeAFournir> findDeriveeByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId,String typeDepenseId);
+	
+	Collection<PieceJustificativeAFournir> findDeriveeRestantByDossierByTypeDepenseId(Dossier dossier,String typeDepenseId,Collection<PieceJustificative> fournis);
 }

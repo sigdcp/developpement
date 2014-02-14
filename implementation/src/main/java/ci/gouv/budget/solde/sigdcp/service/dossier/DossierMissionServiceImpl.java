@@ -22,13 +22,7 @@ public class DossierMissionServiceImpl extends AbstractDossierServiceImpl<Dossie
 		super(dao);
 	}
 	
-	@Override
-	protected void validationSaisie(DossierMission dossier,
-			Collection<PieceJustificative> pieceJustificatives,
-			Personne personne, Boolean soumission) throws ServiceException {
-		// TODO Auto-generated method stub
-		
-	}
+	
  
 }
  

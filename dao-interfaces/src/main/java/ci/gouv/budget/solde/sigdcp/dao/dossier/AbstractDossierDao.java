@@ -28,7 +28,11 @@ public interface AbstractDossierDao<DOSSIER extends Dossier> extends DataAccessO
 	
 	Collection<DOSSIER> readByNatureDeplacementAndStatut(NatureDeplacement natureDeplacement,Statut statut);
 	
+	Collection<DOSSIER> readByNatureDeplacementsByStatut(Collection<NatureDeplacement> natureDeplacements,Statut statut);
+	
 	Collection<DOSSIER> readByStatut(Statut statut);
+	
+	Collection<DOSSIER> readByStatutId(String id);
 	
 	Collection<DOSSIER> readByNatureDeplacement(NatureDeplacement natureDeplacement);
  

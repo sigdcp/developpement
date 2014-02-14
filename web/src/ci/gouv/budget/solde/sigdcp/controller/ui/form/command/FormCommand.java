@@ -32,10 +32,12 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 	protected String successOutcome=NavigationManager.OUTCOME_SUCCESS_VIEW,notificationMessageId;
 	
 	@Getter @Setter
-	protected Action _action,_echec,_notificationMessage;
+	protected Action _action,_echec,_notificationMessage,_successOutcome;
 	
 	@Getter
 	protected Collection<ObjectValidator<?>> objectValidators=new LinkedList<>();
+	
+	protected Boolean onSuccessStayOnSameView = Boolean.FALSE;
 	
 	public FormCommand(AbstractFormUIController<DTO> form) {
 		this.form = form;
@@ -57,15 +59,20 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 		if(valide()){
 			try {
 				_action.execute(object);
-				String message = notificationMessage();
-				if(StringUtils.isNotEmpty(message))
-					form.getMessageManager().addInfo(message,Boolean.FALSE);
+				if(Boolean.TRUE.equals(onSuccessStayOnSameView)){
+					String message = notificationMessage();
+					if(StringUtils.isNotEmpty(message))
+						form.getMessageManager().addInfo(message,Boolean.FALSE);
+				}
 			} catch (Exception e) {
-				form.getMessageManager().addError(e);
+				
+					form.getMessageManager().addError(e);
 				return echec(e);
 			}
 			//System.out.println("OUTCOME : "+successOutcome);
-			return successOutcome;
+			//return successOutcome;
+			//System.out.println(form.getNavigationManager().url(successOutcome,new Object[]{"id",12},true));
+			return successOutcome();//+"?myid=1";
 		}
 		return echec(null);
 	}
@@ -116,6 +123,17 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 				return null;
 		try {
 			return (String) _notificationMessage.execute(null);
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.toString(), e);
+			return null;
+		}
+	}
+	
+	protected String successOutcome(){
+		if(_successOutcome==null)
+			return successOutcome;
+		try {
+			return (String) _successOutcome.execute(null);
 		} catch (Exception e) {
 			log.log(Level.SEVERE, e.toString(), e);
 			return null;

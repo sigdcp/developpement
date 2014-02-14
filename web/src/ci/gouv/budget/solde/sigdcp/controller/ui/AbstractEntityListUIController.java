@@ -13,6 +13,7 @@ import lombok.Setter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractFormUIController;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.Action;
@@ -141,6 +142,14 @@ public abstract class AbstractEntityListUIController<ENTITY extends AbstractMode
 	
 	protected void addParameters(Map<String, List<String>> parameters,String name,String...values){
 		parameters.put(name,Arrays.asList(values));
+	}
+	
+	public void onRowSelect(SelectEvent selectEvent){}
+	
+	public boolean isSelected(ENTITY entity){
+		if(selectedMultiple==null || entity==null)
+			return false;
+		return selectedMultiple.contains(entity);
 	}
 	
 }

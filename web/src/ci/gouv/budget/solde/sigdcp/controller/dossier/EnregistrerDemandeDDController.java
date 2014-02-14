@@ -14,6 +14,7 @@ import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
+import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierDDService;
@@ -55,6 +56,7 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIController<
 	
 	@Override
 	protected void initialisation() {
+		typeDepense = genericService.findByClass(TypeDepense.class, String.class, Code.TYPE_DEPENSE_RMBOURSEMENT);
 		super.initialisation();
 		entity.setBeneficiaire((AgentEtat) userSessionManager.getUser());
 		requiredEnabled=false;
@@ -101,5 +103,5 @@ public class EnregistrerDemandeDDController extends AbstractDossierUIController<
 	public boolean isNatureDeplacementMutation(){
 		return Code.NATURE_DEPLACEMENT_MUTATION.equals(entity.getDeplacement().getNature().getCode());
 	}
-
+	
 }

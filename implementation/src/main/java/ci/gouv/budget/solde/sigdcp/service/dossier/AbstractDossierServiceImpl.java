@@ -3,7 +3,6 @@ package ci.gouv.budget.solde.sigdcp.service.dossier;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedHashSet;
 
 import javax.inject.Inject;
 
@@ -16,11 +15,9 @@ import ci.gouv.budget.solde.sigdcp.dao.dossier.DeplacementDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.OperationDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeAFournirDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeDao;
-import ci.gouv.budget.solde.sigdcp.dao.dossier.StatutDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.TraitementDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
-import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDto;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureOperation;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Operation;
@@ -28,6 +25,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
+import ci.gouv.budget.solde.sigdcp.model.dossier.ValidationType;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
@@ -45,7 +43,6 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	@Inject private OperationDao operationDao;
 	@Inject private TraitementDao traitementDao;
 	@Inject protected PieceJustificativeAFournirDao pieceJustificativeAFournirDao;
-	@Inject protected StatutDao statutDao;
 	
 	//@Inject
 	public AbstractDossierServiceImpl(AbstractDossierDao<DOSSIER> dao) {
@@ -54,38 +51,42 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	 
 	/*--------- Fonctions métiers ----------*/
 	
-	protected abstract void validationSaisie(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne,Boolean soumission) throws ServiceException;
+	protected void validationSaisie(String typeDepenseCode,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne,Boolean soumission) throws ServiceException{
+		
+	}
 	
 	@Override
-	public void enregistrer(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException {
-		
-		validationSaisie(dossier, pieceJustificatives,personne,false);
+	public void enregistrer(String typeDepenseCode,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException {
+		System.out.println("AbstractDossierServiceImpl.enregistrer()");
+		validationSaisie(typeDepenseCode,dossier, pieceJustificatives,personne,false);
 		//est ce une creation ou une mise à jour
 		Date dateCourante = new Date();
 		//DOSSIER dossierExistant = StringUtils.isNotEmpty(dossier.getNumero())?null:((AbstractDossierDao<DOSSIER>)dao).read(dossier.getNumero());
+
 		if(!dao.exist(dossier.getNumero())){
 			//creation
 			dossier.setNumero(System.currentTimeMillis()+"");
+			dossier.getDeplacement().setDateCreation(new Date());
 			deplacementDao.create(dossier.getDeplacement());
 			dao.create(dossier);
 			//on cree les pieces generee par le syteme
-			for(PieceJustificativeAFournir pieceAImprimer : pieceJustificativeAFournirDao.readDeriveeByNatureDeplacementId(dossier.getDeplacement().getNature().getCode()))
+			for(PieceJustificativeAFournir pieceAImprimer : pieceJustificativeAFournirDao.readDeriveeByNatureDeplacementIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(),typeDepenseCode))
 				pieceJustificativeDao.create(new PieceJustificative(dossier,RandomStringUtils.randomNumeric(4), pieceAImprimer,new Date()));
 			
 			Operation operationSaisie = new Operation(dateCourante,dynamicEnumerationDao.readByClass(NatureOperation.class,Code.NATURE_OPERATION_SAISIE),personne);
 			operationDao.create(operationSaisie);
 			Traitement traitement = new Traitement(operationSaisie, null, dossier, dynamicEnumerationDao.readByClass(Statut.class, Code.STATUT_SAISIE));
 			traitementDao.create(traitement);
-			//System.out.println("AbstractDossierServiceImpl.enregistrer()");
 			
+			dossier.setDernierTraitement(traitement);
+			
+			dao.update(dossier);
 		}else{
 			//mise a jour d'un dossier qui est en saisie uniquement
-			//System.out.println(pieceJustificativeAFournirDao.readDeriveeByNatureDeplacementId(dossier.getDeplacement().getNature().getCode()));
-			Statut statutCourant = statutDao.readCourantByDossier(dossier);
+			Statut statutCourant = dossier.getDernierTraitement().getStatut();
 			if(statutCourant!=null && !Code.STATUT_SAISIE.equals(statutCourant.getCode()))
 				serviceException(ServiceExceptionType.DOSSIER_STATUT_ILLELGAL);
 			dao.update(dossier);
-			
 		}
 		
 		for(PieceJustificative pieceJustificative : pieceJustificatives){
@@ -99,19 +100,22 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	}
 	
 	@Override
-	public void soumettre(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne)throws ServiceException {
-		enregistrer(dossier, pieceJustificatives,personne);
-		validationSaisie(dossier, pieceJustificatives,personne,true);
+	public void soumettre(String typeDepenseCode,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne)throws ServiceException {
+		enregistrer(typeDepenseCode,dossier, pieceJustificatives,personne);
+		validationSaisie(typeDepenseCode,dossier, pieceJustificatives,personne,true);
 		
 		Operation operationSoumission = new Operation(new Date(),dynamicEnumerationDao.readByClass(NatureOperation.class,Code.NATURE_OPERATION_SOUMISSION),personne);
 		operationDao.create(operationSoumission);
 		Traitement traitement = new Traitement(operationSoumission, null, dossier, dynamicEnumerationDao.readByClass(Statut.class, Code.STATUT_SOUMIS));
 		traitementDao.create(traitement);
+		
+		dossier.setDernierTraitement(traitement);
+		dao.update(dossier);
 	}
 
 	@Override
 	public void deposer(DOSSIER dossier) throws ServiceException {
-		
+		dao.update(dossier);
 	}
 
 	@Override
@@ -180,6 +184,11 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	}
 	
 	@Override
+	public Collection<DOSSIER> findByNatureDeplacementsByStatut(Collection<NatureDeplacement> natureDeplacements, Statut statut) {
+		return ((AbstractDossierDao<DOSSIER>)dao).readByNatureDeplacementsByStatut(natureDeplacements, statut);
+	}
+	
+	@Override
 	public Collection<DOSSIER> findByNatureDeplacement(NatureDeplacement natureDeplacement) {
 		return ((AbstractDossierDao<DOSSIER>)dao).readByNatureDeplacement(natureDeplacement);
 	}
@@ -190,17 +199,35 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	}
 	
 	@Override
+	public Collection<DOSSIER> findByStatutId(String statutId) {
+		return ((AbstractDossierDao<DOSSIER>)dao).readByStatutId(statutId);
+	}
+	
+	@Override
 	public Collection<DOSSIER> findByAgentEtat(AgentEtat agentEtat) {
 		return ((AbstractDossierDao<DOSSIER>)dao).readByAgentEtat(agentEtat);
 	}
 	
 	@Override
-	public Collection<DossierDto> findByAgentEtatDto(AgentEtat agentEtat) {
-		Collection<DOSSIER> dossiers = ((AbstractDossierDao<DOSSIER>)dao).readByAgentEtat(agentEtat);
-		Collection<DossierDto> dossierDtos = new LinkedHashSet<>();
-		for(DOSSIER dossier : dossiers)
-			dossierDtos.add(new DossierDto(dossier, statutDao.readCourantByDossier(dossier)));
-		return dossierDtos;
+	public String findInstructions(DOSSIER dossier) {
+		StringBuilder instructions = new StringBuilder();
+		if(!((AbstractDossierDao<DOSSIER>)dao).exist(dossier.getNumero()) || dossier.getDernierTraitement()==null || dossier.getDernierTraitement().getStatut()==null)
+			instructions.append("Veuillez enregistrer le dossier");
+		else if(Code.STATUT_SAISIE.equals(dossier.getDernierTraitement().getStatut().getCode()))
+			instructions.append("Veuillez soumettre le dossier");
+		else if(Code.STATUT_SOUMIS.equals(dossier.getDernierTraitement().getStatut().getCode()))
+			instructions.append("Votre dossier est en cours de traitement : vérification de la reçevabilité");
+		else if(Code.STATUT_RECEVABLE.equals(dossier.getDernierTraitement().getStatut().getCode()))
+			if(StringUtils.isEmpty(dossier.getCourrier().getNumero()))
+				instructions.append("Veuillez déposer votre dossier au services de la solde et ensuite renseigner les informations de courrier");
+			else
+				instructions.append("Votre dossier est en cours de traitement : vérification de la conformité");
+		else if(Code.STATUT_CONFORME.equals(dossier.getDernierTraitement().getStatut().getCode()))
+			instructions.append("Votre dossier est en cours de traitement : liquidation");
+		
+		if(dossier.getDernierTraitement()!=null && dossier.getDernierTraitement().getValidationType()!=null && !ValidationType.ACCEPTER.equals(dossier.getDernierTraitement().getValidationType()))
+			instructions.append("\r\n Motif "+dossier.getDernierTraitement().getValidationType()+" du dernier traitement : " +dossier.getDernierTraitement().getMotif());
+		return instructions.toString();
 	}
 
 }

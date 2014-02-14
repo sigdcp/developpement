@@ -18,6 +18,8 @@
 		<navigation-case>
 			<from-outcome>succes</from-outcome>
 			<to-view-id>/message/succes.xhtml</to-view-id>
+			<redirect />
+			
 		</navigation-case>
 
 		<navigation-case>

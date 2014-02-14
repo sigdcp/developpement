@@ -10,5 +10,6 @@ public interface AbstractDynamicEnumerationService<DYNAMIC_ENUMERATION extends D
 	
 	<TYPE> Collection<TYPE> findAllByClass(Class<TYPE> aClass);
 	
+	<TYPE> TYPE findByClass(Class<TYPE> aClass,String identifier);
 	
 }

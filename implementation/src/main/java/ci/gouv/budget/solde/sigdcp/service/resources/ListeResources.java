@@ -18,9 +18,11 @@ import ci.gouv.budget.solde.sigdcp.dao.prestation.PrestataireDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Exercice;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Motif;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypePiece;
+import ci.gouv.budget.solde.sigdcp.model.dossier.ValidationType;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.identification.Categorie;
 import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
@@ -54,6 +56,11 @@ public class ListeResources {
 	@Produces @Named
     public List<Fonction> getFonctions(){
     	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(Fonction.class)); 
+    }
+	
+	@Produces @Named
+    public List<Motif> getMotifs(){
+    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(Motif.class)); 
     }
 	
 	@Produces @Named
@@ -148,6 +155,11 @@ public class ListeResources {
     @Produces @Named
     public Sexe[] getSexes(){
     	return Sexe.values();
+    }
+    
+    @Produces @Named
+    public ValidationType[] getValidationTypes(){
+    	return ValidationType.values();
     }
    
     @Produces @Named

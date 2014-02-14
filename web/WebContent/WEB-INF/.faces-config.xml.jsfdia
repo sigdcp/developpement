@@ -8,8 +8,11 @@
     ID="consulteremail::#message#consulteremail.xhtml" NAME="output1"
     PATH="/message/consulteremail.xhtml"
     TARGET="rules:#message#consulteremail.xhtml" TITLE="consulteremail" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="succes::#message#succes.xhtml"
+    NAME="output2" PATH="/message/succes.xhtml"
+    TARGET="rules:#message#succes.xhtml" TITLE="succes" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="outcomenotfound::#public#outcomenotfound.xhtml" NAME="output2"
+    ID="outcomenotfound::#public#outcomenotfound.xhtml" NAME="output3"
     PATH="/public/outcomenotfound.xhtml"
     TARGET="rules:#public#outcomenotfound.xhtml" TITLE="outcomenotfound" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>

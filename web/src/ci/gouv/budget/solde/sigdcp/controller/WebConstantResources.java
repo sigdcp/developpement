@@ -77,6 +77,11 @@ public class WebConstantResources implements Serializable{
 		return new ViewParamConverter(genericService, PieceJustificative.class,Long.class);
 	}
 	
+	@Getter private final String requestParamMessageId = "mid";
+	@Getter private final String requestParamMessageTitle = "mtitle";
+	@Getter private final String requestParamMessageParameters = "mpv";
+	@Getter private final String requestParamUrl = "rurl";
+	
 	@Getter private final String requestParamCrudType = "ct";
 	@Getter private final String requestParamCrudCreate = "create";
 	@Getter private final String requestParamCrudRead = "read";

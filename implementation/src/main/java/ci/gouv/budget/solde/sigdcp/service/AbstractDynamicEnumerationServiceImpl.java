@@ -19,6 +19,11 @@ public abstract class AbstractDynamicEnumerationServiceImpl<DYNAMIC_ENUMERATION 
 	public <TYPE> Collection<TYPE> findAllByClass(Class<TYPE> aClass) {
 		return ((AbstractDynamicEnumerationDao<DYNAMIC_ENUMERATION>)dao).readAllByClass(aClass);
 	}
+	
+	@Override
+	public <TYPE> TYPE findByClass(Class<TYPE> aClass, String identifier) {
+		return ((AbstractDynamicEnumerationDao<DYNAMIC_ENUMERATION>)dao).readByClass(aClass, identifier);
+	}
 
 
 }

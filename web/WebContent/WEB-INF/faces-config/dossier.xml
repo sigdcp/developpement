@@ -70,6 +70,14 @@
 			<to-view-id>/private/personnel/dossier/liste.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>validationrecevabilite</from-outcome>
+			<to-view-id>/private/personnel/dossier/validation/recevabilite.xhtml
+			</to-view-id>
+			<redirect />
+		</navigation-case>
+		<!--
 		<navigation-case>
 			<from-outcome>validationrecevabilite_dd</from-outcome>
 			<to-view-id>/private/personnel/dossier/validation/recevabilitedd.xhtml
@@ -97,7 +105,7 @@
 			</to-view-id>
 			<redirect />
 		</navigation-case>
-
+		-->
 		<navigation-case>
 			<from-outcome>validationconformite</from-outcome>
 			<to-view-id>/private/personnel/dossier/validation/conformite.xhtml

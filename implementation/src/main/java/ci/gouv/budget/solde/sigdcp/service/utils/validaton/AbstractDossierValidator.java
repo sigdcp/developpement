@@ -22,12 +22,14 @@ public class AbstractDossierValidator<DOSSIER extends Dossier> extends AbstractV
 	@Setter protected Collection<PieceJustificative> pieceJustificatives;
 	@Setter protected Collection<PieceJustificativeAFournir> pieceJustificativeAFournirs;
 	@Setter protected boolean soumission;
+	@Setter String typeDepenseId;
 	
 	@AssertTrue(message="Les pieces justificatives ne sont pas complètes",groups=Client.class)
 	public boolean isPiecesJustificativesComplet(){
 		if(soumission){
 			//les pieces de base et les pieces derivee
-			Collection<PieceJustificativeAFournir> pieceJustificativeAImprimer = pieceJustificativeAFournirDao.readDeriveeByNatureDeplacementId(object.getDeplacement().getNature().getCode());
+			Collection<PieceJustificativeAFournir> pieceJustificativeAImprimer = pieceJustificativeAFournirDao.readDeriveeByNatureDeplacementIdByTypeDepenseId(object.getDeplacement().getNature().getCode(),
+					typeDepenseId);
 			//croisement
 			for(PieceJustificativeAFournir pieceJustificativeAFournir : pieceJustificativeAImprimer){
 				boolean trouve = false;

@@ -31,8 +31,8 @@ public interface PieceJustificativeService extends AbstractService<PieceJustific
 	 * @return
 	 * @throws ServiceException
 	 */
-	Collection<PieceJustificative> findByDossier(Dossier dossier,Collection<PieceJustificative> pieceJustificatives,Map<String,Object> parametres) throws ServiceException;
+	Collection<PieceJustificative> findByDossierByTypeDepenseId(Dossier dossier,String typeDepenseId,Collection<PieceJustificative> pieceJustificatives,Map<String,Object> parametres) throws ServiceException;
 	
-	Map<String,Object> findParametresByDossier(Dossier dossier,Collection<PieceJustificative> pieceJustificatives) throws ServiceException;
+	Map<String,Object> findParametresByDossierByTypeDepenseId(Dossier dossier,String typeDepenseId,Collection<PieceJustificative> pieceJustificatives) throws ServiceException;
 	
 }

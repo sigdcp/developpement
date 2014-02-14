@@ -25,6 +25,7 @@
 		<p:spacer height="5" />
 		
 		<p:dataTable id="datatable" value="#{controller.list}" var="record" rowIndexVar="index" rowKey="#{record[controller.recordIdentifierFieldName]}" selection="#{controller.selectedMultiple}">
+			
 			<p:column selectionMode="multiple" width="1%" rendered="#{controller.isBatchProcessing}"/>
 			<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
 			

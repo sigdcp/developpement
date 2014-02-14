@@ -26,9 +26,10 @@ public class DossierDDServiceImpl extends AbstractDossierServiceImpl<DossierDD> 
 	}
 		
 	@Override
-	protected void validationSaisie(DossierDD dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne,Boolean soumission)throws ServiceException {
+	protected void validationSaisie(String typeDepenseId,DossierDD dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne,Boolean soumission)throws ServiceException {
 		dossierDDValidator.setPieceJustificatives(pieceJustificatives);
 		dossierDDValidator.setSoumission(soumission);
+		dossierDDValidator.setTypeDepenseId(typeDepenseId);
 		if(!dossierDDValidator.validate(dossier).isSucces())
 			throw new ServiceException(dossierDDValidator.getMessagesAsString());
 	}

@@ -4,15 +4,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
 	
 	<h:body>
 
-		<ui:composition template="/template/commun.xhtml">
+		<ui:composition template="/template/vide.xhtml">
 		
 			<ui:define name="contenu">
-				<h1><h:outputText value="Votre opération a été réalisée avec succès." /></h1>
-				<p:messages globalOnly="true" escape="false"/>
+			
+				<table style="margin: auto;margin-top: 100px;"><tr><td>
+					<p:panel header="#{actionMessageController.title}">
+						<div style="width: 700px;">
+							<h:outputText value="#{actionMessageController.message}" escape="false"/>
+						</div>
+						<f:facet name="footer">
+							<div align="center">
+								<p:button value="Ok" icon="ui-icon-check"  href="#{actionMessageController.href}"/>
+							</div>
+						</f:facet>
+					</p:panel>
+				</td> </tr> </table>
+			
 			</ui:define>
 	
 		</ui:composition>

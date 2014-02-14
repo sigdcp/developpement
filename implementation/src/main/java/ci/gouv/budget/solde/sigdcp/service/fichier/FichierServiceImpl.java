@@ -43,7 +43,7 @@ public class FichierServiceImpl extends DefaultServiceImpl<Fichier, Long> implem
 			}
 			fichier.setContentType(findContentTypeByExtension(fichier.getExtension()));
 		}
-		
+		//System.out.println(nom+" "+bytes+" / "+fichier.getBytes());
 		return fichier;
 	}
 	

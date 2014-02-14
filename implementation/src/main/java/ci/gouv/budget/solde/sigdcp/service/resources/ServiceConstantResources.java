@@ -51,6 +51,8 @@ public class ServiceConstantResources implements Serializable{
 	@Getter private final String webRequestParamVerrouCauseReinitialiserPassword = Cause.REINITIALISATION_PASSWORD.name().toLowerCase();
 	
 	@Getter private final String formParamMarie = "marie";
+	@Getter private final String formParamMae = "mae";
+	@Getter private final String formParamRemboursement = "remb";
 	@Getter private final String formParamNombreEnfant = "nbrenf";
 	
 	public Date getDateNaissanceMinimum(){

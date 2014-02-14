@@ -19,6 +19,20 @@
 	
 }*/
 
+.forminsctructions{
+	border: 1px solid gray !important;
+	background:#ccc;
+	padding: 5px;
+	font-size: 9pt;
+	margin-bottom: 5px;
+}
+
+.message{
+	border: 1px solid gray !important;
+	background:#eee;
+	padding: 10px;
+}
+
 .securiteAvertissement{
 	border: 1px solid gray !important;
 	background:#eee;

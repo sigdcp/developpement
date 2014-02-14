@@ -38,6 +38,12 @@
 				</ui:insert>
 				<p:separator/>
 				
+				<ui:fragment rendered="#{not empty uiController.instructions}">
+					<div class="forminsctructions">
+						<h:outputText value="#{uiController.instructions}" escape="false"/>
+					</div>
+				</ui:fragment>
+				
 				<p:messages globalOnly="true" escape="false"/>
 				
 				<p:outputPanel id="bodyPanel" >

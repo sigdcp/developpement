@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import ci.gouv.budget.solde.sigdcp.dao.dossier.StatutDao;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
 
@@ -18,11 +17,6 @@ public class StatutServiceImpl extends DefaultServiceImpl<Statut,String> impleme
 	@Inject
 	public StatutServiceImpl(StatutDao dao) {
 		super(dao);
-	}
-	
-	@Override
-	public Statut findCourantByDossier(Dossier dossier) {
-		return ((StatutDao)dao).readCourantByDossier(dossier);
 	}
 
 }

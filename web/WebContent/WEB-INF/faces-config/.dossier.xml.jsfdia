@@ -38,34 +38,21 @@
     TARGET="rules:#private#personnel#dossier#gapc.xhtml"
     TITLE="generationattestationpc" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
+    ID="generationprojetdecisionremb::#private#personnel#dossier#gpdr.xhtml"
+    NAME="output9" PATH="/private/personnel/dossier/gpdr.xhtml"
+    TARGET="rules:#private#personnel#dossier#gpdr.xhtml"
+    TITLE="generationprojetdecisionremb" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
     ID="dossierliste::#private#personnel#dossier#liste.xhtml"
-    NAME="output9" PATH="/private/personnel/dossier/liste.xhtml"
+    NAME="output10" PATH="/private/personnel/dossier/liste.xhtml"
     TARGET="rules:#private#personnel#dossier#liste.xhtml"
     TITLE="dossierliste" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="validationrecevabilite_dd::#private#personnel#dossier#validation#recevabilitedd.xhtml"
-    NAME="output10"
-    PATH="/private/personnel/dossier/validation/recevabilitedd.xhtml"
-    TARGET="rules:#private#personnel#dossier#validation#recevabilitedd.xhtml"
-    TITLE="validationrecevabilite_dd" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="validationrecevabilite_t::#private#personnel#dossier#validation#recevabilitedd.xhtml"
+    ID="validationrecevabilite::#private#personnel#dossier#validation#recevabilite.xhtml"
     NAME="output11"
-    PATH="/private/personnel/dossier/validation/recevabilitedd.xhtml"
-    TARGET="rules:#private#personnel#dossier#validation#recevabilitedd.xhtml"
-    TITLE="validationrecevabilite_t" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="validationrecevabilite_o::#private#personnel#dossier#validation#recevabilitedd.xhtml"
-    NAME="output12"
-    PATH="/private/personnel/dossier/validation/recevabilitedd.xhtml"
-    TARGET="rules:#private#personnel#dossier#validation#recevabilitedd.xhtml"
-    TITLE="validationrecevabilite_o" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="validationrecevabilite_m::#private#personnel#dossier#validation#recevabilitedd.xhtml"
-    NAME="output13"
-    PATH="/private/personnel/dossier/validation/recevabilitedd.xhtml"
-    TARGET="rules:#private#personnel#dossier#validation#recevabilitedd.xhtml"
-    TITLE="validationrecevabilite_m" model-entity="JSFProcessItemOutput"/>
+    PATH="/private/personnel/dossier/validation/recevabilite.xhtml"
+    TARGET="rules:#private#personnel#dossier#validation#recevabilite.xhtml"
+    TITLE="validationrecevabilite" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="validationconformite::#private#personnel#dossier#validation#conformite.xhtml"
     NAME="output14"
@@ -128,10 +115,6 @@
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#private#personnel#dossier#gpdr.xhtml"
   PATH="/private/personnel/dossier/gpdr.xhtml" SHAPE="304,1569,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM
-  NAME="rules:#private#personnel#dossier#validation#recevabilitedd.xhtml"
-  PATH="/private/personnel/dossier/validation/recevabilitedd.xhtml"
-  SHAPE="304,1793,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#public#demande#fo.xhtml"
   PATH="/public/demande/fo.xhtml" SHAPE="304,897,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#public#naturedeplacement.xhtml"
@@ -190,4 +173,8 @@
   SHAPE="304,881,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#private#demande#impression.xhtml"
   PATH="/private/demande/impression.xhtml" SHAPE="304,881,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#dossier#validation#recevabilite.xhtml"
+  PATH="/private/personnel/dossier/validation/recevabilite.xhtml"
+  SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

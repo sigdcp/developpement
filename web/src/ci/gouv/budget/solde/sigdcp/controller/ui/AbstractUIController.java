@@ -32,12 +32,12 @@ public abstract class AbstractUIController implements Serializable {
 	@Inject @Getter protected MessageManager messageManager;
 	@Inject @Getter protected ServiceUtils serviceUtils;
 	
-	@Getter @Setter protected String previousPath,viewType;
+	@Getter @Setter protected String previousPath,url,viewType;
 	
 	/*
 	 * Attributes
 	 */
-	@Getter @Setter protected String title = "Titre de la vue",internalCode="FS_PS_NOM_ECRAN_NUMERO";
+	@Getter @Setter protected String title = "Titre de la vue",internalCode="FS_PS_NOM_ECRAN_NUMERO",instructions;
 	@Getter @Setter protected Boolean showInternalCode = Boolean.TRUE,validationFailed=Boolean.FALSE,
 			onServiceNotificationEventEnabled;
 	
@@ -62,6 +62,7 @@ public abstract class AbstractUIController implements Serializable {
 	//public final void __firstPreRenderView__(){};
 	
 	private void __initialisation__(){
+		url = navigationManager.getRequestUrl();
 		//validationFailed = FacesContext.getCurrentInstance().isValidationFailed();
 		initialisation();
 		//previousPath = 

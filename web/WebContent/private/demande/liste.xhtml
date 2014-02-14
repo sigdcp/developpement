@@ -28,13 +28,17 @@
 												
 						<ui:define name="colonnes">
 							<p:column headerText="N°"><h:outputText value="#{record.numero}" /></p:column>
-							<p:column headerText="Nature"><h:outputText value="#{record.dossier.deplacement.nature.libelle}" /></p:column>
+							<p:column headerText="Nature"><h:outputText value="#{record.deplacement.nature.libelle}" /></p:column>
 							<!--
 							<p:column headerText="Date de soumission"><h:outputText value="#{record.dateSoumission}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
 							<p:column headerText="Date de validation de la recevabilité"><h:outputText value="#{record.dateValidationRecevabilite}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
-							<p:column headerText="Date de dépôt"><h:outputText value="#{record.dateDepot}"><f:convertDateTime pattern="#{constantResources.datePattern}" /></h:outputText></p:column>
 							-->
-							<p:column headerText="Statut"><h:outputText value="#{record.statut}" /></p:column>
+							<p:column headerText="Date de dépôt">
+								<h:outputText value="#{record.courrier.date}"><f:convertDateTime pattern="#{constantResources.datePattern}" rendered="#{not empty record.courrier.numero}"/></h:outputText>
+								<h:outputText value=" sous le N° #{record.courrier.numero}" rendered="#{not empty record.courrier.numero}"/>
+							</p:column>
+							
+							<p:column headerText="Statut"><h:outputText value="#{record.dernierTraitement.statut}" /></p:column>
 						</ui:define>
 					</ui:decorate>		
 				</ui:define>

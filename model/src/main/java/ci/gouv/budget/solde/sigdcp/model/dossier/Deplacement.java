@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -28,6 +29,7 @@ import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.System;
 
 @Getter @Setter 
 @Entity
@@ -38,6 +40,8 @@ public class Deplacement  extends AbstractModel<Long>  implements Serializable{
 	@Id @GeneratedValue
 	private Long id;
 	
+	@Column(nullable=false)
+	@NotNull(groups=System.class)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreation;
 	

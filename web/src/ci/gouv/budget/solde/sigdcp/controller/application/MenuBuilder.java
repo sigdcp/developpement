@@ -58,15 +58,16 @@ public class MenuBuilder implements Serializable {
 		});
 		menuManager.addMenuItem(identification, "menu.identification.validerlistebasegcs","inscritslistebasegcs",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"validationinscriptionlb"});
 		menuManager.addMenuItem(identification, "menu.identification.consulterbeneficiaire","consulterbeneficiairelistebase",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"detailbeneficiairelistebase"});
-		
+		*/
 		
 		Submenu traitementDemande = menuManager.addSubmenu("menu.traitementdemande");
-		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.recevabilite","dossierliste", new Object[]{
-				webConstantResources.getRequestParamStatut(),Code.STATUT_SOUMIS,webConstantResources.getRequestParamNextViewOutcome(),"validationrecevabilite"
+		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.recevabilite","validationrecevabilite", new Object[]{
+				/*webConstantResources.getRequestParamStatut(),Code.STATUT_SOUMIS/*,webConstantResources.getRequestParamNextViewOutcome(),"validationrecevabilite"*/
 		});
 		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.conformite","validationconformite", new Object[]{
 				webConstantResources.getRequestParamStatut(),Code.STATUT_RECEVABLE
 		});
+		/*
 		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.viserdocuments","viserdocument", new Object[]{});
 		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.realiserfdmhci","realiserFeuilleDeplacementListe", new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()

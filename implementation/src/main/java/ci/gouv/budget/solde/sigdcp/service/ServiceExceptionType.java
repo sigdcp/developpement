@@ -27,7 +27,7 @@ public enum ServiceExceptionType{
 	
 	SAISIE_INCOHERENTE("Les informations saisies sont incohérentes"),
 	
-	
+	OPERATION_INCONNUE("L'opération sollicité est inconnue"),
 	
 	;
 	

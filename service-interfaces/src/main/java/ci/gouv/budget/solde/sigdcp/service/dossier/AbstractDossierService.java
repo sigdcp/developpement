@@ -3,7 +3,6 @@ package ci.gouv.budget.solde.sigdcp.service.dossier;
 import java.util.Collection;
 
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
-import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDto;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
@@ -14,9 +13,9 @@ import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 
 public interface AbstractDossierService<DOSSIER extends Dossier> extends AbstractService<DOSSIER,String> {
 	
-	void enregistrer(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException;
+	void enregistrer(String typeDepenseCode,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException;
 	
-	void soumettre(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException;
+	void soumettre(String typeDepenseCode,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException;
 	
 	void deposer(DOSSIER dossier) throws ServiceException;
 	
@@ -46,12 +45,21 @@ public interface AbstractDossierService<DOSSIER extends Dossier> extends Abstrac
 	
 	Collection<DOSSIER> findByNatureDeplacementAndStatut(NatureDeplacement natureDeplacement,Statut statut);
 	
+	Collection<DOSSIER> findByNatureDeplacementsByStatut(Collection<NatureDeplacement> natureDeplacements,Statut statut);
+	
 	Collection<DOSSIER> findByStatut(Statut statut);
+	
+	Collection<DOSSIER> findByStatutId(String id);
 	
 	Collection<DOSSIER> findByAgentEtat(AgentEtat agentEtat);
 	
-	Collection<DossierDto> findByAgentEtatDto(AgentEtat agentEtat);
-	
 	Collection<DOSSIER> findByNatureDeplacement(NatureDeplacement natureDeplacement);
+	
+	/**
+	 * Une message qui oriente sur les taches a faire pour le traitement du dossier
+	 * @param dossier
+	 * @return
+	 */
+	String findInstructions(DOSSIER dossier);
 
 }

@@ -51,19 +51,24 @@ public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<P
 	}
 	*/
 	@Override
-	public Collection<PieceJustificative> findByDossier(Dossier dossier,Collection<PieceJustificative> pieceJustificatives,Map<String, Object> parametres) throws ServiceException {
+	public Collection<PieceJustificative> findByDossierByTypeDepenseId(Dossier dossier,String typeDepenseId,Collection<PieceJustificative> pieceJustificatives,Map<String, Object> parametres) throws ServiceException {
 		//Dossier dossierEnCoursSaisie = dossierDao.readSaisieByPersonneByNatureDeplacement((AgentEtat) userSessionManager.getUser(), natureDaplacement);
+		
+		//if(Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES.equals(dossier.getDeplacement().getNature().getCode()))
 		
 		if(pieceJustificatives==null){
 			//quelles sont les pieces a fournir
-			Collection<PieceJustificativeAFournir> pieceJustificativeAFournirs = pieceJustificativeAFournirDao.readBaseByNatureDeplacementId(dossier.getDeplacement().getNature().getCode());
+			//System.out.println(dossier.getDeplacement().getNature().getCode()+" "+typeDepenseId);
+			Collection<PieceJustificativeAFournir> pieceJustificativeAFournirs = pieceJustificativeAFournirDao.readBaseByNatureDeplacementIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(),
+					typeDepenseId);
+			//System.out.println("PJF : "+pieceJustificativeAFournirs);
 			//quelles sont les pieces fournis
 			Collection<PieceJustificative> pieceJustificativesFournis;
 			if(StringUtils.isNotEmpty(dossier.getNumero()))
 				pieceJustificativesFournis = ((PieceJustificativeDao)dao).readByDossier(dossier);
 			else
 				pieceJustificativesFournis = new LinkedList<>();
-			System.out.println(pieceJustificativesFournis);
+			
 			//croisement
 			for(PieceJustificativeAFournir pieceJustificativeAFournir : pieceJustificativeAFournirs){
 				boolean trouve = false;
@@ -89,7 +94,7 @@ public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<P
 		if(parametres!=null){
 			PieceJustificative pieceJustificativeExistante = null;
 			//Extrait de mariage
-			modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_MARIAGE);
+			modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_MARIAGE,typeDepenseId);
 			if(Boolean.TRUE.equals(parametres.get(constantResources.getFormParamMarie()))){
 				for(PieceJustificative pj : pieceJustificatives)
 					if(pj.getModel().equals(modelPiece)){
@@ -105,7 +110,7 @@ public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<P
 			}
 			
 			//Extrait de naissances des enfants
-			modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_NAISSANCE);
+			modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_NAISSANCE,typeDepenseId);
 			Integer ne = (Integer) parametres.get(constantResources.getFormParamNombreEnfant());
 			if(ne!=null && ne>0){
 				for(PieceJustificative pj : pieceJustificatives)
@@ -123,16 +128,27 @@ public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<P
 		
 		return newPieceJustificatives;
 	}
+	/*
+	private Collection<PieceJustificative> transit(Boolean mae,String typeDepenseId){
+		Collection<PieceJustificative> pieceJustificatives = new LinkedList<>();
+		if(mae){
+			pieceJustificatives.add(new PieceJustificative(pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(
+					Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES, Code.TYPE_PIECE_DECISION_RAPPEL, )))
+		}else{
+			
+		}
+		return pieceJustificatives;
+	}*/
 	
 	@Override
-	public Map<String, Object> findParametresByDossier(Dossier dossier,Collection<PieceJustificative> pieceJustificatives)throws ServiceException {
+	public Map<String, Object> findParametresByDossierByTypeDepenseId(Dossier dossier,String typeDepenseId,Collection<PieceJustificative> pieceJustificatives)throws ServiceException {
 		Map<String, Object> parametres = new HashMap<String, Object>();
 		PieceJustificativeAFournir modelPiece = null;
 		boolean dossierPersiste = dossierDao.exist(dossier.getNumero());
 		//System.out.println(dossierPersiste);
 		//Extrait de mariage
 		parametres.put(constantResources.getFormParamMarie(), dossierPersiste?false:null);
-		modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_MARIAGE);
+		modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_MARIAGE,typeDepenseId);
 		for(PieceJustificative pj : pieceJustificatives)
 			if(pj.getModel().equals(modelPiece)){
 				parametres.put(constantResources.getFormParamMarie(), true);
@@ -140,7 +156,7 @@ public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<P
 			}
 		//nombre d'enfant
 		int ne = 0;
-		modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_NAISSANCE);
+		modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_NAISSANCE,typeDepenseId);
 		for(PieceJustificative pj : pieceJustificatives)
 			if(pj.getModel().equals(modelPiece))
 				ne++;

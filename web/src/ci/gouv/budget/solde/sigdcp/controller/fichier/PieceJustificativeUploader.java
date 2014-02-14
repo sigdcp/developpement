@@ -20,7 +20,7 @@ public class PieceJustificativeUploader implements Serializable {
 	private static final long serialVersionUID = 2682591481106580763L;
 	
 	@Inject private FichierService fichierService;
-	@Getter @Setter private Collection<PieceJustificativeAFournir> aImprimer;
+	//@Getter @Setter private Collection<PieceJustificativeAFournir> aImprimer;
 	@Setter @Getter protected PieceJustificative pieceJustificativeSelectionne;
 	@Getter private List<PieceJustificativeDTO> collection = new LinkedList<>();
 	
@@ -64,8 +64,10 @@ public class PieceJustificativeUploader implements Serializable {
 	public Collection<PieceJustificative> process() throws IOException{
 		Collection<PieceJustificative> pieceJustificatives = new LinkedList<>();
 		for(PieceJustificativeDTO dto : collection){
-			if(dto.getFile()!=null)
+			if(dto.getFile()!=null){
+				
 				dto.getPiece().setFichier(fichierService.convertir(dto.getFile().getContents(),dto.getFile().getFileName() ));
+			}
 			pieceJustificatives.add(dto.getPiece());
 		}
 		return pieceJustificatives;

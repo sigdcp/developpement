@@ -9,15 +9,15 @@ public interface PieceJustificativeAFournirDao extends DataAccessObject<PieceJus
 
 	Collection<PieceJustificativeAFournir> readAllByNatureDeplacementId(String id);
 	
-	PieceJustificativeAFournir readByNatureDeplacementIdByTypePieceId(String id,String typePieceId);
+	PieceJustificativeAFournir readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(String id,String typePieceId,String typeDepenseId);
 	
 	/**
 	 * Ramene les pieces à fournir pas conditionée et dérivée
 	 * @param id
 	 * @return
 	 */
-	Collection<PieceJustificativeAFournir> readBaseByNatureDeplacementId(String id);
+	Collection<PieceJustificativeAFournir> readBaseByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId,String typeDepenseId);
 	
-	Collection<PieceJustificativeAFournir> readDeriveeByNatureDeplacementId(String id);
+	Collection<PieceJustificativeAFournir> readDeriveeByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId,String typeDepenseId);
 
 }

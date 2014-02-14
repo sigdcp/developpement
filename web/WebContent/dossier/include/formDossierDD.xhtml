@@ -25,41 +25,50 @@
 		<ui:param name="editable" value="#{editable==null?controller.editable:editable}" />
 		<ui:param name="requiredEnabled" value="#{controller.requiredEnabled}" />
 		
-		<h:outputText value="Statut : #{controller.statutCourant}" rendered="#{controller.statutCourant!=null}"/>
-		
-		<p:fieldset legend="Dépot du dossier" rendered="#{controller.showDepotDossier}">
-			<p:panelGrid columns="6" styleClass="panelGridNoBorder" columnClasses="#{editable?'c1,c2,c3,c1,c2,c3':'c1,c2,c1,c2'}">
-				
-				<p:outputLabel value="Numéro de courrier" for="numCourrier"/>
-				<p:inputText id="numCourrier" value="#{controller.entity.courrier.numero}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}">
-					<f:validateBean  validationGroups="#{clientValidationGroupClass}" rendered="#{editable==null or editable}"/>
-				</p:inputText>
-				<h:outputText value="#{controller.entity.courrier.numero}" rendered="#{not editable}"/>
-				<p:message for="numCourrier" rendered="#{editable==null or editable}"/>
-				
-				<p:outputLabel value="Date de dépot" for="datCourrier"/>
-				<p:calendar id="datCourrier" value="#{controller.entity.courrier.date}" pattern="#{constantResources.datePattern}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}"
-					rendered="#{editable==null or editable}">
-					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
-				</p:calendar>
-				<h:outputText value="#{controller.entity.courrier.date}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
-				<p:message for="datCourrier" rendered="#{editable==null or editable}"/>
-				
-				<!--
-				<ui:include src="/resources/include/component/formCommand.xhtml" >
-					<ui:param name="command" value="#{controller.depotCommand}" />
-				</ui:include>
-				-->
-			</p:panelGrid>			
-		</p:fieldset>
-		
-		<p:fieldset legend="Agent" id="fieldsetAgent">	
+		<ui:fragment rendered="#{controller.showCourrier}">
+			<p:fieldset legend="Dépot du dossier" >
+				<p:panelGrid columns="#{controller.courrierEditable?6:4}" styleClass="panelGridNoBorder" columnClasses="#{controller.courrierEditable?'c1,c2,c3,c1,c2,c3':'c1,c2,c1,c2'}">
+					
+					<p:outputLabel value="Numéro de courrier" for="numCourrier"/>
+					<p:inputText id="numCourrier" value="#{controller.entity.courrier.numero}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" rendered="#{controller.courrierEditable}">
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:inputText>
+					<h:outputText value="#{controller.entity.courrier.numero}" rendered="#{not controller.courrierEditable}"/>
+					<p:message for="numCourrier" rendered="#{controller.courrierEditable}"/>
+					
+					<p:outputLabel value="Date de dépot" for="datCourrier"/>
+					<p:calendar id="datCourrier" value="#{controller.entity.courrier.date}" pattern="#{constantResources.datePattern}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}"
+						rendered="#{controller.courrierEditable}">
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:calendar>
+					<h:outputText value="#{controller.entity.courrier.date}" rendered="#{not controller.courrierEditable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+					<p:message for="datCourrier" rendered="#{controller.courrierEditable}"/>
+					
+					<!--
+					<ui:include src="/resources/include/component/formCommand.xhtml" >
+						<ui:param name="command" value="#{controller.depotCommand}" />
+					</ui:include>
+					-->
+				</p:panelGrid>			
+			</p:fieldset>
+			<p:spacer height="5"/>
+		</ui:fragment>
+		<p:fieldset legend="Agent" id="fieldsetAgent" toggleable="#{controller.courrierEditable}" collapsed="#{controller.courrierEditable}">	
 			<ui:include src="/identification/include/outputAgentEtat.xhtml" >
 				<ui:param name="agentEtat" value="#{controller.dossier.beneficiaire}" />
 				<ui:param name="columnCount" value="6" />
 			</ui:include>  
 			<p:spacer height="5" />
 			<p:panelGrid columns="#{editable?6:4}" styleClass="panelGridNoBorder" columnClasses="#{editable?'c1,c2,c3,c1,c2,c3':'c1,c2,c1,c2'}">
+				<p:outputLabel for="grade"  value="Grade" />
+				<p:selectOneMenu id="grade" value="#{controller.entity.grade}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}">
+					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+					<f:selectItems value="#{grades}"/>
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+				</p:selectOneMenu>
+				<h:outputText value="#{controller.entity.grade}" rendered="#{not editable}"/>
+				<p:message for="grade" />				
+				
 				<p:outputLabel for="dateCessationService" value="Date de cessation de service" rendered="#{controller.showDateCessationService}" />
 				<p:calendar id="dateCessationService" value="#{controller.dossier.dateCessationService}" pattern="#{constantResources.datePattern}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" 
 					rendered="#{controller.showDateCessationService and (editable==null or editable)}">
@@ -135,7 +144,7 @@
 
 		<p:spacer height="5" />
 		
-		<p:fieldset legend="Déplacement">
+		<p:fieldset legend="Déplacement" toggleable="#{controller.courrierEditable}" collapsed="#{controller.courrierEditable}" >
 			<h:panelGrid columns="6" columnClasses="c1,c2,c3,c1,c2,c3">
 				
 				<p:outputLabel for="serviceOrigine" value="Service d'origine:" rendered="#{controller.showServiceOrigine}" />

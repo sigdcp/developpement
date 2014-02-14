@@ -73,7 +73,7 @@
 				<!--  -->
 				<p:outputLabel for="datenaissance#{iid}" value="Date Naissance" />
 				<p:calendar id="datenaissance#{iid}" required="#{required}" navigator="true" value="#{personneDto.personne.dateNaissance}" requiredMessage="#{valueRequiredMessage}" 
-					 pattern="#{constantResources. datePattern}" readonlyInput="true" rendered="#{personneDto.editable}" validator="#{validationManager.validateDateNaissance}"
+					 pattern="#{constantResources. datePattern}" readonlyInput="false" rendered="#{personneDto.editable}" validator="#{validationManager.validateDateNaissance}"
 					 mindate="#{constantResources.dateMaximum}" maxdate="#{constantResources.dateNaissanceMinimum}" >
 					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 				</p:calendar>

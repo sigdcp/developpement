@@ -61,6 +61,12 @@ public class Dossier  extends AbstractModel<String>  implements Serializable{
 	@ManyToOne
 	private Section service;
 	
+	/**
+	 * Le dernier traitement qu'a subit le dossier
+	 */
+	@ManyToOne
+	private Traitement dernierTraitement;
+	
 	public Dossier() {}
 
 	public Dossier(String numero, Courrier courrier,Date datePriseService, Deplacement deplacement,Grade grade, AgentEtat beneficiaire) {
