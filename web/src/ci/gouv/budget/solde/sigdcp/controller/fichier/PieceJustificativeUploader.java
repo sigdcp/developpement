@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.io.IOUtils;
+
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
@@ -66,7 +68,7 @@ public class PieceJustificativeUploader implements Serializable {
 		for(PieceJustificativeDTO dto : collection){
 			if(dto.getFile()!=null){
 				
-				dto.getPiece().setFichier(fichierService.convertir(dto.getFile().getContents(),dto.getFile().getFileName() ));
+				dto.getPiece().setFichier(fichierService.convertir(IOUtils.toByteArray(dto.getFile().getInputstream()),dto.getFile().getFileName() ));
 			}
 			pieceJustificatives.add(dto.getPiece());
 		}

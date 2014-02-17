@@ -26,6 +26,7 @@ public class SampleDataController extends AbstractFormUIController<Object> imple
 		super.initialisation();
 		defaultSubmitCommand.setValue(text("bouton.sampledatacreate"));
 		defaultSubmitCommand.setNotificationMessageId("notification.sampledata.created");
+		defaultSubmitCommand.onSuccessStayOnCurrentView();
 	} 
 	
 	@Override

@@ -11,40 +11,52 @@ import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.lang3.StringUtils;
+import org.primefaces.model.UploadedFile;
 
+import lombok.extern.java.Log;
+import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
+import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
+import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
+import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
+import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
-import ci.gouv.budget.solde.sigdcp.service.utils.ServiceValidationUtils;
+import ci.gouv.budget.solde.sigdcp.service.utils.validaton.ValidationPolicy;
 
-@Named
+/**
+ * Ensemble de methode pour la validation des champs de saisie.<br/>
+ * Une methode doit etre liee a un champ de saisie dans un formulaire en vue de capturer le message
+ * dans son composant <b>message</b> associe. <b>f:attribute</b> devra etre utiliser si d'autres champs
+ * de saisie sont necessaire lors de la validation du champ a valider
+ * 
+ *<br/><br/>
+ *Aucune de ces methode ne doit implementer une logique de validation mais plutot solliciter l'une des methode du service dans la classe
+ *<code>ValidationPolicy</code>
+ * 
+ * @author Komenan Y .Christian
+ *
+ */
+@Named @Log
 public class ValidationManager implements Serializable {
 
 	private static final long serialVersionUID = -5187172212708031726L;
 	
-	@Inject private WebConstantResources webConstantResources;
-	@Inject private ServiceValidationUtils validationUtils; 
+	@Inject private ValidationPolicy validation; 
+	@Inject private UserSessionManager userSessionManager;
 	
 	/* Identification */
 	
 	public void validateMatricule(FacesContext facesContext,UIComponent uiComponent,Object value){
-		String matricule = (String) value;
-		TypeAgentEtat typeAgentEtat = (TypeAgentEtat) ((UIInput)uiComponent.getAttributes().get("typePersonne")).getValue();
-		if(StringUtils.isEmpty(matricule) || typeAgentEtat==null)
-			return;// Let required="true" do its job.
 		try {
-			validationUtils.validateMatricule(typeAgentEtat, matricule);
+			validation.validateMatricule(attribute(uiComponent, TypeAgentEtat.class, "typePersonne"), (String) value);
 		} catch (Exception e) {
 			validationException(uiComponent,e);
 		}		
 	}
 	
 	public void validateDateNaissance(FacesContext facesContext,UIComponent uiComponent,Object value){
-		Date dateNaissance = (Date) value;
-		if(dateNaissance==null)
-			return;// Let required="true" do its job.
 		try {
-			validationUtils.validateDateNaissance(dateNaissance);
+			validation.validateDateNaissance((Date) value);
 		} catch (Exception e) {
 			validationException(uiComponent,e);
 		}
@@ -52,33 +64,33 @@ public class ValidationManager implements Serializable {
 	
 	public void validatePassword(FacesContext facesContext,UIComponent uiComponent,Object value){
 		try {
-			validationUtils.validatePassword((String) value);
+			validation.validatePassword((String) value);
 		} catch (Exception e) {
 			validationException((UIInput) uiComponent, e.getMessage());
 		}
 	}
 	
-	public void validateConfirmationMotPasse(FacesContext facesContext,UIComponent uiComponent,Object value){
-		String p1 = (String) value,p2 = (String) ((UIInput)uiComponent.getAttributes().get("password")).getValue();
-		if(StringUtils.isEmpty(p1) || StringUtils.isEmpty(p2))
-			return;// Let required="true" do its job.
-		if (!p1.equals(p2))
-			validationException(uiComponent,"La confirmation doit correspondre au mot de passe.");
+	public void validateConfirmationPassword(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateConfirmationPassword(attribute(uiComponent, String.class, "password"),(String) value);
+		} catch (Exception e) {
+			validationException((UIInput) uiComponent, e.getMessage());
+		}
 	}
 	
 	public void validateCodeDeverouillage(FacesContext facesContext,UIComponent uiComponent,Object value){
 		try {
-			validationUtils.validateTokenDeverouillage((String) value);
+			validation.validateCodeDeverouillage((String) value);
 		} catch (Exception e) {
-			validationException((UIInput) uiComponent, e.getMessage());
+			validationException(uiComponent, e.getMessage());
 		}
 	}
 	
 	public void validateAdresseElectroniqueCompte(FacesContext facesContext,UIComponent uiComponent,Object value){
 		try {
-			validationUtils.validateUsernameUnique((String) value);
+			validation.validateUsernameUnique((String) value);
 		} catch (Exception e) {
-			validationException((UIInput) uiComponent, e.getMessage());
+			validationException(uiComponent, e.getMessage());
 		}
 	}
 	
@@ -86,15 +98,57 @@ public class ValidationManager implements Serializable {
 	
 	public void validateGrade(FacesContext facesContext,UIComponent uiComponent,Object value){
 		try {
-			validationUtils.validateUsernameUnique((String) value);
+			validation.validateGrade((Grade) value);
 		} catch (Exception e) {
-			validationException((UIInput) uiComponent, e.getMessage());
+			validationException(uiComponent, e.getMessage());
 		}
 	}
 	
 	public void validateDatePriseService(FacesContext facesContext,UIComponent uiComponent,Object value){
 		try {
-			validationUtils.validateDatePriseService((AgentEtat)uiComponent.getAttributes().get("agentEtat"), (Date)value);
+			validation.validateDatePriseService( (AgentEtat)userSessionManager.getUser(), (Date)value);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validateDateArrivee(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateDateArrivee(attribute(uiComponent, Date.class, "dateDepart"),(Date) value);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validateLocaliteDepart(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateVilleDepart((AgentEtat)userSessionManager.getUser(),(Localite) value);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validateLocaliteArrivee(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateVilleArrivee(attribute(uiComponent, Localite.class, "localiteDepart"),(Localite) value);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validateServiceAccueil(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateServiceAccueil((Section) value);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validatePieceJustificativeFichier(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validatePieceJustificativeFichier(false, attribute(uiComponent, String.class, "numero"), 
+					attribute(uiComponent, Date.class, "dateEtablissement"), attribute(uiComponent, Fonction.class, "signataire"),
+					((UploadedFile)value).getContents(),(Boolean)uiComponent.getAttributes().get("derivee"));
 		} catch (Exception e) {
 			validationException(uiComponent, e.getMessage());
 		}
@@ -110,11 +164,16 @@ public class ValidationManager implements Serializable {
 	private void validationException(UIComponent uiComponent,String message){
 		if(uiComponent instanceof UIInput)
 			validationException((UIInput) uiComponent, message);
-		System.out.println(uiComponent+" NOT HANDLED");
+		log.severe("Validation of Component Type "+uiComponent.getClass()+" Not handled");
 	}
 	
 	private void validationException(UIComponent uiComponent,Exception exception){
 		validationException(uiComponent, exception.getMessage());
+	}
+	
+	@SuppressWarnings("unchecked")
+	private <T> T attribute(UIComponent uiComponent,Class<T> type,String name){
+		return (T) ((UIInput)uiComponent.getAttributes().get(name)).getValue();
 	}
 
 }

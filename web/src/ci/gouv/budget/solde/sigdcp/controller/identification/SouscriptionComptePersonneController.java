@@ -6,7 +6,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.Valid;
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
@@ -21,7 +20,7 @@ import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 import ci.gouv.budget.solde.sigdcp.service.GenericService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.LocaliteService;
 import ci.gouv.budget.solde.sigdcp.service.identification.SouscriptionComptePersonneService;
-import ci.gouv.budget.solde.sigdcp.service.utils.validaton.ObjectValidator;
+import ci.gouv.budget.solde.sigdcp.service.utils.validaton.AbstractValidator;
 import ci.gouv.budget.solde.sigdcp.service.utils.validaton.SouscriptionComptePersonneValidator;
 
 @Named @ViewScoped
@@ -52,6 +51,7 @@ public class SouscriptionComptePersonneController extends AbstractEntityFormUICo
 	@Override
 	protected void initialisation() {
 		super.initialisation();
+		instructions=text("souscription.compte.personne.reserve.a");
         if(inscriptionAgentEtat)
         	title = "Formulaire de souscription";
         
@@ -60,14 +60,14 @@ public class SouscriptionComptePersonneController extends AbstractEntityFormUICo
         demandeurDto.getInfosSouscriptionComptePersonne().getPersonne().setNationalite(localiteService.findById(Code.LOCALITE_COTE_DIVOIRE));
         demandeurDto.getInfosSouscriptionComptePersonne().setType(genericService.findByClass(TypeAgentEtat.class, String.class,Code.TYPE_AGENT_ETAT_FONCTIONNAIRE));
         
-        defaultSubmitCommand.getObjectValidators().add(new ObjectValidator<SouscriptionComptePersonne>(entity, validator));
         defaultSubmitCommand.setValue(text("bouton.souscrirecompte"));
         defaultSubmitCommand.setNotificationMessageId("notification.compte.ouvert");
         defaultSubmitCommand.setSuccessOutcome("login");
         
         reponseSecrete = new ReponseSecrete();
         entity.getReponseSecretes().add(reponseSecrete);
-           
+        
+        requiredEnabled=false;
     }
 		
 	@Override
@@ -76,13 +76,8 @@ public class SouscriptionComptePersonneController extends AbstractEntityFormUICo
 	}
 	
 	@Override
-	protected SouscriptionComptePersonne createEntityInstance() {
-		return new SouscriptionComptePersonne();
-	}
-	
-	@AssertTrue(message="Les mots de passe ne correspondent pas",groups=Client.class)
-	public boolean isPasswordsMatch(){
-		return entity.getPassword().equals(confirmationMotPasse);
+	protected AbstractValidator<SouscriptionComptePersonne> validator() {
+		return validator;
 	}
 	
 

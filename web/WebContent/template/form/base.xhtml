@@ -19,16 +19,25 @@
 	 	function formSubmitOnstart(){
 	 		PF('bui').show();
 	 	}
-	 	function formSubmitOncomplete(){
+	 	function formSubmitOncomplete(xhr, status, args){
 	 		PF('bui').hide();
+	 		if(args.validationFailed)
+	 			PF('validationDialog').show();
+	 	}
+	 	function formSubmitOnerror(){
+	 		alert('You have error');
 	 	}
  	
  	</script>
  	
+ 	<!--
+ 	<ui:fragment rendered="#{not empty request.remoteUser}">
+ 		<h:outputText value="#{userSessionManager.userInfosLine}" escape="false"/>
+ 	</ui:fragment>
+ 	-->
 	<h:form id="form" enctype="multipart/form-data">
 		<table border="0" style="margin: auto;"><tr>
 			<td>
-
 				<ui:insert name="title">
 					<table class="formHeaderClass"><tr>
 						<td id="title"><h:outputText value="#{uiController.title}" /></td>
@@ -39,9 +48,16 @@
 				<p:separator/>
 				
 				<ui:fragment rendered="#{not empty uiController.instructions}">
-					<div class="forminsctructions">
-						<h:outputText value="#{uiController.instructions}" escape="false"/>
-					</div>
+					<!--div class="ui-panel ui-widget ui-widget-content ui-panel-titlebar ui-widget-header ui-helper-clearfix forminsctructions">
+						<span class="ui-panel-title">
+							<h:outputText value="#{uiController.instructions}" escape="false"/>
+						</span>
+					</div-->	
+					<ui:include src="/resources/include/component/message.xhtml" >
+						<ui:param name="severity" value="info" />
+						<ui:param name="message" value="#{uiController.instructions}" />
+					</ui:include>
+										
 				</ui:fragment>
 				
 				<p:messages globalOnly="true" escape="false"/>
@@ -69,6 +85,22 @@
 
 	</h:form> 	
  	
-
+	<p:dialog widgetVar="validationDialog" header="#{uiController.title}" modal="true" appendTo="@(body)" >
+		<table style="margin: auto;" cellspacing="5">
+			<tr style="vertical-align: middle;">
+				<td>
+					<ui:include src="/resources/include/component/message.xhtml" >
+						<ui:param name="severity" value="error" />
+						<ui:param name="message" value="Erreur de validation" />
+					</ui:include>
+				</td>
+			</tr>
+			<tr><td colspan="1">
+				<div align="center"><p:commandButton value="OK" type="button" onclick="PF('validationDialog').hide();" /></div>
+			</td> </tr> 
+		</table>
+		
+		
+	</p:dialog>
 	
 </ui:composition>

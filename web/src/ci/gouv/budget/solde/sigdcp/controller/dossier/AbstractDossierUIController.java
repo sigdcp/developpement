@@ -63,12 +63,13 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	/*
 	 * Actions
 	 */
-	protected FormCommand<DOSSIER> enregistrerCommand/*,depotCommand*/;
+	protected FormCommand<DOSSIER> enregistrerCommand;
 	
 	@Override
 	protected void initialisation() {
 		super.initialisation();
-		
+		//if(entity==null)
+		//	initCreateOperation();
 		DOSSIER dossierEnCoursSaisie = getDossierService().findSaisieByPersonneByNatureDeplacement((AgentEtat) userSessionManager.getUser(), entity.getDeplacement().getNature());
 		if(dossierEnCoursSaisie!=null)
 			entity = dossierEnCoursSaisie;
@@ -81,8 +82,7 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 				showCourrier=true;
 				courrierEditable = StringUtils.isEmpty(entity.getCourrier().getNumero());
 			}
-		//if(dossierEnCoursSaisie!=null || getDossierService().exist(entity.getNumero()))
-		//	pieceJustificativeUploader.setAImprimer(pieceJustificativeAFournirService.findDeriveeByNatureDeplacementId(entity.getDeplacement().getNature().getCode()));
+	
 		updatePieceJustificatives(true);
 		if(typeDepense==null)
 			parametres = new HashMap<String, Object>();
@@ -96,6 +96,7 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		defaultSubmitCommand.setNotificationMessageId("notification.demande.soumise");
 		defaultSubmitCommand.setAjax(Boolean.FALSE);
 		defaultSubmitCommand.setRendered((isEditable() && dossierEnCoursSaisie!=null) || showCourrier);
+	
 		defaultSubmitCommand.set_successOutcome(new Action() {
 			private static final long serialVersionUID = -6851391666779599546L;
 			@Override
@@ -115,6 +116,7 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		});
 		enregistrerCommand.setAjax(Boolean.FALSE);
 		enregistrerCommand.setRendered(isEditable());
+		addValidator(validator(),enregistrerCommand);
 		enregistrerCommand.set_successOutcome(new Action() {
 			private static final long serialVersionUID = -6851391666779599546L;
 			@Override
@@ -126,21 +128,8 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 								webConstantResources.getRequestParamUrl(),url},true);
 			}
 		});
-		/*
-		depotCommand = createCommand().init("bouton.valider","ui-icon-check","notification.demande.deposer", new Action() {
-			private static final long serialVersionUID = 1L;
-			@Override
-			protected Object __execute__(Object object) throws Exception {
-				getDossierService().deposer(entity);
-				return null;
-			}
-		}).onSuccessStayOnCurrentView();
-		*/
-		enregistrerCommand.setAjax(Boolean.FALSE);
-		/*
-		if(natureDaplacement==null)
-			natureDaplacement = entity.getDeplacement().getNature();
-		*/
+		
+		//enregistrerCommand.setImmediate(true);//to remove , just for test
 				
 	}
 	
@@ -178,7 +167,6 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		super.initCreateOperation();
 		entity.setDeplacement(createDeplacement());
 		entity.getDeplacement().setNature(natureDaplacement);
-		
 	}
 	
 	@Override
@@ -194,10 +182,5 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	}
 	
 	
-	
-	public DOSSIER getDossier(){
-		return entity;
-	}
-		
 }
 		

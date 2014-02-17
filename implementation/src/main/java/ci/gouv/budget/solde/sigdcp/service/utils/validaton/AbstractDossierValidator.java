@@ -49,4 +49,19 @@ public class AbstractDossierValidator<DOSSIER extends Dossier> extends AbstractV
 		return true;
 	}
 	
+	@AssertTrue(message="###",groups=Client.class)
+	public boolean isPieceJustificativesCorrect(){
+		if(pieceJustificatives==null)
+			return true;
+		pieceJustificativeValidator.setAutoClearMessages(Boolean.FALSE);
+		pieceJustificativeValidator.setSoumission(soumission);
+		for(PieceJustificative pj : pieceJustificatives){
+			
+			pieceJustificativeValidator.validate(pj);
+		}
+		messages.addAll(pieceJustificativeValidator.getMessages());
+		pieceJustificativeValidator.getMessages().clear();
+		return pieceJustificativeValidator.isSucces();
+	}
+	
 }

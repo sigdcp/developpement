@@ -6,63 +6,83 @@ import javax.validation.constraints.AssertTrue;
 
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 public class DossierDDValidator extends AbstractDossierValidator<DossierDD> implements Serializable {
 
 	private static final long serialVersionUID = -261860698364195138L;
 	
+	@AssertTrue(message="le grade n'est pas valide",groups=Client.class)
+	public boolean isValidGrade(){
+		try {
+			validationPolicy.validateGrade(object.getGrade());
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 	
+	@AssertTrue(message="la date de prise de service n'est pas valide",groups=Client.class)
+	public boolean isValidDatePriseService(){
+		try {
+			validationPolicy.validateDatePriseService(object.getBeneficiaire(), object.getDatePriseService());
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 	
-	@AssertTrue(message="le service est obligatoire",groups=Client.class)
-	public boolean isServiceAcceuil(){
+	@AssertTrue(message="le service d'accueil n'est pas valide",groups=Client.class)
+	public boolean isValidServiceAcceuil(){
 		if(Code.NATURE_DEPLACEMENT_AFFECTATION.equals(object.getDeplacement().getNature().getCode()))
-			return object.getService()!=null;
+			try {
+				validationPolicy.validateServiceAccueil(object.getService());
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
 		return true;
 	}
 	
-	@AssertTrue(message="la date d'arrivée est obligatoire",groups=Client.class)
-	public boolean isDateArrivee(){
-		return object.getDeplacement().getDateArrivee()!=null;
-	}
-	
-	@AssertTrue(message="la date de départ doit etre inférieure à la date d'arrivée",groups=Client.class)
-	public boolean isDateDepartAvantDateArrivee(){
-		if(object.getDeplacement().getDateArrivee()==null)
+	@AssertTrue(message="la date de départ n'est pas valide",groups=Client.class)
+	public boolean isValidDateDepart(){
+		try {
+			validationPolicy.validateDateDepart(object.getBeneficiaire(), object.getDeplacement().getDateDepart());
 			return true;
-		return /*object.getDeplacement().getDateArrivee()!=null &&*/ object.getDeplacement().getDateDepart().before(object.getDeplacement().getDateArrivee());
+		} catch (Exception e) {
+			return false;
+		}
 	}
 	
-	@AssertTrue(message="###",groups=Client.class)
-	public boolean isPieceJustificativesCorrect(){
-		pieceJustificativeValidator.setAutoClearMessages(Boolean.FALSE);
-		pieceJustificativeValidator.setSoumission(soumission);
-		for(PieceJustificative pj : pieceJustificatives)
-			pieceJustificativeValidator.validate(pj);
-		messages.addAll(pieceJustificativeValidator.getMessages());
-		pieceJustificativeValidator.getMessages().clear();
-		return pieceJustificativeValidator.isSucces();
+	@AssertTrue(message="la date d'arrivée n'est pas valide",groups=Client.class)
+	public boolean isValidDateArrivee(){
+		try {
+			validationPolicy.validateDateArrivee(object.getDeplacement().getDateDepart(), object.getDeplacement().getDateArrivee());
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 	
-	/*
-	@AssertTrue(message="la date de prise de service est obligatoire",groups=Client.class)
-	private boolean isDatePriseNotNull(){
-		return object.getDatePriseService()!=null;
+	@AssertTrue(message="la ville de depart n'est pas valide",groups=Client.class)
+	public boolean isValidVilleDepart(){
+		try {
+			validationPolicy.validateVilleDepart(object.getBeneficiaire(), object.getDeplacement().getLocaliteDepart());
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
-	*/
-	/*
-	@AssertTrue(message="Le dossier doit appartenir a un bénéficiaire",groups=System.class)
-	private boolean hasBenficiaire(){
-		return object.getBeneficiaire()!=null;
+	
+	@AssertTrue(message="la ville d'arrivee n'est pas valide",groups=Client.class)
+	public boolean isValidVilleArrivee(){
+		try {
+			validationPolicy.validateVilleArrivee(object.getDeplacement().getLocaliteDepart(), object.getDeplacement().getLocaliteArrivee());
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
-	*/
-	/*
-	@AssertTrue(message="la date de prise de service doit être inférieur a la date de cessation de service",groups=Client.class)
-	private boolean isDatePriseServiceBeforeDateCessationService(){
-		return object.getDatePriseService().before(object.getDateCessationService());
-	}
-	*/
 	
 	/*
 	Date datecourante = new Date();

@@ -4,49 +4,31 @@ import java.io.Serializable;
 
 import javax.validation.constraints.AssertTrue;
 
-import lombok.Getter;
-
 import org.apache.commons.lang3.StringUtils;
 
 import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionComptePersonne;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
-@Getter
 public class SouscriptionComptePersonneValidator extends AbstractValidator<SouscriptionComptePersonne> implements Serializable {
  
 	private static final long serialVersionUID = -261860698364195138L;
-	
-	
-	
-	/*
-	@AssertTrue(message="Matricule incorrect",groups=Client.class)
-	private boolean matriculeFormatCorrect;
-	
-	@AssertTrue(message="Vous devez avoir plus de 18 ans",groups=Client.class)
-	private boolean majeur;
-	/*
-	@Override
-	public AbstractValidator<SouscriptionComptePersonne> init(SouscriptionComptePersonne souscriptionComptePersonne) {
-		super.init(souscriptionComptePersonne);
 		
-		if(Code.TYPE_AGENT_ETAT_GENDARME.equals(object.getPersonneDemandeur().getType()))
-			matriculeFormatCorrect = validationUtils.isMatrciuleGendarmeFormatCorrect(object.getPersonneDemandeur().getMatricule());
-		matriculeFormatCorrect = validationUtils.isMatrciuleFonctionnaireFormatCorrect(object.getPersonneDemandeur().getMatricule());
-		
-		majeur = validationUtils.isMajeur(object.getPersonneDemandeur().getPersonne().getDateNaissance());
-		
-		return this;
-	}
-	*/
-	
 	@AssertTrue(message="Matricule incorrect",groups=Client.class)
 	public boolean isMatriculeFormatCorrect(){
-		return validationUtils.isMatriculeFormatCorrect(object.getPersonneDemandeur().getType(),object.getPersonneDemandeur().getMatricule());
+		try {
+			validationPolicy.validateMatricule(object.getPersonneDemandeur().getType(),object.getPersonneDemandeur().getMatricule());
+			return true;
+		} catch (Exception e) {return false;}
 	}
 	
 	@AssertTrue(message="Vous devez avoir plus de 18 ans",groups=Client.class)
 	public boolean isMajeur(){
-		return validationUtils.isMajeur(object.getPersonneDemandeur().getPersonne().getDateNaissance());
+		try {
+			validationPolicy.validateDateNaissance(object.getPersonneDemandeur().getPersonne().getDateNaissance());
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 	
 	@AssertTrue(message="le type de la piece d'identite est obligatiore",groups=Client.class)
@@ -61,7 +43,12 @@ public class SouscriptionComptePersonneValidator extends AbstractValidator<Sousc
 	
 	@AssertTrue(message="cette adresse email est déja lié à un compte",groups=Client.class)
 	public boolean isAddresseElectroniqueUnique(){
-		return validationUtils.isUsernameUnique(object.getPersonneDemandeur().getPersonne().getContact().getEmail());
+		try {
+			validationPolicy.validateUsernameUnique(object.getPersonneDemandeur().getPersonne().getContact().getEmail());
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 	
 	

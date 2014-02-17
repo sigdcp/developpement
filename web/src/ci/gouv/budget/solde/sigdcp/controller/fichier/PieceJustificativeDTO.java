@@ -26,11 +26,11 @@ public class PieceJustificativeDTO implements Serializable {
 		this.piece = piece;
 		numeroEditable = Boolean.FALSE.equals(piece.getModel().getDerivee());
 		dateEtablissementEditable = numeroEditable;
-		showFile = piece.getFichier().getBytes()==null;
+		showFile = piece.getFichier()==null;
 	}
 	
 	public void supprimerFichier(){
-		piece.getFichier().setBytes(null);
+		piece.setFichier(null);
 	}
 
 }

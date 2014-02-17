@@ -63,10 +63,10 @@ public class FormCommand<DTO> extends CommandButton implements Serializable {
 					String message = notificationMessage();
 					if(StringUtils.isNotEmpty(message))
 						form.getMessageManager().addInfo(message,Boolean.FALSE);
+					return NavigationManager.OUTCOME_CURRENT_VIEW;
 				}
 			} catch (Exception e) {
-				
-					form.getMessageManager().addError(e);
+				form.getMessageManager().addError(e);
 				return echec(e);
 			}
 			//System.out.println("OUTCOME : "+successOutcome);

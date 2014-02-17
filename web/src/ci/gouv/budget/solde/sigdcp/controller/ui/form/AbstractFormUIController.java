@@ -58,10 +58,15 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 	
 	public FormCommand<DTO> createCommand(){
 		FormCommand<DTO> c = new FormCommand<DTO>(this);
-		c.setOnclick("formSubmitOnstart();");
-		c.setOnstart("formSubmitOnstart();");
-		c.setOncomplete("formSubmitOncomplete();");
+		commonCommandConfig(c);
 		return c;
+	}
+	
+	protected void commonCommandConfig(FormCommand<DTO> command){
+		command.setOnclick("formSubmitOnstart();");
+		command.setOnstart("formSubmitOnstart();");
+		command.setOncomplete("formSubmitOncomplete(xhr, status, args);");
+		command.setOnerror("formSubmitOnerror();");
 	}
 	
 	protected void initCommands(){
@@ -73,9 +78,7 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 				return null;
 			}
 		});
-		defaultSubmitCommand.setOnclick("formSubmitOnstart();");
-		defaultSubmitCommand.setOnstart("formSubmitOnstart();");
-		defaultSubmitCommand.setOncomplete("formSubmitOncomplete();");
+		commonCommandConfig(defaultSubmitCommand);
 		defaultSubmitCommand.setRendered(!isRead());
 		
 		closeCommand = createCommand().init("bouton.annuler","ui-icon-close",null, new Action() {

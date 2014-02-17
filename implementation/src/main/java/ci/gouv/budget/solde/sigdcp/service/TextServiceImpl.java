@@ -20,7 +20,10 @@ public class TextServiceImpl implements TextService, Serializable {
 	
 	private static final long serialVersionUID = -2096649010369789825L;
 	
-	private static final ResourceBundle I18N = ResourceBundle.getBundle("ci.gouv.budget.solde.sigdcp.service.resources.i18n.message",Locale.FRENCH);
+	private static final ResourceBundle[] I18N_BUNDLES = { 
+		ResourceBundle.getBundle("ci.gouv.budget.solde.sigdcp.service.resources.i18n.message",Locale.FRENCH),
+		ResourceBundle.getBundle("ci.gouv.budget.solde.sigdcp.service.resources.i18n.error",Locale.FRENCH)
+	};
 	
 	private static final String NOT_YET_DEFINED_ID_FORMAT = "## %s ##";
 	
@@ -31,15 +34,14 @@ public class TextServiceImpl implements TextService, Serializable {
 	
 	@Override
 	public String find(String id, Object[] parameters) {
-		try {
-			if(parameters==null)
-				return I18N.getString(id);
-			return MessageFormat.format(I18N.getString(id), parameters) ;
-		} catch (MissingResourceException e) {
+			//if(parameters==null)
+			//	parameters = new Object[]{};
+			
+			for(ResourceBundle resourceBundle : I18N_BUNDLES)
+				try {return MessageFormat.format(resourceBundle.getString(id), parameters);} catch (MissingResourceException e) {}
+			
 			return String.format(NOT_YET_DEFINED_ID_FORMAT, id);
-		}
+		
 	}
-	
-	
 
 }

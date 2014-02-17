@@ -1,5 +1,5 @@
 package ci.gouv.budget.solde.sigdcp.model;
-
+/*
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Date;
@@ -58,4 +58,4 @@ public class MainTest {
     template.process(input, consoleWriter);
 
   }
-} 
+} */

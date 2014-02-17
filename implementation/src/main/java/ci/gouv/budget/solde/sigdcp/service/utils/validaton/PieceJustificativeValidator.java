@@ -14,33 +14,66 @@ public class PieceJustificativeValidator extends AbstractValidator<PieceJustific
 	@Setter
 	private boolean soumission;
 	
-	@AssertTrue(message="Le numéro de la piece justificative est obligatoire")
-	public boolean isNumeroNotNull(){
+	@AssertTrue(message="Le numéro n'est pas valide")
+	public boolean isValidNumero(){
+		try{
+			validationPolicy.validatePieceJustificativeNumero(soumission, object.getNumero(), object.getDateEtablissement(), object.getFonctionSignataire()
+					,object.getFichier()==null?null:object.getFichier().getBytes(),object.getModel().getDerivee());
+			return true;
+		}catch(Exception exception){
+			return false;
+		}
+		/*
 		if(soumission)
 			return !isNull(object.getNumero());
 		if(!isNull(object.getDateEtablissement()) || !isNull(object.getFonctionSignataire()))
 			return !isNull(object.getNumero());
 		return true;
+		*/
 	}
 	
-	@AssertTrue(message="La date d'établissement de la piece justificative est obligatoire")
-	public boolean isDateEtablissementNotNull(){
-		if(soumission)
+	@AssertTrue(message="La date d'établissement n'est pas valide")
+	public boolean isValidDateEtablissement(){
+		try{
+			validationPolicy.validatePieceJustificativeDateEtablissement(soumission, object.getNumero(), object.getDateEtablissement(), object.getFonctionSignataire()
+					,object.getFichier()==null?null:object.getFichier().getBytes(),object.getModel().getDerivee());
+			return true;
+		}catch(Exception exception){
+			return false;
+		}
+		/*if(soumission)
 			return !isNull(object.getDateEtablissement());
 		if(!isNull(object.getNumero()) || !isNull(object.getFonctionSignataire()))
-			return !isNull(object.getDateEtablissement());
-		return true;
+			return !isNull(object.getDateEtablissement());*/
 	}
 	
-	@AssertTrue(message="La fonction du signataire de la piece justificative est obligatoire")
-	public boolean isFonctionSignataireNotNull(){
-		if(soumission)
+	@AssertTrue(message="La fonction du signataire n'est pas valide")
+	public boolean isValidFonctionSignataire(){
+		try{
+			validationPolicy.validatePieceJustificativeSignataire(soumission, object.getNumero(), object.getDateEtablissement(), object.getFonctionSignataire()
+					,object.getFichier()==null?null:object.getFichier().getBytes(),object.getModel().getDerivee());
+			return true;
+		}catch(Exception exception){
+			return false;
+		}
+		/*if(soumission)
 			return !isNull(object.getFonctionSignataire());
 		if(Boolean.TRUE.equals(object.getModel().getDerivee()))
 			return true;
 		if(!isNull(object.getDateEtablissement()) || !isNull(object.getNumero()))
-			return !isNull(object.getFonctionSignataire());
-		return true;
+			return !isNull(object.getFonctionSignataire());*/
+	}
+	
+	@AssertTrue(message="Le fichier n'est pas valide")
+	public boolean isValidFichier(){
+		try{
+			validationPolicy.validatePieceJustificativeFichier(soumission, object.getNumero(), object.getDateEtablissement(), object.getFonctionSignataire()
+					,object.getFichier()==null?null:object.getFichier().getBytes(),object.getModel().getDerivee());
+			return true;
+		}catch(Exception exception){
+			return false;
+		}
+		
 	}
 	
 

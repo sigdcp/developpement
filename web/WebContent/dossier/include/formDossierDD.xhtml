@@ -28,20 +28,31 @@
 		<ui:include src="/dossier/include/inputCourrier.xhtml" />
 
 		<p:fieldset legend="Agent" id="fieldsetAgent" toggleable="#{controller.courrierEditable}" collapsed="#{controller.courrierEditable}">	
-			<ui:include src="/identification/include/outputAgentEtat.xhtml" >
-				<ui:param name="agentEtat" value="#{controller.entity.beneficiaire}" />
-				<ui:param name="columnCount" value="6" />
-			</ui:include>  
-			<p:spacer height="5" />
-			<p:panelGrid columns="#{editable?6:4}" styleClass="panelGridNoBorder" columnClasses="#{editable?'c1,c2,c3,c1,c2,c3':'c1,c2,c1,c2'}">
-				<p:outputLabel for="grade"  value="Grade" />
-				<p:selectOneMenu id="grade" value="#{controller.entity.grade}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}">
+			
+			
+			<p:panelGrid columns="6" styleClass="panelGridNoBorder" columnClasses="c1,c2,c3,c1,c2,c3">
+				<ui:include src="/identification/include/outputAgentEtatInPanel.xhtml" >
+					<ui:param name="agentEtat" value="#{controller.entity.beneficiaire}" />
+				</ui:include>    
+				
+				<p:outputLabel for="grade"  value="Grade" /> 
+				<p:selectOneMenu id="grade" value="#{controller.entity.grade}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" 
+					converter="#{objectConverter}" rendered="#{editable==null or editable}" validator="#{validationManager.validateGrade}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{grades}"/>
 					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 				</p:selectOneMenu>
 				<h:outputText value="#{controller.entity.grade}" rendered="#{not editable}"/>
-				<p:message for="grade" />				
+				<p:message for="grade" rendered="#{editable}"/>
+				
+				<p:outputLabel for="datePriseService" value="Date de prise de service" rendered="#{controller.showDatePriseService}" />
+				<p:calendar id="datePriseService" value="#{controller.entity.datePriseService}" pattern="#{constantResources.datePattern}" validator="#{validationManager.validateDatePriseService}"
+					required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" rendered="#{controller.showDatePriseService and (editable==null or editable)}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<f:attribute name="agentEtat" value="#{controller.entity.beneficiaire}"/>
+				</p:calendar>
+				<h:outputText value="#{controller.entity.datePriseService}" rendered="#{not editable and controller.showDatePriseService}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>				
+				<p:message for="datePriseService" rendered="#{controller.showDatePriseService}" />
 				
 				<p:outputLabel for="dateCessationService" value="Date de cessation de service" rendered="#{controller.showDateCessationService}" />
 				<p:calendar id="dateCessationService" value="#{controller.entity.dateCessationService}" pattern="#{constantResources.datePattern}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" 
@@ -50,16 +61,7 @@
 				</p:calendar>
 				<h:outputText value="#{controller.entity.dateCessationService}" rendered="#{not editable and controller.showDateCessationService}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 				<p:message for="dateCessationService" rendered="#{controller.showDateCessationService}"/>
-	
-				<p:outputLabel for="datePriseService" value="Date de prise de service" rendered="#{controller.showDatePriseService}" />
-				<p:calendar id="datePriseService" value="#{controller.entity.datePriseService}" pattern="#{constantResources.datePattern}" validator="#{validationManager.validateDatePriseService}"
-					required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" rendered="#{controller.showDatePriseService and (editable==null or editable)}">
-					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
-					<f:attribute name="agentEtat" value="#{controller.entity.beneficiaire}"/>
-				</p:calendar>
-				<h:outputText value="#{controller.entity.datePriseService}" rendered="#{not editable and controller.showDatePriseService}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
-				<p:message for="datePriseService" rendered="#{controller.showDatePriseService}" />			
-				
+					
 				<p:outputLabel for="dateMiseRetraite" value="Date de mise à la retraite" rendered="#{controller.showDateMiseRetraite}" />
 				<p:calendar id="dateMiseRetraite" value="#{controller.entity.dateMiseRetraite}" pattern="#{constantResources.datePattern}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" 
 					rendered="#{controller.showDateMiseRetraite and (editable==null or editable)}">
@@ -134,7 +136,8 @@
 				<p:message for="serviceOrigine" rendered="#{controller.showServiceOrigine}" />
 		        
 		        <p:outputLabel for="serviceAcceuil" value="Service d'accueil:" rendered="#{controller.showServiceAcceuil}" />
-				<p:selectOneMenu id="serviceAcceuil" value="#{controller.entity.service}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
+				<p:selectOneMenu id="serviceAcceuil" value="#{controller.entity.service}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" 
+					converter="#{objectConverter}"  validator="#{validationManager.validateServiceAccueil}"
 				rendered="#{controller.showServiceAcceuil and (editable==null or editable)}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{services}"/>
@@ -148,7 +151,8 @@
 				<h:outputText rendered="#{not controller.showServiceOrigine or not controller.showServiceAcceuil}" />
 				
 				<p:outputLabel for="villeDepart"  value="Ville de départ:" />
-				<p:selectOneMenu id="villeDepart" value="#{controller.entity.deplacement.localiteDepart}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}">
+				<p:selectOneMenu id="villeDepart" value="#{controller.entity.deplacement.localiteDepart}" required="#{requiredEnabled}" validator="#{validationManager.validateLocaliteDepart}"
+					requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}" binding="#{localiteDepart}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{villes}"/>
 					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
@@ -157,24 +161,29 @@
 				 <p:message for="villeDepart" />
 				
 				<p:outputLabel for="villeArrivee" value="Ville d'arrivée:" />		
-				<p:selectOneMenu id="villeArrivee" value="#{controller.entity.deplacement.localiteArrivee}" required="#{requiredEnabled}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}">
+				<p:selectOneMenu id="villeArrivee" value="#{controller.entity.deplacement.localiteArrivee}" required="#{requiredEnabled}" 
+					requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable==null or editable}" validator="#{validationManager.validateLocaliteArrivee}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{villes}"/>
 					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<f:attribute name="localiteDepart" value="#{localiteDepart}"/>
 				</p:selectOneMenu>	
 				<h:outputText value="#{controller.entity.deplacement.localiteArrivee}" rendered="#{not editable}"/>
 				<p:message for="villeArrivee" />
 				
 				<p:outputLabel for="dateDepart" value="Date départ" />
-				<p:calendar id="dateDepart" value="#{controller.entity.deplacement.dateDepart}" required="#{requiredEnabled}" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}">
+				<p:calendar id="dateDepart" value="#{controller.entity.deplacement.dateDepart}" required="#{requiredEnabled}" pattern="#{constantResources.datePattern}" 
+					requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}" binding="#{dateDepart}">
 					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 				</p:calendar>
 				<h:outputText value="#{controller.entity.deplacement.dateDepart}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 				<p:message for="dateDepart" />
 				 
 				<p:outputLabel for="dateArrivee" value="Date arrivée" />
-				<p:calendar id="dateArrivee" value="#{controller.entity.deplacement.dateArrivee}" required="#{requiredEnabled}" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}">
+				<p:calendar id="dateArrivee" value="#{controller.entity.deplacement.dateArrivee}" required="#{requiredEnabled}" pattern="#{constantResources.datePattern}" 
+					requiredMessage="#{valueRequiredMessage}" rendered="#{editable==null or editable}" validator="#{validationManager.validateDateArrivee}">
 					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<f:attribute name="dateDepart" value="#{dateDepart}"/>
 				</p:calendar>
 				<h:outputText value="#{controller.entity.deplacement.dateArrivee}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 				<p:message for="dateArrivee" />

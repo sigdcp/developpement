@@ -8,23 +8,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <body>
 	<ui:composition>
-		
-		<style>
-			.c1{
-				font-weight: bold;
-				width: 200px;
-			}
-			.c2{
-				
-			}
-			.c3{
-				
-			}
-		</style>
-		
-		<ui:param name="columnCount" value="#{columnCount==null?2:columnCount}" />
-		
-	    <p:panelGrid styleClass="panelGridNoBorder" columns="6" columnClasses="c1,c2,c3,c1,c2,c3"> 
+				 
 			<h:outputText value="Matricule" />
 		 	<h:outputText value="#{agentEtat.matricule}"/>
 			<h:outputText value="" />
@@ -49,7 +33,7 @@
 			<h:outputText value="Echelon" rendered="#{echelon==null or echelon}"/>
 			<h:outputText value="#{agentEtat.echelon}" rendered="#{echelon==null or echelon}"/>
 			-->
-		</p:panelGrid> 
+		
 			
 	</ui:composition>
 </body>

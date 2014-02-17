@@ -17,13 +17,23 @@ import org.apache.commons.lang3.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
-import ci.gouv.budget.solde.sigdcp.service.utils.ServiceValidationUtils;
 
+/**
+ * Ensemble de methodes automatiquement appele par le conteneur pour la validation de contraintes.<br/>
+ * La signature doit avoir le format suivant : isValidXXX ou XXX est le nom de l'attribut ou de la contrainte. ex : isValidDateNaissance , 
+ * is ValidMajorite , isValidDistance  , etc.
+ * 
+ * @author Komenan Y .Christian
+ *
+ * @param <OBJECT>
+ */
 public class AbstractValidator<OBJECT> implements Serializable {
 
 	private static final long serialVersionUID = -261860698364195138L;
 	
-	@Inject protected ServiceValidationUtils validationUtils;	
+	protected static final String MESSAGE_NOT_VALID_FORMAT = "%s n'est pas valide";
+	
+	@Inject protected ValidationPolicy validationPolicy;	
 	
 	protected Class<OBJECT> objectClass;
 	protected Class<AbstractValidator<OBJECT>> validatorClass;
@@ -99,11 +109,8 @@ public class AbstractValidator<OBJECT> implements Serializable {
 		return messages==null?"":StringUtils.join(messages, "\r\n");
 	}
 	
-	protected boolean isNull(Object value){
-		if(value instanceof String)
-			return StringUtils.isEmpty((CharSequence) value);
-		
-		return value == null;
+	protected static String messageNotValid(String constraint){
+		return String.format(MESSAGE_NOT_VALID_FORMAT, constraint);
 	}
 	
 }

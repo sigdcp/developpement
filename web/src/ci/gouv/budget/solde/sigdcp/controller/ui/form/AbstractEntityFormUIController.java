@@ -9,7 +9,10 @@ import javax.validation.Valid;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.FormCommand;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.service.utils.validaton.AbstractValidator;
+import ci.gouv.budget.solde.sigdcp.service.utils.validaton.ObjectValidator;
 
 @Log
 public abstract class AbstractEntityFormUIController<ENTITY extends AbstractModel<?>> extends AbstractFormUIController<ENTITY> implements Serializable {
@@ -25,6 +28,12 @@ public abstract class AbstractEntityFormUIController<ENTITY extends AbstractMode
 	public AbstractEntityFormUIController() {
 		if(getClass().getGenericSuperclass() instanceof ParameterizedType)
 			entityClass = (Class<ENTITY>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	}
+
+	@Override
+	protected void afterInitialisation() {
+		super.afterInitialisation();
+		addValidator(validator());
 	}
 	
 	@Override
@@ -44,35 +53,22 @@ public abstract class AbstractEntityFormUIController<ENTITY extends AbstractMode
 		return null;
 	}
 	
+	protected AbstractValidator<ENTITY> validator(){
+		return null;
+	}
+	
+	protected void addValidator(AbstractValidator<ENTITY> validator,FormCommand<ENTITY> command){
+		if(validator!=null)
+			command.getObjectValidators().add(new ObjectValidator<ENTITY>(entity, validator));
+	}
+	
+	protected void addValidator(AbstractValidator<ENTITY> validator){
+		addValidator(validator, defaultSubmitCommand);
+	}
+	
 	@Override
 	public ENTITY getDto() {
 		return entity;
 	}
-	
-	/*
-	public String action(){
-		if(isCreate()){
-			return createAction();
-		}else if(isUpdate())
-			return updateAction();
-		else if(isDelete())
-			return deleteAction();
-		return null;
-	}
-	
-	
-	public String createAction(){
-		return null;
-	}
-	
-	public String updateAction(){
-		return null;
-	}
-	public String deleteAction(){
-		return null;
-	}
-	*/
-	
-	
 
 }

@@ -3,6 +3,7 @@ package ci.gouv.budget.solde.sigdcp.service.sampledata;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -359,10 +360,10 @@ public class SampleDataServiceImpl implements SampleDataService {
 		Statut paye = new Statut("P", "Paye", 0);
 		em.persist(paye);
 		
-		agentEtat1 = creerAgentEtat(fonctionnaire,"096000T", "Fiellou", "N'Dri", date(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
-		agentEtat2 = creerAgentEtat(fonctionnaire,"101000G", "Edoh", "Vincent", date(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
-		agentEtat3 = creerAgentEtat(fonctionnaire,"201000L", "Losseni", "Diarrassouba", date(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
-		agentEtat4 = creerAgentEtat(fonctionnaire,"175000H", "Thio", "Bekpancha", date(), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		agentEtat1 = creerAgentEtat(fonctionnaire,"096000T", "Fiellou", "N'Dri", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		agentEtat2 = creerAgentEtat(fonctionnaire,"101000G", "Edoh", "Vincent", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		agentEtat3 = creerAgentEtat(fonctionnaire,"201000L", "Losseni", "Diarrassouba", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		agentEtat4 = creerAgentEtat(fonctionnaire,"175000H", "Thio", "Bekpancha", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
 		
 		creerCompteUtilisateur(agentEtat1, "christian.komenan@budget.gouv.ci", "sigdcp", new Object[][]{ {questionSecrete3,"Dgbf"} });
 		
@@ -372,19 +373,6 @@ public class SampleDataServiceImpl implements SampleDataService {
 		creerCompteUtilisateur(agentEtat4, "sigdcp3", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete1,"Tata pion"},{questionSecrete2,"mangue"},{questionSecrete3,"Dgbf"} });
 		*/
 		
-		/*
-		em.persist(agentEtat1 = new AgentEtat("AE1","A99", "Tata", "Pion", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
-				coteDivoire, new Date(),  a1, echelon1, position1, 2000, fonction1, serviceEtude, profession1, null));
-		
-		em.persist(agentEtat2 = new AgentEtat("AE2","A18", "Toto", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.FEMININ, situationMatrimoniale1, 
-				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, serviceEtude, profession2, null));
-		
-		em.persist(agentEtat3 = new AgentEtat("AE3","A500", "Zaza", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
-				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, serviceExploitation, profession2, null));
-		
-		em.persist(agentEtat4 = new AgentEtat("AE4","A800", "Zaza", "Tata", dateNaiss, new Contact("tatmail@yahoo.com", "123456", "02 BP Abidjan", "Rue des masques", null), Sexe.MASCULIN, situationMatrimoniale1, 
-				coteDivoire, new Date(),  a2, echelon1, position1, 2000, fonction1, serviceExploitation, profession2, null));
-		*/
 		/*
 		inscrireAgentEtat("DZ12", "Zadi", "Alain", new Date(), new Contact("mail@yahoo.com", "123456", "01 BP Abidjan", "Rue des jardins", null), Sexe.MASCULIN, 
 				situationMatrimoniale1, coteDivoire, null, null, null, null, null, ministereBudget, profession1,gendarme);
@@ -592,6 +580,14 @@ public class SampleDataServiceImpl implements SampleDataService {
 		return new Date();
 	}
 	
+	static Date date(int j,int m,int a){
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.DAY_OF_MONTH, j);
+		calendar.set(Calendar.MONTH, m);
+		calendar.set(Calendar.YEAR, a);
+		return calendar.getTime();
+	}
+	
 	static String numero(){
 		return UUID.randomUUID().toString();
 	}
@@ -638,6 +634,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 		try {
 			natureDeplacement.setDescription(IOUtils.toString(this.getClass().getResourceAsStream("naturedep/"+code+".html"),"UTF-8"));
 		} catch (IOException e) {
+			
 			e.printStackTrace();
 		}
 		em.persist(natureDeplacement);

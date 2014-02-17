@@ -38,7 +38,7 @@ public abstract class AbstractUIController implements Serializable {
 	 * Attributes
 	 */
 	@Getter @Setter protected String title = "Titre de la vue",internalCode="FS_PS_NOM_ECRAN_NUMERO",instructions;
-	@Getter @Setter protected Boolean showInternalCode = Boolean.TRUE,validationFailed=Boolean.FALSE,
+	@Getter @Setter protected Boolean showInternalCode = Boolean.FALSE,validationFailed=Boolean.FALSE,
 			onServiceNotificationEventEnabled;
 	
 	@PostConstruct
@@ -65,10 +65,13 @@ public abstract class AbstractUIController implements Serializable {
 		url = navigationManager.getRequestUrl();
 		//validationFailed = FacesContext.getCurrentInstance().isValidationFailed();
 		initialisation();
+		afterInitialisation();
 		//previousPath = 
 	}
 	
 	protected void initialisation(){}
+	
+	protected void afterInitialisation(){}
 	
 	protected InitWhen initWhen(){
 		return InitWhen.POST_CONSTRUCT;

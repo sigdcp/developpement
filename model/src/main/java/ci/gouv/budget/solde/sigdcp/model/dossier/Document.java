@@ -39,8 +39,8 @@ public class Document  extends AbstractModel<Long>  implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date dateEtablissement;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	protected Fichier fichier = new Fichier();
+	@OneToOne(cascade=CascadeType.ALL,orphanRemoval=true)
+	protected Fichier fichier = null;//new Fichier();
 	
 	protected Fonction fonctionSignataire;
 	
