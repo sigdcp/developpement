@@ -55,6 +55,13 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Jp
 	}
 	
 	@Override
+	public Collection<DOSSIER> readByAgentEtatAndAyantDroit(AgentEtat agentEtat) {
+		return entityManager.createQuery("SELECT d FROM Dossier d WHERE d.beneficiaire = :agentEtat or d.beneficiaire.ayantDroit = :agentEtat", clazz)
+				.setParameter("agentEtat", agentEtat)
+				.getResultList();
+	}
+	
+	@Override
 	public Collection<DOSSIER> readByStatut(Statut statut) {
 		return readByStatutId(statut.getCode());
 	}

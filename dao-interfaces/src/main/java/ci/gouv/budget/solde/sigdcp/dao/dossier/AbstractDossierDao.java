@@ -26,6 +26,8 @@ public interface AbstractDossierDao<DOSSIER extends Dossier> extends DataAccessO
 	 */
 	Collection<DOSSIER> readByAgentEtat(AgentEtat agentEtat);
 	
+	Collection<DOSSIER> readByAgentEtatAndAyantDroit(AgentEtat agentEtat);
+	
 	Collection<DOSSIER> readByNatureDeplacementAndStatut(NatureDeplacement natureDeplacement,Statut statut);
 	
 	Collection<DOSSIER> readByNatureDeplacementsByStatut(Collection<NatureDeplacement> natureDeplacements,Statut statut);
@@ -35,6 +37,6 @@ public interface AbstractDossierDao<DOSSIER extends Dossier> extends DataAccessO
 	Collection<DOSSIER> readByStatutId(String id);
 	
 	Collection<DOSSIER> readByNatureDeplacement(NatureDeplacement natureDeplacement);
- 
+
 } 
    

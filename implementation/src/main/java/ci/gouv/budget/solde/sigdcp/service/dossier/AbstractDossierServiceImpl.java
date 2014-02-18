@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import ci.gouv.budget.solde.sigdcp.dao.DynamicEnumerationDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.AbstractDossierDao;
@@ -44,21 +46,20 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	@Inject private TraitementDao traitementDao;
 	@Inject protected PieceJustificativeAFournirDao pieceJustificativeAFournirDao;
 	
-	//@Inject
 	public AbstractDossierServiceImpl(AbstractDossierDao<DOSSIER> dao) {
 		super(dao); 
 	}
 	 
 	/*--------- Fonctions métiers ----------*/
 	
-	protected void validationSaisie(String typeDepenseCode,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne,Boolean soumission) throws ServiceException{
+	protected void validationSaisie(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne,Boolean soumission) throws ServiceException{
 		
 	}
 	
 	@Override
-	public void enregistrer(String typeDepenseCode,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException {
+	public void enregistrer(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException {
 		
-		validationSaisie(typeDepenseCode,dossier, pieceJustificatives,personne,false);
+		validationSaisie(dossier, pieceJustificatives,personne,false);
 		//est ce une creation ou une mise à jour
 		Date dateCourante = new Date();
 		//DOSSIER dossierExistant = StringUtils.isNotEmpty(dossier.getNumero())?null:((AbstractDossierDao<DOSSIER>)dao).read(dossier.getNumero());
@@ -68,9 +69,13 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 			dossier.setNumero(System.currentTimeMillis()+"");
 			dossier.getDeplacement().setDateCreation(new Date());
 			deplacementDao.create(dossier.getDeplacement());
-			dao.create(dossier);
+			System.out.println(ToStringBuilder.reflectionToString(dossier.getBeneficiaire(), ToStringStyle.MULTI_LINE_STYLE));
+			//dossier.getBeneficiaire().setAyantDroit(null);
+			__createDossier__(dossier);
 			//on cree les pieces generee par le syteme
-			for(PieceJustificativeAFournir pieceAImprimer : pieceJustificativeAFournirDao.readDeriveeByNatureDeplacementIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(),typeDepenseCode))
+			
+			for(PieceJustificativeAFournir pieceAImprimer : pieceJustificativeAFournirDao.readDeriveeByNatureDeplacementIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(),
+					dossier.getDeplacement().getTypeDepense().getCode()))
 				pieceJustificativeDao.create(new PieceJustificative(dossier,RandomStringUtils.randomNumeric(4), pieceAImprimer,new Date()));
 			
 			Operation operationSaisie = new Operation(dateCourante,dynamicEnumerationDao.readByClass(NatureOperation.class,Code.NATURE_OPERATION_SAISIE),personne);
@@ -79,8 +84,9 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 			traitementDao.create(traitement);
 			
 			dossier.setDernierTraitement(traitement);
-			
+			//dossier.getBeneficiaire().setAyantDroit(null);
 			dao.update(dossier);
+			
 		}else{
 			//mise a jour d'un dossier qui est en saisie uniquement
 			
@@ -100,10 +106,14 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 		
 	}
 	
+	protected void __createDossier__(DOSSIER dossier){
+		dao.create(dossier);
+	}
+	
 	@Override
-	public void soumettre(String typeDepenseCode,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne)throws ServiceException {
-		enregistrer(typeDepenseCode,dossier, pieceJustificatives,personne);
-		validationSaisie(typeDepenseCode,dossier, pieceJustificatives,personne,true);
+	public void soumettre(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne)throws ServiceException {
+		enregistrer(dossier, pieceJustificatives,personne);
+		validationSaisie(dossier, pieceJustificatives,personne,true);
 		
 		Operation operationSoumission = new Operation(new Date(),dynamicEnumerationDao.readByClass(NatureOperation.class,Code.NATURE_OPERATION_SOUMISSION),personne);
 		operationDao.create(operationSoumission);
@@ -207,6 +217,11 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	@Override
 	public Collection<DOSSIER> findByAgentEtat(AgentEtat agentEtat) {
 		return ((AbstractDossierDao<DOSSIER>)dao).readByAgentEtat(agentEtat);
+	}
+	
+	@Override
+	public Collection<DOSSIER> findByAgentEtatAndAyantDroit(AgentEtat agentEtat) {
+		return ((AbstractDossierDao<DOSSIER>)dao).readByAgentEtatAndAyantDroit(agentEtat);
 	}
 	
 	@Override

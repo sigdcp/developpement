@@ -11,10 +11,9 @@ import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.model.UploadedFile;
-
 import lombok.extern.java.Log;
 import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
+import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
@@ -144,14 +143,44 @@ public class ValidationManager implements Serializable {
 		}
 	}
 	
-	public void validatePieceJustificativeFichier(FacesContext facesContext,UIComponent uiComponent,Object value){
+	public void validatePieceJustificativeNumero(FacesContext facesContext,UIComponent uiComponent,Object value){
 		try {
-			validation.validatePieceJustificativeFichier(false, attribute(uiComponent, String.class, "numero"), 
+			validation.validatePieceJustificativeNumero(false, (String) value, 
 					attribute(uiComponent, Date.class, "dateEtablissement"), attribute(uiComponent, Fonction.class, "signataire"),
-					((UploadedFile)value).getContents(),(Boolean)uiComponent.getAttributes().get("derivee"));
+					null,(PieceJustificativeAFournir)uiComponent.getAttributes().get("model"));
 		} catch (Exception e) {
 			validationException(uiComponent, e.getMessage());
 		}
+	}
+	
+	public void validatePieceJustificativeDateEtablissement(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validatePieceJustificativeDateEtablissement(false, attribute(uiComponent, String.class, "numero"), 
+					(Date) value, attribute(uiComponent, Fonction.class, "signataire"),
+					null,(PieceJustificativeAFournir)uiComponent.getAttributes().get("model"));
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validatePieceJustificativeFonctionSignataire(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validatePieceJustificativeFonctionSignataire(false, attribute(uiComponent, String.class, "numero"), 
+					attribute(uiComponent, Date.class, "dateEtablissement"), (Fonction)value,
+					null,(PieceJustificativeAFournir)uiComponent.getAttributes().get("model"));
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validatePieceJustificativeFichier(FacesContext facesContext,UIComponent uiComponent,Object value){
+		/*try {
+			validation.validatePieceJustificativeFichier(false, attribute(uiComponent, String.class, "numero"), 
+					attribute(uiComponent, Date.class, "dateEtablissement"), attribute(uiComponent, Fonction.class, "signataire"),
+					null,(PieceJustificativeAFournir)uiComponent.getAttributes().get("model"));
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}*/
 	}
 	
 	/*----------------------------------------------------------------------------------------------------------*/

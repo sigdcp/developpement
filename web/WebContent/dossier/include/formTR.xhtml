@@ -11,7 +11,7 @@
 		<style>
 			.c1{
 				font-weight: bold;
-				width: 200px;
+				width: 200px; 
 			}
 			.c11{
 				font-weight: bold;
@@ -85,7 +85,7 @@
 			
 			<h:panelGrid columns="#{editable?6:4}" columnClasses="c11" rendered="#{enregistrerDemandeTRFormController.editable}">				
 				<p:outputLabel for="typeDepense" value="Est ce une prise en charge ou un remboursement ?" />
-				<p:selectOneRadio id="typeDepense" value="#{enregistrerDemandeTRFormController.typeDepense}"  required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
+				<p:selectOneRadio id="typeDepense" value="#{enregistrerDemandeTRFormController.entity.deplacement.typeDepense}"  required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}">
 					<f:selectItems value="#{typeDepenes}"/>
 					<p:ajax event="click" update="@form" listener="#{enregistrerDemandeTRFormController.typeDepenseListener}" process="@form"/>
 				</p:selectOneRadio>

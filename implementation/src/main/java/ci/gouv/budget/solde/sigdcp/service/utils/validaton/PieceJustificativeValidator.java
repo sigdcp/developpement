@@ -18,7 +18,7 @@ public class PieceJustificativeValidator extends AbstractValidator<PieceJustific
 	public boolean isValidNumero(){
 		try{
 			validationPolicy.validatePieceJustificativeNumero(soumission, object.getNumero(), object.getDateEtablissement(), object.getFonctionSignataire()
-					,object.getFichier()==null?null:object.getFichier().getBytes(),object.getModel().getDerivee());
+					,object.getFichier()==null?null:object.getFichier().getBytes(),object.getModel());
 			return true;
 		}catch(Exception exception){
 			return false;
@@ -36,7 +36,7 @@ public class PieceJustificativeValidator extends AbstractValidator<PieceJustific
 	public boolean isValidDateEtablissement(){
 		try{
 			validationPolicy.validatePieceJustificativeDateEtablissement(soumission, object.getNumero(), object.getDateEtablissement(), object.getFonctionSignataire()
-					,object.getFichier()==null?null:object.getFichier().getBytes(),object.getModel().getDerivee());
+					,object.getFichier()==null?null:object.getFichier().getBytes(),object.getModel());
 			return true;
 		}catch(Exception exception){
 			return false;
@@ -50,8 +50,8 @@ public class PieceJustificativeValidator extends AbstractValidator<PieceJustific
 	@AssertTrue(message="La fonction du signataire n'est pas valide")
 	public boolean isValidFonctionSignataire(){
 		try{
-			validationPolicy.validatePieceJustificativeSignataire(soumission, object.getNumero(), object.getDateEtablissement(), object.getFonctionSignataire()
-					,object.getFichier()==null?null:object.getFichier().getBytes(),object.getModel().getDerivee());
+			validationPolicy.validatePieceJustificativeFonctionSignataire(soumission, object.getNumero(), object.getDateEtablissement(), object.getFonctionSignataire()
+					,object.getFichier()==null?null:object.getFichier().getBytes(),object.getModel());
 			return true;
 		}catch(Exception exception){
 			return false;
@@ -68,7 +68,7 @@ public class PieceJustificativeValidator extends AbstractValidator<PieceJustific
 	public boolean isValidFichier(){
 		try{
 			validationPolicy.validatePieceJustificativeFichier(soumission, object.getNumero(), object.getDateEtablissement(), object.getFonctionSignataire()
-					,object.getFichier()==null?null:object.getFichier().getBytes(),object.getModel().getDerivee());
+					,object.getFichier()==null?null:object.getFichier().getBytes(),object.getModel());
 			return true;
 		}catch(Exception exception){
 			return false;

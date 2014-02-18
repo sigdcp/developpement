@@ -12,14 +12,14 @@ import lombok.Getter;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIController;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.CalendrierMission;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
-import ci.gouv.budget.solde.sigdcp.service.dossier.MissionService;
+import ci.gouv.budget.solde.sigdcp.service.dossier.CalendrierMissionService;
 
 @Named @ViewScoped
 public class ConsulterCalendrierMissionController extends AbstractEntityFormUIController<CalendrierMission> implements Serializable {
 
 	private static final long serialVersionUID = 7125727696323594059L;
 
-	@Inject private MissionService missionService;
+	@Inject private CalendrierMissionService missionService;
 	
 	@Getter
 	private List<MissionDto> missionDtos = new LinkedList<>();

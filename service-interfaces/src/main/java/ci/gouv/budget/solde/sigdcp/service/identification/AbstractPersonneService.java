@@ -10,7 +10,7 @@ import ci.gouv.budget.solde.sigdcp.service.ServiceException;
  *
  * @param <PERSONNE>
  */
-public interface AbstractPersonneService<PERSONNE extends Personne> extends AbstractService<PERSONNE,String> {
+public interface AbstractPersonneService<PERSONNE extends Personne> extends AbstractService<PERSONNE,Long> {
 
 	/**
 	 * Inscrit une personne dans le système

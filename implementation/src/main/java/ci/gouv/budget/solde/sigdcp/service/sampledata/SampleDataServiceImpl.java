@@ -212,19 +212,22 @@ public class SampleDataServiceImpl implements SampleDataService {
 		CategorieDeplacement sotra = new CategorieDeplacement(Code.CATEGORIE_DEPLACEMENT_TRANSPORT_URBAIN, "Sotra");
 		em.persist(sotra);
 		
+		PieceJustificativeAFournir p;
+		
 		natureDeplacementAffectation = creerNatureDeplacement(deplacementDefinitif,Code.NATURE_DEPLACEMENT_AFFECTATION,"Affectation");
-		em.persist(pjaf(natureDeplacementAffectation,remboursement,fonctionnaire, decisionAffectation));
+		em.persist(p = pjaf(natureDeplacementAffectation,remboursement,fonctionnaire, decisionAffectation));
+		p.setPrincipale(Boolean.TRUE);
 		communPieceJustificativeAFournir(natureDeplacementAffectation, remboursement, fonctionnaire);
 		communDDPieceJustificativeAFournir(natureDeplacementAffectation);
 		
 		natureDeplacementMutation =creerNatureDeplacement(deplacementDefinitif,Code.NATURE_DEPLACEMENT_MUTATION,"Mutation");
-		em.persist(natureDeplacementMutation);
+		//em.persist(natureDeplacementMutation);
 		em.persist(pjaf(natureDeplacementMutation,remboursement,fonctionnaire,avisMutation));
 		communPieceJustificativeAFournir(natureDeplacementMutation, remboursement, fonctionnaire);
 		communDDPieceJustificativeAFournir(natureDeplacementMutation);
 			
 		natureDeplacementDepartRetraite = creerNatureDeplacement(deplacementDefinitif,Code.NATURE_DEPLACEMENT_RETRAITE,"Départ à la retraite");
-		em.persist(natureDeplacementDepartRetraite);
+		//em.persist(natureDeplacementDepartRetraite);
 		em.persist(pjaf(natureDeplacementDepartRetraite,remboursement,fonctionnaire,avisMutation));
 		communPieceJustificativeAFournir(natureDeplacementDepartRetraite, remboursement, fonctionnaire);
 		communDDPieceJustificativeAFournir(natureDeplacementDepartRetraite);
@@ -236,12 +239,14 @@ public class SampleDataServiceImpl implements SampleDataService {
 		communPieceJustificativeAFournir(mhci, priseEnCharge, null);
 		
 		NatureDeplacement fo = creerNatureDeplacement(obseque, Code.NATURE_DEPLACEMENT_OBSEQUE_FRAIS,"Frais d'obsèques");
+		
 		em.persist(fo);
 		em.persist(pjaf(fo,priseEnCharge,fonctionnaire,certdeces));
 		em.persist(pjaf(fo,priseEnCharge,fonctionnaire, extdeces));
 		em.persist(pjaf(fo,priseEnCharge,fonctionnaire, bullsal));
 		em.persist(pjaf(fo,priseEnCharge,fonctionnaire, lettmin));
-		em.persist(pjaf(fo,priseEnCharge,ayantDroit, cni));
+		em.persist(p = pjaf(fo,priseEnCharge,ayantDroit, cni));
+		p.setDescription("défunt");
 		communPieceJustificativeAFournir(fo, priseEnCharge, fonctionnaire);
 		
 		NatureDeplacement trmae =creerNatureDeplacement(transit, Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_MAE,"Transit de Bagages des Agent du ministere des Affaires étrangères");
@@ -456,7 +461,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	
 	public AgentEtat creerAgentEtat(TypeAgentEtat typeAgentEtat,String matricule, String nom, String prenoms, Date dateNaissance, Sexe sexe, SituationMatrimoniale situationMatrimoniale, 
 			Localite nationalite, Grade grade, Echelon echelon, Position position, Integer indice, Fonction fonction, Section ministere, Profession profession){
-		AgentEtat agentEtat = new AgentEtat(nextIdString(),matricule, nom, prenoms, dateNaissance, new Contact(), sexe, situationMatrimoniale, 
+		AgentEtat agentEtat = new AgentEtat(matricule, nom, prenoms, dateNaissance, new Contact(), sexe, situationMatrimoniale, 
 				nationalite, new Date(),  grade, echelon, position, indice, fonction, ministere, profession, null);
 		agentEtat.setType(typeAgentEtat);
 		em.persist(agentEtat);
@@ -465,7 +470,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	
 	public DelegueSotra creerDelegueSotra(String matricule, String nom, String prenoms, Date dateNaissance, Contact contact, Sexe sexe, SituationMatrimoniale situationMatrimoniale, 
 			Localite nationalite, Grade grade, Echelon echelon, Position position, Integer indice, Fonction fonction, Section ministere, Profession profession){
-		DelegueSotra delegueSotra = new DelegueSotra(nextIdString(),matricule, nom, prenoms, dateNaissance, contact, sexe, situationMatrimoniale, 
+		DelegueSotra delegueSotra = new DelegueSotra(matricule, nom, prenoms, dateNaissance, contact, sexe, situationMatrimoniale, 
 				nationalite, new Date(),  grade, echelon, position, indice, fonction, ministere, profession, null,agentEtat1,ministereBudget);
 		
 		em.persist(delegueSotra);
@@ -477,7 +482,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	}
 	
 	public Personne creerPersonne(String nom, String prenoms,PieceJustificative pieceIdentite){
-		Personne personne = new Personne(numero(), nom, prenoms, date(), contact(), Sexe.MASCULIN, null, coteDivoire,null, date());
+		Personne personne = new Personne(nom, prenoms, date(), contact(), Sexe.MASCULIN, null, coteDivoire,null, date());
 		return personne;
 	}
 	
@@ -604,6 +609,8 @@ public class SampleDataServiceImpl implements SampleDataService {
 	public PieceJustificativeAFournir pjaf(NatureDeplacement natureDeplacement,TypeDepense typeDepense,TypePersonne typePersonne,TypePieceJustificative typePieceJustificative,Boolean conditionnee){
 		return pjaf(natureDeplacement, typeDepense, typePersonne, typePieceJustificative, 1,Boolean.TRUE, -6,conditionnee,null);
 	}
+	
+	
 	
 	public PieceJustificativeAFournir pjaf(NatureDeplacement natureDeplacement,TypeDepense typeDepense,TypePersonne typePersonne,TypePieceJustificative typePieceJustificative){
 		return pjaf(natureDeplacement, typeDepense, typePersonne, typePieceJustificative, 1,Boolean.TRUE, -6,Boolean.FALSE,null);

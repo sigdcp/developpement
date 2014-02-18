@@ -17,5 +17,5 @@ public interface PieceJustificativeAFournirService extends AbstractService<Piece
 	
 	Collection<PieceJustificativeAFournir> findDeriveeByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId,String typeDepenseId);
 	
-	Collection<PieceJustificativeAFournir> findDeriveeRestantByDossierByTypeDepenseId(Dossier dossier,String typeDepenseId,Collection<PieceJustificative> fournis);
+	Collection<PieceJustificativeAFournir> findDeriveeRestantByDossier(Dossier dossier,Collection<PieceJustificative> fournis);
 }

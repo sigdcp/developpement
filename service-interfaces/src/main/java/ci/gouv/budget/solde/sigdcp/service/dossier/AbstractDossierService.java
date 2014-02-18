@@ -13,9 +13,9 @@ import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 
 public interface AbstractDossierService<DOSSIER extends Dossier> extends AbstractService<DOSSIER,String> {
 	
-	void enregistrer(String typeDepenseCode,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException;
+	void enregistrer(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException;
 	
-	void soumettre(String typeDepenseCode,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException;
+	void soumettre(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException;
 	
 	void deposer(DOSSIER dossier) throws ServiceException;
 	
@@ -52,6 +52,8 @@ public interface AbstractDossierService<DOSSIER extends Dossier> extends Abstrac
 	Collection<DOSSIER> findByStatutId(String id);
 	
 	Collection<DOSSIER> findByAgentEtat(AgentEtat agentEtat);
+	
+	Collection<DOSSIER> findByAgentEtatAndAyantDroit(AgentEtat agentEtat);
 	
 	Collection<DOSSIER> findByNatureDeplacement(NatureDeplacement natureDeplacement);
 	

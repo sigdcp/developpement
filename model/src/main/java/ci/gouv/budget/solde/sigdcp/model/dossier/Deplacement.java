@@ -24,6 +24,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
@@ -32,13 +33,18 @@ import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.System;
 
 @Getter @Setter 
-@Entity
+@Entity @EqualsAndHashCode(of="id",callSuper=false)
 public class Deplacement  extends AbstractModel<Long>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue
 	private Long id;
+	
+	@JoinColumn(nullable=false)
+	@NotNull(groups=Client.class)
+	@ManyToOne
+	private TypeDepense typeDepense;
 	
 	@Column(nullable=false)
 	@NotNull(groups=System.class)

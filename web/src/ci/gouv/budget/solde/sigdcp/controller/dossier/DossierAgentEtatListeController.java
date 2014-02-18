@@ -43,7 +43,7 @@ public class DossierAgentEtatListeController extends AbstractEntityListUIControl
 	}
 	
 	@Override
-	protected ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEntityListUIController.ProcessingType getProcessingType() {
+	protected ProcessingType getProcessingType() {
 		return ProcessingType.SINGLE;
 	}
 		
@@ -54,7 +54,7 @@ public class DossierAgentEtatListeController extends AbstractEntityListUIControl
 	
 	@Override
 	protected List<Dossier> load() {
-		return new LinkedList<>(dossierService.findByAgentEtat((AgentEtat) userSessionManager.getUser()));
+		return new LinkedList<>(dossierService.findByAgentEtatAndAyantDroit((AgentEtat) userSessionManager.getUser()));
 	}
 	
 	public String href(Dossier dossier){

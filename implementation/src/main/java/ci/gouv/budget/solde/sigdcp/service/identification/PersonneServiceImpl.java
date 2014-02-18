@@ -26,7 +26,6 @@ public class PersonneServiceImpl extends AbstractPersonneServiceImpl<Personne> i
 		 * Préconditions
 		 */
 		
-		personne.setCode(System.currentTimeMillis()+"");
 		personne.setDateCreation(new Date());
 		
 		try {

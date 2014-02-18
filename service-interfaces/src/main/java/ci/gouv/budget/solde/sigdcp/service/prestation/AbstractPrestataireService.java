@@ -9,7 +9,7 @@ import ci.gouv.budget.solde.sigdcp.service.AbstractService;
  *
  * @param <PRESTATAIRE>
  */
-public interface AbstractPrestataireService<PRESTATAIRE extends Prestataire> extends AbstractService<PRESTATAIRE,String> {
+public interface AbstractPrestataireService<PRESTATAIRE extends Prestataire> extends AbstractService<PRESTATAIRE,Long> {
 
 	
 }

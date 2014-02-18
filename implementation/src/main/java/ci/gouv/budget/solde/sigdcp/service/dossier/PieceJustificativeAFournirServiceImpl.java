@@ -45,8 +45,9 @@ public class PieceJustificativeAFournirServiceImpl extends DefaultServiceImpl<Pi
 	}
 	
 	@Override
-	public Collection<PieceJustificativeAFournir> findDeriveeRestantByDossierByTypeDepenseId(Dossier dossier,String typeDepenseId,Collection<PieceJustificative> fournis) {
-		List<PieceJustificativeAFournir> _aFournir = new LinkedList<>(((PieceJustificativeAFournirDao)dao).readDeriveeByNatureDeplacementIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(),typeDepenseId));
+	public Collection<PieceJustificativeAFournir> findDeriveeRestantByDossier(Dossier dossier,Collection<PieceJustificative> fournis) {
+		List<PieceJustificativeAFournir> _aFournir = new LinkedList<>(((PieceJustificativeAFournirDao)dao).readDeriveeByNatureDeplacementIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(),
+				dossier.getDeplacement().getTypeDepense().getCode()));
 		for(int i=0;i<_aFournir.size();){
 			boolean trouve =  false;
 			for(PieceJustificative pj : fournis)

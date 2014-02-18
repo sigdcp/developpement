@@ -6,7 +6,7 @@ import ci.gouv.budget.solde.sigdcp.dao.identification.AbstractPersonneDao;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
 
-public abstract class AbstractPersonneServiceImpl<PERSONNE extends Personne> extends DefaultServiceImpl<PERSONNE, String> implements AbstractPersonneService<PERSONNE> , Serializable {
+public abstract class AbstractPersonneServiceImpl<PERSONNE extends Personne> extends DefaultServiceImpl<PERSONNE, Long> implements AbstractPersonneService<PERSONNE> , Serializable {
 
 	private static final long serialVersionUID = -7601857525393731774L;
 	

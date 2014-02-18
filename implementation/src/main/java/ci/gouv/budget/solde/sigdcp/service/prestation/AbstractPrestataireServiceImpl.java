@@ -6,7 +6,7 @@ import ci.gouv.budget.solde.sigdcp.dao.prestation.AbstractPrestataireDao;
 import ci.gouv.budget.solde.sigdcp.model.prestation.Prestataire;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
 
-public abstract class AbstractPrestataireServiceImpl<PRESTATAIRE extends Prestataire> extends DefaultServiceImpl<PRESTATAIRE, String> implements AbstractPrestataireService<PRESTATAIRE> , Serializable {
+public abstract class AbstractPrestataireServiceImpl<PRESTATAIRE extends Prestataire> extends DefaultServiceImpl<PRESTATAIRE, Long> implements AbstractPrestataireService<PRESTATAIRE> , Serializable {
 
 	private static final long serialVersionUID = -7601857525393731774L;
 	

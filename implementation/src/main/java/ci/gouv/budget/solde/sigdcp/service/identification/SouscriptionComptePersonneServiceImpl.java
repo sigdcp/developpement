@@ -114,7 +114,6 @@ public class SouscriptionComptePersonneServiceImpl extends AbstractSouscriptionS
 	private void createSouscription(SouscriptionComptePersonne souscriptionComptePersonne){
 		souscriptionComptePersonne.setPersonneReferencee(null);
 		souscriptionComptePersonne.setCode(System.currentTimeMillis()+"");
-		souscriptionComptePersonne.getPersonneDemandeur().getPersonne().setCode(System.currentTimeMillis()+"");
 		souscriptionComptePersonne.setDateCreation(new Date());
 		souscriptionComptePersonneDao.create(souscriptionComptePersonne);
 	}

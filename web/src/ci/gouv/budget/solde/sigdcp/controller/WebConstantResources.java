@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.extern.java.Log;
 import ci.gouv.budget.solde.sigdcp.controller.converter.ViewParamConverter;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.CalendrierMission;
+import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
@@ -50,6 +51,11 @@ public class WebConstantResources implements Serializable{
 	@Getter private final String requestParamDossier = "dossier";
 	@Produces @Named public ViewParamConverter getViewParamDossierConverter(){
 		return new ViewParamConverter(genericService, Dossier.class);
+	}
+	
+	@Getter private final String requestParamMission = "mission";
+	@Produces @Named public ViewParamConverter getViewParamMissionConverter(){
+		return new ViewParamConverter(genericService,Long.class, Mission.class);
 	}
 	
 	@Getter private final String requestParamStatut = "statut";

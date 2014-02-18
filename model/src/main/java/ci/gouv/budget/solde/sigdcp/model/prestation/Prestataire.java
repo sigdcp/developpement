@@ -33,8 +33,8 @@ public class Prestataire  extends Party  implements Serializable{
 	
 	public Prestataire() {}
 
-	public Prestataire(String code, String nom, Contact contact,Date dateCreation) {
-		super(code,nom,contact,dateCreation);
+	public Prestataire(String nom, Contact contact,Date dateCreation) {
+		super(nom,contact,dateCreation);
 	}
 	
 	

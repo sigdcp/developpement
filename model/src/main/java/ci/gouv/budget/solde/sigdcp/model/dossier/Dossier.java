@@ -14,6 +14,8 @@ import java.util.Date;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -30,6 +32,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 
 @Getter @Setter 
 @Entity @EqualsAndHashCode(of={"numero"},callSuper=false)
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Dossier  extends AbstractModel<String>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;

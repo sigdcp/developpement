@@ -1,5 +1,6 @@
 package ci.gouv.budget.solde.sigdcp.controller.dossier;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 import ci.gouv.budget.solde.sigdcp.controller.NavigationManager;
+import ci.gouv.budget.solde.sigdcp.controller.application.AbstractDemandeController;
 import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
 import ci.gouv.budget.solde.sigdcp.controller.fichier.PieceJustificativeUploader;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIController;
@@ -28,6 +30,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.service.GenericService;
+import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.PieceJustificativeAFournirService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.PieceJustificativeService;
@@ -35,7 +38,7 @@ import ci.gouv.budget.solde.sigdcp.service.dossier.StatutService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
 @Getter @Setter
-public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIER_SERVICE extends AbstractDossierService<DOSSIER>> extends AbstractEntityFormUIController<DOSSIER> implements Serializable {
+public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIER_SERVICE extends AbstractDossierService<DOSSIER>> extends AbstractDemandeController<DOSSIER> implements Serializable {
 	
 	private static final long serialVersionUID = 6615049982603373278L;
 	
@@ -49,10 +52,8 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	/*
 	 * DTOs
 	 */
-	@Getter @Setter protected TypeDepense typeDepense;
 	@Inject @Getter protected PieceJustificativeUploader pieceJustificativeUploader;
-	protected Map<String, Object> parametres;
-	protected Boolean showCourrier=Boolean.FALSE,courrierEditable=Boolean.FALSE;
+	
 	//protected Statut statutCourant;
 	/*
 	 * Paramètres de requete
@@ -60,20 +61,16 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	@Setter @Getter protected NatureDeplacement natureDaplacement;
 	@Inject protected UserSessionManager userSessionManager;
 	
-	/*
-	 * Actions
-	 */
-	protected FormCommand<DOSSIER> enregistrerCommand;
-	
 	@Override
 	protected void initialisation() {
 		super.initialisation();
 		//if(entity==null)
 		//	initCreateOperation();
 		DOSSIER dossierEnCoursSaisie = getDossierService().findSaisieByPersonneByNatureDeplacement((AgentEtat) userSessionManager.getUser(), entity.getDeplacement().getNature());
+		//System.out.println("En cours de saisie : "+dossierEnCoursSaisie.getBeneficiaire().getMatricule());
 		if(dossierEnCoursSaisie!=null)
 			entity = dossierEnCoursSaisie;
-		entity.setBeneficiaire(beneficiaire());
+		entity.setBeneficiaire(beneficiaire(dossierEnCoursSaisie));
 		
 		if(entity.getDernierTraitement()!=null) 
 			if(Code.STATUT_SAISIE.equals(entity.getDernierTraitement().getStatut().getCode()))
@@ -84,10 +81,10 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 			}
 	
 		updatePieceJustificatives(true);
-		if(typeDepense==null)
+		if(entity.getDeplacement().getTypeDepense()==null)
 			parametres = new HashMap<String, Object>();
 		else
-			parametres = pieceJustificativeService.findParametresByDossierByTypeDepenseId(entity,typeDepense.getCode(), pieceJustificativeUploader.getPieceJustificatives());
+			parametres = pieceJustificativeService.findParametresByDossier(entity, pieceJustificativeUploader.getPieceJustificatives());
 		
 		title = "Formulaire - "+entity.getDeplacement().getNature().getLibelle();
 		instructions = getDossierService().findInstructions(entity);
@@ -110,50 +107,61 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 			private static final long serialVersionUID = 1L;
 			@Override
 			protected Object __execute__(Object object) throws Exception {
-				getDossierService().enregistrer(typeDepense.getCode(),entity, pieceJustificativeUploader.process(),creerPar());
+				
 				return null;
 			} 
 		});
 		enregistrerCommand.setAjax(Boolean.FALSE);
 		enregistrerCommand.setRendered(isEditable());
-		addValidator(validator(),enregistrerCommand);
+		//addValidator(validator(),enregistrerCommand);
 		enregistrerCommand.set_successOutcome(new Action() {
 			private static final long serialVersionUID = -6851391666779599546L;
 			@Override
 			protected Object __execute__(Object object) throws Exception {
-				Collection<PieceJustificativeAFournir> imprimes = pieceJustificativeAFournirService.findDeriveeRestantByDossierByTypeDepenseId(entity,typeDepense.getCode(), pieceJustificativeUploader.getPieceJustificatives());
-				return navigationManager.url(NavigationManager.OUTCOME_SUCCESS_VIEW,new Object[]{webConstantResources.getRequestParamMessageId(),
-						imprimes.isEmpty()?"notification.demande.enregistree.soumettre":"notification.demande.enregistree.imprimer",
-						webConstantResources.getRequestParamMessageParameters(),StringUtils.join(imprimes,","),
-								webConstantResources.getRequestParamUrl(),url},true);
+				
 			}
 		});
 		
 		//enregistrerCommand.setImmediate(true);//to remove , just for test
+		//enregistrerCommand.setProcess("@form");
 				
 	}
 	
-	protected Personne creerPar(){
-		return beneficiaire();
+	@Override
+	protected void enregistrer() throws Exception {
+		getDossierService().enregistrer(entity, pieceJustificativeUploader.process(),creerPar(null));
 	}
 	
-	protected AgentEtat beneficiaire(){
+	@Override
+	protected String onEnregistrerSuccessOutcome() {
+		Collection<PieceJustificativeAFournir> imprimes = pieceJustificativeAFournirService.findDeriveeRestantByDossier(entity, pieceJustificativeUploader.getPieceJustificatives());
+		return navigationManager.url(NavigationManager.OUTCOME_SUCCESS_VIEW,new Object[]{webConstantResources.getRequestParamMessageId(),
+				imprimes.isEmpty()?"notification.demande.enregistree.soumettre":"notification.demande.enregistree.imprimer",
+				webConstantResources.getRequestParamMessageParameters(),StringUtils.join(imprimes,","),
+						webConstantResources.getRequestParamUrl(),url},true);
+	}
+	
+	protected Personne creerPar(DOSSIER dossier){
+		return beneficiaire(dossier);
+	}
+	
+	protected AgentEtat beneficiaire(DOSSIER dossier){
 		return (AgentEtat) userSessionManager.getUser();
 	}
 	
 	protected void updatePieceJustificatives(boolean first){
-		if(typeDepense==null)
+		if(entity.getDeplacement().getTypeDepense()==null)
 			return;
 		Collection<PieceJustificative> pieceJustificatives;
 		if(first)
-			pieceJustificatives = pieceJustificativeService.findByDossierByTypeDepenseId(entity,typeDepense.getCode(), null, parametres);
+			pieceJustificatives = pieceJustificativeService.findByDossier(entity, null, parametres);
 		else
-			pieceJustificatives = pieceJustificativeService.findByDossierByTypeDepenseId(entity, typeDepense.getCode(),pieceJustificativeUploader.getPieceJustificatives(), parametres);
+			pieceJustificatives = pieceJustificativeService.findByDossier(entity,pieceJustificativeUploader.getPieceJustificatives(), parametres);
 		
 		pieceJustificativeUploader.clear();
 		for(PieceJustificative pieceJustificative : pieceJustificatives)
 			pieceJustificativeUploader.addPieceJustificative(pieceJustificative);
-		pieceJustificativeUploader.updateLibelle();
+		pieceJustificativeUploader.update();
 	}
 	
 	protected void updatePieceJustificatives(){
@@ -167,6 +175,7 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		super.initCreateOperation();
 		entity.setDeplacement(createDeplacement());
 		entity.getDeplacement().setNature(natureDaplacement);
+		entity.getDeplacement().setTypeDepense(genericService.findByClass(TypeDepense.class, String.class, Code.TYPE_DEPENSE_PRISE_EN_CHARGE));
 	}
 	
 	@Override
@@ -174,7 +183,7 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		if(Boolean.TRUE.equals(showCourrier))
 			getDossierService().deposer(entity);
 		else
-			getDossierService().soumettre(typeDepense.getCode(),entity, pieceJustificativeUploader.process(),userSessionManager.getUser());
+			getDossierService().soumettre(entity, pieceJustificativeUploader.process(),userSessionManager.getUser());
 	}
 	
 	protected Deplacement createDeplacement(){

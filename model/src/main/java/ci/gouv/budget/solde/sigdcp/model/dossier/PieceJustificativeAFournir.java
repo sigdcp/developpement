@@ -51,9 +51,14 @@ public class PieceJustificativeAFournir  extends AbstractModel<Long>  implements
 	 */
 	@ManyToOne private TypeDepense typeDepense;
 	
+	/**
+	 * Une piece principale est obligatoire pour la creation et la mise à jour d'un dossier
+	 */
+	private Boolean principale = Boolean.FALSE;
+	
 	/*---------------------------------------------------------------------------------------------------*/
 	
-	private Boolean original;	
+	private Boolean original = Boolean.FALSE;	
 	
 	/**
 	 * La période de validité. ex : -3 -> moins de 3 mois
@@ -61,7 +66,7 @@ public class PieceJustificativeAFournir  extends AbstractModel<Long>  implements
 
 	private Integer periodeValiditeEnMois;
 	
-	private Integer quantite;
+	private Integer quantite=1;
 	
 	/**
 	 * Cette piece est fourniepar le système
@@ -103,5 +108,6 @@ public class PieceJustificativeAFournir  extends AbstractModel<Long>  implements
 			return typePieceJustificative.toString()+"("+description+")";
 		return typePieceJustificative.toString();
 	}
+	
 	
 }

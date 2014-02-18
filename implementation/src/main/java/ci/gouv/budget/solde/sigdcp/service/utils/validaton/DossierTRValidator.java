@@ -3,8 +3,9 @@ package ci.gouv.budget.solde.sigdcp.service.utils.validaton;
 import java.io.Serializable;
 
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTransit;
 
-public class DossierTRValidator extends AbstractDossierValidator<DossierDD> implements Serializable {
+public class DossierTRValidator extends AbstractDossierValidator<DossierTransit> implements Serializable {
 
 	private static final long serialVersionUID = -261860698364195138L;
 	

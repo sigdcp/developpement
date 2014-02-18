@@ -13,12 +13,15 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Contact;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 /**
  * Un agent de l'état est toute personne identifiable par l'état par un matricule
@@ -32,6 +35,7 @@ public class AgentEtat  extends Personne   implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	@NotNull(groups=Client.class)
 	@Column(unique=true,nullable=false)
 	private String matricule;
 	
@@ -49,17 +53,19 @@ public class AgentEtat  extends Personne   implements Serializable{
 	
 	@ManyToOne private Personne ayantDroit;
 	
+	@NotNull(groups=Client.class)
+	@JoinColumn(nullable=false)
 	@ManyToOne private TypeAgentEtat type;
 	
 	public AgentEtat() {}
 
-	public AgentEtat(String code,String matricule, String nom, String prenoms,
+	public AgentEtat(String matricule, String nom, String prenoms,
 			Date dateNaissance, Contact contact, Sexe sexe,
 			SituationMatrimoniale situationMatrimoniale, Localite nationalite,Date dateCreation,
 			Grade grade, Echelon echelon, Position position,
 			Integer indice, Fonction fonction, Section section,
 			Profession profession, Personne ayantDroit) {
-		super(code, nom, prenoms, dateNaissance, contact, sexe,
+		super(nom, prenoms, dateNaissance, contact, sexe,
 				situationMatrimoniale, nationalite,profession,dateCreation);
 		this.matricule = matricule;
 		this.grade = grade;

@@ -11,7 +11,7 @@ import ci.gouv.budget.solde.sigdcp.model.calendrier.CalendrierMission;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
 
 @Stateless
-public class MissionServiceImpl extends AbstractDeplacementServiceImpl<Mission> implements MissionService,Serializable {
+public class MissionServiceImpl extends AbstractDeplacementServiceImpl<Mission> implements CalendrierMissionService,Serializable {
 	
 	private static final long serialVersionUID = -7765679080076677680L;
 	

@@ -60,6 +60,11 @@ public class MenuBuilder implements Serializable {
 		menuManager.addMenuItem(identification, "menu.identification.consulterbeneficiaire","consulterbeneficiairelistebase",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"detailbeneficiairelistebase"});
 		*/
 		
+		Submenu mission = menuManager.addSubmenu("menu.mission");
+		menuManager.addMenuItem(mission, "menu.mission.demande.pointfocal","demande_mission_pointfocal", new Object[]{
+		
+		});
+		
 		Submenu traitementDemande = menuManager.addSubmenu("menu.traitementdemande");
 		menuManager.addMenuItem(traitementDemande, "menu.traitementdemande.recevabilite","validationrecevabilite", new Object[]{
 				/*webConstantResources.getRequestParamStatut(),Code.STATUT_SOUMIS/*,webConstantResources.getRequestParamNextViewOutcome(),"validationrecevabilite"*/

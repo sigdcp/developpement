@@ -3,7 +3,7 @@ package ci.gouv.budget.solde.sigdcp.dao.identification;
 import ci.gouv.budget.solde.sigdcp.dao.DataAccessObject;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 
-public interface AbstractPersonneDao<PERSONNE extends Personne> extends DataAccessObject<PERSONNE,String> {
+public interface AbstractPersonneDao<PERSONNE extends Personne> extends DataAccessObject<PERSONNE,Long> {
 
 	/**
 	 * Retourne la liste des inscriptions pas encore validées si valide est faux.
@@ -14,3 +14,4 @@ public interface AbstractPersonneDao<PERSONNE extends Personne> extends DataAcce
 	//Collection<PERSONNE> findByValide(Boolean valide);
 
 }
+ 

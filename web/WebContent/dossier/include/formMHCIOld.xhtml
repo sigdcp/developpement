@@ -42,20 +42,20 @@
 			
 			<p:panelGrid columns="#{editable?6:4}" styleClass="panelGridNoBorder" columnClasses="#{editable?'c1,c2,c3,c1,c2,c3':'c1,c2,c1,c2'}">								
 				<p:outputLabel  for="designation" value="Objet de la mission: " />
-				<p:inputTextarea id="designation" value="#{enregistrerDemandeMHCIFormController.entity.designation}" required="#{required}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable}"/>
+				<p:inputTextarea id="designation" value="#{enregistrerDemandeMHCIFormController.mission.designation}" required="#{required}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable}"/>
 		        <p:message for="designation" rendered="#{editable}"/>
-		        <h:outputText value="#{enregistrerDemandeMHCIFormController.entity.designation}" rendered="#{not editable}" />
+		        <h:outputText value="#{enregistrerDemandeMHCIFormController.mission.designation}" rendered="#{not editable}" />
 				<p:outputLabel value="" /><p:outputLabel value="" /><p:outputLabel value="" rendered="#{editable}"/>
 
 				<p:outputLabel for="dateDepart" value="Date de début" />
-				<p:calendar id="dateDepart" value="#{enregistrerDemandeMHCIFormController.entity.dateDepart}" required="#{required}" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" 
+				<p:calendar id="dateDepart" value="#{enregistrerDemandeMHCIFormController.entity.deplacement.dateDepart}" required="#{required}" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" 
 					rendered="#{editable}"/>
-				<h:outputText value="#{enregistrerDemandeMHCIFormController.entity.dateDepart}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				<h:outputText value="#{enregistrerDemandeMHCIFormController.entity.deplacement.dateDepart}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 				<p:message for="dateDepart" rendered="#{editable}"/>
 				 
 				<p:outputLabel for="dateArrivee" value="Date de fin" />
-				<p:calendar id="dateArrivee" value="#{enregistrerDemandeMHCIFormController.entity.dateArrivee}" required="#{required}" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable}"/>
-				<h:outputText value="#{enregistrerDemandeMHCIFormController.entity.dateArrivee}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				<p:calendar id="dateArrivee" value="#{enregistrerDemandeMHCIFormController.entity.deplacement.dateArrivee}" required="#{required}" pattern="#{constantResources.datePattern}" requiredMessage="#{valueRequiredMessage}" rendered="#{editable}"/>
+				<h:outputText value="#{enregistrerDemandeMHCIFormController.entity.deplacement.dateArrivee}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
 				<p:message for="dateArrivee" rendered="#{editable}"/>
 		       
 		       	<!--
@@ -63,33 +63,23 @@
 				-->
 			
 				<p:outputLabel for="villeDepart"  value="Ville de départ:" />
-				<p:selectOneMenu id="villeDepart" value="#{enregistrerDemandeMHCIFormController.entity.localiteDepart}" required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable}">
+				<p:selectOneMenu id="villeDepart" value="#{enregistrerDemandeMHCIFormController.entity.deplacement.localiteDepart}" required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{villes}"/>
 				</p:selectOneMenu>
-				<h:outputText value="#{enregistrerDemandeMHCIFormController.entity.localiteDepart}" rendered="#{not editable}"/>
+				<h:outputText value="#{enregistrerDemandeMHCIFormController.entity.deplacement.localiteDepart}" rendered="#{not editable}"/>
 				 <p:message for="villeDepart" rendered="#{editable}"/>
 				
 				<p:outputLabel for="villeArrivee" value="Ville de la mission:" />		
-				<p:selectOneMenu id="villeArrivee" value="#{enregistrerDemandeMHCIFormController.entity.localiteArrivee}" required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable}">
+				<p:selectOneMenu id="villeArrivee" value="#{enregistrerDemandeMHCIFormController.entity.deplacement.localiteArrivee}" required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" rendered="#{editable}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					<f:selectItems value="#{villes}"/>
 				</p:selectOneMenu>	
-				<h:outputText value="#{enregistrerDemandeMHCIFormController.entity.localiteArrivee}" rendered="#{not editable}"/>
-				<p:message for="villeArrivee" rendered="#{editable}"/>
+				<h:outputText value="#{enregistrerDemandeMHCIFormController.entity.deplacement.localiteArrivee}" rendered="#{not editable}"/>
+				 <p:message for="villeArrivee" rendered="#{editable}"/>
 			         
-			</p:panelGrid>
-		</p:fieldset>	
-		<p:spacer height="5"/>
-		<p:fieldset legend="Participant">
-			<p:commandButton value="Ajouter" action="#{enregistrerDemandeMHCIFormController.ajouterParticipant}" icon="ui-icon-plus" update="participants" process="participants"/>
-			<p:spacer height="3"/>
-			<p:tabView id="participants" var="dto" value="#{enregistrerDemandeMHCIFormController.dossierMissionDtos}">
-				<p:tab title="#{dto.libelle}">
-					
-				</p:tab>
-			</p:tabView>
-		</p:fieldset>
+				</p:panelGrid>
+			</p:fieldset>	
 	
 	</ui:composition>
 </body>

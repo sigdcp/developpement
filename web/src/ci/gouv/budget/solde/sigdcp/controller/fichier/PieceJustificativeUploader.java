@@ -3,6 +3,8 @@ package ci.gouv.budget.solde.sigdcp.controller.fichier;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,40 +26,43 @@ public class PieceJustificativeUploader implements Serializable {
 	@Inject private FichierService fichierService;
 	//@Getter @Setter private Collection<PieceJustificativeAFournir> aImprimer;
 	@Setter @Getter protected PieceJustificative pieceJustificativeSelectionne;
-	@Getter private List<PieceJustificativeDTO> collection = new LinkedList<>();
+	@Getter private List<PieceJustificativeDto> collection = new LinkedList<>();
 	
 	@Getter @Setter private Boolean showInputs=Boolean.TRUE;
+	
 		
-	public PieceJustificativeDTO addPieceJustificative(PieceJustificative pieceJustificative) {
-		PieceJustificativeDTO dto = new PieceJustificativeDTO(pieceJustificative);
+	public PieceJustificativeDto addPieceJustificative(PieceJustificative pieceJustificative) {
+		PieceJustificativeDto dto = new PieceJustificativeDto(pieceJustificative);
 		collection.add(dto);
 		return dto;
 	}
 	
-	public void updateLibelle(){
+	public void update(){
 		//quel type de piece avons nous
 		Collection<PieceJustificativeAFournir> models = new LinkedHashSet<>();
-		for(PieceJustificativeDTO dto :  collection)
+		for(PieceJustificativeDto dto :  collection)
 			models.add(dto.getPiece().getModel());
+		//System.out.println(models);
 		for(PieceJustificativeAFournir model : models){
-			Collection<PieceJustificativeDTO> dtos = dtos(model);
+			Collection<PieceJustificativeDto> dtos = dtos(model);
 			if(dtos.size()==1)
 				updateLibelle(dtos.iterator().next(), 0);
 			else{
 				int i=1;
-				for(PieceJustificativeDTO dto : dtos)
+				for(PieceJustificativeDto dto : dtos)
 					updateLibelle(dto,i++);
 			}
 		}
+		Collections.sort(collection,Collections.reverseOrder(new PieceJustificativeComparator()));
 	}
 	
-	private void updateLibelle(PieceJustificativeDTO dto,int index){
-		dto.setLibelle(dto.getPiece().getModel().getTypePieceJustificative().getLibelle()+(index>0?" "+index:""));
+	private void updateLibelle(PieceJustificativeDto dto,int index){
+		dto.setLibelle(dto.getPiece().getModel().toString()+(index>0?" "+index:""));
 	}
 	
-	private Collection<PieceJustificativeDTO> dtos(PieceJustificativeAFournir model){
-		Collection<PieceJustificativeDTO> dtos = new LinkedHashSet<>();
-		for(PieceJustificativeDTO dto :  collection)
+	private Collection<PieceJustificativeDto> dtos(PieceJustificativeAFournir model){
+		Collection<PieceJustificativeDto> dtos = new LinkedHashSet<>();
+		for(PieceJustificativeDto dto :  collection)
 			if(dto.getPiece().getModel().equals(model))
 				dtos.add(dto);
 		return dtos;
@@ -65,7 +70,7 @@ public class PieceJustificativeUploader implements Serializable {
 	
 	public Collection<PieceJustificative> process() throws IOException{
 		Collection<PieceJustificative> pieceJustificatives = new LinkedList<>();
-		for(PieceJustificativeDTO dto : collection){
+		for(PieceJustificativeDto dto : collection){
 			if(dto.getFile()!=null){
 				
 				dto.getPiece().setFichier(fichierService.convertir(IOUtils.toByteArray(dto.getFile().getInputstream()),dto.getFile().getFileName() ));
@@ -77,13 +82,40 @@ public class PieceJustificativeUploader implements Serializable {
 	
 	public Collection<PieceJustificative> getPieceJustificatives(){
 		Collection<PieceJustificative> pieceJustificatives = new LinkedList<>();
-		for(PieceJustificativeDTO dto : collection)
+		for(PieceJustificativeDto dto : collection)
 			pieceJustificatives.add(dto.getPiece());
 		return pieceJustificatives;
 	}
 	
 	public void clear(){
 		collection.clear();
+	}
+	
+	private class PieceJustificativeComparator implements Comparator<PieceJustificativeDto>{
+		
+		@Override
+		public int compare(PieceJustificativeDto p1, PieceJustificativeDto p2) {
+			if(Boolean.TRUE.equals(p1.getPiece().getModel().getPrincipale()))
+				if(Boolean.TRUE.equals(p2.getPiece().getModel().getPrincipale()))
+					return p1.getLibelle().compareTo(p2.getLibelle());//les deux pieces sont principales
+				else
+					return 1;
+			else 
+				if(Boolean.TRUE.equals(p2.getPiece().getModel().getPrincipale()))
+					return -1;
+				else
+					if(Boolean.TRUE.equals(p1.getPiece().getModel().getDerivee()))
+						if(Boolean.TRUE.equals(p2.getPiece().getModel().getDerivee()))
+							return p1.getLibelle().compareTo(p2.getLibelle());//les deux pieces sont derivees
+						else
+							return -1;
+					else
+						if(Boolean.TRUE.equals(p2.getPiece().getModel().getDerivee()))
+							return 1;
+						else
+							return p1.getLibelle().compareTo(p2.getLibelle());
+		}
+		
 	}
 	
 }

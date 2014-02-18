@@ -11,6 +11,7 @@ package ci.gouv.budget.solde.sigdcp.model.identification;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -48,6 +49,7 @@ public class Personne  extends Party  implements Serializable{
 	
 	@Enumerated(EnumType.ORDINAL)
 	@NotNull(groups=Client.class)
+	@Column(nullable=false)
 	private Sexe sexe;
 	
 	@ManyToOne
@@ -69,11 +71,11 @@ public class Personne  extends Party  implements Serializable{
 	
 	public Personne() {}
 	
-	public Personne(String code, String nom, String prenoms,
+	public Personne(String nom, String prenoms,
 			Date dateNaissance, Contact contact, Sexe sexe,
 			SituationMatrimoniale situationMatrimoniale, Localite nationalite,
 			Profession profession,Date dateCreation) {
-		super(code, nom,contact,dateCreation);
+		super(nom,contact,dateCreation);
 		this.prenoms = prenoms;
 		this.dateNaissance = dateNaissance;
 		this.sexe = sexe;

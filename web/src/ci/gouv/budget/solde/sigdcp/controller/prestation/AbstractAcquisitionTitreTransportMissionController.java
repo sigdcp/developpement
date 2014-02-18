@@ -20,7 +20,7 @@ import ci.gouv.budget.solde.sigdcp.model.indemnite.TypeClasseVoyage;
 import ci.gouv.budget.solde.sigdcp.service.DynamicEnumerationService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierMissionDTO;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierMissionService;
-import ci.gouv.budget.solde.sigdcp.service.dossier.MissionService;
+import ci.gouv.budget.solde.sigdcp.service.dossier.CalendrierMissionService;
 
 public abstract class AbstractAcquisitionTitreTransportMissionController<ENTITY extends AbstractModel<?>> extends AbstractEntityFormUIController<ENTITY> {
 
@@ -30,7 +30,7 @@ public abstract class AbstractAcquisitionTitreTransportMissionController<ENTITY 
 	 * Services
 	 */ 
 	@Inject private DossierMissionService dossierMissionService;
-	@Inject private MissionService missionService;
+	@Inject private CalendrierMissionService missionService;
 	@Inject private DynamicEnumerationService dynamicEnumerationService;
 	
 	/* 

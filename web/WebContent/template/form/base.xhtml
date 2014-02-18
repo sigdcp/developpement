@@ -29,12 +29,26 @@
 	 	}
  	
  	</script>
- 	
+  	
+	<style>
+		.c1{
+			font-weight: bold;
+			width: 100px;
+		}
+		.c2 .ui-inputfield{
+			width: 200px !important;
+		}
+		.c2 .ui-selectonemenu{
+			width: 200px !important;
+		}
+		
+	</style>	
  	<!--
  	<ui:fragment rendered="#{not empty request.remoteUser}">
  		<h:outputText value="#{userSessionManager.userInfosLine}" escape="false"/>
  	</ui:fragment>
  	-->
+ 	
 	<h:form id="form" enctype="multipart/form-data">
 		<table border="0" style="margin: auto;"><tr>
 			<td>
@@ -53,11 +67,18 @@
 							<h:outputText value="#{uiController.instructions}" escape="false"/>
 						</span>
 					</div-->	
+					<!--
 					<ui:include src="/resources/include/component/message.xhtml" >
 						<ui:param name="severity" value="info" />
 						<ui:param name="message" value="#{uiController.instructions}" />
 					</ui:include>
-										
+					-->
+					<div class="ui-state-highlight" style="padding: 3px;margin-bottom: 5px;">
+						<span class="ui-message-info-icon"/>
+						<span class="ui-message-info-detail">
+							<h:outputText value="#{uiController.instructions}" escape="false"/>
+						</span>
+					</div>					
 				</ui:fragment>
 				
 				<p:messages globalOnly="true" escape="false"/>

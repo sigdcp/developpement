@@ -4,70 +4,65 @@ import java.io.Serializable;
 
 import javax.validation.constraints.AssertTrue;
 
-import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
+import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTransit;
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
-public class DossierTransitValidator extends AbstractValidator<DossierTransit> implements Serializable {
+public class DossierTransitValidator extends AbstractDossierValidator<DossierTransit> implements Serializable {
 
 	private static final long serialVersionUID = -261860698364195138L;
 	
-	@AssertTrue(message="Le dossier doit appartenir a un bénéficiaire")
-	private boolean hasBenficiaire(){
-		return false;//object.getBeneficiaire()!=null;
+	@Override
+	public boolean isValidDatePriseService() {
+		if(Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_MAE.equals(object.getDeplacement().getNature().getCode()))
+			return super.isValidDatePriseService();
+		return true;
 	}
 	
-	@AssertTrue(message="la date de prise de service doit être inférieur a la date de cessation de service")
-	private boolean hasDatePriseServiceBeforeDateCessationService(){
-		return false;//object.getDatePriseService().before(object.getDateCessationService());
+	@AssertTrue(message="la date de fin de service n'est pas valide",groups=Client.class)
+	public boolean isValidDateFinService(){
+		if(Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_MAE.equals(object.getDeplacement().getNature().getCode()))
+			try {
+				validationPolicy.validateDateFinService(object.getDatePriseService(), object.getDatePriseService());
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		return true;
 	}
 	
-	/*
-	Date datecourante = new Date();
-	boolean succes= true;
-	
-	if (!validationUtils.isOrdonne(dossier.getDatePriseService(),datecourante)){
-		addMessageError("la date de prise de service ne doit pas être supérieure à la date d'aujourd'hui");
-		succes=false;
-	}
-
-	if (!validationUtils.isOrdonne(dossier.getDateCessationService(),dossier.getDatePriseService()))
-	{
-		addMessageError("la date de cessation de service ne doit pas être supérieure à la date de prise de service");
-		succes=false;
-	}
-	if (!validationUtils.isOrdonne(dossier.getDateMariage(),datecourante))
-	{
-		addMessageError("la date de mariage ne doit pas être supérieure à la date d'aujourd'hui");
-		succes=false;
-	}
-	if (!validationUtils.isOrdonne(dossier.getDateMiseRetraite(),datecourante))
-	{
-		addMessageError("la date de mise à la retraite ne doit pas être supérieure à la date d'aujourd'hui");
-		succes=false;
-	}
-	if (!validationUtils.isOrdonne(dossier.getDeplacement().getDateArrivee(),datecourante))
-	{
-		addMessageError("la date de d'arrivée ne doit pas être supérieure à la date d'aujourd'hui");
-		succes=false;
-	}
-	if (!validationUtils.isOrdonne(dossier.getDeplacement().getDateArrivee(),dossier.getDatePriseService()))
-	{
-		addMessageError("la date de d'arrivée ne doit pas être supérieure à la date de prise de service");
-		succes=false;
-	}
-	if (!validationUtils.isOrdonne(dossier.getDeplacement().getDateArrivee(),dossier.getDateMiseRetraite()))
-	{
-		addMessageError("la date de d'arrivée ne doit pas être supérieure à la date de mise à la retraite");
-		succes=false;
-	}
-	if (!validationUtils.isOrdonne(dossier.getDeplacement().getDateDepart(),dossier.getDeplacement().getDateArrivee()))
-	{
-		addMessageError("la date de départ ne doit pas être supérieure à la date d'arrivée");
-		succes=false;
+	@AssertTrue(message="la date de mise en stage n'est pas valide",groups=Client.class)
+	public boolean isValidDateMiseStage(){
+		if(Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_STAGIAIRE.equals(object.getDeplacement().getNature().getCode()))
+			try {
+				validationPolicy.validateDateMiseStage(object.getBeneficiaire(), object.getDateMiseStage());
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		return true;
 	}
 	
-	return succes;
-	*/
+	@AssertTrue(message="la date de fin de stage n'est pas valide",groups=Client.class)
+	public boolean isValidDateFinStage(){
+		if(Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_STAGIAIRE.equals(object.getDeplacement().getNature().getCode()))
+			try {
+				validationPolicy.validateDateFinStage(object.getDateMiseStage(), object.getDateFin());
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		return true;
+	}
 	
+	@AssertTrue(message="le montant de la facture n'est pas valide",groups=Client.class)
+	public boolean isValidMontantFacture(){
+		try {
+			validationPolicy.validateMontantFacture(object.getMontantFacture());
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}	
 	
 }

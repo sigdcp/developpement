@@ -51,7 +51,7 @@ public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<P
 	}
 	*/
 	@Override
-	public Collection<PieceJustificative> findByDossierByTypeDepenseId(Dossier dossier,String typeDepenseId,Collection<PieceJustificative> pieceJustificatives,Map<String, Object> parametres) throws ServiceException {
+	public Collection<PieceJustificative> findByDossier(Dossier dossier,Collection<PieceJustificative> pieceJustificatives,Map<String, Object> parametres) throws ServiceException {
 		//Dossier dossierEnCoursSaisie = dossierDao.readSaisieByPersonneByNatureDeplacement((AgentEtat) userSessionManager.getUser(), natureDaplacement);
 		
 		//if(Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES.equals(dossier.getDeplacement().getNature().getCode()))
@@ -60,7 +60,7 @@ public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<P
 			//quelles sont les pieces a fournir
 			//System.out.println(dossier.getDeplacement().getNature().getCode()+" "+typeDepenseId);
 			Collection<PieceJustificativeAFournir> pieceJustificativeAFournirs = pieceJustificativeAFournirDao.readBaseByNatureDeplacementIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(),
-					typeDepenseId);
+					dossier.getDeplacement().getTypeDepense().getCode());
 			//System.out.println("PJF : "+pieceJustificativeAFournirs);
 			//quelles sont les pieces fournis
 			Collection<PieceJustificative> pieceJustificativesFournis;
@@ -94,7 +94,8 @@ public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<P
 		if(parametres!=null){
 			PieceJustificative pieceJustificativeExistante = null;
 			//Extrait de mariage
-			modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_MARIAGE,typeDepenseId);
+			modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_MARIAGE,
+					dossier.getDeplacement().getTypeDepense().getCode());
 			if(Boolean.TRUE.equals(parametres.get(constantResources.getFormParamMarie()))){
 				for(PieceJustificative pj : pieceJustificatives)
 					if(pj.getModel().equals(modelPiece)){
@@ -110,7 +111,8 @@ public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<P
 			}
 			
 			//Extrait de naissances des enfants
-			modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_NAISSANCE,typeDepenseId);
+			modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_NAISSANCE,
+					dossier.getDeplacement().getTypeDepense().getCode());
 			Integer ne = (Integer) parametres.get(constantResources.getFormParamNombreEnfant());
 			if(ne!=null && ne>0){
 				for(PieceJustificative pj : pieceJustificatives)
@@ -141,14 +143,15 @@ public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<P
 	}*/
 	
 	@Override
-	public Map<String, Object> findParametresByDossierByTypeDepenseId(Dossier dossier,String typeDepenseId,Collection<PieceJustificative> pieceJustificatives)throws ServiceException {
+	public Map<String, Object> findParametresByDossier(Dossier dossier,Collection<PieceJustificative> pieceJustificatives)throws ServiceException {
 		Map<String, Object> parametres = new HashMap<String, Object>();
 		PieceJustificativeAFournir modelPiece = null;
 		boolean dossierPersiste = dossierDao.exist(dossier.getNumero());
 		//System.out.println(dossierPersiste);
 		//Extrait de mariage
 		parametres.put(constantResources.getFormParamMarie(), dossierPersiste?false:null);
-		modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_MARIAGE,typeDepenseId);
+		modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_MARIAGE,
+				dossier.getDeplacement().getTypeDepense().getCode());
 		for(PieceJustificative pj : pieceJustificatives)
 			if(pj.getModel().equals(modelPiece)){
 				parametres.put(constantResources.getFormParamMarie(), true);
@@ -156,7 +159,8 @@ public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<P
 			}
 		//nombre d'enfant
 		int ne = 0;
-		modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_NAISSANCE,typeDepenseId);
+		modelPiece = pieceJustificativeAFournirDao.readByNatureDeplacementIdByTypePieceIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(), Code.TYPE_PIECE_EXTRAIT_NAISSANCE,
+				dossier.getDeplacement().getTypeDepense().getCode());
 		for(PieceJustificative pj : pieceJustificatives)
 			if(pj.getModel().equals(modelPiece))
 				ne++;

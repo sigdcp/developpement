@@ -12,7 +12,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -31,14 +33,16 @@ import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.System;
 
 @Getter @Setter 
-@Entity @Inheritance(strategy=InheritanceType.JOINED) @EqualsAndHashCode(of="code",callSuper=false)
-public class Party extends AbstractModel<String>  implements Serializable{
+@Entity @Inheritance(strategy=InheritanceType.JOINED) @EqualsAndHashCode(of="id",callSuper=false)
+public class Party extends AbstractModel<Long>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id private String code;
+	@Id @GeneratedValue
+	private Long id;
 	
 	@NotNull(groups=Client.class)
+	@Column(nullable=false)
 	private String nom;
 	
 	@OneToOne(cascade=CascadeType.ALL) @Valid
@@ -50,8 +54,7 @@ public class Party extends AbstractModel<String>  implements Serializable{
 	
 	public Party() {}
  
-	public Party(String code, String nom,Contact contact,Date dateCreation) {
-		this.code = code;
+	public Party(String nom,Contact contact,Date dateCreation) {
 		this.nom = nom; 
 		this.contact = contact;
 		this.dateCreation = dateCreation;

@@ -39,6 +39,12 @@
 			<to-view-id>/private/demande/mhci.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>demande_mission_pointfocal</from-outcome>
+			<to-view-id>/private/personnel/demande/mhci.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 
 		<navigation-case>
 			<from-outcome>demandeliste</from-outcome>

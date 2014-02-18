@@ -24,9 +24,11 @@
    <PROCESS-ITEM-OUTPUT ID="demande_m::#private#demande#mhci.xhtml"
     NAME="output5" PATH="/private/demande/mhci.xhtml"
     TARGET="rules:#private#demande#mhci.xhtml" TITLE="demande_m" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="demandeliste::#private#demande#liste.xhtml"
-    NAME="output6" PATH="/private/demande/liste.xhtml"
-    TARGET="rules:#private#demande#liste.xhtml" TITLE="demandeliste" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="demande_mission_pointfocal::#private#personnel#demande#mhci.xhtml"
+    NAME="output6" PATH="/private/personnel/demande/mhci.xhtml"
+    TARGET="rules:#private#personnel#demande#mhci.xhtml"
+    TITLE="demande_mission_pointfocal" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="demandeconsultation::#private#demande#details.xhtml"
     NAME="output7" PATH="/private/demande/details.xhtml"
@@ -177,4 +179,6 @@
   NAME="rules:#private#personnel#dossier#validation#recevabilite.xhtml"
   PATH="/private/personnel/dossier/validation/recevabilite.xhtml"
   SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#demande#mhci.xhtml"
+  PATH="/private/personnel/demande/mhci.xhtml" SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

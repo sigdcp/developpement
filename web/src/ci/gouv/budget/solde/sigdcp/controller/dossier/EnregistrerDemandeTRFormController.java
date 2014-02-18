@@ -10,8 +10,9 @@ import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTransit;
-import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierTransitService;
+import ci.gouv.budget.solde.sigdcp.service.utils.validaton.AbstractValidator;
+import ci.gouv.budget.solde.sigdcp.service.utils.validaton.DossierTransitValidator;
 
 
 @Named @ViewScoped
@@ -24,11 +25,12 @@ public class EnregistrerDemandeTRFormController extends AbstractDossierUIControl
 	 */
 	@Inject private DossierTransitService dossierTransitService;
 	
+	@Inject private DossierTransitValidator validator;
+	
 	@Getter @Setter private Boolean mae;
 	
 	@Override
 	protected void initialisation() {
-		typeDepense =  genericService.findByClass(TypeDepense.class, String.class, Code.TYPE_DEPENSE_PRISE_EN_CHARGE);
 		super.initialisation();
 		mae = Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_MAE.equals(entity.getDeplacement().getNature().getCode());
 	}
@@ -45,10 +47,12 @@ public class EnregistrerDemandeTRFormController extends AbstractDossierUIControl
 	
 	public void typeDepenseListener(){
 		updatePieceJustificatives();
-		//System.out.println(typeDepense+" : "+pieceJustificativeUploader.getPieceJustificatives());
 	}
 	
-
+	@Override
+	protected AbstractValidator<DossierTransit> validator() {
+		return null;//validator;
+	}
 
 }
 		

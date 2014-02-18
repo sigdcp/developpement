@@ -32,14 +32,14 @@ public class DelegueSotra  extends AgentEtat   implements Serializable{
 		super();
 	}
 
-	public DelegueSotra(String code, String matricule, String nom,
+	public DelegueSotra(String matricule, String nom,
 			String prenoms, Date dateNaissance, Contact contact, Sexe sexe,
 			SituationMatrimoniale situationMatrimoniale, Localite nationalite,
 			Date dateCreation, Grade grade, Echelon echelon, Position position,
 			Integer indice, Fonction fonction, Section section,
 			Profession profession, Personne ayantDroit, AgentEtat interimaire,
 			Section sectionGeree) {
-		super(code, matricule, nom, prenoms, dateNaissance, contact, sexe,
+		super(matricule, nom, prenoms, dateNaissance, contact, sexe,
 				situationMatrimoniale, nationalite, dateCreation, grade,
 				echelon, position, indice, fonction, section, profession,
 				ayantDroit);

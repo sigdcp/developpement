@@ -41,7 +41,7 @@ public class InscritsListeGestionnaireCarteSotraListeController extends Abstract
 
 	@Override
 	public String href(AgentEtat agentEtat) {
-		return navigationHelper.addQueryParameters(nextViewOutcome, new Object[]{webConstantResources.getRequestParamSouscription(), agentEtat.getCode()});
+		return null;//navigationHelper.addQueryParameters(nextViewOutcome, new Object[]{webConstantResources.getRequestParamSouscription(), agentEtat.getCode()});
 	}
 	
 	@Override

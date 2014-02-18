@@ -14,6 +14,7 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import ci.gouv.budget.solde.sigdcp.dao.identification.CompteUtilisateurDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
+import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
@@ -34,6 +35,7 @@ import ci.gouv.budget.solde.sigdcp.service.utils.TextService;
 public class ValidationPolicy {
 		
 	/*------------------------------------------  Contraintes  --------------------------------------------------------------*/
+
 	
 	public void validateMatricule(TypeAgentEtat typeAgentEtat,String matricule) throws Exception{
 		if(Code.TYPE_AGENT_ETAT_GENDARME.equals(typeAgentEtat.getCode())){
@@ -88,6 +90,27 @@ public class ValidationPolicy {
 			exception(ValidationExceptionType.DATE_PRISE_SERVICE);
 	}
 	
+	public void validateDateFinService(Date datePriseService,Date dateFinService) throws Exception{
+		if(isOneNull(dateFinService) || dateFinService.before(datePriseService))
+			exception();
+	}
+	
+	public void validateDateMiseStage(AgentEtat agentEtat,Date dateMiseStage) throws Exception{
+		try {
+			validateDateNaissance(agentEtat.getDateNaissance());
+		} catch (Exception e) {
+			exception(ValidationExceptionType.DATE_PRISE_SERVICE);
+		}
+		
+		if(dateMiseStage==null || dateMiseStage.before(DateUtils.addYears(agentEtat.getDateNaissance(), getAgeMinimumAns())))
+			exception(ValidationExceptionType.DATE_PRISE_SERVICE);
+	}
+	
+	public void validateDateFinStage(Date dateMiseStage,Date dateFinStage) throws Exception{
+		if(isOneNull(dateMiseStage) || dateFinStage.before(dateMiseStage))
+			exception();
+	}
+	
 	public void validateDateDepart(AgentEtat agentEtat,Date dateDepart) throws Exception{
 		if(isOneNull(dateDepart) || dateDepart.before(agentEtat.getDateNaissance()))
 			exception();
@@ -113,44 +136,64 @@ public class ValidationPolicy {
 			exception();
 	}
 	
-	public void validatePieceJustificativeNumero(Boolean soumission,String numero,Date date,Fonction signataire,byte[] fichier,Boolean derivee) throws Exception{
-		if(soumission){
-			if(isOneNull(numero))
-				exception();
-		}else if(!derivee){
-			if(!isNull(numero) && isOneNull(date,signataire,fichier))
-				exception();
-		}
+	public void validateMontantFacture(Float montant) throws Exception{
+		if(isOneNull(montant) || montant<=0)
+			exception();
 	}
 	
-	public void validatePieceJustificativeDateEtablissement(Boolean soumission,String numero,Date date,Fonction signataire,byte[] fichier,Boolean derivee) throws Exception{
-		if(soumission){
+	public void validateObjetMission(String objet) throws Exception{
+		if(isOneNull(objet))
+			exception();
+	}
+	
+	public void validateDateDeces(Date dateNaissance,Date dateDeces) throws Exception{
+		if(isOneNull(dateNaissance,dateDeces) || dateDeces.before(dateNaissance) || dateDeces.after(new Date()))
+			exception();
+	}
+	
+	public void validatePieceJustificativeNumero(Boolean soumission,String numero,Date date,Fonction signataire,byte[] fichier,PieceJustificativeAFournir model) throws Exception{
+		if(soumission || Boolean.TRUE.equals(model.getPrincipale())){
+			if(isNull(numero))
+				exception();
+		}else if(Boolean.TRUE.equals(model.getDerivee()))
+			;
+		else if(isNull(numero) && isOneNotNull(date,signataire/*,fichier*/))
+				exception();
+		
+	}
+	
+	public void validatePieceJustificativeDateEtablissement(Boolean soumission,String numero,Date date,Fonction signataire,byte[] fichier,PieceJustificativeAFournir model) throws Exception{
+		if(soumission || Boolean.TRUE.equals(model.getPrincipale())){
 			if(isOneNull(date))
 				exception();
-		}else if(!derivee){
-			if(!isNull(date) && isOneNull(numero,signataire,fichier))
-				exception();
-		}
+		}else if(Boolean.TRUE.equals(model.getDerivee()))
+			;
+		else if(isNull(date) && isOneNotNull(numero,signataire/*,fichier*/))
+			exception();
+		
 	}
 	
-	public void validatePieceJustificativeSignataire(Boolean soumission,String numero,Date date,Fonction signataire,byte[] fichier,Boolean derivee) throws Exception{
-		if(soumission){
+	public void validatePieceJustificativeFonctionSignataire(Boolean soumission,String numero,Date date,Fonction signataire,byte[] fichier,PieceJustificativeAFournir model) throws Exception{
+		if(soumission || Boolean.TRUE.equals(model.getPrincipale())){
 			if(isOneNull(signataire))
 				exception();
-		}else if(!derivee){
-			if(!isNull(signataire) && isOneNull(numero,date,fichier))
-				exception();
-		}
+		}else if(Boolean.TRUE.equals(model.getDerivee()))
+			;
+		else if(isNull(signataire) && isOneNotNull(numero,date/*,fichier*/))
+			exception();
+		
 	}
 	
-	public void validatePieceJustificativeFichier(Boolean soumission,String numero,Date date,Fonction signataire,byte[] fichier,Boolean derivee) throws Exception{
-		if(soumission){
+	public void validatePieceJustificativeFichier(Boolean soumission,String numero,Date date,Fonction signataire,byte[] fichier,PieceJustificativeAFournir model) throws Exception{
+		
+		if(soumission || Boolean.TRUE.equals(model.getPrincipale())){
 			if(isOneNull(fichier))
 				exception();
-		}else if(!derivee){
-			if(!isNull(fichier) && isOneNull(numero,date,signataire))
-				exception();
-		}
+		}else if(Boolean.TRUE.equals(model.getDerivee()))
+			;
+		else if(!isNull(fichier) && isOneNotNull(numero,date,signataire))
+			exception();
+		
 	}
 	
 	
@@ -199,6 +242,12 @@ public class ValidationPolicy {
 		exception(ValidationExceptionType._DEFAULT);
 	}
 	
+	
+	public void validateNotNull(Object value) throws Exception{
+		if(isNull(value))
+			exception();
+	}
+	
 	protected boolean isNull(Object value){
 		if(value instanceof String)
 			return StringUtils.isEmpty((CharSequence) value);
@@ -209,6 +258,13 @@ public class ValidationPolicy {
 	protected boolean isOneNull(Object...objects){
 		for(Object object : objects)
 			if(isNull(object))
+				return true;
+		return false;
+	}
+	
+	protected boolean isOneNotNull(Object...objects){
+		for(Object object : objects)
+			if(!isNull(object))
 				return true;
 		return false;
 	}

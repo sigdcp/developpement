@@ -29,7 +29,6 @@ public class AgentEtatServiceImpl extends AbstractPersonneServiceImpl<AgentEtat>
 		if( ((AgentEtatDao)dao).readByMatricule(agentEtat.getMatricule()) !=null )
 			throw new ServiceException("Ce matricule est déja enregistré");
 		
-		agentEtat.setCode(System.currentTimeMillis()+"");
 		agentEtat.setDateCreation(new Date());
 		
 		try {
