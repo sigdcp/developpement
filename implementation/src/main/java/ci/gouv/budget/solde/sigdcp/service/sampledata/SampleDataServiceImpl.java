@@ -216,7 +216,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 		
 		natureDeplacementAffectation = creerNatureDeplacement(deplacementDefinitif,Code.NATURE_DEPLACEMENT_AFFECTATION,"Affectation");
 		em.persist(p = pjaf(natureDeplacementAffectation,remboursement,fonctionnaire, decisionAffectation));
-		p.setPrincipale(Boolean.TRUE);
+		p.getConfig().setPrincipale(Boolean.TRUE);
 		communPieceJustificativeAFournir(natureDeplacementAffectation, remboursement, fonctionnaire);
 		communDDPieceJustificativeAFournir(natureDeplacementAffectation);
 		
@@ -233,7 +233,9 @@ public class SampleDataServiceImpl implements SampleDataService {
 		communDDPieceJustificativeAFournir(natureDeplacementDepartRetraite);
 		
 		em.persist(mhci = creerNatureDeplacement(mission, Code.NATURE_DEPLACEMENT_MISSION_HCI,"Mission Hors Côte d'Ivoire"));
-		em.persist(pjaf(mhci,priseEnCharge,null, com));
+		em.persist(p = pjaf(mhci,priseEnCharge,null, com));
+		p.getConfig().setCommune(Boolean.TRUE);
+		p.getConfig().setPrincipale(Boolean.TRUE);
 		em.persist(pjaf(mhci,priseEnCharge,null, att));
 		em.persist(pjaf(mhci,priseEnCharge,null, om));
 		communPieceJustificativeAFournir(mhci, priseEnCharge, null);
@@ -504,6 +506,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	}
 	
 	public void creerMission(CalendrierMission calendrierMission,String designation,Integer mois,Integer dureeJour,Localite lieu,AgentEtat[] agentEtats){
+		/*
 		Mission mission = new Mission(calendrierMission,date(),date(),mhci,abidjan,lieu,designation,mois,dureeJour,"Environnement","Bonne gestion");
 		em.persist(mission);
 		List<DossierMission> dossiers = new ArrayList<>();
@@ -514,6 +517,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 		}
 		mission.setDossierDuResponsable(dossiers.get(0));
 		em.merge(mission);
+		*/
 	}
 	
 	public void creerCalendrierMission(Float montant,Section ministere,Exercice exercice){
@@ -603,7 +607,9 @@ public class SampleDataServiceImpl implements SampleDataService {
 	
 	public PieceJustificativeAFournir pjaf(NatureDeplacement natureDeplacement,TypeDepense typeDepense,TypePersonne typePersonne,
 			TypePieceJustificative typePieceJustificative,Integer quantite,Boolean original,Integer periodeValiditeEnMois,Boolean conditionnee,String description){
-		return new PieceJustificativeAFournir(natureDeplacement, typeDepense, typePersonne, typePieceJustificative, quantite, original, periodeValiditeEnMois,conditionnee,description);
+		PieceJustificativeAFournir p = new PieceJustificativeAFournir(typePieceJustificative,natureDeplacement,typePersonne, typeDepense,original,periodeValiditeEnMois, quantite,description);
+		p.getConfig().setConditionnee(conditionnee);
+		return p;
 	}
 	
 	public PieceJustificativeAFournir pjaf(NatureDeplacement natureDeplacement,TypeDepense typeDepense,TypePersonne typePersonne,TypePieceJustificative typePieceJustificative,Boolean conditionnee){
@@ -617,7 +623,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	}
 	
 	public void communPieceJustificativeAFournir(NatureDeplacement natureDeplacement,TypeDepense typeDepense,TypePersonne typePersonne){
-		em.persist(pjaf(natureDeplacement, typeDepense, typePersonne, cni));
+		//em.persist(pjaf(natureDeplacement, typeDepense, typePersonne, cni));
 	}
 	
 	public void communDDPieceJustificativeAFournir(NatureDeplacement natureDeplacement){
@@ -625,9 +631,9 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(pjaf(natureDeplacement, remboursement, fonctionnaire, extraitMariage,Boolean.TRUE));
 		PieceJustificativeAFournir p;
 		em.persist(p = pjaf(natureDeplacement, remboursement, fonctionnaire, feuilleDep));
-		p.setDerivee(Boolean.TRUE);
+		p.getConfig().setDerivee(Boolean.TRUE);
 		em.persist(p = pjaf(natureDeplacement, remboursement, fonctionnaire, bonTransport));
-		p.setDerivee(Boolean.TRUE);
+		p.getConfig().setDerivee(Boolean.TRUE);
 	}
 	
 	public void communTRPieceJustificativeAFournir(NatureDeplacement natureDeplacement){

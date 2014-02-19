@@ -14,7 +14,8 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierMissionService;
 
-@Named @ViewScoped @Getter @Setter
+//@Named @ViewScoped
+@Getter @Setter
 public class EnregistrerDemandeMHCIFormControllerOLD extends AbstractDossierUIController<DossierMission,DossierMissionService> implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -33,7 +34,7 @@ public class EnregistrerDemandeMHCIFormControllerOLD extends AbstractDossierUICo
 	
 	@Override
 	protected Deplacement createDeplacement() {
-		return new Mission();
+		return null;//new Mission();
 	}
 	
 	@Override
@@ -42,7 +43,7 @@ public class EnregistrerDemandeMHCIFormControllerOLD extends AbstractDossierUICo
 	}
 	
 	public Mission getMission(){
-		return (Mission) entity.getDeplacement();
+		return null;//(Mission) entity.getDeplacement();
 	}
 	
 

@@ -200,7 +200,9 @@
 		
 		<p:spacer height="5"/>
 		
-		<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml"/>
+		<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml">
+			<ui:param name="uploader" value="#{enregistrerDemandeDDController.pieceJustificativeUploader}" />
+		</ui:include>
 		
 	</ui:composition>
 </body>

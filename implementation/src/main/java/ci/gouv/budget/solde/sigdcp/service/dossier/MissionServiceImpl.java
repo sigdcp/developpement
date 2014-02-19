@@ -1,5 +1,5 @@
 package ci.gouv.budget.solde.sigdcp.service.dossier;
-
+/*
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -28,4 +28,4 @@ public class MissionServiceImpl extends AbstractDeplacementServiceImpl<Mission> 
 	
 
 }
- 
+ */

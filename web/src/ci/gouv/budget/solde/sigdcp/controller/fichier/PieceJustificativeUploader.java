@@ -23,12 +23,13 @@ public class PieceJustificativeUploader implements Serializable {
 
 	private static final long serialVersionUID = 2682591481106580763L;
 	
+	@Setter
 	@Inject private FichierService fichierService;
 	//@Getter @Setter private Collection<PieceJustificativeAFournir> aImprimer;
 	@Setter @Getter protected PieceJustificative pieceJustificativeSelectionne;
 	@Getter private List<PieceJustificativeDto> collection = new LinkedList<>();
 	
-	@Getter @Setter private Boolean showInputs=Boolean.TRUE;
+	@Getter @Setter private Boolean showInputs=Boolean.TRUE,editable=Boolean.TRUE;
 	
 		
 	public PieceJustificativeDto addPieceJustificative(PieceJustificative pieceJustificative) {
@@ -95,22 +96,22 @@ public class PieceJustificativeUploader implements Serializable {
 		
 		@Override
 		public int compare(PieceJustificativeDto p1, PieceJustificativeDto p2) {
-			if(Boolean.TRUE.equals(p1.getPiece().getModel().getPrincipale()))
-				if(Boolean.TRUE.equals(p2.getPiece().getModel().getPrincipale()))
+			if(Boolean.TRUE.equals(p1.getPiece().getModel().getConfig().getPrincipale()))
+				if(Boolean.TRUE.equals(p2.getPiece().getModel().getConfig().getPrincipale()))
 					return p1.getLibelle().compareTo(p2.getLibelle());//les deux pieces sont principales
 				else
 					return 1;
 			else 
-				if(Boolean.TRUE.equals(p2.getPiece().getModel().getPrincipale()))
+				if(Boolean.TRUE.equals(p2.getPiece().getModel().getConfig().getPrincipale()))
 					return -1;
 				else
-					if(Boolean.TRUE.equals(p1.getPiece().getModel().getDerivee()))
-						if(Boolean.TRUE.equals(p2.getPiece().getModel().getDerivee()))
+					if(Boolean.TRUE.equals(p1.getPiece().getModel().getConfig().getDerivee()))
+						if(Boolean.TRUE.equals(p2.getPiece().getModel().getConfig().getDerivee()))
 							return p1.getLibelle().compareTo(p2.getLibelle());//les deux pieces sont derivees
 						else
 							return -1;
 					else
-						if(Boolean.TRUE.equals(p2.getPiece().getModel().getDerivee()))
+						if(Boolean.TRUE.equals(p2.getPiece().getModel().getConfig().getDerivee()))
 							return 1;
 						else
 							return p1.getLibelle().compareTo(p2.getLibelle());

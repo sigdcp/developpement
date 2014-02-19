@@ -35,4 +35,6 @@ public interface PieceJustificativeService extends AbstractService<PieceJustific
 	
 	Map<String,Object> findParametresByDossier(Dossier dossier,Collection<PieceJustificative> pieceJustificatives) throws ServiceException;
 	
+	
+	
 }

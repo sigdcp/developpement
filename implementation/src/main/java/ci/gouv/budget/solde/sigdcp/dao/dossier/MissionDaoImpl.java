@@ -1,5 +1,5 @@
 package ci.gouv.budget.solde.sigdcp.dao.dossier;
-
+/*
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -19,3 +19,4 @@ public class MissionDaoImpl extends AbstractDeplacementDaoImpl<Mission> implemen
 	 
 
 }
+*/

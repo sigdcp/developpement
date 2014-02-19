@@ -29,10 +29,10 @@
 		</style>
 		
 		<!--
-		<ui:fragment rendered="#{controller.editable and not empty controller.pieceJustificativeUploader.AImprimer}">
+		<ui:fragment rendered="#{uploader.editable and not empty uploader.AImprimer}">
 			<div class="pieceAImprimer">
 				<h:outputText value="#{constantResources.text('pieceaimprimer')}" />
-				<ui:repeat value="#{controller.pieceJustificativeUploader.AImprimer}" var="piece" rowIndexVar="index">
+				<ui:repeat value="#{uploader.AImprimer}" var="piece" rowIndexVar="index">
 					<b><h:outputText value="#{piece}" /></b><h:outputText value=" - " />
 				</ui:repeat>
 			</div> 		
@@ -40,7 +40,7 @@
 		-->
 		<p:spacer height="5"/>
 		<p:messages for="dt" />
-		<p:dataTable id="dt" value="#{controller.pieceJustificativeUploader.collection}" var="dto" rowStyleClass="#{dto.rowStyleClass}" rowIndexVar="index">
+		<p:dataTable id="dt" value="#{uploader.collection}" var="dto" rowStyleClass="#{dto.rowStyleClass}" rowIndexVar="index">
 			<f:facet name="header">Pièces justificatives</f:facet>
 			<p:column headerText="#">#{index+1}</p:column>
 			
@@ -49,7 +49,7 @@
 					<td style="border: 0px solid;"><h:outputText value="#{dto.libelle}" /></td>
 					<td style="width: 1%;border: 0px solid;"><h:panelGroup>
 						<div align="right">
-							<p:button icon="ui-icon-print" title="Imprimer" outcome="imprimerpiecejustificative" rendered="#{dto.piece.model.derivee and controller.editable}" >
+							<p:button icon="ui-icon-print" title="Imprimer" outcome="imprimerpiecejustificative" rendered="#{dto.piece.model.config.derivee and dto.editable}" >
 								<f:param name="#{webConstantResources.requestParamPieceJustificative}" value="#{dto.piece.id}" />
 							</p:button>
 						</div>
@@ -57,9 +57,9 @@
 				</tr></table>
 			</p:column>
 			
-			<p:column headerText="Numéro" rendered="#{controller.pieceJustificativeUploader.showInputs}">
+			<p:column headerText="Numéro" rendered="#{uploader.showInputs}">
 				<p:inputText id="numero" value="#{dto.piece.numero}" required="#{dto.required}" requiredMessage="#{valueRequiredMessage}" 
-					rendered="#{controller.editable and dto.numeroEditable}" binding="#{numero}" validator="#{validationManager.validatePieceJustificativeNumero}">
+					rendered="#{dto.numeroEditable}" binding="#{numero}" validator="#{validationManager.validatePieceJustificativeNumero}">
 					
 					<f:attribute name="fichier" value="#{fichier}" />
 					<f:attribute name="dateEtablissement" value="#{dateEtablissement}" />
@@ -68,12 +68,12 @@
 					
 					<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 				</p:inputText>
-				<p:message for="numero" rendered="#{controller.editable}"/>
-				<h:outputText value="#{dto.piece.numero}" rendered="#{not controller.editable or not dto.numeroEditable}"/>
+				<p:message for="numero" rendered="#{dto.numeroEditable}"/>
+				<h:outputText value="#{dto.piece.numero}" rendered="#{not dto.numeroEditable}"/>
 			</p:column>
-			<p:column headerText="Date d'établissement " rendered="#{controller.pieceJustificativeUploader.showInputs}">
+			<p:column headerText="Date d'établissement " rendered="#{uploader.showInputs}">
 				<p:calendar id="dateet" value="#{dto.piece.dateEtablissement}" pattern="#{constantResources.datePattern}" required="#{dto.required}" requiredMessage="#{valueRequiredMessage}" 
-					rendered="#{controller.editable and dto.dateEtablissementEditable}" binding="#{dateEtablissement}" validator="#{validationManager.validatePieceJustificativeDateEtablissement}">
+					rendered="#{dto.dateEtablissementEditable}" binding="#{dateEtablissement}" validator="#{validationManager.validatePieceJustificativeDateEtablissement}">
 					
 					<f:attribute name="fichier" value="#{fichier}" />
 					<f:attribute name="numero" value="#{numero}" />
@@ -82,15 +82,15 @@
 					
 					<f:validateBean validationGroups="#{clientValidationGroupClass}" />	
 				</p:calendar>
-				<p:message for="dateet" rendered="#{controller.editable}"/>
-				<h:outputText value="#{dto.piece.dateEtablissement}" rendered="#{not controller.editable or not dto.dateEtablissementEditable}">
+				<p:message for="dateet" rendered="#{dto.dateEtablissementEditable}"/>
+				<h:outputText value="#{dto.piece.dateEtablissement}" rendered="#{not dto.dateEtablissementEditable}">
 					<f:convertDateTime pattern="#{constantResources.datePattern}"/>
 				</h:outputText>
 			</p:column>
 			
-			<p:column headerText="Fonction du signataire" rendered="#{controller.pieceJustificativeUploader.showInputs}">
+			<p:column headerText="Fonction du signataire" rendered="#{uploader.showInputs}">
 				<p:selectOneMenu id="fsignataire" value="#{dto.piece.fonctionSignataire}" required="#{dto.required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
-					rendered="#{controller.editable}" binding="#{signataire}" validator="#{validationManager.validatePieceJustificativeFonctionSignataire}">
+					rendered="#{dto.editable}" binding="#{signataire}" validator="#{validationManager.validatePieceJustificativeFonctionSignataire}">
 					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
 					
 					<f:selectItems value="#{fonctions}" />
@@ -102,15 +102,15 @@
 					
 					<f:validateBean validationGroups="#{clientValidationGroupClass}" />	
 				</p:selectOneMenu>
-				<p:message for="fsignataire" rendered="#{controller.editable}"/>
-				<h:outputText value="#{dto.piece.fonctionSignataire}" rendered="#{not controller.editable}"/>		
+				<p:message for="fsignataire" rendered="#{dto.editable}"/>
+				<h:outputText value="#{dto.piece.fonctionSignataire}" rendered="#{not dto.editable}"/>		
 			</p:column>
 			
 			<!-- validator="#{validationManager.validatePieceJustificativeFichier}" -->
 			
 			<p:column headerText="Fichier" rendered="true">
 				<p:fileUpload value="#{dto.file}" id="fichier" mode="simple" required="#{dto.required}" requiredMessage="#{valueRequiredMessage}" 
-					rendered="#{controller.editable and dto.showFile}"  binding="#{fichier}" >
+					rendered="#{dto.showFile}"  binding="#{fichier}" >
 					<!--
 					<f:attribute name="numero" value="#{numero}" />
 					<f:attribute name="dateEtablissement" value="#{dateEtablissement}" />
@@ -119,27 +119,27 @@
 					-->
 					<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 				</p:fileUpload>
-				<p:message for="fichier" rendered="#{controller.editable}"/>
-				<p:commandButton value="Supprimer fichier joint" action="#{dto.supprimerFichier}" icon="ui-icon-close" rendered="#{controller.editable and not dto.showFile}" update="dt"
+				<p:message for="fichier" rendered="#{dto.showFile}"/>
+				<p:commandButton value="Supprimer fichier joint" action="#{dto.supprimerFichier}" icon="ui-icon-close" rendered="#{not dto.showFile}" update="dt"
 					immediate="true" process="@this"/>
-				<p:commandButton value="Voir" icon="ui-icon-search" rendered="#{not controller.editable}" oncomplete="PF('imageDialog').show();" update="@form:display @form:imageDialogHeader">
-					<f:setPropertyActionListener value="#{dto.piece}" target="#{controller.pieceJustificativeUploader.pieceJustificativeSelectionne}" />
+				<p:commandButton value="Voir" icon="ui-icon-search" rendered="#{not uploader.editable}" oncomplete="PF('imageDialog').show();" update="@form:display @form:imageDialogHeader">
+					<f:setPropertyActionListener value="#{dto.piece}" target="#{uploader.pieceJustificativeSelectionne}" />
 				</p:commandButton>
 			</p:column>
 			
 		</p:dataTable>	
 					
-		<p:dialog widgetVar="imageDialog" modal="true" appendTo="@(Body)" >
+		<p:dialog widgetVar="imageDialog" modal="true" appendTo="@(Body)" > 
 		    <f:facet name="header"><p:outputPanel id="imageDialogHeader">
-		    	<h:outputText value="#{controller.pieceJustificativeUploader.pieceJustificativeSelectionne.model.typePieceJustificative}" />
-		    	<h:outputText value=" N° #{controller.pieceJustificativeUploader.pieceJustificativeSelectionne.numero}" />
-		    	<h:outputText value=" du #{controller.pieceJustificativeUploader.pieceJustificativeSelectionne.dateEtablissement}" >
+		    	<h:outputText value="#{uploader.pieceJustificativeSelectionne.model.typePieceJustificative}" />
+		    	<h:outputText value=" N° #{uploader.pieceJustificativeSelectionne.numero}" />
+		    	<h:outputText value=" du #{uploader.pieceJustificativeSelectionne.dateEtablissement}" >
 		    		<f:convertDateTime pattern="#{constantResources.datePattern}"/>
 		    	</h:outputText>
-		    	<h:outputText value=" Signé par #{controller.pieceJustificativeUploader.pieceJustificativeSelectionne.fonctionSignataire}" />
+		    	<h:outputText value=" Signé par #{uploader.pieceJustificativeSelectionne.fonctionSignataire}" />
 		    </p:outputPanel></f:facet>
 		    <p:outputPanel id="display" >  
-				<p:graphicImage value="/_fichier_/?id=#{controller.pieceJustificativeUploader.pieceJustificativeSelectionne.fichier.id}" width="900" height="650" />
+				<p:graphicImage value="/_fichier_/?id=#{uploader.pieceJustificativeSelectionne.fichier.id}" width="900" height="650" />
       		</p:outputPanel>
 		</p:dialog>
 		

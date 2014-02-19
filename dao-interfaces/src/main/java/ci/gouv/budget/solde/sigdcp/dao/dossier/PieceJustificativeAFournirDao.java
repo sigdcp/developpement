@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import ci.gouv.budget.solde.sigdcp.dao.DataAccessObject;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
+import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournirConfig;
 
 public interface PieceJustificativeAFournirDao extends DataAccessObject<PieceJustificativeAFournir,Long> {
 
@@ -20,4 +21,5 @@ public interface PieceJustificativeAFournirDao extends DataAccessObject<PieceJus
 	
 	Collection<PieceJustificativeAFournir> readDeriveeByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId,String typeDepenseId);
 
+	Collection<PieceJustificativeAFournir> readByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId,String typeDepenseId,PieceJustificativeAFournirConfig config);
 }

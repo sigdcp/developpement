@@ -24,19 +24,21 @@ public class PieceJustificativeDto implements Serializable {
 	public PieceJustificativeDto(PieceJustificative piece) {
 		super();
 		this.piece = piece;
-		numeroEditable = Boolean.FALSE.equals(piece.getModel().getDerivee());
+		numeroEditable = Boolean.FALSE.equals(piece.getModel().getConfig().getDerivee());
 		dateEtablissementEditable = numeroEditable;
 		showFile = piece.getFichier()==null;
 		
-		if(Boolean.TRUE.equals(piece.getModel().getPrincipale())){
+		if(Boolean.TRUE.equals(piece.getModel().getConfig().getPrincipale())){
 			rowStyleClass = "ui-piece-principale";
 			required = Boolean.TRUE;
-		}else if(Boolean.TRUE.equals(piece.getModel().getDerivee()))
+		}else if(Boolean.TRUE.equals(piece.getModel().getConfig().getDerivee()))
 			rowStyleClass = "ui-piece-derivee";
-		else if(Boolean.TRUE.equals(piece.getModel().getConditionnee()))
+		else if(Boolean.TRUE.equals(piece.getModel().getConfig().getConditionnee()))
 			rowStyleClass = "ui-piece-conditionnee";
 		else
 			rowStyleClass = "ui-piece-defaut";
+		
+		numeroEditable = dateEtablissementEditable = !Boolean.TRUE.equals(piece.getModel().getConfig().getDerivee());
 	}
 	
 	public void supprimerFichier(){

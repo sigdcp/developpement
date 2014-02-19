@@ -87,7 +87,7 @@ public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<P
 		Collection<PieceJustificative> newPieceJustificatives = new LinkedList<>();
 		//toutes les pieces de base reste par defaut
 		for(PieceJustificative pieceJustificative : pieceJustificatives)
-			if(Boolean.FALSE.equals(pieceJustificative.getModel().getConditionnee()) )
+			if(Boolean.FALSE.equals(pieceJustificative.getModel().getConfig().getConditionnee()) )
 				newPieceJustificatives.add(pieceJustificative);
 		
 		PieceJustificativeAFournir modelPiece = null;

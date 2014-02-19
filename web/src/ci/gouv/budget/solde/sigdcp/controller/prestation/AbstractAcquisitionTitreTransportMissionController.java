@@ -20,7 +20,6 @@ import ci.gouv.budget.solde.sigdcp.model.indemnite.TypeClasseVoyage;
 import ci.gouv.budget.solde.sigdcp.service.DynamicEnumerationService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierMissionDTO;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierMissionService;
-import ci.gouv.budget.solde.sigdcp.service.dossier.CalendrierMissionService;
 
 public abstract class AbstractAcquisitionTitreTransportMissionController<ENTITY extends AbstractModel<?>> extends AbstractEntityFormUIController<ENTITY> {
 
@@ -30,7 +29,7 @@ public abstract class AbstractAcquisitionTitreTransportMissionController<ENTITY 
 	 * Services
 	 */ 
 	@Inject private DossierMissionService dossierMissionService;
-	@Inject private CalendrierMissionService missionService;
+	//@Inject private CalendrierMissionService missionService;
 	@Inject private DynamicEnumerationService dynamicEnumerationService;
 	
 	/* 
@@ -43,13 +42,13 @@ public abstract class AbstractAcquisitionTitreTransportMissionController<ENTITY 
 	@Override
 	protected void initialisation() {
 		super.initialisation();	
-		missionsSelectionnees = missionService.findAll();
+		//missionsSelectionnees = missionService.findAll();
 		List<GroupeMission> gm = new ArrayList<>(dynamicEnumerationService.findAllByClass(GroupeMission.class));
 		List<TypeClasseVoyage> tcv = new ArrayList<>(dynamicEnumerationService.findAllByClass(TypeClasseVoyage.class));
 		for(DossierMission dossier : dossierMissionService.findAll()){
 			dossierDtos.add(new DossierMissionDTO(dossier,gm.get(0), tcv.get(0)));
 		}
-		missionsRecherchesDisponible = missionService.findAll();
+		//missionsRecherchesDisponible = missionService.findAll();
 		
 		wizardHelper = new WizardHelper<ENTITY>(this,"definition","confirmation"){
 			private static final long serialVersionUID = -2560968105025120145L;

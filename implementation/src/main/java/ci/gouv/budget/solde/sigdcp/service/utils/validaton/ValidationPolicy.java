@@ -141,21 +141,16 @@ public class ValidationPolicy {
 			exception();
 	}
 	
-	public void validateObjetMission(String objet) throws Exception{
-		if(isOneNull(objet))
-			exception();
-	}
-	
 	public void validateDateDeces(Date dateNaissance,Date dateDeces) throws Exception{
 		if(isOneNull(dateNaissance,dateDeces) || dateDeces.before(dateNaissance) || dateDeces.after(new Date()))
 			exception();
 	}
 	
 	public void validatePieceJustificativeNumero(Boolean soumission,String numero,Date date,Fonction signataire,byte[] fichier,PieceJustificativeAFournir model) throws Exception{
-		if(soumission || Boolean.TRUE.equals(model.getPrincipale())){
+		if(soumission || Boolean.TRUE.equals(model.getConfig().getPrincipale())){
 			if(isNull(numero))
 				exception();
-		}else if(Boolean.TRUE.equals(model.getDerivee()))
+		}else if(Boolean.TRUE.equals(model.getConfig().getDerivee()))
 			;
 		else if(isNull(numero) && isOneNotNull(date,signataire/*,fichier*/))
 				exception();
@@ -163,10 +158,10 @@ public class ValidationPolicy {
 	}
 	
 	public void validatePieceJustificativeDateEtablissement(Boolean soumission,String numero,Date date,Fonction signataire,byte[] fichier,PieceJustificativeAFournir model) throws Exception{
-		if(soumission || Boolean.TRUE.equals(model.getPrincipale())){
+		if(soumission || Boolean.TRUE.equals(model.getConfig().getPrincipale())){
 			if(isOneNull(date))
 				exception();
-		}else if(Boolean.TRUE.equals(model.getDerivee()))
+		}else if(Boolean.TRUE.equals(model.getConfig().getDerivee()))
 			;
 		else if(isNull(date) && isOneNotNull(numero,signataire/*,fichier*/))
 			exception();
@@ -174,10 +169,10 @@ public class ValidationPolicy {
 	}
 	
 	public void validatePieceJustificativeFonctionSignataire(Boolean soumission,String numero,Date date,Fonction signataire,byte[] fichier,PieceJustificativeAFournir model) throws Exception{
-		if(soumission || Boolean.TRUE.equals(model.getPrincipale())){
+		if(soumission || Boolean.TRUE.equals(model.getConfig().getPrincipale())){
 			if(isOneNull(signataire))
 				exception();
-		}else if(Boolean.TRUE.equals(model.getDerivee()))
+		}else if(Boolean.TRUE.equals(model.getConfig().getDerivee()))
 			;
 		else if(isNull(signataire) && isOneNotNull(numero,date/*,fichier*/))
 			exception();
@@ -186,10 +181,10 @@ public class ValidationPolicy {
 	
 	public void validatePieceJustificativeFichier(Boolean soumission,String numero,Date date,Fonction signataire,byte[] fichier,PieceJustificativeAFournir model) throws Exception{
 		
-		if(soumission || Boolean.TRUE.equals(model.getPrincipale())){
+		if(soumission || Boolean.TRUE.equals(model.getConfig().getPrincipale())){
 			if(isOneNull(fichier))
 				exception();
-		}else if(Boolean.TRUE.equals(model.getDerivee()))
+		}else if(Boolean.TRUE.equals(model.getConfig().getDerivee()))
 			;
 		else if(!isNull(fichier) && isOneNotNull(numero,date,signataire))
 			exception();

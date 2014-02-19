@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import ci.gouv.budget.solde.sigdcp.model.calendrier.Mission;
+import ci.gouv.budget.solde.sigdcp.model.calendrier.MissionExecutee;
 
 @Getter @Setter 
 @Entity
@@ -38,5 +38,5 @@ public class DemandeCotationMission  extends AbstractModel<Long>  implements Ser
 	private String commentaires;
 	
 	@ManyToOne
-	private Mission mission;
+	private MissionExecutee mission;
 } 

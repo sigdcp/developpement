@@ -10,12 +10,8 @@
 <h:body>
 	<ui:define name="metadata">
 		<f:metadata>
-        	<!--
-        	<ui:include src="/dossier/include/viewParam.xhtml">
-        		<ui:param name="controller" value="#{enregistrerDemandeMHCIFormController}"/>
-        	</ui:include>
-        	-->
-        	<f:viewParam name="#{webConstantResources.requestParamMission}" value="#{enregistrerDemandeMHCIFormController.entity}" converter="#{viewParamMissionConverter}"/>	
+        	<f:viewParam name="#{webConstantResources.requestParamMission}" value="#{enregistrerDemandeMHCIFormController.entity}" converter="#{viewParamMissionConverter}"/>
+        	<f:event listener="#{enregistrerDemandeMHCIFormController.preRenderView}" type="preRenderView"></f:event>	
     	</f:metadata>
 	</ui:define>
 		
@@ -36,15 +32,13 @@
 					-->		
 				</ui:define>
 				
-				<!--
+				
 				<ui:define name="actions">
-					
 					<ui:include src="/resources/include/component/formCommand.xhtml" >
 						<ui:param name="command" value="#{enregistrerDemandeMHCIFormController.enregistrerCommand}" />
 					</ui:include>
-					
 				</ui:define>
-				-->
+				
 			</ui:decorate>
 				
 		</ui:define>

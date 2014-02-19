@@ -8,6 +8,7 @@ import javax.persistence.NonUniqueResultException;
 
 import ci.gouv.budget.solde.sigdcp.dao.JpaDaoImpl;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
+import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournirConfig;
 
 public class PieceJustificativeAFournirDaoImpl extends JpaDaoImpl<PieceJustificativeAFournir, Long> implements PieceJustificativeAFournirDao, Serializable {
 
@@ -39,7 +40,7 @@ public class PieceJustificativeAFournirDaoImpl extends JpaDaoImpl<PieceJustifica
 	@Override
 	public Collection<PieceJustificativeAFournir> readBaseByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId,String typeDepenseId) {
 		return entityManager.createQuery("SELECT pj FROM PieceJustificativeAFournir pj WHERE pj.natureDeplacement.code = :ndId AND pj.typeDepense.code =:tdId AND "
-				+ " NOT pj.conditionnee AND NOT pj.derivee", clazz)
+				+ " NOT pj.config.conditionnee AND NOT pj.config.derivee", clazz)
 				.setParameter("ndId", natureDeplacementId)
 				.setParameter("tdId", typeDepenseId)
 				.getResultList();
@@ -51,6 +52,19 @@ public class PieceJustificativeAFournirDaoImpl extends JpaDaoImpl<PieceJustifica
 				+ " AND pj.derivee=true", clazz)
 				.setParameter("ndId", natureDeplacementId)
 				.setParameter("tdId", typeDepenseId)
+				.getResultList();
+	}
+	
+	@Override
+	public Collection<PieceJustificativeAFournir> readByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId, String typeDepenseId, PieceJustificativeAFournirConfig config) {
+		return entityManager.createQuery("SELECT pj FROM PieceJustificativeAFournir pj WHERE pj.natureDeplacement.code = :ndId AND pj.typeDepense.code =:tdId "
+				+ " AND pj.config.commune= :commune AND pj.config.principale= :principale AND pj.config.derivee= :derivee AND pj.config.conditionnee= :conditionnee", 
+				//+ " AND pj.config= :config", 
+				clazz)
+				.setParameter("ndId", natureDeplacementId).setParameter("tdId", typeDepenseId)
+				.setParameter("commune", config.getCommune()).setParameter("principale", config.getPrincipale()).setParameter("derivee", config.getDerivee())
+				.setParameter("conditionnee", config.getConditionnee())
+				//.setParameter("config", config)
 				.getResultList();
 	}
 

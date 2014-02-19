@@ -1,12 +1,8 @@
 package ci.gouv.budget.solde.sigdcp.controller.dossier;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
-
-import javax.inject.Inject;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,11 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import ci.gouv.budget.solde.sigdcp.controller.NavigationManager;
 import ci.gouv.budget.solde.sigdcp.controller.application.AbstractDemandeController;
-import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
-import ci.gouv.budget.solde.sigdcp.controller.fichier.PieceJustificativeUploader;
-import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIController;
-import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.Action;
-import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.FormCommand;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
@@ -29,12 +20,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
-import ci.gouv.budget.solde.sigdcp.service.GenericService;
-import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
-import ci.gouv.budget.solde.sigdcp.service.dossier.PieceJustificativeAFournirService;
-import ci.gouv.budget.solde.sigdcp.service.dossier.PieceJustificativeService;
-import ci.gouv.budget.solde.sigdcp.service.dossier.StatutService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
 @Getter @Setter
@@ -43,23 +29,14 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	private static final long serialVersionUID = 6615049982603373278L;
 	
 	/*
-	 * Services
-	 */
-	@Inject protected PieceJustificativeService pieceJustificativeService; 
-	@Inject protected PieceJustificativeAFournirService pieceJustificativeAFournirService;
-	@Inject protected StatutService statutService;
-	@Inject protected GenericService genericService;
-	/*
 	 * DTOs
 	 */
-	@Inject @Getter protected PieceJustificativeUploader pieceJustificativeUploader;
 	
 	//protected Statut statutCourant;
 	/*
 	 * Paramètres de requete
 	 */
 	@Setter @Getter protected NatureDeplacement natureDaplacement;
-	@Inject protected UserSessionManager userSessionManager;
 	
 	@Override
 	protected void initialisation() {
@@ -68,7 +45,9 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		//	initCreateOperation();
 		DOSSIER dossierEnCoursSaisie = getDossierService().findSaisieByPersonneByNatureDeplacement((AgentEtat) userSessionManager.getUser(), entity.getDeplacement().getNature());
 		//System.out.println("En cours de saisie : "+dossierEnCoursSaisie.getBeneficiaire().getMatricule());
-		if(dossierEnCoursSaisie!=null)
+		enSaisie = dossierEnCoursSaisie!=null;
+		
+		if(enSaisie)
 			entity = dossierEnCoursSaisie;
 		entity.setBeneficiaire(beneficiaire(dossierEnCoursSaisie));
 		
@@ -89,6 +68,7 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		title = "Formulaire - "+entity.getDeplacement().getNature().getLibelle();
 		instructions = getDossierService().findInstructions(entity);
 		
+		/*
 		defaultSubmitCommand.setValue(text(showCourrier?"bouton.enregistrer":"bouton.soumettre"));
 		defaultSubmitCommand.setNotificationMessageId("notification.demande.soumise");
 		defaultSubmitCommand.setAjax(Boolean.FALSE);
@@ -101,26 +81,7 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 				return navigationManager.url(NavigationManager.OUTCOME_SUCCESS_VIEW,new Object[]{webConstantResources.getRequestParamMessageId(),"notification.demande.soumise",
 								webConstantResources.getRequestParamUrl(),navigationManager.url("demandeliste",null,false,false)},true);
 			}
-		});
-		
-		enregistrerCommand = createCommand().init("bouton.enregistrer","ui-icon-check","notification.demande.dd.enregistree1", new Action() {
-			private static final long serialVersionUID = 1L;
-			@Override
-			protected Object __execute__(Object object) throws Exception {
-				
-				return null;
-			} 
-		});
-		enregistrerCommand.setAjax(Boolean.FALSE);
-		enregistrerCommand.setRendered(isEditable());
-		//addValidator(validator(),enregistrerCommand);
-		enregistrerCommand.set_successOutcome(new Action() {
-			private static final long serialVersionUID = -6851391666779599546L;
-			@Override
-			protected Object __execute__(Object object) throws Exception {
-				
-			}
-		});
+		});*/
 		
 		//enregistrerCommand.setImmediate(true);//to remove , just for test
 		//enregistrerCommand.setProcess("@form");
@@ -162,6 +123,7 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		for(PieceJustificative pieceJustificative : pieceJustificatives)
 			pieceJustificativeUploader.addPieceJustificative(pieceJustificative);
 		pieceJustificativeUploader.update();
+		
 	}
 	
 	protected void updatePieceJustificatives(){
@@ -184,6 +146,12 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 			getDossierService().deposer(entity);
 		else
 			getDossierService().soumettre(entity, pieceJustificativeUploader.process(),userSessionManager.getUser());
+	}
+	
+	@Override
+	protected String onSoumettreSuccessOutcome() {
+		return navigationManager.url(NavigationManager.OUTCOME_SUCCESS_VIEW,new Object[]{webConstantResources.getRequestParamMessageId(),"notification.demande.soumise",
+				webConstantResources.getRequestParamUrl(),navigationManager.url("demandeliste",null,false,false)},true);
 	}
 	
 	protected Deplacement createDeplacement(){

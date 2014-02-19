@@ -43,6 +43,9 @@ public class PieceJustificative  extends Document  implements Serializable{
 		this.dateEtablissement=dateEtablissement;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return model.toString();
+	}
 	
 }

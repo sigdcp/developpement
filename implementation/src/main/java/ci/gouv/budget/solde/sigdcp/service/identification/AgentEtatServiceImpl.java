@@ -37,6 +37,11 @@ public class AgentEtatServiceImpl extends AbstractPersonneServiceImpl<AgentEtat>
 			throw new ServiceException("Erreur lors de l'inscription!");
 		}
 	}
+	
+	@Override
+	public AgentEtat findByMatricule(String matricule) {
+		return ((AgentEtatDao)dao).readByMatricule(matricule);
+	}
 
 
 }

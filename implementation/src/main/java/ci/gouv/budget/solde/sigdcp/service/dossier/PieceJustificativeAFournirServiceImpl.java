@@ -12,6 +12,7 @@ import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeAFournirDao;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
+import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournirConfig;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
 
 @Stateless
@@ -60,6 +61,11 @@ public class PieceJustificativeAFournirServiceImpl extends DefaultServiceImpl<Pi
 				i++;
 		}
 		return _aFournir;
+	}
+	
+	@Override
+	public Collection<PieceJustificativeAFournir> findByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId, String typeDepenseId, PieceJustificativeAFournirConfig config) {
+		return ((PieceJustificativeAFournirDao)dao).readByNatureDeplacementIdByTypeDepenseId(natureDeplacementId,typeDepenseId,config);
 	}
 
 }

@@ -13,6 +13,7 @@ import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.controller.MessageManager;
 import ci.gouv.budget.solde.sigdcp.controller.NavigationManager;
 import ci.gouv.budget.solde.sigdcp.controller.WebConstantResources;
+import ci.gouv.budget.solde.sigdcp.service.GenericService;
 import ci.gouv.budget.solde.sigdcp.service.communication.NotificationEvent;
 import ci.gouv.budget.solde.sigdcp.service.resources.ServiceConstantResources;
 import ci.gouv.budget.solde.sigdcp.service.utils.NavigationHelper;
@@ -24,6 +25,10 @@ public abstract class AbstractUIController implements Serializable {
 	private static final long serialVersionUID = 370026962329124294L;
 	
 	public enum InitWhen {POST_CONSTRUCT,FIRST_PRERENDER_VIEW}
+	/*
+	 * Services
+	 */
+	@Inject protected GenericService genericService;
 	
 	@Inject @Getter protected ServiceConstantResources constantResources;
 	@Inject @Getter protected WebConstantResources webConstantResources;
