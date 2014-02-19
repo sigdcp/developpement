@@ -21,10 +21,12 @@ public class PieceJustificativeDto implements Serializable {
 	private String libelle,rowStyleClass;
 	private Boolean showFile,required;
 	
-	public PieceJustificativeDto(PieceJustificative piece) {
+	public PieceJustificativeDto(PieceJustificative piece,Boolean editable) {
 		super();
 		this.piece = piece;
-		numeroEditable = Boolean.FALSE.equals(piece.getModel().getConfig().getDerivee());
+		this.editable = editable;
+		
+		numeroEditable = editable && Boolean.FALSE.equals(piece.getModel().getConfig().getDerivee());
 		dateEtablissementEditable = numeroEditable;
 		showFile = piece.getFichier()==null;
 		
@@ -38,7 +40,7 @@ public class PieceJustificativeDto implements Serializable {
 		else
 			rowStyleClass = "ui-piece-defaut";
 		
-		numeroEditable = dateEtablissementEditable = !Boolean.TRUE.equals(piece.getModel().getConfig().getDerivee());
+		//numeroEditable = dateEtablissementEditable = !Boolean.TRUE.equals(piece.getModel().getConfig().getDerivee());
 	}
 	
 	public void supprimerFichier(){

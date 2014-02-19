@@ -10,7 +10,7 @@
 	<p:spacer height="#{spacerHeight}" />
 	<table border="0" style="float: right;" class="formTableCommand"><tr><td>
 		
-		<p:button value="#{constantResources.text('bouton.fermer')}" icon="ui-icon-close" rendered="#{uiController.closeCommand.rendered}" onclick="return quitter();"/>
+		<p:button value="#{constantResources.text('bouton.fermer')}" icon="ui-icon-close" rendered="#{uiController.closeCommand.rendered}" onclick="#{uiController.closeCommand.onclick}"/>
 			
 		<!-- <ui:include src="/resources/include/component/formCommand.xhtml" >
 			<ui:param name="command" value="#{uiController.closeCommand}" />

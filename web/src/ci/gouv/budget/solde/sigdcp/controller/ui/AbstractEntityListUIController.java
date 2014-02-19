@@ -40,10 +40,11 @@ public abstract class AbstractEntityListUIController<ENTITY extends AbstractMode
 	
 	@Getter @Setter protected ENTITY selectedOne;
 	@Getter protected Boolean showActionsColumn=Boolean.TRUE;
-	@Getter protected String recordIdentifierFieldName;
+	@Getter protected String recordIdentifierFieldName,selectLabel;
 	
 	@Getter protected FormCommand<ENTITY> rechercherCommande;
 	@Getter protected FormCommand<ENTITY> detailsCommand;
+	
 	
 	/*
 	 * Paramètres url
@@ -55,6 +56,7 @@ public abstract class AbstractEntityListUIController<ENTITY extends AbstractMode
 	@Override
 	protected void initialisation() {
 		super.initialisation();
+		selectLabel = text("bouton.selectionner");
 		showFieldRequired = Boolean.FALSE;
 		
 		defaultSubmitCommand.setRendered(ProcessingType.BATCH.equals(getProcessingType()));

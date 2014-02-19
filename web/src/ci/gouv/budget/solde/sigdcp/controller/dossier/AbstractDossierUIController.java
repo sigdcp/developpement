@@ -8,10 +8,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import ci.gouv.budget.solde.sigdcp.controller.NavigationManager;
 import ci.gouv.budget.solde.sigdcp.controller.application.AbstractDemandeController;
 import ci.gouv.budget.solde.sigdcp.model.Code;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Courrier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
@@ -28,26 +31,17 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 	
 	private static final long serialVersionUID = 6615049982603373278L;
 	
-	/*
-	 * DTOs
-	 */
-	
-	//protected Statut statutCourant;
-	/*
-	 * Paramètres de requete
-	 */
 	@Setter @Getter protected NatureDeplacement natureDaplacement;
 	
 	@Override
 	protected void initialisation() {
 		super.initialisation();
-		//if(entity==null)
-		//	initCreateOperation();
+		System.out.println(ToStringBuilder.reflectionToString(entity, ToStringStyle.MULTI_LINE_STYLE));
 		DOSSIER dossierEnCoursSaisie = getDossierService().findSaisieByPersonneByNatureDeplacement((AgentEtat) userSessionManager.getUser(), entity.getDeplacement().getNature());
 		//System.out.println("En cours de saisie : "+dossierEnCoursSaisie.getBeneficiaire().getMatricule());
 		enSaisie = dossierEnCoursSaisie!=null;
 		
-		if(enSaisie)
+		if(enSaisie && StringUtils.isEmpty(entity.getNumero()))
 			entity = dossierEnCoursSaisie;
 		entity.setBeneficiaire(beneficiaire(dossierEnCoursSaisie));
 		
@@ -56,6 +50,8 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 				crudType=CRUDType.UPDATE;
 			else if(Code.STATUT_RECEVABLE.equals(entity.getDernierTraitement().getStatut().getCode())){
 				showCourrier=true;
+				if(entity.getCourrier()==null)
+					entity.setCourrier(new Courrier());
 				courrierEditable = StringUtils.isEmpty(entity.getCourrier().getNumero());
 			}
 	
@@ -68,38 +64,16 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		title = "Formulaire - "+entity.getDeplacement().getNature().getLibelle();
 		instructions = getDossierService().findInstructions(entity);
 		
-		/*
-		defaultSubmitCommand.setValue(text(showCourrier?"bouton.enregistrer":"bouton.soumettre"));
-		defaultSubmitCommand.setNotificationMessageId("notification.demande.soumise");
-		defaultSubmitCommand.setAjax(Boolean.FALSE);
-		defaultSubmitCommand.setRendered((isEditable() && dossierEnCoursSaisie!=null) || showCourrier);
-	
-		defaultSubmitCommand.set_successOutcome(new Action() {
-			private static final long serialVersionUID = -6851391666779599546L;
-			@Override
-			protected Object __execute__(Object object) throws Exception {
-				return navigationManager.url(NavigationManager.OUTCOME_SUCCESS_VIEW,new Object[]{webConstantResources.getRequestParamMessageId(),"notification.demande.soumise",
-								webConstantResources.getRequestParamUrl(),navigationManager.url("demandeliste",null,false,false)},true);
-			}
-		});*/
-		
-		//enregistrerCommand.setImmediate(true);//to remove , just for test
-		//enregistrerCommand.setProcess("@form");
-				
 	}
 	
 	@Override
 	protected void enregistrer() throws Exception {
 		getDossierService().enregistrer(entity, pieceJustificativeUploader.process(),creerPar(null));
 	}
-	
+		
 	@Override
-	protected String onEnregistrerSuccessOutcome() {
-		Collection<PieceJustificativeAFournir> imprimes = pieceJustificativeAFournirService.findDeriveeRestantByDossier(entity, pieceJustificativeUploader.getPieceJustificatives());
-		return navigationManager.url(NavigationManager.OUTCOME_SUCCESS_VIEW,new Object[]{webConstantResources.getRequestParamMessageId(),
-				imprimes.isEmpty()?"notification.demande.enregistree.soumettre":"notification.demande.enregistree.imprimer",
-				webConstantResources.getRequestParamMessageParameters(),StringUtils.join(imprimes,","),
-						webConstantResources.getRequestParamUrl(),url},true);
+	protected Collection<PieceJustificativeAFournir> onEnregistrerSuccessPieceJustificativeAFournir() {
+		return pieceJustificativeAFournirService.findDeriveeRestantByDossier(entity, pieceJustificativeUploader.getPieceJustificatives());
 	}
 	
 	protected Personne creerPar(DOSSIER dossier){
@@ -121,7 +95,7 @@ public abstract class AbstractDossierUIController<DOSSIER extends Dossier,DOSSIE
 		
 		pieceJustificativeUploader.clear();
 		for(PieceJustificative pieceJustificative : pieceJustificatives)
-			pieceJustificativeUploader.addPieceJustificative(pieceJustificative);
+			pieceJustificativeUploader.addPieceJustificative(pieceJustificative,isEditable());
 		pieceJustificativeUploader.update();
 		
 	}

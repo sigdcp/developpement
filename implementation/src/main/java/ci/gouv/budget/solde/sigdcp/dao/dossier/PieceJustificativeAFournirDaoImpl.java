@@ -49,7 +49,7 @@ public class PieceJustificativeAFournirDaoImpl extends JpaDaoImpl<PieceJustifica
 	@Override
 	public Collection<PieceJustificativeAFournir> readDeriveeByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId,String typeDepenseId) {
 		return entityManager.createQuery("SELECT pj FROM PieceJustificativeAFournir pj WHERE pj.natureDeplacement.code = :ndId AND pj.typeDepense.code =:tdId "
-				+ " AND pj.derivee=true", clazz)
+				+ " AND pj.config.derivee=true", clazz)
 				.setParameter("ndId", natureDeplacementId)
 				.setParameter("tdId", typeDepenseId)
 				.getResultList();

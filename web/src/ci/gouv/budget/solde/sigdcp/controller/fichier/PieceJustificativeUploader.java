@@ -25,15 +25,14 @@ public class PieceJustificativeUploader implements Serializable {
 	
 	@Setter
 	@Inject private FichierService fichierService;
-	//@Getter @Setter private Collection<PieceJustificativeAFournir> aImprimer;
 	@Setter @Getter protected PieceJustificative pieceJustificativeSelectionne;
 	@Getter private List<PieceJustificativeDto> collection = new LinkedList<>();
 	
 	@Getter @Setter private Boolean showInputs=Boolean.TRUE,editable=Boolean.TRUE;
 	
 		
-	public PieceJustificativeDto addPieceJustificative(PieceJustificative pieceJustificative) {
-		PieceJustificativeDto dto = new PieceJustificativeDto(pieceJustificative);
+	public PieceJustificativeDto addPieceJustificative(PieceJustificative pieceJustificative,Boolean editable) {
+		PieceJustificativeDto dto = new PieceJustificativeDto(pieceJustificative,editable);
 		collection.add(dto);
 		return dto;
 	}
@@ -114,7 +113,7 @@ public class PieceJustificativeUploader implements Serializable {
 						if(Boolean.TRUE.equals(p2.getPiece().getModel().getConfig().getDerivee()))
 							return 1;
 						else
-							return p1.getLibelle().compareTo(p2.getLibelle());
+							return -(p1.getLibelle().compareTo(p2.getLibelle()));
 		}
 		
 	}

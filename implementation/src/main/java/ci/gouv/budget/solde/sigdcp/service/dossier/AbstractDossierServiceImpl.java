@@ -13,12 +13,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import ci.gouv.budget.solde.sigdcp.dao.DynamicEnumerationDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.AbstractDossierDao;
-import ci.gouv.budget.solde.sigdcp.dao.dossier.DeplacementDao;
+import ci.gouv.budget.solde.sigdcp.dao.dossier.DossierDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.OperationDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeAFournirDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeDao;
-import ci.gouv.budget.solde.sigdcp.dao.dossier.TraitementDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureOperation;
@@ -26,7 +26,6 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Operation;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.ValidationType;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
@@ -39,12 +38,16 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	
 	private static final long serialVersionUID = -7765679080076677680L;
 	
-	@Inject private DeplacementDao deplacementDao;
+	@Inject private DeplacementService deplacementService;
+	@Inject private DossierDao dossierDao;
 	@Inject private PieceJustificativeDao pieceJustificativeDao;
 	@Inject private DynamicEnumerationDao dynamicEnumerationDao;
 	@Inject private OperationDao operationDao;
-	@Inject private TraitementDao traitementDao;
+	@Inject private TraitementService traitementService;
 	@Inject protected PieceJustificativeAFournirDao pieceJustificativeAFournirDao;
+	
+	//@Inject private DaoCreateHelper daoCreateHelper;
+	//private Action dossierDaoCreate;
 	
 	public AbstractDossierServiceImpl(AbstractDossierDao<DOSSIER> dao) {
 		super(dao); 
@@ -56,24 +59,61 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 		
 	}
 	
+	public void saisir(Operation operation,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne){
+		Date dateCourante = new Date();
+		if(operation==null){//mise a jour
+			dossierDao.update(dossier);
+			updatePieceJustificatives(dossier, pieceJustificatives);
+		}else{//creation
+			deplacementService.create(dossier.getDeplacement());
+			dossier.setNumero(System.currentTimeMillis()+"");//TODO un numéro métier doit etre construit
+			//dossierDaoCreate.execute(dossier);
+			__createDossier__(dossier);
+			updatePieceJustificatives(dossier, pieceJustificatives);//on enregistre les pieces justificatives
+			//on cree les pieces derivees
+			for(PieceJustificativeAFournir pieceAImprimer : pieceJustificativeAFournirDao.readDeriveeByNatureDeplacementIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(),
+					dossier.getDeplacement().getTypeDepense().getCode()))
+				pieceJustificativeDao.create(new PieceJustificative(dossier,RandomStringUtils.randomNumeric(4), pieceAImprimer,dateCourante));
+			//traiter(operation, dossier, personne, Code.STATUT_SAISIE);	//on traite le dossier
+			traitementService.create(operation, dossier, personne, Code.STATUT_SAISIE);
+		}
+	}
+	
+	private void updatePieceJustificatives(Dossier dossier,Collection<PieceJustificative> pieceJustificatives){
+		for(PieceJustificative pieceJustificative : pieceJustificatives){
+			pieceJustificative.setDossier(dossier);
+			if(pieceJustificativeDao.exist(pieceJustificative.getId()))
+				pieceJustificativeDao.update(pieceJustificative);
+			else if(StringUtils.isNotEmpty(pieceJustificative.getNumero()))
+				pieceJustificativeDao.create(pieceJustificative);
+		}
+	}
+	/*
+	private void traiter(Operation operation,Dossier dossier,Personne personne,String statutId){
+		Traitement traitement = new Traitement(operation, null, dossier, dynamicEnumerationDao.readByClass(Statut.class, statutId));
+		traitementDao.create(traitement);
+		dossier.setDernierTraitement(traitement);
+		dossierDao.update(dossier);
+	}*/
+	
 	@Override
 	public void enregistrer(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException {
 		
 		validationSaisie(dossier, pieceJustificatives,personne,false);
 		//est ce une creation ou une mise à jour
-		Date dateCourante = new Date();
+		//Date dateCourante = new Date();
 		//DOSSIER dossierExistant = StringUtils.isNotEmpty(dossier.getNumero())?null:((AbstractDossierDao<DOSSIER>)dao).read(dossier.getNumero());
 
 		if(!dao.exist(dossier.getNumero())){
 			//creation
-			dossier.setNumero(System.currentTimeMillis()+"");
-			dossier.getDeplacement().setDateCreation(new Date());
-			deplacementDao.create(dossier.getDeplacement());
-			System.out.println(ToStringBuilder.reflectionToString(dossier.getBeneficiaire(), ToStringStyle.MULTI_LINE_STYLE));
+			//dossier.setNumero(System.currentTimeMillis()+"");
+			//dossier.getDeplacement().setDateCreation(new Date());
+			//deplacementDao.create(dossier.getDeplacement());
+			//System.out.println(ToStringBuilder.reflectionToString(dossier.getBeneficiaire(), ToStringStyle.MULTI_LINE_STYLE));
 			//dossier.getBeneficiaire().setAyantDroit(null);
-			__createDossier__(dossier);
+			//__createDossier__(dossier);
 			//on cree les pieces generee par le syteme
-			
+			/*
 			for(PieceJustificativeAFournir pieceAImprimer : pieceJustificativeAFournirDao.readDeriveeByNatureDeplacementIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(),
 					dossier.getDeplacement().getTypeDepense().getCode()))
 				pieceJustificativeDao.create(new PieceJustificative(dossier,RandomStringUtils.randomNumeric(4), pieceAImprimer,new Date()));
@@ -86,24 +126,35 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 			dossier.setDernierTraitement(traitement);
 			//dossier.getBeneficiaire().setAyantDroit(null);
 			dao.update(dossier);
-			
+			*/
+			//daoCreateHelper.init();
+			//daoCreateHelper.createDeplacement(dossier.getDeplacement());
+			Operation operation = new Operation(new Date(),dynamicEnumerationDao.readByClass(NatureOperation.class,Code.NATURE_OPERATION_SAISIE),personne);
+			operationDao.create(operation);
+			//daoCreateHelper.saisir(operation,dossier,pieceJustificatives, personne);
+			saisir(operation, dossier, pieceJustificatives, personne);
 		}else{
 			//mise a jour d'un dossier qui est en saisie uniquement
-			
+			//System.out.println(ToStringBuilder.reflectionToString(dossier,ToStringStyle.MULTI_LINE_STYLE));
 			Statut statutCourant = dossier.getDernierTraitement().getStatut();
 			if(statutCourant!=null && !Code.STATUT_SAISIE.equals(statutCourant.getCode()))
 				serviceException(ServiceExceptionType.DOSSIER_STATUT_ILLELGAL);
-			dao.update(dossier);
+			/*
+			dao.update(dossier);//mise a jour du dossier
+			*/
+			saisir(null, dossier, pieceJustificatives, personne);
+			
+			//daoCreateHelper.saisir(null, dossier, pieceJustificatives,personne);
 		}
 		
+		/*
 		for(PieceJustificative pieceJustificative : pieceJustificatives){
 			pieceJustificative.setDossier(dossier);
 			if(pieceJustificativeDao.exist(pieceJustificative.getId()))
 				pieceJustificativeDao.update(pieceJustificative);
 			else if(StringUtils.isNotEmpty(pieceJustificative.getNumero()))
 				pieceJustificativeDao.create(pieceJustificative);
-		}
-		
+		}*/
 	}
 	
 	protected void __createDossier__(DOSSIER dossier){
@@ -115,13 +166,22 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 		enregistrer(dossier, pieceJustificatives,personne);
 		validationSaisie(dossier, pieceJustificatives,personne,true);
 		
+		//Operation operation = new Operation(new Date(),dynamicEnumerationDao.readByClass(NatureOperation.class,Code.NATURE_OPERATION_SOUMISSION),personne);
+		//operationDao.create(operation);
+		
+		Operation operation = new Operation(new Date(),dynamicEnumerationDao.readByClass(NatureOperation.class,Code.NATURE_OPERATION_SOUMISSION),personne);
+		operationDao.create(operation);
+		//traiter(operation, dossier, personne, Code.STATUT_SOUMIS);
+		traitementService.create(operation, dossier, personne, Code.STATUT_SOUMIS);
+		
+		/*
 		Operation operationSoumission = new Operation(new Date(),dynamicEnumerationDao.readByClass(NatureOperation.class,Code.NATURE_OPERATION_SOUMISSION),personne);
 		operationDao.create(operationSoumission);
 		Traitement traitement = new Traitement(operationSoumission, null, dossier, dynamicEnumerationDao.readByClass(Statut.class, Code.STATUT_SOUMIS));
 		traitementDao.create(traitement);
 		
 		dossier.setDernierTraitement(traitement);
-		dao.update(dossier);
+		dao.update(dossier);*/
 	}
 
 	@Override
@@ -222,6 +282,11 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	@Override
 	public Collection<DOSSIER> findByAgentEtatAndAyantDroit(AgentEtat agentEtat) {
 		return ((AbstractDossierDao<DOSSIER>)dao).readByAgentEtatAndAyantDroit(agentEtat);
+	}
+	
+	@Override
+	public Collection<DOSSIER> findByDeplacement(Deplacement deplacement) {
+		return ((AbstractDossierDao<DOSSIER>)dao).readByDeplacement(deplacement);
 	}
 	
 	@Override

@@ -8,12 +8,18 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
  	<script>
-	 	function quitter(){
-	 		if(confirm('Voulez-vous quitter cette page? Toutes vos modifications seront perdues.')){
-	 		window.back();
-	 		return true;
+	 	function quitter(warning){
+	 		if(warning){
+	 			if(confirm('Voulez-vous quitter cette page? Toutes vos modifications seront perdues.')){
+	 				window.back();
+	 				return true;
+	 			}
+	 		}else{
+	 			window.back();
+	 			return true;
 	 		}
-	 		else return false;
+	 		
+	 		return false;
 	 	}
 	 	
 	 	function formSubmitOnstart(){

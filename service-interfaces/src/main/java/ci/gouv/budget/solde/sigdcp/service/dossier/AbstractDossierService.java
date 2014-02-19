@@ -2,6 +2,7 @@ package ci.gouv.budget.solde.sigdcp.service.dossier;
 
 import java.util.Collection;
 
+import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
@@ -56,6 +57,8 @@ public interface AbstractDossierService<DOSSIER extends Dossier> extends Abstrac
 	Collection<DOSSIER> findByAgentEtatAndAyantDroit(AgentEtat agentEtat);
 	
 	Collection<DOSSIER> findByNatureDeplacement(NatureDeplacement natureDeplacement);
+	
+	Collection<DOSSIER> findByDeplacement(Deplacement deplacement);
 	
 	/**
 	 * Une message qui oriente sur les taches a faire pour le traitement du dossier

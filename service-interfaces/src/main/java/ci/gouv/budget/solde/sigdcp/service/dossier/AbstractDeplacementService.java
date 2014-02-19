@@ -5,5 +5,7 @@ import ci.gouv.budget.solde.sigdcp.service.AbstractService;
 
 public interface AbstractDeplacementService<DEPLACEMENT extends Deplacement> extends AbstractService<DEPLACEMENT,Long> {
 
+	Deplacement create(DEPLACEMENT deplacement);
+	
 
 }

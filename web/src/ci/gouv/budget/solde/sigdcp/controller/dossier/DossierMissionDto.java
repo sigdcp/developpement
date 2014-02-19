@@ -24,15 +24,31 @@ public class DossierMissionDto implements Serializable {
 	private PieceJustificativeService pieceJustificativeService;
 	
 	private String libelle;
-	private Boolean editable = Boolean.FALSE;
+	private Boolean editable = Boolean.FALSE,pieceEditable;
 	private String matricule;
 
-	public DossierMissionDto(MissionExecutee missionExecutee,String matricule,AgentEtat agentEtat,PieceJustificativeService pieceJustificativeService,FichierService fichierService) {
+	public DossierMissionDto(MissionExecutee missionExecutee,DossierMission dossierMission,Collection<PieceJustificative> pieceJustificatives,PieceJustificativeService pieceJustificativeService,FichierService fichierService,Boolean peditable) {
+		this(missionExecutee,dossierMission.getBeneficiaire().getMatricule(),dossierMission.getBeneficiaire(),dossierMission,pieceJustificativeService,fichierService,peditable);
+		//for(PieceJustificative pieceJustificative : pieceJustificatives)
+		//	pieceJustificativeUploader.addPieceJustificative(pieceJustificative, peditable);
+	}
+	
+	public DossierMissionDto(MissionExecutee missionExecutee,String matricule,AgentEtat agentEtat,PieceJustificativeService pieceJustificativeService,FichierService fichierService,Boolean peditable) {
+		this(missionExecutee,matricule,agentEtat,new DossierMission(missionExecutee.getDeplacement()),pieceJustificativeService,fichierService,peditable);
+	}
+	
+	public DossierMissionDto(MissionExecutee missionExecutee,String matricule,AgentEtat agentEtat,DossierMission dossierMission ,PieceJustificativeService pieceJustificativeService,FichierService fichierService,Boolean peditable) {
 		super();
 		this.matricule=matricule;
-		dossierMission = new DossierMission();
-		dossierMission.setDeplacement(missionExecutee.getDeplacement());
-		editable = agentEtat==null;
+		this.dossierMission = dossierMission;
+		if(this.dossierMission==null)
+			this.dossierMission = new DossierMission();
+		
+		if(this.dossierMission.getDeplacement()==null)
+			this.dossierMission.setDeplacement(missionExecutee.getDeplacement());
+		
+		this.pieceEditable = peditable;
+		this.editable = agentEtat==null;
 		libelle=matricule;
 		if(agentEtat==null){
 			dossierMission.setBeneficiaire(new AgentEtat());
@@ -47,7 +63,6 @@ public class DossierMissionDto implements Serializable {
 	}
 	
 	protected void updatePieceJustificatives(boolean first){
-		
 		Collection<PieceJustificative> pieceJustificatives;
 		//if(first)
 			pieceJustificatives = pieceJustificativeService.findByDossier(dossierMission, null, null);
@@ -56,9 +71,9 @@ public class DossierMissionDto implements Serializable {
 		
 		pieceJustificativeUploader.clear();
 		for(PieceJustificative pieceJustificative : pieceJustificatives)
-			pieceJustificativeUploader.addPieceJustificative(pieceJustificative);
+			pieceJustificativeUploader.addPieceJustificative(pieceJustificative,pieceEditable);
 		pieceJustificativeUploader.update();
-		System.out.println(pieceJustificativeUploader.getCollection());
+		
 	}
 	
 	protected void updatePieceJustificatives(){

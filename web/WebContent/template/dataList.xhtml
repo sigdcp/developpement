@@ -43,7 +43,7 @@
 				<p:commandButton value="#{constantResources.text('bouton.selectionner')}" action="#{controller.href(record)}" immediate="true" process="@this"
 					rendered="#{not controller.isBatchProcessing}"/>
 				-->
-				<p:button value="#{constantResources.text('bouton.selectionner')}" href="#{controller.href(record)}"  rendered="#{not controller.isBatchProcessing}"/>
+				<p:button value="#{constantResources.text(uiController.selectLabel)}" href="#{controller.href(record)}"  rendered="#{not controller.isBatchProcessing}"/>
 			</p:column>
 			
 		</p:dataTable>

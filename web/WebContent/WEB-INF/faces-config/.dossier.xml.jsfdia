@@ -29,32 +29,30 @@
     NAME="output6" PATH="/private/personnel/demande/mhci.xhtml"
     TARGET="rules:#private#personnel#demande#mhci.xhtml"
     TITLE="demande_mission_pointfocal" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="demandeliste::#private#demande#liste.xhtml"
+    NAME="output7" PATH="/private/demande/liste.xhtml"
+    TARGET="rules:#private#demande#liste.xhtml" TITLE="demandeliste" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="missionexecuteeliste::#private#personnel#demande#missionexecuteeliste.xhtml"
+    NAME="output8"
+    PATH="/private/personnel/demande/missionexecuteeliste.xhtml"
+    TARGET="rules:#private#personnel#demande#missionexecuteeliste.xhtml"
+    TITLE="missionexecuteeliste" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="demandeconsultation::#private#demande#details.xhtml"
-    NAME="output7" PATH="/private/demande/details.xhtml"
+    NAME="output9" PATH="/private/demande/details.xhtml"
     TARGET="rules:#private#demande#details.xhtml"
     TITLE="demandeconsultation" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="generationattestationpc::#private#personnel#dossier#gapc.xhtml"
-    NAME="output8" PATH="/private/personnel/dossier/gapc.xhtml"
+    NAME="output10" PATH="/private/personnel/dossier/gapc.xhtml"
     TARGET="rules:#private#personnel#dossier#gapc.xhtml"
     TITLE="generationattestationpc" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="generationprojetdecisionremb::#private#personnel#dossier#gpdr.xhtml"
-    NAME="output9" PATH="/private/personnel/dossier/gpdr.xhtml"
+    NAME="output11" PATH="/private/personnel/dossier/gpdr.xhtml"
     TARGET="rules:#private#personnel#dossier#gpdr.xhtml"
     TITLE="generationprojetdecisionremb" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="dossierliste::#private#personnel#dossier#liste.xhtml"
-    NAME="output10" PATH="/private/personnel/dossier/liste.xhtml"
-    TARGET="rules:#private#personnel#dossier#liste.xhtml"
-    TITLE="dossierliste" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="validationrecevabilite::#private#personnel#dossier#validation#recevabilite.xhtml"
-    NAME="output11"
-    PATH="/private/personnel/dossier/validation/recevabilite.xhtml"
-    TARGET="rules:#private#personnel#dossier#validation#recevabilite.xhtml"
-    TITLE="validationrecevabilite" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="validationconformite::#private#personnel#dossier#validation#conformite.xhtml"
     NAME="output14"
@@ -181,4 +179,8 @@
   SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#private#personnel#demande#mhci.xhtml"
   PATH="/private/personnel/demande/mhci.xhtml" SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#demande#missionexecuteeliste.xhtml"
+  PATH="/private/personnel/demande/missionexecuteeliste.xhtml"
+  SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

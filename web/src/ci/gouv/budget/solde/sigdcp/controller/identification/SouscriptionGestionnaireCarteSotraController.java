@@ -62,8 +62,8 @@ public class SouscriptionGestionnaireCarteSotraController extends AbstractEntity
 		pieceJustificativeUploader.setShowInputs(Boolean.FALSE);
 		
 		//pieceJustificativeUploader.addPieceJustificative(entity.getGestionnaire().getPieceIdentite());
-		pieceJustificativeUploader.addPieceJustificative(entity.getDecretCreationSection());
-		pieceJustificativeUploader.addPieceJustificative(entity.getNoteService());
+		//pieceJustificativeUploader.addPieceJustificative(entity.getDecretCreationSection());
+		//pieceJustificativeUploader.addPieceJustificative(entity.getNoteService());
 	}
 	
 

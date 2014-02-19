@@ -3,6 +3,7 @@ package ci.gouv.budget.solde.sigdcp.dao.dossier;
 import java.util.Collection;
 
 import ci.gouv.budget.solde.sigdcp.dao.DataAccessObject;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
@@ -37,6 +38,8 @@ public interface AbstractDossierDao<DOSSIER extends Dossier> extends DataAccessO
 	Collection<DOSSIER> readByStatutId(String id);
 	
 	Collection<DOSSIER> readByNatureDeplacement(NatureDeplacement natureDeplacement);
+	
+	Collection<DOSSIER> readByDeplacement(Deplacement deplacement);
 
 } 
    

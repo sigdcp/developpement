@@ -120,7 +120,7 @@
 					<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 				</p:fileUpload>
 				<p:message for="fichier" rendered="#{dto.showFile}"/>
-				<p:commandButton value="Supprimer fichier joint" action="#{dto.supprimerFichier}" icon="ui-icon-close" rendered="#{not dto.showFile}" update="dt"
+				<p:commandButton value="Supprimer fichier joint" action="#{dto.supprimerFichier}" icon="ui-icon-close" rendered="#{dto.editable and not dto.showFile}" update="dt"
 					immediate="true" process="@this"/>
 				<p:commandButton value="Voir" icon="ui-icon-search" rendered="#{not uploader.editable}" oncomplete="PF('imageDialog').show();" update="@form:display @form:imageDialogHeader">
 					<f:setPropertyActionListener value="#{dto.piece}" target="#{uploader.pieceJustificativeSelectionne}" />

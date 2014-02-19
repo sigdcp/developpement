@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<ui:param name="editable" value="#{dossierMissionAgentEtatController.editable}" />
+		<ui:param name="required" value="#{dossierMissionAgentEtatController.requiredEnabled}" />
+		
+		<p:fieldset legend="Mission">
+			<p:panelGrid columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2">								
+				<h:outputText value="Désignation" /><h:outputText value="#{dossierMissionAgentEtatController.missionExecutee.designation}" />
+				<h:outputText value="" /><h:outputText value="" />
+				
+				<h:outputText value="Date départ" /><h:outputText value="#{dossierMissionAgentEtatController.missionExecutee.deplacement.dateDepart}" >
+					<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+				</h:outputText>
+				<h:outputText value="Date arrivée" /><h:outputText value="#{dossierMissionAgentEtatController.missionExecutee.deplacement.dateArrivee}" >
+					<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+				</h:outputText>
+				<h:outputText value="Ville départ" /><h:outputText value="#{dossierMissionAgentEtatController.missionExecutee.deplacement.localiteDepart}" />
+				<h:outputText value="Ville arrivée" /><h:outputText value="#{dossierMissionAgentEtatController.missionExecutee.deplacement.localiteDepart}" />
+				<h:outputText value="Responsable" /><h:outputText value="#{dossierMissionAgentEtatController.missionExecutee.dossierDuResponsable.beneficiaire.nomPrenoms}" />
+			</p:panelGrid>	
+		</p:fieldset>	
+		
+		<p:spacer height="5"/>
+		<style>
+			.c11{font-weight: bold;}
+		</style>
+		<p:panelGrid columns="4" id="pg" styleClass="panelGridNoBorder" columnClasses="c11,c2,c11,c2">
+			<h:outputText value="Matricule" /><h:outputText value="#{dossierMissionAgentEtatController.entity.beneficiaire.matricule}" />
+			<h:outputText value="Nom et prénoms" /><h:outputText value="#{dossierMissionAgentEtatController.entity.beneficiaire.nomPrenoms}" />
+		</p:panelGrid>
+		
+		<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml">
+			<ui:param name="uploader" value="#{dossierMissionAgentEtatController.pieceJustificativeUploader}"/>
+		</ui:include>		
+		
+	</ui:composition>
+</body>
+</html>

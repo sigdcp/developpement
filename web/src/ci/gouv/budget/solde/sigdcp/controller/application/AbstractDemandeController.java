@@ -1,15 +1,20 @@
 package ci.gouv.budget.solde.sigdcp.controller.application;
 
+import java.util.Collection;
 import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
+
 import lombok.Getter;
+import ci.gouv.budget.solde.sigdcp.controller.NavigationManager;
 import ci.gouv.budget.solde.sigdcp.controller.fichier.PieceJustificativeUploader;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIController;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.Action;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.FormCommand;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.service.dossier.PieceJustificativeAFournirService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.PieceJustificativeService;
 import ci.gouv.budget.solde.sigdcp.service.dossier.StatutService;
@@ -36,6 +41,12 @@ public abstract class AbstractDemandeController<ENTITY extends AbstractModel<?>>
 	protected Boolean enSaisie = Boolean.FALSE;
 	protected Map<String, Object> parametres;
 	protected Boolean showCourrier=Boolean.FALSE,courrierEditable=Boolean.FALSE;
+	
+	@Override
+	protected void initialisation() {
+		pieceJustificativeUploader.setEditable(isEditable());
+		super.initialisation();
+	}
 	
 	@Override
 	protected void afterInitialisation() {
@@ -71,14 +82,24 @@ public abstract class AbstractDemandeController<ENTITY extends AbstractModel<?>>
 				return onEnregistrerSuccessOutcome();
 			}
 		});
-		
+		pieceJustificativeUploader.setEditable(isEditable());
 		//enregistrerCommand.setImmediate(true);//to remove , just for test
 		//enregistrerCommand.setProcess("@form");
 	}
 	
 	protected abstract void enregistrer() throws Exception;
 	
-	protected abstract String onEnregistrerSuccessOutcome();
+	protected String onEnregistrerSuccessOutcome() {
+		Collection<PieceJustificativeAFournir> imprimes = onEnregistrerSuccessPieceJustificativeAFournir();
+		return navigationManager.url(NavigationManager.OUTCOME_SUCCESS_VIEW,new Object[]{webConstantResources.getRequestParamMessageId(),
+				(imprimes==null || imprimes.isEmpty())?"notification.demande.enregistree.soumettre":"notification.demande.enregistree.imprimer",
+				webConstantResources.getRequestParamMessageParameters(),StringUtils.join(imprimes,","),
+						webConstantResources.getRequestParamUrl(),url},true);
+	}
+	
+	protected Collection<PieceJustificativeAFournir> onEnregistrerSuccessPieceJustificativeAFournir(){
+		return null;
+	}
 	
 	protected abstract String onSoumettreSuccessOutcome();
 	

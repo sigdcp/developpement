@@ -14,6 +14,7 @@ public enum ValidationExceptionType {
 	PASSWORD_CONFIRMATION(),
 	USERNAME_UNIQUE(),
 	DATE_PRISE_SERVICE(),
+	DATE_MISE_STAGE(),
 	EMAIL_OCCUPE(),
 	
 	

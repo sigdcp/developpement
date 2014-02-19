@@ -5,7 +5,7 @@
 
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
-
+	
 		<navigation-case>
 			<from-outcome>naturedepinfos</from-outcome>
 			<to-view-id>/public/naturedeplacement.xhtml</to-view-id>
@@ -49,6 +49,12 @@
 		<navigation-case>
 			<from-outcome>demandeliste</from-outcome>
 			<to-view-id>/private/demande/liste.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>missionexecuteeliste</from-outcome>
+			<to-view-id>/private/personnel/demande/missionexecuteeliste.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 

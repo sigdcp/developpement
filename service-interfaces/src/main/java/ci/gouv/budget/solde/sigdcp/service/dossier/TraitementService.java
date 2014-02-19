@@ -4,13 +4,17 @@ import java.util.Collection;
 
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Operation;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
+import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.service.AbstractService;
 
 public interface TraitementService extends AbstractService<Traitement,Long> {
+	
+	Traitement create(Operation operation,Dossier dossier,Personne personne,String statutId);
 	
 	Collection<Traitement> findByDossier(Dossier dossier);
 	

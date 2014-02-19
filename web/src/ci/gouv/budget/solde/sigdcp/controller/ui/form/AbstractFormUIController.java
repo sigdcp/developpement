@@ -46,6 +46,7 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 		else if(isRead())
 			initReadOperation();	
 		initCommands();
+		requiredEnabled=isEditable();
 	}
 	
 	protected void initCreateOperation(){
@@ -90,9 +91,13 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 			}
 		});
 		closeCommand.setRendered(!isDialog());
-		closeCommand.setOnclick("return quitter();");
-		closeCommand.setSuccessOutcome(null);
+		closeCommand.setType("button");
+		System.out.println("isEd : "+isEditable());
+		//if(isEditable())
+			closeCommand.setOnclick("return quitter("+isEditable()+");");
+		//closeCommand.setSuccessOutcome(null);
 		closeCommand.setAjax(Boolean.FALSE);
+		
 		//closeCommand.setSuccessOutcome(userSessionManager.isLoggedIn()?"espacePrivee":"index");
 		closeCommand.setImmediate(Boolean.TRUE);
 		closeCommand.setProcess("@this");

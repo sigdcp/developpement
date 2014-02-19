@@ -99,11 +99,11 @@ public class ValidationPolicy {
 		try {
 			validateDateNaissance(agentEtat.getDateNaissance());
 		} catch (Exception e) {
-			exception(ValidationExceptionType.DATE_PRISE_SERVICE);
+			exception(ValidationExceptionType.DATE_MISE_STAGE);
 		}
 		
 		if(dateMiseStage==null || dateMiseStage.before(DateUtils.addYears(agentEtat.getDateNaissance(), getAgeMinimumAns())))
-			exception(ValidationExceptionType.DATE_PRISE_SERVICE);
+			exception(ValidationExceptionType.DATE_MISE_STAGE);
 	}
 	
 	public void validateDateFinStage(Date dateMiseStage,Date dateFinStage) throws Exception{
@@ -184,9 +184,10 @@ public class ValidationPolicy {
 		if(soumission || Boolean.TRUE.equals(model.getConfig().getPrincipale())){
 			if(isOneNull(fichier))
 				exception();
-		}else if(Boolean.TRUE.equals(model.getConfig().getDerivee()))
-			;
-		else if(!isNull(fichier) && isOneNotNull(numero,date,signataire))
+		}else if(Boolean.TRUE.equals(model.getConfig().getDerivee())){
+			if(!isNull(fichier) && isNull(signataire))
+				exception();
+		}else if(isNull(fichier) && isOneNotNull(numero,date,signataire))
 			exception();
 		
 	}

@@ -10,41 +10,28 @@
 <h:body>
 	<ui:define name="metadata">
 		<f:metadata>
-        	<!--
-        	<ui:include src="/dossier/include/viewParam.xhtml">
-        		<ui:param name="controller" value="#{enregistrerDemandeMHCIFormController}"/>
-        	</ui:include>
-        	-->
-        	<f:viewParam name="#{webConstantResources.requestParamMission}" value="#{enregistrerDemandeMHCIFormController.entity}" converter="#{viewParamMissionConverter}"/>	
+        	<f:viewParam name="#{webConstantResources.requestParamDossier}" value="#{dossierMissionAgentEtatController.entity}" converter="#{viewParamDossierConverter}"/>
+        	<f:event listener="#{dossierMissionAgentEtatController.preRenderView}" type="preRenderView"></f:event>	
     	</f:metadata>
 	</ui:define>
 		
 	<ui:composition template="/template/commun.xhtml">
 		<ui:define name="contenu">
 			<ui:decorate template="/template/formTemplate.xhtml">
-				<ui:param name="uiController" value="#{enregistrerDemandeMHCIFormController}" />
+				<ui:param name="uiController" value="#{dossierMissionAgentEtatController}" />
 				<ui:define name="contenu">	
 				
-					<ui:include src="/dossier/include/formMHCI.xhtml" />
-					<!--
-					<p:spacer height="5"/>
-				
-					<ui:include src="/dossier/include/inputPiecesJustificatives.xhtml">
-						<ui:param name="controller" value="#{enregistrerDemandeMHCIFormController}"/>
-						<ui:param name="uploader" value="#{enregistrerDemandeMHCIFormController.pieceJustificativeUploader}"/>
-					</ui:include>
-					-->		
+					<ui:include src="/dossier/include/formMHCIAgentEtat.xhtml" />
+	
 				</ui:define>
 				
-				<!--
+				
 				<ui:define name="actions">
-					
 					<ui:include src="/resources/include/component/formCommand.xhtml" >
-						<ui:param name="command" value="#{enregistrerDemandeMHCIFormController.enregistrerCommand}" />
+						<ui:param name="command" value="#{dossierMissionAgentEtatController.enregistrerCommand}" />
 					</ui:include>
-					
 				</ui:define>
-				-->
+				
 			</ui:decorate>
 				
 		</ui:define>

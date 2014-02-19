@@ -11,8 +11,10 @@ import ci.gouv.budget.solde.sigdcp.service.ActionType;
 
 public interface MissionExecuteeService extends AbstractService<MissionExecutee,Long> {
 
-	void enregistrer(ActionType actionType,MissionExecutee missionExecutee,Collection<DossierMission> dossiers,Collection<Collection<PieceJustificative>> pieceJustificatives);
+	void enregistrer(ActionType actionType,MissionExecutee missionExecutee,Collection<DossierMission> dossiers,Collection<Collection<PieceJustificative>> pieceJustificatives,Personne personne);
 	
 	MissionExecutee findSaisieByPersonne(Personne personne);
+	
+	MissionExecutee findByDossier(DossierMission dossierMission);
 	
 }

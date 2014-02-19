@@ -33,6 +33,11 @@ public class DossierMission extends Dossier   implements Serializable{
 		super();
 	}
 
+	public DossierMission(Deplacement deplacement) {
+		super();
+		setDeplacement(deplacement);
+	}
+	
 	public DossierMission(String numero, Courrier courrier,
 			Date datePriseService, Deplacement deplacement, Grade grade,
 			AgentEtat beneficiaire, MontantIndemniteMission indemnite) {

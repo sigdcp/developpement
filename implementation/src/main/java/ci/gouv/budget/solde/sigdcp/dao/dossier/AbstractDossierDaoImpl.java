@@ -2,13 +2,15 @@ package ci.gouv.budget.solde.sigdcp.dao.dossier;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
+
+import javax.persistence.NoResultException;
 
 import ci.gouv.budget.solde.sigdcp.dao.JpaDaoImpl;
+import ci.gouv.budget.solde.sigdcp.model.Code;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 
@@ -16,27 +18,20 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Jp
 
 	private static final long serialVersionUID = -2609724288199083806L;
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public DOSSIER readSaisieByPersonneByNatureDeplacement(Personne personne, NatureDeplacement natureDeplacement) {
-		/*try {
-			return entityManager.createQuery("SELECT d FROM Dossier d "
-					+ "WHERE "
-					//+ "d.beneficiaire = :personne"
-					//+ " AND "
-					+ "d.deplacement.nature = :nature ("
-					+ " SELECT t FROM Traitement t WHERE t.dossier = d AND t.auteur = :personne"
-					+ ")"
-					, clazz)
+		try {
+			return entityManager.createQuery("SELECT d FROM Dossier d WHERE d.dernierTraitement.statut.code = :statutCode AND d.dernierTraitement.motif IS NULL"
+					+ " AND d.dernierTraitement.operation.creePar = :personne AND d.dernierTraitement.dossier.deplacement.nature = :nature", clazz)
 					.setParameter("personne", personne)
 					.setParameter("nature", natureDeplacement)
+					.setParameter("statutCode", Code.STATUT_SAISIE)
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
-		} catch (NonUniqueResultException e) {
-			throw e;
-		}*/
-		//TODO a changer. dossier connait son dernier traitement
+		}
+		/*
+		
 		List<Traitement> traitements = entityManager.createQuery("SELECT t FROM Traitement t WHERE t.dossier.deplacement.nature = :nature AND t.operation.creePar = :personne ORDER BY t.operation.date ASC"
 				, Traitement.class)
 				.setParameter("personne", personne)
@@ -44,7 +39,8 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Jp
 				.setMaxResults(2)
 				.getResultList();
 		
-		return (DOSSIER) (traitements.size()==1?traitements.get(0).getDossier():null);
+		//return (DOSSIER) (traitements.size()==1?traitements.get(0).getDossier():null);
+		*/
 	}
 	
 	@Override
@@ -80,6 +76,15 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Jp
 				+ "WHERE d.deplacement.nature = :nature"
 				, clazz)
 				.setParameter("nature", natureDeplacement)
+				.getResultList();
+	}
+	
+	@Override
+	public Collection<DOSSIER> readByDeplacement(Deplacement deplacement) {
+		return entityManager.createQuery("SELECT d FROM Dossier d "
+				+ "WHERE d.deplacement = :deplacement"
+				, clazz)
+				.setParameter("deplacement", deplacement)
 				.getResultList();
 	}
 	

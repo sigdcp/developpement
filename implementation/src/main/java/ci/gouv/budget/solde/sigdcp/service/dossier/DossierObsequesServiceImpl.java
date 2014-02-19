@@ -41,7 +41,7 @@ public class DossierObsequesServiceImpl extends AbstractDossierServiceImpl<Dossi
 		if(!personneDao.exist(dossier.getBeneficiaire().getAyantDroit().getId())){
 			personneDao.create(dossier.getBeneficiaire().getAyantDroit());
 		}
-		//est ce que le declarant est connu ?
+		//est ce que le defunt est connu ?
 		if(!personneDao.exist(dossier.getBeneficiaire().getId())){
 			personneDao.create(dossier.getBeneficiaire());
 		}

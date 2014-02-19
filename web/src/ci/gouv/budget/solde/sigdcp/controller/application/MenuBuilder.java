@@ -126,22 +126,30 @@ public class MenuBuilder implements Serializable {
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_RETRAITE});
 		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.obseques","demande_o",new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_OBSEQUE_FRAIS});
+		/*
 		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.mhci","demande_m",new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_MISSION_HCI});
-		
+		*/
 		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.tr.mae","demande_t",new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_MAE});
 		
 		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.tr.stage","demande_t",new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_STAGIAIRE});
 		
-		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.consulter","demandeliste",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
+		//menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.consulter","demandeliste",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
+		
+		/*
 		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.deposercourrier","demandeliste", new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
 		
 		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.gerercartesotra","inscriregestionairecartesotra",new Object[]{
 				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate()
 		});
 		menuManager.addMenuItem(formulerUneDemande, "menu.formulerdemande.inscrirelistebasegestionnaire","listebasegestionnaire",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"inscriptionlistebasegcs"});
+		*/
+		
+		Submenu consulterDemande = menuManager.addSubmenu("menu.consulterdemande");
+		menuManager.addMenuItem(consulterDemande,"menu.formulerdemande.consulter", "demandeliste",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
+		
 	}
 	
 	private void gestionnaireCarteSotra(){

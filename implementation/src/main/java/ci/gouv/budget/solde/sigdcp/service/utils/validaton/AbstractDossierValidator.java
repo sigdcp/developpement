@@ -9,6 +9,7 @@ import javax.validation.constraints.AssertTrue;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeAFournirDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.AgentEtatDao;
+import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
@@ -27,6 +28,8 @@ public class AbstractDossierValidator<DOSSIER extends Dossier> extends AbstractV
 	
 	@AssertTrue(message="la date de prise de service n'est pas valide",groups=Client.class)
 	public boolean isValidDatePriseService(){
+		if(Code.NATURE_DEPLACEMENT_RETRAITE.equals(object.getDeplacement().getNature().getCode()))
+			return true;
 		try {
 			validationPolicy.validateDatePriseService(object.getBeneficiaire(), object.getDatePriseService());
 			return true;

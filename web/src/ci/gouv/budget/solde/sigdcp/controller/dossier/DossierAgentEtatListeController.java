@@ -40,6 +40,7 @@ public class DossierAgentEtatListeController extends AbstractEntityListUIControl
 		defaultSubmitCommand.setRendered(Boolean.FALSE);
 		closeCommand.setRendered(Boolean.FALSE);
 		nextViewOutcome = "demande";
+		selectLabel="Afficher";
 	}
 	
 	@Override
@@ -65,7 +66,7 @@ public class DossierAgentEtatListeController extends AbstractEntityListUIControl
 				,webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudRead()
 				//,webConstantResources.getRequestParamPreviousURL(),navigationManager.getRequestUrl()
 				});
-		System.out.println(url);
+		//System.out.println(url);
 		return url;
 	}
 	

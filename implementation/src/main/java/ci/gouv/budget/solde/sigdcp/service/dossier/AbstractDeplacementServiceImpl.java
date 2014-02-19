@@ -1,6 +1,7 @@
 package ci.gouv.budget.solde.sigdcp.service.dossier;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -16,6 +17,13 @@ public abstract class AbstractDeplacementServiceImpl<DEPLACEMENT extends Deplace
 	@Inject
 	public AbstractDeplacementServiceImpl(AbstractDeplacementDao<DEPLACEMENT> dao) {
 		super(dao);
+	}
+	 
+	@Override
+	public Deplacement create(DEPLACEMENT deplacement) {
+		deplacement.setDateCreation(new Date());
+		((AbstractDeplacementDao<DEPLACEMENT>)dao).create(deplacement);
+		return deplacement;
 	}
 	
 }

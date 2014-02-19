@@ -7,13 +7,13 @@ import java.util.LinkedList;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import org.apache.commons.lang3.StringUtils;
 
+import ci.gouv.budget.solde.sigdcp.controller.NavigationManager;
 import ci.gouv.budget.solde.sigdcp.controller.application.AbstractDemandeController;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.MissionExecutee;
@@ -22,10 +22,10 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournirConfig;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
 import ci.gouv.budget.solde.sigdcp.service.ActionType;
 import ci.gouv.budget.solde.sigdcp.service.calendrier.MissionExecuteeService;
+import ci.gouv.budget.solde.sigdcp.service.dossier.DossierMissionService;
 import ci.gouv.budget.solde.sigdcp.service.identification.AgentEtatService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
@@ -40,6 +40,7 @@ public class EnregistrerDemandeMHCIFormController extends AbstractDemandeControl
 	
 	@Inject private AgentEtatService agentEtatService;
 	@Inject private MissionExecuteeService missionService;
+	@Inject private DossierMissionService dossierMissionService;
 	
 	/*
 	 * Dtos
@@ -52,13 +53,27 @@ public class EnregistrerDemandeMHCIFormController extends AbstractDemandeControl
 	protected void initialisation() {
 		crudType=CRUDType.CREATE;
 		super.initialisation();
-		entity = missionService.findSaisieByPersonne(userSessionManager.getUser());
-		enSaisie = entity!=null;
-		if(entity==null){
-			entity=new MissionExecutee();
+		MissionExecutee missionExecuteeEnSaisie = missionService.findSaisieByPersonne(userSessionManager.getUser());
+		enSaisie = missionExecuteeEnSaisie!=null;
+
+		if(enSaisie && (entity==null || entity.getId()==null))
+			entity = missionExecuteeEnSaisie;
+		if(entity==null)
+			entity = new MissionExecutee();
+		
+		System.out.println("ME : "+entity);		
+		if(entity.getId()==null){
+			//entity=new MissionExecutee();
 			entity.setDeplacement(new Deplacement());
 			entity.getDeplacement().setNature(genericService.findByClass(NatureDeplacement.class, Code.NATURE_DEPLACEMENT_MISSION_HCI));
 			entity.getDeplacement().setTypeDepense(genericService.findByClass(TypeDepense.class, Code.TYPE_DEPENSE_PRISE_EN_CHARGE));
+		}else{
+			//System.out.println(dossierMissionService.findByDeplacement(entity.getDeplacement()));
+			for(DossierMission dm : dossierMissionService.findByDeplacement(entity.getDeplacement())){
+				dossierMissionDtos.add(new DossierMissionDto(entity,dm,
+						pieceJustificativeService.findByDossier(dm, null, null)
+						, pieceJustificativeService, fichierService,isEditable()));
+			}
 		}
 		requiredEnabled=Boolean.FALSE;
 		
@@ -69,16 +84,27 @@ public class EnregistrerDemandeMHCIFormController extends AbstractDemandeControl
 			pieceJustificativeUploader.addPieceJustificative(new PieceJustificative(pieceCommune));
 		*/
 	}
-
-	@Override
-	protected void onDefaultSubmitAction() throws Exception {
+	
+	private void enregistrer(ActionType actionType) throws Exception {
 		Collection<Collection<PieceJustificative>> pieceJustificatives = new LinkedList<>();
 		Collection<DossierMission> dossiers = new LinkedList<>();
 		for(DossierMissionDto dto : dossierMissionDtos){
 			dossiers.add(dto.getDossierMission());
 			pieceJustificatives.add(dto.getPieceJustificativeUploader().process());
 		}
-		missionService.enregistrer(ActionType.SOUMETTRE,entity, dossiers,pieceJustificatives);
+		missionService.enregistrer(actionType,entity, dossiers,pieceJustificatives,userSessionManager.getUser());
+		
+	}
+
+	@Override
+	protected void enregistrer() throws Exception {
+		enregistrer(ActionType.ENREGISTRER);
+		
+	}
+	
+	@Override
+	protected void onDefaultSubmitAction() throws Exception {
+		enregistrer(ActionType.SOUMETTRE);
 	}
 
 	public void ajouterParticipant(){
@@ -90,7 +116,7 @@ public class EnregistrerDemandeMHCIFormController extends AbstractDemandeControl
 				exist=true;
 				break;
 			}
-		if(!exist && dossierMissionDtos.add(new DossierMissionDto(entity,matricule,agentEtatService.findByMatricule(matricule),pieceJustificativeService,fichierService)))
+		if(!exist && dossierMissionDtos.add(new DossierMissionDto(entity,matricule,agentEtatService.findByMatricule(matricule),pieceJustificativeService,fichierService,isEditable())))
 			matricule = null;
 	}
 	
@@ -100,29 +126,12 @@ public class EnregistrerDemandeMHCIFormController extends AbstractDemandeControl
 		dossierMissionDtos.remove(dto);
 	}
 
-	@Override
-	protected void enregistrer() throws Exception {
-		System.out
-				.println("EnregistrerDemandeMHCIFormController.enregistrer()");
-		/*
-		Collection<Collection<PieceJustificative>> pieceJustificatives = new LinkedList<>();
-		Collection<DossierMission> dossiers = new LinkedList<>();
-		for(DossierMissionDto dto : dossierMissionDtos){
-			dossiers.add(dto.getDossierMission());
-			pieceJustificatives.add(dto.getPieceJustificativeUploader().process());
-		}
-		missionService.enregistrer(ActionType.SOUMETTRE,entity, dossiers,pieceJustificatives);
-		*/
-	}
-
-	@Override
-	protected String onEnregistrerSuccessOutcome() {
-		return null;
-	}
 	
 	@Override
 	protected String onSoumettreSuccessOutcome() {
-		return null;
+		return navigationManager.url(NavigationManager.OUTCOME_SUCCESS_VIEW,new Object[]{webConstantResources.getRequestParamMessageId(),"notification.demande.soumise",
+				webConstantResources.getRequestParamUrl(),navigationManager.url("missionexecuteeliste",null,false,false)},true);
 	}
+	
 }
 	

@@ -10,6 +10,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import ci.gouv.budget.solde.sigdcp.dao.dossier.DossierDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeAFournirDao;
@@ -59,6 +61,7 @@ public class PieceJustificativeServiceImpl extends AbstractDocumentServiceImpl<P
 		if(pieceJustificatives==null){
 			//quelles sont les pieces a fournir
 			//System.out.println(dossier.getDeplacement().getNature().getCode()+" "+typeDepenseId);
+			//System.out.println(ToStringBuilder.reflectionToString(dossier.getDeplacement(), ToStringStyle.MULTI_LINE_STYLE));
 			Collection<PieceJustificativeAFournir> pieceJustificativeAFournirs = pieceJustificativeAFournirDao.readBaseByNatureDeplacementIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(),
 					dossier.getDeplacement().getTypeDepense().getCode());
 			//System.out.println("PJF : "+pieceJustificativeAFournirs);
