@@ -16,17 +16,14 @@ public class ImprimerPieceJustificativeController extends AbstractEntityFormUICo
 
 	@Override
 	protected void initialisation() {
-		//crudType = CRUDType.UPDATE;
+		crudType = CRUDType.READ;
 		super.initialisation();
 		title="Impression - "+entity.getModel();
-		
-		defaultSubmitCommand.setValue(text("bouton.imprimer"));
-		//defaultSubmitCommand.setSuccessOutcome("");
 	}
-	
+		
 	@Override
 	public CRUDType getCrudType() {
-		return CRUDType.UPDATE;
+		return CRUDType.READ;
 	}
 	
 }

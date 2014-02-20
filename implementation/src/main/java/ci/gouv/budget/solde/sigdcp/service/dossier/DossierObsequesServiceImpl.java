@@ -36,7 +36,7 @@ public class DossierObsequesServiceImpl extends AbstractDossierServiceImpl<Dossi
 	}
 	
 	@Override
-	protected void __createDossier__(DossierObseques dossier) {
+	protected void onDaoCreate(DossierObseques dossier) {
 		//est ce que l'ayant droit est connu ?
 		if(!personneDao.exist(dossier.getBeneficiaire().getAyantDroit().getId())){
 			personneDao.create(dossier.getBeneficiaire().getAyantDroit());
@@ -46,7 +46,7 @@ public class DossierObsequesServiceImpl extends AbstractDossierServiceImpl<Dossi
 			personneDao.create(dossier.getBeneficiaire());
 		}
 		
-		super.__createDossier__(dossier);
+		super.onDaoCreate(dossier);
 	}
 
 }

@@ -8,8 +8,6 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import ci.gouv.budget.solde.sigdcp.dao.DynamicEnumerationDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.AbstractDossierDao;
@@ -45,10 +43,7 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	@Inject private OperationDao operationDao;
 	@Inject private TraitementService traitementService;
 	@Inject protected PieceJustificativeAFournirDao pieceJustificativeAFournirDao;
-	
-	//@Inject private DaoCreateHelper daoCreateHelper;
-	//private Action dossierDaoCreate;
-	
+		
 	public AbstractDossierServiceImpl(AbstractDossierDao<DOSSIER> dao) {
 		super(dao); 
 	}
@@ -67,14 +62,12 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 		}else{//creation
 			deplacementService.create(dossier.getDeplacement());
 			dossier.setNumero(System.currentTimeMillis()+"");//TODO un numéro métier doit etre construit
-			//dossierDaoCreate.execute(dossier);
-			__createDossier__(dossier);
+			onDaoCreate(dossier);
 			updatePieceJustificatives(dossier, pieceJustificatives);//on enregistre les pieces justificatives
 			//on cree les pieces derivees
 			for(PieceJustificativeAFournir pieceAImprimer : pieceJustificativeAFournirDao.readDeriveeByNatureDeplacementIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(),
 					dossier.getDeplacement().getTypeDepense().getCode()))
 				pieceJustificativeDao.create(new PieceJustificative(dossier,RandomStringUtils.randomNumeric(4), pieceAImprimer,dateCourante));
-			//traiter(operation, dossier, personne, Code.STATUT_SAISIE);	//on traite le dossier
 			traitementService.create(operation, dossier, personne, Code.STATUT_SAISIE);
 		}
 	}
@@ -88,76 +81,23 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 				pieceJustificativeDao.create(pieceJustificative);
 		}
 	}
-	/*
-	private void traiter(Operation operation,Dossier dossier,Personne personne,String statutId){
-		Traitement traitement = new Traitement(operation, null, dossier, dynamicEnumerationDao.readByClass(Statut.class, statutId));
-		traitementDao.create(traitement);
-		dossier.setDernierTraitement(traitement);
-		dossierDao.update(dossier);
-	}*/
 	
 	@Override
 	public void enregistrer(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException {
-		
 		validationSaisie(dossier, pieceJustificatives,personne,false);
-		//est ce une creation ou une mise à jour
-		//Date dateCourante = new Date();
-		//DOSSIER dossierExistant = StringUtils.isNotEmpty(dossier.getNumero())?null:((AbstractDossierDao<DOSSIER>)dao).read(dossier.getNumero());
-
 		if(!dao.exist(dossier.getNumero())){
-			//creation
-			//dossier.setNumero(System.currentTimeMillis()+"");
-			//dossier.getDeplacement().setDateCreation(new Date());
-			//deplacementDao.create(dossier.getDeplacement());
-			//System.out.println(ToStringBuilder.reflectionToString(dossier.getBeneficiaire(), ToStringStyle.MULTI_LINE_STYLE));
-			//dossier.getBeneficiaire().setAyantDroit(null);
-			//__createDossier__(dossier);
-			//on cree les pieces generee par le syteme
-			/*
-			for(PieceJustificativeAFournir pieceAImprimer : pieceJustificativeAFournirDao.readDeriveeByNatureDeplacementIdByTypeDepenseId(dossier.getDeplacement().getNature().getCode(),
-					dossier.getDeplacement().getTypeDepense().getCode()))
-				pieceJustificativeDao.create(new PieceJustificative(dossier,RandomStringUtils.randomNumeric(4), pieceAImprimer,new Date()));
-			
-			Operation operationSaisie = new Operation(dateCourante,dynamicEnumerationDao.readByClass(NatureOperation.class,Code.NATURE_OPERATION_SAISIE),personne);
-			operationDao.create(operationSaisie);
-			Traitement traitement = new Traitement(operationSaisie, null, dossier, dynamicEnumerationDao.readByClass(Statut.class, Code.STATUT_SAISIE));
-			traitementDao.create(traitement);
-			
-			dossier.setDernierTraitement(traitement);
-			//dossier.getBeneficiaire().setAyantDroit(null);
-			dao.update(dossier);
-			*/
-			//daoCreateHelper.init();
-			//daoCreateHelper.createDeplacement(dossier.getDeplacement());
 			Operation operation = new Operation(new Date(),dynamicEnumerationDao.readByClass(NatureOperation.class,Code.NATURE_OPERATION_SAISIE),personne);
 			operationDao.create(operation);
-			//daoCreateHelper.saisir(operation,dossier,pieceJustificatives, personne);
 			saisir(operation, dossier, pieceJustificatives, personne);
 		}else{
-			//mise a jour d'un dossier qui est en saisie uniquement
-			//System.out.println(ToStringBuilder.reflectionToString(dossier,ToStringStyle.MULTI_LINE_STYLE));
 			Statut statutCourant = dossier.getDernierTraitement().getStatut();
 			if(statutCourant!=null && !Code.STATUT_SAISIE.equals(statutCourant.getCode()))
 				serviceException(ServiceExceptionType.DOSSIER_STATUT_ILLELGAL);
-			/*
-			dao.update(dossier);//mise a jour du dossier
-			*/
 			saisir(null, dossier, pieceJustificatives, personne);
-			
-			//daoCreateHelper.saisir(null, dossier, pieceJustificatives,personne);
 		}
-		
-		/*
-		for(PieceJustificative pieceJustificative : pieceJustificatives){
-			pieceJustificative.setDossier(dossier);
-			if(pieceJustificativeDao.exist(pieceJustificative.getId()))
-				pieceJustificativeDao.update(pieceJustificative);
-			else if(StringUtils.isNotEmpty(pieceJustificative.getNumero()))
-				pieceJustificativeDao.create(pieceJustificative);
-		}*/
 	}
 	
-	protected void __createDossier__(DOSSIER dossier){
+	protected void onDaoCreate(DOSSIER dossier){
 		dao.create(dossier);
 	}
 	
@@ -165,23 +105,9 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	public void soumettre(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne)throws ServiceException {
 		enregistrer(dossier, pieceJustificatives,personne);
 		validationSaisie(dossier, pieceJustificatives,personne,true);
-		
-		//Operation operation = new Operation(new Date(),dynamicEnumerationDao.readByClass(NatureOperation.class,Code.NATURE_OPERATION_SOUMISSION),personne);
-		//operationDao.create(operation);
-		
 		Operation operation = new Operation(new Date(),dynamicEnumerationDao.readByClass(NatureOperation.class,Code.NATURE_OPERATION_SOUMISSION),personne);
 		operationDao.create(operation);
-		//traiter(operation, dossier, personne, Code.STATUT_SOUMIS);
 		traitementService.create(operation, dossier, personne, Code.STATUT_SOUMIS);
-		
-		/*
-		Operation operationSoumission = new Operation(new Date(),dynamicEnumerationDao.readByClass(NatureOperation.class,Code.NATURE_OPERATION_SOUMISSION),personne);
-		operationDao.create(operationSoumission);
-		Traitement traitement = new Traitement(operationSoumission, null, dossier, dynamicEnumerationDao.readByClass(Statut.class, Code.STATUT_SOUMIS));
-		traitementDao.create(traitement);
-		
-		dossier.setDernierTraitement(traitement);
-		dao.update(dossier);*/
 	}
 
 	@Override

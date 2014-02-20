@@ -16,11 +16,11 @@
 	</ui:define>
 		
 	<ui:composition template="/template/commun.xhtml">
-		<ui:define name="contenu">
+		<ui:define name="contenu"> 
 			<ui:decorate template="/template/formTemplate.xhtml">
 				<ui:param name="uiController" value="#{imprimerPieceJustificativeController}" />
 				<ui:define name="contenu">	
-					
+					<p:media value="/_etat_/?id=#{imprimerPieceJustificativeController.entity.id}" player="pdf" width="1000" height="800"/>
 				</ui:define>
 				
 			</ui:decorate>

@@ -29,8 +29,6 @@ public class DossierDD  extends Dossier   implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer poidsBagageAutorise;
-	
 	private Integer poidsBagageConstate;	
 	
 	/**
@@ -61,10 +59,9 @@ public class DossierDD  extends Dossier   implements Serializable{
 	public DossierDD() {}
 
 	public DossierDD(String numero, Courrier courrier,Date datePriseService, Deplacement deplacement,
-			Grade grade, AgentEtat beneficiaire,Integer poidsBagageAutorise, Integer poidsBagageConstate,
+			Grade grade, AgentEtat beneficiaire, Integer poidsBagageConstate,
 			Date dateMiseRetraite, String numeroRegistreMariage,Localite mairieMariage,Date dateMariage,Date dateCessationService) {
 		super(numero, courrier, datePriseService, deplacement,grade, beneficiaire);
-		this.poidsBagageAutorise = poidsBagageAutorise;
 		this.poidsBagageConstate = poidsBagageConstate;
 		this.dateMiseRetraite = dateMiseRetraite;
 		this.mairieMariage = mairieMariage;

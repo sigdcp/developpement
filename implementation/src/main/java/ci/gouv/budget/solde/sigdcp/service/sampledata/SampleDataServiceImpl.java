@@ -534,7 +534,7 @@ public class SampleDataServiceImpl implements SampleDataService {
 	public DossierDD creerDossierDD(NatureDeplacement natureDeplacement,AgentEtat agentEtat){
 		Deplacement deplacement = new Deplacement(date(), date(), date(), null, natureDeplacement, abidjan, bouake);
 		em.persist(deplacement);
-		DossierDD dossier = new DossierDD(numero(), courrier(), date(), deplacement, agentEtat.getGrade(), agentEtat, 500, 500, date(), numero(), abidjan, date(), date());
+		DossierDD dossier = new DossierDD(numero(), courrier(), date(), deplacement, agentEtat.getGrade(), agentEtat, 500, date(), numero(), abidjan, date(), date());
 		dossier.setServiceOrigine(serviceExploitation);
 		dossier.setService(serviceEtude);
 		em.persist(dossier);
