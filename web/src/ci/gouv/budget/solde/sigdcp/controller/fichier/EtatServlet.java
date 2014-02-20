@@ -27,7 +27,7 @@ public class EtatServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		PieceJustificative pieceJustificative = pieceJustificativeService.findById(Long.parseLong(request.getParameter("id")));
-        byte[] content = etatService.build(pieceJustificative.getModel().getTypePieceJustificative());
+        byte[] content = etatService.build(pieceJustificative);
         Utils.send(
     			getServletContext(),
     			request, 
