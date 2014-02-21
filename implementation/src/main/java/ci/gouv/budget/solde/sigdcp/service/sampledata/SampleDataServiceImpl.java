@@ -86,11 +86,11 @@ public class SampleDataServiceImpl implements SampleDataService {
 	private TypeDepense priseEnCharge,remboursement;
 	private TypeAgentEtat fonctionnaire,contractuel,policier,gendarme;
 	private TypePersonne ayantDroit;
-	private TypePieceJustificative extraitNaissance,extraitMariage,cni,feuilleDep,bonTransport,factprof,factdef ;
+	private TypePieceJustificative extraitNaissance,extraitMariage,cni,feuilleDep,bonTransport,factprof,factdef,attestationTransport ;
 	private Prestataire elohimVoyages,mistralVoyages;
 	private Localite abidjan,bouake,paris,dakar,delhi,coteDivoire;
 	private NatureDeplacement mhci,natureDeplacementMutation,natureDeplacementAffectation,natureDeplacementDepartRetraite;
-	private AgentEtat agentEtat1,agentEtat2,agentEtat3,agentEtat4;
+	private AgentEtat agentEtat1,agentEtat2,agentEtat3,agentEtat4,agentEtat5,agentEtat6,agentEtat7;
 	private Section ministereEconomie,ministereBudget,ministereSante,serviceExploitation,serviceEtude;
 	private List<CalendrierMission> calendrierMissions=new LinkedList<>();
 	private List<DossierMission> dossierMissions = new LinkedList<>();
@@ -143,8 +143,8 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(decisionAffectation);
 		TypePieceJustificative avisMutation = new TypePieceJustificative(Code.TYPE_PIECE_AVIS_MUTATION, "Avis de mutation");
 		em.persist(avisMutation);
-		TypePieceJustificative arrmut = new TypePieceJustificative(Code.TYPE_PIECE_ARRETE_MUTATION, "Arrêté de mutation");
-		em.persist(arrmut);	
+		TypePieceJustificative arreteMutation = new TypePieceJustificative(Code.TYPE_PIECE_ARRETE_MUTATION, "Arrêté de mutation");
+		em.persist(arreteMutation);	
 		em.persist(cni = new TypePieceJustificative(Code.TYPE_PIECE_CNI, "Carte nationale d'identité"));
 		TypePieceJustificative com = new TypePieceJustificative(Code.TYPE_PIECE_COMMUNICATION, "Communication");
 		em.persist(com);
@@ -152,8 +152,8 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(om);
 		TypePieceJustificative attsg = new TypePieceJustificative(Code.TYPE_PIECE_ATTESTATION_SG, "Attestation du sécrétariat général du gouvernement");
 		em.persist(attsg);
-		TypePieceJustificative att = new TypePieceJustificative(Code.TYPE_PIECE_ATTESTATION_TRANSPORT, "Attestation de transport");
-		em.persist(att);
+		attestationTransport = new TypePieceJustificative(Code.TYPE_PIECE_ATTESTATION_TRANSPORT, "Attestation de transport");
+		em.persist(attestationTransport);
 		TypePieceJustificative passport = new TypePieceJustificative(Code.TYPE_PIECE_PASSPORT, "Passport");
 		em.persist(passport);
 		TypePieceJustificative attms = new TypePieceJustificative(Code.TYPE_PIECE_ATTESTATION_MISE_STAGE, "Attestation de mise en stage");
@@ -192,6 +192,8 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(certdeces);
 		TypePieceJustificative lettmin = new TypePieceJustificative(Code.TYPE_PIECE_LETTRE_MINISTERIELLE, "Lettre ministérielle");
 		em.persist(lettmin);
+		TypePieceJustificative acteDeces = new TypePieceJustificative(Code.TYPE_PIECE_ACTE_DECES, "Acte de décès");
+		em.persist(acteDeces);
 		
 		GroupeTypePiece identitte = new GroupeTypePiece(Code.GROUPE_TYPE_PIECE_IDENTITE, "Identité");
 		identitte.getTypePieces().add(cni);
@@ -222,7 +224,9 @@ public class SampleDataServiceImpl implements SampleDataService {
 		
 		natureDeplacementMutation =creerNatureDeplacement(deplacementDefinitif,Code.NATURE_DEPLACEMENT_MUTATION,"Mutation");
 		//em.persist(natureDeplacementMutation);
-		em.persist(pjaf(natureDeplacementMutation,remboursement,fonctionnaire,avisMutation));
+		em.persist(pjaf(natureDeplacementMutation,remboursement,fonctionnaire,arreteMutation));
+		em.persist(pjaf(natureDeplacementMutation,remboursement,fonctionnaire,cps));
+
 		communPieceJustificativeAFournir(natureDeplacementMutation, remboursement, fonctionnaire);
 		communDDPieceJustificativeAFournir(natureDeplacementMutation);
 			
@@ -236,20 +240,24 @@ public class SampleDataServiceImpl implements SampleDataService {
 		em.persist(p = pjaf(mhci,priseEnCharge,null, com));
 		p.getConfig().setCommune(Boolean.TRUE);
 		p.getConfig().setPrincipale(Boolean.TRUE);
-		em.persist(pjaf(mhci,priseEnCharge,null, att));
+		em.persist(pjaf(mhci,priseEnCharge,null, attestationTransport));
 		em.persist(pjaf(mhci,priseEnCharge,null, om));
 		communPieceJustificativeAFournir(mhci, priseEnCharge, null);
 		
 		NatureDeplacement fo = creerNatureDeplacement(obseque, Code.NATURE_DEPLACEMENT_OBSEQUE_FRAIS,"Frais d'obsèques");
 		
 		em.persist(fo);
-		em.persist(pjaf(fo,priseEnCharge,fonctionnaire,certdeces));
-		em.persist(pjaf(fo,priseEnCharge,fonctionnaire, extdeces));
-		em.persist(pjaf(fo,priseEnCharge,fonctionnaire, bullsal));
-		em.persist(pjaf(fo,priseEnCharge,fonctionnaire, lettmin));
-		em.persist(p = pjaf(fo,priseEnCharge,ayantDroit, cni));
-		p.setDescription("défunt");
-		communPieceJustificativeAFournir(fo, priseEnCharge, fonctionnaire);
+		for(TypeDepense typeDepense : new TypeDepense[]{priseEnCharge,remboursement}){
+			em.persist(p = pjaf(fo,priseEnCharge,fonctionnaire,certdeces));
+			p.getConfig().setPrincipale(Boolean.TRUE);
+			em.persist(pjaf(fo,typeDepense,fonctionnaire, extdeces));
+			em.persist(pjaf(fo,typeDepense,fonctionnaire, acteDeces));
+			em.persist(pjaf(fo,typeDepense,fonctionnaire, bullsal));
+			em.persist(p = pjaf(fo,typeDepense,ayantDroit, cni));
+			p.setDescription("défunt");
+			communPieceJustificativeAFournir(fo, priseEnCharge, fonctionnaire);	
+		}
+		em.persist(pjaf(fo,remboursement,fonctionnaire, lettmin));
 		
 		NatureDeplacement trmae =creerNatureDeplacement(transit, Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_MAE,"Transit de Bagages des Agent du ministere des Affaires étrangères");
 		em.persist(trmae);
@@ -365,14 +373,26 @@ public class SampleDataServiceImpl implements SampleDataService {
 		Statut liquide = new Statut(Code.STATUT_LIQUIDE, "Liquide", 0);
 		em.persist(liquide);
 		Statut paye = new Statut("P", "Paye", 0);
-		em.persist(paye);
+		em.persist(paye); 
 		
 		agentEtat1 = creerAgentEtat(fonctionnaire,"096000T", "Fiellou", "N'Dri", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
 		agentEtat2 = creerAgentEtat(fonctionnaire,"101000G", "Edoh", "Vincent", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
 		agentEtat3 = creerAgentEtat(fonctionnaire,"201000L", "Losseni", "Diarrassouba", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
 		agentEtat4 = creerAgentEtat(fonctionnaire,"175000H", "Thio", "Bekpancha", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		agentEtat5 = creerAgentEtat(fonctionnaire,"360257X", "Nadi", "Boua Eric", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		//agentEtat5 = creerAgentEtat(fonctionnaire,"360257X", "Nadi", "Boua Eric", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		//agentEtat7 = creerAgentEtat(fonctionnaire,"360257X", "Nadi", "Boua Eric", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
 		
-		creerCompteUtilisateur(agentEtat1, "christian.komenan@budget.gouv.ci", "sigdcp", new Object[][]{ {questionSecrete3,"Dgbf"} });
+		AgentEtat testAgentEtat1 = creerAgentEtat(fonctionnaire,"900900A", "Komenan", "Yao christian", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		AgentEtat testAgentEtat2 = creerAgentEtat(fonctionnaire,"900900B", "Amichia", "Martial", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		AgentEtat testAgentEtat3 = creerAgentEtat(fonctionnaire,"900900C", "Irie", "Henok Roland", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		AgentEtat testAgentEtat4 = creerAgentEtat(fonctionnaire,"900900D", "N'Dri", "Aime", date(1,1,1960), Sexe.MASCULIN,situationMatrimoniale1, coteDivoire, null,null,null,null,null,null,null);
+		
+		creerCompteUtilisateur(testAgentEtat1, "christian.komenan@budget.gouv.ci", "sigdcp", new Object[][]{ {questionSecrete3,"Dgbf"} });
+		creerCompteUtilisateur(testAgentEtat2, "marcial.amichia@budget.gouv.ci", "sigdcp", new Object[][]{ {questionSecrete3,"Dgbf"} });
+		creerCompteUtilisateur(testAgentEtat3, "irie.serge@budget.gouv.ci", "sigdcp", new Object[][]{ {questionSecrete3,"Dgbf"} });
+		creerCompteUtilisateur(testAgentEtat4, "stephane.ndri@budget.gouv.ci", "sigdcp", new Object[][]{ {questionSecrete3,"Dgbf"} });
+		
 		
 		/*
 		creerCompteUtilisateur(agentEtat2, "sigdcp1", "sigdcp", new Role[]{Role.AGENT_ETAT}, new Object[][]{ {questionSecrete3,"tresor"} });
@@ -634,6 +654,9 @@ public class SampleDataServiceImpl implements SampleDataService {
 		p.getConfig().setDerivee(Boolean.TRUE);
 		em.persist(p = pjaf(natureDeplacement, remboursement, fonctionnaire, bonTransport));
 		p.getConfig().setDerivee(Boolean.TRUE);
+		
+		em.persist(p = pjaf(natureDeplacement, remboursement, fonctionnaire, cni));
+		em.persist(p = pjaf(natureDeplacement, remboursement, fonctionnaire, attestationTransport));
 	}
 	
 	public void communTRPieceJustificativeAFournir(NatureDeplacement natureDeplacement){

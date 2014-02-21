@@ -110,25 +110,16 @@
 	font-size: 95% !important;
 }
 
-.ui_demande {
-	width: 100%;
-    float: center;
-    margin-bottom:10px;
-    border:0;
-	
-}
-
-
 .ui-layout-unit {
    
    padding-top: 0 !important;
    padding-right:  0 !important;
    padding-bottom:  0 !important;
    padding-left:  0 !important;
-   border: 0 !important;
+   /*border: 0 !important;*/
+   
   
 }
-
 
 /* north */
 .ui-layout-north {
@@ -136,8 +127,8 @@
     overflow:visible !important;
     padding: 0px !important;
     margin: 0px !important;
-    height: 122px !important;
-    background-color: red !important;
+    height: 100px !important;
+    background: red !important;
 }
 
 .ui-layout-north .ui-layout-unit-content {
@@ -151,6 +142,7 @@
     z-index:10 !important;
     overflow:visible !important;
     border: none !important;
+    
 }
 
 .ui-layout-south .ui-layout-unit-content {
@@ -200,15 +192,31 @@ box-shadow: 1px 1px 10px #F0F0F0; -moz-box-shadow: 1px 1px 10px #F0F0F0; -webkit
 	border: #F0F0F0 1px solid;
 	box-shadow: 1px 1px 10px #F0F0F0; -moz-box-shadow: 1px 1px 10px #F0F0F0; -webkit-box-shadow: 1px 1px 10px #F0F0F0; -o-box-shadow: 1px 1px 10px #F0F0F0;
 }
+
+.backlogin {
+	     	
+	     	 background:url(#{resource['images/loginbackground.png']});
+	     	background-size: 100%;
+}
 .backdesign {
 	     	
 	     	 background:url(#{resource['images/imgback.jpg']});
 	     	background-size: 100%;
 }
 .headdesign {
-	     	
-	     	 background:url(#{resource['images/imghead.gif']});
-	     	background-size: 100%;
+	     	height:100px;
+	     	 background:url(#{resource['images/imghead.jpg']}) no-repeat;
+	     	background-size: 100% 110px;
+}
+.headdesign_left {
+	     	 height:100px;
+	     	 background:url(#{resource['images/imghead_left.jpg']}) no-repeat;
+	     	 background-position : left;
+}
+.headdesign_right {
+	     	 height:100px;
+	     	 background:url(#{resource['images/imghead_right.jpg']}) no-repeat;
+	     	 background-position : right;
 }
 .backmenu {
 	     	

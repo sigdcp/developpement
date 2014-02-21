@@ -46,14 +46,5 @@ public class EtatServiceJasperImpl implements EtatService {
 		}
 		throw new ServiceException("Construction Etat <"+pieceJustificative.getModel().getTypePieceJustificative()+"> Pas encore implémenté");
 	}
-	
-	/*
-	public static List<FeuilleDeplacementEtat> feuilledeplacement (){
-		
-		List<FeuilleDeplacementEtat> l = new ArrayList<FeuilleDeplacementEtat>();
-		l.add(new FeuilleDeplacementEtat("654614164M", "Abidjan", "Yamoussoukro", "Blissi Tebil", "10/01/2014", "09/02/2014", "SV1254", "08/01/2014", "H", "1035", "famille", "temporaire", "1845 Tonnes", "Chef de service", "A7"));
-		return l;
-	}
-	*/
 
 }

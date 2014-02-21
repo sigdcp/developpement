@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<ui:composition template="/template/login.xhtml">
+
+		<ui:define name="contenu">
+			
+			<ui:param name="required" value="#{loginController.requiredEnabled}" />
+			
+			<h:form prependId="false">
+				<div style="padding-bottom:10px;">
+				<!-- <div  style="padding-bottom:10px;height: 700px;"> -->
+					
+					<p:panel header="Espace solde" style="width:600px;"> 
+			  		
+				  		<p:outputPanel rendered="#{empty request.remoteUser}">
+					  		<p:messages globalOnly="true" autoUpdate="true" escape="false"/>
+							
+							<h:panelGrid columns="2" cellpadding="5" style="margin:auto">
+								<h:outputText value="" /><p:message for="username" />
+								<p:outputLabel for="username" value="Nom d'utilisateur" />	
+								<p:inputText id="username" value="#{loginController.dto.username}" required="#{required}" requiredMessage="#{valueRequiredMessage}" size="48">
+									<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+								</p:inputText>
+								
+								<h:outputText value="" /><p:message for="password" />
+								<p:outputLabel for="password" value="Mot de passe" />
+								<p:password id="password" value="#{loginController.dto.password}" required="#{required}" requiredMessage="#{valueRequiredMessage}" size="48">
+									<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+								</p:password>
+							</h:panelGrid>
+							<br/>
+							<center>
+								<p:commandButton value="Connexion" action="#{loginController.defaultSubmitCommand.execute}" icon="ui-icon-check" style="width:200px;text-align:center" update="@form" />
+								<br/><br />
+						  		<h:link value="Mot de passe oublié" outcome="recupererPassword" />
+						  		
+					  		</center>
+					  		</p:outputPanel> 
+					  		
+			  		</p:panel>
+			  		
+				</div>
+			</h:form>
+								
+		</ui:define>
+
+
+	</ui:composition>
+
+
+</h:body>
+</html>

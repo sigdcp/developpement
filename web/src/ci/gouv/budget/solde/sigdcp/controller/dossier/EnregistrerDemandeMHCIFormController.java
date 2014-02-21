@@ -21,7 +21,6 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
 import ci.gouv.budget.solde.sigdcp.service.ActionType;
 import ci.gouv.budget.solde.sigdcp.service.calendrier.MissionExecuteeService;
@@ -61,7 +60,6 @@ public class EnregistrerDemandeMHCIFormController extends AbstractDemandeControl
 		if(entity==null)
 			entity = new MissionExecutee();
 		
-		System.out.println("ME : "+entity);		
 		if(entity.getId()==null){
 			//entity=new MissionExecutee();
 			entity.setDeplacement(new Deplacement());

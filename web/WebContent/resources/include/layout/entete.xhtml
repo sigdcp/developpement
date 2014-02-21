@@ -4,39 +4,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
 <body>
 	<ui:composition>
-		<table style="width: 100%;">
-		
-		<!-- <tr>
-			<td style="width: 200px;"><p:graphicImage library="images" name="dgbflogo.jpg" width="50"/></td>
-			<td style="text-align: center;"><h3><h:outputText value="Sytème Intégré de Gestion des Dépenses Communes de Personnel - SIGDCP" /></h3></td>
-			<td style="width: 200px;"><h:form><p:menuButton value="Zoro Marc">
-				<p:menuitem value="Compte" url="#"/>
-				<p:menuitem value="Deconnexion" action="connexionForm"/>
-			</p:menuButton></h:form></td>
-		</tr> -->
-				
-			<tr><td>
-				<div style="width: 100%;top:0px; background-color: #FFF;">
-					<div style="height:120px">
+		<table style="width: 100%;" border="0"><tr><td><div style="width: 100%;top:0px; background-color: #FFF;">
+			<div style="height:100px;margin-bottom:0px">
+			<table width="100%"><tr>
+				<td>
 					<h:link outcome="index">
-						<p:graphicImage value="/resources/images/imghead_left.jpg" style="float:left"/>
-						</h:link>
-						<p:graphicImage value="/resources/images/imghead_right.jpg" style="float:right"/>
-						<h:form>
-							<p:commandButton value="#{request.remoteUser} : Se deconnecter" action="#{logoutController.defaultSubmitCommand.execute}" style="position:absolute; right:400px;top:10px;" rendered="#{not empty request.remoteUser}"/>
-						</h:form>
-						
+						<p:graphicImage value="/resources/images/imghead_left.jpg" style="float:left;height:95px"/>
+					</h:link>
+				</td>
+				<ui:fragment rendered="#{showConnexionEntete==null or showConnexionEntete}"><td valign="top" align="right">
+					<ui:include src="/identification/include/connexionForm_entete.xhtml" />			
+				</td></ui:fragment>
+			</tr></table></div>
+
+			<!--ui:fragment rendered="#{not empty request.remoteUser}">
+				<div class="ui-accordion-header ui-helper-reset ui-state-default" >
+					<div align="right">
+						<h:outputText value="#{userSessionManager.userInfosLine}" escape="false"/><p:spacer width="10"/>
+						<p:commandLink value="Se deconnecter" action="#{logoutController.defaultSubmitCommand.execute}" rendered="#{not empty request.remoteUser}"/>
 					</div>
-					<div class="backmenu" style="text-align: center;height:3px;"></div>
-					<!-- <div class="backdesign cadresansarrondi" style="text-align: left;padding:10px" ></div> -->
-					
 				</div>
-			</td></tr>
-		
-		</table>
+			</ui:fragment-->
+		</div></td></tr></table>
 
 	</ui:composition>
 </body>

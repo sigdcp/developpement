@@ -10,10 +10,11 @@
 <h:body>
 	<h:form rendered="true">
 
-		<p:panel header="LES DEPENSES PRISES EN CHARGE PAR LE SIGDCP" style="width:100%">
+		<p:panel header="LES DEPENSES PRISES EN CHARGE PAR LE SIGDCP" style="width:400px;">
 
 			<p:accordionPanel value="#{publicHomeController.serviceProposeDtos}" var="serviceDto">
-				<p:tab title="#{serviceDto.title}">
+				<p:tab title="#{serviceDto.title}" style=" text-align:left">
+					
 					<p style="text-align: justify; line-height: 22px; font-size: 9pt"><h:outputText value="#{serviceDto.descriptionApercu}" escape="false"/></p>
 							
 					<div style="text-align: right; margin: 25px">

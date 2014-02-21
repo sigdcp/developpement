@@ -2,17 +2,17 @@
 <PROCESS model-entity="JSFProcess">
  <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="login::#public#login.xhtml" NAME="output"
-    PATH="/public/login.xhtml" TARGET="rules:#public#login.xhtml"
-    TITLE="login" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="espacePrivee::#private#demande#liste.xhtml"
-    NAME="output1" PATH="/private/demande/liste.xhtml"
-    TARGET="rules:#private#demande#liste.xhtml" TITLE="espacePrivee" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="login::#public#securite#login.xhtml"
+    NAME="output" PATH="/public/securite/login.xhtml"
+    TARGET="rules:#public#securite#login.xhtml" TITLE="login" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="inscriptionpersonne::#public#inscriptionpersonne.xhtml"
-    NAME="output2" PATH="/public/inscriptionpersonne.xhtml"
-    TARGET="rules:#public#inscriptionpersonne.xhtml"
-    TITLE="inscriptionpersonne" model-entity="JSFProcessItemOutput"/>
+    ID="recupererPassword::#public#securite#recupererMotDePasseForm.xhtml"
+    NAME="output1" PATH="/public/securite/recupererMotDePasseForm.xhtml"
+    TARGET="rules:#public#securite#recupererMotDePasseForm.xhtml"
+    TITLE="recupererPassword" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="espacePrivee::#private#demande#liste.xhtml"
+    NAME="output2" PATH="/private/demande/liste.xhtml"
+    TARGET="rules:#private#demande#liste.xhtml" TITLE="espacePrivee" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="souscriptionliste::#private#personnel#identification#valideragent.xhtml"
     NAME="output3"
@@ -105,8 +105,6 @@
   NAME="rules:#private#demande#gestionnairecartesotraliste.xhtml"
   PATH="/private/demande/gestionnairecartesotraliste.xhtml"
   SHAPE="304,1201,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#public#login.xhtml"
-  PATH="/public/login.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM
   NAME="rules:#private#personnel#identification#validationincriptionlistebasegscForm.xhtml"
   PATH="/private/personnel/identification/validationincriptionlistebasegscForm.xhtml"
@@ -121,4 +119,10 @@
   SHAPE="304,865,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#private#demande#liste.xhtml"
   PATH="/private/demande/liste.xhtml" SHAPE="304,529,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#public#securite#login.xhtml"
+  PATH="/public/securite/login.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#public#securite#recupererMotDePasseForm.xhtml"
+  PATH="/public/securite/recupererMotDePasseForm.xhtml"
+  SHAPE="304,529,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

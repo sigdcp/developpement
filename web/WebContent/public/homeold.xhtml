@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+
+<h:body>
+	<!-- <o:importConstants type="ci.gouv.budget.solde.sigdcp.model.Code" /> -->
+	<p:panel header="A PROPOS DU SIGDCP" style="width:100%">
+		<p style="text-align: justify; line-height: 22px; font-size: 9pt">
+		Le Système Intégré de Gestion des Dépenses Communes du Personnel (SIGDCP) est une application mise en place pour gérer les dépenses effectuées par les fonctionnaires et agents de l'Etat lors de leurs différents déplacements à l'intérieur (déplacements définitifs) et à l'extérieur de la Côte d'Ivoire (Missions hors Côte d'Ivoire et transits).<br/>
+		Le SIGDCP met donc à la disposition des usagers, les services dont les frais sont pris en charge par l'Etat de Côte d'Ivoire: 
+		</p>
+
+		<div style="text-align: right; margin: 25px">
+			<p:button icon="ui-icon-search"
+				outcome="/public/apropos.xhtml" value="Lire plus..." />
+		</div>
+	</p:panel>
+
+	<br />
+	
+	<h:form >
+	<p:accordionPanel value="#{publicHomeController.serviceProposeDtos}" var="serviceDto">
+			<p:tab title="#{serviceDto.title}">
+				<p style="text-align: justify; line-height: 22px; font-size: 9pt"><h:outputText value="#{serviceDto.descriptionApercu}" escape="false"/></p>
+						
+				<div style="text-align: right; margin: 25px">
+					<p:button icon="ui-icon-search" outcome="naturedepinfos" value="Lire plus" >
+						<f:param name="#{serviceDto.lirePlusRequestParamName}" value="#{serviceDto.lirePlusRequestParamValue}"/>
+					</p:button>
+				</div>
+				<p:separator />
+				<div style="text-align: center;">
+					<p:button value="Dépôt de dossier" icon="ui-icon-check" outcome="demandeliste" rendered="#{serviceDto.showDepotDossierButton}">
+						<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
+					</p:button>
+
+					<p:button value="Ouverture de compte" icon="ui-icon-check" outcome="inscriptionpersonne" rendered="#{serviceDto.showSouscrireButton and empty request.remoteUser}">
+						<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+					</p:button>
+					<p:button value="Cliquer ici pour solliciter ce service"  outcome="#{serviceDto.outcome}" icon="ui-icon-check" style="text-align:center" rendered="#{serviceDto.showSolliciterButton}">
+						<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="#{serviceDto.natureDeplacement.code}" />
+						<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+					</p:button>
+				</div>				
+			</p:tab>
+		</p:accordionPanel>
+	</h:form>
+
+</h:body>
+
+</html>

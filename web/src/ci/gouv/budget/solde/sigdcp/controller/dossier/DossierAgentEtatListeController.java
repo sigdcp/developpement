@@ -40,7 +40,7 @@ public class DossierAgentEtatListeController extends AbstractEntityListUIControl
 		defaultSubmitCommand.setRendered(Boolean.FALSE);
 		closeCommand.setRendered(Boolean.FALSE);
 		nextViewOutcome = "demande";
-		selectLabel="Afficher";
+		selectLabel=text("bouton.afficher");
 	}
 	
 	@Override

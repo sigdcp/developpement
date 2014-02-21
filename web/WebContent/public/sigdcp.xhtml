@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/public.xhtml">
+
+		<ui:define name="contenu">
+
+			<ui:decorate template="/template/contenuTextTemplate.xhtml">
+				<ui:param name="title" value="A PROPOS DU SIGDCP" />
+
+				<ui:define name="contenu">
+					<table width="100%">
+						<tr>
+							<td valign="top" width="65%"
+								style="padding: 20px; margin: 0 50px 0 50px; text-align: justify; line-height: 22px; font-size: 9pt">
+								Le Système Intégré de Gestion des Dépenses Communes du Personnel
+								(SIGDCP) est une application mise en place pour gérer les
+								dépenses effectuées par les fonctionnaires et agents de l'Etat
+								lors de leurs différents déplacements à l'intérieur
+								(déplacements définitifs) et à l'extérieur de la Côte d'Ivoire
+								(Missions hors Côte d'Ivoire et transits).
+								<p>Le SIGDCP met donc à la disposition des usagers, les
+									services dont les frais sont pris en charge par l'Etat de Côte
+									d'Ivoire:</p>
+								<ul>
+									<li>missions hors Côte d’Ivoire ;</li>
+									<li>déplacements définitifs ;</li>
+
+									<li>frais de transit de bagages ;</li>
+									<li>frais d’obsèques ;</li>
+									<li>frais de transport des stagiaires et des expatriés.</li>
+								</ul>
+								<p>Les déplacements définitifs concernent:</p>
+								<ul>
+									<li>les affectations;</li>
+									<li>les mutations;</li>
+									<li>les départs à la retraite.</li>
+								</ul>
+								<p>Le SIGDCP offre également un espace pour les commandes de
+									cartes de bus SOTRA pour les services ayants-droit.</p>
+							</td>
+							<td valign="top" style="margin: 20px">
+								<ui:include src="/public/lucarne.xhtml"/>
+						    	<p:spacer style="height:5px"/> 
+								<ui:include src="/public/verticalHome.xhtml">
+									<ui:param name="index" value="0" />
+								</ui:include>
+							</td>
+						</tr>
+					</table>
+				</ui:define>
+
+			</ui:decorate>
+
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

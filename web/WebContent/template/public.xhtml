@@ -14,19 +14,17 @@
     <ui:insert name="metadata"/>
  
 	<h:body>
-		<p:layout id="site"  fullPage="true" stateful="true">  
+		<p:layout id="site"  fullPage="true">  
   
-		    <p:layoutUnit id="entete" position="north"><h:form>
+		    <p:layoutUnit id="entete" position="north" ><h:form>
 		   		 <ui:include src="/resources/include/layout/entete.xhtml"/>
 	 		 </h:form></p:layoutUnit>  
 		  	
-		  	<p:layoutUnit position="west"/>
-		    
 		    <p:layoutUnit id="corps" position="center">  
 		        <ui:insert name="contenu"></ui:insert>  
 		    </p:layoutUnit>
 		  		
-		    <p:layoutUnit position="east"/>
+		   
 		    
 		    <p:layoutUnit id="pieds" position="south">
 		    	<ui:include src="/resources/include/layout/pieds.xhtml"/>
