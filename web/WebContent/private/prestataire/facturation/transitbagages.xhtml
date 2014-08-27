@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sigdcp="http://java.sun.com/jsf/composite/composant">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<ui:include src="/dossier/include/viewParam.xhtml">
+        		<ui:param name="controller" value="#{faireDemandeTransitController}"/>
+        	</ui:include>	
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">			
+			<ui:decorate template="/template/formTemplate.xhtml"> 
+				<ui:param name="uiController" value="#{faireDemandeTransitController}" />
+				<ui:define name="contenu">	
+					
+					<h:outputText value="Une facture proforma N° XXX a été reçue" /><br/>
+					<h:outputText value=" Veuillez joindre la facture définitive" /><br/>
+					<sigdcp:inputPiece id="pieceUploader" uploader="#{faireDemandeTransitController.pieceJustificativeUploader}"/>
+					
+				</ui:define>
+			</ui:decorate>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

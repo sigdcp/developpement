@@ -9,5 +9,7 @@ public interface DossierMissionDao extends AbstractDossierDao<DossierMission> {
 
 	Collection<DossierMission> readSaisieByPointFocal(Personne personne);
 	
+	
+	
 }
    

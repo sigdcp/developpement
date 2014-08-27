@@ -2,13 +2,13 @@ package ci.gouv.budget.solde.sigdcp.controller.infos;
 
 import java.io.Serializable;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.apache.commons.lang3.StringUtils;
 
 import ci.gouv.budget.solde.sigdcp.controller.WebConstantResources;
-import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
-import lombok.Getter;
-import lombok.Setter;
 
 @Getter @Setter
 public class ServiceProposeDto implements Serializable  {
@@ -26,25 +26,20 @@ public class ServiceProposeDto implements Serializable  {
 		title = natureDeplacement.getLibelle();
 		lirePlusRequestParamName=webConstantResources.getRequestParamNatureDeplacement();
 		lirePlusRequestParamValue = natureDeplacement.getCode();
-		
-		if(Code.CATEGORIE_DEPLACEMENT_DEFINITIF.equals(natureDeplacement.getCategorie().getCode()))
-			outcome = "demande_dd";
-		else if(Code.CATEGORIE_DEPLACEMENT_MISSION.equals(natureDeplacement.getCategorie().getCode()))
-			outcome = "demande_m";
-		else if(Code.CATEGORIE_DEPLACEMENT_OBSEQUE.equals(natureDeplacement.getCategorie().getCode()))
-			outcome = "demande_o";
-		else if(Code.CATEGORIE_DEPLACEMENT_TRANSIT.equals(natureDeplacement.getCategorie().getCode()))
-			outcome = "demande_t";
-		else if(Code.CATEGORIE_DEPLACEMENT_TRANSPORT_URBAIN.equals(natureDeplacement.getCategorie().getCode()))
-			outcome = "demande_dd";
-		
-		if(Code.NATURE_DEPLACEMENT_OBSEQUE_FRAIS.equals(natureDeplacement.getCode())){
-			showDepotDossierButton = Boolean.FALSE;
-			showSouscrireButton=Boolean.FALSE;
-		}else if(Code.NATURE_DEPLACEMENT_TRANSPORT_CARTE_SOTRA.equals(natureDeplacement.getCode())){
-			showDepotDossierButton = Boolean.FALSE;
-			//showSouscrireButton=Boolean.FALSE;
-		}
+		outcome="naturedepinfos";
+	}
+
+	public ServiceProposeDto(String title,String descriptionApercu, String lirePlusRequestParamName, String lirePlusRequestParamValue,
+			String outcome, Boolean showDepotDossierButton,Boolean showSouscrireButton, Boolean showSolliciterButton) {
+		super();
+		this.descriptionApercu = descriptionApercu;
+		this.title = title;
+		this.lirePlusRequestParamName = lirePlusRequestParamName;
+		this.lirePlusRequestParamValue = lirePlusRequestParamValue;
+		this.outcome = outcome;
+		this.showDepotDossierButton = showDepotDossierButton;
+		this.showSouscrireButton = showSouscrireButton;
+		this.showSolliciterButton = showSolliciterButton;
 	}
 	
 	

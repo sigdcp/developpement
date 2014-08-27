@@ -13,6 +13,9 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,6 +26,8 @@ import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 
 @Getter @Setter 
 @Entity @AllArgsConstructor
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Table(name="SOUSCRIPTION")
 public class Souscription  extends AbstractModel<String>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;

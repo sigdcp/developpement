@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{listeMissionACoterController.preRenderView}" type="preRenderView"></f:event>
+    	</f:metadata>
+	</ui:define>
+	
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+		
+			<ui:fragment>
+				<ui:include src="/include/menutabprestation.xhtml" />
+			</ui:fragment>
+	
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{listeMissionACoterController}" />
+				<ui:define name="contenu">	
+					<ui:decorate template="/template/dataList.xhtml">
+						<ui:param name="controller" value="#{listeMissionACoterController}" />
+						<ui:define name="colonnes">
+							<p:column headerText="#{constantResources.text('communication')}" sortBy="#{record.communication.numero}" filterBy="#{record.communication.numero}">
+								<h:outputText value="#{record.mission.communication.numero}" />
+							</p:column>
+							
+							<p:column headerText="#{constantResources.text('designation')}" >
+								<h:outputText value="#{record.mission.designation}" />
+							</p:column>
+							
+							<p:column headerText="#{constantResources.text('destination')}" sortBy="#{record.missionExecutee.deplacement.localiteArrivee}" filterBy="#{record.missionExecutee.deplacement.localiteArrivee}">
+								<h:outputText value="#{record.mission.deplacement.localiteArrivee}" />
+							</p:column>
+						</ui:define>
+					</ui:decorate>	
+				</ui:define>
+				
+			</ui:decorate>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

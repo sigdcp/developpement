@@ -12,15 +12,15 @@ public interface AbstractSouscriptionDao<SOUSCRIPTION extends Souscription> exte
 	 * Retourne la liste des souscriptions par date de validation.
 	 * @return liste des souscriptions
 	 */
-	Collection<SOUSCRIPTION> findByDateValidation(Date date);
+	Collection<SOUSCRIPTION> readByDateValidation(Date date);
 	
 	/**
 	 * Retourne la liste des souscriptions pas encore validées
 	 * @param typePersonneId
 	 * @return
 	 */
-	Collection<SOUSCRIPTION> findByDateValidationIsNullByTypePersonneId(String typePersonneId);
+	Collection<SOUSCRIPTION> readDateValidationIsNullByTypePersonneId(String typePersonneId);
 	
-	Collection<SOUSCRIPTION> findByDateValidationIsNull();
+	Collection<SOUSCRIPTION> readDateValidationIsNull();
 	
 }

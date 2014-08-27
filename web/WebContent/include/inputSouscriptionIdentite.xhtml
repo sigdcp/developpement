@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+
+		<ui:param name="columnCount" value="#{columnCount==null?3:columnCount}" />
+		<ui:param name="required" value="#{souscriptionComptePersonneController.requiredEnabled}" />
+		
+		<style>
+			.c1{
+				font-weight: bold;
+				width: 250px;
+			} 
+			.c2{
+				width: 200px;
+			}
+			.c3{
+				
+			}
+			.nospaces{
+				padding: 0px;
+				margin: 0px;
+				border: 1px solid blue !important;
+			}
+		</style>	
+		
+		<p:fieldset legend="Identification">
+			
+			<p:panelGrid id="panelIdentite" columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2"> 
+		    	
+		    	<p:outputLabel for="matricule" value="Matricule" rendered="#{personneDto.agentEtat}" />
+				
+				<p:inputText id="matricule" value="#{personneDto.infosSouscriptionComptePersonne.matricule}" required="true"  
+					rendered="#{personneDto.editable and personneDto.agentEtat}" validator="#{validationManager.validateMatricule}" autocomplete="#{souscriptionComptePersonneController.autoComplete}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<f:attribute name="typePersonne" value="#{typePersonne}"/>
+					<p:message for="@parent" />
+				</p:inputText>
+				
+				<h:outputText value="#{personneDto.infosSouscriptionComptePersonne.matricule}" rendered="#{not personneDto.editable and personneDto.agentEtat}"/>
+		    	
+				<p:outputLabel for="typePersonne" value="Type d'agent " rendered="#{personneDto.showTypePersonne and personneDto.agentEtat}"/>
+				<h:panelGroup rendered="#{personneDto.showTypePersonne and personneDto.editable and personneDto.agentEtat}">
+					<p:message for="typePersonne" />
+					<p:selectOneMenu id="typePersonne" value="#{personneDto.infosSouscriptionComptePersonne.type}" required="true"  
+						converter="#{objectConverter}"  binding="#{typePersonne}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{typeAgentEtatsFonctionnaire}" var="typeAgentEtat" itemLabel="#{typeAgentEtat.libelle}" />
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:outputText value="#{personneDto.infosSouscriptionComptePersonne.type}" rendered="#{personneDto.showTypePersonne and not personneDto.editable}"/>
+				
+				<h:outputText value="" rendered="#{personneDto.agentEtat and not personneDto.showTypePersonne}" /><h:outputText value="" rendered="#{personneDto.agentEtat and not personneDto.showTypePersonne}" />
+				
+				<p:outputLabel for="nom#{iid}" value="Nom" />
+			 	<p:inputText id="nom#{iid}" required="true" value="#{personneDto.personne.nom}"  rendered="#{personneDto.editable}" autocomplete="#{souscriptionComptePersonneController.autoComplete}">
+			 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+			 		<p:message for="@parent" />
+			 	</p:inputText>
+			 	<h:outputText value="#{personneDto.personne.nom}" rendered="#{not personneDto.editable}"/>
+			 	
+				<p:outputLabel for="prenoms#{iid}" value="Prenoms" />
+				<p:inputText id="prenoms#{iid}" value="#{personneDto.personne.prenoms}" rendered="#{personneDto.editable}" autocomplete="#{souscriptionComptePersonneController.autoComplete}">
+					<p:message for="@parent" />
+				</p:inputText>
+				<h:outputText value="#{personneDto.personne.prenoms}" rendered="#{not personneDto.editable}"/>
+				
+				<p:outputLabel for="datenaissance#{iid}" value="Date Naissance" />
+				<p:calendar id="datenaissance#{iid}" required="true" navigator="true" value="#{personneDto.personne.dateNaissance}"  
+					 pattern="#{constantResources. datePattern}" readonlyInput="false" rendered="#{personneDto.editable}" validator="#{validationManager.validateDateNaissance}">
+					 <p:message for="@parent" />
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+				</p:calendar>
+				<h:outputText value="#{personneDto.personne.dateNaissance}" rendered="#{not personneDto.editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/> </h:outputText>
+				
+				<p:outputLabel for="sexe#{iid}" value="Sexe" rendered="#{sexe==null or sexe}"/>
+				<h:panelGroup>
+					<p:message for="sexe#{iid}" />
+					<p:selectOneRadio id="sexe#{iid}" value="#{personneDto.personne.sexe}" required="true"  rendered="#{personneDto.editable and (sexe==null or sexe)}">
+						<f:selectItems value="#{sexes}"/>
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneRadio>
+					<h:outputText value="#{personneDto.personne.sexe}" rendered="#{not personneDto.editable}"/>
+				</h:panelGroup>  
+				
+				<p:outputLabel for="nationalite#{iid}" value="Nationalité" rendered="#{personneDto.showNationalite}"/>
+				<h:panelGroup rendered="#{personneDto.editable and personneDto.showNationalite}">
+					<p:message for="nationalite#{iid}" />
+					<p:selectOneMenu id="nationalite#{iid}" value="#{personneDto.personne.nationalite}" required="true"  converter="#{objectConverter}" >
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{personneDto.pays}" />
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:outputText value="#{personneDto.personne.nationalite}" rendered="#{personneDto.showNationalite and (not personneDto.editable)}"/>
+												
+				<h:outputText value="" rendered="#{personneDto.showNationalite}"/>
+				<h:outputText value="" rendered="#{personneDto.showNationalite}"/>
+				
+				<p:outputLabel for="natpid#{iid}" value="Nature de la pièce d'identitité" rendered="#{pieceIdentite}"/>
+				<h:panelGroup>
+					<p:message for="natpid#{iid}" />
+					<p:selectOneMenu id="natpid#{iid}" value="#{personneDto.infosSouscriptionComptePersonne.personne.pieceIdentiteType}"  required="true"  
+						rendered="#{personneDto.editable and pieceIdentite}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{pieceIdentiteTypes}"/>
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+						<p:message for="@parent" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:outputText value="#{personneDto.tp}" rendered="#{not personneDto.editable}"/>
+				
+				<p:outputLabel for="numpid#{iid}" value="Numéro de la pièce d'identité" rendered="#{pieceIdentite}"/>
+				<p:inputText id="numpid#{iid}" value="#{personneDto.infosSouscriptionComptePersonne.personne.pieceIdentiteNumero}" required="true"  
+					rendered="#{personneDto.editable and pieceIdentite}" autocomplete="#{souscriptionComptePersonneController.autoComplete}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<p:message for="@parent" />
+				</p:inputText>
+				<h:outputText value="#{personneDto.personne.pieceIdentiteNumero}" rendered="#{not personneDto.editable}"/>
+							
+			</p:panelGrid>
+		
+		</p:fieldset>	
+		<p:spacer height="3" />
+				
+				<ui:include src="/include/contact.xhtml">
+					<ui:param name="demandeur" value="#{personneDto.personne}"/>
+					<ui:param name="compte" value="#{personneDto}"/>
+					<ui:param name="controller" value="#{souscriptionComptePersonneController}"/>
+				</ui:include>
+		
+			
+	</ui:composition>
+</body>
+</html>

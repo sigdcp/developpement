@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="parametrage::#private#personnel#references#responsable#panel.xhtml"
+    NAME="output"
+    PATH="/private/personnel/references/responsable/panel.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#panel.xhtml"
+    TITLE="parametrage" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramgroupedd::#private#personnel#references#responsable#groupedd.xhtml"
+    NAME="output1"
+    PATH="/private/personnel/references/responsable/groupedd.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#groupedd.xhtml"
+    TITLE="paramgroupedd" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramgroupemhci::#private#personnel#references#responsable#groupemhci.xhtml"
+    NAME="output2"
+    PATH="/private/personnel/references/responsable/groupemhci.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#groupemhci.xhtml"
+    TITLE="paramgroupemhci" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramgrade::#private#personnel#references#responsable#grade.xhtml"
+    NAME="output3"
+    PATH="/private/personnel/references/responsable/grade.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#grade.xhtml"
+    TITLE="paramgrade" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramcategorie::#private#personnel#references#responsable#categorie.xhtml"
+    NAME="output4"
+    PATH="/private/personnel/references/responsable/categorie.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#categorie.xhtml"
+    TITLE="paramcategorie" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramcercueil::#private#personnel#references#responsable#cercueil.xhtml"
+    NAME="output5"
+    PATH="/private/personnel/references/responsable/cercueil.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#cercueil.xhtml"
+    TITLE="paramcercueil" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramfonction::#private#personnel#references#responsable#fonction.xhtml"
+    NAME="output6"
+    PATH="/private/personnel/references/responsable/fonction.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#fonction.xhtml"
+    TITLE="paramfonction" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramtypesection::#private#personnel#references#responsable#typesection.xhtml"
+    NAME="output7"
+    PATH="/private/personnel/references/responsable/typesection.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#typesection.xhtml"
+    TITLE="paramtypesection" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramsection::#private#personnel#references#responsable#section.xhtml"
+    NAME="output8"
+    PATH="/private/personnel/references/responsable/section.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#section.xhtml"
+    TITLE="paramsection" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramtypepiecejustificative::#private#personnel#references#responsable#typepiecejustificative.xhtml"
+    NAME="output9"
+    PATH="/private/personnel/references/responsable/typepiecejustificative.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#typepiecejustificative.xhtml"
+    TITLE="paramtypepiecejustificative" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramtypepieceproduite::#private#personnel#references#responsable#typepieceproduite.xhtml"
+    NAME="output10"
+    PATH="/private/personnel/references/responsable/typepieceproduite.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#typepieceproduite.xhtml"
+    TITLE="paramtypepieceproduite" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramrole::#private#personnel#references#responsable#role.xhtml"
+    NAME="output11"
+    PATH="/private/personnel/references/responsable/role.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#role.xhtml"
+    TITLE="paramrole" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramcategoriedeplacement::#private#personnel#references#responsable#categoriedeplacement.xhtml"
+    NAME="output12"
+    PATH="/private/personnel/references/responsable/categoriedeplacement.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#categoriedeplacement.xhtml"
+    TITLE="paramcategoriedeplacement" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramposition::#private#personnel#references#responsable#position.xhtml"
+    NAME="output13"
+    PATH="/private/personnel/references/responsable/position.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#position.xhtml"
+    TITLE="paramposition" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramquestionsecrete::#private#personnel#references#responsable#questionsecrete.xhtml"
+    NAME="output14"
+    PATH="/private/personnel/references/responsable/questionsecrete.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#questionsecrete.xhtml"
+    TITLE="paramquestionsecrete" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramsituationmatrimoniale::#private#personnel#references#responsable#situationmatrimoniale.xhtml"
+    NAME="output15"
+    PATH="/private/personnel/references/responsable/situationmatrimoniale.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#situationmatrimoniale.xhtml"
+    TITLE="paramsituationmatrimoniale" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramstatut::#private#personnel#references#responsable#statut.xhtml"
+    NAME="output16"
+    PATH="/private/personnel/references/responsable/statut.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#statut.xhtml"
+    TITLE="paramstatut" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramtypeClasseVoyage::#private#personnel#references#responsable#typeclassevoyage.xhtml"
+    NAME="output17"
+    PATH="/private/personnel/references/responsable/typeclassevoyage.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#typeclassevoyage.xhtml"
+    TITLE="paramtypeClasseVoyage" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramtypecommande::#private#personnel#references#responsable#typecommande.xhtml"
+    NAME="output18"
+    PATH="/private/personnel/references/responsable/typecommande.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#typecommande.xhtml"
+    TITLE="paramtypecommande" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramtypedepense::#private#personnel#references#responsable#typedepense.xhtml"
+    NAME="output19"
+    PATH="/private/personnel/references/responsable/typedepense.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#typedepense.xhtml"
+    TITLE="paramtypedepense" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramtypegroupe::#private#personnel#references#responsable#typegroupe.xhtml"
+    NAME="output20"
+    PATH="/private/personnel/references/responsable/typegroupe.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#typegroupe.xhtml"
+    TITLE="paramtypegroupe" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramtypelocalite::#private#personnel#references#responsable#typelocalite.xhtml"
+    NAME="output21"
+    PATH="/private/personnel/references/responsable/typelocalite.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#typelocalite.xhtml"
+    TITLE="paramtypelocalite" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramcausedeces::#private#personnel#references#responsable#causedeces.xhtml"
+    NAME="output22"
+    PATH="/private/personnel/references/responsable/causedeces.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#causedeces.xhtml"
+    TITLE="paramcausedeces" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramclassemoyentransport::#private#personnel#references#responsable#classemoyentransport.xhtml"
+    NAME="output23"
+    PATH="/private/personnel/references/responsable/classemoyentransport.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#classemoyentransport.xhtml"
+    TITLE="paramclassemoyentransport" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramdistancelocalite::#private#personnel#references#responsable#distancelocalite.xhtml"
+    NAME="output24"
+    PATH="/private/personnel/references/responsable/distancelocalite.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#distancelocalite.xhtml"
+    TITLE="paramdistancelocalite" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramechelon::#private#personnel#references#responsable#echelon.xhtml"
+    NAME="output25"
+    PATH="/private/personnel/references/responsable/echelon.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#echelon.xhtml"
+    TITLE="paramechelon" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramformuleindemnite::#private#personnel#references#responsable#formuleindemnite.xhtml"
+    NAME="output26"
+    PATH="/private/personnel/references/responsable/formuleindemnite.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#formuleindemnite.xhtml"
+    TITLE="paramformuleindemnite" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramlocalite::#private#personnel#references#responsable#localite.xhtml"
+    NAME="output27"
+    PATH="/private/personnel/references/responsable/localite.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#localite.xhtml"
+    TITLE="paramlocalite" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="parammoyentransport::#private#personnel#references#responsable#moyentransport.xhtml"
+    NAME="output28"
+    PATH="/private/personnel/references/responsable/moyentransport.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#moyentransport.xhtml"
+    TITLE="parammoyentransport" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramprofession::#private#personnel#references#responsable#profession.xhtml"
+    NAME="output29"
+    PATH="/private/personnel/references/responsable/profession.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#profession.xhtml"
+    TITLE="paramprofession" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="paramagentetat::#private#personnel#references#responsable#agentetat.xhtml"
+    NAME="output30"
+    PATH="/private/personnel/references/responsable/agentetat.xhtml"
+    TARGET="rules:#private#personnel#references#responsable#agentetat.xhtml"
+    TITLE="paramagentetat" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#panel.xhtml"
+  PATH="/private/personnel/references/responsable/panel.xhtml"
+  SHAPE="304,1073,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#groupedd.xhtml"
+  PATH="/private/personnel/references/responsable/groupedd.xhtml"
+  SHAPE="304,1073,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#groupemhci.xhtml"
+  PATH="/private/personnel/references/responsable/groupemhci.xhtml"
+  SHAPE="304,1073,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#grade.xhtml"
+  PATH="/private/personnel/references/responsable/grade.xhtml"
+  SHAPE="304,1073,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#categorie.xhtml"
+  PATH="/private/personnel/references/responsable/categorie.xhtml"
+  SHAPE="304,1073,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#cercueil.xhtml"
+  PATH="/private/personnel/references/responsable/cercueil.xhtml"
+  SHAPE="304,1073,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#fonction.xhtml"
+  PATH="/private/personnel/references/responsable/fonction.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#typesection.xhtml"
+  PATH="/private/personnel/references/responsable/typesection.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#section.xhtml"
+  PATH="/private/personnel/references/responsable/section.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#typepiecejustificative.xhtml"
+  PATH="/private/personnel/references/responsable/typepiecejustificative.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#typepieceproduite.xhtml"
+  PATH="/private/personnel/references/responsable/typepieceproduite.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#role.xhtml"
+  PATH="/private/personnel/references/responsable/role.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#categoriedeplacement.xhtml"
+  PATH="/private/personnel/references/responsable/categoriedeplacement.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#position.xhtml"
+  PATH="/private/personnel/references/responsable/position.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#questionsecrete.xhtml"
+  PATH="/private/personnel/references/responsable/questionsecrete.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#situationmatrimoniale.xhtml"
+  PATH="/private/personnel/references/responsable/situationmatrimoniale.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#statut.xhtml"
+  PATH="/private/personnel/references/responsable/statut.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#typeclassevoyage.xhtml"
+  PATH="/private/personnel/references/responsable/typeclassevoyage.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#typecommande.xhtml"
+  PATH="/private/personnel/references/responsable/typecommande.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#typedepense.xhtml"
+  PATH="/private/personnel/references/responsable/typedepense.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#typegroupe.xhtml"
+  PATH="/private/personnel/references/responsable/typegroupe.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#typelocalite.xhtml"
+  PATH="/private/personnel/references/responsable/typelocalite.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#causedeces.xhtml"
+  PATH="/private/personnel/references/responsable/causedeces.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#classemoyentransport.xhtml"
+  PATH="/private/personnel/references/responsable/classemoyentransport.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#distancelocalite.xhtml"
+  PATH="/private/personnel/references/responsable/distancelocalite.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#echelon.xhtml"
+  PATH="/private/personnel/references/responsable/echelon.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#formuleindemnite.xhtml"
+  PATH="/private/personnel/references/responsable/formuleindemnite.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#localite.xhtml"
+  PATH="/private/personnel/references/responsable/localite.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#moyentransport.xhtml"
+  PATH="/private/personnel/references/responsable/moyentransport.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#profession.xhtml"
+  PATH="/private/personnel/references/responsable/profession.xhtml"
+  SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#references#responsable#agentetat.xhtml"
+  PATH="/private/personnel/references/responsable/agentetat.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

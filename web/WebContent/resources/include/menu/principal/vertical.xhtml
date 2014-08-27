@@ -9,43 +9,32 @@
 	<ui:composition>
 		
 		<style>
-			.ui-panelmenu-header a{
-				font-size: 11pt !important;
+			.menuvertical{
+				width: 96% !important;
+				border: none !important;
 			}
-			.ui-panelmenu .ui-menuitem a{
-				font-size: 10pt !important;
-			}
-			.ui-slidemenu-wrapper {
-					   min-height:550px !important;
-					}
-				.ui-slidemenu-content {
-					   min-height: 550px !important;
-					}
 		</style>
 		
-		<h:form rendered="#{not empty request.remoteUser}">
-			
-			<p:panelMenu model="#{menuModel}" backLabel="#{constantResources.text('menu.bouton.back')}" />
-			
-			
-			
-			<!--p:slideMenu  style="width:auto;">
-				<ui:include src="/resources/include/menu/principal/contenu.xhtml"></ui:include>
-			</p:slideMenu-->
 		
-			
-			
-			<!-- <p:menu  style="width:auto;margin:5px 5px 15px 5px;padding:0">
-				<ui:include src="/resources/include/menu/principal/mnu_saisiedemande.xhtml"></ui:include>
-			</p:menu>
-			<p:menu  style="width:auto;margin:5px 5px 15px 5px;padding:0">
-				<ui:include src="/resources/include/menu/principal/mnu_calendrier.xhtml"></ui:include>
-			</p:menu>
-			<p:menu  style="width:auto;margin:5px 5px 15px 5px;padding:0">
-				<ui:include src="/resources/include/menu/principal/mnu_deplacement.xhtml"></ui:include>
-			</p:menu> -->
+		<!--
+		<h:form rendered="#{not empty request.remoteUser}">
+			<p:menu model="#{menuModel}" styleClass="menuvertical" />
 		</h:form>
-
+		-->
+		
+		<h:form id="form2" rendered="#{not empty request.remoteUser}">  
+		    <p:tree value="#{menuModelTree}" var="node" id="tree" highlight="true" >  
+		        <p:ajax event="expand" listener="#{userSessionManager.onNodeExpand}" />  
+        		<p:ajax event="collapse" listener="#{userSessionManager.onNodeCollapse}" />
+		        <p:treeNode id="treeNode" expanded="#{node.expanded}" >
+		        	<table><tr>
+		        		<ui:fragment rendered="#{not empty node.icon}"><td><span class="ui-button-icon-left ui-icon ui-c #{node.icon}"></span></td></ui:fragment> 
+		        		<td><span onclick="#{node.onClick}"><h:outputText value="#{node.label}"/></span></td> 
+		        	</tr> </table>
+		        </p:treeNode>  
+		    </p:tree>  
+		</h:form> 
+		
 	</ui:composition>
 </body>
 </html>

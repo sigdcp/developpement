@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{localiteReferenceController.preRenderView}" type="preRenderView"/>
+    	</f:metadata>
+	</ui:define>	
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/referenceEnumeration.xhtml">
+				<ui:param name="referenceController" value="#{localiteReferenceController}" />
+				<ui:define name="supColumns">	
+					<p:ajax event="rowEdit" listener="#{localiteReferenceController.onRowEdit}" update=":form:messageDialogPanel" />  
+					<p:ajax event="rowEditCancel" listener="#{localiteReferenceController.onRowEditCancel}"  />
+			        
+			        <p:column headerText="Type de localité">
+						<p:cellEditor>
+				        	<f:facet name="output"><h:outputText value="#{record.type}" /></f:facet>
+				            <f:facet name="input">
+				            	<h:panelGroup>
+				            		<p:message for="type" />
+				            		
+				            		
+				            		<p:selectOneMenu id="type" style="width:100px" value="#{record.type}" required="true" label="Type de localité" converter="#{objectConverter}" >
+				            			<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				            			<f:selectItem itemLabel="Choisir..." itemValue="" />
+				            			<f:selectItems value="#{typeLocalites}" var="#{typeLocalite}" />
+				            		</p:selectOneMenu>
+				            	</h:panelGroup>
+				            </f:facet>
+				        </p:cellEditor>
+			        </p:column>
+					
+					<p:column headerText="Localité parente">
+						<p:cellEditor>
+				        	<f:facet name="output"><h:outputText value="#{record.parent}" /></f:facet>
+				            <f:facet name="input">
+				            	<h:panelGroup>
+				            		<p:message for="parent" />
+				            		<p:selectOneMenu id="parent" style="width:120px" value="#{record.parent}" required="true" label="Localité parente" converter="#{objectConverter}" >
+				            			<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+				            			<f:selectItem itemLabel="Choisir..." itemValue="" />
+				            			<f:selectItems value="#{localites}" var="#{localiteParent}" />
+				            		</p:selectOneMenu>
+				            	</h:panelGroup>
+				            </f:facet>
+				        </p:cellEditor>
+			        </p:column>
+			        
+				</ui:define>
+			</ui:decorate>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

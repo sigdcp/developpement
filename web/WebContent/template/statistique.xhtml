@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	
+					<p:fieldset legend="Critère de recherche" rendered="#{controller.showZoneCritere}">
+					<p:panelGrid columns="2" style="width:100%" styleClass="panelGridNoBorder">
+					<h:panelGroup>
+					<p:panelGrid columns="#{controller.pcolCritere}" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop,panelColumnVAlignTop,panelColumnVAlignTop,panelColumnVAlignTop,panelColumnVAlignTop,panelColumnVAlignTop">
+						
+						<p:outputLabel for="operation" value="Opération" rendered="#{controller.showOperationCritere}" />
+						<p:selectOneMenu id="operation" value="#{controller.natureOperaitonSelectionnee}" converter="#{objectConverter}" rendered="#{controller.showOperationCritere}">
+							<f:selectItems value="#{controller.natureOperations}" /> 
+						</p:selectOneMenu>					
+						<p:outputLabel for="statut" value="Staut" rendered="#{controller.showOperationCritere}" />
+						<p:selectOneMenu id="statut" value="#{controller.statutSelectionne}" converter="#{objectConverter}" rendered="#{controller.showOperationCritere}">
+							<f:selectItems value="#{controller.statuts}" />
+						</p:selectOneMenu>	
+						<h:outputText value="" rendered="#{controller.showOperationCritere}"  />
+						 
+						<p:outputLabel for="dateDebut" value="#{constantResources.text('datedebut')}" />
+						<p:calendar id="dateDebut" value="#{controller.dateDebut}"/>				
+						<p:outputLabel for="dateFin" value="#{constantResources.text('datefin')}" />
+						<p:calendar id="dateFin" value="#{controller.dateFin}"/>
+						
+						<ui:insert name="ajoutcritere"/>	
+					</p:panelGrid>
+					
+					</h:panelGroup>	
+						<p:commandButton value="OK" action="#{controller.doSearch}" update="tabview"/>
+								
+					</p:panelGrid>
+					</p:fieldset>		
+					<p:spacer height="5"/>
+					<p:tabView id="tabview">
+						<p:tab title="Tableau">
+							<p:commandButton value="Imprimer le tableau"  icon="ui-icon-print">
+								<p:printer target="datatable" />
+							</p:commandButton>
+							<p:commandButton value="Liste des #{controller.libelleDetailObjet}"  icon="ui-icon-document" action="#{controller.detailAction}" 
+								oncomplete="PF('listelibelleDetailObjetDialog').show();" update="listelibelleDetailObjetDataTable" rendered="#{controller.libelleDetailObjet!=null}">
+							</p:commandButton>
+							
+							<p:dialog widgetVar="listelibelleDetailObjetDialog" header="Liste des #{controller.libelleDetailObjet}" appendTo="@(body)" modal="true" rendered="#{controller.libelleDetailObjet!=null}" >
+								<p:commandButton value="Imprimer le tableau"  icon="ui-icon-print">
+									<p:printer target="listelibelleDetailObjetDataTable" />
+								</p:commandButton>
+								<p:separator/>
+								<p:dataTable id="listelibelleDetailObjetDataTable" var="record" value="#{controller.detailObjets}" >									
+									<ui:insert name="detail"/>
+								</p:dataTable>
+							</p:dialog>
+							
+							<p:separator/>
+							<p:dataTable id="datatable" value="#{controller.list}" var="record" >
+							<f:facet name="header"><h:outputText value="" /> </f:facet>
+								<ui:insert name="tableau"/>	
+							</p:dataTable>				
+						</p:tab>
+						<p:tab title="Graphiques">
+						
+							<ui:insert name="graphique"/>
+							
+						</p:tab>
+					</p:tabView>
+					
+					
+				
+		
+
+</ui:composition>

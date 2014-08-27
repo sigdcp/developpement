@@ -7,22 +7,38 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Embeddable @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Embeddable @Getter @Setter @NoArgsConstructor
 public class Courrier implements Serializable {
 
 	private static final long serialVersionUID = -3015414113393307367L;
 
-	@Column(name="numerocourrier",unique=true)
+	@Column(name="NUMEROCOURRIER")
 	private String numero;
 	
-	@Column(name="datedepot")
+	@Column(name="DATEDEPOT")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
+
+	/**/
+	
+	@Transient private String uiLibelle;
+	
+	/**/
+	
+	public Courrier(String numero, Date date) {
+		super();
+		this.numero = numero;
+		this.date = date;
+	}
+	
+	
+	
+	
 	
 }

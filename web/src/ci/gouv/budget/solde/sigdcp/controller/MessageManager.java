@@ -27,6 +27,8 @@ public class MessageManager implements Serializable {
 		message = StringUtils.replace(message, "\n", "<br/>");
 		//message = StringEscapeUtils.escapeHtml4(message);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity,message, message));
+		if(FacesMessage.SEVERITY_ERROR.equals(severity))
+			FacesContext.getCurrentInstance().validationFailed();
 	}
 	
 	public void add(Severity severity,String messageId){
@@ -41,8 +43,8 @@ public class MessageManager implements Serializable {
 		addError(text, Boolean.TRUE);
 	}
 	
-	public void addError(Exception exception){
-		add(FacesMessage.SEVERITY_ERROR, StringUtils.isEmpty(exception.getMessage())?exception.toString():exception.getMessage() ,Boolean.FALSE);
+	public void addError(Throwable throwable){
+		add(FacesMessage.SEVERITY_ERROR, StringUtils.isEmpty(throwable.getMessage())?throwable.toString():throwable.getMessage() ,Boolean.FALSE);
 	}
 	
 	public void addInfo(String text,Boolean isMessageId){

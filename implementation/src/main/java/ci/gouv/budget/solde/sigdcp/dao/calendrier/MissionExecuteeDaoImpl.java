@@ -1,6 +1,8 @@
 package ci.gouv.budget.solde.sigdcp.dao.calendrier;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collection;
 
 import javax.persistence.NoResultException;
 
@@ -17,12 +19,11 @@ public class MissionExecuteeDaoImpl extends JpaDaoImpl<MissionExecutee, Long> im
 	@Override
 	public MissionExecutee readSaisieByPersonne(Personne personne) {
 		try{
-			return entityManager.createQuery("SELECT mission FROM MissionExecutee mission WHERE EXISTS "
-					+ "( SELECT dm FROM DossierMission dm WHERE dm.dernierTraitement.statut.code = :statutId "
-					+ " AND dm.dernierTraitement.motif IS NULL AND dm.deplacement = mission.deplacement AND dm.dernierTraitement.operation.creePar = :personne)"
+			return entityManager.createQuery("SELECT mission FROM MissionExecutee mission WHERE mission.organisateur = :organisateur AND EXISTS "
+					+ "( SELECT dm FROM DossierMission dm WHERE dm.traitable.dernierTraitement.operation.nature.code IN :noCode AND dm.deplacement = mission.deplacement)"
 					, clazz)
-					.setParameter("personne", personne)
-					.setParameter("statutId", Code.STATUT_SAISIE)
+					.setParameter("organisateur", personne)
+					.setParameter("noCode", Arrays.asList(Code.NATURE_OPERATION_SAISIE,Code.NATURE_OPERATION_TRANSMISSION_SAISIE_A_BENEFICIAIRE,Code.NATURE_OPERATION_TRANSMISSION_SAISIE_A_ORGANISATEUR))
 					.getSingleResult();
 		}catch(NoResultException e){
 			return null;
@@ -41,6 +42,26 @@ public class MissionExecuteeDaoImpl extends JpaDaoImpl<MissionExecutee, Long> im
 			return null;
 		}
 		
+	}
+	
+	@Override
+	public Collection<MissionExecutee> readByPersonne(Personne personne) {
+		return entityManager.createQuery("SELECT me FROM MissionExecutee me"
+				+ " WHERE EXISTS ( SELECT td FROM TraitementDossier td WHERE td.dossier.deplacement = me.deplacement AND td.operation.effectuePar = :personne ) "
+				, clazz)
+				.setParameter("personne", personne)
+				.getResultList();
+	}
+
+	@Override
+	public Collection<MissionExecutee> readACoter() {
+		return entityManager.createQuery("SELECT me FROM MissionExecutee me"
+				+ " WHERE NOT EXISTS( SELECT dcm FROM DemandeCotationMission dcm WHERE dcm.mission=me) AND "
+				+ "	EXISTS ( SELECT td FROM TraitementDossier td WHERE td.dossier.deplacement = me.deplacement AND td.operation.nature.code = :natureOperationCode AND td.statut.code = :statutId ) "
+				, clazz)
+				.setParameter("natureOperationCode", Code.NATURE_OPERATION_CONFORMITE)
+				.setParameter("statutId",  Code.STATUT_ACCEPTE)
+				.getResultList();
 	}
 
 }

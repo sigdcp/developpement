@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bondetransport" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e7d662a-4f1e-4985-b8df-e22a5266b8d6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="101"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="dateordreservice" class="java.lang.String">
+		<fieldDescription><![CDATA[dateordreservice]]></fieldDescription>
+	</field>
+	<field name="datecertification" class="java.lang.String">
+		<fieldDescription><![CDATA[datecertification]]></fieldDescription>
+	</field>
+	<field name="ordreservice" class="java.lang.String">
+		<fieldDescription><![CDATA[ordreservice]]></fieldDescription>
+	</field>
+	<field name="numeroordreservice" class="java.lang.String">
+		<fieldDescription><![CDATA[numeroordreservice]]></fieldDescription>
+	</field>
+	<field name="codeservice" class="java.lang.String">
+		<fieldDescription><![CDATA[codeservice]]></fieldDescription>
+	</field>
+	<field name="paragrapheimputation" class="java.lang.String">
+		<fieldDescription><![CDATA[paragrapheimputation]]></fieldDescription>
+	</field>
+	<field name="lieusignature" class="java.lang.String">
+		<fieldDescription><![CDATA[lieusignature]]></fieldDescription>
+	</field>
+	<field name="chapitreimputation" class="java.lang.String">
+		<fieldDescription><![CDATA[chapitreimputation]]></fieldDescription>
+	</field>
+	<field name="montant" class="java.lang.String">
+		<fieldDescription><![CDATA[montant]]></fieldDescription>
+	</field>
+	<field name="ordonateurservice" class="java.lang.String">
+		<fieldDescription><![CDATA[ordonateurservice]]></fieldDescription>
+	</field>
+	<field name="dateremistransporteur" class="java.lang.String">
+		<fieldDescription><![CDATA[dateremistransporteur]]></fieldDescription>
+	</field>
+	<field name="engagementanterieur" class="java.lang.String">
+		<fieldDescription><![CDATA[engagementanterieur]]></fieldDescription>
+	</field>
+	<field name="lieucertification" class="java.lang.String">
+		<fieldDescription><![CDATA[lieucertification]]></fieldDescription>
+	</field>
+	<field name="datesignature" class="java.lang.String">
+		<fieldDescription><![CDATA[datesignature]]></fieldDescription>
+	</field>
+	<field name="autorisationengagement" class="java.lang.String">
+		<fieldDescription><![CDATA[autorisationengagement]]></fieldDescription>
+	</field>
+	<field name="recepteurservice" class="java.lang.String">
+		<fieldDescription><![CDATA[recepteurservice]]></fieldDescription>
+	</field>
+	<field name="annulationanterieur" class="java.lang.String">
+		<fieldDescription><![CDATA[annulationanterieur]]></fieldDescription>
+	</field>
+	<field name="transporteur" class="java.lang.String">
+		<fieldDescription><![CDATA[transporteur]]></fieldDescription>
+	</field>
+	<field name="imputationbudgetaire" class="java.lang.String">
+		<fieldDescription><![CDATA[imputationbudgetaire]]></fieldDescription>
+	</field>
+	<field name="deplacement" class="ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement">
+		<fieldDescription><![CDATA[deplacement]]></fieldDescription>
+	</field>
+	<field name="daterecepteurservice" class="java.lang.String">
+		<fieldDescription><![CDATA[daterecepteurservice]]></fieldDescription>
+	</field>
+	<field name="piece" class="ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative">
+		<fieldDescription><![CDATA[piece]]></fieldDescription>
+	</field>
+	<field name="statutdoc" class="java.lang.String">
+		<fieldDescription><![CDATA[statutdoc]]></fieldDescription>
+	</field>
+	<field name="libdoc" class="java.lang.String">
+		<fieldDescription><![CDATA[libdoc]]></fieldDescription>
+	</field>
+	<field name="restedisponible" class="java.lang.String">
+		<fieldDescription><![CDATA[restedisponible]]></fieldDescription>
+	</field>
+	<field name="proposantservice" class="java.lang.String">
+		<fieldDescription><![CDATA[proposantservice]]></fieldDescription>
+	</field>
+	<field name="date" class="java.lang.String">
+		<fieldDescription><![CDATA[date]]></fieldDescription>
+	</field>
+	<field name="materieltransporte" class="java.lang.String">
+		<fieldDescription><![CDATA[materieltransporte]]></fieldDescription>
+	</field>
+	<field name="certificateur" class="java.lang.String">
+		<fieldDescription><![CDATA[certificateur]]></fieldDescription>
+	</field>
+	<field name="articleimputation" class="java.lang.String">
+		<fieldDescription><![CDATA[articleimputation]]></fieldDescription>
+	</field>
+	<field name="dossier" class="ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD">
+		<fieldDescription><![CDATA[dossier]]></fieldDescription>
+	</field>
+	<field name="beneficiaire" class="ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat">
+		<fieldDescription><![CDATA[beneficiaire]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="82" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="58" width="137" height="16" uuid="05be405a-9989-485a-a443-de44c08e3b17"/>
+				<text><![CDATA[DIRECTION DE LA SOLDE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="43" width="100" height="15" uuid="b8e3437a-4ce2-49fc-ba74-1bc71a5a8563"/>
+				<text><![CDATA[ET DES FINANCES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="16" width="112" height="19" uuid="847ab1f1-3488-43cf-b0cc-bc16aaef9e9a"/>
+				<text><![CDATA[CHARGE DU BUDGET]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="30" width="191" height="13" uuid="66f986b1-1c3a-4110-85f1-163f79ad035f"/>
+				<text><![CDATA[DIRECTION GENERALE DU BUDGET]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="2" width="232" height="16" uuid="46236ef6-ae54-451c-8059-0a3f0b07d6a0"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MINISTERE AUPRES DU PREMIER MINISTRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="656" y="17" width="132" height="17" uuid="21de8e9c-cabf-447f-a737-b43e20a6097e"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Union - Discipline - Travail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="637" y="3" width="169" height="13" uuid="fc43f49e-ee82-45e5-92c3-15dfdd8ad8a6"/>
+				<text><![CDATA[REPUBLIQUE DE CÔTE D'IVOIRE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="713" y="58" width="86" height="20" uuid="790e54ec-d6f2-4e40-9f5c-562a3dbf6efd"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{piece}.getNumero()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="313" y="58" width="173" height="22" uuid="be2a2cb1-b5d8-4917-a5c4-8222bc22be1c"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{libdoc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="694" y="58" width="16" height="20" uuid="6cfeba14-19bc-49c1-8603-4f763b73ed61"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N°]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="452" splitType="Stretch">
+			<line>
+				<reportElement x="524" y="1" width="1" height="451" uuid="8265789d-81f1-4439-ba01-1a40d299d1ca"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="802" height="1" uuid="3049e27e-5619-4520-9e2d-8eb4abe73df0"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="3" width="48" height="13" uuid="e9c69a1f-c978-46a6-bd36-ac303d0c876b"/>
+				<text><![CDATA[Sur ordre]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="46" y="3" width="121" height="14" uuid="3c6d5a05-6f92-41f4-ba33-e569dc40c80a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ordreservice}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="169" y="3" width="18" height="13" uuid="d22af5d2-e2c5-474a-81a4-4b52541074f3"/>
+				<text><![CDATA[N°]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="187" y="3" width="124" height="14" uuid="1df8e71f-e1e8-49ca-9d4a-48f7a7cbb81e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroordreservice}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="311" y="3" width="18" height="13" uuid="0c8d0bfa-cf4b-4868-bdf9-8484e469531e"/>
+				<text><![CDATA[du]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="328" y="3" width="107" height="14" uuid="e53f8915-a962-45e0-aca5-c4d9b367a880"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dateordreservice}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="22" width="28" height="13" uuid="85411d29-9b24-46e5-bc88-8e3f1725bfdb"/>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="22" width="281" height="14" uuid="0a068245-4496-4ca4-89ca-88afee824fd5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ordonateurservice}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="22" width="87" height="15" uuid="cacddb22-1103-4ebe-abae-7470bfa6c701"/>
+				<text><![CDATA[il sera transporté :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="43" width="79" height="14" uuid="037992eb-13cb-4af7-8677-c25bea24f1fe"/>
+				<text><![CDATA[Date de depart :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="43" width="100" height="14" uuid="b14fa7f6-f0e2-484e-8c90-4af76e7f5073"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deplacement}.getDateDepart()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="73" width="14" height="15" uuid="32c420e1-1c81-47ca-9cd7-6436285b0afb"/>
+				<text><![CDATA[M.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="16" y="73" width="256" height="15" uuid="991bdd95-c60b-4cd0-9b3a-774fd6831f33"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{beneficiaire}.getNomPrenoms()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="93" width="41" height="14" uuid="166eb72b-791e-4016-b8b6-35ecdceb728f"/>
+				<text><![CDATA[Qualité]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="42" y="93" width="230" height="14" uuid="9e860aef-dec9-4a8c-9f62-98b24ed3d9a6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{beneficiaire}.getFonction()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="113" width="46" height="14" uuid="5e6146e0-5aed-43b7-ad2f-50faeca9ac89"/>
+				<text><![CDATA[Catégorie]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="48" y="113" width="224" height="14" uuid="c86e8b7d-d40d-47a4-a9fd-7f1963914514"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{beneficiaire}.getGrade()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="134" width="43" height="14" uuid="c63d2ba3-1c6f-4d6c-993a-25a0394136a7"/>
+				<text><![CDATA[Motif du déplacement]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="43" y="134" width="229" height="14" uuid="accc3633-0913-42e0-9e9c-3b027bba19d5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deplacement}.getNature()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="204" width="135" height="14" uuid="7a4d5908-7fd6-4b63-9701-a65d623d73b3"/>
+				<text><![CDATA[Bagages non accompagnés]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="137" y="204" width="97" height="14" uuid="d3b95ffe-7222-4df4-b26d-fb46947ede1d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dossier}.getPoidsBagageConstate()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="247" width="52" height="15" uuid="43ea52df-7513-4fc8-ad4d-f88adefb4be0"/>
+				<text><![CDATA[Trajet : de]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="54" y="247" width="169" height="15" uuid="2c5c0462-da0f-4d81-97a4-283585d2ff5c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deplacement}.getLocaliteDepart()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="223" y="247" width="12" height="15" uuid="224d8020-519f-45a3-894a-4df44b8094b3"/>
+				<text><![CDATA[à]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="234" y="247" width="201" height="15" uuid="5222c5d0-1eec-4e48-82ff-9074dd7531bb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deplacement}.getLocaliteArrivee()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="292" y="73" width="94" height="15" uuid="c3090b63-9ef4-417f-a2a1-8a188977922b"/>
+				<text><![CDATA[Matériel transporté]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="292" y="93" width="220" height="15" uuid="98379a1c-6118-422d-a48f-c2cd5b7a3e78"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{materieltransporte}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="437" width="118" height="15" uuid="aa2d329c-5cc0-463c-af5f-d6a85ebd2af8"/>
+				<text><![CDATA[Remis au transporteur le]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="437" width="141" height="15" uuid="e671aa86-9f13-4fd4-baa6-3723e2771de2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dateremistransporteur}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="132" y="274" width="210" height="16" uuid="b315f6cf-72e1-476d-935f-745b63c0411a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[MONTANT EXACT DE LA DEPENSE :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="348" y="274" width="118" height="16" uuid="144a0736-bf21-42ed-8943-22516422c798"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="302" width="62" height="14" uuid="ed10446f-0bad-45fd-a818-4f2d4f347059"/>
+				<text><![CDATA[Transporteur]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="66" y="302" width="169" height="14" uuid="bcb1fdc5-7de6-4d39-a9af-d868abdfba10"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transporteur}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="322" width="64" height="15" uuid="baef74b8-17e6-40fd-8945-b7f12256b23b"/>
+				<text><![CDATA[Proposé par]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="66" y="322" width="168" height="15" uuid="63e990c5-e926-4e48-a726-1b9f66b4b08b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proposantservice}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="342" width="15" height="15" uuid="ff6e5a2d-9a47-473a-be0d-c08707bbab7e"/>
+				<text><![CDATA[A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="342" width="17" height="15" uuid="470ed71b-e3b8-48df-af17-fd291e5412c9"/>
+				<text><![CDATA[Le]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="137" y="342" width="135" height="15" uuid="68d8b47f-1447-43bf-aebb-e663f0781275"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deplacement}.getDateArrivee()]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="343" y="271" width="124" height="23" uuid="bcafca34-d86e-4be5-85fc-b85f1b9a79ef"/>
+				<graphicElement>
+					<pen lineWidth="1.75"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="588" y="5" width="179" height="13" uuid="b31fc1c4-5d93-4bdd-9694-1efb27540aff"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SITUATION DES ENGAGEMENTS :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="529" y="24" width="42" height="14" uuid="2e925135-d234-4910-bb58-7ea9444d9627"/>
+				<text><![CDATA[Budget : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="571" y="24" width="207" height="14" uuid="ec7e02d3-c520-4f59-b341-0b9f84b2805d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{imputationbudgetaire}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="529" y="43" width="70" height="14" uuid="8d01e3a1-c699-494c-ba35-c4425103a084"/>
+				<text><![CDATA[Code service]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="601" y="43" width="177" height="14" uuid="ed5562cc-bbdf-4ba0-b312-71c108683cf5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codeservice}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="571" y="63" width="28" height="16" uuid="e535b2dc-c479-4f50-a65d-72d2c6a33060"/>
+				<text><![CDATA[date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="601" y="63" width="177" height="16" uuid="c76d9d8a-bd21-410e-8ebf-989b11fe28dc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="529" y="91" width="55" height="14" uuid="63b7e865-b5be-4732-b707-dd0e7f1f0773"/>
+				<text><![CDATA[Imputation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="593" y="109" width="45" height="14" uuid="b9b91901-25b8-43c2-8d09-7285ac2aeb10"/>
+				<text><![CDATA[Chapitre]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="591" y="91" width="113" height="14" uuid="b7448a8d-0f29-4688-b508-96594c9bbdd0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{chapitreimputation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="653" y="109" width="37" height="14" uuid="194348f2-8356-47e0-abf6-17cea378acf6"/>
+				<text><![CDATA[Article]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="652" y="91" width="108" height="14" uuid="4e082bc2-5ceb-4f7b-9964-4318983ee0d9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{articleimputation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="720" y="109" width="66" height="14" uuid="dcd08296-b9be-4afb-a2ec-f23f7417a19c"/>
+				<text><![CDATA[Alinéa]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="719" y="91" width="131" height="14" uuid="57a47688-0671-4a2b-a501-4f0f30211776"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{paragrapheimputation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="527" y="359" width="119" height="15" uuid="60e0faa1-deb5-41e6-ac9f-e4eeca797999"/>
+				<text><![CDATA[Certifié le service fait de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="539" y="378" width="107" height="15" uuid="285bc511-fecf-4c8c-aa68-5e51838b7290"/>
+				<text><![CDATA[la facture ci-contre et]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="528" y="398" width="53" height="13" uuid="7f607546-e3b5-4cb5-b4d8-efb726120e78"/>
+				<text><![CDATA[liquidé à]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="584" y="398" width="114" height="13" uuid="98f1fbbd-5854-427d-ba5e-6eb657708320"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deplacement}.getLocaliteArrivee()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="528" y="416" width="17" height="15" uuid="c70b286c-426d-4fb4-954f-383aefe847a0"/>
+				<text><![CDATA[Le]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="549" y="416" width="149" height="15" uuid="a70f3260-f349-4a2b-a6ce-24fcbc9bbe35"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datecertification}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="528" y="436" width="26" height="14" uuid="964ee038-e298-42b9-b498-a1a556a7e1fd"/>
+				<text><![CDATA[Par]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="554" y="436" width="144" height="14" uuid="e5dfa9ce-d427-4163-a0f9-5bdce5c5b2a7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{certificateur}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="230" width="65" height="13" uuid="64817bd8-4225-427a-9f94-19774bb0994e"/>
+				<text><![CDATA[Voir bon n°]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="230" width="100" height="13" uuid="2009c491-56d6-4aab-9d7b-3f0b5e7c568f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{piece}.getNumero()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="283" y="73" width="1" height="170" uuid="6ff454bc-a6c2-405a-a5a5-bba5dae93bc2"/>
+			</line>
+			<textField>
+				<reportElement x="20" y="342" width="100" height="15" uuid="f4542984-79ab-43d5-82cb-8f4fba83256d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deplacement}.getLocaliteArrivee()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="702" y="0" width="100" height="20" uuid="d3977c28-df89-4ff2-8705-28c6b77a1924"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

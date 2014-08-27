@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{souscriptionContractuelController.crudType}" converter="#{viewParamEnumConverter}" />
+			<!-- <f:viewParam id="entityId" name="#{webConstantResources.requestParamSouscription}" value="#{souscriptionContractuelController.entity}" converter="#{viewParamInscriptionConverter}" /> -->
+        	<f:event type="preRenderView" listener="#{souscriptionContractuelController.preRenderView}" />    	
+    	</f:metadata>
+	</ui:define>
+
+	<ui:composition template="/template/public.xhtml">
+
+		<ui:define name="contenu">
+			
+			<ui:include src="/include/inscriptionPersonneForm.xhtml">
+				<ui:param name="souscriptionComptePersonneController" value="#{souscriptionContractuelController}" />
+			</ui:include>
+		
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

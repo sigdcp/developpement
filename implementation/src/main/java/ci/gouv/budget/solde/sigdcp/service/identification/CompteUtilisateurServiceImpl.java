@@ -2,24 +2,28 @@ package ci.gouv.budget.solde.sigdcp.service.identification;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.ServletRequest;
-import javax.transaction.Transactional;
-import javax.transaction.Transactional.TxType;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
 import ci.gouv.budget.solde.sigdcp.dao.identification.AgentEtatDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.CompteUtilisateurDao;
+import ci.gouv.budget.solde.sigdcp.dao.identification.DelegueSotraDao;
+import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.communication.NotificationMessageType;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
 import ci.gouv.budget.solde.sigdcp.model.identification.Credentials;
+import ci.gouv.budget.solde.sigdcp.model.identification.DelegueSotra;
+import ci.gouv.budget.solde.sigdcp.model.identification.Party;
 import ci.gouv.budget.solde.sigdcp.model.identification.ReponseSecrete;
+import ci.gouv.budget.solde.sigdcp.model.identification.Role;
 import ci.gouv.budget.solde.sigdcp.model.identification.Verrou;
 import ci.gouv.budget.solde.sigdcp.model.identification.Verrou.Cause;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
@@ -35,6 +39,7 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 	
 	@Inject private AuthentificationInfos infos;
 	@Inject private AgentEtatDao agentEtatDao;
+	@Inject private DelegueSotraDao delegueSotraDao;
 	
 	@Inject
 	public CompteUtilisateurServiceImpl(CompteUtilisateurDao dao) {
@@ -74,7 +79,7 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 		}
 		
 		infos.setTimestampDebut(System.currentTimeMillis());
-		
+		authentificationInfos.setCompteUtilisateur(compteUtilisateur);
 		return compteUtilisateur;
 	}
 	
@@ -82,8 +87,8 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 	public void deconnecter(CompteUtilisateur compteUtilisateur) throws ServiceException {
 		if(compteUtilisateur==null || infos.getTimestampDebut()==null)
 			return;
-		notifier(NotificationMessageType.AVIS_COMPTE_UTILISATEUR_ETAT_SESSION,new Object[]{"nomPrenomsAgentEtat",compteUtilisateur.getUtilisateur().getNom(),
-				"dateHeureConnexion",formatDate(new Date(infos.getTimestampDebut())),"dateHeureDeconnexion",formatDate(new Date()),"adresseIP","000.000.000.000","adresseGeographique","A déterminer"}, compteUtilisateur);
+		//notifier(NotificationMessageType.AVIS_COMPTE_UTILISATEUR_ETAT_SESSION,new Object[]{"nomPrenomsAgentEtat",compteUtilisateur.getUtilisateur().getNom(),
+		//		"dateHeureConnexion",formatDate(new Date(infos.getTimestampDebut())),"dateHeureDeconnexion",formatDate(new Date()),"adresseIP","000.000.000.000","adresseGeographique","A déterminer"}, compteUtilisateur);
 		infos.clear();
 	}
 	
@@ -107,6 +112,11 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 					new Object[]{"nomPrenomsAgentEtat",compteUtilisateur.getUtilisateur().getNom(),"codeDeverouillage",compteUtilisateur.getVerrou().getJeton(),
 					"lienDeverouillage",lienDeverouillage(compteUtilisateur)},compteUtilisateur);
 			break;
+			
+		case DESACTIVATION_COMPTE:
+			notifier(NotificationMessageType.AVIS_COMPTE_UTILISATEUR_VERROUILLE_REINITIALISATION_PASSWORD,
+					new Object[]{"nomPrenomsAgentEtat",compteUtilisateur.getUtilisateur().getNom()},compteUtilisateur);
+			break;
 		}
 	}
 	
@@ -124,7 +134,7 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 		}
 		return null;
 	}
-		
+	
 	@Override
 	public void deverouiller(Verrou verrou,Credentials credentials) throws ServiceException {
 		CompteUtilisateur compteUtilisateur = ((CompteUtilisateurDao)dao).readByUsername(credentials.getUsername());
@@ -161,6 +171,7 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 		dao.update(compteUtilisateur);
 	}
 	
+	
 	@Override
 	public Collection<ReponseSecrete> recupererPasswordEtape1(AgentEtat agentEtat) throws ServiceException {
 		// Est ce que la saisie est cohérente
@@ -187,7 +198,6 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 		return reponseSecretes;		
 	}
 	
-
 	@Override
 	public void recupererPasswordEtape2(AgentEtat agentEtat,Collection<ReponseSecrete> reponseSecretes) throws ServiceException {
 		CompteUtilisateur compteUtilisateur = ((CompteUtilisateurDao)dao).readByMatricule(agentEtat.getMatricule());
@@ -203,16 +213,65 @@ public class CompteUtilisateurServiceImpl extends DefaultServiceImpl<CompteUtili
 		verouiller(compteUtilisateur,Cause.REINITIALISATION_PASSWORD);
 	}
 	
-	@Override
+	@Override 
 	public void deverouillable(Verrou verrou) throws ServiceException {
 		CompteUtilisateur compteUtilisateur = ((CompteUtilisateurDao)dao).readByCodeVerrouByCauseVerrou(verrou.getCode(), verrou.getCause());
 		if(compteUtilisateur==null)
 			serviceException(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_CODE_DEVEROUILLAGE_INCONNU);
 	}
 	
-	@Override @Transactional(value=TxType.NEVER)
+	@Override
+	public void modifierRoles(CompteUtilisateur compteUtilisateur,Collection<Role> nouveauxRoles,DelegueSotra delegueSotra) throws ServiceException {
+		//suppression de roles
+		Collection<Role> suppression = new HashSet<>();
+		for(Role role : compteUtilisateur.getRoles())
+			if(!nouveauxRoles.contains(role))
+				suppression.add(role);
+		for(Role role : suppression){
+			compteUtilisateur.getRoles().remove(role);
+			switch(role.getCode()){
+			
+			default:break;
+			}
+		}
+		
+		//ajout de roles
+		Collection<Role> ajout = new HashSet<>();
+		for(Role role : nouveauxRoles)
+			if(!compteUtilisateur.getRoles().contains(role))
+				ajout.add(role);
+		
+		for(Role role : ajout){
+			compteUtilisateur.getRoles().add(role);
+			switch(role.getCode()){
+			case Code.ROLE_DELEGUE_SOTRA:
+				if(compteUtilisateur.getUtilisateur() instanceof AgentEtat){
+					if(delegueSotraDao.readByAgentEtat((AgentEtat) compteUtilisateur.getUtilisateur())==null)
+						delegueSotraDao.create(delegueSotra);
+					delegueSotraDao.update(delegueSotra);
+				}
+				break;
+			default:break;
+			}
+		}
+		
+		if(!suppression.isEmpty() || !ajout.isEmpty())
+			((CompteUtilisateurDao)dao).update(compteUtilisateur);
+	}
+	
+	@Override
 	public CompteUtilisateur findByCredentials(Credentials credentials) {
 		return ((CompteUtilisateurDao)dao).readByCredentials(credentials);
+	}
+
+	@Override
+	public Collection<CompteUtilisateur> findByTypeByRole(Class<? extends Party> aClass,Role role) {
+		return ((CompteUtilisateurDao)dao).readByTypeByRole(aClass, role);
+	}
+	
+	@Override
+	public CompteUtilisateur findByParty(Party party) {
+		return ((CompteUtilisateurDao)dao).readByParty(party);
 	}
 	
 }

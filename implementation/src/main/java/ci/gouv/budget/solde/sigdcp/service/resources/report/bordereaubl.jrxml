@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bordereaubl" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1604e21b-a68e-4e94-88a2-f7a5b9407334">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="tableaulistbl" uuid="188ab8bb-1479-482e-8d8a-84afe169ed88">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="beneficiaire" class="ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat">
+			<fieldDescription><![CDATA[beneficiaire]]></fieldDescription>
+		</field>
+		<field name="bulletin" class="ci.gouv.budget.solde.sigdcp.model.dossier.BulletinLiquidation">
+			<fieldDescription><![CDATA[bulletin]]></fieldDescription>
+		</field>
+		<field name="dossier" class="ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD">
+			<fieldDescription><![CDATA[dossier]]></fieldDescription>
+		</field>
+	</subDataset>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="bordereau" class="ci.gouv.budget.solde.sigdcp.model.dossier.BordereauTransmission">
+		<fieldDescription><![CDATA[bordereau]]></fieldDescription>
+	</field>
+	<field name="details" class="java.util.List">
+		<fieldDescription><![CDATA[details]]></fieldDescription>
+	</field>
+	<filterExpression><![CDATA[$F{details}]]></filterExpression>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement x="34" y="59" width="137" height="16" uuid="acab8342-f763-467d-8179-2c29393ab972"/>
+				<text><![CDATA[DIRECTION DE LA SOLDE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="394" y="0" width="169" height="13" uuid="42439bde-2983-4c09-b8cb-191bd8799a3f"/>
+				<text><![CDATA[REPUBLIQUE DE CÔTE D'IVOIRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="89" width="150" height="20" uuid="ddc86d3b-a2d5-4ce9-af55-c8e34c51ab4e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMMUNES DE PERSONNEL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="75" width="185" height="20" uuid="de0ae9fe-fca8-4927-8f1c-2984dfac46b3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOUS-DIRECTION DES DEPENSES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="30" width="191" height="13" uuid="39959bc3-c2d6-4fe7-9c6f-63da1d627e51"/>
+				<text><![CDATA[DIRECTION GENERALE DU BUDGET]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="413" y="14" width="132" height="17" uuid="5508f00f-bd71-4f57-a00e-5fb560737b0c"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Union - Discipline - Travail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="43" width="100" height="15" uuid="37ee140e-6475-46f3-8f79-c057323e92ab"/>
+				<text><![CDATA[ET DES FINANCES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1" width="232" height="16" uuid="0dc49ba4-a34c-4d7b-b05b-af07e568b507"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MINISTERE AUPRES DU PREMIER MINISTRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="15" width="112" height="19" uuid="d51d799f-e1eb-4592-8242-e181e0677952"/>
+				<text><![CDATA[CHARGE DU BUDGET]]></text>
+			</staticText>
+			<line>
+				<reportElement x="43" y="57" width="100" height="1" uuid="834ca374-7016-42b3-92e2-a5961d6cfde3"/>
+				<graphicElement>
+					<pen lineWidth="1.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="45" y="73" width="100" height="1" uuid="ffc70b59-4cd0-4ee5-b497-3cc32dc75917"/>
+				<graphicElement>
+					<pen lineWidth="1.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="44" y="30" width="100" height="1" uuid="7593dfaa-267f-4bf4-804f-ab0844e26d30"/>
+				<graphicElement>
+					<pen lineWidth="1.25"/>
+				</graphicElement>
+			</line>
+			<rectangle>
+				<reportElement mode="Transparent" x="368" y="43" width="177" height="66" uuid="fda28af0-a887-455b-bad2-4096614d3351"/>
+				<graphicElement>
+					<pen lineWidth="1.25" lineStyle="Double"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="378" y="52" width="152" height="16" uuid="6318d430-cc6b-4fd2-947d-a4f74f4c70c9"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BORDEREAU RECAPITULATIF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="66" width="152" height="15" uuid="a6138eac-620c-44df-823f-134bf0f36ae8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[POUR ENVOI DES BULLETINS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="80" width="152" height="14" uuid="5ce0c1d0-8e1f-4873-95b6-2dd8a93b5ebc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DE LIQUIDATION AU TRESOR]]></text>
+			</staticText>
+			<line>
+				<reportElement x="48" y="108" width="100" height="1" uuid="5815ad1b-bb71-4982-800e-95496e4f5643"/>
+				<graphicElement>
+					<pen lineWidth="1.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="118" width="19" height="13" uuid="44d9df26-140c-4c70-993a-ff6c819ee8f5"/>
+				<text><![CDATA[N°]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="118" width="127" height="13" uuid="f0bfbf07-2264-45aa-89f7-3681b3031360"/>
+				<text><![CDATA[/MPMB/DGBF/DS/SDDCP]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="645" splitType="Stretch"/>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="447" y="0" width="36" height="13" uuid="ce8889f7-453a-4c8d-a344-0be2371a52e1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Edité le]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="476" y="0" width="100" height="13" uuid="3b1d5e55-e46d-4ff9-86d4-fc746274011d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

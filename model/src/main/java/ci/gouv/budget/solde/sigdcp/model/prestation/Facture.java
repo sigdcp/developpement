@@ -8,39 +8,42 @@
 
 package ci.gouv.budget.solde.sigdcp.model.prestation;
 
-import java.util.Date;
-
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
+import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Document;
+import ci.gouv.budget.solde.sigdcp.model.traitement.Traitable;
+import ci.gouv.budget.solde.sigdcp.model.traitement.TraitementFacture;
 
 @Getter @Setter 
-@Entity
-public class Facture  extends AbstractModel<String>  implements Serializable{
+@Entity @NoArgsConstructor
+public class Facture  extends Document  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private String numero;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date date;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateReception;
-	
 	@OneToOne
 	private Commande commande;
 	
-	@ManyToOne
-	private Prestataire prestataire;
+	@Column(precision=10,scale=2,name="FACT_MONTANT")
+	private BigDecimal montant;
+	
+	@Embedded private Traitable<TraitementFacture> traitable = new Traitable<>();
+	
+	public Facture(Commande commande) {
+		super();
+		this.commande = commande;
+	}
+	
+	public String getNumeroCommande(){
+		return commande.getNumero();
+	}
+	
 }

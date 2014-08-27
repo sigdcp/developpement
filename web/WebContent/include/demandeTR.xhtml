@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sigdcp="http://java.sun.com/jsf/composite/composant">
+<body>
+	<ui:composition>
+		
+		<ui:param name="editable" value="#{faireDemandeTransitController.editable}" />
+		
+		<ui:include src="/include/outputAgentEtat.xhtml" >
+			<ui:param name="agentEtat" value="#{faireDemandeTransitController.entity.beneficiaire}" />
+		</ui:include> 
+		
+		<ui:include src="/include/inputCourrier.xhtml" >
+			<ui:param name="courrierDto" value="#{faireDemandeTransitController.courrierDto}" />
+		</ui:include>
+		
+		<p:fieldset legend="Agent" >			
+			
+			<p:panelGrid id="panelGrid2" columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2">			        
+				
+				<p:outputLabel for="datePriseService" value="Date de prise de service" rendered="#{faireDemandeTransitController.mae}" />
+				<p:calendar id="datePriseService" value="#{faireDemandeTransitController.entity.datePriseService}" pattern="#{constantResources.datePattern}" required="true" 
+					rendered="#{editable and faireDemandeTransitController.mae}" binding="#{datePriseService}" navigator="true" validator="#{validationManager.validateDatePriseService}">
+					<p:message for="@parent"/>
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<f:attribute name="agentEtat" value="#{faireDemandeTransitController.entity.beneficiaire}"/>
+				</p:calendar>
+				<h:outputText value="#{faireDemandeTransitController.entity.datePriseService}" rendered="#{not editable and faireDemandeTransitController.mae}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				
+				<p:outputLabel for="dateCessationService" value="Date fin de service" rendered="#{faireDemandeTransitController.mae}" />
+				<p:calendar id="dateCessationService" value="#{faireDemandeTransitController.entity.dateFin}" pattern="#{constantResources.datePattern}" required="true" 
+					rendered="#{editable and faireDemandeTransitController.mae}" binding="#{dateFinService}" navigator="true" validator="#{validationManager.validateDateFinService}">
+					<p:message for="@parent"/>	
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<f:attribute name="datePriseService" value="#{datePriseService}"/>
+				</p:calendar>
+				<h:outputText value="#{faireDemandeTransitController.entity.dateFin}" rendered="#{not editable and faireDemandeTransitController.mae}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				
+				<p:outputLabel for="dateMiseStage" value="Date de mise en stage" rendered="#{faireDemandeTransitController.mae!=null and not faireDemandeTransitController.mae}" />
+				<p:calendar id="dateMiseStage" value="#{faireDemandeTransitController.entity.dateMiseStage}" pattern="#{constantResources.datePattern}" required="true" navigator="true" 
+					rendered="#{editable and (faireDemandeTransitController.mae!=null and not faireDemandeTransitController.mae)}">
+					<p:message for="@parent"/>	
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+				</p:calendar>
+				<h:outputText value="#{faireDemandeTransitController.entity.dateMiseStage}" rendered="#{not editable and not faireDemandeTransitController.mae}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				
+				<p:outputLabel for="dateFinStage" value="Date fin de stage" rendered="#{faireDemandeTransitController.mae!=null and not faireDemandeTransitController.mae}" />
+				<p:calendar id="dateFinStage" value="#{faireDemandeTransitController.entity.dateFin}" pattern="#{constantResources.datePattern}" required="true"  
+					rendered="#{editable and (faireDemandeTransitController.mae!=null and not faireDemandeTransitController.mae)}" navigator="true">
+					<p:message for="@parent"/>
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+				</p:calendar>
+				<h:outputText value="#{faireDemandeTransitController.entity.dateFin}" rendered="#{not editable and not faireDemandeTransitController.mae}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+							
+			</p:panelGrid>
+		</p:fieldset>	
+
+		<p:spacer height="5" />
+		
+		<p:fieldset legend="Transit">				
+			
+			<h:panelGrid id="typeDepPg" columns="2" columnClasses="c1,c2" >				
+				<p:outputLabel for="typeDepense" value="Dépense" />
+				<h:panelGroup rendered="#{faireDemandeTransitController.create}">
+					<p:message for="typeDepense" /> 
+					<p:selectOneRadio id="typeDepense" value="#{faireDemandeTransitController.entity.typeDepense}"  required="true" converter="#{objectConverter}"
+						binding="#{typeDepense}">
+						<f:selectItems value="#{typeDepenes}"/>
+						<p:ajax event="click" update="op" listener="#{faireDemandeTransitController.typeDepenseListener}" process="@this"/>
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneRadio> 
+				</h:panelGroup>
+				<h:outputText value="#{faireDemandeTransitController.entity.deplacement.typeDepense}" rendered="#{not faireDemandeTransitController.create}"/>
+				
+				<h:outputText value="" /><h:outputText value="" />
+			</h:panelGrid>
+			
+			<h:panelGrid id="panelgrid4" columns="4" columnClasses="c1,c2,c1,c2">		
+				<p:outputLabel for="villeDepart"  value="Ville de départ:" />
+				<h:panelGroup rendered="#{editable}">
+					<p:message for="villeDepart"/>
+					<p:selectOneMenu id="villeDepart" value="#{faireDemandeTransitController.entity.deplacement.localiteDepart}" required="true" converter="#{objectConverter}" rendered="#{editable}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{portsCoteDIvoire}"/>
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:outputText value="#{faireDemandeTransitController.entity.deplacement.localiteDepart}" rendered="#{not editable}"/>
+				
+				<p:outputLabel for="villeArrivee" value="Ville d'arrivée:" />		
+				<h:panelGroup rendered="#{editable}">
+					<p:message for="villeArrivee"  />
+					<p:selectOneMenu id="villeArrivee" value="#{faireDemandeTransitController.entity.deplacement.localiteArrivee}" required="true" converter="#{objectConverter}" rendered="#{editable}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{villesCoteDIvoire}"/>
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneMenu>	
+				</h:panelGroup>
+				<h:outputText value="#{faireDemandeTransitController.entity.deplacement.localiteArrivee}" rendered="#{not editable}"/>
+
+				<p:outputLabel for="dateDepart" value="Date départ" />
+				<p:calendar id="dateDepart" value="#{faireDemandeTransitController.entity.deplacement.dateDepart}" required="true" pattern="#{constantResources.datePattern}" rendered="#{editable}"
+					validator="#{validationManager.validateDateDepart}" binding="#{dateDepart}" navigator="true">
+					<p:message for="@parent"/>
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<f:attribute name="typeDepense" value="#{create?typeDepense:faireDemandeTransitController.entity.deplacement.typeDepense}" />
+					<f:attribute name="agentEtat" value="#{faireDemandeTransitController.entity.beneficiaire}"/>
+					<f:attribute name="datePriseService" value="#{datePriseService}"/>
+					<f:attribute name="dateFinService" value="#{dateFinService}"/>
+				</p:calendar>
+				<h:outputText value="#{faireDemandeTransitController.entity.deplacement.dateDepart}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				 
+				<p:outputLabel for="dateArrivee" value="Date arrivée" />
+				<p:calendar id="dateArrivee" value="#{faireDemandeTransitController.entity.deplacement.dateArrivee}" required="true" pattern="#{constantResources.datePattern}" rendered="#{editable}"
+					validator="#{validationManager.validateDateArrivee}" navigator="true">
+					<p:message for="@parent"/>
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<f:attribute name="typeDepense" value="#{create?typeDepense:faireDemandeTransitController.entity.deplacement.typeDepense}" />
+					<f:attribute name="dateDepart" value="#{dateDepart}"/>
+					<f:attribute name="dateFinService" value="#{dateFinService}"/>
+				</p:calendar>
+				<h:outputText value="#{faireDemandeTransitController.entity.deplacement.dateArrivee}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				
+				<p:outputLabel for="poidsBagaggeC" value="Poids des bagages en Kg" />
+				<pe:inputNumber id="poidsBagaggeC" value="#{faireDemandeTransitController.entity.poidsBagagesKg}" required="true"  rendered="#{editable}" thousandSeparator=" " decimalPlaces="0"
+					validator="#{validationManager.validatePoidsBaggage}">
+					<p:message for="@parent"/>
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+				</pe:inputNumber>
+				<h:outputText value="#{faireDemandeTransitController.entity.poidsBagagesKg}" rendered="#{not editable}"/>	
+				
+				<p:outputLabel for="montantFacturePro" value="Montant de la Facture(CFA)" />
+				<pe:inputNumber id="montantFacturePro" value="#{faireDemandeTransitController.entity.montantFacture}" required="true"  rendered="#{editable}" thousandSeparator=" " decimalPlaces="0"
+					validator="#{validationManager.validateMontantFacture}">
+					<p:message for="@parent"/>
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+				</pe:inputNumber>
+				<h:outputText value="#{faireDemandeTransitController.entity.montantFacture}" rendered="#{not editable}"/>				
+			</h:panelGrid>
+		</p:fieldset>
+		
+		<p:outputPanel id="op">
+			<sigdcp:inputPiece id="pieceUploader1" uploader="#{faireDemandeTransitController.pieceJustificativeUploader}"/>
+		</p:outputPanel>
+	
+	</ui:composition>
+</body>
+</html>

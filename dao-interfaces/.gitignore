@@ -1,5 +1,7 @@
+/target
+
 /bin
 
+/.settings
 /build
-/target
 rebel.xml

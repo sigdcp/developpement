@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<ui:decorate template="/template/dataList.xhtml">
+			<ui:param name="controller" value="#{controller}" />
+			
+			<ui:define name="criteresrecherche">
+				<p:panelGrid columns="6" styleClass="panelGridNoBorder">
+					<!--
+					<p:outputLabel for="dateDebut" value="#{constantResources.text('datedebut')}" />
+					<p:calendar id="dateDebut" value="#{controller.dateDebut}"/>
+									
+					<p:outputLabel for="dateFin" value="#{constantResources.text('datefin')}" />
+					<p:calendar id="dateFin" value="#{controller.dateFin}"/>
+					-->				
+					<p:outputLabel for="natureDep" value="#{constantResources.text('nature')}" />
+					<p:selectOneMenu id="natureDep" value="#{controller.natureDeplacement}" converter="#{objectConverter}" >
+						<f:selectItems value="#{controller.items}" />
+					</p:selectOneMenu>
+									
+				</p:panelGrid>		
+			</ui:define>
+			
+			<ui:define name="infos">
+				<ui:fragment rendered="#{controller.natureDeplacement.categorie.disponible!=null}">
+					<div class="ui-widget ui-state-highlight">
+						<h:outputText value="Disponible trésor : " />
+						<h:outputText value="#{controller.disponible}" >
+							<f:convertNumber type="currency" currencySymbol="CFA" maxFractionDigits="0" />
+						</h:outputText>
+					</div>
+				</ui:fragment>
+			</ui:define>
+			
+			<ui:define name="colonnes">
+				<p:ajax event="rowSelectCheckbox" update="@parent" />
+				<p:ajax event="rowUnselectCheckbox" update="@parent" process="@this" immediate="true"/>
+				
+				<p:column headerText="#{constantResources.text('bulletinliquidation')}" sortBy="#{record.bulletinLiquidation.numero}" filterBy="#{record.bulletinLiquidation.numero}"
+					rendered="#{controller.showBulletinNumero}">
+					<h:outputText value="#{record.bulletinLiquidation.numero}" />
+				</p:column>
+				
+				<p:column headerText="#{constantResources.text('bordereau')}" sortBy="#{record.bulletinLiquidation.bordereauTransmission.numero}" filterBy="#{record.bulletinLiquidation.bordereauTransmission.numero}"
+					rendered="#{controller.showBordereauNumero}">
+					<h:outputText value="#{record.bulletinLiquidation.bordereauTransmission.numero}" />
+				</p:column>
+				
+				<p:column headerText="#{constantResources.text('numero')}" sortBy="#{record.numero}" filterBy="#{record.numero}">
+					<h:outputText value="#{record.numero}" />
+				</p:column>
+				
+				<p:column headerText="#{constantResources.text('datecreation')}" sortBy="#{record.dossier.deplacement.dateCreation}" rendered="#{controller.showDateCreation}">
+					<h:outputText value="#{record.dossier.deplacement.dateCreation}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				</p:column>
+			
+				<p:column headerText="#{constantResources.text('nature')}" sortBy="#{record.dossier.deplacement.nature.libelle}" rendered="#{controller.showNature}">
+					<h:outputText value="#{record.dossier.deplacement.nature.libelle}" />
+				</p:column>
+				
+				<p:column headerText="#{constantResources.text('matricule')}" sortBy="#{record.dossier.beneficiaire.matricule}" filterBy="#{record.dossier.beneficiaire.matricule}">
+					<h:outputText value="#{record.dossier.beneficiaire.matricule}" />
+				</p:column>
+				<p:column headerText="#{constantResources.text('nomprenoms')}" sortBy="#{record.dossier.beneficiaire.nomPrenoms}" filterBy="#{record.dossier.beneficiaire.nomPrenoms}">
+					<h:outputText value="#{record.dossier.beneficiaire.nomPrenoms}" />
+				</p:column>	
+				
+				<p:column headerText="#{constantResources.text('montant')} (CFA)" sortBy="#{record.dossier.montantIndemnisation}" filterBy="#{record.dossier.montantIndemnisation}" rendered="#{controller.showMontant}">
+					<h:outputText value="#{record.dossier.montantIndemnisation}" ><f:convertNumber  currencySymbol="CFA" maxFractionDigits="0" type="number" /> </h:outputText>
+					<f:facet name="footer">
+						<h:outputText value="#{controller.totalDepense}" rendered="#{controller.showTotalDepense}"><f:convertNumber  currencySymbol="CFA" maxFractionDigits="0" type="number" /></h:outputText>
+					</f:facet>
+				</p:column>	
+				
+				<p:column headerText="#{constantResources.text('observations')}" rendered="#{controller.showObservation}">
+					<h:outputText value="#{record.dossier.dernierTraitement.motif}" />
+					<ui:fragment rendered="#{not empty record.dossier.dernierTraitement.observation}">
+						<pre><h:outputText value="#{record.dossier.dernierTraitement.observation}" /> </pre>
+					</ui:fragment>
+				</p:column>	
+				
+				<p:column headerText="#{constantResources.text('validation')}" rendered="#{controller.showValidation}">
+					<p:outputPanel>
+						<ui:fragment rendered="#{controller.isSelected(record)}">
+							<p:selectOneMenu id="action" value="#{record.traitement.validationType}" required="#{required}" requiredMessage="#{valueRequiredMessage}">
+								<f:selectItem noSelectionOption="" itemLabel="-- Action --"/>
+								<f:selectItems value="#{controller.natureOperationDto.validationTypes}" /> 
+								<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+								<p:ajax event="change" update="@form"/>
+							</p:selectOneMenu>
+							<p:message for="action"/>
+							
+							<p:selectOneMenu id="motif" value="#{record.traitement.motif}" required="#{required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}"
+								rendered="#{record.traitement.validationType!=null and not record.traitement.isValidationTypeAccepter()}">
+								<f:selectItem noSelectionOption="" itemLabel="-- Motif --"/>
+								<f:selectItems value="#{motifs}" /> 
+								<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+							</p:selectOneMenu>
+							<p:message for="motif" rendered="#{record.traitement.validationType!=null and not record.traitement.isValidationTypeAccepter()}"/>
+							
+							<p:inputTextarea id="observation" value="#{record.traitement.observation}" onclick="PrimeFaces.cleanWatermarks();" oncomplete="PrimeFaces.showWatermarks();"
+								rendered="#{record.traitement.validationType!=null and not record.traitement.isValidationTypeAccepter()}">
+								<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+							</p:inputTextarea>
+							<p:watermark for="observation" value="-- Observations --" rendered="#{record.traitement.validationType!=null and not record.traitement.isValidationTypeAccepter()}"/>  
+						</ui:fragment>
+					</p:outputPanel>
+				</p:column>	
+					
+			</ui:define>
+		</ui:decorate>			
+   
+	</ui:composition>
+</body>
+</html>

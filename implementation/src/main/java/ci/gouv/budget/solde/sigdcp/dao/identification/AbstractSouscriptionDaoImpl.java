@@ -12,14 +12,14 @@ public abstract class AbstractSouscriptionDaoImpl<SOUSCRIPTION extends Souscript
 	private static final long serialVersionUID = -2609724288199083806L;
 
 	@Override
-	public Collection<SOUSCRIPTION> findByDateValidation(Date date) {
+	public Collection<SOUSCRIPTION> readByDateValidation(Date date) {
 		return entityManager.createQuery("SELECT souscription FROM Souscription souscription WHERE souscription.dateValidation = :dateValidation", clazz)
 				.setParameter("dateValidation", date)
 				.getResultList();
 	}
 
 	@Override
-	public Collection<SOUSCRIPTION> findByDateValidationIsNullByTypePersonneId(String typePersonneId) {
+	public Collection<SOUSCRIPTION> readDateValidationIsNullByTypePersonneId(String typePersonneId) {
 		return entityManager.createQuery("SELECT souscription FROM Souscription souscription WHERE souscription.dateValidation IS NULL "
 				+ " AND inscription.personneInfos.type.code = :typePersonneId ", clazz)
 				.setParameter("typePersonneId", typePersonneId)
@@ -27,7 +27,7 @@ public abstract class AbstractSouscriptionDaoImpl<SOUSCRIPTION extends Souscript
 	}
 	
 	@Override
-	public Collection<SOUSCRIPTION> findByDateValidationIsNull() {
+	public Collection<SOUSCRIPTION> readDateValidationIsNull() {
 		return entityManager.createQuery("SELECT souscription FROM Souscription souscription WHERE souscription.dateValidation IS NULL ", clazz)
 				.getResultList();
 	}

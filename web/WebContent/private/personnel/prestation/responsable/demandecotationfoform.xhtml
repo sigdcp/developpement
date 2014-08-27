@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<style>
+	 .col1{vertical-align: top}
+	 .col2{vertical-align: top}
+	</style>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{demandeCotationFoFormController.preRenderView}" type="preRenderView"></f:event>
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+		
+			<ui:fragment>
+				<ui:include src="/include/menutabprestation.xhtml" />
+			</ui:fragment>
+	
+	
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{demandeCotationFoFormController}" />
+				<ui:define name="contenu">	
+				
+			
+				<p:fieldset legend="Transfert">
+					<p:panelGrid columns="4" styleClass="panelGridNoBorder">
+					<h:outputText value="#{constantResources.text('cercueil')}" />
+					<h:outputText value=": #{demandeCotationFoFormController.entity.dossier.cercueil.libelle}"/>
+										
+					<h:outputText value="#{constantResources.text('indemnitecercueil')}" />
+					<h:outputText value=": #{demandeCotationFoFormController.entity.dossier.cercueil.montant}"/>
+	
+					<h:outputText value="#{constantResources.text('villedepart')}" />
+					<h:outputText value=": #{demandeCotationFoFormController.entity.dossier.deplacement.localiteDepart}"/>
+					<h:outputText value="#{constantResources.text('destination')}" />
+					<h:outputText value=": #{demandeCotationFoFormController.entity.dossier.deplacement.localiteArrivee}"/>
+					
+					<h:outputText value="#{constantResources.text('indemnitetransport')}" />
+					<h:outputText value=": #{demandeCotationFoFormController.entity.dossier.coutTransport}"/>
+					
+					
+					
+					
+					</p:panelGrid>	
+					<p:spacer height="2"/>
+					<p:dataTable id="defunttab" value="#{demandeCotationFoFormController.entity}" var="defunt" rowIndexVar="index"> 
+							<f:facet name="header">
+								<h:outputText value="#{constantResources.text('defunt')}" />
+							</f:facet>
+							
+							<p:column headerText="#">
+								<h:outputText value="#{index+1}" />
+							</p:column>			
+							<p:column headerText="#{constantResources.text('matricule')}">
+								<h:outputText value="#{defunt.dossier.beneficiaire.matricule}" />
+							</p:column>		
+							<p:column headerText="#{constantResources.text('nom')}">
+								<h:outputText value="#{defunt.dossier.beneficiaire.nomPrenoms}" />
+							</p:column>
+							<p:column headerText="#{constantResources.text('indice')}">
+								<h:outputText value="#{defunt.dossier.indice}" />
+							</p:column>			
+							
+						</p:dataTable>
+					</p:fieldset>
+					
+					<p:spacer height="5"/>
+					
+					<p:fieldset legend="Prestataires">	
+						<p:dataTable id="pompeFunebre" value="#{demandeCotationFoFormController.prestataires}" var="prestataire" rowIndexVar="index" rowKey="#{prestataire.id}" selection="#{demandeCotationFoFormController.pompeFunebres}"> 
+								<f:facet name="header">
+									<h:outputText value="Liste des pompes funèbres" />
+								</f:facet>
+								<p:column selectionMode="multiple" width="1%"/>
+								<p:column headerText="#">
+									<h:outputText value="#{index+1}" />
+								</p:column>			
+								<p:column headerText="#{constantResources.text('nom')}">
+									<h:outputText value="#{prestataire.nom}" />
+								</p:column>
+								<p:column headerText="#{constantResources.text('email')}">
+									<h:outputText value="#{prestataire.contact.email}" />
+								</p:column>			
+								
+						</p:dataTable>
+						
+					</p:fieldset>
+				
+				
+		
+				</ui:define>
+				
+			</ui:decorate>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

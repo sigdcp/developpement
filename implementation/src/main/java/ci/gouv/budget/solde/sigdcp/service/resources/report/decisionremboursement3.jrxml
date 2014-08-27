@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="decisionremboursement" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2c8d083-0018-4168-99d0-032da3b94d37">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="328"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="848bc8dc-11ae-4329-8d06-99cda5824f34">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="class" class="java.lang.Class">
+			<fieldDescription><![CDATA[class]]></fieldDescription>
+		</field>
+		<field name="dateEtablissement" class="java.util.Date">
+			<fieldDescription><![CDATA[dateEtablissement]]></fieldDescription>
+		</field>
+		<field name="dossier" class="ci.gouv.budget.solde.sigdcp.model.dossier.Dossier">
+			<fieldDescription><![CDATA[dossier]]></fieldDescription>
+		</field>
+		<field name="fichier" class="ci.gouv.budget.solde.sigdcp.model.fichier.Fichier">
+			<fieldDescription><![CDATA[fichier]]></fieldDescription>
+		</field>
+		<field name="fonctionSignataire" class="ci.gouv.budget.solde.sigdcp.model.identification.Fonction">
+			<fieldDescription><![CDATA[fonctionSignataire]]></fieldDescription>
+		</field>
+		<field name="id" class="java.lang.Long">
+			<fieldDescription><![CDATA[id]]></fieldDescription>
+		</field>
+		<field name="model" class="ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir">
+			<fieldDescription><![CDATA[model]]></fieldDescription>
+		</field>
+		<field name="numero" class="java.lang.String">
+			<fieldDescription><![CDATA[numero]]></fieldDescription>
+		</field>
+	</subDataset>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="chapitre" class="java.lang.String">
+		<fieldDescription><![CDATA[chapitre]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="dateDemande" class="java.lang.String">
+		<fieldDescription><![CDATA[dateDemande]]></fieldDescription>
+	</field>
+	<field name="libelleChapitre" class="java.lang.String">
+		<fieldDescription><![CDATA[libelleChapitre]]></fieldDescription>
+	</field>
+	<field name="montant" class="java.lang.String">
+		<fieldDescription><![CDATA[montant]]></fieldDescription>
+	</field>
+	<field name="natureDeplacement" class="java.lang.String">
+		<fieldDescription><![CDATA[natureDeplacement]]></fieldDescription>
+	</field>
+	<field name="noms" class="java.lang.String">
+		<fieldDescription><![CDATA[noms]]></fieldDescription>
+	</field>
+	<field name="pieces" class="java.util.List">
+		<fieldDescription><![CDATA[pieces]]></fieldDescription>
+	</field>
+	<field name="quIlApaye" class="java.lang.String">
+		<fieldDescription><![CDATA[quIlApaye]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="196">
+			<staticText>
+				<reportElement x="42" y="47" width="112" height="21" uuid="34c9e113-da7c-4dee-bdd3-c7cfdafb81aa"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[ET DES FINANCES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="87" width="76" height="17" uuid="2390cc59-7510-406d-bd90-0ff8281a49ea"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DECISION N°]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1" width="262" height="16" uuid="af5a0e12-967a-40e8-9a9f-b118eb3ff68d"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[MINISTERE AUPRES DU PREMIER MINISTRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="105" width="165" height="17" uuid="c14b343f-833a-47a7-a70b-6969e56d19f6"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REMBOURSEMENT DES FRAIS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="15" width="129" height="19" uuid="bb348233-5131-4eda-ab18-c29d59f5653e"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[CHARGE DU BUDGET]]></text>
+			</staticText>
+			<line>
+				<reportElement x="59" y="31" width="59" height="1" uuid="5408deeb-d42a-4def-afc5-4dc77be73c48"/>
+				<graphicElement>
+					<pen lineWidth="1.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="57" y="64" width="59" height="1" uuid="576e75dd-111f-4eb6-9c18-a67678f267a1"/>
+				<graphicElement>
+					<pen lineWidth="1.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="133" y="171" width="133" height="16" uuid="33ec9e8d-5611-4d22-80a7-6443a815f510"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CHARGE DU BUDGET]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="123" width="15" height="16" uuid="2b8aa791-bece-4769-8e51-3accb30e248e"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="65" width="153" height="16" uuid="31158263-0f28-4438-b709-fcc3199107d3"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[DIRECTION DE LA SOLDE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="87" width="166" height="17" uuid="7ebf840c-a259-49dd-9a5e-19c4249588fd"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[/MPMB/DGBF/DS  PORTANT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="32" width="212" height="18" uuid="2b4dd432-a77c-41b8-9717-9b676e4daeaa"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[DIRECTION GENERALE DU BUDGET]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="133" y="155" width="273" height="16" uuid="91938da1-f791-4a1b-8f1b-7ed68b35ad38"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LE MINISTRE AUPRES DU PREMIER MINISTRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="17" width="129" height="17" uuid="3b97ef3e-2092-4b17-9393-daf0525cd780"/>
+				<textElement>
+					<font fontName="Arial" size="9" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Union - Discipline - Travail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="399" y="0" width="175" height="17" uuid="dc023019-82b3-4287-a5e6-1aa0bc225d99"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[REPUBLIQUE DE CÔTE D'IVOIRE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="359" y="105" width="198" height="17" uuid="9d9fe698-6bba-4658-9a73-eeac7dc2f4df"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{natureDeplacement}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="202" y="123" width="343" height="16" uuid="3d5134a0-fe5f-4caa-83d2-f770d9526c87"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noms}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="250" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="3" y="217" width="563" height="33" forecolor="#FFFFFF" uuid="c95e01e5-aa23-492e-892c-b1681ca7df3c"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="b628727c-4b1b-496e-bcb1-d4556396fa74">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{pieces})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="596" uuid="2aa69593-781f-4dd0-addb-cc23933346cb">
+						<jr:detailCell height="15" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="588" height="15" uuid="f899619b-885d-4571-931d-87eb545b06e0"/>
+								<textElement verticalAlignment="Top">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression><![CDATA["VU" +" "+" "+" "+ $F{model}.getTypePieceJustificative()+" "+ "n°" +" "+ $F{numero} +" "+ "du" +" "+ $F{dateEtablissement}+""+ ";"]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="3" y="24" width="487" height="16" uuid="e06098a3-7516-4b9a-9643-5669fe37fd18"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[VU   la Loi n° 2012-1179 du 27 décembre 2012 portant Budget de l'Etat pour l'année 2013;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="89" width="604" height="16" uuid="45c38291-1d9e-4a21-a21a-d36789c2108c"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[VU   le décret n° 98-716 du 16 décembre 1998 portant réforme des circuits et des procédures d'exécution des ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="155" width="563" height="17" uuid="705ea713-39dd-4965-96ab-5636935a705a"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[VU   le décret n° 2012-1118 du 21 novembre 2012 portant nomination du Premier Ministre, Chef du Gouvernement;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="138" width="579" height="17" uuid="db9aaf2f-54d4-4cf2-a975-b8fe8b401d8a"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[VU   le décret n° 2011-222 du 07 septembre 2011 portant organisation du Ministère de l'Economie et des Finances;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="203" width="113" height="14" uuid="733840f3-e705-443c-b208-49df964e38c8"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[de l'Etat;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="40" width="579" height="16" uuid="e8e18a67-b6cb-4a4f-8ee9-518ae1ce0000"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[VU   le décret n° 98-259 du 03 juin 1998 portant fixation du cadre de la nomenclature budgétaire de l'Etat;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="105" width="554" height="17" uuid="6dbb61e2-32a2-4bc8-9c83-6eb5f590e7a5"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[dépenses  et des recettes du budget général de l'Etat, des comptes spéciaux du trésor et mise en oeuvre ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="172" width="579" height="16" uuid="09fd375e-71d8-4773-9410-a83d238a152f"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[VU   le décret n° 2012-1119 du 21 novembre 2012 portant nomination des membres du Gouvernement;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="56" width="579" height="16" uuid="56ca3620-f3ad-40e8-9427-bca69c9f7c28"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[VU   le décret n° 98-445 du 04 août 1998 portant modalités de nomination et attributions des Directeurs des Affaires ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="72" width="427" height="17" uuid="66173375-7431-4e6d-be7a-146aee41aed0"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Administratives et Financières en qualité d'ordonnateur délégué;]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="122" width="554" height="16" uuid="cdb0d212-fe04-4354-9589-61300caec481"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[du système intégré de gestion des finances publiques (SIGFiP);]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="188" width="563" height="16" uuid="20d14073-a9cd-428f-954f-08c18e84df4a"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[VU   l'arrêté n° 1572/MEF/CAB du 31 décembre 1998 portant codification détaillée de la nomenclature budgétaire ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="7" width="121" height="17" uuid="1b88c633-446e-468f-8637-d6065f3b549c"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[VU   la Constitution;]]></text>
+			</staticText>
+		</band>
+		<band height="208">
+			<staticText>
+				<reportElement x="243" y="31" width="71" height="21" uuid="b0566f39-0fec-4aef-a75e-9de25b764db5"/>
+				<textElement>
+					<font fontName="Arial" size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DECIDE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="58" width="71" height="15" uuid="dac98eb2-77ed-4034-b84f-cbdbbc3c4e19"/>
+				<textElement>
+					<font fontName="Arial" size="10" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ARTICLE 1 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="58" width="276" height="15" uuid="387c0da4-1747-4f3a-baca-7b7916a0820a"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Est autorisé, le remboursement de la somme de ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="126" width="74" height="14" uuid="5b174a39-6884-4d52-ad7d-07ab20c7edfc"/>
+				<textElement>
+					<font fontName="Arial" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ARTICLE 2 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="165" width="74" height="14" uuid="351ed141-251b-42b9-bbef-867550df89d2"/>
+				<textElement>
+					<font fontName="Arial" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ARTICLE 3 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="77" y="165" width="467" height="14" uuid="46e4c493-3837-4f88-bdc8-0f1e70de8854"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[La présente décision sera enregistrée, communiquée et publiée partout ou besoin sera.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="79" y="126" width="476" height="14" uuid="117c5b5f-f6c4-4da0-9e24-5ad8457db9c3"/>
+				<textFieldExpression><![CDATA["La dépense est imputable au budget général, chapitre" +" "+ $F{chapitre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="140" width="369" height="14" uuid="afd9e84a-810b-4587-9874-9140f85c65d2"/>
+				<textFieldExpression><![CDATA["Direction de la Solde" +" "+ $F{libelleChapitre} +" "+ "."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="73" width="476" height="15" uuid="4fd69f7f-8da7-4f3a-a614-ae8ef875b23f"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="88" width="463" height="13" uuid="a1bda1b2-42ce-47de-b1ac-5c41d4fc68f1"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["à"+" "+$F{noms}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="101" width="476" height="14" uuid="69824d4a-65a2-44f4-93ab-40f0572400fa"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[", représantant les frais"+" "+$F{natureDeplacement}+" "+$F{quIlApaye}+""+ "."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="0" width="554" height="16" uuid="6d944410-0fa5-45d0-b72e-d4466c9c02e9"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["VU   la demande de remboursement du "+""+$F{dateDemande}+""+ ";"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="95">
+			<staticText>
+				<reportElement x="6" y="3" width="69" height="16" uuid="bc2283d2-71eb-4d78-bb89-3f18b0f78390"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[AMPLIATIONS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="12" width="165" height="12" uuid="51eeca4d-6e4e-457c-b2fb-2c4f42e082ed"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRESIDENCE DE LA REPUBLIQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="21" width="64" height="13" uuid="dbefadf3-295a-40b7-abf8-4ba371f2f298"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MPMB/CAB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="31" width="121" height="12" uuid="369856a2-7485-4af1-9cd3-4eb5835ae534"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECTION DE LA SOLDE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="41" width="47" height="13" uuid="574249dc-7142-43c1-870a-4626ad01a978"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRESOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="51" width="114" height="12" uuid="48834c92-ffe3-4193-ae06-d1ae5dc593ef"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTROLE FINANCIER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="61" width="69" height="12" uuid="549472fe-43f8-41f7-8484-f5ebe697bb66"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INTERESSE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="11" width="15" height="13" uuid="0b1eb3a2-4390-47d6-a5b4-810e0f0998c6"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="21" width="15" height="10" uuid="983775ba-668c-41d2-a406-cda351a79d20"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="31" width="15" height="12" uuid="ab14e362-6745-4664-bde9-19c92a7291ec"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="41" width="15" height="10" uuid="34456275-315b-42d7-9f2c-f657e15bb01a"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="51" width="15" height="12" uuid="d52e90ec-b307-4a78-afe0-30e8ebc143f7"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="61" width="15" height="12" uuid="2281516f-584d-4ef5-84ba-ac59c1e5e077"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>

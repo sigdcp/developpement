@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+
+		<ui:param name="columnCount" value="#{columnCount==null?3:columnCount}" />
+		<ui:param name="required" value="#{controller.requiredEnabled}" />
+		
+		<style>
+			.c1{
+				font-weight: bold;
+				width: 250px;
+			} 
+			.c2{
+				width: 200px;
+			}
+			.c3{
+				
+			}
+			.nospaces{
+				padding: 0px;
+				margin: 0px;
+				border: 1px solid blue !important;
+			}
+		</style>	
+		
+		<p:fieldset legend="Identification">
+			
+			<p:panelGrid id="panelIdentite" columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2"> 
+		    	
+				<p:outputLabel for="designation" value="Désignation" />
+			 	<p:inputText id="designation" required="#{required}" value="#{prestataireDto.prestataire.nom}"  rendered="#{prestataireDto.editable}" autocomplete="#{controller.autoComplete}">
+			 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+			 		<p:message for="@parent" />
+			 	</p:inputText>
+			 	<h:outputText value="#{prestataireDto.prestataire.nom}" rendered="#{not prestataireDto.editable}"/>
+			 	
+				<p:outputLabel for="sigle" value="Sigle" />
+				<p:inputText id="sigle" value="#{prestataireDto.prestataire.sigle}" rendered="#{prestataireDto.editable}" autocomplete="#{controller.autoComplete}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<p:message for="@parent" />
+				</p:inputText>
+				<h:outputText value="#{prestataireDto.prestataire.sigle}" rendered="#{not prestataireDto.editable}"/>
+			 	
+				<p:outputLabel for="siege" value="Siège social" />
+				<p:inputText id="siege" value="#{prestataireDto.prestataire.siege}" required="#{required}" rendered="#{prestataireDto.editable}" autocomplete="#{controller.autoComplete}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<p:message for="@parent" />
+				</p:inputText>
+				<h:outputText value="#{prestataireDto.prestataire.siege}" rendered="#{not prestataireDto.editable}"/>
+			 	
+				<p:outputLabel for="compteContribuable" value="Compte contribuable" />
+				<p:inputText id="compteContribuable" required="#{required}" value="#{prestataireDto.prestataire.compteContribuable}" rendered="#{prestataireDto.editable}" autocomplete="#{controller.autoComplete}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<p:message for="@parent" />
+				</p:inputText>
+				<h:outputText value="#{prestataireDto.prestataire.compteContribuable}" rendered="#{not prestataireDto.editable}"/>
+			
+				<p:outputLabel for="type" value="Type"/>
+				<h:panelGroup rendered="#{prestataireDto.editable}">
+					<p:message for="type" />
+					<p:selectOneMenu id="type" value="#{prestataireDto.prestataire.type}" required="#{required}"  converter="#{objectConverter}" >
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{typePrestataires}" />
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:outputText value="#{prestataireDto.prestataire.type}" rendered="#{not prestataireDto.editable}"/>
+							
+			</p:panelGrid>
+		
+		</p:fieldset>	
+		<p:spacer height="3" />
+				
+				<ui:include src="/include/contact.xhtml">
+					<ui:param name="demandeur" value="#{prestataireDto.prestataire}"/>
+					<ui:param name="compte" value="#{prestataireDto}"/>
+					<ui:param name="controller" value="#{controller}"/>
+				</ui:include>
+		
+			
+	</ui:composition>
+</body>
+</html>

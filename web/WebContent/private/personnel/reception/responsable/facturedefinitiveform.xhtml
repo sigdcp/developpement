@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:sigdcp="http://java.sun.com/jsf/composite/composant">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{receptionFactureDefinitiveFormController.preRenderView}" type="preRenderView"></f:event>
+    	</f:metadata>
+	</ui:define>
+	
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">	
+	
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{receptionFactureDefinitiveFormController}" /> 
+				<ui:define name="contenu">
+
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Montant" />
+						<pe:inputNumber value="#{receptionFactureDefinitiveFormController.entity.montant}" symbol="CFA" thousandSeparator="." required="true">
+							<p:message for="@parent" />
+							<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+						</pe:inputNumber>
+					</p:panelGrid>
+						
+					<p:outputPanel id="pieceUploaderPanel">
+						<sigdcp:inputPiece id="pieceUploader" uploader="#{receptionFactureDefinitiveFormController.pieceJustificativeUploader}"/>
+					</p:outputPanel>
+					
+					
+				</ui:define>
+				
+			</ui:decorate>
+			
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

@@ -22,4 +22,6 @@ public interface PieceJustificativeAFournirDao extends DataAccessObject<PieceJus
 	Collection<PieceJustificativeAFournir> readDeriveeByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId,String typeDepenseId);
 
 	Collection<PieceJustificativeAFournir> readByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId,String typeDepenseId,PieceJustificativeAFournirConfig config);
+	
+	PieceJustificativeAFournir readAdministrativeByNatureDeplacementIdByTypeDepenseId(String natureDeplacementId,String typeDepenseId);
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<div class="menutabclass"> <h:outputText value="Paiement" /> </div>
+		
+		<p:tabMenu activeIndex="#{param[webConstantResources.requestParamTabMenuItemIndex]}">  
+
+		    <p:menuitem value="Prise en charge" outcome="priseenchargebordereau">
+		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="0" />
+		    </p:menuitem>  
+		    
+		    <p:menuitem value="Mise en règlement" outcome="miseenreglementbordereau" >
+		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="1" />
+		    </p:menuitem>  
+		    
+		    <p:menuitem value="Regler bulletin de liquidation" outcome="reglerbulletinliquidation" >
+		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="2" />
+		    </p:menuitem>
+		    <p:menuitem value="Disponible" outcome="majdisponible" >
+		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="3" />
+		    </p:menuitem>  
+		</p:tabMenu> 
+   
+	</ui:composition>
+</body>
+</html>

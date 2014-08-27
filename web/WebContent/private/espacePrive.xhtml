@@ -4,38 +4,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
- 
-    <h:head>
-		<h:outputStylesheet library="css" name="style.css" />
-    </h:head>
-    
+      
+<h:body>
     <ui:insert name="metadata">
-    
-    </ui:insert>
- 
-	<h:body>
-		<ui:composition template="/template/commun.xhtml">
+    	<f:event type="preRenderView" listener="#{espacePriveeController.preRenderView}" /> 
+    	
+    </ui:insert>	
+	
+	<ui:composition template="/template/commun.xhtml">
+		
+		<ui:define name="contenu">
+			<h:form>
+			<p:fieldset legend="Demande d'indemnisation">
+				<ui:include src="/include/listedemandeindemnisationagentetat.xhtml">
+					<ui:param name="controller" value="#{espacePriveeController.demandeIndemnisationListeController}" />
+					<ui:param name="numeroLigneId" value="nm1" />
+					<ui:param name="infosopId" value="nm2" />
+					<ui:param name="datatableId" value="nm3" />
+				</ui:include>
+			</p:fieldset>
 			
-			<ui:define name="contenu">
-			
-				<ui:decorate template="/template/formTemplate.xhtml">
-					<ui:param name="uiController" value="#{dossierAgentEtatListeController}" />
-					<ui:define name="contenu">	
-						
-						<ui:include src="/dossier/include/listeagentetat.xhtml">
-							<ui:param name="controller" value="#{dossierAgentEtatListeController}" />
-						</ui:include>
-								
-					</ui:define>
-					
-				</ui:decorate>				
-		    
-			</ui:define>
-			
-			
-		</ui:composition>
+			<!--
+			<p:fieldset legend="carte sotra">
+				<ui:include src="/include/listedemandecartesotraagentetat.xhtml">
+					<ui:param name="controller" value="#{espacePriveeController.demandeCarteSotraListeController}" />
+				</ui:include>
+			</p:fieldset>
+			-->
+			</h:form>				
+				
+		</ui:define>
+		
+		
+	</ui:composition>
 		
  		
-    </h:body>
+   </h:body>
 </html>

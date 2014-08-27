@@ -10,14 +10,12 @@ package ci.gouv.budget.solde.sigdcp.model.dossier;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
 
 @Getter @Setter 
-@Entity
+//@Entity
 public class Imputation  extends DynamicEnumeration  implements Serializable{
 
 	private static final long serialVersionUID = 1L;

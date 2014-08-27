@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<ui:decorate template="/template/effectuerOperationList.xhtml">
+			<ui:param name="effectuerOperationController" value="#{controller}" />
+									
+			<ui:define name="colonnesDetails">
+
+				<p:column headerText="#{constantResources.text('matricule')}" ><h:outputText value="#{record.achat.delegue.agent.matricule}" /></p:column>
+				<p:column headerText="#{constantResources.text('nomprenoms')}" ><h:outputText value="#{record.achat.delegue.agent.nomPrenoms}" /></p:column>
+				<p:column headerText="Service géré" ><h:outputText value="#{record.achat.delegue.sectionGeree}"/></p:column>
+				<p:column headerText="Nombre de carte" ><h:outputText value="#{record.achat.nombreCarte}" /></p:column>
+				<p:column headerText="Date" rendered="#{controller.showDistributionSotra}" > 
+					<p:calendar value="#{record.dateDistributionSotra}" navigator="true" required="true" validator="#{validationManager.validateDateDistributionBCCSSotra}">
+						<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+						<p:message for="@parent" />
+					</p:calendar>
+				</p:column>		
+				<p:column headerText="Date" rendered="#{controller.showDistributionDelegue}" > 
+					<p:calendar value="#{record.dateDistributionDelegue}" navigator="true" required="true" validator="#{validationManager.validateDateDistributionBCCSDelegue}">
+						<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+						<p:message for="@parent" />
+						<f:attribute name="dateDistributionSotra" value="#{record.dateDistributionSotra}" />
+					</p:calendar>
+				</p:column>			
+					
+			</ui:define>
+		</ui:decorate>	
+		
+	</ui:composition>
+</body>
+</html>

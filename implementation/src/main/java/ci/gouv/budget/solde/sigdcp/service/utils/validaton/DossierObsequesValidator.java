@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.validation.constraints.AssertTrue;
 
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierObseques;
-import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 public class DossierObsequesValidator extends AbstractDossierValidator<DossierObseques> implements Serializable {
@@ -37,7 +36,7 @@ public class DossierObsequesValidator extends AbstractDossierValidator<DossierOb
 			return false;
 		}
 	}
-	
+	/*
 	@AssertTrue(message="la profession du declarant n'est pas valide",groups=Client.class)
 	public boolean isValidProfessionDeclarant(){
 		if(object.getBeneficiaire().getAyantDroit() instanceof AgentEtat)
@@ -52,7 +51,8 @@ public class DossierObsequesValidator extends AbstractDossierValidator<DossierOb
 		}
 		
 	}
-	
+	*/
+	/*
 	@AssertTrue(message="la nationalite du declarant n'est pas valide",groups=Client.class)
 	public boolean isValidNationaliteDeclarant(){
 		try {
@@ -62,6 +62,7 @@ public class DossierObsequesValidator extends AbstractDossierValidator<DossierOb
 			return false;
 		}
 	}
+	*/
 	
 	@AssertTrue(message="le matricule du défunt n'est pas valide",groups=Client.class)
 	public boolean isValidMatriculeDefunt(){
@@ -83,6 +84,7 @@ public class DossierObsequesValidator extends AbstractDossierValidator<DossierOb
 		}
 	}
 		
+	/*
 	@AssertTrue(message="la profession du défunt n'est pas valide",groups=Client.class)
 	public boolean isValidProfessionDefunt(){
 		try {
@@ -92,7 +94,7 @@ public class DossierObsequesValidator extends AbstractDossierValidator<DossierOb
 			return false;
 		}
 	}
-	
+	*/
 	/**/
 	
 	@AssertTrue(message="la date de décès n'est pas valide",groups=Client.class)

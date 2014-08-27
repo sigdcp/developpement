@@ -1,6 +1,7 @@
 package ci.gouv.budget.solde.sigdcp.service.utils.validaton;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.validation.constraints.AssertTrue;
 
@@ -23,7 +24,7 @@ public class DossierTransitValidator extends AbstractDossierValidator<DossierTra
 	public boolean isValidDateFinService(){
 		if(Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_MAE.equals(object.getDeplacement().getNature().getCode()))
 			try {
-				validationPolicy.validateDateFinService(object.getDatePriseService(), object.getDatePriseService());
+				validationPolicy.validateDateFinService(object.getDatePriseService(), object.getDateFin());
 				return true;
 			} catch (Exception e) {
 				return false;
@@ -58,7 +59,7 @@ public class DossierTransitValidator extends AbstractDossierValidator<DossierTra
 	@AssertTrue(message="le montant de la facture n'est pas valide",groups=Client.class)
 	public boolean isValidMontantFacture(){
 		try {
-			validationPolicy.validateMontantFacture(object.getMontantFacture());
+			validationPolicy.validateMontantFacture(new BigDecimal(object.getMontantFacture()));
 			return true;
 		} catch (Exception e) {
 			return false;

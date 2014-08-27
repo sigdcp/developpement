@@ -2,7 +2,7 @@ package ci.gouv.budget.solde.sigdcp.model.stats;
 
 import java.io.Serializable;
 
-import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
+import ci.gouv.budget.solde.sigdcp.model.traitement.Statut;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

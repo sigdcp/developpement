@@ -11,7 +11,6 @@ package ci.gouv.budget.solde.sigdcp.model.dossier;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,9 +18,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import lombok.EqualsAndHashCode;
@@ -41,17 +40,17 @@ public class Deplacement  extends AbstractModel<Long>  implements Serializable{
 	@Id @GeneratedValue
 	private Long id;
 	
-	@JoinColumn(nullable=false)
+	@JoinColumn
 	@NotNull(groups=Client.class)
 	@ManyToOne
 	private TypeDepense typeDepense;
 	
-	@Column(nullable=false)
+	@Column
 	@NotNull(groups=System.class)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreation;
 	
-	@JoinColumn(nullable=false)
+	@JoinColumn
 	@NotNull(groups=Client.class)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateDepart;
@@ -59,21 +58,27 @@ public class Deplacement  extends AbstractModel<Long>  implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateArrivee;
 	
-	@OneToMany
-	private Collection<Imputation> imputations = new LinkedList<Imputation>();
+	//@OneToMany
+	//private Collection<Imputation> imputations = new LinkedList<Imputation>();
 	
-	@ManyToOne @JoinColumn(nullable=false)
+	@ManyToOne @JoinColumn
 	private NatureDeplacement nature;
 	
 	@NotNull(groups=Client.class)
 	@ManyToOne
-	@JoinColumn(nullable=false)
+	@JoinColumn
 	private Localite localiteDepart;
 	
 	@NotNull(groups=Client.class)
 	@ManyToOne
-	@JoinColumn(nullable=false)
+	@JoinColumn
 	private Localite localiteArrivee;
+	
+	/**/
+	
+	@Transient private String uiLibelle;
+	
+	/**/
 	
 	public Deplacement() {}
 
@@ -85,11 +90,27 @@ public class Deplacement  extends AbstractModel<Long>  implements Serializable{
 		this.dateCreation = dateCreation;
 		this.dateDepart = dateDepart;
 		this.dateArrivee = dateArrivee;
-		this.imputations = imputations;
+		//this.imputations = imputations;
 		this.nature = nature;
 		this.localiteDepart = localiteDepart;
 		this.localiteArrivee = localiteArrivee;
 	}
+
+	public Deplacement(TypeDepense typeDepense, Date dateCreation, Date dateDepart, NatureDeplacement nature, Localite localiteDepart, Localite localiteArrivee) {
+		super();
+		this.typeDepense = typeDepense;
+		this.dateCreation = dateCreation;
+		this.dateDepart = dateDepart;
+		this.nature = nature;
+		this.localiteDepart = localiteDepart;
+		this.localiteArrivee = localiteArrivee;
+	}
+
+	public Deplacement(TypeDepense typeDepense) {
+		super();
+		this.typeDepense = typeDepense;
+	}
+	
 	
 	
 }

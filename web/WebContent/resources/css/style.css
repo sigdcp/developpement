@@ -1,5 +1,12 @@
 @CHARSET "ISO-8859-1";
 
+.ui-icon-money{background:url(#{resource['images/dollar-icon.png']});}
+
+.menutabclass{
+	font-weight: bold;
+	font-size: 15pt;
+	margin: 5px;
+}
 
 .formTableCommand .ui-button{
 	width: 200px;

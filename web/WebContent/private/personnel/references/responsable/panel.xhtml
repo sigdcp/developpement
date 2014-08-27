@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<p:panel>
+				<f:facet name="header">ENTITE DE REFERENCE INDEMNITE</f:facet>
+				<p:panelGrid columns="10">
+					<h:link outcome="paramcategorie" value="Catégorie"/>
+					<h:link outcome="paramgrade" value="Grade"/>
+					<h:link outcome="paramgroupedd" value="Groupe DD"/>
+					<h:link outcome="paramgroupemhci" value="Groupe Mission"/>
+					<h:link outcome="paramcercueil" value="Cercueil"/>					
+					<h:link outcome="paramtypeClasseVoyage" value="Type de classe de voyage"/>
+					<h:link outcome="paramtypesection" value="Type section"/>
+					<h:link outcome="paramsection" value="Section"/>
+					<h:link outcome="paramtypepiecejustificative" value="Type pièce justificative"/>
+					<h:link outcome="paramtypepieceproduite" value="Type pièce produite"/>
+				</p:panelGrid>   
+			</p:panel>
+			<p:spacer/>
+			<p:panel>
+				<f:facet name="header">ENTITE DE REFERENCE ADMINISTRATION</f:facet>
+				<p:panelGrid columns="10">
+					<h:link outcome="paramrole" value="Rôle"/>
+					<h:link outcome="paramcategoriedeplacement" value="Catégorie de déplacement"/>
+					<h:link outcome="paramposition" value="Position"/>
+					<h:link outcome="paramquestionsecrete" value="Question secrète"/>
+					<h:link outcome="paramsituationmatrimoniale" value="Situation matrimoniale"/>
+					<h:link outcome="paramstatut" value="Statut"/>
+					<h:link outcome="paramfonction" value="Fonction"/>
+					<h:link outcome="paramtypecommande" value="Type de commande"/>
+					<h:link outcome="paramtypedepense" value="Type de dépense"/>
+					<h:link outcome="paramtypegroupe" value="Type de groupe"/>
+				</p:panelGrid>  
+			</p:panel>
+			<p:spacer/>
+			<p:panel>
+				<f:facet name="header">ENTITE DE REFERENCE - GEOGRAPHIE</f:facet>
+				<p:panelGrid columns="10">
+					<h:link outcome="paramtypelocalite" value="Type de localité"/>
+					<h:link outcome="paramcausedeces" value="Cause de décès"/>					
+					<h:link outcome="paramdistancelocalite" value="Distance entre les localités"/>
+					<h:link outcome="paramechelon" value="Echelon"/>
+					<h:link outcome="paramformuleindemnite" value="Formule indemnité"/>
+					<h:link outcome="paramlocalite" value="Localité"/>
+					<h:link outcome="parammoyentransport" value="Moyen de transport"/>
+				</p:panelGrid>  
+			</p:panel>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

@@ -11,13 +11,15 @@ package ci.gouv.budget.solde.sigdcp.model.dossier;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
 
 @Getter @Setter 
-@Entity
+@Entity @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class TypePiece  extends DynamicEnumeration  implements Serializable{
 
 	private static final long serialVersionUID = 1L;

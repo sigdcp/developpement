@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{groupemhciReferenceController.preRenderView}" type="preRenderView"/>
+    	</f:metadata>
+	</ui:define>	
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/referenceEnumeration.xhtml">
+				
+				<ui:param name="referenceController" value="#{groupemhciReferenceController}" />
+				<ui:define name="supColumns">	
+					<p:ajax event="rowEdit" listener="#{groupemhciReferenceController.onRowEdit}" update=":form:messageDialogPanel" />  
+					<p:ajax event="rowEditCancel" listener="#{groupemhciReferenceController.onRowEditCancel}"  />
+					<p:column headerText="Grade">
+					<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.grades}" /></f:facet>
+			            <f:facet name="input">
+			            	<h:panelGroup>
+				            	<p:message for="grade" />    
+								<p:selectCheckboxMenu id="grade" converter="#{objectConverter}" value="#{record.grades}" label="Choisir..." filter="true" filterText="Filter" filterMatchMode="startsWith" panelStyle="width:220px">
+									<f:selectItems value="#{grades}" />
+								</p:selectCheckboxMenu>			            		
+			            	</h:panelGroup></f:facet>
+			        </p:cellEditor>
+			        </p:column>
+			        
+			       <p:column headerText="Fonction">
+					<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.fonctions}" /></f:facet>
+			            <f:facet name="input">
+			            	<h:panelGroup>
+			            		<p:message for="fonction" />    
+								<p:selectCheckboxMenu id="fonction" converter="#{objectConverter}" value="#{record.fonctions}" label="Choisir..." filter="true" filterText="Filter" filterMatchMode="startsWith" panelStyle="width:250px">
+								        <f:selectItems value="#{fonctions}" />
+								 </p:selectCheckboxMenu>			            		
+			            	</h:panelGroup></f:facet>
+			        </p:cellEditor>
+			        </p:column>
+			        
+				</ui:define>
+			</ui:decorate>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

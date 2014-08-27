@@ -4,7 +4,5 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 
 public interface DeplacementDao extends AbstractDeplacementDao<Deplacement> {
 
-	//Collection<Localite> findByType(TypeLocalite type);
 	
-
 }

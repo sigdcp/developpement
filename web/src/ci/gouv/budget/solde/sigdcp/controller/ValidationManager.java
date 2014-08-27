@@ -1,6 +1,7 @@
 package ci.gouv.budget.solde.sigdcp.controller;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.faces.application.FacesMessage;
@@ -12,15 +13,21 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.extern.java.Log;
+
+import org.primefaces.model.UploadedFile;
+
 import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
+import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
 import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
+import ci.gouv.budget.solde.sigdcp.model.identification.Profession;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.utils.validaton.ValidationPolicy;
+import ci.gouv.budget.solde.sigdcp.service.utils.validaton.ValidationPolicy.InfosFichierATelecharger;
 
 /**
  * Ensemble de methode pour la validation des champs de saisie.<br/>
@@ -47,15 +54,47 @@ public class ValidationManager implements Serializable {
 	
 	public void validateMatricule(FacesContext facesContext,UIComponent uiComponent,Object value){
 		try {
-			validation.validateMatricule(attribute(uiComponent, TypeAgentEtat.class, "typePersonne"), (String) value);
+			validation.validateMatricule(attribute(uiComponent, TypeAgentEtat.class, "typePersonne",true), (String) value);
 		} catch (Exception e) {
 			validationException(uiComponent,e);
 		}		
 	}
 	
+	public void validateNationalite(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateNationalite((Boolean)uiComponent.getAttributes().get("expatrie"),(Localite) value);
+		} catch (Exception e) {
+			validationException(uiComponent,e);
+		}
+	}
+	
 	public void validateDateNaissance(FacesContext facesContext,UIComponent uiComponent,Object value){
 		try {
 			validation.validateDateNaissance((Date) value);
+		} catch (Exception e) {
+			validationException(uiComponent,e);
+		}
+	}
+	
+	public void validateDateMariage(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateDateMariage(userSessionManager.getUser().getSexe(),userSessionManager.getUser().getDateNaissance(),(Date) value);
+		} catch (Exception e) {
+			validationException(uiComponent,e);
+		}
+	}
+	
+	public void validateDateRetraite(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateDateRetraite(attribute(uiComponent, Date.class, "datePriseService",true),(Date) value);
+		} catch (Exception e) {
+			validationException(uiComponent,e);
+		}
+	}
+	
+	public void validateDateDeces(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateDateDeces(attribute(uiComponent, Date.class, "dateNaissance"),(Date) value);
 		} catch (Exception e) {
 			validationException(uiComponent,e);
 		}
@@ -86,8 +125,37 @@ public class ValidationManager implements Serializable {
 	}
 	
 	public void validateAdresseElectroniqueCompte(FacesContext facesContext,UIComponent uiComponent,Object value){
+		String typeEmail = (String) uiComponent.getAttributes().get("typeEmail");
+		
 		try {
-			validation.validateUsernameUnique((String) value);
+			if(typeEmail==null || "compte".equals(typeEmail))
+				validation.validateUsernameUnique((String) value);
+			else
+				validation.validateEmailUnique((String) value);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validateMontantFacture(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateMontantFacture(new BigDecimal((Double) value));
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validatePoidsBaggage(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validatePoidsBaggage(new BigDecimal((Double) value));
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validateTelephone(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateTelephone((String) value);
 		} catch (Exception e) {
 			validationException(uiComponent, e.getMessage());
 		}
@@ -105,7 +173,34 @@ public class ValidationManager implements Serializable {
 	
 	public void validateDatePriseService(FacesContext facesContext,UIComponent uiComponent,Object value){
 		try {
-			validation.validateDatePriseService( (AgentEtat)userSessionManager.getUser(), (Date)value);
+			validation.validateDatePriseService( (AgentEtat)userSessionManager.getUser(), (Date)value,attribute(uiComponent, Date.class, "dateFinService",true));
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validateDateFinService(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateDateFinService(attribute(uiComponent, Date.class, "datePriseService"),(Date)value);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	/*
+	public void validateDateFinContrat(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateDateFinContrat( (AgentEtat)userSessionManager.getUser(), (Date)value);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}*/
+	
+	public void validateDateDepart(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			//System.out.println(value);
+			validation.validateDateDepart(attribute(uiComponent, TypeDepense.class, "typeDepense"),(AgentEtat) uiComponent.getAttributes().get("agentEtat"),
+					(Date) value,attribute(uiComponent, Date.class, "datePriseService",true),attribute(uiComponent, Date.class, "dateFinService",true));
 		} catch (Exception e) {
 			validationException(uiComponent, e.getMessage());
 		}
@@ -113,7 +208,40 @@ public class ValidationManager implements Serializable {
 	
 	public void validateDateArrivee(FacesContext facesContext,UIComponent uiComponent,Object value){
 		try {
-			validation.validateDateArrivee(attribute(uiComponent, Date.class, "dateDepart"),(Date) value);
+			validation.validateDateArrivee(attribute(uiComponent, TypeDepense.class, "typeDepense"),attribute(uiComponent, Date.class, "dateFinService",true),
+					attribute(uiComponent, Date.class, "dateDepart"),(Date) value);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validateDateRetour(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateDateRetour(attribute(uiComponent, TypeDepense.class, "typeDepense"),attribute(uiComponent, Date.class, "dateDepart"),(Date) value);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validateDateDistributionBCCSSotra(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateDateDistributionBCCSSotra((Date) value);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validateDateDistributionBCCSDelegue(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateDateDistributionBCCSDelegue((Date)uiComponent.getAttributes().get("dateDistributionSotra"),(Date) value);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+	}
+	
+	public void validateDateDepotDossier(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateDateDepotDossier((Date) value);
 		} catch (Exception e) {
 			validationException(uiComponent, e.getMessage());
 		}
@@ -144,43 +272,90 @@ public class ValidationManager implements Serializable {
 	}
 	
 	public void validatePieceJustificativeNumero(FacesContext facesContext,UIComponent uiComponent,Object value){
+		
 		try {
-			validation.validatePieceJustificativeNumero(false, (String) value, 
-					attribute(uiComponent, Date.class, "dateEtablissement"), attribute(uiComponent, Fonction.class, "signataire"),
-					null,(PieceJustificativeAFournir)uiComponent.getAttributes().get("model"));
+			//System.out.println( uiComponent.getAttributes().get("fichier") );
+			//UploadedFile file = (UploadedFile) attribute(uiComponent, FileUpload.class, "fichier").getValue();
+			InfosFichierATelecharger fichier = null;//new InfosFichierATelecharger(file.getFileName(),file.getSize());
+			Date dateEtatblissement = null;//attribute(uiComponent, Date.class, "dateEtablissement");
+			Fonction signataire = null; //attribute(uiComponent, Fonction.class, "signataire")
+			PieceJustificativeAFournir model = null;//(PieceJustificativeAFournir)uiComponent.getAttributes().get("model")
+			//validation.validatePieceJustificativeNumero(false, (String) value, dateEtatblissement, signataire,fichier,model);
 		} catch (Exception e) {
 			validationException(uiComponent, e.getMessage());
 		}
+		
 	}
 	
 	public void validatePieceJustificativeDateEtablissement(FacesContext facesContext,UIComponent uiComponent,Object value){
+		//UploadedFile file = (UploadedFile) attribute(uiComponent, FileUpload.class, "fichier").getValue();
+		InfosFichierATelecharger fichier = null;//new InfosFichierATelecharger(file.getFileName(),file.getSize());
+		String numero = null;//attribute(uiComponent, String.class, "numero")
+		Fonction signataire = null; //attribute(uiComponent, Fonction.class, "signataire")
+		PieceJustificativeAFournir model = (PieceJustificativeAFournir)uiComponent.getAttributes().get("model");
 		try {
-			validation.validatePieceJustificativeDateEtablissement(false, attribute(uiComponent, String.class, "numero"), 
-					(Date) value, attribute(uiComponent, Fonction.class, "signataire"),
-					null,(PieceJustificativeAFournir)uiComponent.getAttributes().get("model"));
+			validation.validatePieceJustificativeDateEtablissement((Boolean)uiComponent.getAttributes().get("soumission"), numero, (Date) value, signataire,fichier,model);
 		} catch (Exception e) {
-			validationException(uiComponent, e.getMessage());
+			validationException(uiComponent, model.getTypePieceJustificative().getLibelle()+" : "+e.getMessage());
 		}
+		
 	}
 	
 	public void validatePieceJustificativeFonctionSignataire(FacesContext facesContext,UIComponent uiComponent,Object value){
+		
 		try {
-			validation.validatePieceJustificativeFonctionSignataire(false, attribute(uiComponent, String.class, "numero"), 
-					attribute(uiComponent, Date.class, "dateEtablissement"), (Fonction)value,
-					null,(PieceJustificativeAFournir)uiComponent.getAttributes().get("model"));
+			//UploadedFile file = (UploadedFile) attribute(uiComponent, FileUpload.class, "fichier").getValue();
+			InfosFichierATelecharger fichier = null;//new InfosFichierATelecharger(file.getFileName(),file.getSize());
+			String numero = null;//attribute(uiComponent, String.class, "numero")
+			Date dateEtatblissement = null;//attribute(uiComponent, Date.class, "dateEtablissement");
+			PieceJustificativeAFournir model = null;//(PieceJustificativeAFournir)uiComponent.getAttributes().get("model")
+			//validation.validatePieceJustificativeFonctionSignataire(false, numero, dateEtatblissement, (Fonction)value,fichier,model);
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+		
+	}
+	
+	public void validatePieceJustificativeFichier(FacesContext facesContext,UIComponent uiComponent,Object value){
+		
+		UploadedFile file = (UploadedFile) value;
+		String numero = null;//attribute(uiComponent, String.class, "numero")
+		Date dateEtatblissement = null;//attribute(uiComponent, Date.class, "dateEtablissement");
+		Fonction signataire = null; //attribute(uiComponent, Fonction.class, "signataire")
+		PieceJustificativeAFournir model = (PieceJustificativeAFournir)uiComponent.getAttributes().get("model");
+		try {
+			validation.validatePieceJustificativeFichier(false, numero, dateEtatblissement, signataire,new InfosFichierATelecharger(file.getFileName(),file.getSize()),model);
+		} catch (Exception e) {
+			validationException(uiComponent, model.getTypePieceJustificative().getLibelle()+" : "+e.getMessage());
+		}
+		
+	}
+	
+	public void validatePieceFichier(FacesContext facesContext,UIComponent uiComponent,Object value){			
+		UploadedFile file = (UploadedFile) value;
+		try {
+			validation.validatePieceJustificativeFichier(false, null, null, null,new InfosFichierATelecharger(file.getFileName(),file.getSize()),
+					(PieceJustificativeAFournir)uiComponent.getAttributes().get("model"));
+		} catch (Exception e) {
+			validationException(uiComponent, e.getMessage());
+		}
+		
+	}
+		
+	public void validateNumeroDossier(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateNumeroDossier((Long) value);
 		} catch (Exception e) {
 			validationException(uiComponent, e.getMessage());
 		}
 	}
 	
-	public void validatePieceJustificativeFichier(FacesContext facesContext,UIComponent uiComponent,Object value){
-		/*try {
-			validation.validatePieceJustificativeFichier(false, attribute(uiComponent, String.class, "numero"), 
-					attribute(uiComponent, Date.class, "dateEtablissement"), attribute(uiComponent, Fonction.class, "signataire"),
-					null,(PieceJustificativeAFournir)uiComponent.getAttributes().get("model"));
+	public void validateProfessionMission(FacesContext facesContext,UIComponent uiComponent,Object value){
+		try {
+			validation.validateProfessionMission(attribute(uiComponent, Fonction.class, "fonction"), (Profession) value);
 		} catch (Exception e) {
 			validationException(uiComponent, e.getMessage());
-		}*/
+		}
 	}
 	
 	/*----------------------------------------------------------------------------------------------------------*/
@@ -201,8 +376,20 @@ public class ValidationManager implements Serializable {
 	}
 	
 	@SuppressWarnings("unchecked")
+	private <T> T attribute(UIComponent uiComponent,Class<T> type,String name,boolean nullable){
+		Object object = uiComponent.getAttributes().get(name);
+		if(object==null){
+			if(!nullable)
+				log.severe("Attribute <"+name+"> of Component "+uiComponent.getClass()+" must not be null");
+			return null;
+		}
+		if(object instanceof UIInput)
+			return (T) ((UIInput)object).getValue();
+		return (T) object;
+	}
+	
 	private <T> T attribute(UIComponent uiComponent,Class<T> type,String name){
-		return (T) ((UIInput)uiComponent.getAttributes().get(name)).getValue();
+		return attribute(uiComponent, type, name, false);
 	}
 
 }

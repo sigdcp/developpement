@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	
+      xmlns:sigdcp="http://java.sun.com/jsf/composite/composant">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{lettreAvanceController.preRenderView}" type="preRenderView"></f:event>	
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="#{webConstantResources.pageTemplate}">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{lettreAvanceController}" />
+				<ui:param name="required" value="true" />
+				<ui:define name="contenu">	
+					
+					<p:fieldset legend="Mission">
+					<p:panelGrid columns="2" styleClass="panelGridNoBorder">
+						<!-- <p:outputLabel for="numero" value="Numéro" />
+					 	<p:inputText id="numero" required="#{required}" value="#{lettreAvanceController.entity.numero}" styleClass="size">
+					 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					 		<p:message for="@parent" />
+					 	</p:inputText>
+						<p:outputLabel for="date" value="Date" />						
+					 	<p:calendar id="date" required="#{required}" value="#{lettreAvanceController.entity.dateEtb}" pattern="#{constantResources.datePattern}" >
+					 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					 		<p:message for="@parent" />
+					 	</p:calendar> -->
+						<p:outputLabel for="objet" value="Objet" />
+					 	<p:inputText id="objet" required="#{required}" value="#{lettreAvanceController.entity.objet}">
+					 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					 		<p:message for="@parent" />
+					 	</p:inputText>
+						<p:outputLabel for="debut" value="Date debut mission" />
+					 	<p:calendar id="debut" required="#{required}" value="#{lettreAvanceController.entity.debut}" pattern="#{constantResources.datePattern}" >
+					 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					 		<p:message for="@parent" />
+					 	</p:calendar>
+						<p:outputLabel for="fin" value="Date fin mission" />
+					 	<p:calendar id="fin" required="#{required}" value="#{lettreAvanceController.entity.fin}" pattern="#{constantResources.datePattern}" >
+					 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					 		<p:message for="@parent" />
+					 	</p:calendar>
+						<p:outputLabel for="lieu" value="Lieu mission" />
+						<h:panelGroup>
+						<p:message for="lieu" />
+					 	<p:selectOneMenu id="lieu" value="#{lettreAvanceController.entity.lieuMission}" required="#{required}" converter="#{objectConverter}" >
+							<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+							<f:selectItems value="#{villesHorsCoteDIvoire}" />
+							<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+						</p:selectOneMenu>
+						</h:panelGroup>
+						<p:outputLabel for="beneficiaire" value="Bénéficiaire" />
+						<h:panelGroup>
+						<p:message for="beneficiaire" />
+					 	<p:selectOneMenu id="beneficiaire" value="#{lettreAvanceController.entity.beneficiaire}" required="#{required}" converter="#{objectConverter}" >
+							<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+							<f:selectItems value="#{sections}" />
+							<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+						</p:selectOneMenu>
+						</h:panelGroup>
+						<p:outputLabel for="montant" value="Montant" />
+					 	<pe:inputNumber id="montant" required="#{required}" value="#{lettreAvanceController.entity.montant}">
+							<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+							<p:message for="@parent" />
+						</pe:inputNumber>
+						<!-- <p:outputLabel for="fichier" value="Fichier" />
+						<p:fileUpload value="#{lettreAvanceController.pieceJustificativeUploader}" id="fichier"  mode="simple" > 
+							<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+							<p:message for="@parent" />
+						</p:fileUpload> -->
+					</p:panelGrid>
+					</p:fieldset>
+					<p:spacer height="10"/>
+					<p:outputPanel id="pieceUploaderPanel">
+							<sigdcp:inputPiece id="pieceUploader" uploader="#{lettreAvanceController.pieceJustificativeUploader}"/>
+						</p:outputPanel>
+				</ui:define>
+	
+				
+			</ui:decorate>
+				
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

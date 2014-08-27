@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{commandeCotationPrestataireMhciListeController.preRenderView}" type="preRenderView"></f:event>
+    	</f:metadata>
+	</ui:define>
+	
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+		
+			<!-- <ui:fragment>
+				<ui:include src="/include/menutabprestation.xhtml" />
+			</ui:fragment> -->
+	
+	
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{commandeCotationPrestataireMhciListeController}" />
+				<ui:define name="contenu">	
+					
+						<ui:decorate template="/template/dataList.xhtml">
+									<ui:param name="controller" value="#{commandeCotationPrestataireMhciListeController}" />
+									
+									<ui:define name="colonnes">
+										<p:column headerText="#{constantResources.text('numero')}" sortBy="#{record.id}" filterBy="#{record.id}">
+											<h:outputText value="#{record.id}" />
+										</p:column>									
+										<p:column headerText="#{constantResources.text('datedepart')}" sortBy="#{record.prestataireDemandeCotationMission.missionExecutee.deplacement.dateDepart}" filterBy="#{record.prestataireDemandeCotationMission.missionExecutee.deplacement.dateDepart}">
+											<h:outputText value="#{record.prestataireDemandeCotationMission.missionExecutee.deplacement.dateDepart}" >
+													<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+											</h:outputText>
+										</p:column>									
+										<p:column headerText="#{constantResources.text('dateretour')}" sortBy="#{record.prestataireDemandeCotationMission.missionExecutee.deplacement.dateArrivee}" filterBy="#{record.prestataireDemandeCotationMission.missionExecutee.deplacement.dateArrivee}">
+											<h:outputText value="#{record.prestataireDemandeCotationMission.missionExecutee.deplacement.dateArrivee}" >
+													<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+											</h:outputText>
+										</p:column>										
+										<p:column headerText="#{constantResources.text('villedepart')}" sortBy="#{record.prestataireDemandeCotationMission.missionExecutee.deplacement.localiteArrivee}" filterBy="#{record.prestataireDemandeCotationMission.missionExecutee.deplacement.localiteArrivee}">
+											<h:outputText value="#{record.prestataireDemandeCotationMission.missionExecutee.deplacement.localiteDepart}" />
+										</p:column>								
+										<p:column headerText="#{constantResources.text('destination')}" sortBy="#{record.prestataireDemandeCotationMission.missionExecutee.deplacement.localiteArrivee}" filterBy="#{record.prestataireDemandeCotationMission.missionExecutee.deplacement.localiteArrivee}">
+											<h:outputText value="#{record.prestataireDemandeCotationMission.missionExecutee.deplacement.localiteArrivee}" />
+										</p:column>
+											
+									</ui:define>
+								</ui:decorate>	
+
+		
+				</ui:define>
+				
+			</ui:decorate>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

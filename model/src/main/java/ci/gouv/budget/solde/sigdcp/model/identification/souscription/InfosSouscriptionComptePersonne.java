@@ -14,8 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,10 +23,10 @@ import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
-import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 @Getter @Setter 
 @Entity @AllArgsConstructor
+@Table(name="INFOSSOUSCPE")
 public class InfosSouscriptionComptePersonne  extends AbstractModel<Long>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -39,10 +39,10 @@ public class InfosSouscriptionComptePersonne  extends AbstractModel<Long>  imple
 	/*
 	 * Agents de l'état
 	 */
-	@NotNull(groups=Client.class)
+	//@NotNull(groups=Client.class)
 	@ManyToOne private TypeAgentEtat type;
 	
-	@NotNull(groups=Client.class)
+	//@NotNull(groups=Client.class)
 	private String matricule;
 	
 	public InfosSouscriptionComptePersonne() {}

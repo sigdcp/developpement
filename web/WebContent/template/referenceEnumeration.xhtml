@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:decorate template="/template/reference.xhtml">
+		<ui:param name="referenceController" value="#{referenceController}" />
+		<ui:define name="columns">	
+			
+			
+			<p:column headerText="Code">
+				<p:cellEditor>
+		        	<f:facet name="output"><h:outputText value="#{record.code}" /></f:facet>
+		            <f:facet name="input">
+		            	<p:inputText value="#{record.code}" required="true" rendered="#{referenceController.identifiantEditable(record)}" label="Code">
+		            		<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+		            		<p:message for="@parent" />
+		            	</p:inputText>
+		          		<h:outputText value="#{record.code}" rendered="#{not referenceController.identifiantEditable(record)}"/>
+		            </f:facet>
+		        </p:cellEditor>
+		        
+	        </p:column>
+	        
+	        <p:column headerText="Libelle"><p:cellEditor>
+	        	<f:facet name="output"><h:outputText value="#{record.libelle}" /></f:facet>
+	            <f:facet name="input"><p:inputText value="#{record.libelle}" required="true" label="Libelle">
+	            	<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+		           	<p:message for="@parent" />
+	            </p:inputText></f:facet>
+	        </p:cellEditor></p:column>
+	        
+	        <ui:insert name="supColumns" />
+
+
+		</ui:define>
+		
+	</ui:decorate>
+		
+
+      
+
+</ui:composition>

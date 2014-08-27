@@ -1,6 +1,9 @@
+/target
+
 /bin
 
+/.settings
 /build
-/target
+/WEB-INF/classes/rebel.xml
 /Users
-rebel.xml
+/Developpement

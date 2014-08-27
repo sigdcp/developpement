@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>lireplussotra</from-outcome>
+			<to-view-id>/public/lireplussotra.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>joindrelistebasesotra</from-outcome>
+			<to-view-id>/private/demande/agentetat/joindrelistebasesotra.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>valideradherentlistebasesotra</from-outcome>
+			<to-view-id>/private/personnel/sotra/delegue/valideradherentlistebasesotra.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>adherentlistebasesotra</from-outcome>
+			<to-view-id>/private/personnel/sotra/delegue/adherentlistebasesotra.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>achatcartesotra</from-outcome>
+			<to-view-id>/private/personnel/sotra/delegue/achatcartesotra.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>realiserboncommandecartesotra</from-outcome>
+			<to-view-id>/private/personnel/sotra/gestionnaire/realiserboncommandecartesotra.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>distribuerbccssotra</from-outcome>
+			<to-view-id>/private/personnel/sotra/gestionnaire/distribuerbccssotra.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>distribuerbccsdelegue</from-outcome>
+			<to-view-id>/private/personnel/sotra/gestionnaire/distribuerbccsdelegue.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>modifierlisteacheteurs</from-outcome>
+			<to-view-id>/private/personnel/sotra/delegue/modifierlisteacheteurs.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>consulterlisteacheteurs</from-outcome>
+			<to-view-id>/private/personnel/sotra/delegue/consulterlisteacheteurs.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>annulerachatcarte</from-outcome>
+			<to-view-id>/private/personnel/sotra/delegue/annulerachatcarte.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+	</navigation-rule>
+
+</faces-config>

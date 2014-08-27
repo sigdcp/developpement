@@ -9,16 +9,26 @@
 package ci.gouv.budget.solde.sigdcp.model.dossier;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
+import ci.gouv.budget.solde.sigdcp.model.indemnite.RegleCalcul;
 
 @Getter @Setter 
 @Entity 
+@Table(name="NATUREDEP")
 public class NatureDeplacement  extends DynamicEnumeration  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -26,7 +36,19 @@ public class NatureDeplacement  extends DynamicEnumeration  implements Serializa
 	@ManyToOne
 	private CategorieDeplacement categorie;
 	
+	@Column(name="nbjij")
 	private Integer nombreJourIndemniteJournaliere;
+	
+	@OneToMany(fetch=FetchType.EAGER)
+	//@JoinTable(name="NATDEPREGCAL") -- Mis en commentaire à cause d'Hibernate - Pb sur les cles composees
+	@JoinColumn(name="NATDEP")
+	private Collection<RegleCalcul> indemnites = new ArrayList<>();
+	
+	@Transient
+	private Long nombreDossier;
+	
+	@Transient
+	private Long montantIndemnite;
 	
 	public NatureDeplacement() {}
 
@@ -39,7 +61,7 @@ public class NatureDeplacement  extends DynamicEnumeration  implements Serializa
 
 	@Override
 	public String toString() {
-		return categorie+"/"+libelle;
+		return libelle;
 	}
 	
 	

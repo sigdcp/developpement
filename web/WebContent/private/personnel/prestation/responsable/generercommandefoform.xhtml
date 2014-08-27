@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{genererBonCommandeFoFormController.preRenderView}" type="preRenderView"></f:event>
+    	</f:metadata>
+	</ui:define>
+	
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+		
+			<ui:fragment>
+				<ui:include src="/include/menutabprestation.xhtml" />
+			</ui:fragment>
+	
+	
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{genererBonCommandeFoFormController}" />
+				<ui:define name="contenu">	
+					
+					<p:fieldset legend="#{genererBonCommandeFoFormController.titleDemande}">
+					<p:panelGrid columns="2" styleClass="panelGridNoBorder panelColumnVAlignTop" style="width:100%">
+						<p:panelGrid columns="2" styleClass="panelGridNoBorder panelColumnVAlignTop" style="width:100%">
+							
+							
+							<h:outputText value="#{constantResources.text('cercueil')}" />
+							<h:outputText value=": #{genererBonCommandeFoFormController.entity.prestataireDemandeCotationObseque.dossier.cercueil.libelle}"/>
+												
+							<h:outputText value="#{constantResources.text('indemnitecercueil')}" />
+							<h:outputText value=": #{genererBonCommandeFoFormController.entity.prestataireDemandeCotationObseque.dossier.cercueil.montant}"/>	
+					
+							
+							<h:outputText value="#{constantResources.text('villedepart')}" />
+							<h:outputText value=": #{genererBonCommandeFoFormController.entity.prestataireDemandeCotationObseque.dossier.deplacement.localiteDepart}" />
+							<h:outputText value="#{constantResources.text('destination')}" />
+							<h:outputText value=": #{genererBonCommandeFoFormController.entity.prestataireDemandeCotationObseque.dossier.deplacement.localiteArrivee}" />
+							
+							
+							<h:outputText value="#{constantResources.text('indemnitetransport')}" />
+							<h:outputText value=": #{genererBonCommandeFoFormController.entity.prestataireDemandeCotationObseque.dossier.coutTransport}"/>
+					
+						</p:panelGrid>
+						
+						
+						<p:dataTable id="participant" value="#{demandeCotationFoFormController.entity.dossier}" var="dossier" rowIndexVar="index"> 
+							<f:facet name="header">
+								<h:outputText value="#{constantResources.text('defunt')}" />
+							</f:facet>
+							
+							<p:column headerText="#">
+								<h:outputText value="#{index+1}" />
+							</p:column>			
+							<p:column headerText="#{constantResources.text('nom')}">
+								<h:outputText value="#{dossier.beneficiaire.nomPrenoms}" />
+							</p:column>
+							<p:column headerText="#{constantResources.text('indice')}">
+								<h:outputText value="#{dossier.indice}" />
+							</p:column>	
+						</p:dataTable>
+								
+						</p:panelGrid>
+						
+						
+						
+					</p:fieldset>			
+					
+					
+					
+					 
+					 <p:spacer height="5"/>
+					 
+					<p:fieldset legend="Commande">
+					
+						<p:panelGrid columns="2" styleClass="panelGridNoBorder panelColumnVAlignTop" style="width:100%">
+						
+							<h:outputText value="#{constantResources.text('prestataire')}" />
+							<h:outputText value=": #{genererBonCommandeFoFormController.entity.prestataireDemandeCotationObseque.prestataire.nom}" />
+							
+							<h:outputText value="#{constantResources.text('montanttransport')}" />
+							<h:outputText value=": #{genererBonCommandeFoFormController.entity.prestataireDemandeCotationObseque.montantTransport}"/>
+												
+							<h:outputText value="#{constantResources.text('montantcercueil')}" />
+							<h:outputText value=": #{genererBonCommandeFoFormController.entity.prestataireDemandeCotationObseque.montantCercueil}"/>
+							<h:outputText value="#{constantResources.text('observation')}" />
+							<p:editor value="#{genererBonCommandeFoFormController.entity.observation}"/>
+						</p:panelGrid>
+					</p:fieldset>
+		
+				</ui:define>
+				
+			</ui:decorate>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

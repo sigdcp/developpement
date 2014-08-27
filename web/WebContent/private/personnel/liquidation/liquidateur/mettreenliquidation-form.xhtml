@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sigdcp="http://java.sun.com/jsf/composite/composant">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	
+	    	<f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{liquiderController.crudType}" converter="#{viewParamEnumConverter}" />
+	    	<f:event type="preRenderView" listener="#{liquiderController.preRenderView}" /> 
+    	</f:metadata>
+	</ui:define>	
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{liquiderController}" />
+				<ui:define name="contenu">	
+					
+					<p:panelGrid columns="4" styleClass="panelGridNoBorder">
+						<h:outputText value="Matricule" />
+						<h:outputText value="#{liquiderController.entity.dossier.beneficiaire.matricule}" />
+						<h:outputText value="Nom et prénoms" />
+						<h:outputText value="#{liquiderController.entity.dossier.beneficiaire.nomPrenoms}" />
+						<h:outputText value="Départ" />
+						<h:panelGroup>
+							<h:outputText value="#{liquiderController.entity.dossier.deplacement.localiteDepart} , le " />
+							<h:outputText value="#{constantResources.dateAsString(liquiderController.entity.dossier.deplacement.dateDepart)} " />	
+						</h:panelGroup>
+						<h:outputText value="Arrivée" />
+						<h:panelGroup>
+							<h:outputText value="#{liquiderController.entity.dossier.deplacement.localiteArrivee} , le " />
+							<h:outputText value="#{constantResources.dateAsString(liquiderController.entity.dossier.deplacement.dateArrivee)} " />	
+						</h:panelGroup>
+					</p:panelGrid>
+										
+					<p:separator/>
+					<p:panelGrid columns="5" styleClass="panelGridNoBorder">
+						<h:outputText value="Fonction" rendered="#{liquiderController.fonction!=null}"/>
+						<h:outputText value="#{liquiderController.fonction}" rendered="#{liquiderController.fonction!=null}"/> 
+						
+						<h:outputText value="Profession" rendered="#{liquiderController.profession!=null}"/>
+						<h:outputText value="#{liquiderController.profession}" rendered="#{liquiderController.profession!=null}"/>
+						
+						<h:outputText value="Grade" rendered="#{liquiderController.entity.dossier.grade!=null}"/>
+						<h:outputText value="#{liquiderController.entity.dossier.grade}" rendered="#{liquiderController.entity.dossier.grade!=null}"/>
+						
+						<p:outputLabel value="Groupe" for="groupe" />
+						<p:selectOneRadio id="groupe" value="#{liquiderController.entity.dossier.groupe}" converter="#{objectConverter}" rendered="#{empty liquiderController.entity.dossier.bulletinLiquidations}">
+							<f:selectItems value="#{liquiderController.groupes}" />
+							<f:validateBean validationGroups="#{clientValidationGroupClass}"/>
+							<p:message for="@parent"/>
+						</p:selectOneRadio>
+						<h:outputText value="#{liquiderController.entity.dossier.groupe}" rendered="#{not empty liquiderController.entity.dossier.bulletinLiquidations}"/>
+						
+						<ui:include src="/resources/include/component/formCommand.xhtml" >
+							<ui:param name="command" value="#{liquiderController.calculerCommand}" />
+						</ui:include>
+					</p:panelGrid>
+					
+					<p:separator/>
+					
+					<ui:fragment rendered="#{not empty liquiderController.entity.dossier.bulletinLiquidations}" >
+						<p:fieldset legend="Précédent" collapsed="true" toggleable="true">
+							<ui:repeat var="bl" value="#{liquiderController.entity.dossier.bulletinLiquidations}">
+								<sigdcp:indemnitesCalculees bulletinLiquidation="#{bl}"/>
+							</ui:repeat>
+						</p:fieldset>
+						<p:spacer height="5" />
+					</ui:fragment>
+										
+					<sigdcp:indemnitesCalculees id="indemnites" bulletinLiquidation="#{liquiderController.entity}"/>
+					
+				</ui:define>
+			</ui:decorate>			
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

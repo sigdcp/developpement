@@ -16,36 +16,38 @@ public class PieceJustificativeDto implements Serializable {
 	
 	private PieceJustificative piece;
 	private UploadedFile file;
-	private Boolean numeroEditable = Boolean.TRUE,dateEtablissementEditable=Boolean.TRUE;
-	private Boolean editable=Boolean.TRUE;
-	private String libelle,rowStyleClass;
-	private Boolean showFile,required;
+	private Boolean numeroEditable = Boolean.TRUE,dateEtablissementEditable=Boolean.TRUE,fichierEditable=Boolean.TRUE;
+	private Boolean editable=Boolean.TRUE,imprimable=Boolean.FALSE;
+	private String libelle,rowStyleClass,allowedFileTypes;
+	private Boolean hasFichier,required;
 	
-	public PieceJustificativeDto(PieceJustificative piece,Boolean editable) {
+	public PieceJustificativeDto(PieceJustificative piece,Boolean editable,Boolean imprimable) {
 		super();
 		this.piece = piece;
 		this.editable = editable;
+		this.imprimable = imprimable;
 		
 		numeroEditable = editable && Boolean.FALSE.equals(piece.getModel().getConfig().getDerivee());
 		dateEtablissementEditable = numeroEditable;
-		showFile = piece.getFichier()==null;
+		hasFichier = piece.getFichier()!=null;
 		
 		if(Boolean.TRUE.equals(piece.getModel().getConfig().getPrincipale())){
 			rowStyleClass = "ui-piece-principale";
 			required = Boolean.TRUE;
-		}else if(Boolean.TRUE.equals(piece.getModel().getConfig().getDerivee()))
+		}else if(Boolean.TRUE.equals(piece.getModel().getConfig().getDerivee())){
 			rowStyleClass = "ui-piece-derivee";
-		else if(Boolean.TRUE.equals(piece.getModel().getConfig().getConditionnee()))
+			//imprimable=true && editable;
+		}else if(Boolean.TRUE.equals(piece.getModel().getConfig().getConditionnee()))
 			rowStyleClass = "ui-piece-conditionnee";
 		else
 			rowStyleClass = "ui-piece-defaut";
-		
+		fichierEditable = editable; //&& Boolean.TRUE.equals(piece.getModel().getConfig().getDerivee());
 		//numeroEditable = dateEtablissementEditable = !Boolean.TRUE.equals(piece.getModel().getConfig().getDerivee());
 	}
 	
 	public void supprimerFichier(){
 		piece.setFichier(null);
-		showFile=true;
+		hasFichier=false;
 	}
 
 }

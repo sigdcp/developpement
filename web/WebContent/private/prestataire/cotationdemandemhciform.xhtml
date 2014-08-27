@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sigdcp="http://java.sun.com/jsf/composite/composant">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{cotationDemandeMhciFormController.preRenderView}" type="preRenderView"></f:event>
+    	</f:metadata>
+	</ui:define>
+	
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+	
+	
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{cotationDemandeMhciFormController}" /> 
+				<ui:define name="contenu">	
+					<p:fieldset legend="#{cotationDemandeMhciFormController.listTitle}">
+					<p:panelGrid columns="2" styleClass="panelGridNoBorder panelColumnVAlignTop" style="width:100%">
+						<p:panelGrid columns="2">
+							<h:outputText value="#{constantResources.text('datedepart')}" />
+							<h:outputText value=": #{constantResources.dateAsString(cotationDemandeMhciFormController.entity.missionExecutee.deplacement.dateDepart)}" />
+							<h:outputText value="#{constantResources.text('dateretour')}" />
+							<h:outputText value=": #{constantResources.dateAsString(cotationDemandeMhciFormController.entity.missionExecutee.deplacement.dateArrivee)}" />
+							<h:outputText value="#{constantResources.text('villedepart')}" />
+							<h:outputText value=": #{cotationDemandeMhciFormController.entity.missionExecutee.deplacement.localiteDepart}" />
+							<h:outputText value="#{constantResources.text('destination')}" />
+							<h:outputText value=": #{cotationDemandeMhciFormController.entity.missionExecutee.deplacement.localiteArrivee}" />
+						</p:panelGrid>
+						
+						<p:dataTable id="dcotation" value="#{cotationDemandeMhciFormController.entity.classeVoyages}" var="cotation" rowIndexVar="index"> 
+									<f:facet name="header">
+										<h:outputText value="" />
+									</f:facet>																										
+									<p:column headerText="#" >
+										<h:outputText value="#{index+1}" />
+									</p:column>																											
+									<p:column headerText="#{constantResources.text('classevoyage')}" >
+										<h:outputText value="#{cotation[0]}" />
+									</p:column>		
+									<p:column headerText="#{constantResources.text('nombreplace')}">
+										<h:outputText value="#{cotation[1]}" />
+									</p:column>								
+							</p:dataTable>
+						</p:panelGrid>
+					</p:fieldset>
+								
+						<p:spacer height="5"/>
+
+					<p:fieldset legend="Proposition de cotation">
+						<!-- <p:commandButton value="Ajouter Facture Pro forma" icon="ui-icon-plus"/> -->
+						
+						<p:outputPanel id="pieceUploaderPanel">
+							<sigdcp:inputPiece id="pieceUploader" uploader="#{cotationDemandeMhciFormController.pieceJustificativeUploader}"/>
+						</p:outputPanel>
+					</p:fieldset>
+						<p:spacer height="5"/>
+				</ui:define>
+				
+			</ui:decorate>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

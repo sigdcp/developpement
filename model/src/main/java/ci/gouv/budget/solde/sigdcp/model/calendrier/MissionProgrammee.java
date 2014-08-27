@@ -12,13 +12,11 @@ import java.io.Serializable;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.model.indemnite.MontantIndemniteMission;
+import ci.gouv.budget.solde.sigdcp.model.indemnite.FraisMission;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 @Getter @Setter 
@@ -39,24 +37,24 @@ public class MissionProgrammee extends Mission implements Serializable{
 	@NotNull(groups=Client.class)
 	private String resultatsAttendu; 
 	
-	@ManyToOne @NotNull(groups=Client.class) @JoinColumn(nullable=false)
-	private CalendrierMission calendrierMission;
+	//@ManyToOne @NotNull(groups=Client.class) @JoinColumn
+	//private CalendrierMission calendrierMission;
 	
 	@Embedded
-	private MontantIndemniteMission indemnite;
+	private FraisMission indemnite;
 	
 	public MissionProgrammee() {}
 
 	public MissionProgrammee(String designation, Integer mois,
 			Integer dureeJour, String objetifs, String resultatsAttendu,
 			CalendrierMission calendrierMission,
-			MontantIndemniteMission indemnite) {
+			FraisMission indemnite) {
 		super(designation);
 		this.mois = mois;
 		this.dureeJour = dureeJour;
 		this.objetifs = objetifs;
 		this.resultatsAttendu = resultatsAttendu;
-		this.calendrierMission = calendrierMission;
+		//this.calendrierMission = calendrierMission;
 		this.indemnite = indemnite;
 	}
 

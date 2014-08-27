@@ -10,9 +10,12 @@ package ci.gouv.budget.solde.sigdcp.model.calendrier;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
@@ -20,8 +23,8 @@ import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
-@Getter @Setter 
-@MappedSuperclass
+@Getter @Setter @Entity @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Table(name="MISSION")
 public class Mission extends AbstractModel<Long> implements Serializable{
 
 	private static final long serialVersionUID = 1L;

@@ -13,12 +13,14 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter 
 @Entity
+//@Table(name="PIECEJ")
 public class PieceJustificative  extends Document  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -26,13 +28,22 @@ public class PieceJustificative  extends Document  implements Serializable{
 	@ManyToOne
 	private PieceJustificativeAFournir model;
 	
+	/**
+	 * Le dossier concerné
+	 */
 	@ManyToOne
-	private Dossier dossier;
+	protected Dossier dossier;
+	
+	/**
+	 * Vrai si modifiable , Faux sinon , Null si depend du conteneur
+	 */
+	@Transient protected Boolean modifiable,editable;
 	
 	public PieceJustificative() {}
 
-	public PieceJustificative(PieceJustificativeAFournir model) {
+	public PieceJustificative(Dossier dossier,PieceJustificativeAFournir model) {
 		super();
+		this.dossier =dossier;
 		this.model = model;
 	}
 

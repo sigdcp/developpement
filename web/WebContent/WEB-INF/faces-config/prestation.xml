@@ -6,7 +6,12 @@
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 
-
+		<navigation-case>
+			<from-outcome>facturationtransitbagages</from-outcome>
+			<to-view-id>/private/prestataire/facturation/transitbagages.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
 		<navigation-case>
 			<from-outcome>demandecotationbilletavionmission</from-outcome>
 			<to-view-id>/private/personnel/transport/cotation.xhtml</to-view-id>

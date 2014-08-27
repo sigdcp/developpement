@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<style>
+	 .col1{vertical-align: top}
+	 .col2{vertical-align: top}
+	</style>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{demandeCotationMhciFormController.preRenderView}" type="preRenderView"></f:event>
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+		
+			<ui:fragment>
+				<ui:include src="/include/menutabprestation.xhtml" />
+			</ui:fragment>
+	
+	
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{demandeCotationMhciFormController}" />
+				<ui:define name="contenu">	
+				
+			
+				<p:fieldset legend="Mission">
+					<p:panelGrid columns="4" styleClass="panelGridNoBorder">
+					<h:outputText value="Désignation" />
+					<h:outputText value=": #{demandeCotationMhciFormController.entity.mission.designation}"/><h:outputText value="" /><h:outputText value="" />
+					
+					<h:outputText value="#{constantResources.text('villedepart')}" />
+					<h:outputText value=": #{demandeCotationMhciFormController.entity.mission.deplacement.localiteDepart}"/>
+					<h:outputText value="Destination" />
+					<h:outputText value=": #{demandeCotationMhciFormController.entity.mission.deplacement.localiteArrivee}"/>
+		
+					<h:outputText value="Date départ " />
+					<h:outputText value=": #{constantResources.dateAsString(demandeCotationMhciFormController.entity.mission.deplacement.dateDepart)}"/>
+					<h:outputText value="Date de retour" />
+					<h:outputText value=": #{constantResources.dateAsString(demandeCotationMhciFormController.entity.mission.deplacement.dateArrivee)}"/>
+					
+					</p:panelGrid>	
+					<p:spacer height="2"/>
+					<p:dataTable id="participant" value="#{demandeCotationMhciFormController.entity.mission.dossiers}" var="dossier" rowIndexVar="index"> 
+							<f:facet name="header">
+								<h:outputText value="Participant(s)" />
+							</f:facet>
+							
+							<p:column headerText="#">
+								<h:outputText value="#{index+1}" />
+							</p:column>			
+							<p:column headerText="#{constantResources.text('nom')}">
+								<h:outputText value="#{dossier.beneficiaire.nomPrenoms}" />
+							</p:column>
+							<p:column headerText="#{constantResources.text('groupe')}">
+								<h:outputText value="#{dossier.groupe}" />
+							</p:column>			
+							<p:column headerText="#{constantResources.text('classevoyage')}" >
+								<h:outputText value="#{dossier.classeVoyage}" />
+							
+								<!-- <p:selectOneMenu id="ClasseVoyage" value="#{dossier.classeVoyage}" converter="#{objectConverter}">
+									<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}" />
+									<f:selectItems value="#{typeClasseVoyages}" />
+									<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+								</p:selectOneMenu> -->	
+							</p:column>
+							<p:column headerText="#{constantResources.text('indemnitetransport')}">
+								<h:outputText value="#{dossier.frais.transport}" />
+							</p:column>
+						</p:dataTable>
+					</p:fieldset>
+					
+					<p:spacer height="5"/>
+					
+					<p:fieldset legend="Prestataires">	
+						<p:dataTable id="agenceVoyage" value="#{demandeCotationMhciFormController.prestataires}" var="prestataire" rowIndexVar="index" rowKey="#{prestataire.id}" selection="#{demandeCotationMhciFormController.agenceVoyages}"> 
+								<f:facet name="header">
+									<h:outputText value="Liste des agences de voyage" />
+								</f:facet>
+								<p:column selectionMode="multiple" width="1%"/>
+								<p:column headerText="#">
+									<h:outputText value="#{index+1}" />
+								</p:column>			
+								<p:column headerText="#{constantResources.text('nom')}">
+									<h:outputText value="#{prestataire.nom}" />
+								</p:column>
+								<p:column headerText="#{constantResources.text('email')}">
+									<h:outputText value="#{prestataire.contact.email}" />
+								</p:column>			
+								
+						</p:dataTable>
+						
+					</p:fieldset>
+				
+				
+		
+				</ui:define>
+				
+			</ui:decorate>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

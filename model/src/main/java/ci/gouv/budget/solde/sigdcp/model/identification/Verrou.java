@@ -22,7 +22,7 @@ public class Verrou implements Serializable {
 
 	private static final long serialVersionUID = -4449969354459932246L;
 
-	public enum Cause{ACCESS_MULTIPLE,REINITIALISATION_PASSWORD}
+	public enum Cause{ACCESS_MULTIPLE,REINITIALISATION_PASSWORD,DESACTIVATION_COMPTE}
 	
 	@Column(unique=true)
 	private String code;

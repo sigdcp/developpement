@@ -58,6 +58,10 @@ public class Contact extends AbstractModel<Long> implements Serializable{
 		this.situationGeographique = situationGeographique;
 	}
 	
+	public Contact(Contact contact){
+		this(contact.email,contact.telephone,contact.boitePostale,contact.adresse,contact.situationGeographique);
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

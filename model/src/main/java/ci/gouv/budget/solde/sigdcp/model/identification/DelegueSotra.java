@@ -9,46 +9,43 @@
 package ci.gouv.budget.solde.sigdcp.model.identification;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.model.geographie.Contact;
-import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
+import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 
 @Getter @Setter 
 @Entity
-public class DelegueSotra  extends AgentEtat   implements Serializable{
+public class DelegueSotra extends AbstractModel<Long>   implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	@Id @GeneratedValue private Long id;
+	
+	@NotNull(message="L'agent est non valide")
+	@ManyToOne private AgentEtat agent;
+	
+	@NotNull(message="L'interimaire est non valide")
 	@ManyToOne private AgentEtat interimaire;
+	
+	@NotNull(message="La section gerée est non valide")
 	@ManyToOne private Section sectionGeree;
+	
+	public DelegueSotra(AgentEtat agent, AgentEtat interimaire,Section sectionGeree) {
+		super();
+		this.agent = agent;
+		this.interimaire = interimaire;
+		this.sectionGeree = sectionGeree;
+	}
 	
 	public DelegueSotra() {
 		super();
 	}
-
-	public DelegueSotra(String matricule, String nom,
-			String prenoms, Date dateNaissance, Contact contact, Sexe sexe,
-			SituationMatrimoniale situationMatrimoniale, Localite nationalite,
-			Date dateCreation, Grade grade, Echelon echelon, Position position,
-			Integer indice, Fonction fonction, Section section,
-			Profession profession, Personne ayantDroit, AgentEtat interimaire,
-			Section sectionGeree) {
-		super(matricule, nom, prenoms, dateNaissance, contact, sexe,
-				situationMatrimoniale, nationalite, dateCreation, grade,
-				echelon, position, indice, fonction, section, profession,
-				ayantDroit);
-		this.interimaire = interimaire;
-		this.sectionGeree = sectionGeree;
-	}
-
-	
-
-	
 	
 }

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{consomationIndemniteTransportController.preRenderView}" type="preRenderView"/>
+    	</f:metadata>
+	</ui:define>	
+		
+	<ui:composition template="/template/commun.xhtml">
+<ui:define name="contenu">
+	<ui:decorate template="/template/formTemplate.xhtml">
+		<ui:param name="uiController" value="#{consomationIndemniteTransportController}" />
+			<ui:define name="contenu">					
+				<ui:decorate template="/template/statistique.xhtml">
+				<ui:param name="controller" value="#{consomationIndemniteTransportController}" />
+				
+					<ui:define name="ajoutcritere">	
+						<p:selectCheckboxMenu id="classevoyage" value="#{consomationIndemniteTransportController.typeClasseVoyageSelectionnees}" converter="#{objectConverter}" label="Classe de voyage">
+							<f:selectItems value="#{typeClasseVoyages}" />
+						</p:selectCheckboxMenu>
+					</ui:define>
+					
+					<ui:define name="detail">
+						<p:column headerText="#{constantResources.text('groupe')}"><h:outputText value="#{record.libelle}" /></p:column>
+								<p:column headerText="#{constantResources.text('montant.indemnite')}" >
+									<h:outputText value="#{consomationIndemniteTransportController.depense(record)}" >
+										<f:convertNumber  maxFractionDigits="0" type="number" />
+									</h:outputText>
+									<f:facet name="footer">
+										<h:outputText value="#{controller.statistiques.total.depense}" >
+											<f:convertNumber  maxFractionDigits="0" type="number" />
+										</h:outputText>
+									</f:facet>
+								</p:column>						
+								<p:column headerText="#{constantResources.text('montant.transport')}" >
+									<h:outputText value="#{consomationIndemniteTransportController.fraisTransport(record)}" >
+										<f:convertNumber  maxFractionDigits="0" type="number" />
+									</h:outputText>
+									<f:facet name="footer">
+										<h:outputText value="#{controller.statistiques.total.fraisTransport}" >
+											<f:convertNumber  maxFractionDigits="0" type="number" />
+										</h:outputText>
+									</f:facet>
+								</p:column>
+					</ui:define>
+					
+					<ui:define name="tableau">
+					<p:column headerText="#{constantResources.text('classevoyage')}">
+									<h:outputText value="#{record.libelle}" />
+								</p:column>
+					<p:column headerText="#{constantResources.text('montant.indemnite')}" >
+									<h:outputText value="#{controller.details(record).depense}" >
+										<f:convertNumber  maxFractionDigits="0" type="number" />
+									</h:outputText>
+									<f:facet name="footer">
+										<h:outputText value="#{controller.statistiques.total.depense}" >
+											<f:convertNumber  maxFractionDigits="0" type="number" />
+										</h:outputText>
+									</f:facet>
+								</p:column>						
+								<p:column headerText="#{constantResources.text('montant.transport')}" >
+									<h:outputText value="#{controller.details(record).fraisTransport}" >
+										<f:convertNumber  maxFractionDigits="0" type="number" />
+									</h:outputText>
+									<f:facet name="footer">
+										<h:outputText value="#{controller.statistiques.total.fraisTransport}" >
+											<f:convertNumber  maxFractionDigits="0" type="number" />
+										</h:outputText>
+									</f:facet>
+								</p:column>
+					</ui:define>
+					
+					<ui:define name="graphique">
+								<p:pieChart value="#{controller.pieChartModelDepense}" legendPosition="w" title="Proportions des dépenses par nature de déplacement" 
+								rendered="#{controller.pieChartModelDepense != null}"/>
+								<p:pieChart value="#{controller.pieChartModelFraisTransport}" legendPosition="w" title="Proportions du coût de transport par continent"
+									rendered="#{controller.pieChartModelFraisTransport != null}"/>
+					</ui:define>
+							
+				</ui:decorate>
+				
+			</ui:define>
+		
+	</ui:decorate>
+	
+	
+		
+</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

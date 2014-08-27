@@ -3,7 +3,6 @@ package ci.gouv.budget.solde.sigdcp.service.fichier;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import lombok.extern.java.Log;
@@ -14,7 +13,7 @@ import ci.gouv.budget.solde.sigdcp.dao.fichier.FichierDao;
 import ci.gouv.budget.solde.sigdcp.model.fichier.Fichier;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
 
-@Stateless @Log
+@Log
 public class FichierServiceImpl extends DefaultServiceImpl<Fichier, Long> implements FichierService , Serializable {
 
 	private static final long serialVersionUID = -7601857525393731774L;

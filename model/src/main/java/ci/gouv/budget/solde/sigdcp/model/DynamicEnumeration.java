@@ -4,13 +4,14 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
-import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 /**
  * Decrit les types d'objets
@@ -21,7 +22,7 @@ import lombok.Setter;
 //@Entity 
 @MappedSuperclass
 @AllArgsConstructor
-//@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+//@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS) -- Mis en commentaire à cause d'Hibernate
 //@Table(name="enumeration_dynamique")
 public class DynamicEnumeration  extends AbstractModel<String>  implements Serializable {
 
@@ -34,22 +35,23 @@ public class DynamicEnumeration  extends AbstractModel<String>  implements Seria
 	protected String libelle;
 	
 	@Column(length=10 * 1024)
+	@Lob
 	private String description;
 	
-	private Integer shortDescriptionBenginIndex,shortDescriptionEndIndex;
+	//private Integer shortDescriptionBenginIndex,shortDescriptionEndIndex;
 	
 	public DynamicEnumeration() {}
-
+/*
 	public DynamicEnumeration(String code, String libelle, String description) {
 		super();
 		this.code = code;
 		this.libelle = libelle;
 		this.description = description;
 	}
-	
+	*/
 	public DynamicEnumeration(String code, String libelle) {
 		this(code,libelle,null);
-	}
+	} 
 	
 	@Override
 	public int hashCode() {

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<div class="menutabclass"> <h:outputText value="Commande de prestation" /> </div>
+		
+		<p:tabMenu activeIndex="#{param[webConstantResources.requestParamTabMenuItemIndex]}">  
+		    <p:menuitem value="Cotation de billet d'avion" outcome="mission_mhci_a_coter" rendered="#{roleManager.liquidateur}">
+		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabPrestationCotationMhciIndex}" />
+		    </p:menuitem>    
+		    <p:menuitem value="Commande de billet d'avion" outcome="cotation_mhci_a_commander" rendered="#{roleManager.responsable}">
+		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabPrestationCommandeMhciIndex}" />
+		    </p:menuitem> 		      
+		    
+		    <p:menuitem value="Cotation de frais d'obsèques" outcome="fo_a_coter" rendered="#{roleManager.liquidateur}">
+		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabPrestationCotationFoIndex}"  />
+		    </p:menuitem>		    
+		    <p:menuitem value="Commande de frais d'obsèques" outcome="cotation_fo_a_commander" rendered="#{roleManager.responsable}">
+				<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabPrestationCommandeFoIndex}" />
+			</p:menuitem> 
+					    
+		    <p:menuitem value="Valider bon de commande billet d'avion" outcome="validercommande_transport" rendered="#{roleManager.directeur}">
+				<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabPrestationValiderCommandeTTIndex}" />
+			</p:menuitem> 
+			 
+			<p:menuitem value="Valider bon de commande frais d'obsèque" outcome="validercommande_obseque" rendered="#{roleManager.directeur}">
+				<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabPrestationValiderCommandeFOIndex}" />
+			</p:menuitem>
+			
+		</p:tabMenu> 
+   	
+	</ui:composition>
+</body>
+</html>

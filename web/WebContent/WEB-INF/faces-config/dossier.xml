@@ -5,62 +5,99 @@
 
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
-	
+
 		<navigation-case>
 			<from-outcome>naturedepinfos</from-outcome>
 			<to-view-id>/public/naturedeplacement.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>lettreavance</from-outcome>
+			<to-view-id>/private/demande/agentetat/lettreavance.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 
 		<navigation-case>
 			<from-outcome>imprimerpiecejustificative</from-outcome>
-			<to-view-id>/private/demande/impression.xhtml</to-view-id>
+			<to-view-id>/private/demande/agentetat/impression.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>imprimerpieceproduite</from-outcome>
+			<to-view-id>/private/personnel/impression.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>imprimerapec</from-outcome>
+			<to-view-id>/private/demande/agentetat/imprimerapec.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 
 		<navigation-case>
 			<from-outcome>demande_dd</from-outcome>
-			<to-view-id>/private/demande/dd.xhtml</to-view-id>
+			<to-view-id>/private/demande/agentetat/dd.xhtml</to-view-id>
 			<redirect />
-		</navigation-case>
+		</navigation-case>		
 
 		<navigation-case>
 			<from-outcome>demande_o</from-outcome>
-			<to-view-id>/public/demande/fo.xhtml</to-view-id>
+			<to-view-id>/private/demande/tous/fo.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>demande_t</from-outcome>
-			<to-view-id>/private/demande/tr.xhtml</to-view-id>
+			<to-view-id>/private/demande/agentetat/tr.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>demande_m</from-outcome>
-			<to-view-id>/private/demande/mhci.xhtml</to-view-id>
+			<to-view-id>/private/demande/agentetat/mhci.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-		
 		<navigation-case>
-			<from-outcome>demande_mission_pointfocal</from-outcome>
-			<to-view-id>/private/personnel/demande/mhci.xhtml</to-view-id>
+			<from-outcome>demande_tt</from-outcome>
+			<to-view-id>/private/demande/agentetat/tt.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 
 		<navigation-case>
-			<from-outcome>demandeliste</from-outcome>
-			<to-view-id>/private/demande/liste.xhtml</to-view-id>
+			<from-outcome>demande_cartesotra</from-outcome>
+			<to-view-id>/private/demande/agentetat/cartesotra.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	
+		<navigation-case>
+			<from-outcome>demande_mission_pointfocal</from-outcome>
+			<to-view-id>/private/demande/pointfocal/mhci.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>missionexecuteeliste</from-outcome>
+			<to-view-id>/private/demande/pointfocal/missionexecuteeliste.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>missionexecuteeliste</from-outcome>
-			<to-view-id>/private/personnel/demande/missionexecuteeliste.xhtml</to-view-id>
+			<from-outcome>demandeliste</from-outcome>
+			<to-view-id>/private/demande/agentetat/liste.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>agentmission</from-outcome>
+			<to-view-id>/private/demande/pointfocal/agentmission.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+
 
 		<navigation-case>
 			<from-outcome>demandeconsultation</from-outcome>
-			<to-view-id>/private/demande/details.xhtml</to-view-id>
+			<to-view-id>/private/demande/agentetat/details.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 
@@ -82,99 +119,85 @@
 			<to-view-id>/private/personnel/dossier/liste.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-outcome>validationrecevabilite</from-outcome>
-			<to-view-id>/private/personnel/dossier/validation/recevabilite.xhtml
-			</to-view-id>
-			<redirect />
-		</navigation-case>
-		<!--
-		<navigation-case>
-			<from-outcome>validationrecevabilite_dd</from-outcome>
-			<to-view-id>/private/personnel/dossier/validation/recevabilitedd.xhtml
-			</to-view-id>
+			<to-view-id>/private/personnel/reception/responsable/recevabilite.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 
-		<navigation-case>
-			<from-outcome>validationrecevabilite_t</from-outcome>
-			<to-view-id>/private/personnel/dossier/validation/recevabilitedd.xhtml
-			</to-view-id>
-			<redirect />
-		</navigation-case>
-
-		<navigation-case>
-			<from-outcome>validationrecevabilite_o</from-outcome>
-			<to-view-id>/private/personnel/dossier/validation/recevabilitedd.xhtml
-			</to-view-id>
-			<redirect />
-		</navigation-case>
-
-		<navigation-case>
-			<from-outcome>validationrecevabilite_m</from-outcome>
-			<to-view-id>/private/personnel/dossier/validation/recevabilitedd.xhtml
-			</to-view-id>
-			<redirect />
-		</navigation-case>
-		-->
 		<navigation-case>
 			<from-outcome>validationconformite</from-outcome>
-			<to-view-id>/private/personnel/dossier/validation/conformite.xhtml
-			</to-view-id>
+			<to-view-id>/private/personnel/reception/responsable/conformite.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-
+		
 		<navigation-case>
-			<from-outcome>viserdocument</from-outcome>
-			<to-view-id>/private/personnel/dossier/validation/viser.xhtml
-			</to-view-id>
+			<from-outcome>retourfeuilledeplacement</from-outcome>
+			<to-view-id>/private/personnel/reception/responsable/retourfeuilledeplacement.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>receptionfacture</from-outcome>
+			<to-view-id>/private/personnel/reception/responsable/receptionfacture.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>realiserFeuilleDeplacementListe</from-outcome>
-			<to-view-id>/private/personnel/dossier/gfd.xhtml</to-view-id>
-		</navigation-case>
-
-		<navigation-case>
-			<from-outcome>receptionnerFeuilleDeplacementListe</from-outcome>
-			<to-view-id>/private/personnel/dossier/receptionnerFeuilleDeplacementListe.xhtml
-			</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>receptionnerFeuilleDeplacementForm</from-outcome>
-			<to-view-id>/private/personnel/dossier/receptionnerFeuilleDeplacementForm.xhtml
-			</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>consulterFeuilleDeplacementListe</from-outcome>
-			<to-view-id>/private/personnel/consultation/consulterFeuilleDeplacementListe.xhtml
-			</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>feuilleDeplacementDetailView</from-outcome>
-			<to-view-id>/private/personnel/consultation/feuilleDeplacementDetailView.xhtml
-			</to-view-id>
+			<from-outcome>receptionfacture_form</from-outcome>
+			<to-view-id>/private/personnel/reception/responsable/facturedefinitiveform.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>realiserbtbl</from-outcome>
-			<to-view-id>/private/personnel/dossier/realiserbtbl.xhtml
-			</to-view-id>
+			<from-outcome>attestationpecliste</from-outcome>
+			<to-view-id>/private/personnel/liquidation/liquidateur/attetstationpecliste.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>listerbt</from-outcome>
-			<to-view-id>/private/personnel/dossier/listebordereau.xhtml
-			</to-view-id>
+			<from-outcome>projetrembliste</from-outcome>
+			<to-view-id>/private/personnel/liquidation/liquidateur/projetrembliste.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		
+		<navigation-case>
+			<from-outcome>btblliste</from-outcome>
+			<to-view-id>/private/personnel/edition/btblliste.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>listerbl</from-outcome>
-			<to-view-id>/private/personnel/dossier/listebulletinliquidation.xhtml
-			</to-view-id>
+			<from-outcome>etablirprojetdecision</from-outcome>
+			<to-view-id>/private/personnel/remboursement/liquidateur/etablirprojetdecision.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
-
+		
+		<navigation-case>
+			<from-outcome>validerprojetdecision</from-outcome>
+			<to-view-id>/private/personnel/remboursement/responsable/validerprojetdecision.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>transmettreprojetdecision</from-outcome>
+			<to-view-id>/private/personnel/remboursement/directeur/transmettreprojetdecision.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>receptionnerprojetdecision</from-outcome>
+			<to-view-id>/private/personnel/remboursement/liquidateur/receptionnerprojetdecision.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>blediterliste</from-outcome>
+			<to-view-id>/private/personnel/edition/blliste.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
 	</navigation-rule>
 
 

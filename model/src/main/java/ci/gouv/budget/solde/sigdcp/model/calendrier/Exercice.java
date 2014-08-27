@@ -8,22 +8,20 @@
 
 package ci.gouv.budget.solde.sigdcp.model.calendrier;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.io.Serializable;
-
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+
 @Getter @Setter 
-@Entity @AllArgsConstructor
+/*@Entity*/ @AllArgsConstructor
 public class Exercice  extends AbstractModel<Integer>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;

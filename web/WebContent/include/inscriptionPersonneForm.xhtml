@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+
+		<ui:param name="columnCount" value="#{columnCount==null?3:columnCount}" />
+		<ui:param name="required" value="#{controller.requiredEnabled}" />
+		
+		<style>
+			.c1{
+				font-weight: bold;
+				width: 280px;
+			}
+			.c2{
+				width: 200px;
+			}
+			.c3{
+				
+			}
+		</style>	
+
+		<ui:decorate template="/template/formTemplate.xhtml">
+			<ui:param name="uiController" value="#{souscriptionComptePersonneController}" />
+			<ui:define name="contenu">
+				
+				<ui:include src="/include/inputSouscriptionIdentite.xhtml">
+					<ui:param name="personneDto" value="#{souscriptionComptePersonneController.demandeurDto}"/>
+					<ui:param name="questionAgentEtat" value="#{not souscriptionComptePersonneController.inscriptionAgentEtat}" />
+					<ui:param name="pieceIdentite" value="true" />
+					<ui:param name="columnCount" value="6" />
+				</ui:include>
+						 
+				<p:spacer height="3"/>
+				
+				<ui:include src="/include/securisation.xhtml">
+					<ui:param name="controller" value="#{souscriptionComptePersonneController}"/>
+				</ui:include>
+				
+			</ui:define>
+			
+		</ui:decorate>
+			
+	</ui:composition>
+</body>
+</html>

@@ -33,6 +33,17 @@ public class DossierDDValidator extends AbstractDossierValidator<DossierDD> impl
 			}
 		return true;
 	}
-			
+	
+	@AssertTrue(message="vous ne pouvez pas effectuer plus d'une demande de départ à la retraite",groups=Client.class)
+	public boolean isValidDepartRetraite(){
+		if(Code.NATURE_DEPLACEMENT_RETRAITE.equals(object.getDeplacement().getNature().getCode()))
+			try {
+				validationPolicy.validateDepartRetraite(object.getBeneficiaire().getMatricule());
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		return true;
+	}
 
 }

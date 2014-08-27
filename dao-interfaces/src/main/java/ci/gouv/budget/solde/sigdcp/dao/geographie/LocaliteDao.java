@@ -7,7 +7,8 @@ import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 
 public interface LocaliteDao extends DataAccessObject<Localite,String> {
 
-	Collection<Localite> findByTypeId(String typeId);
+	Collection<Localite> readByTypeId(String typeId);
 	
+	Collection<Localite> readByTypeIdByParent(String typeId,Localite parent);
 
 }

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sigdcp="http://java.sun.com/jsf/composite/composant">
+	
+<body>
+	<ui:composition>
+
+		<ui:param name="editable" value="#{editable==null?controller.editable:editable}" />
+		<ui:param name="requiredEnabled" value="#{controller.requiredEnabled}" />
+		
+		<ui:include src="/include/outputAgentEtat.xhtml" >
+			<ui:param name="agentEtat" value="#{controller.entity.beneficiaire}" />
+		</ui:include>    
+		
+		<ui:include src="/include/inputCourrier.xhtml" >
+			<ui:param name="courrierDto" value="#{controller.courrierDto}" />
+		</ui:include>
+
+		<p:fieldset legend="Agent" id="fieldsetAgent" toggleable="#{controller.courrierDto.courrierEditable}" collapsed="#{controller.courrierDto.courrierEditable}">	
+			
+			<p:panelGrid columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2">
+				
+				<p:outputLabel for="grade"  value="#{controller.libelleGrade}" /> 
+				<h:panelGroup rendered="#{editable}">
+					<p:message for="grade" />
+					<p:selectOneMenu id="grade" value="#{controller.entity.grade}" required="#{requiredEnabled}"  
+						converter="#{objectConverter}" rendered="#{editable==null or editable}" validator="#{validationManager.validateGrade}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{grades}"/>
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:outputText value="#{controller.entity.grade}" rendered="#{not editable}"/>
+								
+				<p:outputLabel for="datePriseService" value="Date de prise de service" rendered="#{controller.showDatePriseService}" />
+				<p:calendar id="datePriseService" value="#{controller.entity.datePriseService}" pattern="#{constantResources.datePattern}" validator="#{validationManager.validateDatePriseService}"
+					required="#{requiredEnabled}"  rendered="#{controller.showDatePriseService and (editable==null or editable)}" navigator="true" binding="#{datePriseService}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<f:attribute name="agentEtat" value="#{controller.entity.beneficiaire}"/>
+					<p:message for="@parent" />
+				</p:calendar>
+				<h:outputText value="#{controller.entity.datePriseService}" rendered="#{not editable and controller.showDatePriseService}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>				
+							
+				<p:outputLabel for="dateCessationService" value="Date de cessation de service" rendered="#{controller.showDateCessationService}" />
+				<p:calendar id="dateCessationService" value="#{controller.entity.dateCessationService}" pattern="#{constantResources.datePattern}" required="#{requiredEnabled}"  
+					rendered="#{controller.showDateCessationService and (editable==null or editable)}" navigator="true" validator="#{validationManager.validateDateFinService}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<p:message for="@parent" />
+					<f:attribute name="datePriseService" value="#{datePriseService}"/>
+				</p:calendar>
+				<h:outputText value="#{controller.entity.dateCessationService}" rendered="#{not editable and controller.showDateCessationService}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+					
+				<p:outputLabel for="dateMiseRetraite" value="Date de mise à la retraite" rendered="#{controller.showDateMiseRetraite}" />
+				<p:calendar id="dateMiseRetraite" value="#{controller.entity.dateMiseRetraite}" pattern="#{constantResources.datePattern}" required="#{requiredEnabled}"  
+					rendered="#{controller.showDateMiseRetraite and (editable==null or editable)}" navigator="true" validator="#{validationManager.validateDateRetraite}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />	
+					<p:message for="@parent" />
+					<f:attribute name="datePriseService" value="#{faireDemandeDDController.entity.beneficiaire.dateNaissance}"/>
+				</p:calendar>
+				<h:outputText value="#{controller.entity.dateMiseRetraite}" rendered="#{not editable and controller.showDateMiseRetraite}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+									
+			</p:panelGrid>
+	
+			<p:panelGrid id="panelGrid2" columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2" rendered="#{controller.entity.beneficiaire.masculin}">
+				
+				<p:outputLabel for="mariage" value="Situation Matrimoniale" rendered="#{editable}"/>			
+				<h:panelGroup rendered="#{editable}">
+					<p:message for="mariage" rendered="#{editable}"/>
+					<p:selectOneRadio id="mariage" required="#{requiredEnabled}"  value="#{controller.entity.marie}" rendered="#{editable}" 
+						valueChangeListener="#{faireDemandeDDController.marieListener}">
+						<f:selectItem itemLabel="Marié(e)" itemValue="true" />
+						<f:selectItem itemLabel="Célibataire" itemValue="false" />
+						<p:ajax event="click" update="pieceUploaderPanel,panelGrid2" process="@this" immediate="true"/>
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneRadio>	
+				</h:panelGroup>
+						
+				<!--		
+				<h:outputText value="" rendered="#{editable}"/><h:outputText value="" rendered="#{editable}"/><h:outputText value="" rendered="#{editable}"/>
+				-->
+				
+				<p:outputLabel id="dateMariageLabel" for="dateMariage" value="Marié(e) le" rendered="#{controller.entity.marie}" styleClass="marieClass"/>
+				<p:calendar id="dateMariage" value="#{controller.entity.dateMariage}" pattern="#{constantResources.datePattern}" required="#{requiredEnabled}"  
+					rendered="#{editable and controller.entity.marie}" styleClass="marieClass" validator="#{validationManager.validateDateMariage}" navigator="true">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<p:message for="@parent" />
+				</p:calendar>
+				<h:outputText value="#{controller.entity.dateMariage}" rendered="#{not editable and controller.entity.marie}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				
+				<p:outputLabel for="lieuMariage" value="Marié(e) à la mairie de" rendered="#{controller.entity.marie}"/>
+				<h:panelGroup rendered="#{editable and controller.entity.marie}">
+					<p:message for="lieuMariage" />
+					<p:selectOneMenu id="lieuMariage" value="#{controller.entity.mairieMariage}" required="#{requiredEnabled}"  converter="#{objectConverter}" 
+						rendered="#{editable and controller.entity.marie}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{mairies}" />
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:outputText value="#{controller.entity.mairieMariage}" rendered="#{not editable and controller.entity.marie}"/>
+								
+				<p:outputLabel for="registMar" value="Numéro du régistre de mariage" rendered="#{controller.entity.marie}"/>
+				<p:inputText id="registMar" value="#{controller.entity.numeroRegistreMariage}" required="#{requiredEnabled}"  rendered="#{editable and controller.entity.marie}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<p:message for="@parent" />
+				</p:inputText>
+				<h:outputText value="#{controller.entity.numeroRegistreMariage}" rendered="#{not editable and controller.entity.marie}"/>
+	
+				<h:outputText value="" rendered="#{editable and controller.entity.marie}"/><h:outputText value="" rendered="#{editable and controller.entity.marie}"/>	
+				
+				<h:outputText value="" rendered="#{editable}"/><h:outputText value="" rendered="#{editable}"/>
+				
+				<p:outputLabel for="nbrEnfant" value="Nombre d'enfant"/>
+				<p:inputText id="nbrEnfant" value="#{controller.entity.nombreEnfant}" rendered="#{editable}" valueChangeListener="#{faireDemandeDDController.nombreEnfantListener}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<p:ajax event="change" update="pieceUploaderPanel"  process="panelGrid2"/>
+					<p:message for="@parent" />
+				</p:inputText>
+				<h:outputText rendered="#{not editable}" value="#{controller.entity.nombreEnfant}"/>			
+			</p:panelGrid>				
+		</p:fieldset>
+
+		<p:spacer height="5" />
+		
+		<p:fieldset legend="Déplacement" toggleable="#{controller.courrierDto.courrierEditable}" collapsed="#{controller.courrierDto.courrierEditable}" >
+			<h:panelGrid columns="4" columnClasses="c1,c2,c1,c2">
+				
+				<p:outputLabel for="serviceOrigine" value="Service d'origine:" rendered="#{controller.showServiceOrigine}" />
+				<h:panelGroup rendered="#{editable and controller.showServiceOrigine}" >
+					<p:message for="serviceOrigine" />
+					<p:selectOneMenu id="serviceOrigine" value="#{controller.entity.serviceOrigine}" required="#{requiredEnabled}"  converter="#{objectConverter}" 
+					rendered="#{controller.showServiceOrigine and (editable==null or editable)}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{services}"/>
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneMenu>		
+				</h:panelGroup>	
+				<h:outputText value="#{controller.entity.serviceOrigine}" rendered="#{not editable and controller.showServiceOrigine}"/>
+				
+		        
+		        <p:outputLabel for="serviceAcceuil" value="Service d'accueil:" rendered="#{controller.showServiceAcceuil}" />
+		        <h:panelGroup rendered="#{editable and controller.showServiceAcceuil}">
+					<p:message for="serviceAcceuil"  />	
+					<p:selectOneMenu id="serviceAcceuil" value="#{controller.entity.service}" required="#{requiredEnabled}"  
+						converter="#{objectConverter}"  validator="#{validationManager.validateServiceAccueil}"
+					rendered="#{controller.showServiceAcceuil and (editable==null or editable)}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{services}"/>
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneMenu>     
+				</h:panelGroup>	     
+				<h:outputText value="#{controller.entity.service}" rendered="#{not editable and controller.showServiceAcceuil}"/>
+				 			
+				<!--
+				<h:outputText rendered="#{not controller.showServiceOrigine or not controller.showServiceAcceuil}" />
+				-->
+				<h:outputText rendered="#{(not controller.showServiceOrigine or not controller.showServiceAcceuil)}" />
+				<h:outputText rendered="#{(not controller.showServiceOrigine or not controller.showServiceAcceuil)}" />
+				
+				<p:outputLabel for="villeDepart"  value="Ville de départ:" />
+				<h:panelGroup rendered="#{editable}">
+					<p:message for="villeDepart" />
+					<p:selectOneMenu id="villeDepart" value="#{controller.entity.deplacement.localiteDepart}" required="#{requiredEnabled}" validator="#{validationManager.validateLocaliteDepart}"
+						 converter="#{objectConverter}" rendered="#{editable==null or editable}" binding="#{localiteDepart}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{villesCoteDIvoire}"/>
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneMenu>
+				</h:panelGroup>	
+				<h:outputText value="#{controller.entity.deplacement.localiteDepart}" rendered="#{not editable}"/>
+				 
+				
+				<p:outputLabel for="villeArrivee" value="Ville d'arrivée:" />	
+				<h:panelGroup rendered="#{editable}">	
+					<p:message for="villeArrivee" />
+					<p:selectOneMenu id="villeArrivee" value="#{controller.entity.deplacement.localiteArrivee}" required="#{requiredEnabled}" 
+						 converter="#{objectConverter}" rendered="#{editable==null or editable}" validator="#{validationManager.validateLocaliteArrivee}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{villesCoteDIvoire}"/>
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+						<f:attribute name="localiteDepart" value="#{localiteDepart}"/>
+					</p:selectOneMenu>	
+				</h:panelGroup>	
+				<h:outputText value="#{controller.entity.deplacement.localiteArrivee}" rendered="#{not editable}"/>
+				
+				<p:outputLabel for="dateDepart" value="Date départ" />
+				<p:calendar id="dateDepart" value="#{controller.entity.deplacement.dateDepart}" required="#{requiredEnabled}" pattern="#{constantResources.datePattern}" 
+					 rendered="#{editable==null or editable}" binding="#{dateDepart}" validator="#{validationManager.validateDateDepart}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<p:message for="@parent"/>
+					<f:attribute name="agentEtat" value="#{controller.entity.beneficiaire}"/>
+					<f:attribute name="typeDepense" value="#{create?typeDepense:faireDemandeDDController.entity.deplacement.typeDepense}" />
+				</p:calendar>
+				<h:outputText value="#{controller.entity.deplacement.dateDepart}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				 
+				<p:outputLabel for="dateArrivee" value="Date arrivée" />
+				<p:calendar id="dateArrivee" value="#{controller.entity.deplacement.dateArrivee}" required="#{requiredEnabled}" pattern="#{constantResources.datePattern}" 
+					 rendered="#{editable==null or editable}" validator="#{validationManager.validateDateArrivee}" navigator="true">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<f:attribute name="dateDepart" value="#{dateDepart}"/>
+					<f:attribute name="typeDepense" value="#{faireDemandeDDController.entity.deplacement.typeDepense}" />
+					<p:message for="@parent" />
+				</p:calendar>
+				<h:outputText value="#{controller.entity.deplacement.dateArrivee}" rendered="#{not editable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				
+			 <!--
+				<p:outputLabel for="poidsBagaggeC" value="Poids des bagages (en KG) constaté" />
+				<p:inputText id="poidsBagaggeC" value="#{controller.entity.poidsBagageConstate}"  rendered="#{editable==null or editable}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+				</p:inputText>
+				<h:outputText value="#{controller.entity.poidsBagageConstate}" rendered="#{not editable}"/>	
+				<p:message for="poidsBagaggeC" rendered="#{editable}" />
+				-->
+			</h:panelGrid>
+		</p:fieldset>
+		
+		<p:outputPanel id="pieceUploaderPanel">
+			<sigdcp:inputPiece id="pieceUploader" uploader="#{faireDemandeDDController.pieceJustificativeUploader}"/>
+		</p:outputPanel>
+
+	</ui:composition>
+</body>
+</html>

@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeAFournirDao;
@@ -15,7 +14,6 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournirConfig;
 import ci.gouv.budget.solde.sigdcp.service.DefaultServiceImpl;
 
-@Stateless
 public class PieceJustificativeAFournirServiceImpl extends DefaultServiceImpl<PieceJustificativeAFournir, Long> implements PieceJustificativeAFournirService , Serializable {
 
 	private static final long serialVersionUID = -7601857525393731774L;

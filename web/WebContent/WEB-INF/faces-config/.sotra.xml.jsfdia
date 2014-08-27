@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="lireplussotra::#public#lireplussotra.xhtml"
+    NAME="output" PATH="/public/lireplussotra.xhtml"
+    TARGET="rules:#public#lireplussotra.xhtml" TITLE="lireplussotra" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="joindrelistebasesotra::#private#demande#agentetat#joindrelistebasesotra.xhtml"
+    NAME="output1"
+    PATH="/private/demande/agentetat/joindrelistebasesotra.xhtml"
+    TARGET="rules:#private#demande#agentetat#joindrelistebasesotra.xhtml"
+    TITLE="joindrelistebasesotra" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="adherentlistebasesotra::#private#personnel#sotra#delegue#adherentlistebasesotra.xhtml"
+    NAME="output2"
+    PATH="/private/personnel/sotra/delegue/adherentlistebasesotra.xhtml"
+    TARGET="rules:#private#personnel#sotra#delegue#adherentlistebasesotra.xhtml"
+    TITLE="adherentlistebasesotra" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="achatcartesotra::#private#personnel#sotra#delegue#achatcartesotra.xhtml"
+    NAME="output3"
+    PATH="/private/personnel/sotra/delegue/achatcartesotra.xhtml"
+    TARGET="rules:#private#personnel#sotra#delegue#achatcartesotra.xhtml"
+    TITLE="achatcartesotra" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="realiserboncommandecartesotra::#private#personnel#sotra#gestionnaire#realiserboncommandecartesotra.xhtml"
+    NAME="output4"
+    PATH="/private/personnel/sotra/gestionnaire/realiserboncommandecartesotra.xhtml"
+    TARGET="rules:#private#personnel#sotra#gestionnaire#realiserboncommandecartesotra.xhtml"
+    TITLE="realiserboncommandecartesotra" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="distribuerbccssotra::#private#personnel#sotra#gestionnaire#distribuerbccssotra.xhtml"
+    NAME="output5"
+    PATH="/private/personnel/sotra/gestionnaire/distribuerbccssotra.xhtml"
+    TARGET="rules:#private#personnel#sotra#gestionnaire#distribuerbccssotra.xhtml"
+    TITLE="distribuerbccssotra" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="distribuerbccsdelegue::#private#personnel#sotra#gestionnaire#distribuerbccsdelegue.xhtml"
+    NAME="output6"
+    PATH="/private/personnel/sotra/gestionnaire/distribuerbccsdelegue.xhtml"
+    TARGET="rules:#private#personnel#sotra#gestionnaire#distribuerbccsdelegue.xhtml"
+    TITLE="distribuerbccsdelegue" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="modifierlisteacheteurs::#private#personnel#sotra#delegue#modifierlisteacheteurs.xhtml"
+    NAME="output7"
+    PATH="/private/personnel/sotra/delegue/modifierlisteacheteurs.xhtml"
+    TARGET="rules:#private#personnel#sotra#delegue#modifierlisteacheteurs.xhtml"
+    TITLE="modifierlisteacheteurs" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="consulterlisteacheteurs::#private#personnel#sotra#delegue#consulterlisteacheteurs.xhtml"
+    NAME="output8"
+    PATH="/private/personnel/sotra/delegue/consulterlisteacheteurs.xhtml"
+    TARGET="rules:#private#personnel#sotra#delegue#consulterlisteacheteurs.xhtml"
+    TITLE="consulterlisteacheteurs" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="annulerachatcarte::#private#personnel#sotra#delegue#annulerachatcarte.xhtml"
+    NAME="output9"
+    PATH="/private/personnel/sotra/delegue/annulerachatcarte.xhtml"
+    TARGET="rules:#private#personnel#sotra#delegue#annulerachatcarte.xhtml"
+    TITLE="annulerachatcarte" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#private#demande#agentetat#joindrelistebasesotra.xhtml"
+  PATH="/private/demande/agentetat/joindrelistebasesotra.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#sotra#delegue#valideradherentlistebasesotra.xhtml"
+  PATH="/private/personnel/sotra/delegue/valideradherentlistebasesotra.xhtml"
+  SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#sotra#delegue#adherentlistebasesotra.xhtml"
+  PATH="/private/personnel/sotra/delegue/adherentlistebasesotra.xhtml"
+  SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#sotra#delegue#achatcartesotra.xhtml"
+  PATH="/private/personnel/sotra/delegue/achatcartesotra.xhtml"
+  SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#sotra#gestionnaire#realiserboncommandecartesotra.xhtml"
+  PATH="/private/personnel/sotra/gestionnaire/realiserboncommandecartesotra.xhtml"
+  SHAPE="304,497,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#sotra#delegue#modifierlisteacheteurs.xhtml"
+  PATH="/private/personnel/sotra/delegue/modifierlisteacheteurs.xhtml"
+  SHAPE="304,561,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#sotra#delegue#consulterlisteacheteurs.xhtml"
+  PATH="/private/personnel/sotra/delegue/consulterlisteacheteurs.xhtml"
+  SHAPE="304,593,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#sotra#delegue#annulerachatcarte.xhtml"
+  PATH="/private/personnel/sotra/delegue/annulerachatcarte.xhtml"
+  SHAPE="304,625,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#sotra#gestionnaire#distribuerbccssotra.xhtml"
+  PATH="/private/personnel/sotra/gestionnaire/distribuerbccssotra.xhtml"
+  SHAPE="304,625,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#sotra#gestionnaire#distribuerbccsdelegue.xhtml"
+  PATH="/private/personnel/sotra/gestionnaire/distribuerbccsdelegue.xhtml"
+  SHAPE="304,625,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#public#lireplussotra.xhtml"
+  PATH="/public/lireplussotra.xhtml" SHAPE="304,657,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

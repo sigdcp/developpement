@@ -28,6 +28,8 @@ public class NavigationHelper implements Serializable {
 	}
 	
 	public void addParameter(StringBuilder url,String name,Object value){
+		//if(name==null || value==null)
+		//	return;
 		try {
 			url.append((url.toString().contains(QUERY_START)?QUERY_SEPARATOR:QUERY_START)+name+QUERY_NAME_VALUE_SEPARATOR+URLEncoder.encode(value.toString(), QUERY_PARAMETER_ENCODING));
 		} catch (UnsupportedEncodingException e) {

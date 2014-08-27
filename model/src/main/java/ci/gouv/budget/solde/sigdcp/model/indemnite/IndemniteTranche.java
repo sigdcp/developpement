@@ -8,33 +8,48 @@
 
 package ci.gouv.budget.solde.sigdcp.model.indemnite;
 
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 
-import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-@Getter @Setter 
+@Getter @Setter @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @Entity
+@Table(name="INDEMTRAN")
 public class IndemniteTranche  extends AbstractModel<Long>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue
 	private Long id;
+
+	@Column(precision=10,scale=2)
+	@NotNull
+	protected BigDecimal intervalleMin;
 	
-	private String libelle;
+	@Column(precision=10,scale=2)
+	@NotNull
+	protected BigDecimal intervalleMax;
 	
-	private Float montant;
+	public IndemniteTranche() {}
 	
-	private Float intervalleMin;
+	public IndemniteTranche(BigDecimal intervalleMin, BigDecimal intervalleMax) {
+		super();
+		this.intervalleMin = intervalleMin;
+		this.intervalleMax = intervalleMax;
+	}
 	
-	private Float intervalleMax;
 	
-	@ManyToOne
-	private TypeIndemniteTranche type;
+	
 }

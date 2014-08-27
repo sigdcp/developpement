@@ -11,7 +11,6 @@ package ci.gouv.budget.solde.sigdcp.model.calendrier;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -24,7 +23,7 @@ import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 
 @Getter @Setter 
-@Entity
+//@Entity
 public class CalendrierMission  extends AbstractModel<Long>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;

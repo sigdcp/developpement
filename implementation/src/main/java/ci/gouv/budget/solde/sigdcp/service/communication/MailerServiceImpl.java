@@ -21,7 +21,8 @@ public class MailerServiceImpl implements MailService, Serializable {
 
 	private static final long serialVersionUID = -8680313005464068114L;
 		
-	@Resource(lookup = "mail/sigdcp")
+	@Resource(lookup = "java:/sigdcpMail")
+	//@Resource(lookup = "mail/sigdcp")
     private Session session;
 
 	@Override

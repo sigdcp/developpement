@@ -67,6 +67,13 @@ public class Fichier extends AbstractModel<Long> implements Serializable{
 	}
 	*/
 	
+	public Fichier(Fichier fichier) {
+		extension = fichier.extension;
+		contentType = fichier.contentType;
+		uri = fichier.uri;
+		bytes = fichier.bytes;
+	}
+	
 	public InputStream getInputStream(){
 		return new ByteArrayInputStream(bytes);
 	}

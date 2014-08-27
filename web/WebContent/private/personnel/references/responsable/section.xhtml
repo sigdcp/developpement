@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{sectionReferenceController.preRenderView}" type="preRenderView"/>
+    	</f:metadata>
+	</ui:define>	
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/referenceEnumeration.xhtml">
+				
+				<ui:param name="referenceController" value="#{sectionReferenceController}" />
+				<ui:define name="supColumns">	
+					<p:ajax event="rowEdit" listener="#{sectionReferenceController.onRowEdit}" update=":form:messageDialogPanel" />  
+					<p:ajax event="rowEditCancel" listener="#{sectionReferenceController.onRowEditCancel}" />
+					<p:column headerText="Type section">
+					<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.type}" /></f:facet>
+			            <f:facet name="input">
+			            	<h:panelGroup>
+				            	<p:message for="typeSection" /> 
+				            	<p:selectOneMenu style="width:200px" id="typeSection" value="#{record.type}" required="true" label="Type section" converter="#{objectConverter}" >
+			            			<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+			            			<f:selectItem itemLabel="Choisir..." itemValue="" />
+			            			<f:selectItems value="#{typeSections}" var="#{typeSection}" />
+			            		</p:selectOneMenu>
+			            				            		
+			            	</h:panelGroup>
+			            </f:facet>
+			        </p:cellEditor>
+			        </p:column>
+			        
+			       <p:column headerText="Section parent">
+					<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.parent}" /></f:facet>
+			            <f:facet name="input">
+			            	<h:panelGroup>
+			            		<p:message for="section" />    
+								<p:selectOneMenu style="width:200px" id="section" value="#{record.parent}" converter="#{objectConverter}" >
+			            			<!-- <f:validateBean validationGroups="#{clientValidationGroupClass}" /> -->
+			            			<f:selectItem itemLabel="Choisir..." itemValue="" />
+			            			<f:selectItems value="#{sections}" var="#{section}" />
+			            		</p:selectOneMenu>			            		
+			            	</h:panelGroup></f:facet>
+			        </p:cellEditor>
+			        </p:column>
+			        
+				</ui:define>
+			</ui:decorate>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

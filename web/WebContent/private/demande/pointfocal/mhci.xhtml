@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{organiserMissionController.preRenderView}" type="preRenderView"></f:event>	
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="#{webConstantResources.pageTemplate}">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{organiserMissionController}" />
+				<ui:define name="contenu">	
+					<ui:include src="/include/demandeMHCIOrganisateurForm.xhtml" />
+				</ui:define>
+	
+				<ui:define name="actions">
+					<ui:include src="/resources/include/component/formCommand.xhtml" >
+						<ui:param name="command" value="#{organiserMissionController.enregistrerCommand}" />
+					</ui:include>
+				</ui:define>
+				
+			</ui:decorate>
+				
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+		<style>
+			.crudtboptions td{
+				border: 0px !important;
+			}
+		</style>
+		
+		<ui:decorate template="/template/formTemplate.xhtml">
+			<ui:param name="uiController" value="#{referenceController}" />
+			<ui:define name="contenu">
+				<p:dataTable id="table" var="record" value="#{referenceController.list}"  editable="true"
+					rowKey="#{index}" rowIndexVar="index" styleClass="myTableStyle">
+					
+					<!-- update=":form:messageDialogPanel" -->
+					
+					
+					
+					<p:column style="width:2%" headerText="#">
+						<h:outputText value="#{index+1}" />
+						<f:facet name="footer">
+							<p:outputPanel id="btaddpanel">
+								<p:commandButton value="Ajouter" icon="ui-icon-plus" action="#{referenceController.ajouter}" update="table" process="@this" 
+									oncomplete="rowEditMode();" />
+							</p:outputPanel>
+							
+						</f:facet>
+					</p:column> 
+					
+					<ui:insert name="columns" />
+					
+			        <p:column style="width:6%" >
+			            <p:rowEditor />	
+			        </p:column>
+			        
+			        <p:column style="width:6%" >
+			            <p:commandButton icon="ui-icon-close" action="#{referenceController.supprimer(record)}" update="table" />
+			        </p:column>
+					
+				</p:dataTable>
+		
+			    <h:outputScript>
+			    	function rowEditMode(){
+						$('.myTableStyle tbody.ui-datatable-data tr').last().find('td div.ui-row-editor span.ui-icon-pencil').each(function(){
+							 $(this).click();	
+						});
+						
+						$('.myTableStyle tbody.ui-datatable-data tr').last().find('td input').each(function(){
+							 $(this).prop('checked',false);
+						});
+						
+					}	
+			    	
+				    
+				</h:outputScript>			
+			</ui:define>
+		</ui:decorate>
+		
+
+      
+
+</ui:composition>

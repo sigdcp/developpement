@@ -22,11 +22,17 @@ public class Fonction  extends DynamicEnumeration  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	//private Boolean horsGroupe = Boolean.FALSE;
+	
 	public Fonction() {}
 
-	public Fonction(String code, String libelle) {
+	public Fonction(String code, String libelle/*,Boolean horsGroupe*/) {
 		super(code, libelle);
+		//this.horsGroupe = horsGroupe;
 	}
-	
+	/*
+	public Fonction(String code, String libelle) {
+		this(code,libelle,false);
+	}*/
 	
 }

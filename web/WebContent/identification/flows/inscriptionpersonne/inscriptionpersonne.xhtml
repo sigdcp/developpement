@@ -17,7 +17,7 @@
 				<ui:param name="uiController" value="#{inscriptionPersonneController}" />
 				<ui:define name="contenu">
 					
-					<ui:include src="/identification/include/inputIdentite.xhtml">
+					<ui:include src="/identification/include/inputSouscriptionIdentite.xhtml">
 						<ui:param name="personneDto" value="#{inscriptionPersonneController.demandeurDto}"/>
 						<ui:param name="questionAgentEtat" value="#{not inscriptionPersonneController.inscriptionAgentEtat}" />
 						<ui:param name="pieceIdentite" value="true" />

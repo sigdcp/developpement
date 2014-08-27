@@ -2,6 +2,7 @@ package ci.gouv.budget.solde.sigdcp.controller.ui.form;
 
 import java.io.Serializable;
 
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
 import lombok.Getter;
@@ -10,6 +11,7 @@ import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
 import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractUIController;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.Action;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.FormCommand;
+import ci.gouv.budget.solde.sigdcp.service.AbstractServiceException;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
 @Getter
@@ -30,6 +32,7 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 	protected WizardHelper<DTO> wizardHelper;
 	@Inject protected UserSessionManager userSessionManager;
 	protected Boolean showFieldRequired,requiredEnabled=Boolean.TRUE;
+	protected AbstractServiceException serviceException;
 	
 	@Override
 	protected InitWhen initWhen() {
@@ -40,14 +43,34 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 	@Override
 	protected void initialisation() {
 		super.initialisation();
+		try {
+			initDto();
+		} catch (AbstractServiceException e) {
+			serviceException = e;
+			initDtoException(e);
+			return;
+		}
+		
+		initCommands();
+		afterDtoInit();
 		showFieldRequired = isEditable();
+		requiredEnabled=isEditable();
+	}
+	
+	protected void initDto(){
 		if(isCreate())
 			initCreateOperation();
 		else if(isRead())
 			initReadOperation();	
-		initCommands();
-		requiredEnabled=isEditable();
 	}
+	
+	protected void initDtoException(AbstractServiceException exception){
+		crudType = CRUDType.READ;
+		redirectUrl(navigationManager.url("succes",new Object[]{webConstantResources.getRequestParamRuntimeMessageId(),runtimeMessageId(exception.getMessage())},false,false));
+		return;
+	}
+	
+	protected void afterDtoInit(){}
 	
 	protected void initCreateOperation(){
 		
@@ -71,7 +94,7 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 	}
 	
 	protected void initCommands(){
-		defaultSubmitCommand = createCommand().init("bouton.envoyer","ui-icon-check",null, new Action() {
+		defaultSubmitCommand = createCommand().init("bouton.enregistrer","ui-icon-check",null, new Action() {
 			private static final long serialVersionUID = 1L;
 			@Override
 			protected Object __execute__(Object object) throws Exception {
@@ -79,6 +102,15 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 				return null;
 			}
 		});
+		defaultSubmitCommand.set_actionListener(new Action() {
+			private static final long serialVersionUID = -671883400702777924L;
+			@Override
+			protected Object __execute__(Object object) throws Exception {
+				onDefaultSubmitActionListener((ActionEvent) object);
+				return null;
+			}
+		});
+		
 		commonCommandConfig(defaultSubmitCommand);
 		defaultSubmitCommand.setRendered(!isRead());
 		
@@ -92,9 +124,8 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 		});
 		closeCommand.setRendered(!isDialog());
 		closeCommand.setType("button");
-		System.out.println("isEd : "+isEditable());
-		//if(isEditable())
-			closeCommand.setOnclick("return quitter("+isEditable()+");");
+
+		warnOnClosing(isEditable());
 		//closeCommand.setSuccessOutcome(null);
 		closeCommand.setAjax(Boolean.FALSE);
 		
@@ -108,6 +139,10 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 	}
 	
 	protected void onDefaultSubmitAction() throws Exception {}
+	
+	protected void onDefaultSubmitActionListener(ActionEvent actionEvent) throws Exception {}
+	
+	public void onDialogReturn(){}
 	
 	protected void onCloseAction(){}
 	
@@ -129,6 +164,21 @@ public abstract class AbstractFormUIController<DTO> extends AbstractUIController
 	
 	public boolean isEditable(){
 		return isCreate() || isUpdate();
+	}
+	
+	protected void warnOnClosing(Boolean warn){
+		if(warn==null)
+			warn = Boolean.FALSE;
+		closeCommand.setOnclick("return quitter("+warn+");");
+		
+	}
+	
+	public String getCssColumnClassesPanelGrid(){
+		return isEditable()?"c1,c2,c3,c1,c2,c3":"c1,c2,c1,c2";
+	}
+	
+	public int getColumnCountPanelGrid(){
+		return isEditable()?6:4;
 	}
 	
 }

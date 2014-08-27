@@ -6,31 +6,37 @@
 	<persistence-unit name="sigdcppu" transaction-type="JTA">
 		
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<!--
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		-->
-		<!--  
-		<jta-data-source>jdbc/mysql_remote_sigdcp</jta-data-source>
-		-->
-		<jta-data-source>jdbc/mysql_sigdcp</jta-data-source>
 		
-		<!--jta-data-source>jdbc/__default</jta-data-source-->
+		<!--
+		<jta-data-source>jdbc/sigdcpDS</jta-data-source>
+		-->
+		<jta-data-source>java:/sigdcpDS</jta-data-source>
 		
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
-
+		
 		<properties>
-			
-			<property name="eclipselink.logging.level" value="OFF" />
-			<property name="eclipselink.logging.level.sql" value="OFF"/>
+			<!-- EclipseLink -->
+			<property name="eclipselink.logging.level" value="FINE" />
+			<property name="eclipselink.logging.level.sql" value="FINE"/>
 			<property name="eclipselink.logging.parameters" value="true"/>
-			<!--
-			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
-			-->
+			
+			<!-- create-tables | drop-and-create-tables | create-or-extend-tables -->
 			<property name="eclipselink.ddl-generation" value="create-tables" />
+			<!--
 			<property name="eclipselink.ddl-generation.output-mode" value="database" />
+			-->
+			<property name="eclipselink.target.server" value="JBoss" />
+			
+			<property name="eclipselink.create-ddl-jdbc-file-name" value="sigdcpCreateDDL_ddlGeneration.jdbc"/>
+            <property name="eclipselink.drop-ddl-jdbc-file-name" value="sigdcpDropDDL_ddlGeneration.jdbc"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="both"/>
 			
 			<property name="eclipselink.orm.throw.exceptions" value="true"/>
 			
+			<!-- Hibernate -->
+			<!--
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			-->
 		</properties>
 
 	</persistence-unit>

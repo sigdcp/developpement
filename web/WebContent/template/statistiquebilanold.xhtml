@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	
+					<p:fieldset legend="Critère de recherche" collapsed="true" toggleable="true" rendered="#{controller.showZoneCritere}">
+					<p:panelGrid columns="2" style="width:100%" styleClass="panelGridNoBorder">
+					<h:panelGroup>
+					<p:panelGrid columns="#{controller.pcolCritere}" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop,panelColumnVAlignTop,panelColumnVAlignTop,panelColumnVAlignTop,panelColumnVAlignTop,panelColumnVAlignTop">
+						
+						<p:outputLabel for="operation" value="Pour l'opération de" rendered="#{controller.showOperationCritere}" />
+						<p:selectOneMenu id="operation" value="#{controller.natureOperaitonSelectionnee}" converter="#{objectConverter}" rendered="#{controller.showOperationCritere}">
+							<f:selectItems value="#{controller.natureOperations}" />
+						</p:selectOneMenu>					
+						<p:outputLabel for="statut" value="Staut" rendered="#{controller.showOperationCritere}" />
+						<p:selectOneMenu id="statut" value="#{controller.statutSelectionne}" converter="#{objectConverter}" rendered="#{controller.showOperationCritere}">
+							<f:selectItems value="#{controller.statuts}" />
+						</p:selectOneMenu>	
+						<h:outputText value="" rendered="#{controller.showOperationCritere}"  />
+						 
+						<p:outputLabel for="dateDebut" value="#{constantResources.text('datedebut')}" />
+						<p:calendar id="dateDebut" value="#{controller.dateDebut}"/>				
+						<p:outputLabel for="dateFin" value="#{constantResources.text('datefin')}" />
+						<p:calendar id="dateFin" value="#{controller.dateFin}"/>
+						
+						<p:selectCheckboxMenu value="#{controller.natureDeplacementSelectionnees}" converter="#{objectConverter}" label="Nature de déplacement" 
+						rendered="#{controller.natureDeplacements!=null and controller.natureDeplacements.size()>1}">
+							<f:selectItems value="#{controller.natureDeplacements}" />
+						</p:selectCheckboxMenu>	
+						
+						<ui:insert name="ajoutcritere"/>	
+					</p:panelGrid>
+					
+					</h:panelGroup>	
+						<p:commandButton value="OK" action="#{controller.doSearch}" update="tabview"/>
+								
+					</p:panelGrid>
+					</p:fieldset>		
+					<p:spacer height="5"/>
+					<p:tabView id="tabview">
+						<p:tab title="Tableau">
+							<p:commandButton value="Imprimer le tableau"  icon="ui-icon-print">
+								<p:printer target="datatable" />
+							</p:commandButton>
+							<p:commandButton value="Liste des dossiers"  icon="ui-icon-document" action="#{controller.listeDossier}" 
+								oncomplete="PF('listeDossierDialog').show();" update="listeDossierDataTable">
+							</p:commandButton>
+							
+							<p:dialog widgetVar="listeDossierDialog" header="Liste des dossiers" appendTo="@(body)" modal="true" >
+								<p:commandButton value="Imprimer le tableau"  icon="ui-icon-print">
+									<p:printer target="listeDossierDataTable" />
+								</p:commandButton>
+								<p:separator/>
+								<p:dataTable id="listeDossierDataTable" var="dossier" value="#{controller.dossiers}" >
+									
+									<p:column headerText="Numéro"><h:outputText value="#{dossier.numero}" /></p:column>
+									<p:column headerText="#{constantResources.text('villedepart')}">
+										<h:outputText value="#{dossier.deplacement.localiteDepart.libelle}" />
+									</p:column>				
+									<p:column headerText="#{constantResources.text('villedepart')}">
+										<h:outputText value="#{dossier.deplacement.localiteArrivee.libelle}" />
+									</p:column>				
+									<p:column headerText="#{constantResources.text('datedebut')}">
+										<h:outputText value="#{constantResources.dateAsString(dossier.deplacement.dateDepart)}" />
+									</p:column>				
+									<p:column headerText="#{constantResources.text('datefin')}">
+										<h:outputText value="#{constantResources.dateAsString(dossier.deplacement.dateArrivee)}" />
+									</p:column>	
+									<p:column headerText="Nom et prénoms"><h:outputText value="#{dossier.beneficiaire.nomPrenoms}" /></p:column>
+									<p:column headerText="Dépense (CFA)"><h:outputText value="#{dossier.montantIndemnisation}" ><f:convertNumber  maxFractionDigits="0" type="number" /></h:outputText></p:column>
+								</p:dataTable>
+							</p:dialog>
+							
+							<p:separator/>
+							<p:dataTable id="datatable" value="#{controller.natureDeplacementSelectionnees}" var="record" >
+								<f:facet name="header"><h:outputText value="" /> </f:facet>
+								<p:column headerText="#{constantResources.text('naturedeplacement')}">
+									<h:outputText value="#{record.libelle}" />
+								</p:column>
+								
+								<p:column headerText="Nombre de dossier">
+									<h:outputText value="#{controller.details(record).nombreDossier}" >
+										<f:convertNumber  maxFractionDigits="0" type="number" />
+									</h:outputText>
+									<f:facet name="footer">
+										<h:outputText value="#{controller.statistiques.total.nombreDossier}" >
+											<f:convertNumber  maxFractionDigits="0" type="number" />
+										</h:outputText>
+									</f:facet>
+								</p:column>	
+								
+								<p:column headerText="Nombre de voyageurs">
+									<h:outputText value="#{controller.details(record).nombreVoyageurs}" >
+										<f:convertNumber  maxFractionDigits="0" type="number" />
+									</h:outputText>
+									<f:facet name="footer">
+										<h:outputText value="#{controller.statistiques.total.nombreVoyageurs}" >
+											<f:convertNumber  maxFractionDigits="0" type="number" />
+										</h:outputText>
+									</f:facet>
+								</p:column>	
+								
+								<p:column headerText="Dépense (CFA)" >
+									<h:outputText value="#{controller.details(record).depense}" >
+										<f:convertNumber  maxFractionDigits="0" type="number" />
+									</h:outputText>
+									<f:facet name="footer">
+										<h:outputText value="#{controller.statistiques.total.depense}" >
+											<f:convertNumber  maxFractionDigits="0" type="number" />
+										</h:outputText>
+									</f:facet>
+								</p:column>
+								
+								<p:column headerText="Frais de transport (CFA)" >
+									<h:outputText value="#{controller.details(record).fraisTransport}" >
+										<f:convertNumber  maxFractionDigits="0" type="number" />
+									</h:outputText>
+									<f:facet name="footer">
+										<h:outputText value="#{controller.statistiques.total.fraisTransport}" >
+											<f:convertNumber  maxFractionDigits="0" type="number" />
+										</h:outputText>
+									</f:facet>
+								</p:column>	
+							
+							</p:dataTable>						
+						</p:tab>
+						<p:tab title="Graphiques">
+							<p:pieChart value="#{controller.pieChartModelDepense}" legendPosition="w" title="Proportions des dépenses par nature de déplacement" 
+								rendered="#{controller.pieChartModelDepense != null}"/>
+							<p:pieChart value="#{controller.pieChartModelFraisTransport}" legendPosition="w" title="Proportions des frais de transport par nature de déplacement"
+								rendered="#{controller.pieChartModelFraisTransport != null}"/>
+							<p:pieChart value="#{controller.pieChartModelNombreDossier}" legendPosition="w" title="Proportions du nombre de dossier par nature de déplacement"
+								rendered="#{controller.pieChartModelNombreDossier != null}"/>
+							<p:pieChart value="#{controller.pieChartModelNombreVoyageurs}" legendPosition="w" title="Proportions du nombre de voyageurs par nature de déplacement"
+								rendered="#{controller.pieChartModelNombreVoyageurs != null}"/>
+							
+							
+						</p:tab>
+					</p:tabView>
+					
+					
+				
+		
+
+</ui:composition>

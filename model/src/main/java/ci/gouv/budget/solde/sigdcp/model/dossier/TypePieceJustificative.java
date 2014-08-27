@@ -17,6 +17,7 @@ import lombok.Setter;
 
 @Getter @Setter 
 @Entity 
+//@Table(name="TYPEPJ")
 public class TypePieceJustificative  extends TypePiece   implements Serializable{
 
 	private static final long serialVersionUID = 1L;

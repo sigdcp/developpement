@@ -9,8 +9,8 @@
 	
 	<h:body>
 
-		<ui:composition template="/template/vide.xhtml">
-		
+		<ui:composition template="#{webConstantResources.pageTemplate}">
+			<ui:param name="templateController" value="#{actionMessageController}" />
 			<ui:define name="contenu">
 			
 				<table style="margin: auto;margin-top: 100px;"><tr><td>
@@ -20,7 +20,10 @@
 						</div>
 						<f:facet name="footer">
 							<div align="center">
-								<p:button value="Ok" icon="ui-icon-check"  href="#{actionMessageController.href}"/>
+								<p:button value="Ok" icon="ui-icon-check"  href="#{actionMessageController.href}" rendered="#{not empty actionMessageController.href}"/> <!-- actionMessageController.showPageHeader -->
+								<h:form rendered="#{empty actionMessageController.href}"> <!-- actionMessageController.showPageHeader -->
+									<p:commandButton icon="ui-icon-check" value="Ok" actionListener="#{actionMessageController.close}"/>
+								</h:form>
 							</div>
 						</f:facet>
 					</p:panel>

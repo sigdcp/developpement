@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.inject.Inject;
 import javax.validation.constraints.AssertTrue;
 
+import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeAFournirDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.AgentEtatDao;
@@ -22,16 +23,15 @@ public class AbstractDossierValidator<DOSSIER extends Dossier> extends AbstractV
 	@Inject protected AgentEtatDao agentEtatDao;
 	@Inject protected PieceJustificativeAFournirDao pieceJustificativeAFournirDao;
 	@Inject protected PieceJustificativeValidator pieceJustificativeValidator;
-	@Setter protected Collection<PieceJustificative> pieceJustificatives;
 	@Setter protected Collection<PieceJustificativeAFournir> pieceJustificativeAFournirs;
-	@Setter protected boolean soumission;
+	@Getter @Setter protected Boolean soumission;
 	
 	@AssertTrue(message="la date de prise de service n'est pas valide",groups=Client.class)
 	public boolean isValidDatePriseService(){
 		if(Code.NATURE_DEPLACEMENT_RETRAITE.equals(object.getDeplacement().getNature().getCode()))
 			return true;
 		try {
-			validationPolicy.validateDatePriseService(object.getBeneficiaire(), object.getDatePriseService());
+			validationPolicy.validateDatePriseService(object.getBeneficiaire(), object.getDatePriseService(),null);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -41,7 +41,7 @@ public class AbstractDossierValidator<DOSSIER extends Dossier> extends AbstractV
 	@AssertTrue(message="la date de départ n'est pas valide",groups=Client.class)
 	public boolean isValidDateDepart(){
 		try {
-			validationPolicy.validateDateDepart(object.getBeneficiaire(), object.getDeplacement().getDateDepart());
+			validationPolicy.validateDateDepart(object.getDeplacement().getTypeDepense(),object.getBeneficiaire(), object.getDeplacement().getDateDepart(),null,null);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -51,7 +51,9 @@ public class AbstractDossierValidator<DOSSIER extends Dossier> extends AbstractV
 	@AssertTrue(message="la date d'arrivée n'est pas valide",groups=Client.class)
 	public boolean isValidDateArrivee(){
 		try {
-			validationPolicy.validateDateArrivee(object.getDeplacement().getDateDepart(), object.getDeplacement().getDateArrivee());
+			//System.out.println("AbstractDossierValidator.isValidDateArrivee() : "+object.getDeplacement().getTypeDepense().getCode());
+			if(!Code.CATEGORIE_DEPLACEMENT_MISSION.equals(object.getDeplacement().getNature().getCategorie().getCode()))
+				validationPolicy.validateDateArrivee(object.getDeplacement().getTypeDepense(),null,object.getDeplacement().getDateDepart(), object.getDeplacement().getDateArrivee());
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -80,14 +82,14 @@ public class AbstractDossierValidator<DOSSIER extends Dossier> extends AbstractV
 	
 	@AssertTrue(message="Les pieces justificatives ne sont pas complètes",groups=Client.class)
 	public boolean isPiecesJustificativesComplet(){
-		if(soumission){
+		if(Boolean.TRUE.equals(soumission)){
 			//les pieces de base et les pieces derivee
 			Collection<PieceJustificativeAFournir> pieceJustificativeAImprimer = pieceJustificativeAFournirDao.readDeriveeByNatureDeplacementIdByTypeDepenseId(object.getDeplacement().getNature().getCode(),
 					object.getDeplacement().getTypeDepense().getCode());
 			//croisement
 			for(PieceJustificativeAFournir pieceJustificativeAFournir : pieceJustificativeAImprimer){
 				boolean trouve = false;
-				for(PieceJustificative pieceJustificative : pieceJustificatives)
+				for(PieceJustificative pieceJustificative : object.getPieceJustificatives())
 					if(pieceJustificative.getModel().equals(pieceJustificativeAFournir)){
 						trouve = true;
 						break;
@@ -105,17 +107,27 @@ public class AbstractDossierValidator<DOSSIER extends Dossier> extends AbstractV
 	
 	@AssertTrue(message="###",groups=Client.class)
 	public boolean isPieceJustificativesCorrect(){
-		if(pieceJustificatives==null)
-			return true;
 		pieceJustificativeValidator.setAutoClearMessages(Boolean.FALSE);
-		pieceJustificativeValidator.setSoumission(soumission);
-		for(PieceJustificative pj : pieceJustificatives){
-			
+		pieceJustificativeValidator.setSoumission(Boolean.TRUE.equals(soumission));
+		for(PieceJustificative pj : object.getPieceJustificatives()){
 			pieceJustificativeValidator.validate(pj);
 		}
 		messages.addAll(pieceJustificativeValidator.getMessages());
 		pieceJustificativeValidator.getMessages().clear();
 		return pieceJustificativeValidator.isSucces();
 	}
+	
+	/*
+	@AssertTrue(message="Deux pieces portent le même numéro",groups=Client.class)
+	public boolean isPieceJustificativeNumeroUnique(){
+		if(pieceJustificatives!=null){
+			List<PieceJustificative> list = new ArrayList<>(pieceJustificatives);
+			for(int i=0;i<list.size();i++)
+				for(int j=0;j<list.size();j++)
+					if(i!=j && list.get(i).getNumero().equalsIgnoreCase(list.get(j).getNumero()))
+						return false;
+		}
+		return true;
+	}*/
 	
 }

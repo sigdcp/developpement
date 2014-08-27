@@ -1,9 +1,11 @@
 package ci.gouv.budget.solde.sigdcp.controller.identification;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.model.identification.souscription.InfosSouscriptionComptePersonne;
 
@@ -13,9 +15,10 @@ public class IdentitePersonneDTO implements Serializable {
 	
 	@Getter
 	private InfosSouscriptionComptePersonne infosSouscriptionComptePersonne;
-	
+	@Getter @Setter private List<Localite> pays;
 	@Getter @Setter
-	private Boolean agentEtat,editable;
+	private Boolean agentEtat,editable,showTypePersonne=true,showMatricule=true,breakLineAfterMatricule=true,
+		showNationalite=false,expatrie=false;
 	
 	@Getter @Setter
 	private String tp;

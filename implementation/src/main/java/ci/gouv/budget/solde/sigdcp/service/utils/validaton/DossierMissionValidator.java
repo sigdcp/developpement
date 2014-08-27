@@ -29,6 +29,17 @@ public class DossierMissionValidator extends AbstractDossierValidator<DossierMis
 		*/
 	}
 	
+	@AssertTrue(message="Une fonction ou une profession est obligatoire",groups=Client.class)
+	public boolean isValidProfessionNonNull() {
+		try{
+			validationPolicy.validateProfessionMission(object.getFonction(),object.getProfession());
+			return true;
+		}catch(Exception exception){
+			return false;
+		}
+	}
+
+	
 
 	
 }

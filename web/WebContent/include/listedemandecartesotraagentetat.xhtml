@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+	
+		<ui:decorate template="/template/dataList.xhtml">
+			<ui:param name="controller" value="#{controller}" />
+			<ui:define name="colonnes">
+				<!--
+				<p:column headerText="#{constantResources.text('numero')}" sortBy="#{record.dossier.numero}">
+					<h:outputText value="#{record.dossier.numero}" />
+				</p:column>
+				<p:column headerText="#{constantResources.text('datecreation')}" sortBy="#{record.dossier.deplacement.dateCreation}">
+					<h:outputText value="#{record.dossier.deplacement.dateCreation}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				</p:column>
+				<p:column headerText="#{constantResources.text('nature')}" sortBy="#{record.dossier.deplacement.nature.libelle}">
+					<h:outputText value="#{record.dossier.deplacement.nature.libelle}" />
+				</p:column>
+				<p:column headerText="#{constantResources.text('statut')}" sortBy="#{record.statut}">
+					<h:outputText value="#{record.statut}" />
+				</p:column>
+				-->
+				<p:column headerText="Date">--</p:column>
+				<p:column headerText="Statut">
+					---
+				</p:column>	
+			</ui:define>
+		</ui:decorate>
+	
+	</ui:composition>
+</body>
+</html>

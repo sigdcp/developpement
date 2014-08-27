@@ -1,9 +1,17 @@
 package ci.gouv.budget.solde.sigdcp.model.dossier;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor @Getter
 public enum ValidationType {
 	
-	ACCEPTER,
-	REJETER,
-	DIFFERER
+	ACCEPTER("Accepter"),
+	DIFFERER("Differer"),
+	REJETER("Rejeter"),
+	
+	;
+	
+	private String libelle;
 
 }

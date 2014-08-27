@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event type="preRenderView" listener="#{faireDemandeCarteSotraController.preRenderView}" />    	
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">			
+			<ui:decorate template="/template/formTemplate.xhtml"> 
+				<ui:param name="uiController" value="#{faireDemandeCarteSotraController}" />
+				<ui:define name="contenu">	
+					
+					<p:panelGrid>
+						<h:outputText value="Delegué" /><h:outputText value="#{faireDemandeCarteSotraController.entity.achat.delegue.agent.nomPrenoms}" />
+						<h:outputText value="Mois" /><h:outputText value="#{faireDemandeCarteSotraController.moisString}" />
+						<h:outputText value="Année" /><h:outputText value="#{faireDemandeCarteSotraController.entity.achat.annee}" />
+					</p:panelGrid>
+					
+					<ui:fragment rendered="#{faireDemandeCarteSotraController.retraitCarte}">
+						<p:separator/>
+						<p:panelGrid columns="2" styleClass="panelGridNoBorder">
+							<h:outputText value="Avez vous retiré votre carte sotra ?" />
+							<p:selectOneRadio value="#{faireDemandeCarteSotraController.entity.traitable.traitement.validationType}">
+								<f:selectItem itemValue="#{faireDemandeCarteSotraController.validationAccepter}" itemLabel="Oui"/>
+								<f:selectItem itemValue="#{faireDemandeCarteSotraController.validationRejeter}" itemLabel="Non"/>
+							</p:selectOneRadio>
+						</p:panelGrid>
+					</ui:fragment>
+					
+					<!--
+					<p:dataTable value="#{faireDemandeCarteSotraController.entity.traitable.historiques}" var="traitement">
+						
+						<p:column headerText="Date"><h:outputText value="#{traitement.operation.date}" ><f:convertDateTime pattern="#{constantResources.datePattern}"/> </h:outputText> </p:column>
+						<p:column headerText="Opération"><h:outputText value="#{traitement.operation.nature.message}" /> </p:column>
+						
+					</p:dataTable>
+					-->
+				</ui:define>
+			</ui:decorate>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

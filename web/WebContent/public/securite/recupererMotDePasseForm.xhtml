@@ -17,30 +17,36 @@
 					<ui:param name="uiController" value="#{recupererPasswordController}" />
 					<ui:define name="contenu">	
 						<p:outputPanel id="agentEtat" rendered="#{not recupererPasswordController.defaultSubmitCommand.rendered}">
-							<h:panelGrid columns="3" cellpadding="5" style="margin:auto">
+							<h:panelGrid columns="2" cellpadding="5" style="margin:auto">
 								
 								<p:outputLabel for="typePersonne" value="Vous êtes un"/>
-								<p:selectOneMenu id="typePersonne" value="#{recupererPasswordController.agentEtat.type}" required="true" requiredMessage="#{valueRequiredMessage}" 
-									converter="#{objectConverter}" binding="#{typePersonne}">
-									<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
-									<f:selectItems value="#{typeAgentEtats}" var="typeAgentEtat" itemLabel="#{typeAgentEtat.libelle}" />
-									<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
-								</p:selectOneMenu>
-								<p:message for="typePersonne"/>
+								<h:panelGroup>
+									<p:message for="typePersonne"/>
+									<p:selectOneMenu id="typePersonne" value="#{recupererPasswordController.agentEtat.type}" required="true" 
+										converter="#{objectConverter}" binding="#{typePersonne}">
+										<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+										<f:selectItems value="#{typeAgentEtats}" var="typeAgentEtat" itemLabel="#{typeAgentEtat.libelle}" />
+										<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+									</p:selectOneMenu>
+								</h:panelGroup>
+								
+								
 								
 								<p:outputLabel for="matricule" value="Matricule" />	
-								<p:inputText id="matricule" value="#{recupererPasswordController.agentEtat.matricule}" required="true" requiredMessage="#{valueRequiredMessage}"
+								<p:inputText id="matricule" value="#{recupererPasswordController.agentEtat.matricule}" required="true" 
 									validator="#{validationManager.validateMatricule}">
 									<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
 									<f:attribute name="typePersonne" value="#{typePersonne}"/>
+									<p:message for="matricule"/>
 								</p:inputText>
-								<p:message for="matricule"/>
+								
 								 
 								<p:outputLabel for="email" value="E-mail" />
-								<p:inputText id="email" value="#{recupererPasswordController.agentEtat.contact.email}" required="true" requiredMessage="#{valueRequiredMessage}" >
+								<p:inputText id="email" value="#{recupererPasswordController.agentEtat.contact.email}" required="true"  >
 									<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+									<p:message for="email"/>
 								</p:inputText>
-								<p:message for="email"/>
+								
 								 
 							</h:panelGrid>						
 						</p:outputPanel>

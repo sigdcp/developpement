@@ -16,28 +16,29 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
+import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 @Getter @Setter 
 @Entity
+@Table(name="COMPTE")
 public class CompteUtilisateur  extends AbstractModel<Long>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -49,19 +50,19 @@ public class CompteUtilisateur  extends AbstractModel<Long>  implements Serializ
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreation;
 	
-	@ManyToOne @JoinColumn(nullable=false)
+	@ManyToOne @JoinColumn(nullable=false) 
 	private Party utilisateur;
 	
-	@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "UserRoles", joinColumns = { @JoinColumn(name = "userId") })
-    @Column(name = "role")
+	@ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name="USERROLES",joinColumns = { @JoinColumn(name = "USERID") } ,inverseJoinColumns={ @JoinColumn(name = "ROLE") })
     private Set<Role> roles =new HashSet<>();
 	
 	@Embedded
 	private Verrou verrou;
 	
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@Size(min=1,message="Une reponse secrète est obligatoire",groups=Client.class)
+	@JoinColumn
 	private Collection<ReponseSecrete> reponseSecretes = new LinkedHashSet<>();
 	
 	public CompteUtilisateur() {}

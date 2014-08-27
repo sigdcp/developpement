@@ -2,7 +2,6 @@ package ci.gouv.budget.solde.sigdcp.service.identification;
 
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.service.AbstractService;
-import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 
 /**
  * Definit l'ensembles des services d'identification de personnes
@@ -17,7 +16,7 @@ public interface AbstractPersonneService<PERSONNE extends Personne> extends Abst
 	 * @param personne
 	 * @throws ServiceException
 	 */
-	void inscrire(PERSONNE personne) throws ServiceException ;
+	//void inscrire(PERSONNE personne) throws ServiceException ;
 	
 	/**
 	 * Valide l'inscription d'une personne afin de lui permettre d'acceder au système

@@ -21,12 +21,12 @@ public class Credentials implements Serializable {
 	
 	@Column(unique=true)
 	@NotNull(groups={Client.class,System.class})
-	@Size(min=8,message="Le nom d'utilisateur doit avoir 8 caractères au minimum",groups=System.class)
+	@Size(min=6,message="Le nom d'utilisateur doit avoir 8 caractères au minimum",groups=System.class)
 	private String username;
 	
 	@Column(nullable=false)
 	@NotNull(groups={Client.class,System.class})
-	@Size(min=8,message="Le mot de passe doit avoir 8 caractères au minimum",groups=System.class)
+	@Size(min=6,message="Le mot de passe doit avoir 8 caractères au minimum",groups=System.class)
 	private String password;
 	
 	public Credentials() {}

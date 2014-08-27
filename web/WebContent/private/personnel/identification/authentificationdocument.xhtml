@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{authentifierDocumentController.preRenderView}" type="preRenderView"/>
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu"> 
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{authentifierDocumentController}" />
+				<ui:define name="contenu">	
+					
+					
+						<p:panelGrid id="pg" columns="2" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop" >
+							<h:panelGroup>
+								<p:panelGrid columns="1" styleClass="panelGridNoBorder">
+									<p:photoCam widgetVar="pc" listener="#{authentifierDocumentController.onCapture}" />
+									<p:outputPanel id="codeBarre">
+										<center>
+										<p:graphicImage value="/_authcodebarre_/?signature=#{authentifierDocumentController.signatureEncode}" width="200" height="200" alt="Code Barre" 
+											rendered="#{not empty authentifierDocumentController.signature}"/>
+										</center>
+									</p:outputPanel>
+								</p:panelGrid>
+							</h:panelGroup>
+							
+							<h:panelGroup id="signature" >
+								<p:dataTable value="#{authentifierDocumentController.signatureBean.details}" var="details" rowIndexVar="index" emptyMessage="" 
+									rendered="#{authentifierDocumentController.document!=null or authentifierDocumentController.signatureBean!=null}">
+									<p:column headerText="N°" ><h:outputText value="#{index+1}" /> </p:column>
+									<p:column headerText="Information" ><h:outputText value="#{details.libelle}" /> </p:column>
+									<p:column headerText="Dans la signature" ><h:outputText value="#{details.valeurSignature}" /> </p:column>
+									<p:column headerText="Dans le système" ><h:outputText value="#{details.valeurSysteme}" /> </p:column>
+									<p:column headerText="Statut" >
+										<ui:include src="/resources/include/component/message.xhtml" >
+											<ui:param name="severity" value="#{details.acceptable?'info':'error'}" />
+											<ui:param name="message" value="#{details.acceptable?'OK':'Pas de correspondance'}" />
+										</ui:include>
+									</p:column>
+								</p:dataTable>
+								
+								<ui:fragment rendered="#{authentifierDocumentController.captureRunning}">
+									<table style="margin: auto;border: none;">
+										<tr><td style="border: none;text-align: center"> 
+											<h1>Acquisition d'image en cours</h1> 
+											<div class="ui-state-highlight" style="font-size: 16px;">Veuillez placez le code barre du document en face de la camera. </div>
+										</td></tr>
+										<tr><td style="border: none;text-align: center;"><p:graphicImage value="/resources/images/processing.gif" /></td></tr>
+									</table>
+								</ui:fragment>
+								
+								<ui:fragment rendered="#{not authentifierDocumentController.captureRunning and empty authentifierDocumentController.signature}">
+									<h3> Authentification de document généré par le SIGDCP </h3>
+									<ul>
+										<li>Cliquer sur demmarer la lecture de code</li>
+										<li>Placer le code a lire devant la camera</li>
+										<li>Attendre l'affichage des informations du code à l'écran</li>
+									</ul>
+								</ui:fragment>
+								
+								<ui:fragment 
+									rendered="#{not authentifierDocumentController.captureRunning and (not empty authentifierDocumentController.signature) and authentifierDocumentController.document==null and authentifierDocumentController.signatureBean==null}">
+									<ui:include src="/resources/include/component/message.xhtml" >
+										<ui:param name="severity" value="error" />
+										<ui:param name="message" value="Le code barre lu est inconnu" />
+									</ui:include>
+								</ui:fragment>
+								
+							</h:panelGroup>	
+							
+						</p:panelGrid>
+						
+						<p:outputPanel id="pollPanel">
+							<p:poll id="poll" interval="1" oncomplete="PF('pc').capture();" global="true" immediate="true" partialSubmit="true" process="@this" update="signature" 
+								autoStart="#{authentifierDocumentController.captureRunning}" stop="#{not authentifierDocumentController.captureRunning}" />
+						
+							<p:commandButton id="button" value="#{authentifierDocumentController.captureRunning?'Arreter':'Demarrer'} lecture code" update="pollPanel,signature" 
+								actionListener="#{authentifierDocumentController.demarrerCapture}">
+							</p:commandButton>
+						</p:outputPanel>
+					
+					
+					
+				</ui:define>
+				
+			</ui:decorate>
+				
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	
+	<ui:composition>
+
+		<p:column headerText="#{constantResources.text('numero')}" sortBy="#{record.id}" filterBy="#{record.id}">
+			<h:outputText value="#{record.id}" />
+		</p:column>									
+		<p:column headerText="#{constantResources.text('datedepart')}" sortBy="#{record.mission.deplacement.dateDepart}" filterBy="#{record.mission.deplacement.dateDepart}">
+			<h:outputText value="#{record.mission.deplacement.dateDepart}" />
+		</p:column>									
+		<p:column headerText="#{constantResources.text('dateretour')}" sortBy="#{record.mission.deplacement.dateArrivee}" filterBy="#{record.mission.deplacement.dateArrivee}">
+			<h:outputText value="#{record.mission.deplacement.dateArrivee}" />
+		</p:column>										
+		<p:column headerText="#{constantResources.text('depart')}" sortBy="#{record.mission.deplacement.localiteArrivee}" filterBy="#{record.mission.deplacement.localiteArrivee}">
+			<h:outputText value="#{record.mission.deplacement.localiteArrivee}" />
+		</p:column>								
+		<p:column headerText="#{constantResources.text('destination')}" sortBy="#{record.mission.deplacement.localiteArrivee}" filterBy="#{record.mission.deplacement.localiteArrivee}">
+			<h:outputText value="#{record.mission.deplacement.localiteArrivee}" />
+		</p:column>
+	
+	</ui:composition>
+
+</h:body>
+
+</html>

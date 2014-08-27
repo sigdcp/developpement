@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		
+		<navigation-case>
+			<from-outcome>parametrage</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/panel.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramgroupedd</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/groupedd.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramgroupemhci</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/groupemhci.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramgrade</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/grade.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramcategorie</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/categorie.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramcercueil</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/cercueil.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramfonction</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/fonction.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramtypesection</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/typesection.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramsection</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/section.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramtypepiecejustificative</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/typepiecejustificative.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramtypepieceproduite</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/typepieceproduite.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramrole</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/role.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramcategoriedeplacement</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/categoriedeplacement.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramposition</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/position.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramquestionsecrete</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/questionsecrete.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramsituationmatrimoniale</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/situationmatrimoniale.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramstatut</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/statut.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramtypeClasseVoyage</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/typeclassevoyage.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramtypecommande</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/typecommande.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramtypedepense</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/typedepense.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramtypegroupe</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/typegroupe.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramtypelocalite</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/typelocalite.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramcausedeces</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/causedeces.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramclassemoyentransport</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/classemoyentransport.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramdistancelocalite</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/distancelocalite.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramechelon</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/echelon.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramformuleindemnite</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/formuleindemnite.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramlocalite</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/localite.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>parammoyentransport</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/moyentransport.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramprofession</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/profession.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>paramcercueil</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/cercueil.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>paramagentetat</from-outcome>
+			<to-view-id>/private/personnel/references/responsable/agentetat.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+	
+	</navigation-rule>    
+    
+</faces-config>

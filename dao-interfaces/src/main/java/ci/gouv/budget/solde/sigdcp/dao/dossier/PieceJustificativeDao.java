@@ -2,14 +2,20 @@ package ci.gouv.budget.solde.sigdcp.dao.dossier;
 
 import java.util.Collection;
 
+import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
-import ci.gouv.budget.solde.sigdcp.model.dossier.TypePieceJustificative;
 
 public interface PieceJustificativeDao extends AbstractDocumentDao<PieceJustificative> {
 
 	Collection<PieceJustificative> readByDossier(Dossier dossier);
 	
-	Collection<PieceJustificative> readByDossierByType(Dossier dossier,TypePieceJustificative type);
+	PieceJustificative readAdministrativeByDossier(Dossier dossier);
+	
+	Collection<PieceJustificative> readByDossierByTypeId(Dossier dossier,String typeId);
+	
+	Collection<PieceJustificative> readByDeplacementByTypeId(Deplacement deplacement,String typeId);
+	
+	Long countByDossierByTypePieceJustificativeId(Dossier dossier,String typeId);
 	
 }

@@ -8,19 +8,34 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <body>
 	<ui:composition>
+		<ui:param name="dialogReturnEnabled" value="false" />
 		<p:commandButton 
 			value="#{command.value}"  
 			icon="#{command.icon}" 
 			action="#{command.execute(executeObjectParam)}" 
+			
 			update="#{command.update}" 
-			rendered="#{command.rendered}"
+			rendered="#{not command.onlyActionListener and command.rendered}"
 			ajax="#{command.ajax}" 
 			immediate="#{command.immediate}"
 			process="#{command.process}"
 			type="#{command.type}"
 			onclick="#{command.onclick}"
 			oncomplete="#{command.oncomplete}"
-			onerror="#{command.onerror}" />
+			onerror="#{command.onerror}" 
+			
+			actionListener="#{command.actionListener}">
+			
+			<p:ajax event="dialogReturn" listener="#{uiController.onDialogReturn}" />  
+			
+		</p:commandButton>
+		
+		<p:commandButton
+			value="#{command.value}"  
+			icon="#{command.icon}" 		
+			rendered="#{command.onlyActionListener and command.rendered}"	
+			actionListener="#{command.actionListener}">
+		</p:commandButton>
 		
 	</ui:composition>
 </body>

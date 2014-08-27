@@ -12,14 +12,14 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
+
 import lombok.extern.java.Log;
 
 @Log @Singleton
 public class Utils {
 	
-	public static final int DEFAULT_BUFFER_SIZE = 1024 * 10; // 10KB.
-	
-	
+	public static final int DEFAULT_BUFFER_SIZE = 1024 * 1000; // 10KB.
 	
 	public static void close(Closeable resource) {
 		if (resource != null) {
@@ -67,17 +67,23 @@ public class Utils {
 			// Open streams.
 			input = new BufferedInputStream(inputStream, bufferSize);
 			output = new BufferedOutputStream(response.getOutputStream(),bufferSize);
-
+			
 			// Write file contents to response.
+			/*
 			byte[] buffer = new byte[bufferSize];
 			int length;
 			while ((length = input.read(buffer)) > 0) {
 				output.write(buffer, 0, length);
-			}
+			}*/
+			
+			IOUtils.copy(input, output);
+			
 		} finally {
 			// Gently close streams.
-			close(output);
-			close(input);
+			IOUtils.closeQuietly(output);
+			IOUtils.closeQuietly(input);
+			//close(output);
+			//close(input);
 		}
 	}
 

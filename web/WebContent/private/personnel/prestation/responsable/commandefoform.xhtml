@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{commandeFoFormController.preRenderView}" type="preRenderView"></f:event>
+    	</f:metadata>
+	</ui:define>
+	
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+		 
+			<ui:fragment>
+				<ui:include src="/include/menutabprestation.xhtml" />
+			</ui:fragment>
+	
+	
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{commandeFoFormController}" />
+				<ui:define name="contenu">	
+					<p:fieldset legend="#{commandeFoFormController.titleDemande}">
+				<p:panelGrid columns="2" styleClass="panelGridNoBorder panelColumnVAlignTop" style="width:100%">
+					
+					<p:panelGrid columns="4" styleClass="panelGridNoBorder">
+					<h:outputText value="#{constantResources.text('cercueil')}" />
+					<h:outputText value=": #{commandeFoFormController.dossier.cercueil.libelle}"/>
+										
+					<h:outputText value="#{constantResources.text('indemnitecercueil')}" />
+					<h:outputText value=": #{commandeFoFormController.dossier.cercueil.montant}"/>
+	
+					<h:outputText value="#{constantResources.text('villedepart')}" />
+					<h:outputText value=": #{commandeFoFormController.dossier.deplacement.localiteDepart}"/>
+					<h:outputText value="#{constantResources.text('destination')}" />
+					<h:outputText value=": #{commandeFoFormController.dossier.deplacement.localiteArrivee}"/>
+					
+					<h:outputText value="#{constantResources.text('indemnitetransport')}" />
+					<h:outputText value=": #{commandeFoFormController.dossier.coutTransport}"/>
+					
+					
+					
+					
+					</p:panelGrid>
+						
+						<p:dataTable id="defunttab" value="#{commandeFoFormController.dossier}" var="defunt" rowIndexVar="index"> 
+							<f:facet name="header">
+								<h:outputText value="#{constantResources.text('defunt')}" />
+							</f:facet>
+							
+							<p:column headerText="#">
+								<h:outputText value="#{index+1}" />
+							</p:column>			
+							<p:column headerText="#{constantResources.text('matricule')}">
+								<h:outputText value="#{defunt.beneficiaire.matricule}" />
+							</p:column>		
+							<p:column headerText="#{constantResources.text('nom')}">
+								<h:outputText value="#{defunt.beneficiaire.nomPrenoms}" />
+							</p:column>
+							<p:column headerText="#{constantResources.text('indice')}">
+								<h:outputText value="#{defunt.indice}" />
+							</p:column>			
+							
+						</p:dataTable>
+						
+					</p:panelGrid>
+						
+						
+					</p:fieldset>
+						<p:spacer height="5"/>
+						
+						<ui:decorate template="/template/dataList.xhtml">
+									<ui:param name="controller" value="#{commandeFoFormController}" />
+									
+									<ui:define name="colonnes">
+																		
+										<p:column headerText="#{constantResources.text('prestataire')}" sortBy="#{record.prestataireDemandeCotationObseque.prestataire.nom}" filterBy="#{record.prestataireDemandeCotationObseque.prestataire.nom}" >
+											<h:outputText value="#{record.prestataireDemandeCotationObseque.prestataire.nom}" />
+										</p:column>		
+										<p:column headerText="#{constantResources.text('montanttransport')}" sortBy="#{record.prestataireDemandeCotationObseque.montantTransport}" >
+											<h:outputText value="#{record.prestataireDemandeCotationObseque.montantTransport}" />
+										</p:column>		
+										<p:column headerText="#{constantResources.text('montantcercueil')}" sortBy="#{record.prestataireDemandeCotationObseque.montantCercueil}"  >
+											<h:outputText value="#{record.prestataireDemandeCotationObseque.montantCercueil}" />
+										</p:column>							
+											
+									</ui:define>
+						</ui:decorate>	
+		
+				</ui:define>
+				
+			</ui:decorate>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

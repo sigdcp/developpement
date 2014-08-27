@@ -12,15 +12,18 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import ci.gouv.budget.solde.sigdcp.model.identification.Role;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter 
-@Embeddable @AllArgsConstructor @NoArgsConstructor
+@Embeddable @AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode(of={"commune","principale","derivee","conditionnee","administrative"})
 public class PieceJustificativeAFournirConfig  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -43,12 +46,25 @@ public class PieceJustificativeAFournirConfig  implements Serializable{
 	@NotNull @Column(nullable=false)
 	private Boolean derivee = Boolean.FALSE;
 	
+	@ManyToOne
+	private Role derivablePar;
+	
 	/**
 	 * Cette piece est demandée en fonction d'autres informations fournis par le client
 	 */
 	@NotNull @Column(nullable=false)
 	private Boolean conditionnee = Boolean.FALSE;
-
+	
+	@NotNull @Column(nullable=false)
+	private Boolean administrative = Boolean.FALSE;
+	
+	/**
+	 * Les operations permettant la saisie
+	 */
+	/*
+	private Collection<NatureOperation> natureOperations = new HashSet<>();
+	*/
+	/*
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -90,7 +106,7 @@ public class PieceJustificativeAFournirConfig  implements Serializable{
 		} else if (!principale.equals(other.principale))
 			return false;
 		return true;
-	}
+	}*/
 	
 	
 	

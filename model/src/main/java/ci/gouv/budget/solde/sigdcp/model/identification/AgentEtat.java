@@ -36,7 +36,7 @@ public class AgentEtat  extends Personne   implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@NotNull(groups=Client.class)
-	@Column(unique=true,nullable=false)
+	@Column(unique=true)
 	private String matricule;
 	
 	@ManyToOne private Grade grade;
@@ -54,19 +54,20 @@ public class AgentEtat  extends Personne   implements Serializable{
 	@ManyToOne private Personne ayantDroit;
 	
 	@NotNull(groups=Client.class)
-	@JoinColumn(nullable=false)
+	@JoinColumn(name="agentetat_type")
 	@ManyToOne private TypeAgentEtat type;
 	
 	public AgentEtat() {}
 
-	public AgentEtat(String matricule, String nom, String prenoms,
+	public AgentEtat(TypeAgentEtat type,String matricule, String nom, String prenoms,
 			Date dateNaissance, Contact contact, Sexe sexe,
 			SituationMatrimoniale situationMatrimoniale, Localite nationalite,Date dateCreation,
 			Grade grade, Echelon echelon, Position position,
 			Integer indice, Fonction fonction, Section section,
 			Profession profession, Personne ayantDroit) {
 		super(nom, prenoms, dateNaissance, contact, sexe,
-				situationMatrimoniale, nationalite,profession,dateCreation);
+				situationMatrimoniale, nationalite,profession);
+		this.type = type;
 		this.matricule = matricule;
 		this.grade = grade;
 		this.echelon = echelon;

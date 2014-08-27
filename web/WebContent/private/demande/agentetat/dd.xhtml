@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<ui:include src="/dossier/include/viewParam.xhtml">
+        		<ui:param name="controller" value="#{faireDemandeDDController}"/>
+        	</ui:include>	
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="#{webConstantResources.pageTemplate}">
+		<ui:param name="templateController" value="#{faireDemandeDDController}" />
+		<ui:define name="contenu">
+			<ui:decorate template="/template/fairedemande.xhtml">
+				<ui:param name="faireDemandeController" value="#{faireDemandeDDController}" />
+				<ui:define name="demande">	
+					<ui:include src="/include/demandeDD.xhtml">
+						<ui:param name="controller" value="#{faireDemandeDDController}"/>
+					</ui:include>
+				</ui:define>
+				<!-- <ui:define name="indemnite">	
+					<ui:fragment rendered="#{request.isUserInRole('AGENTETAT')}">
+						<p:panelGrid columns="3" styleClass="panelGridNoBorder">
+							<h:panelGroup>
+								<ui:include src="/private/personnel/include/ddindemnitedetails_personne.xhtml" >
+									<ui:param name="personne" value="Agent" />
+									<ui:param name="detailsPersonne" value="#{faireDemandeDDController.dossierDto.asDossierDD.indemniteDetails.agent}" />
+								</ui:include>
+							</h:panelGroup>
+							<h:panelGroup>
+								<ui:include src="/private/personnel/include/ddindemnitedetails_personne.xhtml" >
+									<ui:param name="personne" value="Conjoint" />
+									<ui:param name="detailsPersonne" value="#{faireDemandeDDController.dossierDto.asDossierDD.indemniteDetails.conjoint}" />
+								</ui:include>
+							</h:panelGroup>
+							<h:panelGroup>
+								<ui:include src="/private/personnel/include/ddindemnitedetails_personne.xhtml" >
+									<ui:param name="personne" value="Enfants" />
+									<ui:param name="detailsPersonne" value="#{faireDemandeDDController.dossierDto.asDossierDD.indemniteDetails.enfants}" />
+								</ui:include>
+							</h:panelGroup>
+						</p:panelGrid>								
+								
+						<ui:include src="/resources/include/component/message.xhtml" >
+							<ui:param name="severity" value="info" />
+							<ui:param name="message" value="Total à perçevoir : #{faireDemandeDDController.dossierDto.asDossierDD.indemniteDetails.total}" />
+						</ui:include>
+					</ui:fragment>
+				</ui:define> -->
+			</ui:decorate>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

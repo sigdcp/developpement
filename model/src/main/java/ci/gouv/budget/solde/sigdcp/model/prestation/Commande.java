@@ -8,36 +8,32 @@
 
 package ci.gouv.budget.solde.sigdcp.model.prestation;
 
-import java.util.Date;
-
-import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
-import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
-@Getter @Setter 
-@Entity
-public class Commande  extends AbstractModel<String>  implements Serializable{
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
+
+/**
+ * Bon de commande d'une prestation
+ * @author Christian Yao Komenan
+ *
+ */
+@Getter @Setter @Entity @NoArgsConstructor
+public class Commande  extends PieceProduite  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	private String numero; 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date date;
-	private Integer quantite;
-	@ManyToOne
-	private TypeCommande type;
-	@ManyToOne
-	private Deplacement deplacement;
-	@ManyToOne
-	private Prestataire prestataire;
+	
+	@Transient private Prestataire prestataire;
+	
+	public Commande(String numero) {
+		super();
+		this.numero = numero;
+	}
+	
+	
 }

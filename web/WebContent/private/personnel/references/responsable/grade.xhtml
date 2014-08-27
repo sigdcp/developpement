@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{gradeReferenceController.preRenderView}" type="preRenderView"/>
+    	</f:metadata>
+	</ui:define>	
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/referenceEnumeration.xhtml">
+				
+				<ui:param name="referenceController" value="#{gradeReferenceController}" />
+				<ui:define name="supColumns">	
+					<p:ajax event="rowEdit" listener="#{gradeReferenceController.onRowEdit}" update=":form:messageDialogPanel" />  
+					<p:ajax event="rowEditCancel" listener="#{gradeReferenceController.onRowEditCancel}"  />
+					<p:column headerText="Catégorie"><p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.categorie}" /></f:facet>
+			            <f:facet name="input">
+			            	<h:panelGroup>
+			            		<p:message for="categorie" />
+			            		<p:selectOneMenu id="categorie" value="#{record.categorie}" required="true" label="Catégorie" converter="#{objectConverter}" >
+			            			<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+			            			<f:selectItem itemLabel="Choisir..." itemValue="" />
+			            			<f:selectItems value="#{categories}" var="#{categorie}" itemLabel="#{categorie.code}" />
+			            		</p:selectOneMenu>
+			            	</h:panelGroup></f:facet>
+			        </p:cellEditor></p:column>
+				</ui:define>
+			</ui:decorate>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

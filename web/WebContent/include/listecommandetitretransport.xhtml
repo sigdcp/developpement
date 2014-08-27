@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<ui:decorate template="/template/effectuerOperationList.xhtml">
+			<ui:param name="effectuerOperationController" value="#{controller}" />
+									
+			<ui:define name="colonnesDetails">
+			 <p:column headerText="#{constantResources.text('mission')}" ><h:outputText value="#{record.prestataireDemandeCotationMission.missionExecutee.designation}" /></p:column>
+			  <p:column headerText="#{constantResources.text('prestataire')}" ><h:outputText value="#{record.prestataireDemandeCotationMission.prestataire.nom}" /></p:column>
+			  
+				<!--
+				<p:column headerText="#{constantResources.text('nomprenoms')}" ><h:outputText value="#{record.achat.delegue.agent.nomPrenoms}" /></p:column>
+				<p:column headerText="#{constantResources.text('serviceagerer')}" ><h:outputText value="#{record.achat.delegue.sectionGeree}"/></p:column>
+				<p:column headerText="Nombre de carte" ><h:outputText value="#{record.achat.nombreCarte}" /></p:column>
+				<p:column headerText="Date de retrait"  rendered="#{controller.showDateRetrait}" > 
+					<p:calendar value="#{record.dateDistribution}">
+						<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+						<p:message for="@parent" />
+					</p:calendar>
+				</p:column>	 -->		
+					
+			</ui:define>
+		</ui:decorate>	
+		
+	</ui:composition>
+</body>
+</html>

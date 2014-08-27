@@ -1,10 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+	
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
-
+		
+		<navigation-case>
+			<from-outcome>mettreenliquidation</from-outcome>
+			<to-view-id>/private/personnel/liquidation/liquidateur/mettreenliquidation.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>mettreenliquidationform</from-outcome>
+			<to-view-id>/private/personnel/liquidation/liquidateur/mettreenliquidation-form.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>validermiseenliquidation</from-outcome>
+			<to-view-id>/private/personnel/liquidation/responsable/validermiseenliquidation.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>transmettrepourvisaliquidation</from-outcome>
+			<to-view-id>/private/personnel/liquidation/responsable/transmettrepourvisaliquidation.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>viserbulletinliquidation</from-outcome>
+			<to-view-id>/private/personnel/liquidation/directeur/viserbulletinliquidation.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>realiserbtbl</from-outcome>
+			<to-view-id>/private/personnel/liquidation/responsable/realiserbtbl.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>validerbtbl</from-outcome>
+			<to-view-id>/private/personnel/liquidation/directeur/validerbtbl.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>transmettrebtbl</from-outcome>
+			<to-view-id>/private/personnel/liquidation/directeur/tbt.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		
+		<navigation-case>
+			<from-outcome>paiement_disponible</from-outcome>
+			<to-view-id>/private/personnel/paiement/disponible.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>priseenchargebordereau</from-outcome>
+			<to-view-id>/private/personnel/paiement/btpec.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>miseenreglementbordereau</from-outcome>
+			<to-view-id>/private/personnel/paiement/btmer.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>reglerbulletinliquidation</from-outcome>
+			<to-view-id>/private/personnel/paiement/blregler.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>majdisponible</from-outcome>
+			<to-view-id>/private/personnel/paiement/majdisponible.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		
+	
+		
+		<navigation-case>
+			<from-outcome>mission_mhci_a_coter</from-outcome>
+			<to-view-id>/private/personnel/prestation/responsable/listemission_a_coter.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>demande_cotation_mhci_form</from-outcome>
+			<to-view-id>/private/personnel/prestation/responsable/demandecotationmhciform.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>demande_cotation_mhci_liste</from-outcome>
+			<to-view-id>/private/prestataire/demandecotationmhciliste.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>coter_demande_mhci_form</from-outcome>
+			<to-view-id>/private/prestataire/cotationdemandemhciform.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cotation_mhci_a_commander</from-outcome>
+			<to-view-id>/private/personnel/prestation/responsable/cotation_mhci_a_commander.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>commande_mhci_form</from-outcome>
+			<to-view-id>/private/personnel/prestation/responsable/commandemhciform.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>generer_commande_mhci_form</from-outcome>
+			<to-view-id>/private/personnel/prestation/responsable/generercommandemhciform.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>fo_a_coter</from-outcome>
+			<to-view-id>/private/personnel/prestation/responsable/listefo_a_coter.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>demande_cotation_fo_form</from-outcome>
+			<to-view-id>/private/personnel/prestation/responsable/demandecotationfoform.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>demande_cotation_fo_liste</from-outcome>
+			<to-view-id>/private/prestataire/demandecotationfoliste.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>coter_demande_fo_form</from-outcome>
+			<to-view-id>/private/prestataire/cotationdemandefoform.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cotation_fo_a_commander</from-outcome>
+			<to-view-id>/private/personnel/prestation/responsable/cotation_fo_a_commander.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>commande_fo_form</from-outcome>
+			<to-view-id>/private/personnel/prestation/responsable/commandefoform.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>generer_commande_fo_form</from-outcome>
+			<to-view-id>/private/personnel/prestation/responsable/generercommandefoform.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>validercommande_transport</from-outcome>
+			<to-view-id>/private/personnel/prestation/directeur/validerboncommandetransport.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>validercommande_obseque</from-outcome>
+			<to-view-id>/private/personnel/prestation/directeur/validerboncommandeobseque.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>consultercommandemhci</from-outcome>
+			<to-view-id>/private/prestataire/commandecotationmhciliste.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>detail_commande_mhci_form</from-outcome>
+			<to-view-id>/private/prestataire/detailcommandecotationmhciform.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>consultercommandefo</from-outcome>
+			<to-view-id>/private/prestataire/commandecotationfoliste.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>detail_commande_fo_form</from-outcome>
+			<to-view-id>/private/prestataire/detailcommandecotationfoform.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	
 	</navigation-rule>    
     
 </faces-config>

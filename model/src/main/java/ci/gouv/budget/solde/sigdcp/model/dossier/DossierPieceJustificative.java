@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import lombok.Getter;
@@ -21,6 +22,7 @@ import lombok.Setter;
 
 @Getter @Setter 
 @Entity
+@Table(name="DOSSIERPJ") @Deprecated
 public class DossierPieceJustificative  extends AbstractModel<Long>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;

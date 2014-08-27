@@ -1,19 +1,20 @@
 package ci.gouv.budget.solde.sigdcp.service.dossier;
 
-import java.util.List;
-
 import ci.gouv.budget.solde.sigdcp.model.dossier.BordereauTransmission;
-import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
-import ci.gouv.budget.solde.sigdcp.service.AbstractService;
-import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 
-public interface BordereauTransmissionService extends AbstractService<BordereauTransmission,Long> {
+public interface BordereauTransmissionService extends AbstractPieceProduiteService<BordereauTransmission> {
 
+	//BordereauTransmissionDto findDtoById(Long id);
 	
-	public void creer(BordereauTransmission bordereauTransmission) throws ServiceException ;
+	//void creer(NatureDeplacement natureDeplacement,Collection<BordereauTransmission> bulletinLiquidationDtos) throws ServiceException ;
 	
-	public void valider(BordereauTransmission bordereauTransmission) throws ServiceException ;
+	//void modifier(BordereauTransmission bordereauTransmission,Collection<BordereauTransmission> bulletinLiquidationDtos) throws ServiceException ;
 	
-	public List<BordereauTransmission> lister(NatureDeplacement natureDeplacement);
+	//void valider(NatureDeplacement natureDeplacement,String natureOperationCode,Collection<BordereauTransmission> bordereauTransmissions) throws ServiceException ;
+	
+	//Collection<BordereauTransmission> findByNatureDeplacement(NatureDeplacement natureDeplacement);
+	
+	//Collection<BordereauTransmission> findByStatutId(String statutId);
 	
 }
+ 

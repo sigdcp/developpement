@@ -4,10 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
  
     <h:head>
 		<h:outputStylesheet library="css" name="style.css" />
+		<title><h:outputText value="SIGDCP - #{templateController.title}" /></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     </h:head>
     
     <ui:insert name="metadata"/>
@@ -15,11 +18,11 @@
 	<h:body>
 		<p:layout id="site"  fullPage="true" >  
   
-		    <p:layoutUnit id="entete" position="north"><h:form>
+		    <p:layoutUnit id="entete" position="north" rendered="#{templateController==null or templateController.showPageHeader}"><h:form>
 		   		 <ui:include src="/resources/include/layout/entete.xhtml"/>
 	 		 </h:form></p:layoutUnit>  
 		  	
-		  	<p:layoutUnit id="menu" position="east" resizable="true" collapsible="true" size="265" minSize="265">  
+		  	<p:layoutUnit id="menu" position="west" resizable="true" collapsible="true" size="310" minSize="310" rendered="#{templateController==null or templateController.showPageMenu}">  
 		        <ui:include src="/resources/include/menu/principal/vertical.xhtml"/> 		 
 		    </p:layoutUnit>
 		  	
@@ -27,11 +30,24 @@
 		        <ui:insert name="contenu"></ui:insert>  
 		    </p:layoutUnit>
 		    
-		    <p:layoutUnit id="pieds" position="south" maxSize="18" >
+		    <p:layoutUnit id="pieds" position="south" maxSize="18" rendered="#{templateController==null or templateController.showPageFooter}">
 		    	<ui:include src="/resources/include/layout/pieds.xhtml"/>
 		    </p:layoutUnit>
   
 		</p:layout>   		
  		
     </h:body>
+    
+    
+    <!--
+    <h:outputScript>
+	    $ = jQuery;
+	    $(document).ready(function() {
+	        if(#{facesContext.validationFailed}){      	
+	        	validationDialog.show();
+	        }
+	    });
+	</h:outputScript>
+	-->
+	
 </html>

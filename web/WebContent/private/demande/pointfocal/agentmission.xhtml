@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	
+      xmlns:sigdcp="http://java.sun.com/jsf/composite/composant">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{agentMissionController.preRenderView}" type="preRenderView"></f:event>	
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="#{webConstantResources.pageTemplate}">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{agentMissionController}" />
+				<ui:param name="required" value="true" />
+				<ui:define name="contenu">	
+					
+					
+					<p:panelGrid columns="2" styleClass="panelGridNoBorder">
+						<p:outputLabel for="nom" value="Nom" />
+					 	<p:inputText id="nom" required="#{required}" value="#{agentMissionController.entity.nom}">
+					 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					 		<p:message for="@parent" />
+					 	</p:inputText>
+						<p:outputLabel for="prenom" value="Prénoms" />
+					 	<p:inputText id="prenom" required="#{required}" value="#{agentMissionController.entity.prenoms}">
+					 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					 		<p:message for="@parent" />
+					 	</p:inputText>
+						<p:outputLabel for="datenaissance" value="Date de naissance" />
+					 	<p:calendar id="datenaissance" required="#{required}" navigator="true" readonlyInput="false" value="#{agentMissionController.entity.dateNaissance}" pattern="#{constantResources.datePattern}" validator="#{validationManager.validateDateNaissance}" >
+					 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					 		<p:message for="@parent" />
+					 	</p:calendar>
+					 	<p:outputLabel for="numerocni" value="Numero de CNI" />
+					 	<p:inputText id="numerocni" required="#{required}" value="#{agentMissionController.entity.cni}">
+					 		<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					 		<p:message for="@parent" />
+					 	</p:inputText>
+					 	
+					 	<p:outputLabel for="profession" value="Profession" />
+						<h:panelGroup>
+						<p:message for="profession" />
+					 	<p:selectOneMenu id="profession" value="#{agentMissionController.entity.profession}" required="#{required}" converter="#{objectConverter}" >
+							<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+							<f:selectItems value="#{professions}" />
+							<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+						</p:selectOneMenu>
+						</h:panelGroup>
+						
+					</p:panelGrid>
+						
+							
+						<p:spacer height="3" />				
+						<ui:include src="/include/contact.xhtml">
+							<ui:param name="demandeur" value="#{agentMissionController.entity}"/>
+							<ui:param name="compte" value="#{agentMissionController}"/>
+							<ui:param name="controller" value="#{agentMissionController}"/>
+							<ui:param name="typeEmail" value="reference" />
+						</ui:include>
+					
+				</ui:define>
+	
+				
+			</ui:decorate>
+				
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

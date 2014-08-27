@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		
+	</ui:define>
+
+	<ui:composition template="/template/public.xhtml">
+
+		<ui:define name="contenu">
+			
+			<style>
+				.pgqv{
+					margin: auto;
+				}
+				.ui-datagrid-row {
+					vertical-align: top;
+				}
+			</style>
+			
+			<p:panel><h:outputText value="#{constantResources.text('quietesvous')}" escape="false"/></p:panel>
+			
+			<!-- <p:dataGrid value="#{quiEtesVousController.categorieRequerants}" var="requerant" columns="3" >
+				
+				<p:panel header="#{requerant.nom}" style="width:500px;">
+					<h:outputText value="#{requerant.description}" escape="false" />
+					<f:facet name="footer">
+						<p:button value="S'inscrire" icon="ui-icon-check" outcome="#{requerant.outcome}">
+							<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+						</p:button>
+					</f:facet>
+				</p:panel>
+				
+			</p:dataGrid> -->
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

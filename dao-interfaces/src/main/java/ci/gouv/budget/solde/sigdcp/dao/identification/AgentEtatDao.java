@@ -6,5 +6,6 @@ public interface AgentEtatDao extends AbstractPersonneDao<AgentEtat> {
 
 	AgentEtat readByMatricule(String matricule);
 
+
 }
  

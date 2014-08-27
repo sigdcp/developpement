@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:sigdcp="http://java.sun.com/jsf/composite/composant">
+		
+
+	<ui:decorate template="/template/formTemplate.xhtml">
+		<ui:param name="uiController" value="#{faireDemandeController}" />
+		<ui:define name="contenu">	
+			<p:tabView>
+				<p:tab title="Demande #{faireDemandeController.read or faireDemandeController.update?faireDemandeController.entity.numero:null}">
+					<ui:insert name="demande"/>
+				</p:tab>
+				<p:tab title="Indemnités" rendered="#{faireDemandeController.showIndemnite}">
+					<ui:insert name="indemnite">
+						<ui:repeat var="bl" value="#{faireDemandeController.entity.bulletinLiquidations}">							
+							<sigdcp:indemnitesCalculees bulletinLiquidation="#{bl}"/>
+							<p:spacer height="5"/>
+						</ui:repeat>
+					</ui:insert>
+				</p:tab>
+				<p:tab title="Historique des traitements" rendered="#{faireDemandeController.showHistoriqueTraitements}">
+					<ui:include src="/include/traitements.xhtml" >
+						<ui:param name="traitements" value="#{faireDemandeController.entity.traitable.historiques}" />
+					</ui:include>
+				</p:tab>
+			</p:tabView>
+		</ui:define>
+		
+		<ui:define name="actions">
+			<ui:include src="/resources/include/component/formCommand.xhtml" >
+				<ui:param name="command" value="#{faireDemandeController.enregistrerCommand}" />
+			</ui:include>
+		</ui:define>
+		
+	</ui:decorate>
+
+		
+</ui:composition>

@@ -1,5 +1,7 @@
 package ci.gouv.budget.solde.sigdcp.service.resources;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,28 +13,29 @@ import javax.inject.Singleton;
 import ci.gouv.budget.solde.sigdcp.dao.DynamicEnumerationDao;
 import ci.gouv.budget.solde.sigdcp.dao.calendrier.ExerciceDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.NatureDeplacementDao;
-import ci.gouv.budget.solde.sigdcp.dao.dossier.TypePieceDao;
 import ci.gouv.budget.solde.sigdcp.dao.geographie.LocaliteDao;
+import ci.gouv.budget.solde.sigdcp.dao.identification.FonctionDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.SectionDao;
 import ci.gouv.budget.solde.sigdcp.dao.prestation.PrestataireDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Exercice;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CauseDeces;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Motif;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
-import ci.gouv.budget.solde.sigdcp.model.dossier.TypePiece;
 import ci.gouv.budget.solde.sigdcp.model.dossier.ValidationType;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
+import ci.gouv.budget.solde.sigdcp.model.geographie.TypeLocalite;
 import ci.gouv.budget.solde.sigdcp.model.identification.Categorie;
 import ci.gouv.budget.solde.sigdcp.model.identification.Fonction;
 import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
 import ci.gouv.budget.solde.sigdcp.model.identification.Personne.PieceIdentiteType;
 import ci.gouv.budget.solde.sigdcp.model.identification.Profession;
 import ci.gouv.budget.solde.sigdcp.model.identification.QuestionSecrete;
+import ci.gouv.budget.solde.sigdcp.model.identification.Role;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.Sexe;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
+import ci.gouv.budget.solde.sigdcp.model.identification.TypePrestataire;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeMission;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.TypeClasseVoyage;
 import ci.gouv.budget.solde.sigdcp.model.prestation.Prestataire;
@@ -49,23 +52,45 @@ public class ListeResources {
 	@Inject private PrestataireDao prestataireDao;
 	
 	@Produces @Named
+    public List<Section> getSections(){
+    	return new LinkedList<>(sectionDao.readAll());
+    }
+	
+	@Produces @Named
     public PieceIdentiteType[] getPieceIdentiteTypes(){
     	return PieceIdentiteType.values(); 
     }
 	
 	@Produces @Named
-    public List<Fonction> getFonctions(){
-    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(Fonction.class)); 
+    public Collection<TypeAgentEtat> getTypeAgentEtatsObseques(){
+		return Arrays.asList(dynamicEnumerationDao.readByClass(TypeAgentEtat.class, Code.TYPE_AGENT_ETAT_FONCTIONNAIRE),
+				dynamicEnumerationDao.readByClass(TypeAgentEtat.class, Code.TYPE_AGENT_ETAT_POLICIER)); 
     }
 	
 	@Produces @Named
-    public List<Motif> getMotifs(){
-    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(Motif.class)); 
+    public Collection<TypeAgentEtat> getTypeAgentEtatsFonctionnaire(){
+		return Arrays.asList(dynamicEnumerationDao.readByClass(TypeAgentEtat.class, Code.TYPE_AGENT_ETAT_FONCTIONNAIRE),
+				dynamicEnumerationDao.readByClass(TypeAgentEtat.class, Code.TYPE_AGENT_ETAT_POLICIER)); 
+    }
+	
+	@Inject private FonctionDao fonctionDao;
+	@Produces @Named
+    public List<Fonction> getFonctions(){
+    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(Fonction.class)); 
+    }
+	@Produces @Named
+	public List<Fonction> getFonctionsGroupeMission(){
+    	return new LinkedList<>(fonctionDao.readInGroupeMissions()); 
     }
 	
 	@Produces @Named
     public List<Grade> getGrades(){
     	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(Grade.class)); 
+    }
+	
+	@Produces @Named
+    public List<Role> getRoles(){
+    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(Role.class)); 
     }
 	
 	@Produces @Named
@@ -84,6 +109,11 @@ public class ListeResources {
     }
     
     @Produces @Named
+    public List<TypeLocalite> getTypeLocalites(){
+    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(TypeLocalite.class)); 
+    }
+    
+    @Produces @Named
     public List<Localite> getLocalites(){
     	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(Localite.class)); 
     }
@@ -91,12 +121,52 @@ public class ListeResources {
     @Inject private LocaliteDao localiteDao;
     @Produces @Named
     public List<Localite> getVilles(){ 
-    	return new LinkedList<>(localiteDao.findByTypeId(Code.TYPE_LOCALITE_VILLE));
+    	return new LinkedList<>(localiteDao.readByTypeId(Code.TYPE_LOCALITE_VILLE));
+    }
+    
+    @Produces @Named
+    public List<Localite> getVillesHorsCoteDIvoire(){
+    	List<Localite> villes = getVilles();
+    	Localite coteDivoire = localiteDao.read(Code.LOCALITE_COTE_DIVOIRE);
+    	for(int i=0;i<villes.size();)
+    		if(coteDivoire.equals(villes.get(i).getParent()))
+    			villes.remove(i);
+    		else
+    			i++;
+    	return villes;
+    }
+    
+    @Produces @Named
+    public List<Localite> getVillesCoteDIvoire(){ 
+    	List<Localite> villes = getVilles();
+    	Localite coteDivoire = localiteDao.read(Code.LOCALITE_COTE_DIVOIRE);
+    	for(int i=0;i<villes.size();)
+    		if(!coteDivoire.equals(villes.get(i).getParent()))
+    			villes.remove(i);
+    		else
+    			i++;
+    	return villes;
+    }
+    
+    @Produces @Named
+    public Collection<Localite> getPortsCoteDIvoire(){
+		return Arrays.asList(dynamicEnumerationDao.readByClass(Localite.class, Code.LOCALITE_ABIDJAN),
+				dynamicEnumerationDao.readByClass(Localite.class, Code.LOCALITE_SAN_PEDRO)); 
+    }
+    
+    @Produces @Named
+    public List<Localite> getMairies(){ 
+    	return new LinkedList<>(localiteDao.readByTypeId(Code.TYPE_LOCALITE_MAIRIE));
     }
     
     @Produces @Named
     public List<Localite> getPays(){ 
-    	return new LinkedList<>(localiteDao.findByTypeId(Code.TYPE_LOCALITE_PAYS));
+    	return new LinkedList<>(localiteDao.readByTypeId(Code.TYPE_LOCALITE_PAYS));
+    }
+    
+    @Produces @Named
+    public List<Localite> getZones(){ 
+    	return new LinkedList<>(localiteDao.readByTypeId(Code.TYPE_LOCALITE_ZONE));
     }
     
     @Inject private NatureDeplacementDao natureDeplacementDao;
@@ -107,20 +177,14 @@ public class ListeResources {
     
     @Produces @Named
     public List<NatureDeplacement> getNatureDeplacementsDD(){
-    	return (List<NatureDeplacement>) natureDeplacementDao.findByCategorieId(Code.CATEGORIE_DEPLACEMENT_DEFINITIF);
+    	return (List<NatureDeplacement>) natureDeplacementDao.readByCategorieId(Code.CATEGORIE_DEPLACEMENT_DEFINITIF);
     }
     
     @Produces @Named
     public List<TypeAgentEtat> getTypeAgentEtats(){ 
     	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(TypeAgentEtat.class)); 
     }
-    
-    @Inject private TypePieceDao typePieceDao;
-    @Produces @Named
-    public List<TypePiece> getTypePieceIdentites(){
-    	return (List<TypePiece>) typePieceDao.readByGroupeId(Code.GROUPE_TYPE_PIECE_IDENTITE);
-    }
-    
+     
     @Produces @Named
     public List<CauseDeces> getCauseDeces(){
     	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(CauseDeces.class)); 
@@ -138,6 +202,16 @@ public class ListeResources {
     }
     
     @Produces @Named
+    public List<Section> getDirections(){
+    	return new LinkedList<>(sectionDao.readBySectionTypeId(Code.TYPE_SECTION_DIRECTION));
+    }
+    
+    @Produces @Named
+    public List<Section> getMinisteres(){
+    	return new LinkedList<>(sectionDao.readBySectionTypeId(Code.TYPE_SECTION_MINISTERE));
+    }
+    
+    @Produces @Named
     public List<TypeClasseVoyage> getTypeClasseVoyages(){
     	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(TypeClasseVoyage.class)); 
     }
@@ -145,6 +219,16 @@ public class ListeResources {
     @Produces @Named
     public List<Prestataire> getAgenceVoyages(){
     	return new LinkedList<>(prestataireDao.readAll()); 
+    }
+    
+    @Produces @Named
+    public List<Prestataire> getCompagnies(){
+    	return new LinkedList<>(prestataireDao.readByType(Code.TYPE_PRESTATAIRE_CG)); 
+    }
+    
+    @Produces @Named
+    public List<TypePrestataire> getTypePrestataires(){
+    	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(TypePrestataire.class)); 
     }
     
     @Produces @Named
@@ -162,10 +246,7 @@ public class ListeResources {
     	return ValidationType.values();
     }
    
-    @Produces @Named
-    public List<Section> getMinisteres(){
-    	return new LinkedList<>(sectionDao.readBySectionTypeId(Code.TYPE_SECTION_MINISTERE));
-    }
+    
     
 
     @Inject private ExerciceDao exerciceDao;

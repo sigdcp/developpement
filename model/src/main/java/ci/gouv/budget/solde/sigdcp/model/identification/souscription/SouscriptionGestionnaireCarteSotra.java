@@ -17,17 +17,19 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.apache.commons.lang3.StringUtils;
 
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.Souscription;
-import lombok.Getter;
-import lombok.Setter;
 
 @Getter @Setter 
 @Entity @DiscriminatorValue("GestionnaireCarteSotra")
+//@Table(name="SOUSGE")
 public class SouscriptionGestionnaireCarteSotra  extends Souscription  implements Serializable{
 
 	private static final long serialVersionUID = 1L;

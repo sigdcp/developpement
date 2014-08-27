@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{demandeCotationMhciListeController.preRenderView}" type="preRenderView"></f:event>
+    	</f:metadata>
+	</ui:define>
+	
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+	
+	
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{demandeCotationMhciListeController}" />
+				<ui:define name="contenu">	
+					
+						<ui:decorate template="/template/dataList.xhtml">
+									<ui:param name="controller" value="#{demandeCotationMhciListeController}" />
+									
+									<ui:define name="colonnes">
+										<p:column headerText="#{constantResources.text('numero')}" sortBy="#{record.id.demandeCotationMissionId}" filterBy="#{record.id.demandeCotationMissionId}">
+											<h:outputText value="#{record.id.demandeCotationMissionId}" />
+										</p:column>									
+										<p:column headerText="#{constantResources.text('datedepart')}" sortBy="#{record.missionExecutee.deplacement.dateDepart}" filterBy="#{record.missionExecutee.deplacement.dateDepart}">
+											<h:outputText value="#{record.missionExecutee.deplacement.dateDepart}" >
+													<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+											</h:outputText>
+										</p:column>									
+										<p:column headerText="#{constantResources.text('dateretour')}" sortBy="#{record.missionExecutee.deplacement.dateArrivee}" filterBy="#{record.missionExecutee.deplacement.dateArrivee}">
+											<h:outputText value="#{record.missionExecutee.deplacement.dateArrivee}" >
+													<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+											</h:outputText>
+										</p:column>										
+										<p:column headerText="#{constantResources.text('villedepart')}" sortBy="#{record.missionExecutee.deplacement.localiteArrivee}" filterBy="#{record.missionExecutee.deplacement.localiteArrivee}">
+											<h:outputText value="#{record.missionExecutee.deplacement.localiteDepart}" />
+										</p:column>								
+										<p:column headerText="#{constantResources.text('destination')}" sortBy="#{record.missionExecutee.deplacement.localiteArrivee}" filterBy="#{record.missionExecutee.deplacement.localiteArrivee}">
+											<h:outputText value="#{record.missionExecutee.deplacement.localiteArrivee}" />
+										</p:column>
+											
+									</ui:define>
+								</ui:decorate>	
+
+		
+				</ui:define>
+				
+			</ui:decorate>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

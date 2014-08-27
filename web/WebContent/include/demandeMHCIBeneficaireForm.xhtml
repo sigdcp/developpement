@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sigdcp="http://java.sun.com/jsf/composite/composant">
+<body>
+	<ui:composition>
+		
+		<ui:param name="editable" value="#{faireDemandeMissionController.editable}" />
+		<ui:param name="required" value="#{faireDemandeMissionController.requiredEnabled}" />
+		
+		<ui:include src="/include/outputAgentEtat.xhtml" >
+			<ui:param name="agentEtat" value="#{faireDemandeMissionController.entity.beneficiaire}" />
+		</ui:include> 
+		
+		<ui:include src="/include/inputCourrier.xhtml" >
+			<ui:param name="courrierDto" value="#{faireDemandeMissionController.courrierDto}" />
+		</ui:include>
+		
+		<!--
+		<ui:fragment rendered="#{faireDemandeMissionController.editerRetourFd}">
+		
+			<p:outputLabel for="fd" value="Feuille de déplacement N°#{faireDemandeMissionController.dossierDto.feuilleDeplacement.numero}"/>
+			<p:fileUpload value="#{faireDemandeMissionController.file}" id="fd" mode="simple" required="#{required}" requiredMessage="#{valueRequiredMessage}"  
+				validator="#{validationManager.validatePieceFichier}"/>			
+			<p:message for="fd" />
+				
+		</ui:fragment>
+		-->
+		<p:fieldset legend="Mission">
+			<p:panelGrid columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2">								
+				<h:outputText value="Désignation" /><h:outputText value="#{faireDemandeMissionController.missionExecutee.designation}" />
+				<h:outputText value="" /><h:outputText value="" />
+				
+				<h:outputText value="Date départ" /><h:outputText value="#{faireDemandeMissionController.missionExecutee.deplacement.dateDepart}" >
+					<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+				</h:outputText>
+				<h:outputText value="Date arrivée" /><h:outputText value="#{faireDemandeMissionController.missionExecutee.deplacement.dateArrivee}" >
+					<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+				</h:outputText>
+				<h:outputText value="Ville départ" /><h:outputText value="#{faireDemandeMissionController.missionExecutee.deplacement.localiteDepart}" />
+				<h:outputText value="Ville arrivée" /><h:outputText value="#{faireDemandeMissionController.missionExecutee.deplacement.localiteDepart}" />
+				<h:outputText value="Responsable" /><h:outputText value="#{faireDemandeMissionController.missionExecutee.dossierDuResponsable.beneficiaire.nomPrenoms}" />
+			</p:panelGrid>	
+		</p:fieldset>	
+		
+		<sigdcp:inputPiece uploader="#{faireDemandeMissionController.pieceJustificativeUploader}"/>
+
+	</ui:composition>
+</body>
+</html>

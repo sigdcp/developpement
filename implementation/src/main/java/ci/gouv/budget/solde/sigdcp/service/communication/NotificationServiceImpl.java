@@ -10,20 +10,14 @@ import ci.gouv.budget.solde.sigdcp.model.communication.NotificationMessage;
 import ci.gouv.budget.solde.sigdcp.model.communication.NotificationMessageType;
 import ci.gouv.budget.solde.sigdcp.model.identification.Party;
 import ci.gouv.budget.solde.sigdcp.service.utils.TemplateEngineService;
-import ci.gouv.budget.solde.sigdcp.service.utils.communication.MailService;
 import ci.gouv.budget.solde.sigdcp.service.utils.communication.NotificationService;
 
 public class NotificationServiceImpl implements NotificationService,Serializable {
 
 	private static final long serialVersionUID = -4376077455219565698L;
 	
-	private static final Boolean mail = Boolean.FALSE;
-	private static final Boolean fire = Boolean.FALSE;
-	
-	@Inject private MailService mailService;
 	@Inject private TemplateEngineService templateEngineService;
-	
-	@Inject private Event<NotificationEvent> eventService;
+	@Inject private Event<MailNotificationEvent> mailEventService;
 
 	@Override
 	public NotificationMessage build(NotificationMessageType messageType,Map<String, Object> parameters) {
@@ -36,14 +30,7 @@ public class NotificationServiceImpl implements NotificationService,Serializable
 	public NotificationMessage send(NotificationMessageType messageType,Map<String, Object> parameters, String receiver) {
 		NotificationMessage message = new NotificationMessage(messageType.getSubject(), 
 				templateEngineService.find(messageType.getEmailTemplateId(), parameters));
-		if(mail)
-			mailService.send(message, receiver);
-		
-		//when mail not working use console for testing
-		//System.out.println(message);
-		
-		if(fire)
-			eventService.fire(new NotificationEvent(message));
+		mailEventService.fire(new MailNotificationEvent(message,receiver));
 		return message;
 	}
 	

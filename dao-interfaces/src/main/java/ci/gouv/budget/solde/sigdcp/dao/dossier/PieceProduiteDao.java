@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
 
-public interface PieceProduiteDao extends AbstractDocumentDao<PieceProduite> {
+public interface PieceProduiteDao extends AbstractPieceProduiteDao<PieceProduite> {
 
 	Collection<PieceProduite> readByTypeId(String typeId);
 	

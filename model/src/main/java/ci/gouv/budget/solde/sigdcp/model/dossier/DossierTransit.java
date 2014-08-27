@@ -15,10 +15,10 @@ import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
-import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
 import lombok.Getter;
 import lombok.Setter;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
+import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
 
 @Getter @Setter 
 @Entity
@@ -26,16 +26,14 @@ public class DossierTransit extends Dossier implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateMiseStage;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateFin;
-	
+	@Temporal(TemporalType.TIMESTAMP) private Date dateMiseStage;
+	@Temporal(TemporalType.TIMESTAMP) private Date dateFin;
 	
 	private Float poidsBagagesKg;
-	
 	private Float montantFacture;
+	
+	//@OneToOne(cascade=CascadeType.ALL)
+	//private PieceJustificative factureDefinitive;
 	
 	public DossierTransit() {}
 
@@ -43,12 +41,16 @@ public class DossierTransit extends Dossier implements Serializable{
 			Date datePriseService, Deplacement deplacement, Grade grade,
 			AgentEtat beneficiaire, Date dateMiseStage, Date dateFin,
 			Float poidsBagagesKg, Float montantFacture) {
-		super(numero,courrier , datePriseService, deplacement,
+		super(courrier , datePriseService, deplacement,
 				grade, beneficiaire);
 		this.dateMiseStage = dateMiseStage;
 		this.dateFin = dateFin;
 		this.poidsBagagesKg = poidsBagagesKg;
 		this.montantFacture = montantFacture;
+	}
+
+	public DossierTransit(Deplacement deplacement) {
+		super(deplacement);
 	}
 	
 	

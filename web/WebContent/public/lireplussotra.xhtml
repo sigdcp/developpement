@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:define name="metadata">
+		<f:metadata>
+        	
+    	</f:metadata>
+	</ui:define>
+	
+	<ui:composition template="/template/public.xhtml">
+		<ui:define name="contenu">
+			<p:panel>
+				<f:facet name="header">
+					<ui:insert name="title"><h:outputText value="Sotra" /></ui:insert>
+				</f:facet>
+
+				<table width="100%">
+					<tr>
+						<td valign="top" width="75%" style="padding: 20px; margin: 0 50px 0 50px; text-align: justify; line-height: 22px; font-size: 9pt">
+							
+							Le service Sotra de la Direction de la Solde a en charge la gestion des cartes de bus des fonctionnaires et agents de l’Administration Publique travaillant dans le District d’Abidjan,
+							  en vue de leur délivrer les cartes de bus de la Sotra. <br />
+							  <br />
+							<strong>Cependant, les bénéficiaires doivent satisfaire certaines conditions:</strong>
+							<ul>
+							  <li> être fonctionnaire résidant à Abidjan ; </li>
+							  <li> ne pas être en position de suspension de salaire (être en position d’activité); </li>
+							  <li> ne pas être en service dans un Etablissement Public National (EPN); </li>
+							  <li> ne  pas  être  bénéficiaire  d’une  indemnité  représentative  de  frais supérieure ou égale à 75.000 F ; </li>
+							  <li> ne pas être un fonctionnaire à la retraite. </li>
+							</ul>
+							<p> Le traitement des cartes SOTRA se fait entre le 25 du mois en cours et le 5 du mois suivant. Les demandes doivent être faites au plus tard le 03 de chaque mois.</p>
+							<p><strong>Processus de demande de carte Sotra:<br />
+							  </strong><br />
+							  A partir du 25 du mois donc, le gestionnaire de carte Sotra ouvre une demande.<br />
+							Chaque bénéficiaire s'inscrit sur cette demande. Les inscriptions ne peuvent se faire qu'après l'ouverture de demande.</p>
+							<p>A la date de fin de demande indiquée, le gestionnaire clôt
+							  les inscriptions et soumet la demande à la cellule Sotra de la Direction de la Solde. <br />
+							  <br />
+							  <strong>Etape 1 : Ouverture de compte utilisateur </strong><br />
+							L'ouverture de compte se fait une seule fois sur l'espace SIGDCP. Si vous avez déjà un compte, alors passez à l'étape suivante. </p>
+							<ul>
+							  <li> Cliquez sur le bouton &quot;Ouverture de compte&quot;;</li>
+							  <li> Entrez les informations demandées;</li>
+							  <li>Validez.</li></ul>
+							<p><strong>Etape 2 : Connexion</strong></p>
+							<ul>
+							  <li> Cliquez sur le bouton &quot;Cliquer ici pour solliciter ce service&quot;;</li>
+							  <li> Entrez votre nom utilsateur et votre mot de passe;</li>
+							  <li> Validez. </li>
+							</ul>
+							<p>Si vous êtes demandeur de carte, allez à l'étape 5.</p>
+							<p><strong>Etape 3: Ouverture de demande</strong> (Gestionnaire de carte)</p>
+							<ul>
+							  <li>Dans le menu, choisissez l'option &quot;Ouverture de demande&quot;</li>
+							  <li> Entrez les informations sur le service correspondant;</li>
+							  <li> Validez.</li>
+							</ul>
+							<p>Un numéro de demande s'affiche sur votre écran. La demande est ouverte.</p>
+							<p><strong>Etape 4: Suppression de  demande (Gestionnaire de carte)</strong></p>
+							<p>Une demande ouverte peut être supprimée si elle n'est pas encore soumise. </p>
+							<ul>
+							  <li>Sélectionnez l'option &quot;Suppression de demande&quot;;</li>
+							  <li>Entrez les informations demandées;</li>
+							  <li>Validez.</li>
+							</ul>
+							<p>La demande n'est plus disponible. Aucune inscription ne peut se faire sur cette demande. Les demandes déjà faites sont suppripmées.</p>
+							<p><strong>Etape 5 : Inscription sur une demande (Bénéficiaire)</strong></p>
+							<ul>
+							  <li>Entrez les informations demandées;</li>
+							  <li>Validez.</li>
+							</ul>
+							<p><strong>Etape 6 : Annulation d'une inscription (Gestionnaire/Bénéficiaire)</strong></p>
+							<ul>
+							  <li>Sélectionnez l'option &quot;Annulation d'inscription&quot;;</li>
+							  <li>Entrez les informations demandées;</li>
+							  <li>Validez.</li>
+							</ul>
+							<p><strong>Etape 7 : Clôture de demande (Gestionnaire de carte)<br />
+							  </strong><br />
+							A la date de fin d'inscription, le gestionnaire clôt la liste des demandeurs.</p>
+							<ul>
+							  <li>Sélectionnez l'option &quot;Valider une demande&quot;;</li>
+							  <li>Entrez les informations demandées;</li>
+							  <li>Cliquez sur le bouton &quot;Soumettre&quot;.</li>
+							</ul>
+							<p><strong>Etape 5 : Retrait des cartes</strong> (Gestionnaire de carte)</p>
+							<ul>
+							  <li>Sélectionnez l'option &quot;Retrait des cartes);</li>
+							  <li> Entrez les informations demandées;</li>
+							  <li> Validez.<br />
+							    <br />
+							    <br />
+							  </li>
+							</ul>
+							
+						</td>
+						<td valign="top" style="margin: 20px">
+							<ui:include src="/public/verticalHome.xhtml">
+								<ui:param name="index" value="1" />
+							</ui:include>
+						</td>
+					</tr>
+				</table>
+							
+				<f:facet name="footer">
+					<div style="text-align: center; margin: 10px;">
+						
+						<p:button value="Ouverture de compte" icon="ui-icon-check" outcome="inscrire" rendered="#{empty request.remoteUser}">
+							<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+						</p:button>
+						
+						<p:button value="Cliquer ici pour solliciter ce service"  outcome="demande_cartesotra" icon="ui-icon-check"/>
+					</div>
+				</f:facet>	
+	  
+			</p:panel>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

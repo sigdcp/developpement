@@ -22,7 +22,8 @@ public class TextServiceImpl implements TextService, Serializable {
 	
 	private static final ResourceBundle[] I18N_BUNDLES = { 
 		ResourceBundle.getBundle("ci.gouv.budget.solde.sigdcp.service.resources.i18n.message",Locale.FRENCH),
-		ResourceBundle.getBundle("ci.gouv.budget.solde.sigdcp.service.resources.i18n.error",Locale.FRENCH)
+		ResourceBundle.getBundle("ci.gouv.budget.solde.sigdcp.service.resources.i18n.error",Locale.FRENCH),
+		ResourceBundle.getBundle("ci.gouv.budget.solde.sigdcp.service.resources.i18n.ui",Locale.FRENCH)
 	};
 	
 	private static final String NOT_YET_DEFINED_ID_FORMAT = "## %s ##";

@@ -6,44 +6,94 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-
-		<p:fieldset legend="#{constantResources.text('criteresrecherche')}" rendered="#{controller.rechercherCommande != null}">
-			<p:panelGrid columns="2" styleClass="panelGridNoBorder">
+	
+	<ui:param name="numeroLigne" value="#{numeroLigneId==null?'numeroLigne':numeroLigneId}" />
+	<ui:param name="infosop" value="#{infosopId==null?'infosop':infosopId}" />
+	<ui:param name="datatable" value="#{datatableId==null?'datatable':datatableId}" />
+		
+	<ui:fragment rendered="#{controller.rechercherCommande != null}">
+		<!--
+		<p:fieldset legend="#{constantResources.text('criteresrecherche')}" >
+		-->
+			<p:panelGrid columns="3" styleClass="panelGridNoBorder">
 				<h:panelGroup>
 					<ui:insert name="criteresrecherche" />
 				</h:panelGroup>
-				
 				<h:panelGroup>
 					<ui:include src="/resources/include/component/formCommand.xhtml" >
 						<ui:param name="command" value="#{controller.rechercherCommande}" />
 					</ui:include>
-				</h:panelGroup>
-								
+				</h:panelGroup>	
+				<h:panelGroup>
+					<p:panelGrid columns="4" rendered="#{controller.editable and controller.addDetailsCommand.rendered}" styleClass="panelGridNoBorder" >
+						<p:outputLabel for="#{numeroLigne}" value="#{controller.numeroLibelle}"/>
+						<p:inputText id="#{numeroLigne}" value="#{controller.numeroLigne}" />
+						<p:message for="#{numeroLigne}" />
+						<p:commandButton value="Ajouter" action="#{controller.addDetailsCommand.execute(null)}" icon="ui-icon-plus" update="#{datatable},#{numeroLigne},#{infosop}"/>
+					</p:panelGrid>
+				</h:panelGroup>				
 			</p:panelGrid>
+		<!--
 		</p:fieldset>
+		-->
+		</ui:fragment>
 		
 		<p:spacer height="5" />
 		
-		<p:dataTable id="datatable" value="#{controller.list}" var="record" rowIndexVar="index" rowKey="#{record[controller.recordIdentifierFieldName]}" selection="#{controller.selectedMultiple}">
+		<p:outputPanel id="#{infosop}" >
+			<ui:insert name="infos" />
+		</p:outputPanel>
+		<p:dataTable id="#{datatable}" value="#{controller.list}" var="record" rowIndexVar="index" rowKey="#{record[controller.recordIdentifierFieldName]}" 
+			selection="#{controller.selection}"
+			rowStyleClass="#{controller.rowStyleClass(record)}"> 
 			
-			<p:column selectionMode="multiple" width="1%" rendered="#{controller.isBatchProcessing}"/>
-			<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
+			<f:facet name="header">
+				<h:outputText value="#{controller.listTitle}" />
+			</f:facet>
+			
+			<p:column selectionMode="multiple" width="1%" rendered="#{controller.showCheckBox}"/>
+			<p:column selectionMode="single" width="1%" rendered="#{controller.showRadio}"/>
+			<p:column headerText="#">
+				<span class="ui-message-#{controller.rowSeverity(record)}-icon"/>
+				<h:outputText value="#{index+1}" />
+			</p:column>
 			
 			<ui:insert name="colonnes" />
 		
 			<p:column headerText="#{constantResources.text('action')}" rendered="#{controller.showActionsColumn}">
-				<!--
-				<p:commandButton value="#{constantResources.text('bouton.details')}" type="button" rendered="#{controller.isBatchProcessing}"/>
-				-->
+				
+				<ui:insert name="actions" />
+				
 				<ui:include src="/resources/include/component/formCommand.xhtml" >
 					<ui:param name="command" value="#{controller.detailsCommand}" />
 					<ui:param name="executeObjectParam" value="#{record}" />
 				</ui:include>
+				
 				<!--
-				<p:commandButton value="#{constantResources.text('bouton.selectionner')}" action="#{controller.href(record)}" immediate="true" process="@this"
-					rendered="#{not controller.isBatchProcessing}"/>
+				<p:button value="#{constantResources.text(uiController.selectLabel)}" onclick="#{controller.onClick(record)}"  rendered="#{controller.isBatchProcessing}"/>
 				-->
 				<p:button value="#{constantResources.text(uiController.selectLabel)}" href="#{controller.href(record)}"  rendered="#{not controller.isBatchProcessing}"/>
+				
+				<p:button value="#{controller.actionLabel(record)}" href="#{controller.actionHref(record)}" icon="ui-icon-pencil" 
+					rendered="#{not controller.isBatchProcessing and controller.actionable(record)}"/>
+				
+				<!-- Edition -->
+				
+				<ui:include src="/resources/include/component/formCommand.xhtml" >
+					<ui:param name="command" value="#{controller.editDetailsCommand}" />
+					<ui:param name="executeObjectParam" value="#{record}" />
+				</ui:include>
+				
+				
+				<!-- Supprimer une ligne -->
+				<ui:fragment rendered="#{controller.canRemove(record)}">
+					<ui:include src="/resources/include/component/formCommand.xhtml" >
+						<ui:param name="command" value="#{controller.removeDetailsCommand}" />
+						<ui:param name="executeObjectParam" value="#{record}" />
+					</ui:include>
+				</ui:fragment>
+				
+				
 			</p:column>
 			
 		</p:dataTable>

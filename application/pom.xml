@@ -33,14 +33,16 @@
           <generateApplicationXml>false</generateApplicationXml>
           <version>7</version>
           <defaultLibBundleDir>lib</defaultLibBundleDir>
+         
           <modules>
 				<webModule>
 					<groupId>ci.gouv.budget.solde.sigdcp</groupId>
 					<artifactId>sigdcp-webapp</artifactId>
 					<bundleFileName>sigdcp.war</bundleFileName>
-					<contextRoot>/web</contextRoot>
+					<contextRoot>/sigdcp</contextRoot>
 				</webModule>
 			</modules>
+			
         </configuration>
       </plugin>
       
@@ -69,6 +71,7 @@
       
     </plugins>
   </build>
+  
   <dependencies>
   	<dependency>
   		<groupId>ci.gouv.budget.solde.sigdcp</groupId>

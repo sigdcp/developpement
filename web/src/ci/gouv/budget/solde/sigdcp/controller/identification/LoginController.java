@@ -15,7 +15,6 @@ import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.omnifaces.util.Faces;
 
-import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractFormUIController;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.command.Action;
 import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
@@ -40,7 +39,6 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
 	/*
 	 * Dtos
 	 */
-	@Inject private UserSessionManager userSessionManager;
 	@Getter private Credentials credentials = new Credentials();
 	@Getter @Setter private Boolean remember = Boolean.FALSE;
 	
@@ -52,14 +50,24 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
 	@Override
 	protected void initialisation() {
 		super.initialisation();
+		/*
+		String messageId = Faces.getRequestParameter(webConstantResources.getRequestParamMessageId());
+		System.out.println(messageId);
+		if(!StringUtils.isEmpty(messageId))
+			messageManager.addError(text(messageId));
+		*/
 		defaultSubmitCommand.setValue("bouton.seconnecter");
 		defaultSubmitCommand.set_echec(new Action() {
 			private static final long serialVersionUID = -1763345724770503035L;
 			@Override
 			protected Object __execute__(Object object) throws Exception {
-				if(object instanceof ServiceException && 
-						ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_VEROUILLE.getLibelle().equals( ((ServiceException)object).getMessage()))
-					return "/message/consultermail.jsf";
+				if(object instanceof ServiceException){
+					ServiceException exception = (ServiceException) object;
+					if(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_VEROUILLE.getLibelle().equals( exception.getMessage())) 
+						return "/message/consultermail.jsf";
+					//else if(ServiceExceptionType.IDENTIFICATION_COMPTE_UTILISATEUR_INCONNU.getLibelle().equals( exception.getMessage()))
+					//	return navigationManager.url("login",new Object[]{webConstantResources.getRequestParamMessageId(),"error.compte.inconnu"},true);
+				}
 				return null;
 			}
 		});
@@ -73,7 +81,7 @@ public class LoginController extends AbstractFormUIController<Credentials> imple
         SecurityUtils.getSubject().login(new UsernamePasswordToken(getDto().getUsername(), getDto().getPassword(), remember));
         userSessionManager.setCompteUtilisateur(compteUtilisateur);
         SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());
-        Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : navigationManager.url("espacePrivee",false).substring(1));
+        Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : navigationManager.url(userSessionManager.getAccueil(),false).substring(1));
 	}
 	
 	

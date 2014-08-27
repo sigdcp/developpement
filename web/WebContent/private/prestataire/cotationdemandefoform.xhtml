@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:sigdcp="http://java.sun.com/jsf/composite/composant">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{cotationDemandeFoFormController.preRenderView}" type="preRenderView"></f:event>
+    	</f:metadata>
+	</ui:define>
+	
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+		
+			<!-- <ui:fragment>
+				<ui:include src="/include/menutabprestation.xhtml" />
+			</ui:fragment> -->
+	
+	
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{cotationDemandeFoFormController}" /> 
+				<ui:define name="contenu">	
+					<p:fieldset legend="#{cotationDemandeFoFormController.listTitle}">
+					<p:panelGrid columns="2" styleClass="panelGridNoBorder panelColumnVAlignTop" style="width:100%">
+						<p:panelGrid columns="2">
+							<h:outputText value="#{constantResources.text('villedepart')}" />
+							<h:outputText value=": #{cotationDemandeFoFormController.entity.dossier.deplacement.localiteDepart}" />
+							<h:outputText value="#{constantResources.text('destination')}" />
+							<h:outputText value=": #{cotationDemandeFoFormController.entity.dossier.deplacement.localiteArrivee}" />
+							<h:outputText value="#{constantResources.text('cercueil')}" />
+							<h:outputText value=": #{cotationDemandeFoFormController.entity.dossier.cercueil}" />
+						</p:panelGrid>
+						
+						</p:panelGrid>
+					</p:fieldset>
+								
+						<p:spacer height="5"/>
+
+					<p:fieldset legend="Proposition de cotation">
+						<p:panelGrid columns="2" styleClass="panelGridNoBorder panelColumnVAlignTop">
+						
+							
+							<p:outputLabel for="montanttransport" value="#{constantResources.text('montanttransport')}" />
+							<pe:inputNumber id="montanttransport" value="#{cotationDemandeFoFormController.entity.montantTransport}" required="#{required}" requiredMessage="#{valueRequiredMessage}">  
+									<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+									<p:message for="@parent"/>
+							</pe:inputNumber>
+							
+							<p:outputLabel for="montantcercueil" value="#{constantResources.text('montantcercueil')}" />
+							<pe:inputNumber id="montantcercueil" value="#{cotationDemandeFoFormController.entity.montantCercueil}" required="#{required}" requiredMessage="#{valueRequiredMessage}">  
+									<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+									<p:message for="@parent"/>
+							</pe:inputNumber>
+						
+						</p:panelGrid>
+					</p:fieldset>
+						<p:spacer height="5"/>
+				</ui:define>
+				
+			</ui:decorate>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

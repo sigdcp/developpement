@@ -10,77 +10,138 @@
     NAME="output1" PATH="/public/securite/recupererMotDePasseForm.xhtml"
     TARGET="rules:#public#securite#recupererMotDePasseForm.xhtml"
     TITLE="recupererPassword" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="espacePrivee::#private#demande#liste.xhtml"
-    NAME="output2" PATH="/private/demande/liste.xhtml"
-    TARGET="rules:#private#demande#liste.xhtml" TITLE="espacePrivee" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="espacePrivee::#private#demande#agentetat#liste.xhtml"
+    NAME="output2" PATH="/private/demande/agentetat/liste.xhtml"
+    TARGET="rules:#private#demande#agentetat#liste.xhtml"
+    TITLE="espacePrivee" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="espacePriveePrestataire::#private#prestataire#index.xhtml"
+    NAME="output3" PATH="/private/prestataire/index.xhtml"
+    TARGET="rules:#private#prestataire#index.xhtml"
+    TITLE="espacePriveePrestataire" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="espacePriveeAgentMission::#private#agentmission#index.xhtml"
+    NAME="output4" PATH="/private/agentmission/index.xhtml"
+    TARGET="rules:#private#agentmission#index.xhtml"
+    TITLE="espacePriveeAgentMission" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="inscrire::#public#inscription#quietesvous.xhtml" NAME="output5"
+    PATH="/public/inscription/quietesvous.xhtml"
+    TARGET="rules:#public#inscription#quietesvous.xhtml"
+    TITLE="inscrire" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="inscriptionfonctionnaireagent::#public#inscription#inscriptionfonctionnaireagent.xhtml"
+    NAME="output6"
+    PATH="/public/inscription/inscriptionfonctionnaireagent.xhtml"
+    TARGET="rules:#public#inscription#inscriptionfonctionnaireagent.xhtml"
+    TITLE="inscriptionfonctionnaireagent" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="inscriptiongendarme::#public#inscription#inscriptiongendarme.xhtml"
+    NAME="output7" PATH="/public/inscription/inscriptiongendarme.xhtml"
+    TARGET="rules:#public#inscription#inscriptiongendarme.xhtml"
+    TITLE="inscriptiongendarme" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="inscriptioncontractuel::#public#inscription#inscriptioncontractuel.xhtml"
+    NAME="output8"
+    PATH="/public/inscription/inscriptioncontractuel.xhtml"
+    TARGET="rules:#public#inscription#inscriptioncontractuel.xhtml"
+    TITLE="inscriptioncontractuel" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="inscriptionprestataire::#public#inscription#inscriptionprestataire.xhtml"
+    NAME="output9"
+    PATH="/public/inscription/inscriptionprestataire.xhtml"
+    TARGET="rules:#public#inscription#inscriptionprestataire.xhtml"
+    TITLE="inscriptionprestataire" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="inscriptiondeclarantdeces::#public#inscription#inscriptiondeclarantdeces.xhtml"
+    NAME="output10"
+    PATH="/public/inscription/inscriptiondeclarantdeces.xhtml"
+    TARGET="rules:#public#inscription#inscriptiondeclarantdeces.xhtml"
+    TITLE="inscriptiondeclarantdeces" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="inscriptionagentmission::#public#inscription#inscriptionagentmission.xhtml"
+    NAME="output11"
+    PATH="/public/inscription/inscriptionagentmission.xhtml"
+    TARGET="rules:#public#inscription#inscriptionagentmission.xhtml"
+    TITLE="inscriptionagentmission" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="souscriptionliste::#private#personnel#identification#valideragent.xhtml"
-    NAME="output3"
+    NAME="output12"
     PATH="/private/personnel/identification/valideragent.xhtml"
     TARGET="rules:#private#personnel#identification#valideragent.xhtml"
     TITLE="souscriptionliste" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="inscriregestionairecartesotra::#private#personnel#identification#souscriptiongestionnairecarte.xhtml"
-    NAME="output4"
-    PATH="/private/personnel/identification/souscriptiongestionnairecarte.xhtml"
-    TARGET="rules:#private#personnel#identification#souscriptiongestionnairecarte.xhtml"
-    TITLE="inscriregestionairecartesotra" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
     ID="souscriptiongestionnairecartesotraliste::#private#personnel#identification#souscriptiongestionnairecartesotraliste.xhtml"
-    NAME="output5"
+    NAME="output13"
     PATH="/private/personnel/identification/souscriptiongestionnairecartesotraliste.xhtml"
     TARGET="rules:#private#personnel#identification#souscriptiongestionnairecartesotraliste.xhtml"
     TITLE="souscriptiongestionnairecartesotraliste" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="validergestionairecartesotra::#private#personnel#identification#validationsouscriptiongestionnairecartesotra.xhtml"
-    NAME="output6"
+    NAME="output14"
     PATH="/private/personnel/identification/validationsouscriptiongestionnairecartesotra.xhtml"
     TARGET="rules:#private#personnel#identification#validationsouscriptiongestionnairecartesotra.xhtml"
     TITLE="validergestionairecartesotra" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="listebasegestionnaire::#private#demande#gestionnairecartesotraliste.xhtml"
-    NAME="output7"
+    NAME="output15"
     PATH="/private/demande/gestionnairecartesotraliste.xhtml"
     TARGET="rules:#private#demande#gestionnairecartesotraliste.xhtml"
     TITLE="listebasegestionnaire" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="inscriptionlistebasegcs::#private#demande#inscriptionlistegestionnairecartesotraForm.xhtml"
-    NAME="output8"
+    NAME="output16"
     PATH="/private/demande/inscriptionlistegestionnairecartesotraForm.xhtml"
     TARGET="rules:#private#demande#inscriptionlistegestionnairecartesotraForm.xhtml"
     TITLE="inscriptionlistebasegcs" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="inscritslistebasegcs::#private#personnel#identification#inscritslbgestionnairecartesotraliste.xhtml"
-    NAME="output9"
+    NAME="output17"
     PATH="/private/personnel/identification/inscritslbgestionnairecartesotraliste.xhtml"
     TARGET="rules:#private#personnel#identification#inscritslbgestionnairecartesotraliste.xhtml"
     TITLE="inscritslistebasegcs" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="validationinscriptionlb::#private#personnel#identification#validationincriptionlistebasegscForm.xhtml"
-    NAME="output10"
+    NAME="output18"
     PATH="/private/personnel/identification/validationincriptionlistebasegscForm.xhtml"
     TARGET="rules:#private#personnel#identification#validationincriptionlistebasegscForm.xhtml"
     TITLE="validationinscriptionlb" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="consulterbeneficiairelistebase::#private#personnel#identification#consulterbeneficiairelistebase.xhtml"
-    NAME="output11"
+    NAME="output19"
     PATH="/private/personnel/identification/consulterbeneficiairelistebase.xhtml"
     TARGET="rules:#private#personnel#identification#consulterbeneficiairelistebase.xhtml"
     TITLE="consulterbeneficiairelistebase" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="detailbeneficiairelistebase::#private#personnel#identification#beneficiairelistebasedetail.xhtml"
-    NAME="output12"
+    NAME="output20"
     PATH="/private/personnel/identification/beneficiairelistebasedetail.xhtml"
     TARGET="rules:#private#personnel#identification#beneficiairelistebasedetail.xhtml"
     TITLE="detailbeneficiairelistebase" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="profilesagentetat::#private#admin#profiles#agentetat.xhtml"
+    NAME="output21" PATH="/private/admin/profiles/agentetat.xhtml"
+    TARGET="rules:#private#admin#profiles#agentetat.xhtml"
+    TITLE="profilesagentetat" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="compteutilisateur_form::#private#admin#profiles#compteutilisateur_form.xhtml"
+    NAME="output22"
+    PATH="/private/admin/profiles/compteutilisateur_form.xhtml"
+    TARGET="rules:#private#admin#profiles#compteutilisateur_form.xhtml"
+    TITLE="compteutilisateur_form" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="authentificationdoc::#private#personnel#identification#authentificationdocument.xhtml"
+    NAME="output23"
+    PATH="/private/personnel/identification/authentificationdocument.xhtml"
+    TARGET="rules:#private#personnel#identification#authentificationdocument.xhtml"
+    TITLE="authentificationdoc" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM
   NAME="rules:#private#personnel#identification#consulterbeneficiairelistebase.xhtml"
   PATH="/private/personnel/identification/consulterbeneficiairelistebase.xhtml"
   SHAPE="304,1649,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#public#inscriptionpersonne.xhtml"
-  PATH="/public/inscriptionpersonne.xhtml" SHAPE="304,641,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM
   NAME="rules:#private#personnel#identification#inscritslbgestionnairecartesotraliste.xhtml"
   PATH="/private/personnel/identification/inscritslbgestionnairecartesotraliste.xhtml"
@@ -117,12 +178,54 @@
   NAME="rules:#private#personnel#identification#souscriptiongestionnairecarte.xhtml"
   PATH="/private/personnel/identification/souscriptiongestionnairecarte.xhtml"
   SHAPE="304,865,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#private#demande#liste.xhtml"
-  PATH="/private/demande/liste.xhtml" SHAPE="304,529,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#public#securite#login.xhtml"
   PATH="/public/securite/login.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM
   NAME="rules:#public#securite#recupererMotDePasseForm.xhtml"
   PATH="/public/securite/recupererMotDePasseForm.xhtml"
   SHAPE="304,529,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#public#inscription#quietesvous.xhtml"
+  PATH="/public/inscription/quietesvous.xhtml" SHAPE="304,529,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#public#inscription#inscriptionprestataire.xhtml"
+  PATH="/public/inscription/inscriptionprestataire.xhtml"
+  SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#public#inscription#inscriptiongendarme.xhtml"
+  PATH="/public/inscription/inscriptiongendarme.xhtml"
+  SHAPE="304,705,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#public#inscription#inscriptionfonctionnaireagent.xhtml"
+  PATH="/public/inscription/inscriptionfonctionnaireagent.xhtml"
+  SHAPE="304,593,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#public#inscription#inscriptiondeclarantdeces.xhtml"
+  PATH="/public/inscription/inscriptiondeclarantdeces.xhtml"
+  SHAPE="304,1041,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#admin#index.xhtml"
+  PATH="/private/admin/index.xhtml" SHAPE="304,769,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#prestataire#index.xhtml"
+  PATH="/private/prestataire/index.xhtml" SHAPE="304,657,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#admin#profiles#agentetat.xhtml"
+  PATH="/private/admin/profiles/agentetat.xhtml" SHAPE="304,721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#admin#profiles#compteutilisateur_form.xhtml"
+  PATH="/private/admin/profiles/compteutilisateur_form.xhtml"
+  SHAPE="304,753,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#public#inscription#inscriptioncontractuel.xhtml"
+  PATH="/public/inscription/inscriptioncontractuel.xhtml"
+  SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#agentetat#liste.xhtml"
+  PATH="/private/demande/agentetat/liste.xhtml" SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#identification#authentificationdocument.xhtml"
+  PATH="/private/personnel/identification/authentificationdocument.xhtml"
+  SHAPE="304,881,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#public#inscription#inscriptionagentmission.xhtml"
+  PATH="/public/inscription/inscriptionagentmission.xhtml"
+  SHAPE="304,881,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#agentmission#index.xhtml"
+  PATH="/private/agentmission/index.xhtml" SHAPE="304,881,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

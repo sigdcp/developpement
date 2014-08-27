@@ -20,7 +20,6 @@ public class DossierDDValidationTestCase extends AbstractValidationTestCase<Doss
 	@Override
 	protected DossierDD createObject() {
 		DossierDD dossier = new DossierDD();
-		dossier.setNumero("D154");
 		return dossier;
 	}
 

@@ -8,15 +8,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Getter;
-import ci.gouv.budget.solde.sigdcp.controller.application.User;
 import ci.gouv.budget.solde.sigdcp.controller.application.UserSessionManager;
 import ci.gouv.budget.solde.sigdcp.controller.fichier.PieceJustificativeUploader;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIController;
-import ci.gouv.budget.solde.sigdcp.model.Code;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
-import ci.gouv.budget.solde.sigdcp.model.dossier.TypePieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
-import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionGestionnaireCarteSotra;
  
 @Named @ViewScoped
@@ -38,8 +33,6 @@ public class SouscriptionGestionnaireCarteSotraController extends AbstractEntity
 	@Override
 	public void initialisation() {
 		super.initialisation();
-		System.out
-				.println("SouscriptionGestionnaireCarteSotraController.initialisation()");
 		title = "Inscription des candidats gestionnaires";
 		internalCode = "FS_Sotra_02_Ecran_01";
 		defaultSubmitCommand.setValue(messageManager.getTextService().find("bouton.enregistrer"));

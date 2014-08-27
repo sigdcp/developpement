@@ -12,11 +12,10 @@ public class DossierMissionDaoImpl extends AbstractDossierDaoImpl<DossierMission
 	
 	@Override
 	public Collection<DossierMission> readSaisieByPointFocal(Personne personne) {
-		return entityManager.createQuery("SELECT dm FROM DossierMission dm WHERE dm.dernierTraitement.operation.creePar = :personne ORDER BY t.operation.date ASC"
+		return entityManager.createQuery("SELECT dm FROM DossierMission dm WHERE dm.dernierTraitement.operation.effectuePar = :personne ORDER BY t.operation.date ASC"
 				, clazz)
 				.setParameter("personne", personne)
 				.getResultList();
 	}
-	  
 
 }

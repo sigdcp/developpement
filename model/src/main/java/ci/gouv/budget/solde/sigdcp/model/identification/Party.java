@@ -9,7 +9,6 @@
 package ci.gouv.budget.solde.sigdcp.model.identification;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,8 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -30,10 +28,10 @@ import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Contact;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
-import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.System;
 
 @Getter @Setter 
-@Entity @Inheritance(strategy=InheritanceType.JOINED) @EqualsAndHashCode(of="id",callSuper=false)
+@Entity @Inheritance(strategy=InheritanceType.SINGLE_TABLE) @EqualsAndHashCode(of="id",callSuper=false)
+@Table(name="requerant")
 public class Party extends AbstractModel<Long>  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -43,21 +41,16 @@ public class Party extends AbstractModel<Long>  implements Serializable{
 	
 	@NotNull(groups=Client.class)
 	@Column(nullable=false)
-	private String nom;
+	protected String nom;
 	
 	@OneToOne(cascade=CascadeType.ALL) @Valid
 	private Contact contact = new Contact();
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull(groups=System.class)
-	private Date dateCreation;
-	
 	public Party() {}
  
-	public Party(String nom,Contact contact,Date dateCreation) {
+	public Party(String nom,Contact contact) {
 		this.nom = nom; 
 		this.contact = contact;
-		this.dateCreation = dateCreation;
 	}
 	
 	

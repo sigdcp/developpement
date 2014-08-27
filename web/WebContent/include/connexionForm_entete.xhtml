@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:body>	
+		<style>
+			.messages .ui-messages-error{
+				background: transparent !important;
+				padding: 0 !important;
+				border: 0px !important;
+			}
+			.messages .ui-messages-error-icon{
+				visibility: hidden !important;
+			}
+		</style>
+	 	<p:outputPanel id="cfp" rendered="#{empty request.remoteUser}"><div style="font-size:9pt">  
+	  		<table border="0">
+	  			<tr>
+	  				<td>
+				  		<h:panelGrid columns="5" style="margin:auto" id="cpg">
+
+							<p:outputLabel for="username" value="Nom d'utilisateur" />	
+							<p:inputText id="username" value="#{loginController.dto.username}" required="true" requiredMessage="#{valueRequiredMessage}" size="48">
+								<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+								<p:message for="@parent" />
+							</p:inputText>
+												
+							<p:outputLabel for="password" value="Mot de passe" />
+							<p:password id="password" value="#{loginController.dto.password}" required="true" requiredMessage="#{valueRequiredMessage}" size="22">
+								<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+								<p:message for="@parent" />
+							</p:password>
+							
+							<p:commandButton value="Connexion" action="#{loginController.defaultSubmitCommand.execute}" icon="ui-icon-check" update="@form" />
+						</h:panelGrid>	
+					</td>
+				</tr>
+				<tr>
+					<td align="center" class="messages">
+						<h:link value="S'inscrire" outcome="inscrire" /><p:spacer width="5"/><h:outputText value="|" /><p:spacer width="5"/>
+						<h:link value="Mot de passe oublié" outcome="recupererPassword" />
+						<p:messages globalOnly="true" redisplay="true" />
+			  		</td>
+			  	</tr>
+			</table>	
+	  	</div></p:outputPanel>  
+	  	
+	  	<p:blockUI block="cfp" widgetVar="bui" > 
+			<table><tr style="vertical-align: middle;">
+				<td><h:outputText value="Traitement en cours , veuillez patienter..." /> </td> 
+				<td><p:graphicImage value="/resources/images/processing.gif" /></td> 
+			</tr> </table>
+	    </p:blockUI> 
+	  	
+	  	<ui:fragment rendered="#{not empty request.remoteUser}">
+			
+			<div align="right" style="font-size: 9pt">
+				<h:outputText value="#{userSessionManager.userInfosLine}" escape="false"/>
+				<p:spacer width="5"/>
+				<h:outputText value="|" /><p:spacer width="5"/>
+				<h:link value="Mon espace privée" outcome="#{userSessionManager.accueil}" rendered="#{not empty request.remoteUser}"/>
+				<p:spacer width="5"/><h:outputText value="|" /><p:spacer width="5"/>
+				<p:commandLink value="Se deconnecter" action="#{logoutController.defaultSubmitCommand.execute}" rendered="#{not empty request.remoteUser}" />
+				<p:spacer width="5"/>
+			</div>
+			
+		</ui:fragment>
+	  	
+	  	<p:ajaxStatus onstart="PF('status').show();" oncomplete="PF('status').hide();" rendered="#{false}" />
+		<p:dialog widgetVar="status" modal="true" closable="false" appendTo="@(Body)">
+			<ui:include src="/include/traitementEnCoursPopup.xhtml" />
+		</p:dialog>
+	  	 		
+	</h:body>
+
+</html>

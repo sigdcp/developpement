@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:decorate template="/template/datalist/multiplechoice.xhtml">
+		<ui:param name="controller" value="#{effectuerOperationController}" />
+		 
+		<ui:define name="criteresrecherche">
+			<p:panelGrid id="crpg" columns="3" styleClass="panelGridNoBorder">
+				<!--
+				<p:outputLabel for="dateDebut" value="#{constantResources.text('datedebut')}" />
+				<p:calendar id="dateDebut" value="#{effectuerOperationController.dateDebut}"/>
+								
+				<p:outputLabel for="dateFin" value="#{constantResources.text('datefin')}" />
+				<p:calendar id="dateFin" value="#{effectuerOperationController.dateFin}"/>
+				-->				
+				<p:outputLabel for="natureDep" value="#{constantResources.text('nature')}" />
+				<p:selectOneMenu id="natureDep" value="#{effectuerOperationController.natureDeplacement}" converter="#{objectConverter}" 
+					valueChangeListener="#{effectuerOperationController.natureDeplacementChange}">
+					<f:selectItems value="#{effectuerOperationController.items}" />
+					<p:ajax event="change" process="crpg" />
+				</p:selectOneMenu>
+				
+				<p:selectOneRadio id="aspect" value="#{effectuerOperationController.aspectLiquide}" rendered="#{effectuerOperationController.showAspectLiquide}" 
+					valueChangeListener="#{effectuerOperationController.aspetLiquideChange}">
+					<f:selectItems value="#{effectuerOperationController.aspectLiquides}" />
+					<p:ajax event="change" process="crpg" />
+				</p:selectOneRadio>
+								
+			</p:panelGrid>		
+		</ui:define>
+		
+		<ui:define name="infos">
+			<ui:fragment rendered="#{effectuerOperationController.showBudgetDisponible and effectuerOperationController.natureDeplacement.categorie.disponible!=null}">
+				<div class="ui-widget ui-state-highlight">
+					<h:outputText value="Disponible trésor : " />
+					<h:outputText id="disponible" value="#{effectuerOperationController.disponible}" >
+						<f:convertNumber type="currency" currencySymbol="CFA" maxFractionDigits="0" />
+					</h:outputText>
+				</div>
+			</ui:fragment>
+		</ui:define>
+		
+		<ui:define name="colonnes">
+			<!-- listener="#{effectuerOperationController.onRowSelect}" listener="#{effectuerOperationController.onRowUnselect}"  -->
+			<p:ajax event="rowSelectCheckbox" update="@parent" />
+			<!--
+			<p:ajax event="rowSelect" listener="#{effectuerOperationController.onRowSelect}" update="@parent" />
+			-->
+			<p:ajax event="rowUnselectCheckbox" update="@parent" process="@this" immediate="true"/>
+			
+			<!-- sortBy="#{record.numero}" filterBy="#{record.numero}" -->
+			
+			<p:column headerText="#{constantResources.text('numero')}" rendered="#{controller.showNumero}">
+				<h:outputText value="#{controller.numero(record)}" />
+			</p:column>
+			
+			<p:column headerText="#{controller.numero2Libelle()}" rendered="#{controller.showNumero2}">
+				<h:outputText value="#{controller.numero2(record)}" />
+			</p:column>
+			
+			<p:column headerText="#{constantResources.text('datecreation')}" rendered="#{controller.showDateCreation}">
+				<h:outputText value="#{controller.dateCreation(record)}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+			</p:column>
+			
+			<ui:insert name="colonnesDetails" />
+			
+			<p:column headerText="#{constantResources.text('montant')} (CFA)" sortBy="#{effectuerOperationController.depense(record)}" filterBy="#{effectuerOperationController.depense(record)}" 
+				rendered="#{effectuerOperationController.showMontant}">
+				<h:outputText id="depense" value="#{effectuerOperationController.depense(record)}" ><f:convertNumber  currencySymbol="CFA" maxFractionDigits="0" type="number" /> </h:outputText>
+				<!--
+				<p:panelGrid columns="2">
+						<p:selectOneMenu id="pourcentage" value="#{record.montantPourcentage}" rendered="#{effectuerOperationController.showMontantPourcentage}" >
+							<f:selectItems value="#{controller.montantPourcentages}" />
+						</p:selectOneMenu>
+				</p:panelGrid>
+				-->
+				<f:facet name="footer">
+					<h:outputText id="depensetotale" value="#{effectuerOperationController.totalDepense}" rendered="#{effectuerOperationController.showTotalDepense}"><f:convertNumber  currencySymbol="CFA" maxFractionDigits="0" type="number" /></h:outputText>
+				</f:facet>
+			</p:column>	
+			
+			<p:column headerText="#{constantResources.text('observations')}" rendered="#{effectuerOperationController.showObservation}">
+				<h:outputText value="#{controller.traitable(record).dernierTraitement.observation}" escape="false" />
+			</p:column>	
+			
+			<p:column headerText="#{constantResources.text('validation')}" rendered="#{effectuerOperationController.showValidation}">
+				<p:outputPanel>
+					<ui:fragment rendered="#{effectuerOperationController.isSelected(record)}">
+						<p:selectOneMenu id="action" value="#{record.traitable.traitement.validationType}" required="true" label="Action"
+							valueChangeListener="#{effectuerOperationController.onValidationTypeChange}">
+							<f:selectItem noSelectionOption="" itemLabel="-- Action --"/>
+							<f:selectItems value="#{effectuerOperationController.validations(record)}" /> 
+							<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+							<p:ajax event="change" update="@form"/>
+						</p:selectOneMenu>
+						<p:message for="action"/>
+						
+						<p:commandButton value="Motif" icon="ui-icon-pencil" action="#{effectuerOperationController.select(record)}"  oncomplete="PF('traitementDialog').show();" update="@form"
+							rendered="#{record.traitable.traitement.validationType!=null and not record.traitable.traitement.isValidationTypeAccepter()}"/>
+							 
+					</ui:fragment>
+				</p:outputPanel>
+			</p:column>	
+				
+		</ui:define>
+	</ui:decorate>		
+	
+	<p:dialog id="tdix" widgetVar="traitementDialog" modal="false"> 
+	    <f:facet name="header"><p:outputPanel id="traitementDialogHeader">
+	    	<h:outputText value="Traitement" />
+	    </p:outputPanel></f:facet>
+	    <p:outputPanel id="display" >  
+	    	
+				<h:outputText value="Motif" /><br/>
+				
+				<p:editor id="observation" widgetVar="myeditor" value="#{effectuerOperationController.selected.traitable.traitement.observation}" width="600" >
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+				</p:editor>
+				
+				<p:separator/>
+				<div align="center">
+					<p:commandButton value="OK" action="#{effectuerOperationController.appliquerTraitement}" oncomplete="PF('traitementDialog').hide();"/>
+				</div>
+		
+     		</p:outputPanel>
+	</p:dialog>		
+	
+		
+		
+</ui:composition>

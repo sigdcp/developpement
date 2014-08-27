@@ -3,14 +3,12 @@ package ci.gouv.budget.solde.sigdcp.service.identification;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import ci.gouv.budget.solde.sigdcp.dao.identification.SouscriptionGestionnaireCarteSotraDao;
 import ci.gouv.budget.solde.sigdcp.model.identification.souscription.SouscriptionGestionnaireCarteSotra;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 
-@Stateless
 public class SouscriptionGestionnaireCarteSotraServiceImpl extends AbstractSouscriptionServiceImpl<SouscriptionGestionnaireCarteSotra> implements SouscriptionGestionnaireCarteSotraService,Serializable {
 	
 	private static final long serialVersionUID = 1170771216036513138L;

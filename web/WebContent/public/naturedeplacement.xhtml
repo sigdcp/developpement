@@ -18,14 +18,14 @@
 	
 	<ui:composition template="/template/public.xhtml">
 		<ui:define name="contenu">
-			<p:panel style="margin:10px;">
+			<p:panel>
 				<f:facet name="header">
 					<ui:insert name="title"><h:outputText value="#{natureDeplacementInfosController.title}" /></ui:insert>
 				</f:facet>
 
 				<table width="100%">
 					<tr>
-						<td valign="top" width="65%" style="padding: 20px; margin: 0 50px 0 50px; text-align: justify; line-height: 22px; font-size: 9pt">
+						<td valign="top" width="75%" style="padding: 20px; margin: 0 50px 0 50px; text-align: justify; line-height: 22px; font-size: 9pt">
 							<h:outputText value="#{natureDeplacementInfosController.entity.description}" escape="false"/>
 						</td>
 						<td valign="top" style="margin: 20px">
@@ -42,12 +42,12 @@
 							<f:param name="#{webConstantResources.requestParamNextViewOutcome}" value="demandeconsultation"/>
 						</p:button>
 						
-						<p:button value="Ouverture de compte" icon="ui-icon-check" outcome="inscriptionpersonne" rendered="#{empty request.remoteUser}">
+						<p:button value="Ouverture de compte" icon="ui-icon-check" outcome="inscrire" rendered="#{empty request.remoteUser}">
 							<f:param name="#{webConstantResources.requestParamCrudType}"
 								value="#{webConstantResources.requestParamCrudCreate}" />
 						</p:button>
 						
-						<p:button value="Cliquer ici pour solliciter ce service"  outcome="demande_dd" icon="ui-icon-check">
+						<p:button value="Cliquer ici pour solliciter ce service"  outcome="#{natureDeplacementInfosController.outcome}" icon="ui-icon-check">
 							<f:param name="#{webConstantResources.requestParamNatureDeplacement}" value="#{natureDeplacementInfosController.entity.code}" />
 							<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
 						</p:button>

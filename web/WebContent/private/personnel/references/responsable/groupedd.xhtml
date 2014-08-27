@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{groupeddReferenceController.preRenderView}" type="preRenderView"/>
+    	</f:metadata>
+	</ui:define>	
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/referenceEnumeration.xhtml">
+				
+				<ui:param name="referenceController" value="#{groupeddReferenceController}" />
+				<ui:define name="supColumns">	
+					<p:ajax event="rowEdit" listener="#{groupeddReferenceController.onRowEdit}" update=":form:messageDialogPanel" />  
+					<p:ajax event="rowEditCancel" listener="#{groupeddReferenceController.onRowEditCancel}"  />
+					<p:column headerText="Grade">
+					<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.grades}" /></f:facet>
+			            <f:facet name="input">
+			            	<h:panelGroup>
+			            		<p:message for="grade" />            		
+							<p:selectCheckboxMenu id="grade" value="#{record.grades}" converter="#{objectConverter}" label="Choisir grades" filter="true" filterText="Filter" filterMatchMode="startsWith" panelStyle="width:220px">
+								        <f:selectItems value="#{grades}" />
+								 </p:selectCheckboxMenu>
+			            		
+			            	</h:panelGroup></f:facet>
+			        </p:cellEditor>
+			        </p:column>
+			        
+			        <p:column headerText="Montant agent">
+					<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.montantAgent}" /></f:facet>			           
+			            <f:facet name="input">
+			            	<p:inputText value="#{record.montantAgent}" required="true" label="Montant agent" size="10">
+				            	<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+					           	<p:message for="@parent" />
+			            	</p:inputText>
+	            		</f:facet>
+			        </p:cellEditor>
+			        </p:column> 
+			        <p:column headerText="Poids autorisé agent">
+					<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.poidsAutoriseAgent}" /></f:facet>			           
+			            <f:facet name="input">
+			            	<p:inputText value="#{record.poidsAutoriseAgent}" required="true" label="Poids autorisé agent" size="10">
+				            	<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+					           	<p:message for="@parent" />
+			            	</p:inputText>
+	            		</f:facet>
+			        </p:cellEditor>
+			        </p:column>
+			        
+			        <p:column headerText="Montant épouse">
+					<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.montantEpouse}" /></f:facet>			           
+			            <f:facet name="input">
+			            	<p:inputText value="#{record.montantEpouse}" required="true" label="Montant épouse" size="10">
+				            	<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+					           	<p:message for="@parent" />
+			            	</p:inputText>
+	            		</f:facet>
+			        </p:cellEditor>
+			        </p:column> 
+			        <p:column headerText="Poids autorisé épouse">
+					<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.poidsAutoriseEpouse}" /></f:facet>			           
+			            <f:facet name="input">
+			            	<p:inputText value="#{record.poidsAutoriseEpouse}" required="true" label="Poids autorisé épous" size="10">
+				            	<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+					           	<p:message for="@parent" />
+			            	</p:inputText>
+	            		</f:facet>
+			        </p:cellEditor>
+			        </p:column>
+			        
+			        
+			        <p:column headerText="Montant enfant">
+					<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.montantEnfant}" /></f:facet>			           
+			            <f:facet name="input">
+			            	<p:inputText value="#{record.montantEnfant}" required="true" label="Montant enfant"  size="10">
+				            	<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+					           	<p:message for="@parent" />
+			            	</p:inputText>
+	            		</f:facet>
+			        </p:cellEditor>
+			        </p:column> 
+			        <p:column headerText="Poids autorisé enfant">
+					<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{record.poidsAutoriseEnfant}" /></f:facet>			           
+			            <f:facet name="input">
+			            	<p:inputText value="#{record.poidsAutoriseEnfant}" required="true" label="Poids autorisé enfant" size="10">
+				            	<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+					           	<p:message for="@parent" />
+			            	</p:inputText>
+	            		</f:facet>
+			        </p:cellEditor>
+			        </p:column>
+			        
+				</ui:define>
+			</ui:decorate>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

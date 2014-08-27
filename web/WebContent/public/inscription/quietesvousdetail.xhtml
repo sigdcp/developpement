@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		
+	</ui:define>
+
+	<ui:composition template="/template/public.xhtml">
+
+		<ui:define name="contenu">
+	
+				<p:panel header="#{quiEtesVousController.requerant.nom}">
+					<h:outputText value="#{quiEtesVousController.requerant.description}" escape="false" />
+					<f:facet name="footer">
+						<p:button value="S'inscrire" icon="ui-icon-check" outcome="#{quiEtesVousController.requerant.outcome}">
+							<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}" />
+						</p:button>
+					</f:facet>
+				</p:panel>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

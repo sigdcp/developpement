@@ -7,11 +7,7 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 
 public interface NatureDeplacementDao extends DataAccessObject<NatureDeplacement,String> {
 
-	Collection<NatureDeplacement> findByCategorieId(String categorieId);
+	Collection<NatureDeplacement> readByCategorieId(String categorieId);
+
 	
-	/*
-	Collection<NatureDeplacement> findAllWithPieceJustificativeAFournir();
-	
-	NatureDeplacement readWithPieceJustificativeAFournir(String identifiant);
-	*/
 }

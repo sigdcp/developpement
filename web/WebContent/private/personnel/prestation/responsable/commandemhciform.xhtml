@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+        	<f:event listener="#{commandeMhciFormController.preRenderView}" type="preRenderView"></f:event>
+    	</f:metadata>
+	</ui:define>
+	
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+		 
+			<ui:fragment>
+				<ui:include src="/include/menutabprestation.xhtml" />
+			</ui:fragment>
+	
+	
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{commandeMhciFormController}" />
+				<ui:define name="contenu">	
+					<p:fieldset legend="#{commandeMhciFormController.titleDemande}">
+				<p:panelGrid columns="2" styleClass="panelGridNoBorder panelColumnVAlignTop" style="width:100%">
+					<p:panelGrid columns="2" styleClass="panelGridNoBorder panelColumnVAlignTop" style="width:100%">
+						
+							<h:outputText value="#{constantResources.text('datedepart')}" />
+							<h:outputText value=": #{commandeMhciFormController.mission.deplacement.dateDepart}" >
+									<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+							</h:outputText>
+							<h:outputText value="#{constantResources.text('dateretour')}" />
+							<h:outputText value=": #{commandeMhciFormController.mission.deplacement.dateArrivee}" >
+									<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+							</h:outputText>
+							<h:outputText value="#{constantResources.text('villedepart')}" />
+							<h:outputText value=": #{commandeMhciFormController.mission.deplacement.localiteDepart}" />
+							<h:outputText value="#{constantResources.text('destination')}" />
+							<h:outputText value=": #{commandeMhciFormController.mission.deplacement.localiteArrivee}" />
+						</p:panelGrid>
+						
+						<p:dataTable id="participant" value="#{demandeCotationMhciFormController.entity.mission.dossiers}" var="dossier" rowIndexVar="index"> 
+							<f:facet name="header">
+								<h:outputText value="Participant(s)" />
+							</f:facet>
+							
+							<p:column headerText="#">
+								<h:outputText value="#{index+1}" />
+							</p:column>			
+							<p:column headerText="#{constantResources.text('nom')}">
+								<h:outputText value="#{dossier.beneficiaire.nomPrenoms}" />
+							</p:column>
+							<p:column headerText="#{constantResources.text('groupe')}">
+								<h:outputText value="#{dossier.groupe}" />
+							</p:column>			
+							<p:column headerText="#{constantResources.text('classevoyage')}" >
+								<h:outputText value="#{dossier.classeVoyage}" />
+							
+							</p:column>		
+							<p:column headerText="#{constantResources.text('montant')}" >
+								<h:outputText value="#{dossier.frais.transport}" />
+							
+							</p:column>
+						</p:dataTable>
+					</p:panelGrid>
+						
+						
+					</p:fieldset>
+						<p:spacer height="5"/>
+						
+						<ui:decorate template="/template/dataList.xhtml">
+									<ui:param name="controller" value="#{commandeMhciFormController}" />
+									
+									<ui:define name="colonnes">
+																		
+										<p:column headerText="#{constantResources.text('prestataire')}" sortBy="#{record.prestataireDemandeCotationMission.prestataire.nom}" filterBy="#{record.prestataireDemandeCotationMission.prestataire.nom}" >
+											<h:outputText value="#{record.prestataireDemandeCotationMission.prestataire.nom}" />
+										</p:column>		
+										<p:column headerText="Fichier de cotation">
+											
+											<p:commandButton value="Voir" icon="ui-icon-search"  process="@this"
+												 oncomplete="PF('fichierDialog').show();" update="@form">
+												<f:setPropertyActionListener value="#{record}" target="#{commandeMhciFormController.voir}" />
+											</p:commandButton>
+										</p:column>							
+											
+									</ui:define>
+						</ui:decorate>	
+					
+						<p:dialog widgetVar="fichierDialog" modal="true" appendTo="@(Body)" > 
+						    <f:facet name="header"><h:outputText value=" Fichier de cotation" />
+						    </f:facet>
+						    <p:outputPanel id="display" >  
+								<p:graphicImage value="/_fichier_/?id=#{commandeMhciFormController.voir.prestataireDemandeCotationMission.fichier.id}" width="900" height="650" />
+				      		</p:outputPanel>
+						</p:dialog>	
+		
+				</ui:define>
+				
+			</ui:decorate>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

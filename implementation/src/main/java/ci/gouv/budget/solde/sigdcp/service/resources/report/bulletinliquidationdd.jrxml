@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bulletinliquidationdd" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="37ee4553-bd82-44a8-8a7a-28460617a671">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="176"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="resultatIJE" class="java.lang.String">
+		<fieldDescription><![CDATA[resultatIJE]]></fieldDescription>
+	</field>
+	<field name="distance" class="java.lang.Integer">
+		<fieldDescription><![CDATA[distance]]></fieldDescription>
+	</field>
+	<field name="groupe" class="java.lang.String">
+		<fieldDescription><![CDATA[groupe]]></fieldDescription>
+	</field>
+	<field name="resultatIKP" class="java.lang.String">
+		<fieldDescription><![CDATA[resultatIKP]]></fieldDescription>
+	</field>
+	<field name="montantchiffre" class="java.lang.String">
+		<fieldDescription><![CDATA[montantchiffre]]></fieldDescription>
+	</field>
+	<field name="formuleIBA" class="java.lang.String">
+		<fieldDescription><![CDATA[formuleIBA]]></fieldDescription>
+	</field>
+	<field name="beneficiaire" class="ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat">
+		<fieldDescription><![CDATA[beneficiaire]]></fieldDescription>
+	</field>
+	<field name="formuleIJC" class="java.lang.String">
+		<fieldDescription><![CDATA[formuleIJC]]></fieldDescription>
+	</field>
+	<field name="nbrEnfant" class="java.lang.Integer">
+		<fieldDescription><![CDATA[nbrEnfant]]></fieldDescription>
+	</field>
+	<field name="statutdoc" class="java.lang.String">
+		<fieldDescription><![CDATA[statutdoc]]></fieldDescription>
+	</field>
+	<field name="resultatIBE" class="java.lang.String">
+		<fieldDescription><![CDATA[resultatIBE]]></fieldDescription>
+	</field>
+	<field name="dossier" class="ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD">
+		<fieldDescription><![CDATA[dossier]]></fieldDescription>
+	</field>
+	<field name="formuleIKP" class="java.lang.String">
+		<fieldDescription><![CDATA[formuleIKP]]></fieldDescription>
+	</field>
+	<field name="formuleIJE" class="java.lang.String">
+		<fieldDescription><![CDATA[formuleIJE]]></fieldDescription>
+	</field>
+	<field name="nbrjrIndemnitejournaliere" class="java.lang.Integer">
+		<fieldDescription><![CDATA[nbrjrIndemnitejournaliere]]></fieldDescription>
+	</field>
+	<field name="resultatIBC" class="java.lang.String">
+		<fieldDescription><![CDATA[resultatIBC]]></fieldDescription>
+	</field>
+	<field name="libdoc" class="java.lang.String">
+		<fieldDescription><![CDATA[libdoc]]></fieldDescription>
+	</field>
+	<field name="formuleIBE" class="java.lang.String">
+		<fieldDescription><![CDATA[formuleIBE]]></fieldDescription>
+	</field>
+	<field name="resultatIJC" class="java.lang.String">
+		<fieldDescription><![CDATA[resultatIJC]]></fieldDescription>
+	</field>
+	<field name="formuleIBC" class="java.lang.String">
+		<fieldDescription><![CDATA[formuleIBC]]></fieldDescription>
+	</field>
+	<field name="piece" class="ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite">
+		<fieldDescription><![CDATA[piece]]></fieldDescription>
+	</field>
+	<field name="resultatIJA" class="java.lang.String">
+		<fieldDescription><![CDATA[resultatIJA]]></fieldDescription>
+	</field>
+	<field name="deplacement" class="ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement">
+		<fieldDescription><![CDATA[deplacement]]></fieldDescription>
+	</field>
+	<field name="resultatIBA" class="java.lang.String">
+		<fieldDescription><![CDATA[resultatIBA]]></fieldDescription>
+	</field>
+	<field name="montantlettre" class="java.lang.String">
+		<fieldDescription><![CDATA[montantlettre]]></fieldDescription>
+	</field>
+	<field name="formuleIJA" class="java.lang.String">
+		<fieldDescription><![CDATA[formuleIJA]]></fieldDescription>
+	</field>
+	<field name="nbrjrIndemnitekm" class="java.lang.Integer">
+		<fieldDescription><![CDATA[nbrjrIndemnitekm]]></fieldDescription>
+	</field>
+	<field name="feuilleDeplacement" class="ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative">
+		<fieldDescription><![CDATA[feuilleDeplacement]]></fieldDescription>
+	</field>
+	<field name="decisionAffectation" class="ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative">
+		<fieldDescription><![CDATA[decisionAffectation]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="109">
+			<staticText>
+				<reportElement x="46" y="42" width="100" height="15" uuid="f54713af-a7be-4ca5-a133-8e7c5779c050"/>
+				<text><![CDATA[ET DES FINANCES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="29" width="191" height="13" uuid="38ed14ce-755b-4d54-9d46-404a62858335"/>
+				<text><![CDATA[DIRECTION GENERALE DU BUDGET]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="57" width="137" height="16" uuid="3d8de981-83a0-48a6-804a-1356739d18dc"/>
+				<text><![CDATA[DIRECTION DE LA SOLDE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="15" width="112" height="19" uuid="7075633a-1e7c-4ec1-938c-e16d0e324fa9"/>
+				<text><![CDATA[CHARGE DU BUDGET]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1" width="232" height="16" uuid="cb519ed4-ba92-4371-938c-2c3bdeca001c"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[MINISTERE AUPRES DU PREMIER MINISTRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="663" y="14" width="132" height="17" uuid="895c10e6-14fe-421d-8b8c-1721e1f4be4d"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Union - Discipline - Travail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="644" y="0" width="169" height="13" uuid="1e9854d8-aba9-433c-a918-25c1ffc07ed4"/>
+				<text><![CDATA[REPUBLIQUE DE CÔTE D'IVOIRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="241" y="36" width="403" height="32" uuid="72690830-0390-40c8-9bde-f0b432302d26"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BULLETIN DE LIQUIDATION DES INDEMNITES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="58" width="262" height="26" uuid="c9a88c87-6eca-4a39-9b3b-dbc50a86f0db"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DE DEPLACEMENT DEFINITIF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="71" width="185" height="20" uuid="db88bcdb-528b-4f25-89bc-49c70dd3e5f3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOUS-DIRECTION DES DEPENSES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="85" width="150" height="20" uuid="f9fedbe8-6425-4834-b817-160ddeddca0c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMMUNES DE PERSONNEL]]></text>
+			</staticText>
+			<line>
+				<reportElement x="45" y="29" width="100" height="1" uuid="4126b1bf-b447-40fc-bb89-f0fb99691f94"/>
+			</line>
+			<line>
+				<reportElement x="43" y="56" width="100" height="1" uuid="929b80df-92fc-469c-a985-041d32262f56"/>
+			</line>
+			<line>
+				<reportElement x="42" y="71" width="100" height="1" uuid="39b4f51a-2a90-48a9-969e-db5ed68941df"/>
+			</line>
+			<rectangle>
+				<reportElement mode="Transparent" x="670" y="38" width="132" height="63" uuid="d58f2e6f-7490-4bf5-b582-40f3bcd0aab2"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="694" y="46" width="86" height="20" uuid="76c51241-7eea-4d48-9f69-f74f5321dcdf"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DUPLICATA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="682" y="69" width="110" height="20" uuid="3e937f88-fbf2-4d16-9914-1e86220dfaaa"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[à conserver par le Régisseur]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="396" y="4" width="137" height="20" uuid="c5294450-8bec-4c3f-9d0b-75466f369400"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{piece}.getNumero()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="379" y="4" width="20" height="20" uuid="39b1f010-c6a3-4ee3-a098-3faecb853a02"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[N°]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="432" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="389" height="318" uuid="9fa38ad9-db34-46c3-87d6-4ac96123f14e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="400" y="0" width="402" height="318" uuid="0fba5874-d91c-40af-96fa-2aef0b25884d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="10" width="103" height="14" uuid="48e9f82c-d9b1-48bb-bb7a-045d1c6f2ddf"/>
+				<text><![CDATA[Nom du bénéficiaire : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="105" y="10" width="277" height="14" uuid="b9393586-fbf7-4df5-80de-5351beb1c05f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{beneficiaire}.getNomPrenoms()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="26" width="58" height="13" uuid="e9899883-1671-4951-8fd2-d7cffdb2dfa3"/>
+				<text><![CDATA[Matricule :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="58" y="26" width="324" height="13" uuid="f2aa0f20-ac3e-473f-8703-d5d212f24a71"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{beneficiaire}.getMatricule()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="41" width="46" height="15" uuid="91586c4e-7d89-4298-b075-9a395dd624db"/>
+				<text><![CDATA[Groupe :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="48" y="41" width="334" height="15" uuid="e641c2a0-b8e4-4c91-8875-40df96ec9abb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{groupe}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="59" width="43" height="14" uuid="7e9e0c15-3402-4951-963e-e28a3a76ea5e"/>
+				<text><![CDATA[Indice : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="48" y="59" width="334" height="14" uuid="36534162-8450-4c34-886a-785c3283a0c3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{beneficiaire}.getIndice()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="75" width="121" height="15" uuid="638cc14f-bf24-42cd-8ec9-c25f81f1ff0e"/>
+				<text><![CDATA[Situation matrimoniale : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="123" y="75" width="259" height="15" uuid="f3b1aa8a-33b0-4086-8282-7208d5bb9e44"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{beneficiaire}.getSituationMatrimoniale()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="93" width="92" height="15" uuid="6f8c50d2-0927-45ec-80ae-d58aac472997"/>
+				<text><![CDATA[Nombre d'enfants :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="97" y="93" width="135" height="15" uuid="431ade22-b5b0-41dc-b797-90b012fa1b20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nbrEnfant}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="110" width="76" height="14" uuid="cea22be2-0bee-4a8d-a349-8d7ad37d9b60"/>
+				<text><![CDATA[Voyageant de :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="78" y="110" width="186" height="14" uuid="e641cdec-956e-4c34-bcb7-0e05328db1ff"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deplacement}.getLocaliteDepart()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="176" y="110" width="14" height="14" uuid="7aa04fd9-e62f-4b8e-adc4-f44b9a8562ec"/>
+				<text><![CDATA[à]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="204" y="110" width="100" height="14" uuid="0a9ba855-a2ce-4b60-87a6-1466e1709e39"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deplacement}.getLocaliteArrivee()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="128" width="118" height="13" uuid="ccbe6f9c-f7c1-4c28-bf85-0780ccc934f9"/>
+				<text><![CDATA[Nombre de Kilomètre :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="118" y="128" width="262" height="13" uuid="3b57e78c-36f5-4d14-8844-abd7a5b9ecce"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{distance}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="144" width="212" height="15" uuid="feb3bc5e-bf8a-471d-9a93-89404225a120"/>
+				<text><![CDATA[Nombre de jours indemnités Kilométriques :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="214" y="144" width="168" height="15" uuid="0dfb05ca-21d0-4c63-b65b-b5ba20caf453"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nbrjrIndemnitekm}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="162" width="202" height="14" uuid="bc2dfd62-ddd2-4e71-9576-4725e9e373d7"/>
+				<text><![CDATA[Nombre de jours indemnités Journalières :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="204" y="162" width="178" height="14" uuid="d8e499c2-e332-4ad0-a688-6d6974dd7022"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nbrjrIndemnitejournaliere}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="181" width="121" height="13" uuid="c80b4e90-a3c3-4ad6-a6ed-fccc293dae6c"/>
+				<text><![CDATA[Décision d'affectation du ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="123" y="181" width="257" height="13" uuid="cf2f9ce7-86bf-4a0a-9d09-1f294b8672ef"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{beneficiaire}.getSection()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="198" width="10" height="14" uuid="75ba40cc-93b9-4c58-9bb6-605a19fd3d01"/>
+				<text><![CDATA[n°]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="12" y="198" width="130" height="14" uuid="dfb5e3c8-021f-4ad0-b763-4ec7fb4175e1"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{decisionAffectation}.getNumero()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="141" y="198" width="13" height="14" uuid="592b1c1c-a6b3-423f-a9aa-41790f80a6d1"/>
+				<text><![CDATA[du]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="154" y="198" width="226" height="14" uuid="5acc363a-2fec-4393-9a55-1a8bc326a026"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{decisionAffectation}.getDateEtablissement()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="216" width="139" height="13" uuid="3b61623a-f074-46b0-b403-769d70a1720a"/>
+				<text><![CDATA[Feuille de déplacement n°]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="146" y="216" width="234" height="13" uuid="725c1e6e-a156-4084-b29b-b896f937fe6d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{feuilleDeplacement}.getNumero()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="232" width="22" height="13" uuid="be56d59e-dbc9-4d3c-861c-6a972362e488"/>
+				<text><![CDATA[du]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="24" y="232" width="356" height="13" uuid="b0f9158b-ee4b-4797-a8a1-94491f2e8900"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{feuilleDeplacement}.getDateEtablissement()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="10" width="242" height="14" uuid="95b1f358-aab4-4de7-a981-9b814896e442"/>
+				<text><![CDATA[Indemnités kilométrique par personne IKP :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="26" width="242" height="13" uuid="df8eb8fa-a513-4b39-ab6c-78bc65fc06b3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formuleIKP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="644" y="26" width="19" height="13" uuid="98f64088-7a07-47b2-9daf-4b1adc80fb06"/>
+				<text><![CDATA[=]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="663" y="26" width="139" height="13" uuid="20bd2673-dc72-4dc9-ab13-85b183ffd11a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resultatIKP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="41" width="208" height="15" uuid="e6758adc-0719-482e-b540-75f242ded96b"/>
+				<text><![CDATA[Indemnités bagages agent IBA :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="59" width="242" height="14" uuid="ed6b86ed-293c-4f37-bc7d-eb8e1c700fda"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formuleIBA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="644" y="59" width="19" height="14" uuid="9328c1bf-56bc-424e-8bcd-3f7dd15bd7ea"/>
+				<text><![CDATA[=]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="663" y="59" width="139" height="14" uuid="dc112801-10ff-4db0-9d01-e4220379023b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resultatIBA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="75" width="242" height="15" uuid="8a482143-5c05-4b96-8d32-b8893ee8ae98"/>
+				<text><![CDATA[Indemnités bagages conjoint IBC :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="93" width="242" height="15" uuid="80aba480-dc50-47cf-a997-820a04ac18ee"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formuleIBC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="644" y="93" width="19" height="15" uuid="c07b29ba-2db1-4684-8a75-5dc5fcbf7e3f"/>
+				<text><![CDATA[=]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="663" y="93" width="139" height="15" uuid="3a4bab71-eafd-4b03-a482-e35581c77a00"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resultatIBC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="110" width="242" height="14" uuid="0ab1c1da-c7fd-42a9-ac9b-3eef7142e91e"/>
+				<text><![CDATA[Indemnités bagages enfant IBE :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="128" width="242" height="13" uuid="d4dad3d9-1e94-4a98-8786-1ee7f99a8026"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formuleIBE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="644" y="128" width="19" height="13" uuid="5e14da1f-38b7-43ea-b194-343d87dca469"/>
+				<text><![CDATA[=]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="663" y="128" width="139" height="13" uuid="4522b3b4-c789-4fc1-b4c1-1ae672a20f0e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resultatIBE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="144" width="242" height="15" uuid="ab75ba7a-3b91-47a6-b3ea-3e2df2335c18"/>
+				<text><![CDATA[indemnités jounalières agent IJA :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="162" width="242" height="14" uuid="569ce084-3776-44e0-9fb4-7c3a90c01133"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formuleIJA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="648" y="162" width="15" height="14" uuid="e38db268-6cce-4f05-ae1f-6a0bf1b30143"/>
+				<text><![CDATA[=]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="663" y="162" width="139" height="14" uuid="22a61995-0393-444b-8960-88e920b5e444"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resultatIJA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="181" width="242" height="13" uuid="71444c19-83bd-44ba-b46f-c863812a490f"/>
+				<text><![CDATA[Indemnités journalières conjoint IJC :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="198" width="242" height="14" uuid="ff9b1847-b2d9-4480-a33d-88e815cce945"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formuleIJC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="644" y="198" width="19" height="14" uuid="2d77fad2-11e0-4e16-905a-8c6c185ac12d"/>
+				<text><![CDATA[=]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="663" y="198" width="139" height="14" uuid="7d4c60a9-d48b-4a1a-8556-40134426eedd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resultatIJC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="216" width="242" height="13" uuid="44937b52-9b5b-47f6-b28b-d48eb5b050c0"/>
+				<text><![CDATA[Indemnités journalières enfants IJE :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="232" width="242" height="13" uuid="48910a1c-8ccf-45a1-9dd0-4cf773d9548e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formuleIJE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="644" y="232" width="15" height="13" uuid="15ac6837-fd82-4082-b1ca-43e2ea023e58"/>
+				<text><![CDATA[=]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="659" y="232" width="143" height="13" uuid="ef9398ad-c999-4ff5-8acf-2dac4cc40b2a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resultatIJE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="262" width="45" height="16" uuid="72c75b90-e264-447a-8717-d52272dcc6e7"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="447" y="262" width="355" height="16" uuid="e03cfa41-2bff-499a-807c-a8ed95b5cec6"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montantchiffre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="282" width="147" height="14" uuid="9b8ecff1-7c0c-4437-8227-c4079f66186e"/>
+				<text><![CDATA[Arrête la somme de (en lettres)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="300" width="400" height="15" uuid="036076dc-000a-4e42-ae7f-99c43dddd3ac"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montantlettre}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="318" width="232" height="74" uuid="77f8f2cc-ee63-49ae-9734-fc6e4b9e4afa"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="483" y="318" width="319" height="74" uuid="0bb1ad42-4ca1-4d19-9cd0-8776df62b51d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="231" y="318" width="252" height="74" uuid="b79cedff-76b9-446a-a407-0b77170a0133"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="32" y="325" width="194" height="20" uuid="6be50747-cefd-43e0-9080-04f62f956a63"/>
+				<text><![CDATA[Accord et visa du Directeur de la Solde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="345" width="100" height="20" uuid="c031ab9b-3ee9-49bf-8535-aa4720c545a1"/>
+				<text><![CDATA[Fait le :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="325" width="161" height="20" uuid="98a704cf-27b7-4df2-bb1c-ed37f05694bb"/>
+				<text><![CDATA[Cachet << PAYE >> du Régisseur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="241" y="345" width="100" height="20" uuid="50719c65-932a-4a75-bb58-71a854833fa9"/>
+				<text><![CDATA[Fait le :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="496" y="325" width="191" height="20" uuid="69486154-3355-4be8-bd3e-12f162dafe1c"/>
+				<text><![CDATA[Acquit du bénéficiaire le :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="496" y="365" width="191" height="20" uuid="3a179fd1-1f08-463f-9fd8-c54a957b8cf0"/>
+				<text><![CDATA[Référence pièce d'identité]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="748" y="351" width="50" height="14" uuid="b46fdfe3-f559-47a8-8d04-0248105c6da5"/>
+				<text><![CDATA[Signature]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="14" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="716" y="1" width="100" height="13" uuid="8793964a-d651-4c17-b6a7-be95b060fda2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="687" y="1" width="36" height="13" uuid="2cee3b32-d055-4b99-92c1-f80edf3fdb0d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Edité le]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

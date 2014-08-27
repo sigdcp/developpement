@@ -12,13 +12,13 @@
 
 		<p:panel header="LES DEPENSES PRISES EN CHARGE PAR LE SIGDCP" style="width:400px;">
 
-			<p:accordionPanel value="#{publicHomeController.serviceProposeDtos}" var="serviceDto">
+			<p:accordionPanel value="#{publicHomeController.serviceProposeDtos}" var="serviceDto" activeIndex="-1">
 				<p:tab title="#{serviceDto.title}" style=" text-align:left">
 					
 					<p style="text-align: justify; line-height: 22px; font-size: 9pt"><h:outputText value="#{serviceDto.descriptionApercu}" escape="false"/></p>
 							
 					<div style="text-align: right; margin: 25px">
-						<p:button icon="ui-icon-search" outcome="naturedepinfos" value="Lire plus" >
+						<p:button icon="ui-icon-search" outcome="#{serviceDto.outcome}" value="Lire plus" >
 							<f:param name="#{serviceDto.lirePlusRequestParamName}" value="#{serviceDto.lirePlusRequestParamValue}"/>
 						</p:button>
 					</div>

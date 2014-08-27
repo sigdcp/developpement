@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<p:fieldset legend="Contacts">
+			<p:panelGrid id="panelContacts" columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2"> 
+				<p:outputLabel for="email" value="Email" />
+				<p:inputText id="email" value="#{demandeur.contact.email}" required="#{required}"  rendered="#{compte.editable}"
+					validator="#{validationManager.validateAdresseElectroniqueCompte}" autocomplete="#{controller.autoComplete}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<f:attribute name="typeEmail" value="#{typeEmail}" />
+					<p:message for="@parent" />
+				</p:inputText>
+				<h:outputText value="#{demandeur.contact.email}" rendered="#{not compte.editable}"/>
+				
+				<p:outputLabel for="adresse" value="Adresse postale: " /> 
+				<p:inputText id="adresse" value="#{demandeur.contact.boitePostale}" rendered="#{compte.editable}" autocomplete="#{controller.autoComplete}"/>
+				<h:outputText value="#{demandeur.contact.boitePostale}" rendered="#{not compte.editable}"/>
+				
+				<p:outputLabel for="telephone" value="Téléphone" />
+				<!--
+				<p:inputMask id="telephone" value="#{demandeur.contact.telephone}" required="#{required}"  mask="#{webConstantResources.inputPhoneNumberPattern}"
+					rendered="#{compte.editable}"/>	
+					-->	 
+				<p:inputText id="telephone" value="#{demandeur.contact.telephone}" mask="#{webConstantResources.inputPhoneNumberPattern}"
+					rendered="#{compte.editable}" autocomplete="#{controller.autoComplete}">
+					<p:message for="@parent" />	
+				</p:inputText>	
+				<h:outputText value="#{demandeur.contact.telephone}" rendered="#{not compte.editable}"/>
+							
+			</p:panelGrid>
+		</p:fieldset>	
+
+   
+	</ui:composition>
+</body>
+</html>

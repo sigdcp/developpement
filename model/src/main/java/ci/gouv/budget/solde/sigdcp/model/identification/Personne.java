@@ -11,12 +11,9 @@ package ci.gouv.budget.solde.sigdcp.model.identification;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,21 +21,24 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import org.apache.commons.lang3.StringUtils;
+
 import ci.gouv.budget.solde.sigdcp.model.geographie.Contact;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 @Getter @Setter 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
+//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class Personne  extends Party  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	public enum PieceIdentiteType{
-		CNI{@Override public String toString() {return "Carte nationale d'identite";}},
-		PASSPORT{@Override public String toString() {return "Passport";}},
-		ATTESTATION{@Override public String toString() {return "Attestation d'identite";}}
+		CNI{@Override public String toString() {return "Carte nationale d'identité";}},
+		PASSPORT{@Override public String toString() {return "Passeport";}},
+		ATTESTATION{@Override public String toString() {return "Attestation d'identité";}}
 		}
 	
 	private String prenoms;
@@ -47,9 +47,8 @@ public class Personne  extends Party  implements Serializable{
 	@NotNull(groups=Client.class)
 	private Date dateNaissance;
 	
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	@NotNull(groups=Client.class)
-	@Column(nullable=false)
 	private Sexe sexe;
 	
 	@ManyToOne
@@ -74,8 +73,8 @@ public class Personne  extends Party  implements Serializable{
 	public Personne(String nom, String prenoms,
 			Date dateNaissance, Contact contact, Sexe sexe,
 			SituationMatrimoniale situationMatrimoniale, Localite nationalite,
-			Profession profession,Date dateCreation) {
-		super(nom,contact,dateCreation);
+			Profession profession) {
+		super(nom,contact);
 		this.prenoms = prenoms;
 		this.dateNaissance = dateNaissance;
 		this.sexe = sexe;
@@ -85,10 +84,12 @@ public class Personne  extends Party  implements Serializable{
 	}
 	
 	public String getNomPrenoms(){
-		return getNom()+" "+getPrenoms();
+		return nom+(StringUtils.isEmpty(prenoms)?"":(" "+prenoms));
 	}
 
-
+	public boolean isMasculin(){
+		return Sexe.MASCULIN.equals(sexe);
+	}
 
 
 }

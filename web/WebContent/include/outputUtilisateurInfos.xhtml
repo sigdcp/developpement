@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<ui:fragment >
+			<p:panelGrid columns="6">
+				<h:outputText value="Matricule" />
+			 	<h:outputText value="#{userSessionManager.userAsAgentEtat.matricule}"/>
+				
+				<h:outputText value="Nom et prenoms" />
+			 	<h:outputText value="#{userSessionManager.userAsAgentEtat.nomPrenoms}"/>
+			 	
+			 	<!--
+				<h:outputText value="Prenoms" />
+				<h:outputText value="#{agentEtat.prenoms}"/>
+				
+				<h:outputText value="Profession" rendered="#{profession==null or profession}"/>
+				<h:outputText value="#{agentEtat.profession}" rendered="#{profession==null or profession}"/>
+				
+				<h:outputText value="Fonction" rendered="#{fonction==null or fonction}"/>
+				<h:outputText value="#{agentEtat.fonction}" rendered="#{fonction==null or fonction}"/>
+			
+				<h:outputText value="Grade" rendered="#{grade==null or grade}"/>
+				<h:outputText value="#{agentEtat.grade}" rendered="#{grade==null or grade}"/>
+	
+				<h:outputText value="Echelon" rendered="#{echelon==null or echelon}"/>
+				<h:outputText value="#{agentEtat.echelon}" rendered="#{echelon==null or echelon}"/>
+				-->
+			</p:panelGrid>
+		</ui:fragment>
+   
+	</ui:composition>
+</body>
+</html>

@@ -1,5 +1,8 @@
 package ci.gouv.budget.solde.sigdcp.model.template.etat;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -11,7 +14,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CategorieDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
@@ -32,7 +37,9 @@ public class FeuilleDeplacementEtat implements Serializable {
 	
 	private String indice;
 	private String compagnons;
-		
+	
+	private InputStream codeBarre;
+	
 	public AgentEtat getBeneficiaire(){
 		return piece.getDossier().getBeneficiaire();
 	}
@@ -41,8 +48,20 @@ public class FeuilleDeplacementEtat implements Serializable {
 		return piece.getDossier().getDeplacement();
 	}
 	
-	public DossierDD getDossier(){
-		return (DossierDD) piece.getDossier();
+	public Dossier getDossier(){
+		return piece.getDossier();
+	}
+	
+	public DossierDD getDossierDD(){
+		if(piece.getDossier() instanceof DossierDD)
+			return (DossierDD) piece.getDossier();
+		return null;
+	}
+	
+	public DossierMission getDossierMission(){
+		if(piece.getDossier() instanceof DossierMission)
+			return (DossierMission) piece.getDossier();
+		return null;
 	}
 	
 	public static Collection<FeuilleDeplacementEtat> test(){
@@ -55,11 +74,16 @@ public class FeuilleDeplacementEtat implements Serializable {
 		NatureDeplacement nd = new NatureDeplacement(new CategorieDeplacement("D", "Déplacement définitif"), "DD", "Affectation", 0);
 		
 		Deplacement deplacement = new Deplacement(null, new Date(), new Date(), null, nd, new Localite(null, "Abidjan", null, null), new Localite(null, "Bouake", null, null));
-		AgentEtat agentEtat = new AgentEtat("500500A", "Tata", "pion", null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+		AgentEtat agentEtat = new AgentEtat(null,"500500A", "Tata", "pion", null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 		
-		DossierDD dossier = new DossierDD("DD01", null, null, deplacement, new Grade(null, null, "A1"), agentEtat, 500, null, null, null, null, null);
+		DossierDD dossier = new DossierDD(null, null, deplacement, new Grade(null, null, "A1"), agentEtat, 500, null, null, null, null, null);
 		PieceJustificative piece = new PieceJustificative(dossier, "123", null, new Date());
-		return new FeuilleDeplacementEtat(piece, "Décision", new Date().toString(), "Groupe 1", "795", "Femme et deux(02) enfants");
+		try {
+			return new FeuilleDeplacementEtat(piece, "Décision", new Date().toString(), "Groupe 1", "795", "Femme et deux(02) enfants",new FileInputStream("C:/Developpement/qrcode/qrcode-01.png"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

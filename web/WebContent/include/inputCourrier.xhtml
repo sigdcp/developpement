@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<ui:fragment rendered="#{courrierDto.showCourrier}"> 
+			<p:fieldset legend="Dépot du dossier" >
+				<p:panelGrid columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2">
+					
+					<p:outputLabel value="Numéro de courrier" for="numCourrier"/>
+					<p:inputText id="numCourrier" value="#{courrierDto.courrier.numero}" required="true" rendered="#{courrierDto.courrierEditable}">
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+						<p:message for="@parent"/>
+					</p:inputText>
+					<h:outputText value="#{courrierDto.courrier.numero}" rendered="#{not courrierDto.courrierEditable}"/>
+					
+					<p:outputLabel value="Date de dépôt" for="datCourrier"/>
+					<p:calendar id="datCourrier" value="#{courrierDto.courrier.date}" pattern="#{constantResources.datePattern}" required="true" navigator="true"
+						rendered="#{courrierDto.courrierEditable}" validator="#{validationManager.validateDateDepotDossier}">
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+						<p:message for="@parent"/>
+					</p:calendar>
+					<h:outputText value="#{courrierDto.courrier.date}" rendered="#{not courrierDto.courrierEditable}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				</p:panelGrid>			
+			</p:fieldset>
+			<p:spacer height="3"/>
+		</ui:fragment>
+		   
+	</ui:composition>
+</body>
+</html>

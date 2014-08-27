@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<ui:decorate template="/template/datalist/multiplechoice.xhtml">
+			<ui:param name="controller" value="#{controller}" />
+									
+			<ui:define name="colonnes">
+				
+				<p:ajax event="rowSelectCheckbox" update="@parent" process="@this" immediate="true" />
+				<!--
+				<p:ajax event="rowUnselectCheckbox" update="@parent" process="@this" immediate="true"/>
+				-->
+				<p:column headerText="#{constantResources.text('nom')}">
+					<h:outputText value="#{record.agent.nomPrenoms}" />
+				</p:column>					
+				
+				<p:column headerText="Valide" rendered="#{controller.showValide}" >
+					<p:selectOneRadio value="#{record.valide}" required="false"  >
+						<f:selectItem itemLabel="Accepter" itemValue="true"/>
+						<f:selectItem itemLabel="Rejeter" itemValue="false"/>
+						<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+						<p:message for="@parent" />
+					</p:selectOneRadio>
+				</p:column>			
+					
+			</ui:define>
+		</ui:decorate>	
+		
+
+   
+	</ui:composition>
+</body>
+</html>

@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
+import javax.inject.Singleton;
 
 import lombok.extern.java.Log;
 import ci.gouv.budget.solde.sigdcp.service.utils.TemplateEngineService;

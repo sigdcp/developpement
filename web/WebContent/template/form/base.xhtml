@@ -11,11 +11,11 @@
 	 	function quitter(warning){
 	 		if(warning){
 	 			if(confirm('Voulez-vous quitter cette page? Toutes vos modifications seront perdues.')){
-	 				window.back();
+	 				window.history.back(-1);
 	 				return true;
 	 			}
 	 		}else{
-	 			window.back();
+	 			window.history.back(-1);
 	 			return true;
 	 		}
 	 		
@@ -27,22 +27,23 @@
 	 	}
 	 	function formSubmitOncomplete(xhr, status, args){
 	 		PF('bui').hide();
-	 		if(args.validationFailed)
-	 			PF('validationDialog').show();
+	 		//if(args.validationFailed)
+	 		//	PF('validationDialog').show();
 	 	}
 	 	function formSubmitOnerror(){
 	 		alert('You have error');
 	 	}
- 	
+	 	
  	</script>
   	
 	<style>
 		.c1{
 			font-weight: bold;
-			width: 100px;
+			width: 180px;
 		}
 		.c2 .ui-inputfield{
 			width: 200px !important;
+			autocomplete:off !important;
 		}
 		.c2 .ui-selectonemenu{
 			width: 200px !important;
@@ -56,18 +57,18 @@
  	-->
  	
 	<h:form id="form" enctype="multipart/form-data">
-		<table border="0" style="margin: auto;"><tr>
+		<table border="0" style="margin: auto;width: 85%;"><tr>
 			<td>
 				<ui:insert name="title">
-					<table class="formHeaderClass"><tr>
+					<ui:fragment rendered="#{uiController.showPageHeader}"><table class="formHeaderClass"><tr>
 						<td id="title"><h:outputText value="#{uiController.title}" /></td>
 						<ui:fragment rendered="#{uiController.showInternalCode}"> <td id="code"><h:outputText value="#{uiController.internalCode}"/></td></ui:fragment>
 						<td id="infos"><div><h:outputText value="#{constantResources.text('formulaire.champsavecasterixobligatoire')}" rendered="#{uiController.showFieldRequired}"/> </div></td>
-					</tr> </table>
+					</tr> </table></ui:fragment>
 				</ui:insert>
-				<p:separator/>
+				<p:separator rendered="#{uiController.showPageHeader}"/>
 				
-				<ui:fragment rendered="#{not empty uiController.instructions}">
+				<ui:fragment rendered="#{uiController.showPageHeader and not empty uiController.instructions}">
 					<!--div class="ui-panel ui-widget ui-widget-content ui-panel-titlebar ui-widget-header ui-helper-clearfix forminsctructions">
 						<span class="ui-panel-title">
 							<h:outputText value="#{uiController.instructions}" escape="false"/>
@@ -87,7 +88,8 @@
 					</div>					
 				</ui:fragment>
 				
-				<p:messages globalOnly="true" escape="false"/>
+				
+				<p:messages globalOnly="true" autoUpdate="true" escape="false"/>
 				
 				<p:outputPanel id="bodyPanel" >
 					<ui:insert name="__contenu__" >
@@ -95,7 +97,8 @@
 					</ui:insert>
 					
 					<p:separator/>
-					
+										
+					<p:messages globalOnly="false" autoUpdate="true" closable="true" rendered="false"/>					
 					<ui:decorate template="/template/formCommandsTemplate.xhtml"/>	
 							
 				</p:outputPanel>				
@@ -103,31 +106,36 @@
 		</tr> </table>
 		
 		<p:blockUI block="bodyPanel" widgetVar="bui" > 
+			<!--
 			<table><tr style="vertical-align: middle;">
 				<td><h:outputText value="Traitement en cours , veuillez patienter..." /> </td> 
 				<td><p:graphicImage value="/resources/images/processing.gif" /></td> 
 			</tr> </table>
-	        
+			-->
+			<ui:include src="/include/traitementEnCoursPopup.xhtml" />
 	    </p:blockUI>  
+	    
+	    <p:outputPanel id="messageDialogPanel">
+		<p:dialog id="messageDialog" widgetVar="validationDialog" header="Alerte" modal="true" appendTo="@(body)" visible="#{facesContext.validationFailed}">
+			<table style="margin: auto;" cellspacing="5">
+				<tr style="vertical-align: middle;">
+					<td>
+						<p:dataList value="#{facesContext.messageList}" var="message" rowIndexVar="index" type="ordered">
+							<ui:include src="/resources/include/component/message.xhtml" >
+								<ui:param name="severity" value="error" />
+								<ui:param name="message" value="#{message.summary}" />
+							</ui:include>
+						</p:dataList>
+						
+					</td>
+				</tr>
+				<tr><td colspan="1">
+					<div align="center"><p:commandButton value="OK" type="button" onclick="PF('validationDialog').hide();" /></div>
+				</td> </tr> 
+			</table>
+		</p:dialog>
+		</p:outputPanel>
 
 	</h:form> 	
  	
-	<p:dialog widgetVar="validationDialog" header="#{uiController.title}" modal="true" appendTo="@(body)" >
-		<table style="margin: auto;" cellspacing="5">
-			<tr style="vertical-align: middle;">
-				<td>
-					<ui:include src="/resources/include/component/message.xhtml" >
-						<ui:param name="severity" value="error" />
-						<ui:param name="message" value="Erreur de validation" />
-					</ui:include>
-				</td>
-			</tr>
-			<tr><td colspan="1">
-				<div align="center"><p:commandButton value="OK" type="button" onclick="PF('validationDialog').hide();" /></div>
-			</td> </tr> 
-		</table>
-		
-		
-	</p:dialog>
-	
 </ui:composition>

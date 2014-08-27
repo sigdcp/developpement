@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+      
+<h:body>
+    <ui:insert name="metadata">
+    	<f:metadata>
+    		<f:viewParam id="compteUtilisateurId" name="#{webConstantResources.requestParamCompteUtilisateur}" value="#{compteUtilisateurController.entity}" converter="#{viewParamCompteUtilisateurConverter}" />
+	    	<f:viewParam id="crudTypeId" name="#{webConstantResources.requestParamCrudType}" value="#{compteUtilisateurController.crudType}" converter="#{viewParamEnumConverter}" />
+    		<f:event type="preRenderView" listener="#{compteUtilisateurController.preRenderView}" /> 
+    	</f:metadata>
+    </ui:insert>	
+	
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu"> 
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{compteUtilisateurController}" />
+				<ui:define name="contenu">	
+					
+					<p:panelGrid columns="2" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop ,panelColumnVAlignTop">
+						
+						<h:panelGroup><p:fieldset legend="Identité"><p:panelGrid columns="2">
+							<h:outputText value="Matricule" /><h:outputText value="#{compteUtilisateurController.agentEtat.matricule}" />
+							<h:outputText value="Type agent" /><h:outputText value="#{compteUtilisateurController.agentEtat.type}" />
+							<h:outputText value="Nom et prénoms" /><h:outputText value="#{compteUtilisateurController.agentEtat.nomPrenoms}" />
+							<h:outputText value="Date de naissance" /><h:outputText value="#{compteUtilisateurController.agentEtat.dateNaissance}" ><f:convertDateTime  pattern="#{constantResources.datePattern}" locale="fr"/> </h:outputText>
+							<h:outputText value="Sexe" /><h:outputText value="#{compteUtilisateurController.agentEtat.sexe}" />
+							<h:outputText value="Pièce d'identité" /><h:outputText value="#{compteUtilisateurController.agentEtat.pieceIdentiteType} N° #{compteUtilisateurController.agentEtat.pieceIdentiteNumero}" />
+							
+						</p:panelGrid></p:fieldset></h:panelGroup>
+						
+						<h:panelGroup><p:fieldset legend="Contacts"><p:panelGrid columns="2">
+							<h:outputText value="Email" /><h:outputText value="#{compteUtilisateurController.agentEtat.contact.email}" />
+							<h:outputText value="Boite postale" /><h:outputText value="#{compteUtilisateurController.agentEtat.contact.boitePostale}" />
+							<h:outputText value="Téléphone" /><h:outputText value="#{compteUtilisateurController.agentEtat.contact.telephone}" />
+							
+						</p:panelGrid></p:fieldset></h:panelGroup>
+						
+					</p:panelGrid>
+					
+					<h:panelGroup id="rolesP"><p:fieldset legend="Compte">
+						<p:panelGrid columns="2" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop ,panelColumnVAlignTop">
+							<p:panelGrid columns="2" styleClass="panelGridNoBorder">
+								<h:outputText value="Nom d'utilisateur" /><h:outputText value="#{compteUtilisateurController.entity.credentials.username}" />
+								<h:panelGroup>
+									<h:outputText value="Rôles " />
+									<p:commandButton value="Modifier" icon="ui-icon-check" update="rolesP" rendered="#{not compteUtilisateurController.modifierRoles}" process="@this">
+										<f:setPropertyActionListener target="#{compteUtilisateurController.modifierRoles}" value="true"/>
+											<f:setPropertyActionListener target="#{compteUtilisateurController.desactiverCompte}" value="false"/>
+									</p:commandButton>
+									
+								</h:panelGroup>
+								
+								<p:outputPanel >
+									<p:dataList var="role" value="#{compteUtilisateurController.roles}" rendered="#{not compteUtilisateurController.modifierRoles}">
+										<h:outputText value="#{role}" />
+									</p:dataList>
+									<ui:fragment rendered="#{compteUtilisateurController.modifierRoles}">
+										<p:selectManyCheckbox id="roleSelect" value="#{compteUtilisateurController.nouveauxRoles}" layout="pageDirection" 
+											valueChangeListener="#{compteUtilisateurController.roleValueChangeListener}" converter="#{objectConverter}">
+											<f:selectItems value="#{roles}" var="roleChoice" itemLabel="#{roleChoice}" itemDescription="#{roleChoice.code}" itemValue="#{roleChoice}" />
+											<p:ajax event="change" update="delegueSotraForm"/>
+										</p:selectManyCheckbox>
+										<p:commandButton value="Annuler" update="rolesP" process="@this">
+											<f:setPropertyActionListener target="#{compteUtilisateurController.modifierRoles}" value="false"/>
+											<f:setPropertyActionListener target="#{compteUtilisateurController.desactiverCompte}" value="true"/>
+										</p:commandButton>
+										
+										<ui:include src="/resources/include/component/formCommand.xhtml" >
+											<ui:param name="command" value="#{compteUtilisateurController.enregistrerRolesCommand}" />
+										</ui:include>
+									</ui:fragment>
+									
+								</p:outputPanel>
+																											
+										<p:outputPanel rendered="#{compteUtilisateurController.desactiverCompte}">
+										
+										<ui:include src="/resources/include/component/formCommand.xhtml" >
+											<ui:param name="command" value="#{compteUtilisateurController.desactiverCompteCommand}" />
+										</ui:include>
+										</p:outputPanel>
+									
+							</p:panelGrid>
+							
+							<h:panelGroup>
+								<p:outputPanel id="delegueSotraForm">
+									<p:panelGrid  columns="2" rendered="#{compteUtilisateurController.modifierDelegueSotra}">
+										<f:facet name="header"><h:outputText value="Delegue Sotra" /></f:facet>
+										
+										<p:outputLabel for="interimaire" value="Intérimaire" />
+										<h:outputText value="#{compteUtilisateurController.delegueSotra.interimaire.matricule} - #{compteUtilisateurController.delegueSotra.interimaire.nomPrenoms}" 
+											rendered="#{not compteUtilisateurController.modifierRoles}"/>
+										<h:panelGroup rendered="#{compteUtilisateurController.modifierRoles}">
+											<p:message for="interimaire" />
+											<p:selectOneMenu id="interimaire" value="#{compteUtilisateurController.delegueSotra.interimaire}" required="true" converter="#{objectConverter}">
+												<f:selectItems value="#{compteUtilisateurController.agentEtats}" var="agent" itemLabel="#{agent.matricule} - #{agent.nomPrenoms}" itemValue="#{agent}"/>
+												<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+											</p:selectOneMenu>
+										</h:panelGroup>
+										
+										<p:outputLabel for="interimaire" value="Service géré" />
+										<h:outputText value="#{compteUtilisateurController.delegueSotra.sectionGeree}" rendered="#{not compteUtilisateurController.modifierRoles}"/>
+										<h:panelGroup rendered="#{compteUtilisateurController.modifierRoles}">
+											<p:message for="sectiongerre" />
+											<p:selectOneMenu id="sectiongerre" value="#{compteUtilisateurController.delegueSotra.sectionGeree}" required="true" converter="#{objectConverter}">
+												<f:selectItems value="#{services}" />
+												<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+											</p:selectOneMenu>
+										</h:panelGroup>
+									</p:panelGrid>
+								</p:outputPanel>
+							</h:panelGroup>
+						</p:panelGrid>
+					</p:fieldset></h:panelGroup>
+					
+				</ui:define>
+			</ui:decorate>
+		</ui:define>
+	</ui:composition>
+		
+ 		
+   </h:body>
+</html>

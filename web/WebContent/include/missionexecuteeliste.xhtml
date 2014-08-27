@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<style>
+			.class-motif{
+				background: yellow;
+			}
+		</style>
+		
+		<ui:decorate template="/template/dataList.xhtml">
+			<ui:param name="controller" value="#{controller}" />
+			<!--
+			<ui:define name="criteresrecherche">
+				<p:panelGrid columns="6" styleClass="panelGridNoBorder">
+					
+					<p:outputLabel for="dateDebut" value="#{constantResources.text('datedebut')}" />
+					<p:calendar id="dateDebut" value="#{controller.dateDebut}"/>
+									
+					<p:outputLabel for="dateFin" value="#{constantResources.text('datefin')}" />
+					<p:calendar id="dateFin" value="#{controller.dateFin}"/>
+									
+					<p:outputLabel for="natureDep" value="#{constantResources.text('nature')}" />
+					<p:selectOneMenu id="natureDep" value="#{controller.natureDeplacement}" converter="#{objectConverter}" >
+						<f:selectItem noSelectionOption="" itemLabel="#{constantResources.text('tout')}"/>
+						<f:selectItems value="#{natureDeplacements}" var="nd" itemLabel="#{nd.libelle}" />
+					</p:selectOneMenu>
+									
+				</p:panelGrid>		
+			</ui:define>
+			-->
+			<ui:define name="colonnes">
+			
+				<p:column headerText="#{constantResources.text('communication')}" sortBy="#{record.communication.numero}" filterBy="#{record.communication.numero}">
+					<h:outputText value="#{record.communication.numero}" />
+				</p:column>
+				
+				<p:column headerText="#{constantResources.text('designation')}" >
+					<h:outputText value="#{record.designation}" />
+				</p:column>
+				
+				<p:column headerText="#{constantResources.text('destination')}" sortBy="#{record.deplacement.localiteArrivee}" filterBy="#{record.deplacement.localiteArrivee}">
+					<h:outputText value="#{record.deplacement.localiteArrivee}" />
+				</p:column>
+							
+				
+					
+			</ui:define>
+		</ui:decorate>			
+   
+	</ui:composition>
+</body>
+</html>

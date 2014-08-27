@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="facturationtransitbagages::#private#prestataire#facturation#transitbagages.xhtml"
+    NAME="output"
+    PATH="/private/prestataire/facturation/transitbagages.xhtml"
+    TARGET="rules:#private#prestataire#facturation#transitbagages.xhtml"
+    TITLE="facturationtransitbagages" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="demandecotationbilletavionmission::#private#personnel#transport#cotation.xhtml"
+    NAME="output1" PATH="/private/personnel/transport/cotation.xhtml"
+    TARGET="rules:#private#personnel#transport#cotation.xhtml"
+    TITLE="demandecotationbilletavionmission" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="commandebilletavionmission::#private#personnel#transport#commande.xhtml"
+    NAME="output2" PATH="/private/personnel/transport/commande.xhtml"
+    TARGET="rules:#private#personnel#transport#commande.xhtml"
+    TITLE="commandebilletavionmission" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="facturedefinitiveForm::#private#personnel#dossier#facturedefinitiveForm.xhtml"
+    NAME="output3"
+    PATH="/private/personnel/dossier/facturedefinitiveForm.xhtml"
+    TARGET="rules:#private#personnel#dossier#facturedefinitiveForm.xhtml"
+    TITLE="facturedefinitiveForm" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#dossier#listefacturedefinitive.xhtml"
+  PATH="/private/personnel/dossier/listefacturedefinitive.xhtml"
+  SHAPE="288,353,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#transport#cotation.xhtml"
+  PATH="/private/personnel/transport/cotation.xhtml" SHAPE="288,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#transport#commande.xhtml"
+  PATH="/private/personnel/transport/commande.xhtml" SHAPE="288,241,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#dossier#facturedefinitiveForm.xhtml"
+  PATH="/private/personnel/dossier/facturedefinitiveForm.xhtml"
+  SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#prestataire#facturation#transitbagages.xhtml"
+  PATH="/private/prestataire/facturation/transitbagages.xhtml"
+  SHAPE="288,241,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

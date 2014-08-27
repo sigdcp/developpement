@@ -19,7 +19,7 @@
 				<p:panelGrid columns="2" styleClass="panelGridNoBorder" columnClasses="panelColumnVAlignTop,panelColumnVAlignTop">
 					
 					<p:fieldset legend="Vous">
-						<ui:include src="/identification/include/inputIdentite.xhtml">
+						<ui:include src="/identification/include/inputSouscriptionIdentite.xhtml">
 						  	<ui:param name="personne" value="#{inscriptionAyantDroitController.inscription.ayantDroitInfos}"/>
 						  	<ui:param name="expatrie" value="false"/>
 						  </ui:include>
@@ -30,7 +30,7 @@
 					</p:fieldset>
 					
 					<p:fieldset legend="Bénéficiaire">
-						<ui:include src="/identification/include/inputIdentite.xhtml">
+						<ui:include src="/identification/include/inputSouscriptionIdentite.xhtml">
 					  		<ui:param name="personne" value="#{inscriptionAyantDroitController.inscription.beneficiaireInfos}"/>
 					  		<ui:param name="iid" value="1"/>
 					  		<ui:param name="expatrie" value="false"/>

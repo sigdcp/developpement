@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+						<ui:decorate template="/template/dataList.xhtml">
+									<ui:param name="controller" value="#{demandeCotationMissionController}" />
+									
+									<ui:define name="colonnes">
+										<p:column headerText="#{constantResources.text('numero')}" sortBy="#{record.id}" filterBy="#{record.id}">
+											<h:outputText value="#{record.id.demandeCotationMissionId}" />
+										</p:column>									
+										<p:column headerText="#{constantResources.text('datedepart')}" sortBy="#{record.missionExecutee.deplacement.dateDepart}" filterBy="#{record.missionExecutee.deplacement.dateDepart}">
+											<h:outputText value="#{record.missionExecutee.deplacement.dateDepart}" >
+													<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+											</h:outputText>
+										</p:column>									
+										<p:column headerText="#{constantResources.text('dateretour')}" sortBy="#{record.missionExecutee.deplacement.dateArrivee}" filterBy="#{record.missionExecutee.deplacement.dateArrivee}">
+											<h:outputText value="#{record.missionExecutee.deplacement.dateArrivee}" >
+													<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+											</h:outputText>
+										</p:column>										
+										<p:column headerText="#{constantResources.text('villedepart')}" sortBy="#{record.missionExecutee.deplacement.localiteArrivee}" filterBy="#{record.missionExecutee.deplacement.localiteArrivee}">
+											<h:outputText value="#{record.missionExecutee.deplacement.localiteDepart}" />
+										</p:column>								
+										<p:column headerText="#{constantResources.text('destination')}" sortBy="#{record.missionExecutee.deplacement.localiteArrivee}" filterBy="#{record.missionExecutee.deplacement.localiteArrivee}">
+											<h:outputText value="#{record.missionExecutee.deplacement.localiteArrivee}" />
+										</p:column>
+											
+									</ui:define>
+								</ui:decorate>	
+		
+
+   
+	</ui:composition>
+</body>
+</html>

@@ -4,6 +4,6 @@ package ci.gouv.budget.solde.sigdcp.service;
 
 public interface SampleDataService {
 
-	public void create();
+	public void executerParametrage();
 	
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		<div class="menutabclass"> <h:outputText value="Liquidation" /> </div>
+		
+		<p:tabMenu activeIndex="#{param[webConstantResources.requestParamTabMenuItemIndex]}">  
+		    <p:menuitem value="Etablir" outcome="mettreenliquidation" rendered="#{roleManager.liquidateur}">
+		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabLiquidationEtablirIndex}" />
+		    </p:menuitem>  
+		    <p:menuitem value="Valider" outcome="validermiseenliquidation" rendered="#{roleManager.responsable}">
+		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabLiquidationValiderIndex}"  />
+		    </p:menuitem>    
+		    <!--
+		    <p:menuitem value="Transmettre pour visa" outcome="transmettrepourvisaliquidation" rendered="#{roleManager.responsable}">
+		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabLiquidationTransmettreIndex}" />
+		    </p:menuitem>  
+		    --> 
+		    <p:menuitem value="Viser" outcome="viserbulletinliquidation" rendered="#{roleManager.directeur}">
+		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabLiquidationViserIndex}" />
+		    </p:menuitem>    
+		    <p:menuitem value="Produire bordereaux de transmission" outcome="realiserbtbl" rendered="#{roleManager.responsable}">
+		    	<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabLiquidationProduireBTIndex}" />
+		    	<f:param name="#{webConstantResources.requestParamCrudType}" value="#{webConstantResources.requestParamCrudCreate}"/>
+		    </p:menuitem>  
+		    
+		    <p:menuitem value="Valider bordereaux de transmission" outcome="validerbtbl" rendered="#{roleManager.directeur}">
+				<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabLiquidationValiderBTIndex}" />
+			</p:menuitem>  
+			
+			<p:menuitem value="Transmettre bordereaux" outcome="transmettrebtbl" rendered="#{roleManager.directeur}">
+				<f:param name="#{webConstantResources.requestParamTabMenuItemIndex}" value="#{userSessionManager.uiMenuTabLiquidationTransmettreBTIndex}" />
+			</p:menuitem> 
+		    
+		</p:tabMenu> 
+   	
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<jboss-deployment-structure>
+
+	<deployment>
+      <dependencies>
+         <module name="net.sf.jasperreports" />
+      </dependencies>
+   </deployment>	
+   
+</jboss-deployment-structure>

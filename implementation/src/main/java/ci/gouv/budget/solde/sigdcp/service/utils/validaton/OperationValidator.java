@@ -7,11 +7,11 @@ import javax.inject.Inject;
 import javax.validation.constraints.AssertTrue;
 
 import lombok.Setter;
-import ci.gouv.budget.solde.sigdcp.dao.dossier.StatutDao;
+import ci.gouv.budget.solde.sigdcp.dao.traitement.StatutDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
-import ci.gouv.budget.solde.sigdcp.model.dossier.NatureOperation;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Traitement;
+import ci.gouv.budget.solde.sigdcp.model.traitement.NatureOperation;
+import ci.gouv.budget.solde.sigdcp.model.traitement.Statut;
+import ci.gouv.budget.solde.sigdcp.model.traitement.Traitement;
 
 public class OperationValidator extends AbstractValidator<NatureOperation> implements Serializable {
 

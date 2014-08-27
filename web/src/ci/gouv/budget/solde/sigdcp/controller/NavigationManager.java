@@ -12,6 +12,18 @@ import lombok.extern.java.Log;
 
 import org.apache.commons.lang3.StringUtils;
 
+import ci.gouv.budget.solde.sigdcp.model.Code;
+import ci.gouv.budget.solde.sigdcp.model.calendrier.MissionExecutee;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierDD;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierObseques;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTransit;
+import ci.gouv.budget.solde.sigdcp.model.identification.CompteUtilisateur;
+import ci.gouv.budget.solde.sigdcp.model.prestation.CommandeCarteSotra;
+import ci.gouv.budget.solde.sigdcp.model.prestation.CommandeTitreTransport;
+import ci.gouv.budget.solde.sigdcp.model.prestation.DemandeCotationMission;
+import ci.gouv.budget.solde.sigdcp.model.prestation.DemandeCotationObseque;
 import ci.gouv.budget.solde.sigdcp.service.utils.NavigationHelper;
 
 @Log
@@ -86,12 +98,49 @@ public class NavigationManager implements Serializable {
 	public String getRequestUrl(){
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		//System.out.println(request.getQueryString());
-		//TODO not all queries got
 		String url = request.getRequestURL().toString();
 		if(StringUtils.isNotEmpty(request.getQueryString()))
 			url += NavigationHelper.QUERY_START+request.getQueryString();
 		return url;
 	}
 	
+	public String outcome(Object object){
+		if(object==null)
+			throw new IllegalArgumentException();
+		if(object instanceof Dossier){
+			String id = "demande_";
+			if(object instanceof DossierDD)
+				return id+"dd";
+			if(object instanceof DossierTransit)
+				return id+"t";
+			if(object instanceof DossierObseques)
+				return id+"o";
+			if(object instanceof DossierMission)
+				if(((DossierMission)object).getDeplacement().getNature().getCode().equals(Code.NATURE_DEPLACEMENT_MISSION_HCI))
+					return id+"m";
+				else
+					return id+"tt";
+		}
+		if(object instanceof MissionExecutee)
+			return "demande_mission_pointfocal";
+		if(object instanceof CompteUtilisateur)
+			return "compteutilisateur_form";
+		if(object instanceof DemandeCotationMission)
+			return "demande_cotation_mhci_form";
+		if(object instanceof CommandeCarteSotra)
+			return "consulterlisteacheteurs";
+		if(object instanceof DemandeCotationMission)
+			return "demande_cotation_mhci_form";
+		if(object instanceof DemandeCotationObseque)
+			return "demande_cotation_fo_form";
+		if(object instanceof CommandeTitreTransport)
+			return "generer_commande_mhci_form";
+		log.severe("No outcome can be derived from object of type <<"+object.getClass()+">>");
+		return null;	
+	}
+	
+	
+	
+
 
 }

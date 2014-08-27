@@ -24,7 +24,7 @@ public class FichierServlet extends HttpServlet implements Serializable {
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		Fichier fichier = null;
 		String identifier = request.getParameter("id");		
-		
+		//System.out.println("Image id : "+identifier);
 		//String storageType = request.getParameter("storagetype");
 		//if(StringUtils.isEmpty(storageType))
 		//	storageType ="storagetype";

@@ -8,179 +8,237 @@
     TARGET="rules:#public#naturedeplacement.xhtml"
     TITLE="naturedepinfos" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="imprimerpiecejustificative::#private#demande#impression.xhtml"
-    NAME="output1" PATH="/private/demande/impression.xhtml"
-    TARGET="rules:#private#demande#impression.xhtml"
-    TITLE="imprimerpiecejustificative" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="demande_dd::#private#demande#dd.xhtml"
-    NAME="output2" PATH="/private/demande/dd.xhtml"
-    TARGET="rules:#private#demande#dd.xhtml" TITLE="demande_dd" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="demande_o::#public#demande#fo.xhtml"
-    NAME="output3" PATH="/public/demande/fo.xhtml"
-    TARGET="rules:#public#demande#fo.xhtml" TITLE="demande_o" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="demande_t::#private#demande#tr.xhtml"
-    NAME="output4" PATH="/private/demande/tr.xhtml"
-    TARGET="rules:#private#demande#tr.xhtml" TITLE="demande_t" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="demande_m::#private#demande#mhci.xhtml"
-    NAME="output5" PATH="/private/demande/mhci.xhtml"
-    TARGET="rules:#private#demande#mhci.xhtml" TITLE="demande_m" model-entity="JSFProcessItemOutput"/>
+    ID="lettreavance::#private#demande#agentetat#lettreavance.xhtml"
+    NAME="output1" PATH="/private/demande/agentetat/lettreavance.xhtml"
+    TARGET="rules:#private#demande#agentetat#lettreavance.xhtml"
+    TITLE="lettreavance" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="demande_mission_pointfocal::#private#personnel#demande#mhci.xhtml"
-    NAME="output6" PATH="/private/personnel/demande/mhci.xhtml"
-    TARGET="rules:#private#personnel#demande#mhci.xhtml"
+    ID="imprimerpieceproduite::#private#personnel#impression.xhtml"
+    NAME="output2" PATH="/private/personnel/impression.xhtml"
+    TARGET="rules:#private#personnel#impression.xhtml"
+    TITLE="imprimerpieceproduite" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="imprimerapec::#private#demande#agentetat#imprimerapec.xhtml"
+    NAME="output3" PATH="/private/demande/agentetat/imprimerapec.xhtml"
+    TARGET="rules:#private#demande#agentetat#imprimerapec.xhtml"
+    TITLE="imprimerapec" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="demande_dd::#private#demande#agentetat#dd.xhtml" NAME="output4"
+    PATH="/private/demande/agentetat/dd.xhtml"
+    TARGET="rules:#private#demande#agentetat#dd.xhtml"
+    TITLE="demande_dd" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="demande_o::#private#demande#tous#fo.xhtml"
+    NAME="output5" PATH="/private/demande/tous/fo.xhtml"
+    TARGET="rules:#private#demande#tous#fo.xhtml" TITLE="demande_o" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="demande_t::#private#demande#agentetat#tr.xhtml" NAME="output6"
+    PATH="/private/demande/agentetat/tr.xhtml"
+    TARGET="rules:#private#demande#agentetat#tr.xhtml" TITLE="demande_t" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="demande_m::#private#demande#agentetat#mhci.xhtml" NAME="output7"
+    PATH="/private/demande/agentetat/mhci.xhtml"
+    TARGET="rules:#private#demande#agentetat#mhci.xhtml"
+    TITLE="demande_m" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="demande_tt::#private#demande#agentetat#tt.xhtml" NAME="output8"
+    PATH="/private/demande/agentetat/tt.xhtml"
+    TARGET="rules:#private#demande#agentetat#tt.xhtml"
+    TITLE="demande_tt" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="demande_cartesotra::#private#demande#agentetat#cartesotra.xhtml"
+    NAME="output9" PATH="/private/demande/agentetat/cartesotra.xhtml"
+    TARGET="rules:#private#demande#agentetat#cartesotra.xhtml"
+    TITLE="demande_cartesotra" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="demande_mission_pointfocal::#private#demande#pointfocal#mhci.xhtml"
+    NAME="output10" PATH="/private/demande/pointfocal/mhci.xhtml"
+    TARGET="rules:#private#demande#pointfocal#mhci.xhtml"
     TITLE="demande_mission_pointfocal" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="demandeliste::#private#demande#liste.xhtml"
-    NAME="output7" PATH="/private/demande/liste.xhtml"
-    TARGET="rules:#private#demande#liste.xhtml" TITLE="demandeliste" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="missionexecuteeliste::#private#personnel#demande#missionexecuteeliste.xhtml"
-    NAME="output8"
-    PATH="/private/personnel/demande/missionexecuteeliste.xhtml"
-    TARGET="rules:#private#personnel#demande#missionexecuteeliste.xhtml"
+    ID="missionexecuteeliste::#private#demande#pointfocal#missionexecuteeliste.xhtml"
+    NAME="output11"
+    PATH="/private/demande/pointfocal/missionexecuteeliste.xhtml"
+    TARGET="rules:#private#demande#pointfocal#missionexecuteeliste.xhtml"
     TITLE="missionexecuteeliste" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="demandeconsultation::#private#demande#details.xhtml"
-    NAME="output9" PATH="/private/demande/details.xhtml"
-    TARGET="rules:#private#demande#details.xhtml"
+    ID="demandeliste::#private#demande#agentetat#liste.xhtml"
+    NAME="output12" PATH="/private/demande/agentetat/liste.xhtml"
+    TARGET="rules:#private#demande#agentetat#liste.xhtml"
+    TITLE="demandeliste" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="demandeconsultation::#private#demande#agentetat#details.xhtml"
+    NAME="output13" PATH="/private/demande/agentetat/details.xhtml"
+    TARGET="rules:#private#demande#agentetat#details.xhtml"
     TITLE="demandeconsultation" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="generationattestationpc::#private#personnel#dossier#gapc.xhtml"
-    NAME="output10" PATH="/private/personnel/dossier/gapc.xhtml"
+    NAME="output14" PATH="/private/personnel/dossier/gapc.xhtml"
     TARGET="rules:#private#personnel#dossier#gapc.xhtml"
     TITLE="generationattestationpc" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="generationprojetdecisionremb::#private#personnel#dossier#gpdr.xhtml"
-    NAME="output11" PATH="/private/personnel/dossier/gpdr.xhtml"
+    NAME="output15" PATH="/private/personnel/dossier/gpdr.xhtml"
     TARGET="rules:#private#personnel#dossier#gpdr.xhtml"
     TITLE="generationprojetdecisionremb" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="validationconformite::#private#personnel#dossier#validation#conformite.xhtml"
-    NAME="output14"
-    PATH="/private/personnel/dossier/validation/conformite.xhtml"
-    TARGET="rules:#private#personnel#dossier#validation#conformite.xhtml"
+    ID="dossierliste::#private#personnel#dossier#liste.xhtml"
+    NAME="output16" PATH="/private/personnel/dossier/liste.xhtml"
+    TARGET="rules:#private#personnel#dossier#liste.xhtml"
+    TITLE="dossierliste" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="validationconformite::#private#personnel#reception#responsable#conformite.xhtml"
+    NAME="output17"
+    PATH="/private/personnel/reception/responsable/conformite.xhtml"
+    TARGET="rules:#private#personnel#reception#responsable#conformite.xhtml"
     TITLE="validationconformite" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="viserdocument::#private#personnel#dossier#validation#viser.xhtml"
-    NAME="output15"
-    PATH="/private/personnel/dossier/validation/viser.xhtml"
-    TARGET="rules:#private#personnel#dossier#validation#viser.xhtml"
-    TITLE="viserdocument" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="realiserFeuilleDeplacementListe::#private#personnel#dossier#gfd.xhtml"
-    NAME="output16" PATH="/private/personnel/dossier/gfd.xhtml"
-    TARGET="rules:#private#personnel#dossier#gfd.xhtml"
-    TITLE="realiserFeuilleDeplacementListe" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="receptionnerFeuilleDeplacementListe::#private#personnel#dossier#receptionnerFeuilleDeplacementListe.xhtml"
-    NAME="output17"
-    PATH="/private/personnel/dossier/receptionnerFeuilleDeplacementListe.xhtml"
-    TARGET="rules:#private#personnel#dossier#receptionnerFeuilleDeplacementListe.xhtml"
-    TITLE="receptionnerFeuilleDeplacementListe" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID="receptionnerFeuilleDeplacementForm::#private#personnel#dossier#receptionnerFeuilleDeplacementForm.xhtml"
+    ID="retourfeuilledeplacement::#private#personnel#reception#responsable#retourfeuilledeplacement.xhtml"
     NAME="output18"
-    PATH="/private/personnel/dossier/receptionnerFeuilleDeplacementForm.xhtml"
-    TARGET="rules:#private#personnel#dossier#receptionnerFeuilleDeplacementForm.xhtml"
-    TITLE="receptionnerFeuilleDeplacementForm" model-entity="JSFProcessItemOutput"/>
+    PATH="/private/personnel/reception/responsable/retourfeuilledeplacement.xhtml"
+    TARGET="rules:#private#personnel#reception#responsable#retourfeuilledeplacement.xhtml"
+    TITLE="retourfeuilledeplacement" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="consulterFeuilleDeplacementListe::#private#personnel#consultation#consulterFeuilleDeplacementListe.xhtml"
+    ID="receptionfacture::#private#personnel#reception#responsable#receptionfacture.xhtml"
     NAME="output19"
-    PATH="/private/personnel/consultation/consulterFeuilleDeplacementListe.xhtml"
-    TARGET="rules:#private#personnel#consultation#consulterFeuilleDeplacementListe.xhtml"
-    TITLE="consulterFeuilleDeplacementListe" model-entity="JSFProcessItemOutput"/>
+    PATH="/private/personnel/reception/responsable/receptionfacture.xhtml"
+    TARGET="rules:#private#personnel#reception#responsable#receptionfacture.xhtml"
+    TITLE="receptionfacture" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="feuilleDeplacementDetailView::#private#personnel#consultation#feuilleDeplacementDetailView.xhtml"
+    ID="receptionfacture_form::#private#personnel#reception#responsable#facturedefinitiveform.xhtml"
     NAME="output20"
-    PATH="/private/personnel/consultation/feuilleDeplacementDetailView.xhtml"
-    TARGET="rules:#private#personnel#consultation#feuilleDeplacementDetailView.xhtml"
-    TITLE="feuilleDeplacementDetailView" model-entity="JSFProcessItemOutput"/>
+    PATH="/private/personnel/reception/responsable/facturedefinitiveform.xhtml"
+    TARGET="rules:#private#personnel#reception#responsable#facturedefinitiveform.xhtml"
+    TITLE="receptionfacture_form" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="realiserbtbl::#private#personnel#dossier#realiserbtbl.xhtml"
-    NAME="output21" PATH="/private/personnel/dossier/realiserbtbl.xhtml"
-    TARGET="rules:#private#personnel#dossier#realiserbtbl.xhtml"
-    TITLE="realiserbtbl" model-entity="JSFProcessItemOutput"/>
+    ID="attestationpecliste::#private#personnel#liquidation#liquidateur#attetstationpecliste.xhtml"
+    NAME="output21"
+    PATH="/private/personnel/liquidation/liquidateur/attetstationpecliste.xhtml"
+    TARGET="rules:#private#personnel#liquidation#liquidateur#attetstationpecliste.xhtml"
+    TITLE="attestationpecliste" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="listerbt::#private#personnel#dossier#listebordereau.xhtml"
+    ID="projetrembliste::#private#personnel#liquidation#liquidateur#projetrembliste.xhtml"
     NAME="output22"
-    PATH="/private/personnel/dossier/listebordereau.xhtml"
-    TARGET="rules:#private#personnel#dossier#listebordereau.xhtml"
-    TITLE="listerbt" model-entity="JSFProcessItemOutput"/>
+    PATH="/private/personnel/liquidation/liquidateur/projetrembliste.xhtml"
+    TARGET="rules:#private#personnel#liquidation#liquidateur#projetrembliste.xhtml"
+    TITLE="projetrembliste" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID="listerbl::#private#personnel#dossier#listebulletinliquidation.xhtml"
-    NAME="output23"
-    PATH="/private/personnel/dossier/listebulletinliquidation.xhtml"
-    TARGET="rules:#private#personnel#dossier#listebulletinliquidation.xhtml"
-    TITLE="listerbl" model-entity="JSFProcessItemOutput"/>
+    ID="btblliste::#private#personnel#edition#btblliste.xhtml"
+    NAME="output23" PATH="/private/personnel/edition/btblliste.xhtml"
+    TARGET="rules:#private#personnel#edition#btblliste.xhtml"
+    TITLE="btblliste" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="etablirprojetdecision::#private#personnel#remboursement#liquidateur#etablirprojetdecision.xhtml"
+    NAME="output24"
+    PATH="/private/personnel/remboursement/liquidateur/etablirprojetdecision.xhtml"
+    TARGET="rules:#private#personnel#remboursement#liquidateur#etablirprojetdecision.xhtml"
+    TITLE="etablirprojetdecision" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="transmettreprojetdecision::#private#personnel#remboursement#directeur#transmettreprojetdecision.xhtml"
+    NAME="output25"
+    PATH="/private/personnel/remboursement/directeur/transmettreprojetdecision.xhtml"
+    TARGET="rules:#private#personnel#remboursement#directeur#transmettreprojetdecision.xhtml"
+    TITLE="transmettreprojetdecision" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="receptionnerprojetdecision::#private#personnel#remboursement#liquidateur#receptionnerprojetdecision.xhtml"
+    NAME="output26"
+    PATH="/private/personnel/remboursement/liquidateur/receptionnerprojetdecision.xhtml"
+    TARGET="rules:#private#personnel#remboursement#liquidateur#receptionnerprojetdecision.xhtml"
+    TITLE="receptionnerprojetdecision" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="blediterliste::#private#personnel#edition#blliste.xhtml"
+    NAME="output27" PATH="/private/personnel/edition/blliste.xhtml"
+    TARGET="rules:#private#personnel#edition#blliste.xhtml"
+    TITLE="blediterliste" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#private#personnel#dossier#gpdr.xhtml"
   PATH="/private/personnel/dossier/gpdr.xhtml" SHAPE="304,1569,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#public#demande#fo.xhtml"
-  PATH="/public/demande/fo.xhtml" SHAPE="304,897,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#public#naturedeplacement.xhtml"
   PATH="/public/naturedeplacement.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM
-  NAME="rules:#private#personnel#consultation#consulterFeuilleDeplacementListe.xhtml"
-  PATH="/private/personnel/consultation/consulterFeuilleDeplacementListe.xhtml"
-  SHAPE="304,2465,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#private#personnel#dossier#gfd.xhtml"
-  PATH="/private/personnel/dossier/gfd.xhtml" SHAPE="304,2129,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#private#demande#mhci.xhtml"
-  PATH="/private/demande/mhci.xhtml" SHAPE="304,1121,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#private#personnel#dossier#liste.xhtml"
   PATH="/private/personnel/dossier/liste.xhtml" SHAPE="304,1681,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM
-  NAME="rules:#private#personnel#consultation#feuilleDeplacementDetailView.xhtml"
-  PATH="/private/personnel/consultation/feuilleDeplacementDetailView.xhtml"
-  SHAPE="304,2577,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM
-  NAME="rules:#private#personnel#dossier#receptionnerFeuilleDeplacementListe.xhtml"
-  PATH="/private/personnel/dossier/receptionnerFeuilleDeplacementListe.xhtml"
-  SHAPE="304,2241,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM
-  NAME="rules:#private#personnel#dossier#validation#viser.xhtml"
-  PATH="/private/personnel/dossier/validation/viser.xhtml"
-  SHAPE="304,2017,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#private#demande#tr.xhtml"
-  PATH="/private/demande/tr.xhtml" SHAPE="304,1009,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#private#demande#details.xhtml"
-  PATH="/private/demande/details.xhtml" SHAPE="304,1345,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#private#demande#dd.xhtml"
-  PATH="/private/demande/dd.xhtml" SHAPE="304,785,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#private#demande#liste.xhtml"
-  PATH="/private/demande/liste.xhtml" SHAPE="304,1233,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM
-  NAME="rules:#private#personnel#dossier#receptionnerFeuilleDeplacementForm.xhtml"
-  PATH="/private/personnel/dossier/receptionnerFeuilleDeplacementForm.xhtml"
-  SHAPE="304,2353,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#private#personnel#dossier#gapc.xhtml"
   PATH="/private/personnel/dossier/gapc.xhtml" SHAPE="304,1457,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#agentetat#tr.xhtml"
+  PATH="/private/demande/agentetat/tr.xhtml" SHAPE="304,1201,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#agentetat#details.xhtml"
+  PATH="/private/demande/agentetat/details.xhtml" SHAPE="304,1649,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#agentetat#liste.xhtml"
+  PATH="/private/demande/agentetat/liste.xhtml" SHAPE="304,1537,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#agentetat#mhci.xhtml"
+  PATH="/private/demande/agentetat/mhci.xhtml" SHAPE="304,1313,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#agentetat#dd.xhtml"
+  PATH="/private/demande/agentetat/dd.xhtml" SHAPE="304,865,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#agentetat#impression.xhtml"
+  PATH="/private/demande/agentetat/impression.xhtml" SHAPE="304,753,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM
-  NAME="rules:#private#personnel#dossier#validation#conformite.xhtml"
-  PATH="/private/personnel/dossier/validation/conformite.xhtml"
-  SHAPE="304,1905,0,0" model-entity="JSFProcessGroup"/>
+  NAME="rules:#private#personnel#reception#responsable#conformite.xhtml"
+  PATH="/private/personnel/reception/responsable/conformite.xhtml"
+  SHAPE="304,705,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#pointfocal#mhci.xhtml"
+  PATH="/private/demande/pointfocal/mhci.xhtml" SHAPE="304,593,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM
-  NAME="rules:#private#personnel#dossier#realiserbtbl.xhtml"
-  PATH="/private/personnel/dossier/realiserbtbl.xhtml"
-  SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+  NAME="rules:#private#demande#pointfocal#missionexecuteeliste.xhtml"
+  PATH="/private/demande/pointfocal/missionexecuteeliste.xhtml"
+  SHAPE="304,593,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM
-  NAME="rules:#private#personnel#dossier#listebordereau.xhtml"
-  PATH="/private/personnel/dossier/listebordereau.xhtml"
+  NAME="rules:#private#personnel#reception#responsable#recevabilite.xhtml"
+  PATH="/private/personnel/reception/responsable/recevabilite.xhtml"
+  SHAPE="304,593,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#tous#fo.xhtml"
+  PATH="/private/demande/tous/fo.xhtml" SHAPE="304,593,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#reception#responsable#retourfeuilledeplacement.xhtml"
+  PATH="/private/personnel/reception/responsable/retourfeuilledeplacement.xhtml"
+  SHAPE="304,625,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#agentetat#cartesotra.xhtml"
+  PATH="/private/demande/agentetat/cartesotra.xhtml" SHAPE="304,625,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#reception#responsable#receptionfacture.xhtml"
+  PATH="/private/personnel/reception/responsable/receptionfacture.xhtml"
+  SHAPE="304,657,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#liquidation#liquidateur#attetstationpecliste.xhtml"
+  PATH="/private/personnel/liquidation/liquidateur/attetstationpecliste.xhtml"
+  SHAPE="304,689,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#demande#agentetat#imprimerapec.xhtml"
+  PATH="/private/demande/agentetat/imprimerapec.xhtml"
+  SHAPE="304,689,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#impression.xhtml"
+  PATH="/private/personnel/impression.xhtml" SHAPE="304,689,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#edition#btblliste.xhtml"
+  PATH="/private/personnel/edition/btblliste.xhtml" SHAPE="304,721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#reception#responsable#facturedefinitiveform.xhtml"
+  PATH="/private/personnel/reception/responsable/facturedefinitiveform.xhtml"
+  SHAPE="304,785,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#liquidation#liquidateur#projetrembliste.xhtml"
+  PATH="/private/personnel/liquidation/liquidateur/projetrembliste.xhtml"
+  SHAPE="304,785,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#personnel#remboursement#liquidateur#etablirprojetdecision.xhtml"
+  PATH="/private/personnel/remboursement/liquidateur/etablirprojetdecision.xhtml"
   SHAPE="304,849,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM
-  NAME="rules:#private#personnel#dossier#listebulletinliquidation.xhtml"
-  PATH="/private/personnel/dossier/listebulletinliquidation.xhtml"
-  SHAPE="304,881,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#private#demande#impression.xhtml"
-  PATH="/private/demande/impression.xhtml" SHAPE="304,881,0,0" model-entity="JSFProcessGroup"/>
+  NAME="rules:#private#personnel#remboursement#responsable#validerprojetdecision.xhtml"
+  PATH="/private/personnel/remboursement/responsable/validerprojetdecision.xhtml"
+  SHAPE="304,913,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM
-  NAME="rules:#private#personnel#dossier#validation#recevabilite.xhtml"
-  PATH="/private/personnel/dossier/validation/recevabilite.xhtml"
-  SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#private#personnel#demande#mhci.xhtml"
-  PATH="/private/personnel/demande/mhci.xhtml" SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+  NAME="rules:#private#personnel#remboursement#directeur#transmettreprojetdecision.xhtml"
+  PATH="/private/personnel/remboursement/directeur/transmettreprojetdecision.xhtml"
+  SHAPE="304,1025,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM
-  NAME="rules:#private#personnel#demande#missionexecuteeliste.xhtml"
-  PATH="/private/personnel/demande/missionexecuteeliste.xhtml"
-  SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+  NAME="rules:#private#personnel#remboursement#liquidateur#receptionnerprojetdecision.xhtml"
+  PATH="/private/personnel/remboursement/liquidateur/receptionnerprojetdecision.xhtml"
+  SHAPE="304,945,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#demande#agentetat#tt.xhtml"
+  PATH="/private/demande/agentetat/tt.xhtml" SHAPE="304,945,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#private#personnel#edition#blliste.xhtml"
+  PATH="/private/personnel/edition/blliste.xhtml" SHAPE="304,1009,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#private#demande#agentetat#lettreavance.xhtml"
+  PATH="/private/demande/agentetat/lettreavance.xhtml"
+  SHAPE="304,1009,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

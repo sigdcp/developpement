@@ -11,7 +11,7 @@ public class NatureDeplacementDaoImpl extends JpaDaoImpl<NatureDeplacement, Stri
 	private static final long serialVersionUID = -2609724288199083806L;
 	
 	@Override
-	public Collection<NatureDeplacement> findByCategorieId(String categoriId) {
+	public Collection<NatureDeplacement> readByCategorieId(String categoriId) {
 		return entityManager.createQuery("SELECT nd FROM NatureDeplacement nd WHERE nd.categorie.code = :categorieId", clazz)
 				.setParameter("categorieId", categoriId)
 				.getResultList();

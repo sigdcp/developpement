@@ -6,6 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor @Getter
 public enum ServiceExceptionType{
 	IDENTIFICATION_SOUSCRIPTION_COMPTE_ENCOURS("Vous avez une souscription déja en cours de validation"),
+	IDENTIFICATION_SOUSCRIPTION_COMPTE_CC_INCONNU("Votre compte contribuable est inconnu"),
 	IDENTIFICATION_SOUSCRIPTION_COMPTE_ACCEPTE("Vous avez déja souscrit"),
 	IDENTIFICATION_SOUSCRIPTION_COMPTE_MATRCULE_INCONNU("Votre matricule est inconnu"),
 	IDENTIFICATION_SOUSCRIPTION_COMPTE_EXISTE("Vous avez deja un compte"),
@@ -25,10 +26,12 @@ public enum ServiceExceptionType{
 	DOSSIER_STATUT_ILLELGAL("Cette operation ne peut pas etre réalisée."),
 	DOSSIER_PIECE_JUSTIFICATIVE_MANQUANTE("Toutes les pieces justificatives doivent être fournies."),
 	
+	
 	SAISIE_INCOHERENTE("Les informations saisies sont incohérentes"),
 	
 	OPERATION_INCONNUE("L'opération sollicité est inconnue"),
 	
+	RESOURCE_NOT_FOUND("Resource introuvable."),
 	;
 	
 	private String libelle;

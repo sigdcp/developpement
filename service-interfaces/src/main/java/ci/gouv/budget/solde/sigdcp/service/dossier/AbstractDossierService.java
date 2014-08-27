@@ -2,69 +2,53 @@ package ci.gouv.budget.solde.sigdcp.service.dossier;
 
 import java.util.Collection;
 
+import ci.gouv.budget.solde.sigdcp.model.dossier.BulletinLiquidation.AspectLiquide;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Deplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
-import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
-import ci.gouv.budget.solde.sigdcp.model.dossier.Statut;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
-import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
-import ci.gouv.budget.solde.sigdcp.service.AbstractService;
+import ci.gouv.budget.solde.sigdcp.model.traitement.Statut;
+import ci.gouv.budget.solde.sigdcp.service.ActionType;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
+import ci.gouv.budget.solde.sigdcp.service.traitement.TraitableService;
 
-public interface AbstractDossierService<DOSSIER extends Dossier> extends AbstractService<DOSSIER,String> {
+public interface AbstractDossierService<DOSSIER extends Dossier> extends TraitableService<DOSSIER,Long> {
 	
-	void enregistrer(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException;
+	void enregistrer(ActionType actionType,DOSSIER dossier) throws ServiceException;
 	
-	void soumettre(DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives,Personne personne) throws ServiceException;
+	void deposer(Collection<DOSSIER> dossiers) throws ServiceException;
 	
-	void deposer(DOSSIER dossier) throws ServiceException;
+	void annuler(Collection<DOSSIER> dossiers) throws ServiceException;
 	
-	void accepterRecevabilite(DOSSIER dossier) throws ServiceException;
-	
-	void accepterRecevabilite(Collection<DOSSIER> dossiers) throws ServiceException;
-	
-	void rejeterRecevabilite(DOSSIER dossier,String motif) throws ServiceException;
-	
-	void rejeterRecevabilite(Collection<DOSSIER> dossiers,String motif) throws ServiceException;
-	
-	void accepterConformite(DOSSIER dossier) throws ServiceException;
-	
-	void accepterConformite(Collection<DOSSIER> dossiers) throws ServiceException;
-	
-	void rejeterConformite(DOSSIER dossier,String motif) throws ServiceException;
-	
-	void rejeterConformite(Collection<DOSSIER> dossiers,String motif) throws ServiceException;
-	
-	//public void liquider(DOSSIER dossier) throws ServiceException;
+	void mettreAJourPiecesJustificatives(Collection<DOSSIER> dossiers);
 	
 	/**
 	 * Lectures
 	 */
 	
-	DOSSIER findSaisieByPersonneByNatureDeplacement(Personne personne,NatureDeplacement natureDeplacement);
+	DOSSIER findDemande(NatureDeplacement natureDeplacement,Long numero,String codeNatureOperation);
+	
+	Collection<DOSSIER> findATraiter(Collection<NatureDeplacement> natureDeplacements,String natureOperationCode);
 	
 	Collection<DOSSIER> findByNatureDeplacementAndStatut(NatureDeplacement natureDeplacement,Statut statut);
 	
 	Collection<DOSSIER> findByNatureDeplacementsByStatut(Collection<NatureDeplacement> natureDeplacements,Statut statut);
-	
-	Collection<DOSSIER> findByStatut(Statut statut);
-	
-	Collection<DOSSIER> findByStatutId(String id);
-	
-	Collection<DOSSIER> findByAgentEtat(AgentEtat agentEtat);
-	
-	Collection<DOSSIER> findByAgentEtatAndAyantDroit(AgentEtat agentEtat);
-	
+		
 	Collection<DOSSIER> findByNatureDeplacement(NatureDeplacement natureDeplacement);
 	
 	Collection<DOSSIER> findByDeplacement(Deplacement deplacement);
 	
-	/**
-	 * Une message qui oriente sur les taches a faire pour le traitement du dossier
-	 * @param dossier
-	 * @return
-	 */
-	String findInstructions(DOSSIER dossier);
-
+	DOSSIER findDernierCreeByAgentEtat(AgentEtat agentEtat);
+	
+	Collection<DOSSIER> findByBordereauId(Long bordereauId);
+	
+	//Collection<DOSSIER> findATraiterByNatureDeplacementsByNatureOperationId(Collection<NatureDeplacement> natureDeplacements,String natureOperationId);
+	
+	Collection<DOSSIER> findByNatureDeplacementsByNatureOperationIdByStatutId(Collection<NatureDeplacement> natureDeplacements,String natureOperationId,String statutId);
+	
+	Collection<DOSSIER> findALiquiderByNatureDeplacementsByAspectLiquide(Collection<NatureDeplacement> natureDeplacements,AspectLiquide aspectLiquide);
+	
+	Collection<DOSSIER> findEditerProjetRemboursement();
+	
+	
 }

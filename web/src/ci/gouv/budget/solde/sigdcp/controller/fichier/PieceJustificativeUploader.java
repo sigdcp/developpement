@@ -11,10 +11,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.commons.io.IOUtils;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import org.apache.commons.io.IOUtils;
+
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.service.fichier.FichierService;
@@ -23,16 +24,15 @@ public class PieceJustificativeUploader implements Serializable {
 
 	private static final long serialVersionUID = 2682591481106580763L;
 	
-	@Setter
-	@Inject private FichierService fichierService;
+	@Setter @Inject private FichierService fichierService;
 	@Setter @Getter protected PieceJustificative pieceJustificativeSelectionne;
 	@Getter private List<PieceJustificativeDto> collection = new LinkedList<>();
-	
-	@Getter @Setter private Boolean showInputs=Boolean.TRUE,editable=Boolean.TRUE;
-	
+	@Getter @Setter private String title = "Pièces justificatives (Toutes obligatoires à la soumission)",allowedFileTypes;
+	@Getter @Setter private Boolean showInputs=Boolean.TRUE,editable=Boolean.TRUE,showColumnCount=true,showColumnName=true,soumission=false,showDescriptions=false;
 		
-	public PieceJustificativeDto addPieceJustificative(PieceJustificative pieceJustificative,Boolean editable) {
-		PieceJustificativeDto dto = new PieceJustificativeDto(pieceJustificative,editable);
+	public PieceJustificativeDto addPieceJustificative(PieceJustificative pieceJustificative,Boolean editable,Boolean imprimable) {
+		PieceJustificativeDto dto = new PieceJustificativeDto(pieceJustificative,editable,imprimable);
+		dto.setAllowedFileTypes(allowedFileTypes);
 		collection.add(dto);
 		return dto;
 	}
@@ -89,6 +89,25 @@ public class PieceJustificativeUploader implements Serializable {
 	
 	public void clear(){
 		collection.clear();
+	}
+	
+	public void voir(PieceJustificativeDto dto){
+		
+	}
+	
+	public void addPieces(Collection<PieceJustificative> pieces,Boolean editable){
+		clear();
+		for(PieceJustificative pieceJustificative : pieces){
+			Boolean imprimable = Boolean.TRUE.equals(pieceJustificative.getModel().getConfig().getDerivee()) && editable;
+			if(pieceJustificative.getEditable()!=null)
+				imprimable = pieceJustificative.getEditable();
+			if(pieceJustificative.getModifiable()!=null)
+				addPieceJustificative(pieceJustificative,Boolean.TRUE.equals(pieceJustificative.getModifiable()) || !Boolean.FALSE.equals(pieceJustificative.getModifiable()),
+						imprimable);
+			else
+				addPieceJustificative(pieceJustificative, editable,imprimable);
+		}
+		update();
 	}
 	
 	private class PieceJustificativeComparator implements Comparator<PieceJustificativeDto>{

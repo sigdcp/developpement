@@ -20,7 +20,7 @@
 				<p:panel header="#{inscriptionPersonneController.inscription.natureDeplacement}">
 										
 					<p:fieldset legend="Identité du défunt" rendered="#{inscriptionPersonneController.FO}">
-						<ui:include src="/identification/include/inputIdentite.xhtml">
+						<ui:include src="/identification/include/inputSouscriptionIdentite.xhtml">
 					  		<ui:param name="personneDto" value="#{inscriptionPersonneController.defuntDto}"/>
 					  		<ui:param name="questionAgentEtat" value="false" />
 					  		<ui:param name="profession" value="false" />

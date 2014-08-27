@@ -3,9 +3,11 @@ package ci.gouv.budget.solde.sigdcp.dao.dossier;
 import java.io.Serializable;
 import java.util.Collection;
 
+import ci.gouv.budget.solde.sigdcp.dao.traitement.TraitableDaoImpl;
+import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceProduite;
 
-public class PieceProduiteDaoImpl extends AbstractDocumentDaoImpl<PieceProduite> implements PieceProduiteDao, Serializable {
+public class PieceProduiteDaoImpl extends TraitableDaoImpl<PieceProduite,Long> implements PieceProduiteDao, Serializable {
 
 	private static final long serialVersionUID = -2609724288199083806L;
 
@@ -23,6 +25,11 @@ public class PieceProduiteDaoImpl extends AbstractDocumentDaoImpl<PieceProduite>
 				+ ")", clazz)
 				.setParameter("pptid", typeId).setParameter("cdid", cdid)
 				.getResultList();
+	}
+
+	@Override
+	public Collection<PieceProduite> readByNatureDeplacementsByNatureOperationIdByStatutId(Collection<NatureDeplacement> natureDeplacements, String natureOperationId, String statutId) {
+		return null;
 	}
 
 }

@@ -31,6 +31,7 @@ public class PublicHomeController extends AbstractUIController implements Serial
 		super.initialisation();
 		for(NatureDeplacement natureDeplacement : natureDeplacementService.findAll())
 			serviceProposeDtos.add(new ServiceProposeDto(natureDeplacement,webConstantResources));
+		serviceProposeDtos.add(new ServiceProposeDto("Sotra","Description","lpus","lpv","lireplussotra",false,false,true));
 	}
 	
 }

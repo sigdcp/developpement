@@ -17,6 +17,9 @@ import org.apache.commons.lang3.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
+import ci.gouv.budget.solde.sigdcp.service.ServiceException;
+import ci.gouv.budget.solde.sigdcp.service.ServiceExceptionNoRollBack;
+import ci.gouv.budget.solde.sigdcp.service.ServiceExceptionType;
 
 /**
  * Ensemble de methodes automatiquement appele par le conteneur pour la validation de contraintes.<br/>
@@ -96,9 +99,13 @@ public class AbstractValidator<OBJECT> implements Serializable {
         		messages.add(formatMessage(violation));
 	}
 	
+	public void manualProcess(){
+		
+	}
+	
 	protected String formatMessage(ConstraintViolation<?> constraintViolation){
-		return constraintViolation.getPropertyPath()+" "+constraintViolation.getMessage();
-		//return constraintViolation.getMessage();
+		//return constraintViolation.getPropertyPath()+" "+constraintViolation.getMessage();//TODO just for test! Do use the next line
+		return constraintViolation.getMessage();
 	}
 	
 	public Boolean isSucces(){
@@ -111,6 +118,27 @@ public class AbstractValidator<OBJECT> implements Serializable {
 	
 	protected static String messageNotValid(String constraint){
 		return String.format(MESSAGE_NOT_VALID_FORMAT, constraint);
+	}
+	
+	/**/
+	
+	protected static void serviceException(ServiceExceptionType type,Boolean rollback){
+		serviceException(type.getLibelle(),rollback);
+	}
+
+	protected static void serviceException(ServiceExceptionType type){
+		serviceException(type, Boolean.TRUE);
+	}
+	
+	protected static void serviceException(String message,Boolean rollback){
+		//System.out.println("Rollback : "+rollback);
+		if(rollback)
+			throw new ServiceException(message);
+		//System.out.println("DefaultServiceImpl.serviceException()");
+		throw new ServiceExceptionNoRollBack(message);
+	}
+	protected static void serviceException(String message){
+		serviceException(message, Boolean.TRUE);
 	}
 	
 }

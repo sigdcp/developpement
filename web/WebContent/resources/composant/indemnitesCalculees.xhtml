@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://www.kyc.com/facelet/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface componentType="sigdcp.PieceUploaderComponent">
+	
+	<composite:attribute name="bulletinLiquidation" required="true" />
+	
+</composite:interface>
+
+<composite:implementation>
+	
+	<p:dataTable id="indemnitestb" value="#{cc.attrs.bulletinLiquidation.indemniteCalculees}" var="ic" rowIndexVar="index">
+		<f:facet name="header">
+			<h:outputText value="Indemnités" />
+			<h:outputText value=" - #{cc.attrs.bulletinLiquidation.numero}" rendered="#{roleManager.agentSolde and not empty cc.attrs.bulletinLiquidation.numero }" />
+		</f:facet>
+		<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
+		<p:column headerText="Libelle"><h:outputText value="#{ic.indemnite.libelle}" /></p:column>
+		<p:column headerText="Montant">
+			<h:outputText value="#{ic.montant}" ><f:convertNumber maxFractionDigits="0" /> </h:outputText>
+			<f:facet name="footer"><h:outputText value="#{cc.attrs.bulletinLiquidation.montant}" ><f:convertNumber maxFractionDigits="0"/></h:outputText> </f:facet>
+		</p:column>
+		
+	</p:dataTable>
+				
+</composite:implementation>
+
+</html>

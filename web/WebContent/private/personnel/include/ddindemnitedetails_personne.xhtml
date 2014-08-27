@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+
+		<style>
+			.detailsc1{}
+			.detailsc2{font-weight: bold;}
+		</style>
+		
+		<p:fieldset legend="#{personne}">
+		<p:panelGrid columns="2" columnClasses="detailsc1,detailsc2" styleClass="panelGridNoBorder">
+			<h:outputText value="Indemnité bagages" /><h:outputText value="#{detailsPersonne.indemniteBagages}" >
+				<f:convertNumber  currencySymbol="CFA" maxFractionDigits="0" type="number" />
+			</h:outputText>
+			
+			<h:outputText value="Indemnité jounalière" /><h:outputText value="#{detailsPersonne.indemniteJournaliere}" >
+				<f:convertNumber  currencySymbol="CFA" maxFractionDigits="0" type="number" />
+			</h:outputText>
+			
+			<h:outputText value="Total" /><h:outputText value="#{detailsPersonne.total}" >
+				<f:convertNumber  currencySymbol="CFA" maxFractionDigits="0" type="number" />
+			</h:outputText>
+		</p:panelGrid>
+		</p:fieldset>
+   
+	</ui:composition>
+</body>
+</html>

@@ -17,6 +17,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -33,6 +34,7 @@ import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 
 @Getter @Setter 
 @Entity @DiscriminatorValue("Compte")
+//@Table(name="SOUSCPE")
 public class SouscriptionComptePersonne  extends Souscription  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -50,12 +52,13 @@ public class SouscriptionComptePersonne  extends Souscription  implements Serial
 	 * Infos sur le compte utilisateur
 	 */
 	
-	@Size(min=8,message="Le mot de passe doit avoir 8 caractères au minimum",groups=Client.class)
+	@Size(min=6,max=15,message="Le mot de passe doit avoir 6 caractères au minimum et 15 au maximum",groups=Client.class)
 	@NotNull(groups=Client.class)
 	private String password;
 	
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	@Size(min=1,message="Veuillez saisir une reponse secrete",groups=Client.class)
+	@Size(min=1,message="Une reponse secrete est obligatoire",groups=Client.class)
+	@JoinColumn
 	private Set<ReponseSecrete> reponseSecretes = new LinkedHashSet<>();
 	
 	/**

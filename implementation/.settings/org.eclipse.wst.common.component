@@ -3,6 +3,6 @@
         <wb-resource deploy-path="/" source-path="/ejbModule" tag="defaultRootSource"/>
         <wb-resource deploy-path="/" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/java"/>
-        <property name="java-output-path" value="/implementation/build/classes"/>
+        <property name="java-output-path" value="/implementation/target/classes"/>
     </wb-module>
 </project-modules>

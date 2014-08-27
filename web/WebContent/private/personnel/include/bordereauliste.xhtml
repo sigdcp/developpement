@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+
+		<ui:decorate template="/template/effectuerOperationList.xhtml">
+			<ui:param name="effectuerOperationController" value="#{controller}" />
+						
+			<ui:define name="colonnesDetails">
+				<!--
+				<p:ajax event="rowSelectCheckbox" update="@parent" />
+				<p:ajax event="rowUnselectCheckbox" update="@parent" process="@this" immediate="true"/>
+				
+				<p:column headerText="#{constantResources.text('numero')}" sortBy="#{record.bordereauTransmission.numero}" filterBy="#{record.bordereauTransmission.numero}">
+					<h:outputText value="#{record.bordereauTransmission.numero}" />
+				</p:column>
+				-->
+				
+				<!--
+				<p:column headerText="#{constantResources.text('datecreation')}" sortBy="#{record.bordereauTransmission.dateEtablissement}">
+					<h:outputText value="#{record.bordereauTransmission.dateEtablissement}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>
+				</p:column>
+				-->
+				<!--				
+				<p:column headerText="#{constantResources.text('montant')} (CFA)" sortBy="#{record.bordereauTransmission.montant}" filterBy="#{record.bordereauTransmission.montant}">
+					<h:outputText value="#{record.bordereauTransmission.montant}" ><f:convertNumber currencySymbol="CFA" maxFractionDigits="0" type="number" /></h:outputText>
+					<f:facet name="footer">
+						<h:outputText value="#{controller.totalDepense}" rendered="#{controller.showTotalDepense}"><f:convertNumber  currencySymbol="CFA" maxFractionDigits="0" type="number" /></h:outputText>
+					</f:facet>
+				</p:column>	
+				-->	
+			</ui:define>
+		</ui:decorate>			
+   
+	</ui:composition>
+</body>
+</html>

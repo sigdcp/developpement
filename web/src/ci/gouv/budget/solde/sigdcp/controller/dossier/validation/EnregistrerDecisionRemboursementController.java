@@ -6,13 +6,13 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import ci.gouv.budget.solde.sigdcp.controller.dossier.AbstractDossierUIController;
+import ci.gouv.budget.solde.sigdcp.controller.demande.AbstractFaireDemandeController;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.service.dossier.DossierService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 
 @Named @ViewScoped
-public class EnregistrerDecisionRemboursementController extends AbstractDossierUIController<Dossier,DossierService>  implements Serializable {
+public class EnregistrerDecisionRemboursementController extends AbstractFaireDemandeController<Dossier,DossierService>  implements Serializable {
 
 	private static final long serialVersionUID = -2412073347414420827L;
 
@@ -29,7 +29,7 @@ public class EnregistrerDecisionRemboursementController extends AbstractDossierU
 	protected void initialisation() {
 		crudType=CRUDType.UPDATE;
 		super.initialisation();
-		title = "Décision de remboursement du dossier N°"+entity.getNumero();
+		title = "Décision de remboursement du dossier N°"+entity.getId();
 		internalCode = "FS_REMBOURSEMENT_09_Ecran_01";
 		defaultSubmitCommand.setValue(text("bouton.enregistrer"));
 	}

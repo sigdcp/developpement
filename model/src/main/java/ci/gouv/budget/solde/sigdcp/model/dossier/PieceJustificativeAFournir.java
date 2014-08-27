@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,6 +27,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.TypePersonne;
 @Setter
 @Entity
 @EqualsAndHashCode(of = { "id" }, callSuper = false)
+@Table(name="PIECEJAF")
 public class PieceJustificativeAFournir extends AbstractModel<Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;

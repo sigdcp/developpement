@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+					
+<ui:decorate template="/template/statistique.xhtml">
+<ui:param name="controller" value="#{controller}" />
+
+	<ui:define name="ajoutcritere">	
+		<p:selectCheckboxMenu value="#{controller.natureDeplacementSelectionnees}" converter="#{objectConverter}" label="Nature de déplacement" 
+		rendered="#{controller.natureDeplacements!=null and controller.natureDeplacements.size()>1}">
+			<f:selectItems value="#{controller.natureDeplacements}" />
+		</p:selectCheckboxMenu>	
+	</ui:define>
+	
+	<ui:define name="detail">
+		<p:column headerText="Numéro dossier"><h:outputText value="#{record.numero}" /></p:column>
+		<p:column headerText="Bénéficiaire"><h:outputText value="#{record.beneficiaire.nomPrenoms}" /></p:column>
+					<p:column headerText="#{constantResources.text('villedepart')}">
+						<h:outputText value="#{record.deplacement.localiteDepart.libelle}" />
+					</p:column>				
+					<p:column headerText="#{constantResources.text('villearrivee')}">
+						<h:outputText value="#{record.deplacement.localiteArrivee.libelle}" />
+					</p:column>				
+					<p:column headerText="#{constantResources.text('datedepart')}">
+						<h:outputText value="#{constantResources.dateAsString(record.deplacement.dateDepart)}" />
+					</p:column>				
+					<p:column headerText="#{constantResources.text('datearrivee')}">
+						<h:outputText value="#{constantResources.dateAsString(record.deplacement.dateArrivee)}" />
+					</p:column>	
+					<!-- <p:column headerText="Indemnité (CFA)">
+					<h:outputText value="#{record.montantIndemnisation}" >
+					<f:convertNumber  maxFractionDigits="0" type="number" /></h:outputText>
+					<f:facet name="footer">
+						<h:outputText value="#{controller.montantTotalIndemnite}" >
+							<f:convertNumber  maxFractionDigits="0" type="number" />
+						</h:outputText>
+					</f:facet>
+					</p:column>
+					<p:column headerText="Frais de transport (CFA)" rendered="#{controller.showTransport}">
+					<h:outputText value="#{record.frais.transport}" >
+					<f:convertNumber  maxFractionDigits="0" type="number" /></h:outputText>
+					<f:facet name="footer">
+						<h:outputText value="#{controller.montantTotalTransport}" >
+							<f:convertNumber  maxFractionDigits="0" type="number" />
+						</h:outputText>
+					</f:facet>
+					</p:column> -->
+	</ui:define>
+	
+	<ui:define name="tableau">
+	<p:column headerText="#{constantResources.text('naturedeplacement')}">
+					<h:outputText value="#{record.libelle}" />
+				</p:column>
+				
+				<p:column headerText="Nombre de dossier">
+					<h:outputText value="#{controller.details(record).nombreDossier}" >
+						<f:convertNumber  maxFractionDigits="0" type="number" />
+					</h:outputText>
+					<f:facet name="footer">
+						<h:outputText value="#{controller.statistiques.total.nombreDossier}" >
+							<f:convertNumber  maxFractionDigits="0" type="number" />
+						</h:outputText>
+					</f:facet>
+				</p:column>	
+				
+				<p:column headerText="Nombre de voyageurs">
+					<h:outputText value="#{controller.details(record).nombreVoyageurs}" >
+						<f:convertNumber  maxFractionDigits="0" type="number" />
+					</h:outputText>
+					<f:facet name="footer">
+						<h:outputText value="#{controller.statistiques.total.nombreVoyageurs}" >
+							<f:convertNumber  maxFractionDigits="0" type="number" />
+						</h:outputText>
+					</f:facet>
+				</p:column>	
+				
+				<!-- <p:column headerText="Indemnité (CFA)" >
+					<h:outputText value="#{controller.details(record).depense}" >
+						<f:convertNumber  maxFractionDigits="0" type="number" />
+					</h:outputText>
+					<f:facet name="footer">
+						<h:outputText value="#{controller.statistiques.total.depense}" >
+							<f:convertNumber  maxFractionDigits="0" type="number" />
+						</h:outputText>
+					</f:facet>
+				</p:column>
+				
+				<p:column headerText="Frais de transport (CFA)" >
+					<h:outputText value="#{controller.details(record).fraisTransport}" >
+						<f:convertNumber  maxFractionDigits="0" type="number" />
+					</h:outputText>
+					<f:facet name="footer">
+						<h:outputText value="#{controller.statistiques.total.fraisTransport}" >
+							<f:convertNumber  maxFractionDigits="0" type="number" />
+						</h:outputText>
+					</f:facet>
+				</p:column> -->	
+	</ui:define>
+	
+	<ui:define name="graphique">
+				<p:pieChart value="#{controller.pieChartModelDepense}" legendPosition="w" title="Proportions des dépenses par nature de déplacement" 
+				rendered="#{controller.pieChartModelDepense != null}"/>
+			<p:pieChart value="#{controller.pieChartModelFraisTransport}" legendPosition="w" title="Proportions des frais de transport par nature de déplacement"
+				rendered="#{controller.pieChartModelFraisTransport != null}"/>
+			<p:pieChart value="#{controller.pieChartModelNombreDossier}" legendPosition="w" title="Proportions du nombre de dossier par nature de déplacement"
+				rendered="#{controller.pieChartModelNombreDossier != null}"/>
+			<p:pieChart value="#{controller.pieChartModelNombreVoyageurs}" legendPosition="w" title="Proportions du nombre de voyageurs par nature de déplacement"
+				rendered="#{controller.pieChartModelNombreVoyageurs != null}"/>
+	</ui:define>
+			
+</ui:decorate>
+	
+		
+
+
+
+	</ui:composition>

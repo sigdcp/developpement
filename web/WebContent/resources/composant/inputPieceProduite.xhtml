@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://www.kyc.com/facelet/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface componentType="sigdcp.PieceUploaderComponent">
+	
+	<composite:attribute name="uploader" required="true" />
+	
+</composite:interface>
+
+<composite:implementation>
+	
+	<style>
+		.dt-piece-nom-panelgrid td{
+			background: red !important;
+		}
+		
+		.ui-piece-principale{
+			background: #F1F5CE;
+		}
+		.ui-piece-derivee{
+			background: #D2F5CE;
+		}
+		.ui-piece-conditionnee{
+			background: #CEF5F2;
+		}
+		.ui-piece-defaut{
+			background: #FFFFFF;
+		}
+	</style>
+	
+	<p:spacer height="5"/>
+		<p:messages for="dt" />
+		<p:dataTable id="dt" value="#{cc.attrs.uploader.collection}" var="dto" rowStyleClass="#{dto.rowStyleClass}" rowIndexVar="index">
+			<f:facet name="header"><h:outputText value="#{cc.attrs.uploader.title}" /></f:facet>
+			<p:column headerText="#">#{index+1}</p:column>
+			
+			<p:column headerText="Nom">
+				<h:outputText value="#{dto.libelle}" />
+			</p:column>
+			
+			<p:column headerText="Numéro" rendered="#{cc.attrs.uploader.showInputs}">
+				<!-- binding="#{numero}" -->
+				<p:inputText id="numero" value="#{dto.piece.numero}" required="#{dto.required}" requiredMessage="#{valueRequiredMessage}" 
+					rendered="#{dto.numeroEditable}"  validator="#{validationManager.validatePieceJustificativeNumero}">
+					<!--
+					<f:attribute name="fichier" value="#{fichier}" />
+					<f:attribute name="dateEtablissement" value="#{dateEtablissement}" />
+					<f:attribute name="signataire" value="#{signataire}" />	
+					<f:attribute name="model" value="#{dto.piece.model}" />	
+					-->
+					<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+					<p:message for="@parent" />
+					
+				</p:inputText>
+				<!--
+				<p:message id="message" for="numero" rendered="#{dto.numeroEditable}"/>
+				-->
+				<h:outputText value="#{dto.piece.numero}" rendered="#{not dto.numeroEditable}"/>
+			</p:column>
+			
+			<!-- binding="#{dateEtablissement}" -->
+			<p:column headerText="Date d'établissement " rendered="#{cc.attrs.uploader.showInputs}">
+				<p:calendar id="dateet" value="#{dto.piece.dateEtablissement}" pattern="#{constantResources.datePattern}" required="#{dto.required}" requiredMessage="#{valueRequiredMessage}" 
+					rendered="#{dto.dateEtablissementEditable}"  validator="#{validationManager.validatePieceJustificativeDateEtablissement}">
+					<!--
+					<f:attribute name="fichier" value="#{fichier}" />
+					<f:attribute name="numero" value="#{numero}" />
+					<f:attribute name="signataire" value="#{signataire}" />	
+					<f:attribute name="model" value="#{dto.piece.model}" />
+					-->
+					<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+					<p:message for="@parent" />	
+				</p:calendar>
+				<!--
+				<p:message for="dateet" rendered="#{dto.dateEtablissementEditable}"/>
+				-->
+				<h:outputText value="#{dto.piece.dateEtablissement}" rendered="#{not dto.dateEtablissementEditable}">
+					<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+				</h:outputText>
+			</p:column>
+			
+			<!-- binding="#{signataire}" -->
+			<p:column headerText="Fonction du signataire" rendered="#{cc.attrs.uploader.showInputs}">
+				<p:selectOneMenu id="fsignataire" value="#{dto.piece.fonctionSignataire}" required="#{dto.required}" requiredMessage="#{valueRequiredMessage}" converter="#{objectConverter}" 
+					rendered="#{dto.editable}"  validator="#{validationManager.validatePieceJustificativeFonctionSignataire}">
+					<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+					
+					<f:selectItems value="#{fonctions}" />
+					<!--
+					<f:attribute name="fichier" value="#{fichier}" />
+					<f:attribute name="dateEtablissement" value="#{dateEtablissement}" />
+					<f:attribute name="numero" value="#{numero}" />	
+					<f:attribute name="model" value="#{dto.piece.model}" />
+					-->
+					<f:validateBean validationGroups="#{clientValidationGroupClass}" />	
+					<p:message for="@parent" />
+				</p:selectOneMenu>
+				<!--
+				<p:message for="fsignataire" rendered="#{dto.editable}"/>
+				-->
+				<h:outputText value="#{dto.piece.fonctionSignataire}" rendered="#{not dto.editable}"/>		
+			</p:column>
+			
+			<!-- binding="#{fichier}" -->
+			<p:column headerText="Fichier" rendered="true">
+				
+				<p:fileUpload value="#{dto.file}" id="fichier" mode="simple" required="#{dto.required}" requiredMessage="#{valueRequiredMessage}" 
+					rendered="#{dto.fichierEditable and not dto.hasFichier}"  validator="#{validationManager.validatePieceJustificativeFichier}">
+					
+					<!--
+					<f:attribute name="numero" value="#{numero}" />
+					<f:attribute name="dateEtablissement" value="#{dateEtablissement}" />
+					<f:attribute name="signataire" value="#{signataire}" />	
+					<f:attribute name="model" value="#{dto.piece.model}" />	
+					-->
+					<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+					<p:message for="@parent" />
+				</p:fileUpload>
+				<!--
+				<p:message for="fichier" rendered="#{dto.showFile}"/>
+				-->
+				<p:commandButton value="Supprimer fichier joint" action="#{dto.supprimerFichier}" icon="ui-icon-close" rendered="#{dto.fichierEditable and dto.hasFichier}" update="dt"
+					immediate="true" process="@this"/>
+				 
+				<p:commandButton value="Voir" icon="ui-icon-search"  process="@this"
+					rendered="#{dto.hasFichier and not dto.fichierEditable}" oncomplete="PF('imageDialog#{cc.id}').show();" update="@form">
+					<f:setPropertyActionListener value="#{dto.piece}" target="#{cc.attrs.uploader.pieceJustificativeSelectionne}" />
+				</p:commandButton>
+				
+			</p:column>
+			
+		</p:dataTable>	
+					
+		<p:dialog widgetVar="imageDialog#{cc.id}" modal="true" appendTo="@(Body)" > 
+		    <f:facet name="header"><p:outputPanel id="imageDialogHeader">
+		    	<h:outputText value="#{cc.attrs.uploader.pieceJustificativeSelectionne.model.typePieceJustificative}" />
+		    	<h:outputText value=" N° #{cc.attrs.uploader.pieceJustificativeSelectionne.numero}" />
+		    	<h:outputText value=" du #{cc.attrs.uploader.pieceJustificativeSelectionne.dateEtablissement}" >
+		    		<f:convertDateTime pattern="#{constantResources.datePattern}"/>
+		    	</h:outputText>
+		    	<h:outputText value=" Signé par #{cc.attrs.uploader.pieceJustificativeSelectionne.fonctionSignataire}" />
+		    </p:outputPanel></f:facet>
+		    <p:outputPanel id="display" >  
+				<p:graphicImage value="/_fichier_/?id=#{cc.attrs.uploader.pieceJustificativeSelectionne.fichier.id}" width="900" height="650" />
+      		</p:outputPanel>
+		</p:dialog>
+				
+</composite:implementation>
+
+</html>

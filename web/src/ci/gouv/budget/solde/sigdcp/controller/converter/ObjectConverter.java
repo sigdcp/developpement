@@ -11,8 +11,10 @@ import javax.inject.Named;
 import lombok.extern.java.Log;
 import ci.gouv.budget.solde.sigdcp.model.DynamicEnumeration;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Exercice;
+import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
 import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtatReference;
 import ci.gouv.budget.solde.sigdcp.model.identification.QuestionSecrete;
 
 /**
@@ -52,6 +54,10 @@ public class ObjectConverter implements Converter {
 			return ((AgentEtat) object).getMatricule();
 		}else if(object instanceof DossierMission){
 			return ((DossierMission) object).getBeneficiaire().getMatricule();
+		}else if(object instanceof Dossier){
+			return ((Dossier) object).getId().toString();
+		}else if(object instanceof AgentEtatReference){
+			return ((AgentEtatReference) object).getMatricule();
 		}else
 			log.warning("Cannot find identitifer of this object type : "+object.getClass());
 		return null;

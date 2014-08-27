@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<ui:composition>
+		
+		
+				<p:fieldset legend="Sécuriser votre accès" rendered="#{controller.editable and true}">
+					<ui:include src="/resources/include/component/message.xhtml" >
+						<ui:param name="severity" value="info" />
+						<ui:param name="message" value="#{constantResources.text('securite.avertissement')}" />
+					</ui:include>
+					
+					<p:panelGrid columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2">
+						
+						<h:outputText value="" /><h:outputText value="#{validationPolicy.passwordPolicy}" styleClass="inputDescription"/>
+						<h:outputText value="" /><h:outputText value="" />
+						
+						<p:outputLabel for="motdepasse" value="Mot de passe"  />
+						<p:password id="motdepasse" value="#{controller.entity.password}" required="#{required}" 
+							 size="30" binding="#{password}" validator="#{validationManager.validatePassword}" 
+							autocomplete="false"  feedback="true" weakLabel="#{constantResources.text('passwordfeedback.faible')}" 
+								goodLabel="#{constantResources.text('passwordfeedback.bon')}" strongLabel="#{constantResources.text('passwordfeedback.fort')}" 
+								promptLabel="#{constantResources.text('passwordprompt')}" >
+							<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+							<p:message for="motdepasse" />
+						</p:password>
+						
+						
+						<p:outputLabel for="qusestionSecrete" value="Question secrète" />
+						<h:panelGroup>				
+							<p:message for="qusestionSecrete" />
+							<p:selectOneMenu id="qusestionSecrete" value="#{controller.reponseSecrete.question}" required="#{required}"  
+								converter="#{objectConverter}" >
+								<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+								<f:selectItems value="#{questionSecretes}" />
+								<f:validateBean  validationGroups="#{clientValidationGroupClass}" />								
+							</p:selectOneMenu>						
+						</h:panelGroup>
+						
+						<p:outputLabel for="cmotdepasse" value="Confirmation du mot de passe"  />
+						<p:password id="cmotdepasse" value="#{controller.confirmationMotPasse}" required="#{required}" 
+							 size="30" validator="#{validationManager.validateConfirmationPassword}">
+							<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+							<f:attribute name="password" value="#{password}"/>
+							<p:message for="cmotdepasse"  />
+						</p:password>
+						
+						<p:outputLabel for="rqs" value="Réponse à la question secrète"  />
+						<p:inputText id="rqs" value="#{controller.reponseSecrete.libelle}" required="#{required}"  size="30" 
+							autocomplete="#{controller.autoComplete}">
+							<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+							<p:message for="rqs"  /> 
+						</p:inputText>
+					
+					</p:panelGrid>
+				</p:fieldset>
+				
+				<ui:include src="/resources/include/component/message.xhtml" >
+					<ui:param name="severity" value="info" />
+					<ui:param name="message" value="Je certifie sincères les informations que j'ai données" />
+				</ui:include>
+	
+		
+
+   
+	</ui:composition>
+</body>
+</html>
