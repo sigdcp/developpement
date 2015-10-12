@@ -22,7 +22,9 @@
 			<ui:decorate template="/template/fairedemande.xhtml">
 				<ui:param name="faireDemandeController" value="#{faireDemandeTitreTransportController}" />
 				<ui:define name="demande">	
-					<ui:include src="/include/demandeTT.xhtml" />
+					<ui:include src="/include/demandeTT.xhtml">
+						<ui:param name="controller" value="#{faireDemandeTitreTransportController}"/>
+					</ui:include>
 				</ui:define>
 			</ui:decorate>
 		</ui:define>

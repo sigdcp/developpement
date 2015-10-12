@@ -25,12 +25,12 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/paule/.m2/repository/com/google/zxing/javase/3.1.0/javase-3.1.0.jar">
+	<classpathentry kind="lib" path="C:/Users/seutch/.m2/repository/com/google/zxing/javase/3.1.0/javase-3.1.0.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="../lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/paule/.m2/repository/com/google/zxing/core/3.1.0/core-3.1.0.jar">
+	<classpathentry kind="lib" path="C:/Users/seutch/.m2/repository/com/google/zxing/core/3.1.0/core-3.1.0.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="../lib"/>
 		</attributes>

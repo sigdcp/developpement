@@ -45,5 +45,14 @@ public class GenericServiceImpl implements GenericService , Serializable {
 		throw new RuntimeException("Must not be called");
 	}
 
+	@Override
+	public <TYPE> Collection<TYPE> findAllByClass(Class<TYPE> aClass, Integer debut, Integer max) {
+		return dao.readAllByClass(aClass, debut, max);
+	}
+	@Override
+	public <TYPE> Collection<TYPE> findAllByClass(Class<TYPE> aClass, String critere) {
+		return dao.readAllByClass(aClass, critere);
+	}
+
 }
 

@@ -168,4 +168,10 @@ public class CarteSotraServiceImpl extends TraitableServiceImpl<CarteSotra, Long
 			super.validationAccepter(carteSotra);
 	}
 
+	@Override
+	public Collection<CarteSotra> findDemandesSolde() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

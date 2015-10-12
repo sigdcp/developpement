@@ -6,6 +6,5 @@ import ci.gouv.budget.solde.sigdcp.service.AbstractService;
 public interface AgentMissionReferenceService extends AbstractService<AgentMissionReference, Long> {
 	
 	public void enregistrer(AgentMissionReference agentMissionReference);
-	
 	 
 }

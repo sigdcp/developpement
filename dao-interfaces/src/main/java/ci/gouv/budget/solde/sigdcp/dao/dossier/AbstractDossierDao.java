@@ -33,6 +33,8 @@ public interface AbstractDossierDao<DOSSIER extends Dossier> extends TraitableDa
 	
 	Collection<DOSSIER> readByAgentEtatAndAyantDroit(Personne personne);
 	
+	Collection<DOSSIER> readBySolde(Personne personne);
+	
 	Collection<DOSSIER> readByNatureDeplacementAndStatut(NatureDeplacement natureDeplacement,Statut statut);
 	
 	Collection<DOSSIER> readByNatureDeplacementsByStatut(Collection<NatureDeplacement> natureDeplacements,Statut statut);

@@ -19,13 +19,13 @@
 				<p:column headerText="#{constantResources.text('nomprenoms')}" ><h:outputText value="#{record.achat.delegue.agent.nomPrenoms}" /></p:column>
 				<p:column headerText="Service géré" ><h:outputText value="#{record.achat.delegue.sectionGeree}"/></p:column>
 				<p:column headerText="Nombre de carte" ><h:outputText value="#{record.achat.nombreCarte}" /></p:column>
-				<p:column headerText="Date" rendered="#{controller.showDistributionSotra}" > 
+				<p:column headerText="Date" rendered="#{controller.showDateDistributionSotra}" > 
 					<p:calendar value="#{record.dateDistributionSotra}" navigator="true" required="true" validator="#{validationManager.validateDateDistributionBCCSSotra}">
 						<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 						<p:message for="@parent" />
 					</p:calendar>
 				</p:column>		
-				<p:column headerText="Date" rendered="#{controller.showDistributionDelegue}" > 
+				<p:column headerText="Date" rendered="#{controller.showDateDistributionDelegue}" > 
 					<p:calendar value="#{record.dateDistributionDelegue}" navigator="true" required="true" validator="#{validationManager.validateDateDistributionBCCSDelegue}">
 						<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 						<p:message for="@parent" />

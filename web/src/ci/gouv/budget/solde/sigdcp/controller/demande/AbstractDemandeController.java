@@ -77,6 +77,7 @@ public abstract class AbstractDemandeController<ENTITY extends AbstractModel<?>>
 		});
 		
 		pieceJustificativeUploader.setEditable(isEditable());
+		
 	}
 	
 	protected abstract void enregistrer() throws Exception;

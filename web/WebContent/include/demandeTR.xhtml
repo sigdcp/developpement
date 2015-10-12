@@ -14,7 +14,9 @@
 		<ui:param name="editable" value="#{faireDemandeTransitController.editable}" />
 		
 		<ui:include src="/include/outputAgentEtat.xhtml" >
+			<ui:param name="ctrl" value="#{controller}" />
 			<ui:param name="agentEtat" value="#{faireDemandeTransitController.entity.beneficiaire}" />
+			<ui:param name="solde" value="#{controller.solde}" />
 		</ui:include> 
 		
 		<ui:include src="/include/inputCourrier.xhtml" >

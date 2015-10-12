@@ -16,6 +16,7 @@ import ci.gouv.budget.solde.sigdcp.dao.dossier.NatureDeplacementDao;
 import ci.gouv.budget.solde.sigdcp.dao.geographie.LocaliteDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.FonctionDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.SectionDao;
+import ci.gouv.budget.solde.sigdcp.dao.identification.TypeSectionDao;
 import ci.gouv.budget.solde.sigdcp.dao.prestation.PrestataireDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.calendrier.Exercice;
@@ -36,6 +37,7 @@ import ci.gouv.budget.solde.sigdcp.model.identification.Section;
 import ci.gouv.budget.solde.sigdcp.model.identification.Sexe;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypeAgentEtat;
 import ci.gouv.budget.solde.sigdcp.model.identification.TypePrestataire;
+import ci.gouv.budget.solde.sigdcp.model.identification.TypeSection;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.GroupeMission;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.TypeClasseVoyage;
 import ci.gouv.budget.solde.sigdcp.model.prestation.Prestataire;
@@ -50,6 +52,13 @@ public class ListeResources {
  
 	@Inject private DynamicEnumerationDao dynamicEnumerationDao;
 	@Inject private PrestataireDao prestataireDao;
+	@Inject private TypeSectionDao typeSectionDao;
+	@Inject private SectionDao sectionDao;
+	
+	@Produces @Named
+    public List<TypeSection> getTypeSections(){
+    	return new LinkedList<>(typeSectionDao.readAll());
+    }
 	
 	@Produces @Named
     public List<Section> getSections(){
@@ -195,7 +204,7 @@ public class ListeResources {
     	return new LinkedList<>(dynamicEnumerationDao.readAllByClass(TypeDepense.class)); 
     }
     
-    @Inject private SectionDao sectionDao;
+   
     @Produces @Named
     public List<Section> getServices(){
     	return new LinkedList<>(sectionDao.readBySectionTypeId(Code.TYPE_SECTION_SERVICE));

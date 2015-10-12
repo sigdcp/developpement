@@ -37,17 +37,17 @@ public class QuiEtesVousController extends AbstractUIController implements Seria
 		} catch (NumberFormatException e) {return;}
 		
 		if(Code.TYPE_AGENT_ETAT_FONCTIONNAIRE.equals(typeRequerant))
-			requerant=new CategorieRequerant("Fonctionnaire",text("inscription.fonctionnaireagent.description") , "inscriptionfonctionnaireagent");
+			requerant=new CategorieRequerant("Fonctionnaires",text("inscription.fonctionnaireagent.description") , "inscriptionfonctionnaireagent");
 		else if(Code.TYPE_AGENT_ETAT_GENDARME.equals(typeRequerant))
-			requerant=new CategorieRequerant("Gendarme", text("inscription.inscriptiongendarme.description"), "inscriptiongendarme");
+			requerant=new CategorieRequerant("Gendarmes et militaires", text("inscription.inscriptiongendarme.description"), "inscriptiongendarme");
 		else if(Code.TYPE_AGENT_ETAT_CONTRACTUEL.equals(typeRequerant))
-			requerant=new CategorieRequerant("Contractuel", text("inscription.inscriptioncontractuel.description"), "inscriptioncontractuel");
+			requerant=new CategorieRequerant("Contractuels", text("inscription.inscriptioncontractuel.description"), "inscriptioncontractuel");
 		else if(Code.TYPE_AGENT_ETAT_MISSION.equals(typeRequerant))
-			requerant=new CategorieRequerant("Agent de mission", text("inscription.inscriptionagentmission.description"), "inscriptionagentmission");
+			requerant=new CategorieRequerant("Agents de mission", text("inscription.inscriptionagentmission.description"), "inscriptionagentmission");
 		else if(Code.TYPE_PERSONNE_AYANT_DROIT.equals(typeRequerant))
 			requerant=new CategorieRequerant("Ayant droit d'un parent défunt", text("inscription.inscriptiondeclarantdeces.description"), "inscriptiondeclarantdeces");
 		else if(Code.TYPE_PRESTATAIRE.equals(typeRequerant))
-			requerant=new CategorieRequerant("Prestataire", text("inscription.inscriptionprestataire.description"), "inscriptionprestataire");
+			requerant=new CategorieRequerant("Prestataires", text("inscription.inscriptionprestataire.description"), "inscriptionprestataire");
 		
 	}
 		

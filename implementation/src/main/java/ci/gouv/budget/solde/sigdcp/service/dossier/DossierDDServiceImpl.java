@@ -107,7 +107,14 @@ public class DossierDDServiceImpl extends AbstractDossierServiceImpl<DossierDD> 
 
 	@Override
 	protected DossierDD createDossier(NatureDeplacement natureDeplacement) {
-		return new DossierDD(new Deplacement(genericDao.readByClass(TypeDepense.class, String.class, Code.TYPE_DEPENSE_REMBOURSEMENT)));
+		
+		DossierDD dossierDD=new DossierDD(new Deplacement(genericDao.readByClass(TypeDepense.class, String.class, Code.TYPE_DEPENSE_REMBOURSEMENT)));
+		if(natureDeplacement!=null && natureDeplacement.getSceSolde()){
+			dossierDD.getDeplacement().setAddUser(utilisateur());
+			//dossierDD.setBeneficiaire(new AgentEtat());			
+		}
+		
+		return dossierDD;
 	}
 
 	@Override

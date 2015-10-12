@@ -20,8 +20,11 @@ import ci.gouv.budget.solde.sigdcp.model.dossier.DossierMission;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.model.dossier.TypeDepense;
+import ci.gouv.budget.solde.sigdcp.model.identification.AgentEtat;
 import ci.gouv.budget.solde.sigdcp.service.ActionType;
 import ci.gouv.budget.solde.sigdcp.service.dossier.AbstractDossierService;
+import ci.gouv.budget.solde.sigdcp.service.geographie.LocaliteService;
+import ci.gouv.budget.solde.sigdcp.service.identification.AgentEtatService;
 import ci.gouv.budget.solde.sigdcp.service.resources.CRUDType;
 import ci.gouv.budget.solde.sigdcp.service.utils.ServiceUtils;
 
@@ -32,7 +35,12 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 	
 	@Inject transient private ServiceUtils serviceUtils;
 	
+	@Inject private AgentEtatService agentEtatService;
+	
 	@Setter @Getter protected NatureDeplacement natureDeplacement;
+	@Setter @Getter protected LocaliteService localiteService;
+	@Setter @Getter private String solde=null;
+	
 	protected CourrierDto courrierDto;
 	protected Boolean showHistoriqueTraitements=Boolean.TRUE,showBulletinLiquidation=Boolean.FALSE,showIndemnite=Boolean.FALSE;
 	
@@ -41,12 +49,20 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 	@Override
 	protected void initDto() {
 		super.initDto();
+		
+		try {
+			solde = Faces.getRequestParameter(webConstantResources.getRequestParamSolde());
+			if(solde!=null)
+				natureDeplacement.setSceSolde(Boolean.TRUE);		
+		} catch (NumberFormatException e) {}
 		entity = getDossierService().findDemande(natureDeplacement,requestParameterLong(webConstantResources.getRequestParamDossier()),requestParameter(webConstantResources.getRequestParamNatureOperation()));
+		
 	}
 	
 	@Override
 	protected void afterDtoInit() {
 		super.afterDtoInit();
+			//System.out.println("AbstractFaireDemandeController.afterDtoInit() YYYY"+entity.getCourrier());	
 		title = entity.getDeplacement().getNature().getLibelle(); /*(natureOperation==null?"":" - "+natureOperation.getLibelle())*/;
 		courrierDto = new CourrierDto(entity.getCourrier());
 		showIndemnite = !entity.getBulletinLiquidations().isEmpty();
@@ -65,7 +81,8 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 					crudType = ((DossierMission)entity).getDeplacement().getNature().getCode().equals(Code.NATURE_DEPLACEMENT_MISSION_HCI)?CRUDType.READ:CRUDType.UPDATE;
 				else
 					crudType = CRUDType.UPDATE;
-				pieceJustificativeUploader.setSoumission(true);
+				pieceJustificativeUploader.setSoumission(true);				
+				
 				break;
 			case Code.NATURE_OPERATION_TRANSMISSION_SAISIE_A_ORGANISATEUR:crudType = CRUDType.UPDATE;break;
 			case Code.NATURE_OPERATION_DEPOT:
@@ -114,6 +131,16 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 			enregistrerCommand.setRendered(true);
 			defaultSubmitCommand.setRendered(!Code.NATURE_OPERATION_TRANSMISSION_SAISIE_A_ORGANISATEUR.equals(entity.getTraitable().getNatureOperation().getCode()));
 			pieceJustificativeUploader.setShowDescriptions(true);
+			
+			
+			
+			//if(entity.getDeplacement().getAddUser().getId()==userSessionManager.getUser().getId()){
+			for(int i = 0;i<pieceJustificativeUploader.getCollection().size();i++){
+				pieceJustificativeUploader.getCollection().get(i).setNumeroEditable(true);
+				pieceJustificativeUploader.getCollection().get(i).setDateEtablissementEditable(true);
+			}
+			//}
+			
 			break;
 		case DELETE:
 			defaultSubmitCommand.setValue(text("bouton.annuler"));
@@ -152,6 +179,7 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 	protected void enregistrer() throws Exception {
 		entity.setPieceJustificatives( pieceJustificativeUploader.process());
 		getDossierService().enregistrer(ActionType.ENREGISTRER,entity);
+		
 	}
 		
 	@Override
@@ -203,6 +231,14 @@ public abstract class AbstractFaireDemandeController<DOSSIER extends Dossier,DOS
 	public void typeDepenseListener(ValueChangeEvent valueChangeEvent) {
 		entity.setTypeDepense((TypeDepense) valueChangeEvent.getNewValue());
 		updatePieceJustificatives();
+	}
+	
+	public void matriculeListener(ValueChangeEvent valueChangeEvent){
+		AgentEtat agentEtat = agentEtatService.findByMatriculeByReference((String) valueChangeEvent.getNewValue());
+		//entity.getBeneficiaire().setMatricule((String) valueChangeEvent.getNewValue());
+		entity.getBeneficiaire().setDateNaissance(agentEtat.getDateNaissance());
+		//System.out.println("FaireDemandeDDController.matriculeListener()"+entity.getBeneficiaire().getDateNaissance());
+		
 	}
 	
 	

@@ -51,6 +51,21 @@ public class GenericJpaDaoImpl implements GenericDao , Serializable {
 				.getResultList();
 	}
 
+	
+	@Override
+	public <TYPE> List<TYPE> readAllByClass(Class<TYPE> aClass, Integer debut, Integer max) {
+		return (List<TYPE>) entityManager.createQuery("SELECT entity FROM "+aClass.getSimpleName()+" entity", aClass)
+				.setFirstResult(debut).setMaxResults(max)
+				.getResultList();
+	}
+	
+	@Override
+	public <TYPE> List<TYPE> readAllByClass(Class<TYPE> aClass, String critere) {
+		return (List<TYPE>) entityManager.createQuery("SELECT entity FROM "+aClass.getSimpleName()+" entity ORDER  BY entity."+critere+" ASC", aClass)
+				.getResultList();
+	}
+
+
 	@Override
 	public void create(AbstractModel<Object> object) {
 		throw new RuntimeException("Must not be called");

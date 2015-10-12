@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import lombok.Getter;
 import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEffectuerOperationPersonnelController;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
@@ -29,7 +30,7 @@ public abstract class AbstractProjetDecisionListePersonnelController extends Abs
 	/*
 	 * Dto
 	 */
-	protected boolean showNumeroCabinet=false;
+	@Getter protected boolean showNumeroCabinet=false;
 	
 	@Override
 	protected void initialisation() {

@@ -12,4 +12,8 @@ public interface GenericService extends AbstractService<AbstractModel<Object>, O
 	
 	<TYPE> Collection<TYPE> findAllByClass(Class<TYPE> aClass);
 	
+	<TYPE> Collection<TYPE> findAllByClass(Class<TYPE> aClass, Integer debut, Integer max);
+	
+	<TYPE> Collection<TYPE> findAllByClass(Class<TYPE> aClass, String critere);
+	
 }

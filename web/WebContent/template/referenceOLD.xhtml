@@ -17,8 +17,7 @@
 			<ui:param name="uiController" value="#{referenceController}" />
 			<ui:define name="contenu">
 				<p:dataTable id="table" var="record" value="#{referenceController.list}"  editable="true"
-					rowKey="#{index}" rowIndexVar="index" styleClass="myTableStyle"  widgetVar="customerTable"
-             paginator="true" rows="50" emptyMessage="Aucun enrégistrement trouvé">
+					rowKey="#{index}" rowIndexVar="index" styleClass="myTableStyle" paginator="true" rows="10" lazy="true">
 					
 					<!-- update=":form:messageDialogPanel" -->
 					

@@ -15,7 +15,9 @@
 		<ui:param name="requiredEnabled" value="#{controller.requiredEnabled}" />
 		
 		<ui:include src="/include/outputAgentEtat.xhtml" >
+			<ui:param name="ctrl" value="#{controller}" />
 			<ui:param name="agentEtat" value="#{controller.entity.beneficiaire}" />
+			<ui:param name="solde" value="#{controller.solde}" />
 		</ui:include>    
 		
 		<ui:include src="/include/inputCourrier.xhtml" >
@@ -67,7 +69,7 @@
 									
 			</p:panelGrid>
 	
-			<p:panelGrid id="panelGrid2" columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2" rendered="#{controller.entity.beneficiaire.masculin}">
+			<p:panelGrid id="panelGrid2" columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2" rendered="#{controller.entity.beneficiaire.masculin || controller.solde!=null}">
 				
 				<p:outputLabel for="mariage" value="Situation Matrimoniale" rendered="#{editable}"/>			
 				<h:panelGroup rendered="#{editable}">

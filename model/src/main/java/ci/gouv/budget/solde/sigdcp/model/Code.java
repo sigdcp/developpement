@@ -25,6 +25,9 @@ public interface Code {
 	
 	String ROLE_PRESTATAIRE = "PRESTATAIRE";
 	
+	
+	String OPERATER_SOLDE = "SOLDE";
+	
 	/*
 	 * Catégorie de déplacement
 	 * 
@@ -49,6 +52,7 @@ public interface Code {
 	String NATURE_DEPLACEMENT_OBSEQUE_FRAIS = "FO";
 	String NATURE_DEPLACEMENT_TITRE_TRANSPORT_CONGE = "TT_CONGE";
 	String NATURE_DEPLACEMENT_TITRE_TRANSPORT_STAGE = "TT_STAGE";
+	
 	
 	/*
 	 * Type de pieces produites

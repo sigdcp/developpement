@@ -22,7 +22,7 @@ public class BeneficiaireCarteSotraDaoImpl extends JpaDaoImpl<BeneficiaireCarteS
 
 	@Override
 	public Collection<BeneficiaireCarteSotra> readValideByDelegue(AgentEtat agentEtat) {
-		return entityManager.createQuery("SELECT beneficiaire FROM BeneficiaireCarteSotra beneficiaire WHERE beneficiaire.delegue.agent = :agentEtat AND beneficiaire.valide=true", clazz)
+		return entityManager.createQuery("SELECT beneficiaire FROM BeneficiaireCarteSotra beneficiaire WHERE beneficiaire.delegue.agent = :agentEtat AND beneficiaire.valide=1", clazz)
 				.setParameter("agentEtat", agentEtat)
 				.getResultList();
 	}

@@ -134,6 +134,13 @@ public class DemandeCotationObsequeServiceImpl extends TraitableServiceImpl<Dema
 		return null;
 	}
 
+
+	@Override
+	public Collection<DemandeCotationObseque> findDemandesSolde() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 

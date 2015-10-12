@@ -8,13 +8,50 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <body>
 	<ui:composition>
-				 
-			<h:outputText value="Matricule" />
-		 	<h:outputText value="#{agentEtat.matricule}"/>
+	<p:panelGrid id="panelIdentite" columns="4" styleClass="panelGridNoBorder" columnClasses="c1,c2,c1,c2"> 
+			<h:outputText for="mat" value="Matricule" />
+		 	<h:outputText value="#{agentEtat.matricule}" rendered="#{solde==null}"/>
+			
+			<p:inputText id="matAgent" required="true"	value="#{agentEtat.matricule}" requiredMessage="#{valueRequiredMessage}" rendered="#{solde!=null}"  valueChangeListener="#{ctrl.matriculeListener}">
+					<p:ajax event="change"/>
+				<p:message for="@parent" />
+			</p:inputText>
 			
 			<h:outputText value="Nom et prénoms" />
-		 	<h:outputText value="#{agentEtat.nomPrenoms}"/>
+		 	<h:outputText value="#{agentEtat.nomPrenoms}" rendered="#{solde==null}"/>
 		 	
+		 	<p:inputText id="nomAgent" required="true"	value="#{agentEtat.nom}" requiredMessage="#{valueRequiredMessage}" rendered="#{solde!=null}" >
+		 		<p:message for="@parent" />
+		 	</p:inputText>
+		 	
+		 	<p:outputLabel for="sexe" value="Sexe" rendered="#{solde!=null}"/>			
+			<h:panelGroup rendered="#{solde!=null}">
+				<p:message for="sexe" rendered="#{solde!=null}"/>
+				<p:selectOneRadio id="sexe" value="#{agentEtat.sexe}" required="true" requiredMessage="#{valueRequiredMessage}"  rendered="#{solde!=null}">
+					<f:selectItems value="#{sexes}"/>
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+				</p:selectOneRadio>
+			</h:panelGroup>
+			
+			<p:outputLabel for="typePersonne" value="Type d'agent " rendered="#{solde!=null}"/>
+				<h:panelGroup rendered="#{solde!=null}">
+					<p:message for="typePersonne" />
+					<p:selectOneMenu id="typePersonne" value="#{agentEtat.type}" required="true"  
+						converter="#{objectConverter}"  binding="#{typePersonne}">
+						<f:selectItem noSelectionOption="" itemLabel="#{noSelectionOptionMessage}"/>
+						<f:selectItems value="#{typeAgentEtatsFonctionnaire}" var="typeAgentEtat" itemLabel="#{typeAgentEtat.libelle}" />
+						<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+				
+				<!-- <p:outputLabel for="email" value="Email" />
+				<p:inputText id="email" value="#{agentEtat.contact.email}" required="#{required}"  rendered="#{solde!=null}"
+					validator="#{validationManager.validateAdresseElectroniqueCompte}">
+					<f:validateBean  validationGroups="#{clientValidationGroupClass}" />
+					<f:attribute name="typeEmail" value="#{typeEmail}" />
+					<p:message for="@parent" />
+				</p:inputText> -->
+	</p:panelGrid>			
 		 	<!--
 			<h:outputText value="Prenoms" />
 			<h:outputText value="#{agentEtat.prenoms}"/>

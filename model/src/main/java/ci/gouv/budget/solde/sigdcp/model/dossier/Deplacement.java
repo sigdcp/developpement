@@ -28,6 +28,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.model.AbstractModel;
 import ci.gouv.budget.solde.sigdcp.model.geographie.Localite;
+import ci.gouv.budget.solde.sigdcp.model.identification.Personne;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.System;
 
@@ -73,6 +74,9 @@ public class Deplacement  extends AbstractModel<Long>  implements Serializable{
 	@ManyToOne
 	@JoinColumn
 	private Localite localiteArrivee;
+	
+	@ManyToOne
+	private Personne addUser;
 	
 	/**/
 	

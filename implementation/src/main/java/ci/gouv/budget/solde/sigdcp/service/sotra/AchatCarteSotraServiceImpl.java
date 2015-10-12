@@ -152,4 +152,10 @@ public class AchatCarteSotraServiceImpl extends TraitableServiceImpl<AchatCarteS
 		return traitementAchatCarteSotraDao.readAll();
 	}
 
+	@Override
+	public Collection<AchatCarteSotra> findDemandesSolde() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -24,7 +24,7 @@ public class PieceJustificativeDaoImpl extends AbstractDocumentDaoImpl<PieceJust
 	@Override
 	public PieceJustificative readAdministrativeByDossier(Dossier dossier) {
 		try {
-			return entityManager.createQuery("SELECT pj FROM PieceJustificative pj WHERE pj.dossier=:dossier AND pj.model.config.administrative=true", clazz)
+			return entityManager.createQuery("SELECT pj FROM PieceJustificative pj WHERE pj.dossier=:dossier AND pj.model.config.administrative=1", clazz)
 					.setParameter("dossier", dossier)
 					.getSingleResult();
 		} catch (NoResultException e) {

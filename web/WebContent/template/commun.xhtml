@@ -11,6 +11,13 @@
 		<h:outputStylesheet library="css" name="style.css" />
 		<title><h:outputText value="SIGDCP - #{templateController.title}" /></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<script>
+			$(document).ready(function(){
+				$(".ui-inputfield").each(function(){
+					$(this).attr('autocomplete','off')
+					});
+				});
+		</script>
     </h:head>
     
     <ui:insert name="metadata"/>

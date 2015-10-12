@@ -26,42 +26,63 @@ public abstract class AbstractEntiteReferenceController<ENTITY extends AbstractM
 	
 	@Getter @Setter protected List<ENTITY> enAjout = new ArrayList<>();
 	
+	//@Getter @Setter protected List<ENTITY> list2 = new ArrayList<>();
+	
+	
+	//@Getter  private LazyDataModel lazyTableModel;
+	
 	@Override
 	protected void initialisation() {
 		super.initialisation();
 		title = "Gestion des entités de références - "+nomEntite();
 		defaultSubmitCommand.setRendered(false);
 		etatBoutonAjouter = true;
+		
+		/*
+		lazyTableModel = new LazyDataModel() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public List<ENTITY> load(int first, int pageSize, List multiSortMeta,Map filters) {
+				return new ArrayList<>(genericService.findAllByClass(clazz(), first, pageSize));
+			}
+	 	 };*/
+	 	 
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void onRowEdit(RowEditEvent event){
-		System.out.println("AbstractEntiteReferenceController.onRowEdit()");
+	public void onRowEdit(RowEditEvent event){	
 		if(enAjout.isEmpty())
 			enregistrer((ENTITY) event.getObject());
 		else{
 			if(crudService.existe(clazz(), identifiant((ENTITY) event.getObject()))){
 				messageManager.addError("Cet enregistrement existe déja!", false);
-			}else{
+			}else{				
 				enregistrer((ENTITY) event.getObject());
 				supprimerObject(enAjout,event.getObject());
+				redirectUrl(url);
 			}
 		}
+		
 	}
 	
 	private void enregistrer(ENTITY entity){
 		try {
 			crudService.enregistrer(entity);
+			//HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+			//Faces.redirect(url);
+			
 		} catch (Exception e) {
 			messageManager.addError(e);
 		}
+		
 	}
 	
 	public void onRowEditCancel(RowEditEvent event){
 		if(supprimerObject(enAjout,event.getObject())){
-			supprimerObject(list, event.getObject());
-			
+			redirectUrl(url);
 		}
+		
 	}
 	
 	@Override
@@ -80,20 +101,27 @@ public abstract class AbstractEntiteReferenceController<ENTITY extends AbstractM
 	protected abstract Class<ENTITY> clazz(); 
 	
 	public void ajouter(){
+		
 		if(enAjout.isEmpty()){
+			
 			try {
 				ENTITY entity = clazz().newInstance();
+				list.clear();
 				list.add(entity);
 				enAjout.add(entity);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
+			
 		}
 	}
 	
 	public void supprimer(ENTITY entity){
 		crudService.supprimer(Arrays.asList(entity));
 		supprimerObject(list, entity);
+		if(!enAjout.isEmpty())supprimerObject(enAjout,entity);
+		
 	}
 	
 	private Boolean supprimerObject(List<ENTITY> objects,Object object){

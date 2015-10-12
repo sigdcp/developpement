@@ -58,7 +58,7 @@ public class ObjectConverter implements Converter {
 			return ((Dossier) object).getId().toString();
 		}else if(object instanceof AgentEtatReference){
 			return ((AgentEtatReference) object).getMatricule();
-		}else
+		}else if(!(object instanceof String))
 			log.warning("Cannot find identitifer of this object type : "+object.getClass());
 		return null;
 	}
@@ -81,7 +81,7 @@ public class ObjectConverter implements Converter {
 			return NULL_STRING_VALUE;
 		String identifier = getIdentifier(object);
 		if(identifier==null){
-			log.warning("Identifier value of <"+object+"> is null");
+			//log.warning("Identifier value of <"+object+"> is null");
 			return NULL_STRING_VALUE;
 		}
 		// handle duplicate id (two object of different type can have the same id value)

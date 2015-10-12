@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam id="nextViewOutcome" name="#{webConstantResources.requestParamNextViewOutcome}" value="#{demandeIndemnisationListeController.nextViewOutcome}" converter="#{viewParamOutcomeConverter}" >
+				<f:attribute name="#{webConstantResources.requestParamOutcomeAction}" value="false" />
+			</f:viewParam>
+        	<f:event type="preRenderView" listener="#{demandeIndemnisationListeController.preRenderView}" />    	
+    	</f:metadata>
+	</ui:define>
+		
+	<ui:composition template="/template/commun.xhtml">
+		<ui:define name="contenu">
+			<ui:decorate template="/template/formTemplate.xhtml">
+				<ui:param name="uiController" value="#{demandeIndemnisationListeController}" />
+				<ui:define name="contenu">
+					<ui:include src="/include/listedemandeindemnisationagentetat.xhtml">
+						<ui:param name="controller" value="#{demandeIndemnisationListeController}" />
+					</ui:include>
+					<!--
+					<ui:decorate template="/template/dataList.xhtml">
+						<ui:param name="controller" value="#{demandeIndemnisationListeController}" />
+												
+						<ui:define name="colonnes">
+							<p:column headerText="N°"><h:outputText value="#{record.dossier.numero}" /></p:column>
+							<p:column headerText="Nature"><h:outputText value="#{record.natureDeplacementMessage}" /></p:column>
+							<p:column headerText="Statut">
+								<h:outputText value="#{record.dossier.dernierTraitement.statutMessage}" escape="false"/>
+							</p:column>
+						</ui:define>
+						
+					</ui:decorate>
+					-->		
+				</ui:define>
+				</ui:decorate>
+		</ui:define>
+		
+	</ui:composition>
+
+</h:body>
+
+</html>

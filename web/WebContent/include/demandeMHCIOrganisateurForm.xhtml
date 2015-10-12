@@ -138,6 +138,7 @@
 				.participantPgRight{vertical-align: top;}
 			</style>
 			<p:tabView id="participants" var="participant" value="#{organiserMissionController.participants}" >
+			
 				<p:tab title="#{participant.libelle}" >
 					
 					<ui:include src="/include/inputCourrier.xhtml" >
@@ -162,6 +163,7 @@
 					<p:panelGrid columns="2" style="width:100%;" styleClass="panelGridNoBorder" columnClasses="participantPgLeft,participantPgRight">
 						
 						<p:panelGrid id="panelIdentite" columns="4"  columnClasses="c1,c2,c1,c2"> 
+						
 					    	
 					    	<p:outputLabel for="typePersonne" value="Type d'agent " />
 					    	<h:panelGroup rendered="#{participant.editable}">
@@ -208,23 +210,24 @@
 																		
 						</p:panelGrid>
 						<p:fieldset legend="Indemnités">
+		
 							<p:panelGrid columns="2" styleClass="panelGridNoBorder">
 								<p:outputLabel for="indemniteSejour" value="Séjour" />
-								<pe:inputNumber id="indemniteSejour" value="#{participant.dossierMission.frais.indemnite}" required="#{required}" rendered="#{editable}">  
+								<pe:inputNumber id="indemniteSejour" value="#{participant.dossierMission.frais.indemnite}" required="#{required}" rendered="#{editable}" autocomplete="off">  
 									<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 									<p:message for="@parent"/>
 								</pe:inputNumber>
 								<h:outputText value="#{participant.dossierMission.frais.indemnite}" rendered="#{not editable}"/>
 								
 								<p:outputLabel for="indemniteTransport" value="Transport" />
-								<pe:inputNumber id="indemniteTransport" value="#{participant.dossierMission.frais.transport}" required="#{required}" rendered="#{editable}">  
+								<pe:inputNumber id="indemniteTransport" value="#{participant.dossierMission.frais.transport}" required="#{required}" rendered="#{editable}" autocomplete="off">  
 									<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 									<p:message for="@parent"/>
 								</pe:inputNumber>
 								<h:outputText value="#{participant.dossierMission.frais.transport}" rendered="#{not editable}"/>
 								
 								<p:outputLabel for="indemniteDivers" value="Divers" />
-								<pe:inputNumber id="indemniteDivers" value="#{participant.dossierMission.frais.divers}" required="#{required}" rendered="#{editable}">  
+								<pe:inputNumber id="indemniteDivers" value="#{participant.dossierMission.frais.divers}" required="#{required}" rendered="#{editable}" autocomplete="off">  
 									<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 									<p:message for="@parent"/>
 								</pe:inputNumber>

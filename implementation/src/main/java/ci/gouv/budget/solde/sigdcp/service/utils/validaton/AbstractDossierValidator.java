@@ -26,6 +26,16 @@ public class AbstractDossierValidator<DOSSIER extends Dossier> extends AbstractV
 	@Setter protected Collection<PieceJustificativeAFournir> pieceJustificativeAFournirs;
 	@Getter @Setter protected Boolean soumission;
 	
+	@AssertTrue(message="le matricule n'est pas valide",groups=Client.class)
+	public boolean isMatriculeFormatCorrect(){
+		try {
+			if(!object.getDeplacement().getNature().getSceSolde())
+				return true;
+			validationPolicy.validateMatricule(object.getBeneficiaire().getType(),object.getBeneficiaire().getMatricule());
+			return true;
+		} catch (Exception e) {return false;}
+	}
+	
 	@AssertTrue(message="la date de prise de service n'est pas valide",groups=Client.class)
 	public boolean isValidDatePriseService(){
 		if(Code.NATURE_DEPLACEMENT_RETRAITE.equals(object.getDeplacement().getNature().getCode()))

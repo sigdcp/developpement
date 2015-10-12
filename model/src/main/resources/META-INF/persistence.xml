@@ -15,8 +15,8 @@
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		
 		<properties>
-			<!-- EclipseLink -->
-			<property name="eclipselink.logging.level" value="FINE" />
+			<!-- EclipseLink ERROR WARNING INFO FINE FINEST TRACE ALL -->
+			<property name="eclipselink.logging.level" value="INFO" />
 			<property name="eclipselink.logging.level.sql" value="FINE"/>
 			<property name="eclipselink.logging.parameters" value="true"/>
 			

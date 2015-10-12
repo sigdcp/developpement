@@ -25,8 +25,8 @@ public class Cercueil  extends DynamicEnumeration  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(precision=10,scale=2)
-	@NotNull
+	//@Column(precision=10,scale=2)
+	//@NotNull
 	private BigDecimal montant;
 	
 	public Cercueil() {

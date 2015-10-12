@@ -11,6 +11,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.omnifaces.util.Faces;
 import org.primefaces.event.NodeCollapseEvent;
 import org.primefaces.event.NodeExpandEvent;
@@ -98,6 +100,7 @@ public class UserSessionManager implements Serializable{
 	}
 	
 	public String getUserInfosLine(){
+		System.out.println(ToStringBuilder.reflectionToString(compteUtilisateur.getUtilisateur(), ToStringStyle.MULTI_LINE_STYLE));
 		if(compteUtilisateur==null)
 			return null;
 		if(compteUtilisateur.getUtilisateur() instanceof Personne)

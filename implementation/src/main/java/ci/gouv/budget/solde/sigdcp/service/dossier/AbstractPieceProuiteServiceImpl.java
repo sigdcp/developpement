@@ -37,6 +37,12 @@ public abstract class AbstractPieceProuiteServiceImpl<PIECE_PRODUITE extends Pie
 		serviceException("Ne doit pas etre sollicitée");
 		return null;
 	}
+	
+	@Override
+	public Collection<PIECE_PRODUITE> findDemandesSolde() {
+		serviceException("Ne doit pas etre sollicitée");
+		return null;
+	}
 
 	@Override
 	protected void associerTraitement(PIECE_PRODUITE piece) {

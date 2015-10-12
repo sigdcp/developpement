@@ -88,6 +88,12 @@
 		</navigation-case>
 		
 		<navigation-case>
+			<from-outcome>demandelistesolde</from-outcome>
+			<to-view-id>/private/demande/agentetat/listesolde.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
 			<from-outcome>agentmission</from-outcome>
 			<to-view-id>/private/demande/pointfocal/agentmission.xhtml</to-view-id>
 			<redirect />
@@ -97,6 +103,11 @@
 
 		<navigation-case>
 			<from-outcome>demandeconsultation</from-outcome>
+			<to-view-id>/private/demande/agentetat/details.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>demandeconsultationsolde</from-outcome>
 			<to-view-id>/private/demande/agentetat/details.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>

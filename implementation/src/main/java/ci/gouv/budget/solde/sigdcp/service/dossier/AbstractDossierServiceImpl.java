@@ -2,6 +2,7 @@ package ci.gouv.budget.solde.sigdcp.service.dossier;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,7 @@ import ci.gouv.budget.solde.sigdcp.dao.dossier.DossierDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeAFournirDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeDao;
 import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceProduiteDao;
+import ci.gouv.budget.solde.sigdcp.dao.identification.AgentEtatDao;
 import ci.gouv.budget.solde.sigdcp.dao.traitement.OperationValidationConfigDao;
 import ci.gouv.budget.solde.sigdcp.dao.traitement.TraitementDossierDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
@@ -46,6 +48,8 @@ import ci.gouv.budget.solde.sigdcp.model.traitement.TraitementDossier;
 import ci.gouv.budget.solde.sigdcp.service.ActionType;
 import ci.gouv.budget.solde.sigdcp.service.ServiceException;
 import ci.gouv.budget.solde.sigdcp.service.ServiceExceptionType;
+import ci.gouv.budget.solde.sigdcp.service.identification.AgentEtatReferenceService;
+import ci.gouv.budget.solde.sigdcp.service.identification.AgentEtatService;
 import ci.gouv.budget.solde.sigdcp.service.sotra.TraitableServiceImpl;
 import ci.gouv.budget.solde.sigdcp.service.traitement.TraitementDossierService;
 
@@ -68,6 +72,9 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	@Inject private TraitementDossierDao traitementDossierDao;
 	@Inject protected OperationValidationConfigDao operationValidationConfigDao;
 	@Inject protected BulletinLiquidationService bulletinLiquidationService;
+	@Inject private AgentEtatService agentEtatService;
+	@Inject private AgentEtatReferenceService agentEtatReferenceService;
+	@Inject private AgentEtatDao agentEtatDao;
 	
 	public AbstractDossierServiceImpl(AbstractDossierDao<DOSSIER> dao) {
 		super(dao); 
@@ -162,8 +169,11 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 			if(dossier==null)
 				serviceException(ServiceExceptionType.RESOURCE_NOT_FOUND);
 		}else{
+			if(!natureDeplacement.getSceSolde())
 			dossier = ((AbstractDossierDao<DOSSIER>)dao).readSaisieByPersonneByNatureDeplacement(utilisateur(), natureDeplacement);
+			
 			if(dossier==null){// Nouveau dossier
+				
 				dossier = createDossier(natureDeplacement);
 				if(dossier!=null){
 					dossier.getDeplacement().setNature(natureDeplacement);
@@ -182,6 +192,14 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	@Override @TransactionAttribute(TransactionAttributeType.NEVER)
 	public Collection<DOSSIER> findDemandes() {
 		Collection<DOSSIER> demandes = ((AbstractDossierDao<DOSSIER>)dao).readByAgentEtatAndAyantDroit(utilisateur());
+		for(DOSSIER demande : demandes)
+			init(demande, null);
+		return demandes;
+	}
+	
+	@Override @TransactionAttribute(TransactionAttributeType.NEVER)
+	public Collection<DOSSIER> findDemandesSolde() {
+		Collection<DOSSIER> demandes = ((AbstractDossierDao<DOSSIER>)dao).readBySolde(utilisateur());
 		for(DOSSIER demande : demandes)
 			init(demande, null);
 		return demandes;
@@ -214,6 +232,7 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	}
 	
 	public void saisir(Operation operation,DOSSIER dossier,Collection<PieceJustificative> pieceJustificatives){
+		
 		//debug(operation);
 		Date dateCourante = new Date();
 		if(operation==null){//mise a jour
@@ -226,7 +245,17 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 				deplacementService.creer(dossier.getDeplacement());
 			else
 				deplacementDao.update(dossier.getDeplacement());
+			
+			if(agentEtatService.findByMatricule(dossier.getBeneficiaire().getMatricule()) == null){
+				if(agentEtatReferenceService.findById(dossier.getBeneficiaire().getMatricule()) == null)
+					serviceException("Matricule inconnu !");
+				else
+					agentEtatDao.create(dossier.getBeneficiaire());
+			}
+			
+			
 			//dossier.setNumero(numero(dossier, pieceJustificatives));
+			
 			onDaoCreate(dossier);
 			updatePieceJustificatives(dossier, pieceJustificatives);//on enregistre les pieces justificatives
 			//on cree les pieces derivees
@@ -287,8 +316,27 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 		dao.create(dossier);
 	}
 	
+/*	private void preparationSaisieSolde(DOSSIER dossier){
+		//AKM - Enregistrement agent solde		
+			String matricule = dossier.getBeneficiaire().getMatricule();
+			AgentEtat agentEtat = agentEtatDao.readByMatricule(matricule);
+			if(agentEtat==null){ 
+				AgentEtatReference agentEtatReference=agentEtatReferenceDao.read(matricule);
+				if(agentEtatReference==null)
+					serviceException("Matricule inconnu !");
+				dossier.getBeneficiaire().setDateNaissance(agentEtatReference.getDateNaissance());
+				agentEtatDao.create(dossier.getBeneficiaire());
+				//dossier.setBeneficiaire(agentEtatDao.readByMatricule(matricule));
+			}else dossier.getBeneficiaire().setDateNaissance(agentEtat.getDateNaissance());
+			
+	
+	}
+	*/
 	private void enregistrer(DOSSIER dossier){
+		
 		validationSaisie(dossier,false);
+		
+		
 		if(!dao.exist(dossier.getId())){
 			Operation operation = operationService.creer(Code.NATURE_OPERATION_SAISIE);
 			saisir(operation, dossier, dossier.getPieceJustificatives());
@@ -316,13 +364,31 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 		}
 	}
 	
+
 	private void soumettre(DOSSIER dossier){
 		enregistrer(dossier);
 		validationSaisie(dossier,true);
+
 		Operation operation = operationService.creer(Code.NATURE_OPERATION_SOUMISSION);
 		TraitementDossier td = new TraitementDossier();
 		td.setValidationType(ValidationType.ACCEPTER);
 		traitementService.creer(operation, dossier, td,Code.STATUT_ACCEPTE);
+		
+		if(dossier.getDeplacement().getAddUser()!=null){
+			
+			dossier.getTraitable().setTraitement(new TraitementDossier());
+			dossier.getTraitable().setNatureOperation(genericDao.readByClass(NatureOperation.class, Code.NATURE_OPERATION_RECEVABILITE));
+			dossier.getTraitable().getTraitement().setValidationType(ValidationType.ACCEPTER);
+			//dossierService.valider(Arrays.asList((Dossier)dossier));
+			dossier.setCourrier(new Courrier("999", new Date()));
+			//dossier.getCourrier().setNumero("999");
+			deposer(Arrays.asList(dossier));
+			
+			
+			
+		}
+		
+		
 	}
 
 	@Override
@@ -508,7 +574,7 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 		beneficiaire(dossier);
 		if(utilisateur() instanceof AgentEtat){
 			DOSSIER dernierCree = ((AbstractDossierDao<DOSSIER>)dao).readDernierCreeByAgentEtat((AgentEtat) utilisateur());
-			if(dernierCree!=null)
+			if(dernierCree!=null && !dossier.getDeplacement().getNature().getSceSolde())
 				initSaisie(dernierCree, dossier);
 		}
 		dossier.setPieceAdministrative(new PieceJustificative(dossier, null, 
@@ -608,8 +674,13 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 	}
 	
 	protected void beneficiaire(DOSSIER dossier){
-		if(dossier.getBeneficiaire()==null)
-			dossier.setBeneficiaire((AgentEtat) utilisateur());
+		if(dossier.getBeneficiaire()==null){			
+			if(dossier.getDeplacement().getNature().getSceSolde())
+				dossier.setBeneficiaire(new AgentEtat());
+			else 
+				dossier.setBeneficiaire((AgentEtat) utilisateur());
+		}
+		
 	}
 
 	

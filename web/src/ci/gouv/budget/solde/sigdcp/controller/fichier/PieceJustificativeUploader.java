@@ -97,6 +97,7 @@ public class PieceJustificativeUploader implements Serializable {
 	
 	public void addPieces(Collection<PieceJustificative> pieces,Boolean editable){
 		clear();
+		//System.out.println("PieceJustificativeUploader.addPieces() YYYYYYYYYY ");
 		for(PieceJustificative pieceJustificative : pieces){
 			Boolean imprimable = Boolean.TRUE.equals(pieceJustificative.getModel().getConfig().getDerivee()) && editable;
 			if(pieceJustificative.getEditable()!=null)

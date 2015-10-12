@@ -49,6 +49,7 @@ public interface AbstractDossierService<DOSSIER extends Dossier> extends Traitab
 	Collection<DOSSIER> findALiquiderByNatureDeplacementsByAspectLiquide(Collection<NatureDeplacement> natureDeplacements,AspectLiquide aspectLiquide);
 	
 	Collection<DOSSIER> findEditerProjetRemboursement();
+
 	
 	
 }

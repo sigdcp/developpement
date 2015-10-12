@@ -17,7 +17,7 @@ public class ValiderInscriptionListeBaseCarteSotraController extends AbstractAdh
 	@Override
 	protected void initialisation() {
 		super.initialisation();
-		title = "Validation des inscirptions";
+		title = "Validation des inscriptions";
 		defaultSubmitCommand.setValue("Valider");
 		showActionsColumn=false;
 		listTitle="Liste des inscriptions";

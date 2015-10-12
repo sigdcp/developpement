@@ -78,6 +78,12 @@ public class FactureServiceImpl extends TraitableServiceImpl<Facture, Long,Trait
 		f.getTraitable().getTraitement().setValidationType(ValidationType.ACCEPTER);
 		return f;
 	}
+
+	@Override
+	public Collection<Facture> findDemandesSolde() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

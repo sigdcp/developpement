@@ -36,7 +36,13 @@
 			background: #FFFFFF;
 		}
 	</style>
-	
+	<script>
+			$(document).ready(function(){
+				$(".ui-inputfield").each(function(){
+					$(this).attr('autocomplete','off')
+					});
+				});
+		</script>
 	
 	<ui:fragment rendered="#{cc.attrs.uploader.showDescriptions}">
 		<p:spacer height="2"/>

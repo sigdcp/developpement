@@ -11,5 +11,8 @@ public interface GenericDao extends DataAccessObject<AbstractModel<Object>,Objec
 	<TYPE> TYPE readByClass(Class<TYPE> aClass,String identifier);
 	
 	<TYPE> Collection<TYPE> readAllByClass(Class<TYPE> aClass);
+
+	<TYPE> Collection<TYPE> readAllByClass(Class<TYPE> aClass, Integer debut, Integer max);
+	<TYPE> Collection<TYPE> readAllByClass(Class<TYPE> aClass, String critere);
  
 }

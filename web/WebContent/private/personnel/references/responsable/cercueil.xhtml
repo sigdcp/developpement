@@ -23,6 +23,17 @@
 					<p:ajax event="rowEdit" listener="#{cercueilReferenceController.onRowEdit}" update=":form:messageDialogPanel" />  
 					<p:ajax event="rowEditCancel" listener="#{cercueilReferenceController.onRowEditCancel}"  />
 					
+					<p:column headerText="Montant">
+				<p:cellEditor>
+		        	<f:facet name="output"><h:outputText value="#{record.montant}" /></f:facet>
+		            <f:facet name="input">
+		            	<p:inputText value="#{record.montant}" required="true"  label="Montant">
+		            		<f:validateBean validationGroups="#{clientValidationGroupClass}" />
+		            		<p:message for="@parent" />
+		            	</p:inputText>
+		            </f:facet>
+		        </p:cellEditor>		        
+	        </p:column>
 					<p:column headerText="Description">
 					<p:cellEditor>
 			        	<f:facet name="output"><h:outputText value="#{record.description}" /></f:facet>			           

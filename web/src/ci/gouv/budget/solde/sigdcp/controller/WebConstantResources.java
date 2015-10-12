@@ -60,6 +60,7 @@ public class WebConstantResources implements Serializable{
 	@Inject protected RoleManager roleManager;
 	@Getter private final String requestParamSectionId = "secId";
 	@Getter private final String requestParamNatureDeplacement = "nd";
+	@Getter private final String requestParamSolde = "op";
 	@Produces @Named public ViewParamConverter getViewParamNatureDeplacementConverter(){
 		return new ViewParamConverter(genericService, NatureDeplacement.class);
 	}

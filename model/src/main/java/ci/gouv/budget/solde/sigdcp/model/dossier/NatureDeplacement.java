@@ -50,6 +50,9 @@ public class NatureDeplacement  extends DynamicEnumeration  implements Serializa
 	@Transient
 	private Long montantIndemnite;
 	
+	@Transient 
+	private Boolean sceSolde=Boolean.FALSE;
+	
 	public NatureDeplacement() {}
 
 	public NatureDeplacement(CategorieDeplacement categorie,String code, String libelle,

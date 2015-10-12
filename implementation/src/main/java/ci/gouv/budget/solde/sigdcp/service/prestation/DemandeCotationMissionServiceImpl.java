@@ -135,6 +135,13 @@ public class DemandeCotationMissionServiceImpl extends TraitableServiceImpl<Dema
 		return null;
 	}
 
+
+	@Override
+	public Collection<DemandeCotationMission> findDemandesSolde() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 

@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import ci.gouv.budget.solde.sigdcp.model.identification.Grade;
 import ci.gouv.budget.solde.sigdcp.model.indemnite.Cercueil;
 
 @Named @ViewScoped

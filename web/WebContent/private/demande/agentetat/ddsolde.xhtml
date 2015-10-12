@@ -11,25 +11,25 @@
 	<ui:define name="metadata">
 		<f:metadata>
         	<ui:include src="/dossier/include/viewParam.xhtml">
-        		<ui:param name="controller" value="#{faireDemandeTransitController}"/>
+        		<ui:param name="controller" value="#{faireDemandeDDController}"/>
         	</ui:include>	
     	</f:metadata>
 	</ui:define>
-
+		
 	<ui:composition template="#{webConstantResources.pageTemplate}">
-		<ui:param name="templateController" value="#{faireDemandeTransitController}" />
+		<ui:param name="templateController" value="#{faireDemandeDDSoldeController}" />
 		<ui:define name="contenu">
 			<ui:decorate template="/template/fairedemande.xhtml">
-				<ui:param name="faireDemandeController" value="#{faireDemandeTransitController}" />
+				<ui:param name="faireDemandeController" value="#{faireDemandeDDSoldeController}" />
 				<ui:define name="demande">	
-					<ui:include src="/include/demandeTR.xhtml">
-						<ui:param name="controller" value="#{faireDemandeTransitController}"/>
+					<ui:include src="/include/demandeDD.xhtml">
+						<ui:param name="controller" value="#{faireDemandeDDSoldeController}"/>
 					</ui:include>
 				</ui:define>
 			</ui:decorate>
 		</ui:define>
 	</ui:composition>
-		
+
 </h:body>
 
 </html>

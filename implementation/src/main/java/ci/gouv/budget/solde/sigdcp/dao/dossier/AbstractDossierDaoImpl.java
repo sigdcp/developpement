@@ -25,12 +25,14 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Tr
 	
 	@Override
 	public DOSSIER readSaisieByPersonneByNatureDeplacement(Personne personne, NatureDeplacement natureDeplacement) {
+		
 		try {
 			return entityManager.createQuery("SELECT d FROM Dossier d WHERE d.traitable.dernierTraitement.operation.nature.code = :noCode"
-					+ " AND d.traitable.dernierTraitement.operation.effectuePar = :personne AND d.deplacement.nature = :nature", clazz)
+					+ " AND d.traitable.dernierTraitement.operation.effectuePar = :personne AND d.deplacement.nature = :nature AND d.deplacement.addUser != :user", clazz)
 					.setParameter("personne", personne)
 					.setParameter("nature", natureDeplacement)
 					.setParameter("noCode", Code.NATURE_OPERATION_SAISIE)
+					.setParameter("user", personne)
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
@@ -81,6 +83,13 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Tr
 	@Override
 	public Collection<DOSSIER> readByAgentEtatAndAyantDroit(Personne personne) {
 		return entityManager.createQuery("SELECT d FROM Dossier d WHERE d.beneficiaire.id = :pId or d.beneficiaire.ayantDroit.id = :pId", clazz)
+				.setParameter("pId", personne.getId())
+				.getResultList();
+	}
+	
+	@Override
+	public Collection<DOSSIER> readBySolde(Personne personne) {
+		return entityManager.createQuery("SELECT d FROM Dossier d WHERE d.deplacement.addUser.id = :pId", clazz)
 				.setParameter("pId", personne.getId())
 				.getResultList();
 	}

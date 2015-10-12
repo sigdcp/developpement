@@ -45,5 +45,6 @@ public interface TraitableService<TRAITABLE extends AbstractModel<TID>,TID> exte
 	 * @return
 	 */
 	Collection<TRAITABLE> findDemandes();
+	Collection<TRAITABLE> findDemandesSolde();
 
 }

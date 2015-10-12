@@ -153,6 +153,7 @@ public class ValidationPolicy {
 		} catch (Exception e) {
 			exception(ValidationExceptionType.DATE_PRISE_SERVICE);
 		}
+		
 		if(datePriseService==null || datePriseService.before(DateUtils.addYears(agentEtat.getDateNaissance(), getAgeMinimumAns())) || datePriseService.after(tempsCourant())
 				|| (dateFinService!=null && datePriseService.after(dateFinService)))
 			exception(ValidationExceptionType.DATE_PRISE_SERVICE);

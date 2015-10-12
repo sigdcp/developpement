@@ -71,6 +71,7 @@ public class MenuBuilderTree implements Serializable {
 	}
 		
 	private void responsable(){
+		demandeSolde();
 		liquidateur();
 		mission();
 		identification();
@@ -145,6 +146,29 @@ public class MenuBuilderTree implements Serializable {
 				menuManager.addMenuItem(block, "menu.identification.pointfocal",null,"", new Object[]{});
 			*/
 		}
+	}
+
+	private void demandeSolde(){
+		TreeNode block = menuManager.addSubmenu("menu.formulerdemandesolde",null);
+	//if(!roleManager.isAgentSolde())
+		menuManager.addMenuItem(block, "menu.formulerdemande.affectation", "demande_dd",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_AFFECTATION,webConstantResources.getRequestParamSolde(),Code.OPERATER_SOLDE });
+		menuManager.addMenuItem(block, "menu.formulerdemande.mutation","demande_dd",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_MUTATION,webConstantResources.getRequestParamSolde(),Code.OPERATER_SOLDE});
+		menuManager.addMenuItem(block, "menu.formulerdemande.departretraite","demande_dd",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_RETRAITE,webConstantResources.getRequestParamSolde(),Code.OPERATER_SOLDE});
+		menuManager.addMenuItem(block, "menu.formulerdemande.tr.mae","demande_t",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_MAE,webConstantResources.getRequestParamSolde(),Code.OPERATER_SOLDE});
+		menuManager.addMenuItem(block, "menu.formulerdemande.tr.stage","demande_t",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_TRANSIT_BAGAGGES_STAGIAIRE,webConstantResources.getRequestParamSolde(),Code.OPERATER_SOLDE});
+		menuManager.addMenuItem(block,"menu.formulerdemande.mission",null, "demande_m",new Object[]{webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudUpdate()
+				,webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_MISSION_HCI});	
+		menuManager.addMenuItem(block,"menu.formulerdemande.mtt",null, "demande_tt",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_TITRE_TRANSPORT_STAGE,webConstantResources.getRequestParamSolde(),Code.OPERATER_SOLDE});
+		menuManager.addMenuItem(block,"menu.formulerdemande.mtt.exp",null, "demande_tt",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_TITRE_TRANSPORT_CONGE,webConstantResources.getRequestParamSolde(),Code.OPERATER_SOLDE});
+		menuManager.addMenuItem(block, "menu.formulerdemande.obseques","demande_o",new Object[]{
+				webConstantResources.getRequestParamCrudType(),webConstantResources.getRequestParamCrudCreate(),webConstantResources.getRequestParamNatureDeplacement(),Code.NATURE_DEPLACEMENT_OBSEQUE_FRAIS,webConstantResources.getRequestParamSolde(),Code.OPERATER_SOLDE});
 	}
 	
 	private void demande(){
@@ -270,6 +294,7 @@ public class MenuBuilderTree implements Serializable {
 	private void consultation(){
 		TreeNode block = menuManager.addSubmenu("menu.consultation",null);
 		menuManager.addMenuItem(block,"menu.consultation.listedemande","ui-icon-star", "demandeliste",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
+		menuManager.addMenuItem(block,"menu.consultation.listedemandesolde","ui-icon-star", "demandeliste",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation",webConstantResources.getRequestParamSolde(),Code.OPERATER_SOLDE});
 		
 	}
 	

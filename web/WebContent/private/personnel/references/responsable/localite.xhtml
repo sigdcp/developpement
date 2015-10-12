@@ -20,7 +20,7 @@
 				<ui:param name="referenceController" value="#{localiteReferenceController}" />
 				<ui:define name="supColumns">	
 					<p:ajax event="rowEdit" listener="#{localiteReferenceController.onRowEdit}" update=":form:messageDialogPanel" />  
-					<p:ajax event="rowEditCancel" listener="#{localiteReferenceController.onRowEditCancel}"  />
+					<p:ajax event="rowEditCancel" listener="#{localiteReferenceController.onRowEditCancel}" update="table"  />
 			        
 			        <p:column headerText="Type de localité">
 						<p:cellEditor>

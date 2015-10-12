@@ -27,7 +27,9 @@
 		-->
 		
 		<ui:include src="/include/outputAgentEtat.xhtml" >
+			<ui:param name="ctrl" value="#{controller}" />
 			<ui:param name="agentEtat" value="#{faireDemandeTitreTransportController.entity.beneficiaire}" />
+			<ui:param name="solde" value="#{controller.solde}" />
 		</ui:include> 
 		
 		<ui:include src="/include/inputCourrier.xhtml" >

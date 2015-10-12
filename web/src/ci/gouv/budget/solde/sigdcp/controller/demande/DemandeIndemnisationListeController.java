@@ -9,6 +9,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.omnifaces.util.Faces;
 
 import ci.gouv.budget.solde.sigdcp.controller.ui.AbstractEntityListUIController;
@@ -26,11 +29,19 @@ public class DemandeIndemnisationListeController extends AbstractEntityListUICon
 	 * Services
 	 */
 	@Inject protected DossierService dossierService;
+	
+	@Setter @Getter private String solde=null;
  
 	@Override
 	protected void initialisation() {
+		
+		try {
+			solde = Faces.getRequestParameter(webConstantResources.getRequestParamSolde());					
+		} catch (NumberFormatException e) {}
+		
 		super.initialisation();
-		title = text("menu.consulter.demande");
+		
+		title = text((solde==null)?"menu.consulter.demande":"menu.consulter.demande.solde");
 		internalCode = "FS_DEM_01_Ecran_01";
 		defaultSubmitCommand.setRendered(Boolean.FALSE);
 		closeCommand.setRendered(Boolean.FALSE);
@@ -56,7 +67,10 @@ public class DemandeIndemnisationListeController extends AbstractEntityListUICon
 	
 	@Override
 	protected List<Dossier> load() {
-		return new LinkedList<>(dossierService.findDemandes());
+		LinkedList<Dossier> dossiers = new LinkedList<>();			
+		if(solde!=null)dossiers.addAll(dossierService.findDemandesSolde());
+		else dossiers.addAll(dossierService.findDemandes());
+		return dossiers; 
 	}
 	
 	@Override
