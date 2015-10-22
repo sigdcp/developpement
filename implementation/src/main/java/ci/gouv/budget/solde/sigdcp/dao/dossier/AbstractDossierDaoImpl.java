@@ -28,11 +28,14 @@ public abstract class AbstractDossierDaoImpl<DOSSIER extends Dossier> extends Tr
 		
 		try {
 			return entityManager.createQuery("SELECT d FROM Dossier d WHERE d.traitable.dernierTraitement.operation.nature.code = :noCode"
-					+ " AND d.traitable.dernierTraitement.operation.effectuePar = :personne AND d.deplacement.nature = :nature AND d.deplacement.addUser != :user", clazz)
+					+ " AND d.traitable.dernierTraitement.operation.effectuePar = :personne AND d.deplacement.nature = :nature AND (d.deplacement.addUser is null OR d.deplacement.addUser.id != :user)", clazz)
+					
+			/*return entityManager.createQuery("SELECT d FROM Dossier d WHERE d.traitable.dernierTraitement.operation.nature.code = :noCode"
+					+ " AND d.traitable.dernierTraitement.operation.effectuePar = :personne AND d.deplacement.nature = :nature", clazz)*/
 					.setParameter("personne", personne)
 					.setParameter("nature", natureDeplacement)
 					.setParameter("noCode", Code.NATURE_OPERATION_SAISIE)
-					.setParameter("user", personne)
+					.setParameter("user", personne.getId())
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;

@@ -27,6 +27,10 @@
 								<h:outputText value="#{record.numero}" />
 							</p:column>
 							
+							<p:column headerText="#{constantResources.text('naturedeplacement')}" sortBy="#{record.dossier.deplacement.nature.libelle}" filterBy="#{record.numero}">
+								<h:outputText value="#{record.dossier.deplacement.nature.libelle}" />
+							</p:column>
+							
 							<!--
 							<p:column headerText="#{constantResources.text('datecreation')}" sortBy="#{record.dateCreation}">
 								<h:outputText value="#{dossier.dateCreation}"><f:convertDateTime pattern="#{constantResources.datePattern}"/></h:outputText>

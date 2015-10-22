@@ -23,6 +23,7 @@ public class EditionBulletinLiquidationController extends AbstractEditionControl
 		super.initialisation();
 		title="Edition de bulletin de liquidation";
 		listTitle="Liste des bulletins de liquidation";
+		defaultSubmitCommand.setRendered(false);
 	}
 	
 	@Override

@@ -12,6 +12,7 @@
 		<p:dataTable value="#{traitements}" var="traitement" rowIndexVar="index">
 		
 			<p:column headerText="#"><h:outputText value="#{index+1}" /></p:column>
+			<p:column headerText="Numéro"><h:outputText value="#{dossier.numero}" /></p:column>
 			<p:column headerText="Date"><h:outputText value="#{traitement.operation.date}" ><f:convertDateTime pattern="#{constantResources.datePattern}"/> </h:outputText> </p:column>
 			<p:column headerText="Statut"><h:outputText value="#{traitement.uiLibelle}" style="color:red;" escape="false"/></p:column>
 		

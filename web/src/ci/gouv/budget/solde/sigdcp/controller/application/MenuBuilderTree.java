@@ -294,7 +294,6 @@ public class MenuBuilderTree implements Serializable {
 	private void consultation(){
 		TreeNode block = menuManager.addSubmenu("menu.consultation",null);
 		menuManager.addMenuItem(block,"menu.consultation.listedemande","ui-icon-star", "demandeliste",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation"});
-		menuManager.addMenuItem(block,"menu.consultation.listedemandesolde","ui-icon-star", "demandeliste",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation",webConstantResources.getRequestParamSolde(),Code.OPERATER_SOLDE});
 		
 	}
 	
@@ -305,6 +304,7 @@ public class MenuBuilderTree implements Serializable {
 		menuManager.addMenuItem(block,"menu.edition.listebt",null, "btblliste",new Object[]{});
 		menuManager.addMenuItem(block,"menu.edition.attpec",null, "attestationpecliste",new Object[]{});
 		menuManager.addMenuItem(block,"menu.edition.projetremb",null, "projetrembliste",new Object[]{});
+		menuManager.addMenuItem(block,"menu.edition.listedemandesolde","ui-icon-star", "demandeliste",new Object[]{webConstantResources.getRequestParamNextViewOutcome(),"demandeconsultation",webConstantResources.getRequestParamSolde(),Code.OPERATER_SOLDE});
 	}
 	
 	private void prestation(){

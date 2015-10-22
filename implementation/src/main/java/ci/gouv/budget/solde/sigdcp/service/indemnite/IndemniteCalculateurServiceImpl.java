@@ -54,10 +54,11 @@ public class IndemniteCalculateurServiceImpl implements IndemniteCalculateurServ
 		engine.put("groupe", dossier.getGroupe());
 		
 		dossier.setMontantIndemnisation(new BigDecimal(0));
-		
+		System.out.println("IndemniteCalculateurServiceImpl.calculerDossier() 01 :"+dossier.getDeplacement().getNature().getIndemnites());
 		for(RegleCalcul indemnite : dossier.getDeplacement().getNature().getIndemnites()){
+			System.out.println("IndemniteCalculateurServiceImpl.calculerDossier() 02 :");
 			if(Type.INDEMNITE.equals(indemnite.getType()))
-				try {
+				try {System.out.println("IndemniteCalculateurServiceImpl.calculerDossier() 03 :");
 					engine.eval(indemnite.getScript());
 					BigDecimal resultat = new BigDecimal(engine.get("resultat").toString());
 					dossier.setMontantIndemnisation(dossier.getMontantIndemnisation().add(resultat));

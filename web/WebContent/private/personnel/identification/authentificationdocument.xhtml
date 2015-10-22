@@ -84,7 +84,7 @@
 							<p:poll id="poll" interval="1" oncomplete="PF('pc').capture();" global="true" immediate="true" partialSubmit="true" process="@this" update="signature" 
 								autoStart="#{authentifierDocumentController.captureRunning}" stop="#{not authentifierDocumentController.captureRunning}" />
 						
-							<p:commandButton id="button" value="#{authentifierDocumentController.captureRunning?'Arreter':'Demarrer'} lecture code" update="pollPanel,signature" 
+							<p:commandButton id="button" value="#{authentifierDocumentController.captureRunning?'Arrêter':'Démarrer'} lecture code" update="pollPanel,signature" 
 								actionListener="#{authentifierDocumentController.demarrerCapture}">
 							</p:commandButton>
 						</p:outputPanel>

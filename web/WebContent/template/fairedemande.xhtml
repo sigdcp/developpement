@@ -27,6 +27,7 @@
 				<p:tab title="Historique des traitements" rendered="#{faireDemandeController.showHistoriqueTraitements}">
 					<ui:include src="/include/traitements.xhtml" >
 						<ui:param name="traitements" value="#{faireDemandeController.entity.traitable.historiques}" />
+						<ui:param name="dossier" value="#{faireDemandeController.entity}" />
 					</ui:include>
 				</p:tab>
 			</p:tabView>

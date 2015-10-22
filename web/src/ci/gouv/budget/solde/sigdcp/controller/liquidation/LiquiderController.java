@@ -49,6 +49,9 @@ public class LiquiderController extends AbstractEntityFormUIController<BulletinL
 	protected void initialisation() {
 		super.initialisation();
 		entity = bulletinLiquidationService.nouveau(dossierService.find(requestParameterLong(webConstantResources.getRequestParamDossier()),Code.NATURE_OPERATION_ETABLISSEMENT_BL) );
+		
+		System.out.println("LiquiderController.initialisation() ZZZZZZ "+entity.getNumero());
+		
 		if(entity.getDossier().getBulletinLiquidations().isEmpty()){
 			calculerCommand = createCommand();
 			calculerCommand.setValue("Calculer");
@@ -56,6 +59,8 @@ public class LiquiderController extends AbstractEntityFormUIController<BulletinL
 				private static final long serialVersionUID = 4833259507611607789L;
 				@Override
 				protected Object __execute__(Object object) throws Exception {
+					System.out
+							.println("LiquiderController.initialisation().new Action() {...}.__execute__()");
 					indemniteCalculateurService.calculer(entity);
 					calculerTotalPaye();
 					return null;

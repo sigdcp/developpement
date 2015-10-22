@@ -21,7 +21,7 @@
 	<p:dataTable id="indemnitestb" value="#{cc.attrs.bulletinLiquidation.indemniteCalculees}" var="ic" rowIndexVar="index">
 		<f:facet name="header">
 			<h:outputText value="Indemnités" />
-			<h:outputText value=" - #{cc.attrs.bulletinLiquidation.numero}" rendered="#{roleManager.agentSolde and not empty cc.attrs.bulletinLiquidation.numero }" />
+			<!-- <h:outputText value=" - #{cc.attrs.bulletinLiquidation.numero}" rendered="#{roleManager.agentSolde and not empty cc.attrs.bulletinLiquidation.numero }" /> -->
 		</f:facet>
 		<p:column headerText="#"><h:outputText value="#{index+1}" /> </p:column>
 		<p:column headerText="Libelle"><h:outputText value="#{ic.indemnite.libelle}" /></p:column>

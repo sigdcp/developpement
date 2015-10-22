@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Getter;
+import lombok.Setter;
 import ci.gouv.budget.solde.sigdcp.controller.ui.form.AbstractEntityFormUIController;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.CategorieDeplacement;
@@ -21,7 +22,7 @@ public class DisponibleTresorController extends AbstractEntityFormUIController<C
 	@Inject
 	private CategorieDeplacementService categorieDeplacementService;
 	
-	@Getter private BigDecimal montantEnAjout;
+	@Getter @Setter private BigDecimal montantEnAjout;
 	
 	@Override
 	protected void initialisation() {

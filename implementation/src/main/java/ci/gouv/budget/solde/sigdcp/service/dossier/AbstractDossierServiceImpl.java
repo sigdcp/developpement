@@ -168,7 +168,8 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 			dossier = ((AbstractDossierDao<DOSSIER>)dao).read(numero);
 			if(dossier==null)
 				serviceException(ServiceExceptionType.RESOURCE_NOT_FOUND);
-		}else{
+		}else{ 
+			
 			if(!natureDeplacement.getSceSolde())
 			dossier = ((AbstractDossierDao<DOSSIER>)dao).readSaisieByPersonneByNatureDeplacement(utilisateur(), natureDeplacement);
 			
@@ -244,15 +245,22 @@ public abstract class AbstractDossierServiceImpl<DOSSIER extends Dossier> extend
 			if(!deplacementService.exist(dossier.getDeplacement().getId()))
 				deplacementService.creer(dossier.getDeplacement());
 			else
-				deplacementDao.update(dossier.getDeplacement());
+				deplacementDao.update(dossier.getDeplacement());			
 			
-			if(agentEtatService.findByMatricule(dossier.getBeneficiaire().getMatricule()) == null){
-				if(agentEtatReferenceService.findById(dossier.getBeneficiaire().getMatricule()) == null)
-					serviceException("Matricule inconnu !");
-				else
-					agentEtatDao.create(dossier.getBeneficiaire());
+			
+			if(dossier.getDeplacement().getNature().getSceSolde()){
+				AgentEtat agentEtatSaisi = dossier.getBeneficiaire();
+				dossier.setBeneficiaire(agentEtatService.findByMatricule(dossier.getBeneficiaire().getMatricule()));				
+				if(dossier.getBeneficiaire() == null){
+					if(agentEtatReferenceService.findById(agentEtatSaisi.getMatricule()) == null)
+						serviceException("Matricule inconnu !");
+					else{
+						agentEtatDao.create(agentEtatSaisi);
+						dossier.setBeneficiaire(agentEtatSaisi);
+					
+					}
+				}
 			}
-			
 			
 			//dossier.setNumero(numero(dossier, pieceJustificatives));
 			
