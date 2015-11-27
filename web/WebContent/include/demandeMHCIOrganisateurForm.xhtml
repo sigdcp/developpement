@@ -125,7 +125,7 @@
 		<p:fieldset id="pfs" legend="Participant">
 			<p:panelGrid columns="4" id="pg" styleClass="panelGridNoBorder" rendered="#{editable}">
 				<p:outputLabel for="matricule" value="Matricule" />
-				<p:inputText id="matricule" value="#{organiserMissionController.matricule}" required="false" size="7" maxlength="7" validator="#{validationManager.validateMatricule}">
+				<p:inputText id="matricule" value="#{organiserMissionController.matricule}" required="false" size="7" maxlength="7" > <!-- validator="#{validationManager.validateMatricule}" -->
 					<f:validateBean validationGroups="#{clientValidationGroupClass}" />
 					<f:attribute name="typePersonne" value="#{constantResources.fonctionnaire}" />
 				</p:inputText>

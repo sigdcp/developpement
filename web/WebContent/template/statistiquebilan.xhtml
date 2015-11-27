@@ -9,8 +9,7 @@
 					
 <ui:decorate template="/template/statistique.xhtml">
 <ui:param name="controller" value="#{controller}" />
-
-	<ui:define name="ajoutcritere">	
+	<ui:define name="ajoutcritere">
 		<p:selectCheckboxMenu value="#{controller.natureDeplacementSelectionnees}" converter="#{objectConverter}" label="Nature de déplacement" 
 		rendered="#{controller.natureDeplacements!=null and controller.natureDeplacements.size()>1}">
 			<f:selectItems value="#{controller.natureDeplacements}" />

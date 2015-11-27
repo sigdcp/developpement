@@ -50,6 +50,7 @@ public class AchatCarteSotraServiceImpl extends TraitableServiceImpl<AchatCarteS
 		AchatCarteSotra achat;
 		if(id==null){
 			achat = ((AchatCarteSotraDao)dao).readRecentByDelegue((AgentEtat) utilisateur());
+			System.out.println("XXXXXX "+achat);
 			if(achat==null || Code.NATURE_OPERATION_RETRAIT_CARTE_LCS.equals(achat.getTraitable().getDernierTraitement().getOperation().getNature().getCode())){
 				achat = new AchatCarteSotra();
 				init(achat, Code.NATURE_OPERATION_OUVERTURE_LCS);
@@ -101,7 +102,7 @@ public class AchatCarteSotraServiceImpl extends TraitableServiceImpl<AchatCarteS
 	@Override
 	protected void validationAccepter(AchatCarteSotra achatCarteSotra) {
 		if(!achatCarteSotra.getTraitable().getNatureOperation().getCode().equals(Code.NATURE_OPERATION_ANNULATION_LCS)){
-			if(achatCarteSotra.getCartes().isEmpty())
+			if(achatCarteSotra.getCartes()==null || achatCarteSotra.getCartes().isEmpty())
 				serviceException("Une liste d'inscrit vide ne peut pas être traitée");
 			super.validationAccepter(achatCarteSotra);
 		}

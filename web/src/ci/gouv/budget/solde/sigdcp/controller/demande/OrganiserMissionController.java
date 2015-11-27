@@ -171,7 +171,7 @@ public class OrganiserMissionController extends AbstractDemandeController<Missio
 			}
 			dossierMissionService.deposer(d);
 		}else{
-			enregistrer(ActionType.SOUMETTRE);
+			//enregistrer(ActionType.SOUMETTRE);
 		}
 	}
 	

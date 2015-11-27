@@ -19,6 +19,8 @@ public class ValiderInscriptionListeBaseCarteSotraController extends AbstractAdh
 		super.initialisation();
 		title = "Validation des inscriptions";
 		defaultSubmitCommand.setValue("Valider");
+		defaultSubmitCommand.onSuccessGoTo(navigationManager.url("valideradherentlistebasesotra",null,false), "", null);
+		
 		showActionsColumn=false;
 		listTitle="Liste des inscriptions";
 		showValide=true;
