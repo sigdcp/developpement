@@ -3,12 +3,14 @@ package ci.gouv.budget.solde.sigdcp.controller.stats;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import ci.gouv.budget.solde.sigdcp.model.Code;
+import ci.gouv.budget.solde.sigdcp.model.dossier.NatureDeplacement;
 import ci.gouv.budget.solde.sigdcp.service.dossier.NatureDeplacementService;
 
 @Named @ViewScoped
@@ -31,7 +33,12 @@ public class StatistiqueDeplacementDefinitifController extends AbstractStatistiq
 		natureDeplacementSelectionnees=Arrays.asList(natureDeplacements.get(0));
 	}
 
-
+	@Override
+	protected List<NatureDeplacement> load() {
+		System.out.println("StatistiqueDeplacementDefinitifController.load()"+detailObjets);
+		return super.load();
+		
+	}
 	
 	
 }

@@ -151,7 +151,7 @@ public abstract class TraitableServiceImpl<OBJET_TRAITE extends AbstractModel<TI
 	
 	protected abstract void associerTraitement(OBJET_TRAITE objetTraite);
 
-	@TransactionAttribute(TransactionAttributeType.NEVER)
+	//@TransactionAttribute(TransactionAttributeType.NEVER)
 	@SuppressWarnings("unchecked")
 	@Override
 	public void init(OBJET_TRAITE objetTraite, String natureOperationCode) {

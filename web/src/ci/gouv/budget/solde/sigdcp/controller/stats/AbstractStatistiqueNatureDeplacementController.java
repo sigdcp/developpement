@@ -32,7 +32,8 @@ public abstract class AbstractStatistiqueNatureDeplacementController extends Sta
 	@Getter @Setter protected NatureOperation natureOperaitonSelectionnee;
 	@Getter @Setter protected List<Statut> statuts;
 	@Getter @Setter protected Statut statutSelectionne;
-	@Getter private List<Dossier> /*dossiers,*/ detailObjets;
+	@Getter
+	protected List<Dossier> /*dossiers,*/ detailObjets;
 	
 	@Getter @Setter protected String libelleDetailObjet;
 
@@ -64,10 +65,15 @@ public abstract class AbstractStatistiqueNatureDeplacementController extends Sta
 	}
 	
 	public void detailAction(){
+		System.out
+				.println("YYYYY : "+natureDeplacementSelectionnees+"||"+ natureDeplacementSelectionnees.isEmpty()+"||"+natureOperaitonSelectionnee+"||"+statutSelectionne);
+		System.out
+		.println("ZZZZZZZZZZZZZ"+detailObjets);
 		
 		if(natureDeplacementSelectionnees==null || natureDeplacementSelectionnees.isEmpty() || natureOperaitonSelectionnee==null || statutSelectionne==null)
 		return ;
-	
+		System.out
+		.println("AbstractStatistiqueNatureDeplacementController.detailAction()"+detailObjets);
 		detailObjets = new ArrayList<>(dossierService. findStatistiqueDetailByNatureDeplacementsByNatureOperationByStatut(natureDeplacementSelectionnees,  natureOperaitonSelectionnee, statutSelectionne));
 		
 		for(Dossier dossier : detailObjets){

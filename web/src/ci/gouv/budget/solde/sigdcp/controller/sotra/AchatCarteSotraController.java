@@ -74,7 +74,6 @@ public class AchatCarteSotraController extends AbstractEntityFormUIController<Ac
 	@Override
 	protected void onDefaultSubmitAction() throws Exception {
 		super.onDefaultSubmitAction();
-		System.out.println("################################ TEST:"+entity.getCartes());
 		achatCarteSotraService.valider(Arrays.asList(entity));
 	}
 	

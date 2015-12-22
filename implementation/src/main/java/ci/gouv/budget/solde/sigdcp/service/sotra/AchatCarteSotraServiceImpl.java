@@ -102,7 +102,7 @@ public class AchatCarteSotraServiceImpl extends TraitableServiceImpl<AchatCarteS
 	@Override
 	protected void validationAccepter(AchatCarteSotra achatCarteSotra) {
 		if(!achatCarteSotra.getTraitable().getNatureOperation().getCode().equals(Code.NATURE_OPERATION_ANNULATION_LCS)){
-			if(achatCarteSotra.getCartes()==null || achatCarteSotra.getCartes().isEmpty())
+			if(!achatCarteSotra.getTraitable().getNatureOperation().getCode().equals(Code.NATURE_OPERATION_OUVERTURE_LCS) && (achatCarteSotra.getCartes()==null || achatCarteSotra.getCartes().isEmpty()))
 				serviceException("Une liste d'inscrit vide ne peut pas être traitée");
 			super.validationAccepter(achatCarteSotra);
 		}
