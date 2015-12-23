@@ -187,16 +187,17 @@ public class ValidationPolicy {
 	}
 	
 	public void validateDateDepart(TypeDepense typeDepense,AgentEtat agentEtat,Date dateDepart,Date datePriseService,Date dateFinService) throws Exception{
-		if(isOneNull(dateDepart) || (agentEtat.getDateNaissance()!=null && dateDepart.before(agentEtat.getDateNaissance())) 
+		
+		if(isOneNull(dateDepart) || (agentEtat.getDateNaissance()!=null && dateDepart.before(agentEtat.getDateNaissance()))
 				|| (datePriseService!=null && dateDepart.before(datePriseService))
-				|| (dateFinService!=null && dateDepart.after(dateFinService)))
+				|| (dateFinService!=null && dateDepart.before(dateFinService)))
 			exception(ValidationExceptionType.DATE_DEPART);
 		
 		Date tc = tempsCourant();
 		switch(typeDepense.getCode()){
 		case Code.TYPE_DEPENSE_PRISE_EN_CHARGE:
-			if(dateDepart.before(tc))
-				exception(ValidationExceptionType.DATE_DEPART);
+			//if(dateDepart.before(tc))
+				//exception(ValidationExceptionType.DATE_DEPART);
 			break;
 		case Code.TYPE_DEPENSE_REMBOURSEMENT:
 			if(dateDepart.after(tc))
@@ -206,18 +207,17 @@ public class ValidationPolicy {
 		
 	}
 	
-	public void validateDateArrivee(TypeDepense typeDepense,Date dateFinService,Date dateDepart,Date dateArrivee) throws Exception{
-		
-		if(isOneNull(dateDepart,dateArrivee) || dateArrivee.before(dateDepart)|| (dateFinService!=null && dateArrivee.after(dateFinService)) )
+	public void validateDateArrivee(TypeDepense typeDepense,Date dateFinService,Date dateDepart,Date dateArrivee) throws Exception{		
+		if(isOneNull(dateDepart,dateArrivee) || dateArrivee.before(dateDepart)|| (dateFinService!=null && dateArrivee.before(dateFinService)) )
 			exception(ValidationExceptionType.DATE_ARRIVEE);
 		Date tc = tempsCourant();
 		switch(typeDepense.getCode()){
 			case Code.TYPE_DEPENSE_PRISE_EN_CHARGE:
-				if(dateArrivee.before(tc))
+				if(dateArrivee.before(dateDepart) || dateArrivee.before(tc))
 					exception(ValidationExceptionType.DATE_ARRIVEE);
 				break;
 			case Code.TYPE_DEPENSE_REMBOURSEMENT:
-				if(dateArrivee.after(tc))
+				if(dateArrivee.before(dateDepart) || dateArrivee.after(tc))
 					exception(ValidationExceptionType.DATE_ARRIVEE);
 				break;
 			}
@@ -497,7 +497,8 @@ public class ValidationPolicy {
 	
 	protected Date tempsCourant(){
 		//Calendar calendar = Calendar.getInstance();
-		return new DateTime().withZone(DateTimeZone.UTC)/*.withTime(calendar.get(Calendar.HOUR), 0, 0, 0)*/.toDate();
+		//return new DateTime().withZone(DateTimeZone.UTC).withTime(calendar.get(Calendar.HOUR), 0, 0, 0).toDate();
+		return new DateTime().withZone(DateTimeZone.UTC).withTime(0, 0, 0, 0).toDate();
 	}
 	
 }

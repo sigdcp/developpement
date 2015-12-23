@@ -2,6 +2,7 @@ package ci.gouv.budget.solde.sigdcp.service.utils.validaton;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.inject.Inject;
 import javax.validation.constraints.AssertTrue;
@@ -12,6 +13,7 @@ import ci.gouv.budget.solde.sigdcp.dao.dossier.PieceJustificativeAFournirDao;
 import ci.gouv.budget.solde.sigdcp.dao.identification.AgentEtatDao;
 import ci.gouv.budget.solde.sigdcp.model.Code;
 import ci.gouv.budget.solde.sigdcp.model.dossier.Dossier;
+import ci.gouv.budget.solde.sigdcp.model.dossier.DossierTransit;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificative;
 import ci.gouv.budget.solde.sigdcp.model.dossier.PieceJustificativeAFournir;
 import ci.gouv.budget.solde.sigdcp.model.utils.validation.groups.Client;
@@ -50,10 +52,12 @@ public class AbstractDossierValidator<DOSSIER extends Dossier> extends AbstractV
 	
 	@AssertTrue(message="la date de départ n'est pas valide",groups=Client.class)
 	public boolean isValidDateDepart(){
+		Date dateFin=null;
+		if(object instanceof DossierTransit)dateFin=((DossierTransit)object).getDateFin();
 		try {
-			validationPolicy.validateDateDepart(object.getDeplacement().getTypeDepense(),object.getBeneficiaire(), object.getDeplacement().getDateDepart(),null,null);
+			validationPolicy.validateDateDepart(object.getDeplacement().getTypeDepense(),object.getBeneficiaire(), object.getDeplacement().getDateDepart(),null,dateFin);
 			return true;
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 			return false;
 		}
 	}

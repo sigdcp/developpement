@@ -53,7 +53,11 @@ public class DossierObsequesServiceImpl extends AbstractDossierServiceImpl<Dossi
 	
 	@Override
 	protected DossierObseques createDossier(NatureDeplacement natureDeplacement) {
-		return new DossierObseques(new Deplacement(genericDao.readByClass(TypeDepense.class, String.class, Code.TYPE_DEPENSE_PRISE_EN_CHARGE)));
+		DossierObseques dossierObseque=new DossierObseques(new Deplacement(genericDao.readByClass(TypeDepense.class, String.class, Code.TYPE_DEPENSE_PRISE_EN_CHARGE)));
+		if(natureDeplacement!=null && natureDeplacement.getSceSolde()){
+			dossierObseque.getDeplacement().setAddUser(utilisateur());
+		}
+		return dossierObseque;
 	}
 	
 	@Override

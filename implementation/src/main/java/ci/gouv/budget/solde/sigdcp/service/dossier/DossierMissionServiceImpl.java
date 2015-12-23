@@ -89,7 +89,11 @@ public class DossierMissionServiceImpl extends AbstractDossierServiceImpl<Dossie
 	@Override
 	protected DossierMission createDossier(NatureDeplacement natureDeplacement) {
 		if(!Code.NATURE_DEPLACEMENT_MISSION_HCI.equals(natureDeplacement.getCode())){
-			return new DossierMission(new Deplacement(genericDao.readByClass(TypeDepense.class, String.class, Code.TYPE_DEPENSE_PRISE_EN_CHARGE)));
+			DossierMission dossierMission= new DossierMission(new Deplacement(genericDao.readByClass(TypeDepense.class, String.class, Code.TYPE_DEPENSE_PRISE_EN_CHARGE)));
+			if(natureDeplacement!=null && natureDeplacement.getSceSolde()){
+				dossierMission.getDeplacement().setAddUser(utilisateur());
+			}
+			return dossierMission;
 		}else{
 			Collection<DossierMission> dossierMissions = ((DossierMissionDao)dao).readByNatureDeplacementsByNatureOperationIdByStatutId(Arrays.asList(genericDao.readByClass(NatureDeplacement.class, Code.NATURE_DEPLACEMENT_MISSION_HCI)), 
 					Code.NATURE_OPERATION_TRANSMISSION_SAISIE_A_BENEFICIAIRE, Code.STATUT_ACCEPTE);

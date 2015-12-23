@@ -39,7 +39,11 @@ public class DossierTransitServiceImpl extends AbstractDossierServiceImpl<Dossie
 	
 	@Override
 	protected DossierTransit createDossier(NatureDeplacement natureDeplacement) {
-		return new DossierTransit(new Deplacement(genericDao.readByClass(TypeDepense.class, String.class, Code.TYPE_DEPENSE_PRISE_EN_CHARGE)));
+		DossierTransit dossierTransit = new DossierTransit(new Deplacement(genericDao.readByClass(TypeDepense.class, String.class, Code.TYPE_DEPENSE_PRISE_EN_CHARGE)));
+		if(natureDeplacement!=null && natureDeplacement.getSceSolde()){
+			dossierTransit.getDeplacement().setAddUser(utilisateur());
+		}
+		return dossierTransit;
 	}
 	
 	@TransactionAttribute(TransactionAttributeType.NEVER)
